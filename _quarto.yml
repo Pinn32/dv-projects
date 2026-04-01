@@ -1,0 +1,32 @@
+project:
+  type: website
+
+website:
+  title: "Pinn (Aiqi) Xu Projects"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: projects/index.qmd
+        text: Projects
+      - href: about/index.qmd
+        text: About
+
+format:
+  html:
+    # self-contained: false
+    theme:
+      - minty
+    # syntax-highlighting: pygments
+    css: styles.css
+    toc: true
+    # code-tools: true
+      # toggle: true
+      # source: true
+      # caption: "hi"
+    code-fold: true
+    # code-summary: "Show the code"
+    include-after-body: fix-code-fold.html
+
+editor: visual
+

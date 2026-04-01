@@ -1,0 +1,27 @@
+# Quarto
+_site/
+_book/
+/.quarto/
+*_files/
+
+# RStudio
+.Rhistory
+.RData
+.Rproj.user/
+
+# VS Code
+.vscode/
+
+# Python
+__pycache__/
+*.ipynb
+.ipynb_checkpoints/
+*.pyc
+**/*.quarto_ipynb
+
+# System
+.DS_Store
+.zshrc
+
+# Other
+.claude/
