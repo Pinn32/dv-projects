@@ -1,7 +1,46 @@
 /* customized css styles (for minty theme) */
 
+
+/* sidebar nav: breadcrumbs ================================================ */
+
+nav .breadcrumb {
+    margin: 0;
+    padding: 0 0 0.5rem;
+    background-color: transparent;
+    color: #659989;
+}
+
+nav .breadcrumb .breadcrumb-item {
+    color: #659989;
+    font-size: 0.8rem;
+}
+
+nav .breadcrumb .breadcrumb-item a {
+    color: #659989;
+    font-size: 0.8rem;
+}
+
+/* 
+nav .breadcrumb .breadcrumb-item,
+nav .breadcrumb .breadcrumb-item.active {
+    color: #659989;
+    font-size: 0.8rem;
+} 
+*/
+
+nav .breadcrumb .breadcrumb-item::before {
+    color: hsl(0, 0%, 55%);
+}
+
+@media screen and (max-width: 991.98px) {
+    nav .breadcrumb {
+        padding: 0.5rem 0;
+    }
+}
+
+
 /* in-line code =========================================================== */
-p code:not(.sourceCode){
+code:not(.sourceCode){
     color: #378e74;
     background-color: #f4f4f4;
 }
