@@ -1,21 +1,32 @@
 /* customized css styles (for minty theme) */
 
+/* figure / output caption ================================================= */
+figcaption, 
+.caption {
+    margin-top: 0;
+    font-style: italic;
+    color: #aaa;
+    font-size: 0.9em;
+}
 
 /* sidebar nav: breadcrumbs ================================================ */
 
-nav .breadcrumb {
+nav .breadcrumb, 
+nav .quarto-page-breadcrumbs {
     margin: 0;
     padding: 0 0 0.5rem;
     background-color: transparent;
     color: #659989;
 }
 
-nav .breadcrumb .breadcrumb-item {
+nav .breadcrumb .breadcrumb-item,
+nav .quarto-page-breadcrumbs .breadcrumb-item {
     color: #659989;
     font-size: 0.8rem;
 }
 
-nav .breadcrumb .breadcrumb-item a {
+nav .breadcrumb .breadcrumb-item a,
+nav .quarto-page-breadcrumbs .breadcrumb-item a {
     color: #659989;
     font-size: 0.8rem;
 }
@@ -28,27 +39,40 @@ nav .breadcrumb .breadcrumb-item.active {
 } 
 */
 
-nav .breadcrumb .breadcrumb-item::before {
+nav .breadcrumb .breadcrumb-item::before,
+nav .quarto-page-breadcrumbs .breadcrumb-item::before {
     color: hsl(0, 0%, 55%);
 }
 
 @media screen and (max-width: 991.98px) {
-    nav .breadcrumb {
+    nav .breadcrumb, 
+    nav .quarto-page-breadcrumbs {
         padding: 0.5rem 0;
     }
 }
 
+/* title categories (tags) ================================================= */
+.quarto-title .quarto-categories .quarto-category {
+    color: #378e74;
+    font-weight: 500;
+}
 
-/* in-line code =========================================================== */
+/* textual codes =========================================================== */
+
+/* text code cell (env&ver) */
+pre.text.cell-code code {
+    color: #378e74;
+}
+
+/* in-line codes */
 code:not(.sourceCode){
     color: #378e74;
     background-color: #f4f4f4;
 }
 
-
 /* input code cells ======================================================= */
 .sourceCode.cell-code {
-    background-color: #f5f6f7;
+    background-color: #f5f7f7;
     border-radius: 6px;
     border-left: 3px solid #a8d5ba;
     padding: 0.75rem 0;           /* top-bottom paddings */
@@ -70,7 +94,7 @@ code:not(.sourceCode){
 
 .cell-output-stdout pre,
 .cell-output-display pre {
-    background-color: #f6f9f6;
+    background-color: #f8f9f6;
     border-radius: 6px;
     padding: 0.75rem 0;           /* top-bottom paddings */
     font-size: 0.8rem;       
@@ -143,3 +167,5 @@ code:not(.sourceCode){
     font-weight: normal;
     border-right: 1px solid #e0e0e0;
 }
+
+

@@ -1,0 +1,22 @@
+/* 限制主内容最大宽度 */
+main.content {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* 防止任何内容溢出 */
+img, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 表格可滚动 */
+.table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* code block 不溢出 */
+pre {
+  overflow-x: auto;
+}
