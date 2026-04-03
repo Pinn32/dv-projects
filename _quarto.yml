@@ -13,6 +13,8 @@ website:
         href: about/index.qmd
   sidebar:
     style: 'docked'
+    background: light
+    # search: true
     contents: auto
 
 format:

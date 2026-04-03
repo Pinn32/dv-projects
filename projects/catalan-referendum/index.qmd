@@ -1,7 +1,7 @@
 ---
 title: 'Twitter Sentiment Analysis of Catalan Referendum'
-author: Pinn Xu
-date: "2024-11-01"
+author: 'Pinn Xu'
+date: '2024-11-01'
 categories: [Python, NLP, Social Media, Visualization]
 
 # code-tools: true
@@ -10,7 +10,7 @@ categories: [Python, NLP, Social Media, Visualization]
 # aliases: [ "catalan-referendum" ]
 ---
 
-
+````{=html}
 <!-- 
 ```{r setup, include=FALSE}
 #| include: false
@@ -20,7 +20,7 @@ use_condaenv("dv-env", required = TRUE)
 # use_python("/opt/miniconda3/envs/dv-env/bin/python", required = TRUE)
 ``` 
 -->
-
+````
 
 ```{text eval=FALSE, include=TRUE}
 #| code-summary: 'Environment & Versions'
@@ -29,7 +29,6 @@ pandas==2.2.2
 matplotlib==3.9.x
 seaborn==0.13.2
 ```
-
 
 # Introduction
 
@@ -106,7 +105,6 @@ df[['retweet_count',
 float_cols = df.select_dtypes(include='float').columns  # all float columns
 df[float_cols] = df[float_cols].astype(int)
 ```
-
 
 ## Setting Boolean Attributes
 

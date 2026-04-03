@@ -1,6 +1,7 @@
 ---
-title: "Data Analysis of Most Streamed Spotify Songs"
-date: "Feb 25, 2026"
+title: "Spotify Most Streamed Songs 2023 — Music Feature and Audience Trend Analysis"
+author: "Pinn Xu"
+date: "2026-02-25"
 
 ## All below for Rmd
 # output:
@@ -13,6 +14,14 @@ date: "Feb 25, 2026"
 #     toc_float:
 #       collapsed: true
 ---
+
+```{text eval=FALSE, include=TRUE}
+#| code-summary: 'Environment & Versions'
+R==4.5.2
+plotly==4.12.0
+sampling==2.11
+tidyverse==2.0.0
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -45,7 +54,7 @@ spotify_data <- read.csv("./spotify-2023.csv")
 str(spotify_data)
 ```
 
-\
+
 
 Subsequently, main packages used in this project, including such as *tidyverse*, *plotly*, and *sampling*, were attached, and to facilitate further data manipulation process, the original dataset was transformed into a tibble ( `df` ) using `tibble()` function.
 
@@ -77,7 +86,7 @@ As shown below, the data type of the *streams* variable is character, whereas st
 str(df["streams"])
 ```
 
-\
+
 
 Before coercing data type to numeric, we firstly check if there are any invalid values which are not numeric-like strings, using data wrangling strategies with regular expressions to specify what is numeric-like in this case. As shown in the output below, there is one observation with invalid streams.
 
@@ -89,7 +98,7 @@ df |>
   filter(!str_detect(streams, "^(0|[1-9][0-9]*)$"))
 ```
 
-\
+
 
 Next, `df` is redefined keeping only observations with valid streams, and then coerced into numeric data type. Below shows the results of missing data and variable structure after coercion.
 
@@ -131,7 +140,7 @@ df |>
   )
 ```
 
-\
+
 
 After replacing all commas with empty strings, we coerced the variable into numeric type, and check whether there are NA data after coercion. The result below shows that no NA appears.
 
@@ -272,8 +281,8 @@ The scatter plot below shows the relationship between the count of presence of s
 # scatter plot
 plot_ly(df, x = ~in_spotify_playlists) |> 
   add_markers(
-   y = ~in_deezer_playlists, 
-   marker = list(color = "salmon", opacity = 0.6)
+    y = ~in_deezer_playlists, 
+    marker = list(color = "salmon", opacity = 0.6)
   ) |> 
   layout(
     title = "Relationship Between Presence in Spotify and Deezer Playlists",
