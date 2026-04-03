@@ -1,10 +1,11 @@
 ---
 title: "All Projects"
-toc: false
-title-block-style: none
+# toc: false
+# title-block-style: none
 ---
 
 ```{=html}
+
 <style>
 .gallery-wrapper {
   max-width: 960px;
@@ -96,6 +97,7 @@ title-block-style: none
 }
 </style>
 
+<!-- start: gallery-wrapper -->
 <div class="gallery-wrapper">
 <div class="tag-filters" id="tag-filters">
   <button class="tag-btn active" data-tag="all" onclick="filterTag('all', this)">All</button>
@@ -153,7 +155,8 @@ title-block-style: none
 
 </div>
 
-</div><!-- end gallery-wrapper -->
+</div>
+<!-- end: gallery-wrapper -->
 
 <script>
 function filterTag(tag, btn) {

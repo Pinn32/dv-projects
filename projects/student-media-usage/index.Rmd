@@ -1,15 +1,17 @@
 ---
 title: "Data Analysis of Student Social Media Usage"
-author: "Aiqi (Pinn) Xu"
+# author: "Aiqi (Pinn) Xu"
 date: "Feb 23, 2026"
-output:
-  html_document:
-    code_folding: hide
-    highlight: "pygments"
-    theme: "sandstone"
-    toc: true
-    toc_float:
-      collapsed: true
+
+## All below for Rmd
+# output:
+#   html_document:
+#     code_folding: hide
+#     highlight: "pygments"
+#     theme: "sandstone"
+#     toc: true
+#     toc_float:
+#       collapsed: true
 ---
 
 ```{r setup, include=FALSE}

@@ -1,7 +1,7 @@
 /* customized css styles (for minty theme) */
 
 /* in-line code =========================================================== */
-p code:not(.sourceCode){
+code:not(.sourceCode){
     color: #378e74;
     background-color: #f4f4f4;
 }

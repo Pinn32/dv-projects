@@ -7,20 +7,22 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: projects/index.qmd
-        text: Projects
-      - href: about/index.qmd
-        text: About
+      - text: Projects
+        href: projects/index.qmd
+      - text: About
+        href: about/index.qmd
+  sidebar:
+    contents: auto
 
 format:
   html:
     # self-contained: false
     theme:
       - minty
-    # syntax-highlighting: pygments
+    syntax-highlighting: pygments
     css: styles.css
     toc: true
-    # code-tools: true
+    code-tools: true
       # toggle: true
       # source: true
       # caption: "hi"

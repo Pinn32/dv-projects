@@ -1,15 +1,17 @@
 ---
 title: "Data Analysis of Most Streamed Spotify Songs"
 date: "Feb 25, 2026"
-output:
-  html_document:
-    fig_width: 8
-    code_folding: hide
-    highlight: tango
-    theme: default
-    toc: true
-    toc_float:
-      collapsed: true
+
+## All below for Rmd
+# output:
+#   html_document:
+#     fig_width: 8
+#     code_folding: hide
+#     highlight: tango
+#     theme: default
+#     toc: true
+#     toc_float:
+#       collapsed: true
 ---
 
 ```{r setup, include=FALSE}
