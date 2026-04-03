@@ -12,6 +12,7 @@ website:
       - text: About
         href: about/index.qmd
   sidebar:
+    style: 'docked'
     contents: auto
 
 format:

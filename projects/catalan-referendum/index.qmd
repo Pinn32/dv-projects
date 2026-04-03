@@ -10,7 +10,7 @@ categories: [Python, NLP, Social Media, Visualization]
 # aliases: [ "catalan-referendum" ]
 ---
 
-````{=html}
+
 <!-- 
 ```{r setup, include=FALSE}
 #| include: false
@@ -20,7 +20,16 @@ use_condaenv("dv-env", required = TRUE)
 # use_python("/opt/miniconda3/envs/dv-env/bin/python", required = TRUE)
 ``` 
 -->
-````
+
+
+```{text eval=FALSE, include=TRUE}
+#| code-summary: 'Environment & Versions'
+python==3.12
+pandas==2.2.2
+matplotlib==3.9.x
+seaborn==0.13.2
+```
+
 
 # Introduction
 
