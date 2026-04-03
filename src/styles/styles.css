@@ -1,4 +1,4 @@
-/* customized css styles (for minty theme) */
+/* customized css styles (for minty theme) ================================= */
 
 /* figure / output caption ================================================= */
 figcaption, 
@@ -87,7 +87,6 @@ code:not(.sourceCode){
     min-width: 100%;              /* short content still fills container */
     font-size: 0.8rem;
 }
-
 
 
 /* output plain-text code cells ========================================== */

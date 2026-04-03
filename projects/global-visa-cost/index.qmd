@@ -1,9 +1,9 @@
 ---
 title: 'Global Visa Cost Analysis and Interactive Visualization'
 author: 'Pinn Xu'
-date: '2024-12-20'
+date: '2024-12-12'
 categories: [Python, EDA, Sankey Diagram, Choropleth Map, Visualization]
-css: 'jupyter-page.css'
+# css: 'jupyter-page.css'
 # jupyter: dv-env
 ---
 
@@ -15,7 +15,6 @@ pandas==2.2.2
 matplotlib==3.9.x
 plotly==5.24.1
 ```
-
 
 # Introduction
 
@@ -279,7 +278,6 @@ print(len(node_colors) == len(nodes))
 print(len(link_colors) == len(sources) == len(targets) == len(values))
 ```
 
-
 ### Creating Sankey Diagram
 
 ```{python}
@@ -536,14 +534,13 @@ Pandas (2024a) *pandas.core.groupby.DataFrameGroupBy.first*. Available at: [pand
 
 Pandas (2024b) *pandas.DataFrame.dropna*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dropna.html) (Accessed: 11 December 2024)
 
-Pandas (2024c) *pandas.DataFrame.reset_index*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html) (Accessed: 11 December 2024)
-Pandas (2024d) *pandas.DataFrame.sort_values*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values) (Accessed: 12 December 2024)
+Pandas (2024c) *pandas.DataFrame.reset_index*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html) (Accessed: 11 December 2024) Pandas (2024d) *pandas.DataFrame.sort_values*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values) (Accessed: 12 December 2024)
 
 Pandas (2024e) *pandas.read_csv*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) (Accessed: 10 December 2024)
 
 Pandas (2024f) *pandas.Series.unique*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.Series.unique.html) (Accessed: 10 December 2024)
 
-Plotly (2024a) *Built-in Continuous Color Scales in Python*. Available at: [plotly](https://plotly.com/python/builtin-colorscales/)  (Accessed: 13 December 2024)
+Plotly (2024a) *Built-in Continuous Color Scales in Python*. Available at: [plotly](https://plotly.com/python/builtin-colorscales/) (Accessed: 13 December 2024)
 
 Plotly (2024b) *plotly.graph_objects.Figure*. Available at: [plotly](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html#plotly.graph_objects.Figure.show) (Accessed: 10 December 2024)
 

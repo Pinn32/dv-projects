@@ -1,7 +1,8 @@
 ---
-title: "Spotify Most Streamed Songs 2023 — Music Feature and Audience Trend Analysis"
-author: "Pinn Xu"
-date: "2026-02-25"
+title: 'Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis'
+author: 'Pinn Xu'
+date: '2026-02-25'
+categories: [R, EDA, Music, Visualization, Sampling, CLT]
 
 ## All below for Rmd
 # output:
@@ -15,7 +16,7 @@ date: "2026-02-25"
 #       collapsed: true
 ---
 
-```{text eval=FALSE, include=TRUE}
+```{r eval=FALSE, include=TRUE}
 #| code-summary: 'Environment & Versions'
 R==4.5.2
 plotly==4.12.0

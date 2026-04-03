@@ -1,7 +1,8 @@
 ---
-title: "Student Social Media Usage and Well-being Analysis"
-author: "Pinn Xu"
-date: "2026-02-23"
+title: 'Student Social Media Usage and Well-being Analysis'
+author: 'Pinn Xu'
+date: '2026-02-23'
+categories: [R, EDA, Social Media, Mental Health, Visualization]
 
 ## All below for Rmd
 # output:
@@ -14,7 +15,7 @@ date: "2026-02-23"
 #       collapsed: true
 ---
 
-```{text eval=FALSE, include=TRUE}
+```{r eval=FALSE, include=TRUE}
 #| code-summary: 'Environment & Versions'
 R==4.5.2
 plotly==4.12.0
