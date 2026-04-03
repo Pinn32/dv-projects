@@ -259,7 +259,7 @@ Riquelme, F. and González-Cantergiani, P. (2016) ‘Measuring user influence on
 
 Wilke, C.O. (2019) *Fundamentals of Data Visualization: A Primer on Making Informative and Compelling Figures.* Sebastopol: O’Reilly Media, Inc. Available at: <https://clauswilke.com/dataviz/> (Accessed: 29 October 2024).
 
-# Appendix I: Description of Attributes
+# Appendix I: Attributes Description
 
 Below is the overall instruction of [the original dataset](https://zenodo.org/records/4750661) and description of each attribute offered by the dataset provider.
 
