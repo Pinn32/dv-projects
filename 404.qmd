@@ -1,5 +1,7 @@
 ---
 title: '404 Page Not Found'
+sidebar: false
+toc: false
 ---
 
 The page you're looking for doesn't exist or has been moved.
