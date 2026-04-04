@@ -9,7 +9,7 @@ Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, 
 
 This site collects my data projects: exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with [Quarto](https://quarto.org/).
 
-------------------------------------------------------------------------
+[Browse all projects →](projects/){.btn .btn-primary}
 
 ## Featured Projects
 
@@ -41,4 +41,4 @@ Analysis of social media habits and addiction patterns among students.\
 
 ------------------------------------------------------------------------
 
-[Browse all projects →](projects/index.qmd){.btn .btn-primary}   [About this site →](about/index.qmd){.btn .btn-outline-secondary}
+[About this site →](about/){.btn .btn-outline-primary}
