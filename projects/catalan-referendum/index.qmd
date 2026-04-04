@@ -41,7 +41,7 @@ df = pd.read_csv(
 df.head()
 ```
 
-# Overall Data Processing
+# Data Processing
 
 ```{python}
 ## Drop missing values (see Appendix II)
