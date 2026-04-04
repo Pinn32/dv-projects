@@ -26,7 +26,8 @@ format:
     theme:
       - minty
     syntax-highlighting: pygments
-    css: styles/styles.css
+    css: src/styles/styles.css
+    include-after-body: src/scripts/fix-code-fold.html
     toc: true
     code-tools: true
       # toggle: true
@@ -34,7 +35,6 @@ format:
       # caption: "hi"
     code-fold: true
     # code-summary: "Show the code"
-    include-after-body: fix-code-fold.html
 
 editor: visual
 
