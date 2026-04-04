@@ -10,16 +10,22 @@ figcaption,
 }
 
 /* sidebar nav: active & show ============================================== */
+
+/* local-host class*/
 div.sidebar-item-container .active, 
 div.sidebar-item-container .show>.nav-link, 
+/* quarto-page class */
 div.sidebar-item-container .sidebar-link>code,
 a.sidebar-item-text.sidebar-link.active>.menu-text {
     color: #659989;
 }
 
+
 /* sidebar nav: breadcrumbs ================================================ */
 
+/* local-host class */
 nav .breadcrumb, 
+/* quarto-page class */
 nav .quarto-page-breadcrumbs {
     margin: 0;
     padding: 0 0 0.5rem;
