@@ -9,6 +9,13 @@ figcaption,
     font-size: 0.9em;
 }
 
+/* sidebar nav: active & show ============================================== */
+div.sidebar-item-container .active, 
+div.sidebar-item-container .show>.nav-link, 
+div.sidebar-item-container .sidebar-link>code {
+    color: #659989;
+}
+
 /* sidebar nav: breadcrumbs ================================================ */
 
 nav .breadcrumb, 
