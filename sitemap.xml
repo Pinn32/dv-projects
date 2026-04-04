@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Pinn32.github.io/dv-projects/index.html</loc>
-    <lastmod>2026-04-03T01:22:16.007Z</lastmod>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/index.html</loc>
+    <lastmod>2026-04-04T03:47:03.326Z</lastmod>
   </url>
   <url>
-    <loc>https://Pinn32.github.io/dv-projects/projects/student-media-usage/index.html</loc>
-    <lastmod>2026-04-03T23:29:00.860Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Pinn32.github.io/dv-projects/projects/most-streamed-songs/index.html</loc>
-    <lastmod>2026-04-03T23:56:35.793Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Pinn32.github.io/dv-projects/projects/catalan-referendum/index.html</loc>
-    <lastmod>2026-04-03T23:14:03.114Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Pinn32.github.io/dv-projects/projects/index.html</loc>
-    <lastmod>2026-04-03T23:21:43.263Z</lastmod>
+    <loc>https://Pinn32.github.io/dv-projects/about/index.html</loc>
+    <lastmod>2026-04-04T03:13:47.705Z</lastmod>
   </url>
   <url>
     <loc>https://Pinn32.github.io/dv-projects/projects/global-visa-cost/index.html</loc>
     <lastmod>2026-04-03T23:23:15.463Z</lastmod>
   </url>
   <url>
-    <loc>https://Pinn32.github.io/dv-projects/about/index.html</loc>
-    <lastmod>2026-04-03T23:32:56.171Z</lastmod>
+    <loc>https://Pinn32.github.io/dv-projects/projects/index.html</loc>
+    <lastmod>2026-04-04T03:21:35.739Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/projects/catalan-referendum/index.html</loc>
+    <lastmod>2026-04-03T23:14:03.114Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/projects/most-streamed-songs/index.html</loc>
+    <lastmod>2026-04-04T03:35:42.846Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/projects/student-media-usage/index.html</loc>
+    <lastmod>2026-04-04T03:34:49.295Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/index.html</loc>
+    <lastmod>2026-04-04T03:24:36.549Z</lastmod>
   </url>
 </urlset>
