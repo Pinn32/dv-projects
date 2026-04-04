@@ -353,11 +353,8 @@ In general, Figures 1 and 2 reveal potential inequality between countries in dif
 
 ```{python}
 import plotly.express as px  # to create plotly interactive graphs
-```
 
-```{python}
 # Aggregating data in order to draw the bar chart
-
 bar_agg = df.groupby('source_subregion').agg(
     {
     'source_region':'first', # region of each subregion
@@ -530,23 +527,25 @@ In conclusion, this project visualizes and analyses data about global tourist vi
 
 Nichols, D. (no date) *Coloring for Colorblindness*. Available at: <https://davidmathlogic.com/colorblind/> (Accessed: 11 December 2024)
 
-Pandas (2024a) *pandas.core.groupby.DataFrameGroupBy.first*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.first.html#pandas.core.groupby.DataFrameGroupBy.first) (Accessed: 12 December 2024)
+Pandas (2024a) *pandas.core.groupby.DataFrameGroupBy.first*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.core.groupby.DataFrameGroupBy.first.html#pandas.core.groupby.DataFrameGroupBy.first) (Accessed: 12 December 2024)
 
-Pandas (2024b) *pandas.DataFrame.dropna*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dropna.html) (Accessed: 11 December 2024)
+Pandas (2024b) *pandas.DataFrame.dropna*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.DataFrame.dropna.html) (Accessed: 11 December 2024)
 
-Pandas (2024c) *pandas.DataFrame.reset_index*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html) (Accessed: 11 December 2024) Pandas (2024d) *pandas.DataFrame.sort_values*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html#pandas.DataFrame.sort_values) (Accessed: 12 December 2024)
+Pandas (2024c) *pandas.DataFrame.reset_index*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.DataFrame.reset_index.html) (Accessed: 11 December 2024)
 
-Pandas (2024e) *pandas.read_csv*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) (Accessed: 10 December 2024)
+Pandas (2024d) *pandas.DataFrame.sort_values*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.DataFrame.sort_values.html) (Accessed: 12 December 2024)
 
-Pandas (2024f) *pandas.Series.unique*. Available at: [pandas](https://pandas.pydata.org/docs/reference/api/pandas.Series.unique.html) (Accessed: 10 December 2024)
+Pandas (2024e) *pandas.read_csv*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.read_csv.html) (Accessed: 10 December 2024)
+
+Pandas (2024f) *pandas.Series.unique*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.Series.unique.html) (Accessed: 10 December 2024)
 
 Plotly (2024a) *Built-in Continuous Color Scales in Python*. Available at: [plotly](https://plotly.com/python/builtin-colorscales/) (Accessed: 13 December 2024)
 
 Plotly (2024b) *plotly.graph_objects.Figure*. Available at: [plotly](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html#plotly.graph_objects.Figure.show) (Accessed: 10 December 2024)
 
-Python (2024a) *Built-in Functions*. Available at: [python](https://docs.python.org/3/library/functions.html) (Accessed: 10 December 2024)
+Python (2024a) *Built-in Functions*. Available at: [python](https://docs.python.org/3.12/library/functions.html) (Accessed: 10 December 2024)
 
-Python (2024b) *operator — Standard operators as functions*. Available at: [python](https://docs.python.org/3/library/operator.html) (Accessed: 10 December 2024)
+Python (2024b) *operator — Standard operators as functions*. Available at: [python](https://docs.python.org/3.12/library/operator.html) (Accessed: 10 December 2024)
 
 Recchi, E. et al. (2020) ‘Global Visa Cost Dataset’. Available at: <https://doi.org/10.5281/zenodo.4572529>
 
