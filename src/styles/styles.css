@@ -1,0 +1,170 @@
+/* customized css styles (for minty theme) ================================= */
+
+/* figure / output caption ================================================= */
+figcaption, 
+.caption {
+    margin-top: 0;
+    font-style: italic;
+    color: #aaa;
+    font-size: 0.9em;
+}
+
+/* sidebar nav: breadcrumbs ================================================ */
+
+nav .breadcrumb, 
+nav .quarto-page-breadcrumbs {
+    margin: 0;
+    padding: 0 0 0.5rem;
+    background-color: transparent;
+    color: #659989;
+}
+
+nav .breadcrumb .breadcrumb-item,
+nav .quarto-page-breadcrumbs .breadcrumb-item {
+    color: #659989;
+    font-size: 0.8rem;
+}
+
+nav .breadcrumb .breadcrumb-item a,
+nav .quarto-page-breadcrumbs .breadcrumb-item a {
+    color: #659989;
+    font-size: 0.8rem;
+}
+
+/* 
+nav .breadcrumb .breadcrumb-item,
+nav .breadcrumb .breadcrumb-item.active {
+    color: #659989;
+    font-size: 0.8rem;
+} 
+*/
+
+nav .breadcrumb .breadcrumb-item::before,
+nav .quarto-page-breadcrumbs .breadcrumb-item::before {
+    color: hsl(0, 0%, 55%);
+}
+
+@media screen and (max-width: 991.98px) {
+    nav .breadcrumb, 
+    nav .quarto-page-breadcrumbs {
+        padding: 0.5rem 0;
+    }
+}
+
+/* title categories (tags) ================================================= */
+.quarto-title .quarto-categories .quarto-category {
+    color: #378e74;
+    font-weight: 500;
+}
+
+/* textual codes =========================================================== */
+
+/* text code cell (env&ver) */
+pre.text.cell-code code {
+    color: #378e74;
+}
+
+/* in-line codes */
+code:not(.sourceCode){
+    color: #378e74;
+    background-color: #f4f4f4;
+}
+
+/* input code cells ======================================================= */
+.sourceCode.cell-code {
+    background-color: #f5f7f7;
+    border-radius: 6px;
+    border-left: 3px solid #a8d5ba;
+    padding: 0.75rem 0;           /* top-bottom paddings */
+    overflow-x: auto;
+}
+
+/* when pre's longer than container, padding will be in scroll width */
+.sourceCode.cell-code pre {
+    margin: 0;
+    padding: 0 1rem;              /* left-right paddings */
+    width: fit-content;           /* width depends on content length */
+    min-width: 100%;              /* short content still fills container */
+    font-size: 0.8rem;
+}
+
+
+/* output plain-text code cells ========================================== */
+
+.cell-output-stdout pre,
+.cell-output-display pre {
+    background-color: #f8f9f6;
+    border-radius: 6px;
+    padding: 0.75rem 0;           /* top-bottom paddings */
+    font-size: 0.8rem;       
+    border-left: 3px solid #a8d5ba;
+}
+
+.cell-output-stdout pre code,
+.cell-output-display pre code {
+    display: block;
+    padding: 0 1rem;           /* left-right paddings */
+    width: fit-content;        /* padding-right included in scroll width */
+    min-width: 100%;           /* short content still fills container */
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+/* dataframe outputs  =================================================== */
+
+/* outer container */
+.cell-output-display {
+    margin: 1rem 0;
+    overflow-x: auto;  /* when too many columns, can scroll horizontally */
+}
+
+/* table overall */
+.cell-output-display table.dataframe {
+    font-size: 14px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* table header */
+.cell-output-display table.dataframe thead tr {
+    background-color: #b0dbc1;
+    color: #2d2d2d;
+}
+
+.cell-output-display table.dataframe thead th {
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    border: none;
+}
+
+/* odd rows */
+.cell-output-display table.dataframe tr.odd {
+    background-color:#ffffff;
+}
+
+/* even rows */
+.cell-output-display table.dataframe tr.even {
+    background-color: #ffffff;
+}
+
+/* all cells */
+.cell-output-display table.dataframe td,
+.cell-output-display table.dataframe th {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* hover */
+.cell-output-display table.dataframe tbody tr:hover {
+    background-color: #cfe8e3;
+}
+
+/* index column (first column th) */
+.cell-output-display table.dataframe tbody th {
+    color: #888;
+    font-weight: normal;
+    border-right: 1px solid #e0e0e0;
+}
+
+

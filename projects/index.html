@@ -108,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../src/styles/styles.css">
 <link rel="stylesheet" href="../styles/projects.css">
 </head>
 
@@ -317,6 +317,28 @@ function filterTag(tag, btn) {
 
 
 </main> <!-- /main -->
+<script id="fix-code-fold" type="text/javascript">
+    const showBtn = document.getElementById('quarto-show-all-code');
+    const hideBtn = document.getElementById('quarto-hide-all-code');
+
+    if (showBtn) {
+        showBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                el.setAttribute('open', '');
+            });
+        });
+    }
+
+    if (hideBtn) {
+        hideBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                el.removeAttribute('open');
+            });
+        });
+    }
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
