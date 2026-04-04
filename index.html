@@ -233,40 +233,6 @@ Analysis of social media habits and addiction patterns among students.<br>
         });
     }
 </script>
-<script id="fix-navbar-active" type="text/javascript">
-    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
-    // Quarto marks the first sidebar-linked navbar item as active for all sidebar pages,
-    // ignoring which page is actually open. This corrects it at runtime via URL matching.
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-        // get current path
-        // `/someRegex/` is regex literal
-        let path = window.location.pathname.replace(/\/index\.html$/, '/');
-
-        document.querySelectorAll('.navbar-nav .nav-link').forEach((link) => {
-
-            // get hrefs from navbar a tags
-            let href = link.getAttribute('href');
-
-            try { 
-                href = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/'); 
-            } catch (e) {
-                console.log(e);
-            }
-
-            // check if href === current path
-            let isActive = (path === href) || (href !== '/' && path.startsWith(href));
-
-            // if match, add .active class to navbar item
-            link.classList.toggle('active', isActive);
-
-            // if match, add aria-current="page" to navbar item for accessibility
-            if (isActive) link.setAttribute('aria-current', 'page');
-            else link.removeAttribute('aria-current');
-        });
-    });
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

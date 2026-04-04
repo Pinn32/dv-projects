@@ -319,7 +319,7 @@ window.Quarto = {
 </header>
 
 
-<div id="54957d9a" class="cell" data-execution_count="1">
+<div id="b53306d8" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Environment &amp; Versions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -331,7 +331,7 @@ window.Quarto = {
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>This project uses a data set consisting of tweets about the Catalan referendum in Spain on Twitter, with attributes including basic information and emotional word counts of each tweet detected by different lexicons (Jiménez-Zafra et al., 2021) (refer to Appendix I for further description of attributes). A bar plot addresses performance differences between lexicons in detecting sentiment among tweets. In addition, the distribution of the author’s popularity among all tweets is illustrated by a histogram, distinguished by sentiments.</p>
-<div id="0054880e" class="cell" data-execution_count="2">
+<div id="6b774c44" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
@@ -504,7 +504,7 @@ window.Quarto = {
 </section>
 <section id="overall-data-processing" class="level1">
 <h1>Overall Data Processing</h1>
-<div id="d189f820" class="cell" data-execution_count="3">
+<div id="2002fdaa" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Drop missing values (see Appendix II)</span></span>
@@ -527,7 +527,7 @@ window.Quarto = {
 </div>
 <section id="setting-count-attributes" class="level2">
 <h2 class="anchored" data-anchor-id="setting-count-attributes">Setting Count Attributes</h2>
-<div id="1288d281" class="cell" data-execution_count="4">
+<div id="ac5b806c" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect attribute datatypes</span></span>
@@ -569,7 +569,7 @@ memory usage: 156.4+ KB</code></pre>
 <figcaption>Figure 1. Datatypes and Attributes</figcaption>
 </figure>
 </div>
-<div id="1e97f410" class="cell" data-results="hold" data-execution_count="5">
+<div id="57b9739e" class="cell" data-results="hold" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Check dtypes of 3 object-type count attributes</span></span>
@@ -608,7 +608,7 @@ True True True</code></pre>
 </section>
 <section id="setting-boolean-attributes" class="level2">
 <h2 class="anchored" data-anchor-id="setting-boolean-attributes">Setting Boolean Attributes</h2>
-<div id="3f077996" class="cell" data-results="hold" data-execution_count="6">
+<div id="ce940aee" class="cell" data-results="hold" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm bool columns only contain 'True'/'False' strings</span></span>
@@ -630,7 +630,7 @@ True True True</code></pre>
 <h1>Data Visualisation</h1>
 <section id="sentiment-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="sentiment-distribution">Sentiment Distribution</h2>
-<div id="a3082142" class="cell" data-execution_count="7">
+<div id="5c218b0b" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Melt sentiment word count columns to long format for visualisation</span></span>
@@ -693,7 +693,7 @@ True True True</code></pre>
 </div>
 </div>
 </div>
-<div id="2600d101" class="cell" data-execution_count="8">
+<div id="4869d9ad" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Add sentiment column (positive/negative)</span></span>
@@ -754,7 +754,7 @@ True True True</code></pre>
 <p>The formula below is introduced to calculate the <em>popularity</em> (Riquelme and González-Cantergiani, 2016, pp.&nbsp;6, 11) of tweet authors:</p>
 <p><span class="math display">\[Popularity(i) = 1 - e^{-λ·Fi} \]</span></p>
 <p><em>Popularity</em> indicates how popular a user could be, where <em>e</em> is the base of the natural logarithm, λ is a constant. The introduction of <em>popularity</em> aims to create an attribute storing ratio data reasonably distributed in histograms, since the original ratio attributes (e.g.&nbsp;follower count) seem too scattered to view.</p>
-<div id="96561f9b" class="cell" data-execution_count="9">
+<div id="fdefbd43" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Define popularity calculation function</span></span>
@@ -1028,40 +1028,6 @@ True True True</code></pre>
             });
         });
     }
-</script>
-<script id="fix-navbar-active" type="text/javascript">
-    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
-    // Quarto marks the first sidebar-linked navbar item as active for all sidebar pages,
-    // ignoring which page is actually open. This corrects it at runtime via URL matching.
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-        // get current path
-        // `/someRegex/` is regex literal
-        let path = window.location.pathname.replace(/\/index\.html$/, '/');
-
-        document.querySelectorAll('.navbar-nav .nav-link').forEach((link) => {
-
-            // get hrefs from navbar a tags
-            let href = link.getAttribute('href');
-
-            try { 
-                href = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/'); 
-            } catch (e) {
-                console.log(e);
-            }
-
-            // check if href === current path
-            let isActive = (path === href) || (href !== '/' && path.startsWith(href));
-
-            // if match, add .active class to navbar item
-            link.classList.toggle('active', isActive);
-
-            // if match, add aria-current="page" to navbar item for accessibility
-            if (isActive) link.setAttribute('aria-current', 'page');
-            else link.removeAttribute('aria-current');
-        });
-    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
