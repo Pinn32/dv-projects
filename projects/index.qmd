@@ -1,7 +1,8 @@
 ---
 title: 'All Projects'
 css: '/styles/projects.css'
-# toc: false
+toc: false
+sidebar: false
 # title-block-style: none
 ---
 

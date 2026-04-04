@@ -37,7 +37,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 # Introduction
 
 ## Environment and Package Version
@@ -61,7 +60,6 @@ The dataset named *Student Social Media & Relationships* from [Kaggle](https://w
 
 In terms of the variables, there was one identifier variable `Student_ID` , giving each observation an unique ID. Other nominal variables included such as `Gender` , `Country` , `Most_Used_Platform` , `Relationship_Status` with non-ordinal levels, and `Academic_Level` , `Affects_Academic_Performance` (Boolean) with ordinal or Boolean levels. Numerical variables includes `Age` , `Avg_Daily_Usage_Hours` , `Sleep_Hours_Per_Night` , `Mental_Health_Score` , `Conflicts_Over_Social_Media` , and `Addicted_Score` , where mental health score and addicted score were self-rated levels from 1 to 10.
 
-
 ## Goal of Analysis
 
 This project aimed to investigate the complex correlations between students' social media patterns (e.g. average usage hours, platform preference), contextual and demographic factors (e.g. academic level, country, age, gender), and student well-being and performance (e.g. average sleep hours, mental health, addiction).
@@ -73,7 +71,6 @@ The analytical phase of this project was structured into three primary stages. F
 Regarding the visualization process, the project mainly used used data wrangling methods from packages in `tidyverse` to manipulate data before plotting, including pipe operator `|>` and functions such as `group_by()` and `summarize()` from the *dplyr* package; and then tools from the *plotly* package was used to draw plots.
 
 Furthermore, to improve the accessibility of visual storytelling, this project adopted colorblind-friendly palettes generated using the [online tool](https://davidmathlogic.com/colorblind/) developed by David Nichols.
-
 
 # Data Preparation
 
@@ -88,7 +85,6 @@ str(df0) # view dataframe structure
 ```
 
 *Output 1. Structure of the Dataframe*
-
 
 ## Preprocessing
 
@@ -129,7 +125,6 @@ sum(is.na(df))
 
 *Output 2. Number of NA Values*
 
-
 ## Categorical Data
 
 For categorical variables, their numbers of categories (see Output 3) and counts of observations in each category (see Output 4) were first examined. The results indicated that most categorical variables contained a moderate number of categories, whereas *country* and *most-used platform* variables had relatively larger numbers of categories and therefore required further processing.
@@ -157,7 +152,6 @@ for (name in setdiff(names_catvar, c("Country", "Most_Used_Platform"))) {
 ```
 
 *Output 4. Numbers of Observations of Each Value in Categorical Variables*
-
 
 Top five countries and platforms with the most counts of observations were thereby selected with their names stored ( vectors `top5_countries` and `top5_platforms` ). The results were displayed in Output 5.
 
@@ -207,7 +201,6 @@ str(df$Affects_Academic_Performance)
 
 *Output 6. Boolean Variable*
 
-
 ## Numerical Data
 
 Descriptive statistics for the numerical variables were obtained using the `summary()` function in Output 7. The results indicate that the variables fall within reasonable ranges, with no apparent extreme or abnormal values. Thus, no further preprocessing was deemed necessary at this stage.
@@ -223,7 +216,6 @@ for (name in names_numvar) {
 ```
 
 *Output 7. Descriptive Summaries of Numerical Variables*
-
 
 Moreover, the `Age` variable was categorized into three groups due to its limited range and variability. As shown in Output 8, treating `Age` as continuous offers minimal dispersion within such a narrow interval (18-24) and limited continuity (only 7 unique numbers), while treating the values as single-year categories would possibly lead to several small and uneven subgroups. Categorizing into three groups therefore provides a more suitable structure for subsequent analysis.
 
@@ -281,8 +273,6 @@ table(df["Age_Group"])
 
 *Output 9. Age Groups*
 
-
-
 # Descriptive Analysis
 
 This section demonstrated several core contextual and behavioral patterns of the sample.
@@ -328,8 +318,6 @@ plot_ly(
 ```
 
 *Figure 1. Sample Gender Distribution*
-
-
 
 ### Country
 
@@ -386,8 +374,6 @@ sort(table(top5_countries_data$Country), decreasing = TRUE) / nrow(df) * 100
 
 *Output 10. Percentages of Top 5 Countries Relative to the Population*
 
-
-
 ### Age Group
 
 The age group distribution (shown in Figure 3) was skewed toward younger participants, with the 18-20 and 20-22 cohorts being the most predominant. The 22-24 group has a significantly lower frequency, indicating that the sample primarily consists of early-stage university students.
@@ -429,8 +415,6 @@ plot_ly(
 ```
 
 *Figure 3. Sample Age Group Distribution*
-
-
 
 ## Platform Preference
 
@@ -474,8 +458,6 @@ plot_ly(
 ```
 
 *Figure 4. Top 5 Popular Platforms*
-
-
 
 Notably, after grouping by gender (shown in Figure 5), there were clear gender differences in platform preferences. Instagram and TikTok were more popular among females, with Instagram showing a larger gender gap. In contrast, Facebook and WhatsApp showed a more male-dominated trend. Twitter, on the other hand, showed a minimal gender variation. Overall, it appeared to be that females prefer visual platforms whereas males favor communication-oriented ones.
 
@@ -526,8 +508,6 @@ plot_ly(
 
 *Figure 5. Top 5 Popular Platforms by Gender*
 
-
-
 ## Usage Hours
 
 The histogram of average media usage hours (Figure 6) followed a symmetrical distribution, peaking between 4.5 and 5 hours, suggesting a consistent high-engagement digital lifestyle across the surveyed students.
@@ -564,8 +544,6 @@ plot_ly(
 ```
 
 *Figure 6. Daily Usage Hours Distribution*
-
-
 
 Boxplots (Figure 7) were used to illustrate the distribution of average daily usage hours across the top 5 countries. USA and India exhibit the highest levels of engagement, with median usage hours significantly exceeding those of other nations. In contrast, Canada, France, and Denmark show lower overall usage, with Denmark recording the most conservative median. In addition, a notable outlier is observed in the Indian group, representing a user with exceptionally low daily engagement compared to the national trend.
 
@@ -635,8 +613,6 @@ plot_ly(
 
 *Figure 7. Daily Usage Hours Boxplot by Top 5 Countries*
 
-
-
 ## Sleep Hours
 
 Meanwhile, the distribution of sleep hours was also investigated. Figure 8 revealed a roughly symmetrical distribution centered around a peak of approximately 7 to 7.5 hours of sleep per night. While the majority of students fall within a healthier range of 6 to 8 hours, the distribution exhibits a broad spread, with some individuals reporting as little as 4 hours and others reaching nearly 10 hours. This variation suggests a diverse range of sleeping habits within the student population.
@@ -676,8 +652,6 @@ plot_ly(
 ```
 
 *Figure 8. Average Sleep Hours Distribution*
-
-
 
 Furthermore, looking into the distribution of average sleep hours by top 5 countries, Figure 9 showed a significant inverse trend compared to the previously analyzed usage hours distribution (Figure 7). While the USA and India presented the highest social media engagement, they recorded the lowest median sleep duration, both falling below 6 hours per night. Conversely, Denmark and France, which showed the most conservative usage patterns, enjoyed the highest median sleep hours, with Denmark leading at approximately 8.2 hours. In addition, India displayed a high number of upper outliers, indicating a group of students who maintained high sleep levels despite regional trends. These geographical variation suggested a negative correlation between digital engagement and sleeping, providing a critical baseline to later analysis of the relationship between behavioral patterns.
 
@@ -747,8 +721,6 @@ plot_ly(
 
 *Figure 9. Average Sleep Hours Distribution by Top 5 Countries*
 
-
-
 # Correlation Analysis
 
 ## Sleep Hours and Usage Hours
@@ -790,8 +762,6 @@ plot_ly(
 
 *Figure 10. Relationship between Usage Hours and Sleep Hours*
 
-
-
 To validate the trend, a Pearson's correlation test was conducted. As shown in the results (see Output 11), the correlation coefficient was around -0.79 (*p* \< .001). It therefore indicated that there was a high potential of students' average daily social media usage hours being negatively correlated with their sleep hours.
 
 ```{r results='hold'}
@@ -802,8 +772,6 @@ cor.test(x = df$Avg_Daily_Usage_Hours, y = df$Sleep_Hours_Per_Night)
 ```
 
 *Output 11. Pearson's Correlation Test Result*
-
-
 
 Figure 11 showed a linear fit of the two variables, which further clarified the negative correlation.
 
@@ -858,8 +826,6 @@ plot_ly(
 
 *Figure 11. Linear Relationship between Usage Hours and Sleep Hours*
 
-
-
 ## Other Indices
 
 In addition, it was also considered worthwhile investigating the relationship between other indices such as mental health score and addicted score (names of indices were shown in Output 12). Therefore, a faceted 5×5 paired scatter plot matrix was used to display all of the relationship trends (see Figure 12).
@@ -912,8 +878,6 @@ plot_ly(
 
 *Figure 12. Relationship between Indices*
 
-
-
 The scatter plot matrix (Figure 12) illustrated a complex web of behavioral and psychological correlations, primarily centered on the detrimental effects of excessive social media usage. Meanwhile, Output 13 showed a correlation test matrix for all five indices, providing valid insights into behavioral trends.
 
 As shown by the results, a dominant negative correlation existed between usage hours and sleep, where increased screen time consistently aligns with diminished rest. This trend was further demonstrated by a positive correlation between usage and addiction levels, which in turn led to higher frequencies of life conflicts. Conversely, better mental health outcomes were associated with lower addiction scores, reduced usage, and longer sleep duration. Ultimately, the data suggested a negative feedback loop where high device dependency compromised sleep and social harmony, collectively contributing to poorer mental well-being.
@@ -926,8 +890,6 @@ As shown by the results, a dominant negative correlation existed between usage h
 ```
 
 *Output 13. Correlation Matrix of Indices*
-
-
 
 Notably, the correlation between addicted score and mental health (*r* = -.95), and that between addicted score and conflicts number over social media (*r* = .93) appeared to be the most significant with both \| *r* \| \> .9 (see Output 14), indicating that as addictive behaviors intensify, psychological well-being collapses and interpersonal friction rises almost in lockstep.
 
@@ -953,8 +915,6 @@ for(i in 1:nrow(loc)) {
 ```
 
 *Output 14. Pairs of Indices with the Strongest Correlation (\|r\|\>.9)*
-
-
 
 # Application of CLT
 
@@ -1166,8 +1126,6 @@ cat("\nPopulation Mean:", round(pop_mean_usage, 2),
 
 *Output 15. Comparison of Statistics Regarding Media Usage Hours*
 
-
-
 In addition, Figure 14 displayed one of the sample means distributions (n = 100, repeated 1000 times) with an ideal normal curve (n = 100) over it, which was calculated using the function `dnorm()` . The results demonstrated a highly coincident overlap between the sample means histogram and normal curve, in line with the CLT.
 
 ```{r}
@@ -1239,8 +1197,6 @@ plot_ly() |>
 ```
 
 *Figure 14. Usage Hours Sample Means Probability Distribution*
-
-
 
 ## Sleep Hours
 
@@ -1414,15 +1370,11 @@ plot_ly() |>
 
 *Figure 16. Sleep Hours Sample Means Probability Distribution*
 
-
-
 # Sampling Methods
 
 In this section, the top 5 platform data was used as population dataset, and three samples were drew using different sampling methods, including simple random with replacement, systematic with unequal probabilities, and stratified sampling without replacement. These three sampling methods were thus compared and contrasted to see the differences between their ability to predict population patterns.
 
 Output 17, 18, and 19 showed the results of different samples, regarding the proportion of different platforms, and the mean and standard deviation of media usage hours.
-
-
 
 ## Simple Random Sampling
 
@@ -1483,8 +1435,6 @@ cat("Sample SD of Usage Hour:", round(sd1, 3), "\n")
 
 *Output 17. Results of Simple Random Sampling with Replacement*
 
-
-
 ## Systematic Sampling
 
 For systematic sampling, the inclusion probabilities by usage hours was firstly calculated using the function `inclusionprobabilities()` and stored in `pik` , then the samples were drew using `UPsystematic(pik)` and stored in `sample2` .
@@ -1523,8 +1473,6 @@ cat("Sample SD of Usage Hour:", round(sd2, 3), "\n")
 ```
 
 *Output 18. Results of Systematic Sampling with Unequal Probabilities*
-
-
 
 ## Stratified Sampling
 
@@ -1583,8 +1531,6 @@ cat("Sample SD of Usage Hour:", round(sd3, 3), "\n")
 
 *Output 19. Stratified Sampling without Replacement*
 
-
-
 ## Comparison of Sampling Methods
 
 ### Percentages of Platforms
@@ -1616,8 +1562,6 @@ sample_percs
 ```
 
 *Output 20. Population and Sample Percentages of Different Platforms*
-
-
 
 As shown in Output 21 and Figure 17, the values of stratified sampling without replacement showed the smallest difference from population values (0.002), indicating its strongest predictive power for platform proportion. In contrast, simple random sampling without replacement showed the lowest predictive power for it (mean difference was 0.029). Stratified sampling without replacement performed best may because it preserved the population’s underlying platform distribution within each stratum of platform, reducing sampling variability, whereas simple random sampling was more random and unpredictable across platform proportions.
 
@@ -1686,8 +1630,6 @@ plot_ly(
 
 *Figure 17. Differences from Population Percentages by Sampling Method*
 
-
-
 ### Statistics of Usage Hours
 
 In addition to predicting the proportions of categories, the ability to predict mean and standard deviation across the three sampling methods were also tested. Output 22 showed the results of means and standard deviations, and a clearer visualization was shown in Figure 18.
@@ -1711,8 +1653,6 @@ cat("Sample SDs:\n"); round(sample_sds, 3)
 ```
 
 *Output 22. Population and Sample Statistics of Media Usage Hours*
-
-
 
 In Figure 18, the dots at the centers of sticks represented the sample means, and the black whiskers represented the range of one sample standard deviation away from sample means, where the population mean and standard deviation were denoted using dashed lines with instruction text labels.
 

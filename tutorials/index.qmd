@@ -1,0 +1,86 @@
+---
+title: 'Data Visualization Tutorials'
+css: '/styles/projects.css'
+toc: false
+sidebar: false
+# title-block-style: none
+---
+
+```{=html}
+<!-- start: gallery-wrapper -->
+<div class="gallery-wrapper">
+<div class="tag-filters" id="tag-filters">
+    <button class="tag-btn active" data-tag="all" onclick="filterTag('all', this)">All</button>
+    <button class="tag-btn" data-tag="Python" onclick="filterTag('Python', this)">Python</button>
+    <button class="tag-btn" data-tag="R" onclick="filterTag('R', this)">R</button>
+    <button class="tag-btn" data-tag="NLP" onclick="filterTag('NLP', this)">NLP</button>
+    <button class="tag-btn" data-tag="Visualization" onclick="filterTag('Visualization', this)">Visualization</button>
+    <button class="tag-btn" data-tag="EDA" onclick="filterTag('EDA', this)">EDA</button>
+    <button class="tag-btn" data-tag="Social Media" onclick="filterTag('Social Media', this)">Social Media</button>
+</div>
+
+<div class="project-gallery" id="project-gallery">
+
+    <a class="project-card" href="catalan-referendum/" data-tags="Python,NLP,Social Media,Visualization">
+        <h3>Twitter Sentiment Analysis of Catalan Referendum</h3>
+        <p>Sentiment analysis on tweets surrounding the 2017 Catalan independence referendum using NLP techniques.</p>
+        <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">NLP</span>
+            <span class="project-tag">Social Media</span>
+            <span class="project-tag">Visualization</span>
+        </div>
+    </a>
+
+    <a class="project-card" href="most-streamed-songs/" data-tags="R,EDA,Visualization">
+        <h3>Most Streamed Songs on Spotify 2023</h3>
+        <p>Exploratory analysis of the most-streamed tracks on Spotify in 2023, uncovering trends in music popularity.</p>
+        <div class="project-tags">
+            <span class="project-tag">R</span>
+            <span class="project-tag">EDA</span>
+            <span class="project-tag">Visualization</span>
+        </div>
+    </a>
+
+    <a class="project-card" href="student-media-usage/" data-tags="R,EDA,Social Media,Visualization">
+        <h3>Student Social Media Usage & Addiction</h3>
+        <p>Analysis of social media habits and addiction patterns among students, with behavioral and academic insights.</p>
+        <div class="project-tags">
+            <span class="project-tag">R</span>
+            <span class="project-tag">EDA</span>
+            <span class="project-tag">Social Media</span>
+            <span class="project-tag">Visualization</span>
+        </div>
+    </a>
+
+    <a class="project-card" href="global-visa-cost/" data-tags="Python,EDA,Visualization">
+        <h3>Global Visa Cost Analysis</h3>
+        <p>A comparative study of visa costs across countries, exploring affordability and geographic patterns.</p>
+        <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">EDA</span>
+            <span class="project-tag">Visualization</span>
+        </div>
+    </a>
+
+</div>
+
+</div>
+<!-- end: gallery-wrapper -->
+
+<script>
+function filterTag(tag, btn) {
+    document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.project-card').forEach(card => {
+        if (tag === 'all') {
+        card.classList.remove('hidden');
+        } else {
+        const tags = card.dataset.tags.split(',');
+        card.classList.toggle('hidden', !tags.includes(tag));
+        }
+    });
+}
+</script>
+```

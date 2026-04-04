@@ -8,17 +8,36 @@ website:
   favicon: src/img/favicon.ico
   navbar:
     left:
-      - href: index.qmd
-        text: Home
+      # - href: index.qmd
+      #   text: Home
       - text: Projects
         href: projects/index.qmd
+      - text: Tutorials
+        href: tutorials/index.qmd
       - text: About
         href: about/index.qmd
   sidebar:
     style: 'docked'
     background: light
     # search: true
-    contents: auto
+    collapse: true
+    # contents: auto
+    contents: 
+      - section: "All Projects"
+        href: projects/index.qmd
+        contents:
+          - text: "Twitter Sentiment Analysis of Catalan Referendum"
+            href: projects/catalan-referendum/index.qmd
+          - text: "Global Visa Cost Analysis"
+            href: projects/global-visa-cost/index.qmd
+          - text: "Student Social Media Usage & Addiction"
+            href: projects/student-media-usage/index.qmd
+          - text: "Most Streamed Songs on Spotify"
+            href: projects/most-streamed-songs/index.qmd
+      - text: "Tutorials"
+        href: tutorials/index.qmd
+      - text: "About"
+        href: about/index.qmd
 
 format:
   html:
@@ -27,7 +46,9 @@ format:
       - minty
     syntax-highlighting: pygments
     css: src/styles/styles.css
-    include-after-body: src/scripts/fix-code-fold.html
+    include-after-body: 
+      - src/scripts/fix-code-fold.html
+      - src/scripts/fix-navbar-active.html
     toc: true
     code-tools: true
       # toggle: true

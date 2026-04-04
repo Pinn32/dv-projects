@@ -55,8 +55,6 @@ spotify_data <- read.csv("./spotify-2023.csv")
 str(spotify_data)
 ```
 
-
-
 Subsequently, main packages used in this project, including such as *tidyverse*, *plotly*, and *sampling*, were attached, and to facilitate further data manipulation process, the original dataset was transformed into a tibble ( `df` ) using `tibble()` function.
 
 Below shows an initial view of the the dataset, including sample size (N = 953) and whether there is any missing data, where `anyNA()` function was used to get the information of missing data.
@@ -87,8 +85,6 @@ As shown below, the data type of the *streams* variable is character, whereas st
 str(df["streams"])
 ```
 
-
-
 Before coercing data type to numeric, we firstly check if there are any invalid values which are not numeric-like strings, using data wrangling strategies with regular expressions to specify what is numeric-like in this case. As shown in the output below, there is one observation with invalid streams.
 
 ```{r}
@@ -98,8 +94,6 @@ df |>
   select(streams) |> 
   filter(!str_detect(streams, "^(0|[1-9][0-9]*)$"))
 ```
-
-
 
 Next, `df` is redefined keeping only observations with valid streams, and then coerced into numeric data type. Below shows the results of missing data and variable structure after coercion.
 
@@ -140,8 +134,6 @@ df |>
     in_deezer_playlists, "^(0|[1-9][0-9]*|[1-9][0-9]*,[0-9]*)$")
   )
 ```
-
-
 
 After replacing all commas with empty strings, we coerced the variable into numeric type, and check whether there are NA data after coercion. The result below shows that no NA appears.
 
