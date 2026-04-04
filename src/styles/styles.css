@@ -12,7 +12,8 @@ figcaption,
 /* sidebar nav: active & show ============================================== */
 div.sidebar-item-container .active, 
 div.sidebar-item-container .show>.nav-link, 
-div.sidebar-item-container .sidebar-link>code {
+div.sidebar-item-container .sidebar-link>code,
+a.sidebar-item-text.sidebar-link.active>.menu-text {
     color: #659989;
 }
 
