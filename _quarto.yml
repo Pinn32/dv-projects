@@ -48,7 +48,7 @@ format:
     css: src/styles/styles.css
     include-after-body: 
       - src/scripts/fix-code-fold.html
-      - src/scripts/fix-navbar-active.html
+      # - src/scripts/fix-navbar-active.html
     toc: true
     code-tools: true
       # toggle: true

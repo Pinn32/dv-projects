@@ -15,26 +15,26 @@ This site collects my data projects: exploratory analyses, NLP experiments, and 
 
 ::::::: grid
 ::: {.g-col-12 .g-col-md-6}
-[**Twitter Sentiment Analysis of Catalan Referendum**](projects/catalan-referendum/)  
-Sentiment mining on tweets surrounding the 2017 Catalan independence referendum.  
+[**Twitter Sentiment Analysis of Catalan Referendum**](projects/catalan-referendum/)\
+Sentiment mining on tweets surrounding the 2017 Catalan independence referendum.\
 `Python` `NLP` `Social Media`
 :::
 
 ::: {.g-col-12 .g-col-md-6}
-[**Global Visa Cost Analysis**](projects/global-visa-cost/)  
-A comparative study of visa costs across countries, exploring affordability and geographic patterns.  
+[**Global Visa Cost Analysis**](projects/global-visa-cost/)\
+A comparative study of visa costs across countries, exploring affordability and geographic patterns.\
 `Python` `EDA` `Visualization`
 :::
 
 ::: {.g-col-12 .g-col-md-6}
-[**Most Streamed Songs on Spotify 2023**](projects/most-streamed-songs/)  
-Exploratory analysis of the most-streamed tracks on Spotify, uncovering trends in music popularity.  
+[**Most Streamed Songs on Spotify 2023**](projects/most-streamed-songs/)\
+Exploratory analysis of the most-streamed tracks on Spotify, uncovering trends in music popularity.\
 `R` `EDA` `Visualization`
 :::
 
 ::: {.g-col-12 .g-col-md-6}
-[**Student Social Media Usage & Addiction**](projects/student-media-usage/)  
-Analysis of social media habits and addiction patterns among students.  
+[**Student Social Media Usage & Addiction**](projects/student-media-usage/)\
+Analysis of social media habits and addiction patterns among students.\
 `R` `EDA` `Social Media`
 :::
 :::::::
