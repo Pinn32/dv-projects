@@ -9,7 +9,7 @@ import pandas as pd  # 必须先导入 pandas 图书馆
 
 ```{python}
 # 读取 beer & curry 文件
-path = '../datasets/beer-and-curry.csv'
+path = '../../datasets/beer-and-curry.csv'
 
 # Win: 所有的斜线 (slash)，要写【正斜线/】或【转义反斜线\\】
 ```
@@ -224,7 +224,7 @@ df.transpose()   # 转置 Dataframe，行变列，列变行
 
 ```{python}
 # 另一个本地 CSV 文件的路径
-path1 = 'E:/Jupyter Notebooks/COMM327/W02_Processing_Data/keto_AND_vegan.csv'
+path1 = '../../datasets/keto-and-vegan.csv'
 # ⭕【注意】要用正斜杠【/】，或者转义反斜杠【\\】
 ```
 

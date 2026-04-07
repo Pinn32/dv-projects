@@ -642,7 +642,7 @@ import pandas as pd  # 引入 pandas 库
 
 ```{python}
 # 定义文件路径（beer and curry）
-path = 'E:/OneDrive - The University of Liverpool/Study/UoL/Year 3/S1 COMM327 Data Science and Visualisation/W11 Sankey & Network Diagrams/Files/beer AND curry.csv'
+path = '../../datasets/beer-and-curry.csv'
 ```
 
 ```{python}
