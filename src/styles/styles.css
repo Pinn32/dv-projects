@@ -1,5 +1,12 @@
 /* customized css styles (for minty theme) ================================= */
 
+div#refs.hanging-indent {
+    margin-left: 0;
+    & .csl-entry {
+        margin-bottom: 0.5rem;
+    }
+}
+
 /* figure / output caption ================================================= */
 figcaption, 
 .caption {

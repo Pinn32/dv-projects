@@ -281,9 +281,11 @@ This section demonstrated several core contextual and behavioral patterns of the
 
 ### Gender
 
-Figure 1 illustrated a highly balanced gender distribution within the dataset (N = 705). The sample was almost perfectly split, with females representing 50.1% and males representing 49.9% of the participants. This balanced distribution allowed relatively unbiased gender-based comparisons of behavioral patterns.
+@fig-gender-dist illustrated a highly balanced gender distribution within the dataset (N = 705). The sample was almost perfectly split, with females representing 50.1% and males representing 49.9% of the participants. This balanced distribution allowed relatively unbiased gender-based comparisons of behavioral patterns.
 
 ```{r}
+#| label: fig-gender-dist
+#| fig-cap: "Sample Gender Distribution"
 ## Gender
 
 # pie chart
@@ -317,13 +319,14 @@ plot_ly(
   )
 ```
 
-*Figure 1. Sample Gender Distribution*
 
 ### Country
 
-The bar plot (Figure 2) followed by Output 10 showing percentages of observations for top 5 countries with respect to the whole sample illustrated the sample's top five countries, with India leading at 7.5%, followed by the USA (5.7%) and Canada (4.8%). Denmark and France each represent 3.8% of the total, highlighting geographical diversity of participants, centered primarily in South Asian and North American regions.
+The bar plot (@fig-country-dist) followed by Output 10 showing percentages of observations for top 5 countries with respect to the whole sample illustrated the sample's top five countries, with India leading at 7.5%, followed by the USA (5.7%) and Canada (4.8%). Denmark and France each represent 3.8% of the total, highlighting geographical diversity of participants, centered primarily in South Asian and North American regions.
 
 ```{r}
+#| label: fig-country-dist
+#| fig-cap: "Sample Country Distribution (top 5)"
 ## Country
 
 # extract top 5 country data
@@ -363,7 +366,6 @@ plot_ly(
   )
 ```
 
-*Figure 2. Sample Country Distribution (top 5)*
 
 ```{r}
 ## Country
@@ -376,9 +378,11 @@ sort(table(top5_countries_data$Country), decreasing = TRUE) / nrow(df) * 100
 
 ### Age Group
 
-The age group distribution (shown in Figure 3) was skewed toward younger participants, with the 18-20 and 20-22 cohorts being the most predominant. The 22-24 group has a significantly lower frequency, indicating that the sample primarily consists of early-stage university students.
+The age group distribution (shown in @fig-age-group-dist) was skewed toward younger participants, with the 18-20 and 20-22 cohorts being the most predominant. The 22-24 group has a significantly lower frequency, indicating that the sample primarily consists of early-stage university students.
 
 ```{r}
+#| label: fig-age-group-dist
+#| fig-cap: "Sample Age Group Distribution"
 ## Age Group
 
 # barplot
@@ -414,13 +418,14 @@ plot_ly(
   )
 ```
 
-*Figure 3. Sample Age Group Distribution*
 
 ## Platform Preference
 
-Figure 4 showed the frequency distribution of the five most popular social platforms. It can be seen that Instagram (249) was the most popular platform among the sample, followed by TikTok (154) and Facebook (123), while WhatsApp (54) and Twitter (30) showed much lower frequencies.
+@fig-top5-platforms showed the frequency distribution of the five most popular social platforms. It can be seen that Instagram (249) was the most popular platform among the sample, followed by TikTok (154) and Facebook (123), while WhatsApp (54) and Twitter (30) showed much lower frequencies.
 
 ```{r}
+#| label: fig-top5-platforms
+#| fig-cap: "Top 5 Popular Platforms"
 ## Platform
 
 # extract top 5 platform data
@@ -457,11 +462,12 @@ plot_ly(
   )
 ```
 
-*Figure 4. Top 5 Popular Platforms*
 
-Notably, after grouping by gender (shown in Figure 5), there were clear gender differences in platform preferences. Instagram and TikTok were more popular among females, with Instagram showing a larger gender gap. In contrast, Facebook and WhatsApp showed a more male-dominated trend. Twitter, on the other hand, showed a minimal gender variation. Overall, it appeared to be that females prefer visual platforms whereas males favor communication-oriented ones.
+Notably, after grouping by gender (shown in @fig-top5-platforms-gender), there were clear gender differences in platform preferences. Instagram and TikTok were more popular among females, with Instagram showing a larger gender gap. In contrast, Facebook and WhatsApp showed a more male-dominated trend. Twitter, on the other hand, showed a minimal gender variation. Overall, it appeared to be that females prefer visual platforms whereas males favor communication-oriented ones.
 
 ```{r}
+#| label: fig-top5-platforms-gender
+#| fig-cap: "Top 5 Popular Platforms by Gender"
 ## Platform ~ Gender
 
 # obtain data
@@ -506,18 +512,19 @@ plot_ly(
 
 ```
 
-*Figure 5. Top 5 Popular Platforms by Gender*
 
 ## Usage Hours
 
-The histogram of average media usage hours (Figure 6) followed a symmetrical distribution, peaking between 4.5 and 5 hours, suggesting a consistent high-engagement digital lifestyle across the surveyed students.
+The histogram of average media usage hours (@fig-usage-hours-dist) followed a symmetrical distribution, peaking between 4.5 and 5 hours, suggesting a consistent high-engagement digital lifestyle across the surveyed students.
 
 ```{r}
+#| label: fig-usage-hours-dist
+#| fig-cap: "Daily Usage Hours Distribution"
 ## Usage Hours
 
 # histogram
 plot_ly(
-  df, 
+  df,
   x = ~Avg_Daily_Usage_Hours, 
   type = "histogram",
   
@@ -543,11 +550,12 @@ plot_ly(
   )
 ```
 
-*Figure 6. Daily Usage Hours Distribution*
 
-Boxplots (Figure 7) were used to illustrate the distribution of average daily usage hours across the top 5 countries. USA and India exhibit the highest levels of engagement, with median usage hours significantly exceeding those of other nations. In contrast, Canada, France, and Denmark show lower overall usage, with Denmark recording the most conservative median. In addition, a notable outlier is observed in the Indian group, representing a user with exceptionally low daily engagement compared to the national trend.
+Boxplots (@fig-usage-hours-boxplot) were used to illustrate the distribution of average daily usage hours across the top 5 countries. USA and India exhibit the highest levels of engagement, with median usage hours significantly exceeding those of other nations. In contrast, Canada, France, and Denmark show lower overall usage, with Denmark recording the most conservative median. In addition, a notable outlier is observed in the Indian group, representing a user with exceptionally low daily engagement compared to the national trend.
 
 ```{r fig.width=8, fig.height=6}
+#| label: fig-usage-hours-boxplot
+#| fig-cap: "Daily Usage Hours Boxplot by Top 5 Countries"
 ## Usage Hours ~ Top 5 Countries
 
 ## Sorting
@@ -611,13 +619,14 @@ plot_ly(
   )
 ```
 
-*Figure 7. Daily Usage Hours Boxplot by Top 5 Countries*
 
 ## Sleep Hours
 
-Meanwhile, the distribution of sleep hours was also investigated. Figure 8 revealed a roughly symmetrical distribution centered around a peak of approximately 7 to 7.5 hours of sleep per night. While the majority of students fall within a healthier range of 6 to 8 hours, the distribution exhibits a broad spread, with some individuals reporting as little as 4 hours and others reaching nearly 10 hours. This variation suggests a diverse range of sleeping habits within the student population.
+Meanwhile, the distribution of sleep hours was also investigated. @fig-sleep-hours-dist revealed a roughly symmetrical distribution centered around a peak of approximately 7 to 7.5 hours of sleep per night. While the majority of students fall within a healthier range of 6 to 8 hours, the distribution exhibits a broad spread, with some individuals reporting as little as 4 hours and others reaching nearly 10 hours. This variation suggests a diverse range of sleeping habits within the student population.
 
 ```{r}
+#| label: fig-sleep-hours-dist
+#| fig-cap: "Average Sleep Hours Distribution"
 ## Sleep Hours
 
 # histogram
@@ -651,11 +660,12 @@ plot_ly(
   )
 ```
 
-*Figure 8. Average Sleep Hours Distribution*
 
-Furthermore, looking into the distribution of average sleep hours by top 5 countries, Figure 9 showed a significant inverse trend compared to the previously analyzed usage hours distribution (Figure 7). While the USA and India presented the highest social media engagement, they recorded the lowest median sleep duration, both falling below 6 hours per night. Conversely, Denmark and France, which showed the most conservative usage patterns, enjoyed the highest median sleep hours, with Denmark leading at approximately 8.2 hours. In addition, India displayed a high number of upper outliers, indicating a group of students who maintained high sleep levels despite regional trends. These geographical variation suggested a negative correlation between digital engagement and sleeping, providing a critical baseline to later analysis of the relationship between behavioral patterns.
+Furthermore, looking into the distribution of average sleep hours by top 5 countries, @fig-sleep-hours-boxplot showed a significant inverse trend compared to the previously analyzed usage hours distribution (@fig-usage-hours-boxplot). While the USA and India presented the highest social media engagement, they recorded the lowest median sleep duration, both falling below 6 hours per night. Conversely, Denmark and France, which showed the most conservative usage patterns, enjoyed the highest median sleep hours, with Denmark leading at approximately 8.2 hours. In addition, India displayed a high number of upper outliers, indicating a group of students who maintained high sleep levels despite regional trends. These geographical variation suggested a negative correlation between digital engagement and sleeping, providing a critical baseline to later analysis of the relationship between behavioral patterns.
 
 ```{r fig.width=8, fig.height=6}
+#| label: fig-sleep-hours-boxplot
+#| fig-cap: "Average Sleep Hours Distribution by Top 5 Countries"
 ## Sleep Hours ~ Top 5 Countries
 
 ## Sorting
@@ -719,15 +729,16 @@ plot_ly(
   )
 ```
 
-*Figure 9. Average Sleep Hours Distribution by Top 5 Countries*
 
 # Correlation Analysis
 
 ## Sleep Hours and Usage Hours
 
-The scatter plot (Figure 10) demonstrate a strong negative correlation between daily media usage and sleep duration. As usage rises from 2 to 8 hours, sleep generally drops by about 1 hour for every additional 1 hours of use. Most points cluster along this downward trend, though some heavy users (6+ hours) still report around 7 hours of sleep, while moderate users (4-6 hours) fall to 6-8 hours of sleep.
+The scatter plot (@fig-usage-sleep-scatter) demonstrate a strong negative correlation between daily media usage and sleep duration. As usage rises from 2 to 8 hours, sleep generally drops by about 1 hour for every additional 1 hours of use. Most points cluster along this downward trend, though some heavy users (6+ hours) still report around 7 hours of sleep, while moderate users (4-6 hours) fall to 6-8 hours of sleep.
 
 ```{r}
+#| label: fig-usage-sleep-scatter
+#| fig-cap: "Relationship between Usage Hours and Sleep Hours"
 ## Sleep Hours ~ Usage Hours
 
 # scatter plot
@@ -760,7 +771,6 @@ plot_ly(
   )
 ```
 
-*Figure 10. Relationship between Usage Hours and Sleep Hours*
 
 To validate the trend, a Pearson's correlation test was conducted. As shown in the results (see Output 11), the correlation coefficient was around -0.79 (*p* \< .001). It therefore indicated that there was a high potential of students' average daily social media usage hours being negatively correlated with their sleep hours.
 
@@ -773,9 +783,11 @@ cor.test(x = df$Avg_Daily_Usage_Hours, y = df$Sleep_Hours_Per_Night)
 
 *Output 11. Pearson's Correlation Test Result*
 
-Figure 11 showed a linear fit of the two variables, which further clarified the negative correlation.
+@fig-usage-sleep-linear showed a linear fit of the two variables, which further clarified the negative correlation.
 
 ```{r}
+#| label: fig-usage-sleep-linear
+#| fig-cap: "Linear Relationship between Usage Hours and Sleep Hours"
 ## Sleep Hours ~ Usage Hours
 
 # linear model
@@ -824,11 +836,10 @@ plot_ly(
   )
 ```
 
-*Figure 11. Linear Relationship between Usage Hours and Sleep Hours*
 
 ## Other Indices
 
-In addition, it was also considered worthwhile investigating the relationship between other indices such as mental health score and addicted score (names of indices were shown in Output 12). Therefore, a faceted 5×5 paired scatter plot matrix was used to display all of the relationship trends (see Figure 12).
+In addition, it was also considered worthwhile investigating the relationship between other indices such as mental health score and addicted score (names of indices were shown in Output 12). Therefore, a faceted 5×5 paired scatter plot matrix was used to display all of the relationship trends (see @fig-indices-scatter).
 
 ```{r }
 ## Relationship between Indices
@@ -840,6 +851,8 @@ In addition, it was also considered worthwhile investigating the relationship be
 *Output 12. Names of Indices to Compare*
 
 ```{r fig.width=8, fig.height=6, out.width='95%'}
+#| label: fig-indices-scatter
+#| fig-cap: "Relationship between Indices"
 ## Relationship between Indices
 
 # extract numerical variable data
@@ -876,9 +889,8 @@ plot_ly(
   )
 ```
 
-*Figure 12. Relationship between Indices*
 
-The scatter plot matrix (Figure 12) illustrated a complex web of behavioral and psychological correlations, primarily centered on the detrimental effects of excessive social media usage. Meanwhile, Output 13 showed a correlation test matrix for all five indices, providing valid insights into behavioral trends.
+The scatter plot matrix (@fig-indices-scatter) illustrated a complex web of behavioral and psychological correlations, primarily centered on the detrimental effects of excessive social media usage. Meanwhile, Output 13 showed a correlation test matrix for all five indices, providing valid insights into behavioral trends.
 
 As shown by the results, a dominant negative correlation existed between usage hours and sleep, where increased screen time consistently aligns with diminished rest. This trend was further demonstrated by a positive correlation between usage and addiction levels, which in turn led to higher frequencies of life conflicts. Conversely, better mental health outcomes were associated with lower addiction scores, reduced usage, and longer sleep duration. Ultimately, the data suggested a negative feedback loop where high device dependency compromised sleep and social harmony, collectively contributing to poorer mental well-being.
 
@@ -1016,11 +1028,13 @@ make_hist <- function(
 
 ## Usage Hours
 
-In terms of the average media usage hours variable, a 2×2 histogram matrix (Figure 13) of sample mean distributions with different sample sizes (n = 10, 30, 50, 100) was plotted with axis scales being the same to see the trend of distribution shape. Meanwhile, Output 15 showed the population and sample statistics regarding usage hours.
+In terms of the average media usage hours variable, a 2×2 histogram matrix (@fig-usage-sample-means-grid) of sample mean distributions with different sample sizes (n = 10, 30, 50, 100) was plotted with axis scales being the same to see the trend of distribution shape. Meanwhile, Output 15 showed the population and sample statistics regarding usage hours.
 
 As results shown, with sample size increased, the distribution of sample means became more centralized, with smaller standard deviations. Meanwhile, all four means of sample means were nearly closed to the population mean, successfully predicting it; and the observed standard error (standard deviation of sample means) were approximate to the theoretical standard error derived using the population standard deviation.
 
 ```{r fig.width = 8, fig.height=5}
+#| label: fig-usage-sample-means-grid
+#| fig-cap: "Usage Hours Sample Means Probability Distribution"
 ## CLT - Usage Hours
 
 ## Draw random samples and plot
@@ -1056,7 +1070,6 @@ subplot(
   )
 ```
 
-*Figure 13. Usage Hours Sample Means Probability Distribution*
 
 ```{r results='hold'}
 ## CLT - Usage Hours
@@ -1126,9 +1139,11 @@ cat("\nPopulation Mean:", round(pop_mean_usage, 2),
 
 *Output 15. Comparison of Statistics Regarding Media Usage Hours*
 
-In addition, Figure 14 displayed one of the sample means distributions (n = 100, repeated 1000 times) with an ideal normal curve (n = 100) over it, which was calculated using the function `dnorm()` . The results demonstrated a highly coincident overlap between the sample means histogram and normal curve, in line with the CLT.
+In addition, @fig-usage-sample-means-normal displayed one of the sample means distributions (n = 100, repeated 1000 times) with an ideal normal curve (n = 100) over it, which was calculated using the function `dnorm()` . The results demonstrated a highly coincident overlap between the sample means histogram and normal curve, in line with the CLT.
 
 ```{r}
+#| label: fig-usage-sample-means-normal
+#| fig-cap: "Usage Hours Sample Means Probability Distribution (with Normal Curve)"
 ## CLT - Usage Hours
 
 ## Ideal normal distribution data
@@ -1196,13 +1211,14 @@ plot_ly() |>
   )
 ```
 
-*Figure 14. Usage Hours Sample Means Probability Distribution*
 
 ## Sleep Hours
 
-Likewise, similar approaches were applied to another numerical variable sleep hours. The result patterns shown in Figure 15, Output 15, and Output 16 were closely similar to those of media usage hours, again demonstrating the applicability of CLT.
+Likewise, similar approaches were applied to another numerical variable sleep hours. The result patterns shown in @fig-sleep-sample-means-grid, Output 15, and Output 16 were closely similar to those of media usage hours, again demonstrating the applicability of CLT.
 
 ```{r fig.width = 8, fig.height=5}
+#| label: fig-sleep-sample-means-grid
+#| fig-cap: "Sleep Hours Sample Means Probability Distribution"
 ## CLT - Sleep Hours
 
 # set random seed for reproducibility
@@ -1236,7 +1252,6 @@ subplot(
   )
 ```
 
-*Figure 15. Sleep Hours Sample Means Probability Distribution*
 
 ```{r results='hold'}
 ## CLT - Sleep Hours
@@ -1307,6 +1322,8 @@ cat("\nPopulation Mean:", round(pop_mean_sleep, 2),
 *Output 16. Comparison of Statistics Regarding Sleep Hours*
 
 ```{r}
+#| label: fig-sleep-sample-means-normal
+#| fig-cap: "Sleep Hours Sample Means Probability Distribution (with Normal Curve)"
 ## CLT - Sleep Hours
 
 ## Ideal normal distribution data
@@ -1368,7 +1385,6 @@ plot_ly() |>
   )
 ```
 
-*Figure 16. Sleep Hours Sample Means Probability Distribution*
 
 # Sampling Methods
 
@@ -1535,7 +1551,7 @@ cat("Sample SD of Usage Hour:", round(sd3, 3), "\n")
 
 ### Percentages of Platforms
 
-Output 20 presented the results of proportions of platforms in the population (top 5 platform data) and three samples. To facilitate the investigation, the means of difference between each sample value with its associated population value were calculated and shown in Output 21. Furthermore, Figure 17 visualized the results in Output 21.
+Output 20 presented the results of proportions of platforms in the population (top 5 platform data) and three samples. To facilitate the investigation, the means of difference between each sample value with its associated population value were calculated and shown in Output 21. Furthermore, @fig-sampling-diff visualized the results in Output 21.
 
 ```{r results='hold'}
 ## Comparison of Sampling Methods
@@ -1563,7 +1579,7 @@ sample_percs
 
 *Output 20. Population and Sample Percentages of Different Platforms*
 
-As shown in Output 21 and Figure 17, the values of stratified sampling without replacement showed the smallest difference from population values (0.002), indicating its strongest predictive power for platform proportion. In contrast, simple random sampling without replacement showed the lowest predictive power for it (mean difference was 0.029). Stratified sampling without replacement performed best may because it preserved the population’s underlying platform distribution within each stratum of platform, reducing sampling variability, whereas simple random sampling was more random and unpredictable across platform proportions.
+As shown in Output 21 and @fig-sampling-diff, the values of stratified sampling without replacement showed the smallest difference from population values (0.002), indicating its strongest predictive power for platform proportion. In contrast, simple random sampling without replacement showed the lowest predictive power for it (mean difference was 0.029). Stratified sampling without replacement performed best may because it preserved the population’s underlying platform distribution within each stratum of platform, reducing sampling variability, whereas simple random sampling was more random and unpredictable across platform proportions.
 
 ```{r results='hold'}
 ## Comparison of Sampling Methods
@@ -1594,6 +1610,8 @@ sort(round(mean_diffs, 3)); cat("\n")
 *Output 21. Differences from Population Percentage by Sampling Method*
 
 ```{r}
+#| label: fig-sampling-diff
+#| fig-cap: "Differences from Population Percentages by Sampling Method"
 ## Comparison of Sampling Methods
 
 ## Percentages of Platforms
@@ -1628,11 +1646,10 @@ plot_ly(
   )
 ```
 
-*Figure 17. Differences from Population Percentages by Sampling Method*
 
 ### Statistics of Usage Hours
 
-In addition to predicting the proportions of categories, the ability to predict mean and standard deviation across the three sampling methods were also tested. Output 22 showed the results of means and standard deviations, and a clearer visualization was shown in Figure 18.
+In addition to predicting the proportions of categories, the ability to predict mean and standard deviation across the three sampling methods were also tested. Output 22 showed the results of means and standard deviations, and a clearer visualization was shown in @fig-sampling-means-sds.
 
 ```{r results='hold'}
 ## Comparison of Sampling Methods
@@ -1654,9 +1671,9 @@ cat("Sample SDs:\n"); round(sample_sds, 3)
 
 *Output 22. Population and Sample Statistics of Media Usage Hours*
 
-In Figure 18, the dots at the centers of sticks represented the sample means, and the black whiskers represented the range of one sample standard deviation away from sample means, where the population mean and standard deviation were denoted using dashed lines with instruction text labels.
+In @fig-sampling-means-sds, the dots at the centers of sticks represented the sample means, and the black whiskers represented the range of one sample standard deviation away from sample means, where the population mean and standard deviation were denoted using dashed lines with instruction text labels.
 
-Combining Output 22 and Figure 18, it could be seen that for mean of numerical variable, stratified sampling without replacement showed the nearest result and the highest predictive power, whereas systematic sampling with unequal probabilities had the lowest predictive power.
+Combining Output 22 and @fig-sampling-means-sds, it could be seen that for mean of numerical variable, stratified sampling without replacement showed the nearest result and the highest predictive power, whereas systematic sampling with unequal probabilities had the lowest predictive power.
 
 However, in terms of standard deviation, simple random sampling with replacement had the most accurate prediction whereas stratified sampling without replacement had the least accurate prediction.
 
@@ -1665,6 +1682,8 @@ These discrepancies in predictive power likely stemmed from the inherent design 
 Conversely, simple random sampling with replacement provided a more accurate estimation of standard deviation possibly because the replacement mechanism allowed the sample to better reflect the true variability and noise of the underlying population, while the structured nature of stratification tended to compress internal variance, leading to an underestimation of the overall spread.
 
 ```{r fig.width=8, fig.height=6}
+#| label: fig-sampling-means-sds
+#| fig-cap: "Comparison of Means & SDs across Sampling Methods"
 ## Comparison of Sampling Methods
 
 ## Means & SDs of Usage Hours
@@ -1790,4 +1809,3 @@ plot_ly(
   )
 ```
 
-*Figure 18. Comparison of Means & SDs across Sampling Methods*

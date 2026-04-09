@@ -42,6 +42,7 @@ website:
 format:
   html:
     # self-contained: false
+    smooth-scroll: true
     theme:
       - minty
     syntax-highlighting: pygments

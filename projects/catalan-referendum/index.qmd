@@ -3,9 +3,11 @@ title: 'Twitter Sentiment Analysis of Catalan Referendum'
 author: 'Pinn Xu'
 date: '2024-11-01'
 categories: [Python, NLP, Social Media, Visualization]
+bibliography: references.bib
+csl: ../../apa.csl
 
 # code-tools: true
-# jupyter: dv-env  # use jupyter to render 
+# jupyter: dv-env  # use jupyter to render
 # format: html     # use knitr to render
 # df-print: kable  # df-print: only works with Rmd & knitr renderer
 # aliases: [ "catalan-referendum" ]
@@ -22,7 +24,7 @@ seaborn==0.13.2
 
 # Introduction
 
-This project uses a data set consisting of tweets about the Catalan referendum in Spain on Twitter, with attributes including basic information and emotional word counts of each tweet detected by different lexicons (Jiménez-Zafra et al., 2021) (refer to Appendix I for further description of attributes). A bar plot addresses performance differences between lexicons in detecting sentiment among tweets. In addition, the distribution of the author’s popularity among all tweets is illustrated by a histogram, distinguished by sentiments.
+This project uses a data set consisting of tweets about the Catalan referendum in Spain on Twitter, with attributes including basic information and emotional word counts of each tweet detected by different lexicons [@jimenezZafra2021] (see [Appendix I](#appendix-attributes) for further description of attributes). A bar plot addresses performance differences between lexicons in detecting sentiment among tweets. In addition, the distribution of the author’s popularity among all tweets is illustrated by a histogram, distinguished by sentiments.
 
 ```{python}
 # Import libraries
@@ -69,7 +71,7 @@ df = df.rename(
 df.info()
 ```
 
-![Figure 1. Datatypes and Attributes](./img/fig1-datatypes-attributes.png "Figure 1. Datatypes and Attributes"){fig-alt="Figure 1. Datatypes and Attributes"}
+![Datatypes and Attributes](./img/fig1-datatypes-attributes.png){#fig-datatypes-attributes fig-alt="Datatypes and Attributes"}
 
 ```{python}
 #| results: 'hold'
@@ -134,6 +136,8 @@ df_melted.head()  # initial melt result, before further processing
 ```
 
 ```{python}
+#| label: fig-sentiment-bar
+#| fig-cap: 'Online Sentiment towards the Catalan Referendum'
 ## Add sentiment column (positive/negative)
 
 # each returns a boolean Series checking 
@@ -168,16 +172,14 @@ sns.barplot(
     palette = ['salmon', 'royalblue'], errorbar = None,
 )
 plt.title('Online Sentiment towards the Catalan Referendum')
-plt.ylim(0, 0.6)  # set y-axis range
+plt.ylim(0, 0.7)  # set y-axis range
 plt.xlabel('Emotion Analysis Lexicon')
 plt.ylabel('Average Emotional Word Count')
 plt.legend(title = 'Sentiment')
 plt.show()
 ```
 
-[Figure 2. Online Sentiment towards the Catalan Referendum]{.caption}
-
-Figure 2 presents the average counts of emotional words detected from the selected tweets about the Catalan referendum, divided by three emotion analysis lexicons: iSOL, NRC, and mlSenticon. Positive and negative sentiments are distinguished by different colours, where a warm red colour ‘salmon’ is assigned to positive ones and a cool blue colour ‘royalblue’ to negative ones, which are two predefined colours in Matplotlib (List of named colors — Matplotlib 3.9.2 documentation, no date, sec. CSS Colors). They are moderate in saturation and intensity, avoiding eye strain of audiences (Wilke, 2019, chap. 19.1). Additionally, the colour assignment is intuitive because their temperature tendency typically corresponds to their allocated sentiments (Hanada, 2018), enhancing the ‘data-ink ratio’ of this plot (Wilke, 2019, chap. 23).
+@fig-sentiment-bar presents the average counts of emotional words detected from the selected tweets about the Catalan referendum, divided by three emotion analysis lexicons: iSOL, NRC, and mlSenticon. Positive and negative sentiments are distinguished by different colours, where a warm red colour ‘salmon’ is assigned to positive ones and a cool blue colour ‘royalblue’ to negative ones, which are two predefined colours in Matplotlib [@matplotlibColors]. They are moderate in saturation and intensity, avoiding eye strain of audiences [@wilke2019, chap. 19.1]. Additionally, the colour assignment is intuitive because their temperature tendency typically corresponds to their allocated sentiments [@hanada2018], enhancing the ‘data-ink ratio’ of this plot [@wilke2019, chap. 23].
 
 Overall, the number of negative words consistently exceeds that of positive ones, reflecting the relatively negative online public attitude towards the Catalan referendum.
 
@@ -185,13 +187,15 @@ Regarding the performance of each lexicon, NRC possibly has the most balanced pe
 
 ## Popularity Distribution
 
-The formula below is introduced to calculate the *popularity* (Riquelme and González-Cantergiani, 2016, pp. 6, 11) of tweet authors:
+The formula below is introduced to calculate the *popularity* [@riquelme2016, pp. 6, 11] of tweet authors:
 
 $$Popularity(i) = 1 - e^{-λ·Fi} $$
 
 *Popularity* indicates how popular a user could be, where *e* is the base of the natural logarithm, λ is a constant. The introduction of *popularity* aims to create an attribute storing ratio data reasonably distributed in histograms, since the original ratio attributes (e.g. follower count) seem too scattered to view.
 
 ```{python}
+#| label: fig-popularity-hist
+#| fig-cap: 'Author Popularity Distribution Histogram'
 ## Define popularity calculation function
 # F1: author follower count; e ≈ 2.718, λ = 0.001
 def calc_popularity(F1):
@@ -235,9 +239,7 @@ plt.ylim((0, 300))  # set y-axis range
 plt.show()
 ```
 
-[Figure 3. Author Popularity Distribution Histogram]{.caption}
-
-Figure 3 shows the distribution of author *popularity* among tweets, grouped by sentiments. Overall, most participants are at the lowest levels of *popularity*, and the number of tweets gradually decreases with the author *popularity* increasing, until the figure for *popularity* reaches its highest levels. Moreover, the majority of tweets are neutral, while negative contributions are more prevalent than positive ones.
+@fig-popularity-hist shows the distribution of author *popularity* among tweets, grouped by sentiments. Overall, most participants are at the lowest levels of *popularity*, and the number of tweets gradually decreases with the author *popularity* increasing, until the figure for *popularity* reaches its highest levels. Moreover, the majority of tweets are neutral, while negative contributions are more prevalent than positive ones.
 
 # Reflection
 
@@ -249,17 +251,10 @@ This project analyses the overall online attitude towards the Catalan referendum
 
 # References
 
-Hanada, M. (2018) ‘Correspondence analysis of color–emotion associations’, *Color Research & Application*, 43(2), pp. 224–237. Available at: <https://doi.org/10.1002/col.22171>.
+::: {#refs}
+:::
 
-Jiménez-Zafra, S.M. et al. (2021) ‘Catalan Referendum Twitter corpus’. *Zenodo*. Available at: <https://doi.org/10.5061/dryad.stqjq2c24>.
-
-List of named colors — Matplotlib 3.9.2 documentation (no date). Available at: <https://matplotlib.org/stable/gallery/color/named_colors.html#css-colors> (Accessed: 29 October 2024).
-
-Riquelme, F. and González-Cantergiani, P. (2016) ‘Measuring user influence on Twitter: A survey’, *Information Processing & Management*, 52(5), pp. 949–975. Available at: <https://doi.org/10.1016/j.ipm.2016.04.003>.
-
-Wilke, C.O. (2019) *Fundamentals of Data Visualization: A Primer on Making Informative and Compelling Figures.* Sebastopol: O’Reilly Media, Inc. Available at: <https://clauswilke.com/dataviz/> (Accessed: 29 October 2024).
-
-# Appendix I: Attributes Description
+# Appendix I: Attributes Description {#appendix-attributes}
 
 Below is the overall instruction of [the original dataset](https://zenodo.org/records/4750661) and description of each attribute offered by the dataset provider.
 
@@ -300,26 +295,26 @@ Below is the overall instruction of [the original dataset](https://zenodo.org/re
 | `favourites_count_user`<br>(renamed as `likes_count_user`) | Total number of favourited tweets by a user. |
 | `statuses_count_user`<br>(renamed as `tweets_count_user`) | Total number of tweets made by the author since the creation of the account. |
 
-# Appendix II: Validating Values Before Modifying Data Types
+# Appendix II: Validating Values Before Modifying Data Types {#appendix-data-types}
 
-In the beginning, only missing data of certain subsets were dropped via `.dropna()` method.
+In the beginning, only missing data of certain subsets were dropped via `.dropna()` method (@fig-drop-na).
 
-![Figure 4. Dropping NAs from certain columns only](./img/fig4-drop-na-from-col.png "Dropping NAs from certain columns only"){fig-alt="Dropping NAs from certain columns only"}
+![Dropping NAs from certain columns only](./img/fig4-drop-na-from-col.png){#fig-drop-na fig-alt="Dropping NAs from certain columns only"}
 
-However, errors occurred subsequently when modifying data types via `.astype()` method.
+However, errors occurred subsequently when modifying data types via `.astype()` method (@fig-astype-error).
 
-![Figure 5. Error when using `.astype(int)`](./img/fig5-error-astype-int.png "Error when using .astype(int)"){fig-alt="Error when using .astype(int)"}
+![Error when using `.astype(int)`](./img/fig5-error-astype-int.png){#fig-astype-error fig-alt="Error when using .astype(int)"}
 
-It was because the strings in those attributes were not all numerical, in which case the strings cannot be directly changed into integers via `.astype(int)`.
+It was because the strings in those attributes were not all numerical, in which case the strings cannot be directly changed into integers via `.astype(int)` (@fig-non-num-str).
 
-![Figure 6. Check non-numerical strings](./img/fig6-check-non-num-str.png "Check non-numerical strings"){fig-alt="Check non-numerical strings"}
+![Check non-numerical strings](./img/fig6-check-non-num-str.png){#fig-non-num-str fig-alt="Check non-numerical strings"}
 
 Therefore, it is necessary to check if all strings are numerical before applying methods to change the data type. Moreover, it was found that if all missing values were dropped initially via simply `.dropna()` (no keyword arguments), the probability of not returning errors would significantly increase.
 
-# Appendix III: Modifying Seaborn Histograms' Legend
+# Appendix III: Modifying Seaborn Histograms' Legend {#appendix-legend}
 
-Figure 3 (histogram of author *popularity*) was plotted via the seaborn function `.histplot()`, grouped in colours by defining the *hue* parameter. By this means, the legend was automatically generated, with the column label ‘overall_sentiment’ as the title. However, it does not make much sense as a title. The `plt.legend()` was thus employed aiming at changing the legend title and maintaining all other information. Nevertheless, it did not work perfectly with the legend as shown below. It is supposed that the error might be because there were conflicts between the legend automatically generated by Seaborn and the manually added legend via `plt.legend()` function.
+@fig-popularity-hist (histogram of author *popularity*) was plotted via the seaborn function `.histplot()`, grouped in colours by defining the `hue` parameter (@fig-first-attempt). By this means, the legend was automatically generated, with the column label ‘overall_sentiment’ as the title. However, it does not make much sense as a title. The `plt.legend()` was thus employed aiming at changing the legend title and maintaining all other information. Nevertheless, it did not work perfectly with the legend as shown below. It is supposed that the error might be because there were conflicts between the legend automatically generated by Seaborn and the manually added legend via `plt.legend()` function.
 
-![Figure 7. First Attempt](./img/fig7-first-attempt.png "First Attempt"){fig-alt="First Attempt"}
+![First Attempt](./img/fig7-first-attempt.png){#fig-first-attempt fig-alt="First Attempt"}
 
 Therefore, the `plt.legend()` argument was changed into the `ax.get_legend().set_title()` argument, which detected the generated legend in this plot, and then set a new title to it.

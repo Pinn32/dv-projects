@@ -3,6 +3,8 @@ title: 'Global Visa Cost Analysis and Interactive Visualization'
 author: 'Pinn Xu'
 date: '2024-12-12'
 categories: [Python, EDA, Sankey Diagram, Choropleth Map, Visualization]
+bibliography: references.bib
+csl: ../../apa.csl
 # css: 'jupyter-page.css'
 # jupyter: dv-env
 ---
@@ -18,7 +20,7 @@ plotly==5.24.1
 
 # Introduction
 
-This project uses the Global Visa Cost Dataset (Recchi et al., 2020) created by researchers from the European University Institute's Migration Policy Centre, which provides detailed information on visa costs between country pairs for seven categories in 2019 (see Appendix for further explanation). Data was primarily collected manually from governmental websites. Three types of interactive graphs – Sankey diagram, bar chart, and choropleth – will be employed to visualize data in the following sections.
+This project uses the Global Visa Cost Dataset [@recchi2020] created by researchers from the European University Institute's Migration Policy Centre, which provides detailed information on visa costs between country pairs for seven categories in 2019 (see [Appendix](#appendix) for further explanation). Data was primarily collected manually from governmental websites. Three types of interactive graphs – Sankey diagram, bar chart, and choropleth – will be employed to visualize data in the following sections.
 
 ```{python}
 import pandas as pd  # to deal with DataFrames
@@ -281,6 +283,8 @@ print(len(link_colors) == len(sources) == len(targets) == len(values))
 ### Creating Sankey Diagram
 
 ```{python}
+#| label: fig-sankey
+#| fig-cap: 'Sankey diagram of average tourist visa costs from each area'
 ##############################################################################
 import plotly.graph_objects as go  # to create sankey diagram
 
@@ -326,26 +330,24 @@ fig1.update_layout(
 fig1.show(config = {"responsive": True})      # display the sankey diagram
 
     #【renderer】
-    # This parameter is used to specify the renderer used to render 
+    # This parameter is used to specify the renderer used to render
     # the figure (Plotly, 2024b), and 'notebook' refers to Jupyter notebook.
 
-    # This project is edited and exported to HTML file using 
-    # Visual Studio Code with Jupyter extensions, in which case 
-    # renderer='notebook' is effective for diagram display within 
-    # Visual Studio Code and the exported HTML file. However, 
-    # this argument seems not working for diagram display within output 
+    # This project is edited and exported to HTML file using
+    # Visual Studio Code with Jupyter extensions, in which case
+    # renderer='notebook' is effective for diagram display within
+    # Visual Studio Code and the exported HTML file. However,
+    # this argument seems not working for diagram display within output
     # cells using Jupyter (but working for exported HTML file).
 ```
 
-[Figure 1. Sankey diagram of average tourist visa costs from each area]{.caption}
+As shown above, @fig-sankey illustrates the distribution of average tourist visa costs from global regions (e.g., Asia, Europe, Africa) to their corresponding subregions (e.g., Eastern Asia, Northern Europe). The width of the links from regions to subregions represents the average tourist visa cost per country (as countries of origin) in each subregion, while the widths of the links on the left-hand side (from the ‘World’ node to each region node) are the sum of their corresponding links towards the subregions. Overall, this Sankey diagram (@fig-sankey) shows the flow of global tourist visa costs.
 
-As shown above, Figure 1 illustrates the distribution of average tourist visa costs from global regions (e.g., Asia, Europe, Africa) to their corresponding subregions (e.g., Eastern Asia, Northern Europe). The width of the links from regions to subregions represents the average tourist visa cost per country (as countries of origin) in each subregion, while the widths of the links on the left-hand side (from the ‘World’ node to each region node) are the sum of their corresponding links towards the subregions. Overall, this Sankey diagram (Figure 1) shows the flow of global tourist visa costs.
+![Sankey diagram of average tourist visa costs from each area (sorted)](./img/fig2-sankey-sorted.png){#fig-sankey-sorted fig-alt="Sankey diagram of average tourist visa costs from each area (sorted)"}
 
-![Figure 2. Sankey diagram of average tourist visa costs from each area (sorted)](./img/fig2-sankey-sorted.png "Figure 2"){fig-alt="Figure 2"}
+Moreover, @fig-sankey-sorted provides the same Sankey diagram with manually sorted subregion nodes by their links’ values (average tourist visa costs), which could be of better interpretation for gaps between areas in tourist visa costs. As shown in @fig-sankey-sorted, subregions belonging to Asia and Africa exhibit significantly larger flows, indicating their higher overall tourist visa cost. In contrast, smaller flows can be seen in Europe, Australia and New Zealand, and Northern America, reflecting their lower average tourist visa costs. Meanwhile, within Asia, the Southern Asia area has the highest figure whereas Eastern Asia has the lowest. Likewise, Western Europe has the lowest figure among all European areas.
 
-Moreover, Figure 2 provides the same Sankey diagram with manually sorted subregion nodes by their links’ values (average tourist visa costs), which could be of better interpretation for gaps between areas in tourist visa costs. As shown in Figure 2, subregions belonging to Asia and Africa exhibit significantly larger flows, indicating their higher overall tourist visa cost. In contrast, smaller flows can be seen in Europe, Australia and New Zealand, and Northern America, reflecting their lower average tourist visa costs. Meanwhile, within Asia, the Southern Asia area has the highest figure whereas Eastern Asia has the lowest. Likewise, Western Europe has the lowest figure among all European areas.
-
-In general, Figures 1 and 2 reveal potential inequality between countries in different areas regarding the ability to leave their country. This gap will be further demonstrated in the following sections on the bar chart (Figures 3 and 4).
+In general, @fig-sankey and @fig-sankey-sorted reveal potential inequality between countries in different areas regarding the ability to leave their country. This gap will be further demonstrated in the following sections on the bar chart (@fig-bar-visa-cost and @fig-bar-daily-income).
 
 ## Bar Chart
 
@@ -373,6 +375,8 @@ bar_agg = df.groupby('source_subregion').agg(
 ### Creating Bar Chart
 
 ```{python}
+#| label: fig-bar-visa-cost
+#| fig-cap: 'Bar chart of average tourist visa costs from each subregion'
 # Creating a bar chart to show average tourist visa cost in each subregion
 
 fig2 = px.bar(
@@ -405,13 +409,13 @@ fig2.update_layout(
 fig2.show(config = {"responsive": True}) # displaying the figure
 ```
 
-[Figure 3. Bar chart of average tourist visa costs from each subregion]{.caption}
-
-Figure 3 presents the same data as in Figure 1 and Figure 2, which is the average tourist visa costs from each area (only subregions in Figure 3), grouped by region in different colors, while the bar chart (Figure 3) can show the difference in value more clearly as compared to Figure 2 since the length in Figure 3 (bar chart) are more distinguishable than the width of links in Figure 1, which is also in line with Wilke’s (Wilke, 2019, chap. 6) suggestion that bar chart could be more suitable for presenting variations in amount of value. It may be inferred from Figures 1, 2 and 3, that people in countries in well-developed areas (e.g., Western Europe) have to pay less to go abroad whereas those in underdeveloped countries in areas such as Southern Asia and Northern Africa should pay more to go abroad. Nevertheless, another variable ‘tourist_perdailyincome’ (see Appendix for detailed description) is introduced to calculate the underlying *actual* data on the level of tourist visa costs when adjusted by the average daily income in each country (Recchi et al., 2021, p. 4).
+@fig-bar-visa-cost presents the same data as in @fig-sankey and @fig-sankey-sorted, which is the average tourist visa costs from each area (only subregions in @fig-bar-visa-cost), grouped by region in different colors, while the bar chart (@fig-bar-visa-cost) can show the difference in value more clearly as compared to @fig-sankey-sorted since the length in @fig-bar-visa-cost (bar chart) are more distinguishable than the width of links in @fig-sankey, which is also in line with Wilke’s [@wilke2019, chap. 6] suggestion that bar chart could be more suitable for presenting variations in amount of value. It may be inferred from @fig-sankey, @fig-sankey-sorted and @fig-bar-visa-cost, that people in countries in well-developed areas (e.g., Western Europe) have to pay less to go abroad whereas those in underdeveloped countries in areas such as Southern Asia and Northern Africa should pay more to go abroad. Nevertheless, another variable ‘tourist_perdailyincome’ (see [Appendix](#appendix) for detailed description) is introduced to calculate the underlying *actual* data on the level of tourist visa costs when adjusted by the average daily income in each country [@recchi2021, p. 4].
 
 ```{python}
-# Creating a bar chart to show average tourist visa cost per daily income 
-# in each subregion, namely, the average working days to afford a 
+#| label: fig-bar-daily-income
+#| fig-cap: 'Average working days to afford tourist visa per subregion'
+# Creating a bar chart to show average tourist visa cost per daily income
+# in each subregion, namely, the average working days to afford a
 # tourist visa from countries in each subregion.
 
 fig3 = px.bar(
@@ -448,9 +452,7 @@ fig3.update_layout(
 fig3.show(config = {"responsive": True}) # displaying the figure
 ```
 
-[Figure 4. Average working days to afford tourist visa per subregion]{.caption}
-
-As shown in Figure 4, there are even more significant gaps between areas regarding their income-adjusted average tourist visa costs (i.e., average working days to afford a tourist visa), revealing a paradoxical global situation – the poorer a country, the more citizens in it should pay for tourist visas to go abroad.
+As shown in @fig-bar-daily-income, there are even more significant gaps between areas regarding their income-adjusted average tourist visa costs (i.e., average working days to afford a tourist visa), revealing a paradoxical global situation – the poorer a country, the more citizens in it should pay for tourist visas to go abroad.
 
 ## Choropleth
 
@@ -479,6 +481,8 @@ choro_agg = (
 ### Creating Choropleth
 
 ```{python}
+#| label: fig-choropleth
+#| fig-cap: 'Choropleth map of average tourist visa costs'
 # Creating a choropleth map to show average tourist visa cost in each country
 fig4 = px.choropleth(
     choro_agg, 
@@ -511,13 +515,11 @@ fig4.update_layout(
 fig4.show(config = {"responsive": True}) # displaying the figure
 ```
 
-[Figure 5. Choropleth map of average tourist visa costs]{.caption}
-
-Furthermore, we may gain insights by moving from the sub-region level to the country level. Figure 5 provides information about the distribution of average tourist visa costs in specific countries around the world, which varies with the continuous color indicator. According to Wilke (2019, p. 173), as for choropleth, it is typically accepted that dark-colored background areas in the maps behave better in visibility than light-colored background areas for webpages. Figure 5 thus employs a color map with dark-colored background areas, where the color gradually fades with the value increasing (Plotly, 2024a).
+Furthermore, we may gain insights by moving from the sub-region level to the country level. @fig-choropleth provides information about the distribution of average tourist visa costs in specific countries around the world, which varies with the continuous color indicator. According to @wilke2019 \[p. 173\], as for choropleth, it is typically accepted that dark-colored background areas in the maps behave better in visibility than light-colored background areas for webpages. @fig-choropleth thus employs a color map with dark-colored background areas, where the color gradually fades with the value increasing [@plotlyColorscales].
 
 # Reflection and Possible Improvements
 
-There is still space for improvement in this project. For instance, it only discussed one category of visa – tourist visa. Other types of visas could be included to gain more insights into nuanced variation. In addition, the color bar of the choropleth (Figure 5) may be refined by binned continuous color scales, because continuous color scales seem not easy to recognise specific color values and match them with areas in the map (Wilke, 2019, pp. 174–175).
+There is still space for improvement in this project. For instance, it only discussed one category of visa – tourist visa. Other types of visas could be included to gain more insights into nuanced variation. In addition, the color bar of the choropleth (@fig-choropleth) may be refined by binned continuous color scales, because continuous color scales seem not easy to recognise specific color values and match them with areas in the map [@wilke2019, pp. 174–175].
 
 # Conclusion
 
@@ -525,35 +527,10 @@ In conclusion, this project visualizes and analyses data about global tourist vi
 
 # References
 
-Nichols, D. (no date) *Coloring for Colorblindness*. Available at: <https://davidmathlogic.com/colorblind/> (Accessed: 11 December 2024)
+::: {#refs}
+:::
 
-Pandas (2024a) *pandas.core.groupby.DataFrameGroupBy.first*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.core.groupby.DataFrameGroupBy.first.html#pandas.core.groupby.DataFrameGroupBy.first) (Accessed: 12 December 2024)
-
-Pandas (2024b) *pandas.DataFrame.dropna*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.DataFrame.dropna.html) (Accessed: 11 December 2024)
-
-Pandas (2024c) *pandas.DataFrame.reset_index*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.DataFrame.reset_index.html) (Accessed: 11 December 2024)
-
-Pandas (2024d) *pandas.DataFrame.sort_values*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.DataFrame.sort_values.html) (Accessed: 12 December 2024)
-
-Pandas (2024e) *pandas.read_csv*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.read_csv.html) (Accessed: 10 December 2024)
-
-Pandas (2024f) *pandas.Series.unique*. Available at: [pandas](https://pandas.pydata.org/pandas-docs/version/2.2/reference/api/pandas.Series.unique.html) (Accessed: 10 December 2024)
-
-Plotly (2024a) *Built-in Continuous Color Scales in Python*. Available at: [plotly](https://plotly.com/python/builtin-colorscales/) (Accessed: 13 December 2024)
-
-Plotly (2024b) *plotly.graph_objects.Figure*. Available at: [plotly](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html#plotly.graph_objects.Figure.show) (Accessed: 10 December 2024)
-
-Python (2024a) *Built-in Functions*. Available at: [python](https://docs.python.org/3.12/library/functions.html) (Accessed: 10 December 2024)
-
-Python (2024b) *operator — Standard operators as functions*. Available at: [python](https://docs.python.org/3.12/library/operator.html) (Accessed: 10 December 2024)
-
-Recchi, E. et al. (2020) ‘Global Visa Cost Dataset’. Available at: <https://doi.org/10.5281/zenodo.4572529>
-
-Recchi, E. et al. (2021) ‘The global visa cost divide: How and why the price for travel permits varies worldwide’, *Political Geography*, 86(4). Available at: <https://doi.org/10.1016/j.polgeo.2021.102350>
-
-Wilke, C.O. (2019) *Fundamentals of Data Visualization: A Primer on Making Informative and Compelling Figures*. Sebastopol: O’Reilly Media, Inc.
-
-# Appendix
+# Appendix: Dataset Information {#appendix}
 
 **This appendix contains additional information about the dataset used in this project (the Global Visa Cost Dataset v1.1), including introduction of the dataset and detailed description of variables.**
 
