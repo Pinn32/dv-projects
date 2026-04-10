@@ -140,8 +140,8 @@
     transition: background 0.15s, color 0.15s;
     cursor: pointer;
 }
-.quarto-grid-item:hover .listing-category {
-    background: rgba(13,148,136,0.12) !important;
+.quarto-grid-item .listing-category:hover {
+    background-color: rgba(13,148,136,0.12) !important;
 }
 
 

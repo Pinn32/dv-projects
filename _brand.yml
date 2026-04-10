@@ -1,0 +1,13 @@
+# color:
+#   palette:
+#     color-name: color
+#   primary: "#1e90ff"
+#   secondary: "#ff6347"
+#   accent: "#32cd32"
+#   background: "#f0f8ff"
+#   foreground: "#333333"
+#   light: "#f0f8ff"
+#   dark: "#333333"
+
+logo: 
+  small: https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png

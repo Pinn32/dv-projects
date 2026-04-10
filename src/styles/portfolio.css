@@ -38,7 +38,8 @@
     --pf-radius-pill:    999px;
 
     /* code aesthetic */
-    --pf-mono:           'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    --pf-mono:           SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    /* --pf-mono:           'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace; */
 
     /* gradient */
     --pf-gradient:       linear-gradient(135deg, #0d9488 0%, #06b6d4 50%, #0d9488 100%);
@@ -75,10 +76,10 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: -0.01em;
 }
 
-h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; }
-h2 { font-size: clamp(1.35rem, 2.5vw, 1.75rem); font-weight: 600; }
-h3 { font-size: 1.2rem; font-weight: 600; }
-h4 { font-size: 1.05rem; font-weight: 600; }
+h1 { font-size: calc(1.8rem + 0.6vh); font-weight: 700; }
+h2 { font-size: calc(1.5rem + 0.6vh); font-weight: 600; }
+h3 { font-size: calc(1.35rem + 0.6vh); font-weight: 600; }
+h4 { font-size: calc(1.15rem + 0.6vh); font-weight: 600; }
 
 p { margin-bottom: 1rem; }
 
@@ -117,7 +118,7 @@ a:hover {
     align-items: center;
     gap: 0;
 }
-.navbar-brand::before {
+.navbar-title::before {
     content: '>_ ';
     font-family: var(--pf-mono);
     color: var(--pf-primary);
@@ -200,7 +201,7 @@ body:not(.quarto-sidebar-visible) .quarto-title-block {
 
 /* gradient animated title on the home page */
 body:not(.quarto-sidebar-visible) .quarto-title h1.title {
-    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-size: calc(2rem + 0.6vh);
     font-weight: 700;
     margin-bottom: 0.4rem;
     background: var(--pf-gradient-text);
@@ -254,7 +255,7 @@ body:not(.quarto-sidebar-visible) .quarto-title p.subtitle::before {
 h2#featured-projects {
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0;
     text-transform: uppercase;
     color: var(--pf-text-muted);
     margin-bottom: 1.25rem;
@@ -360,13 +361,13 @@ h2#featured-projects::before,
     font-weight: 500;
     background: var(--pf-primary-light);
     color: var(--pf-primary-hover);
-    border-radius: var(--pf-radius-pill);
-    padding: 0.15rem 0.6rem;
+    /* border-radius: var(--pf-radius-pill); */
+    /* padding: 0.15rem 0.6rem; */
     letter-spacing: 0.02em;
     border: 1px solid rgba(13,148,136,0.15);
     transition: background 0.15s, color 0.15s;
 }
-.featured-card:hover code {
+.featured-card code:hover {
     background: rgba(13,148,136,0.12);
     color: var(--pf-primary-hover);
 }
@@ -425,7 +426,7 @@ h2#featured-projects::before,
 /* 8. Article / Project Page Layout ======================================= */
 
 .quarto-title-block {
-    padding-bottom: 1rem;
+    /* padding-bottom: 1rem; */
     /* margin-bottom: 1rem; */
     border-bottom: 1px solid var(--pf-border);
 }
@@ -467,7 +468,7 @@ h2#featured-projects::before,
     transition: background 0.15s;
 }
 .quarto-title .quarto-categories .quarto-category:hover {
-    background: rgba(13,148,136,0.15);
+    background: rgba(11, 146, 135, 0.2);
 }
 
 /* article section headings — teal bar accent */
@@ -564,7 +565,7 @@ a.sidebar-item-text.sidebar-link.active > .menu-text {
 }
 .quarto-document-content table:not(.dataframe) tbody tr:hover,
 #quarto-document-content table:not(.dataframe) tbody tr:hover {
-    background-color: var(--pf-primary-light);
+    background-color: #f0f6f5;
 }
 
 
@@ -599,6 +600,13 @@ hr {
     background-color: var(--pf-primary);
 }
 
+/* ─── Fix Search Button Color ───────────────────────────────────────── */
+.navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon {
+    fill: var(--pf-primary);
+}
+.navbar .quarto-navbar-tools .quarto-navigation-tool {
+    color: var(--pf-primary);
+}
 
 
 /* make inline code monospace with the JetBrains Mono font */
@@ -669,6 +677,7 @@ code:not(.sourceCode) {
     border-left: 2px solid var(--pf-primary);
     padding-left: 0.4rem;
 }
+
 
 
 /* 13. Keyframe Animations ================================================ */

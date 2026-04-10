@@ -7,6 +7,18 @@ website:
   description: "A collection of projects by Pinn (Aiqi) Xu, showcasing work in data science, machine learning, and software development."
   favicon: src/img/favicon.ico
   navbar:
+    tools: 
+      - icon: github
+        menu:
+          - text: Source Code
+            href: https://github.com/Pinn32/dv-projects
+          - text: Report a Bug
+            href: https://github.com/Pinn32/dv-projects/issues
+      - icon: linkedin
+        href: https://www.linkedin.com/in/aiqi-xu-71943b378/
+      - icon: https://cdn.brandfetch.io/idriarYq6Q/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1686028240869
+        href: https://twitter.com/Pinn32
+
     left:
       # - href: index.qmd
       #   text: Home
@@ -14,9 +26,14 @@ website:
         href: projects/index.qmd
       - text: Tutorials
         href: tutorials/index.qmd
-      - text: About
-        href: about/index.qmd
+      - text: Hobbies
+        href: hobbies/index.qmd
+      # - text: About
+      #   href: about/index.qmd
+
+
   sidebar:
+    logo: false
     style: 'docked'
     # background: light
     # search: true
@@ -59,5 +76,6 @@ format:
     code-fold: true
     # code-summary: "Show the code"
 
+brand: _brand.yml
 editor: visual
 

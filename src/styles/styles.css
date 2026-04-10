@@ -12,7 +12,8 @@ figcaption,
 .caption {
     margin-top: 0;
     font-style: italic;
-    color: #aaa;
+    font-weight: normal;
+    color: #7d8790;
     font-size: 0.9em;
 }
 
@@ -135,7 +136,7 @@ code:not(.sourceCode){
     box-sizing: border-box;
 }
 
-/* dataframe outputs  =================================================== */
+/* dataframe (df) outputs  =================================================== */
 
 /* outer container */
 .cell-output-display {
@@ -182,7 +183,7 @@ code:not(.sourceCode){
 
 /* hover */
 .cell-output-display table.dataframe tbody tr:hover {
-    background-color: #cfe8e3;
+    background-color: #d8f3ee;
 }
 
 /* index column (first column th) */
