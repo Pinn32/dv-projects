@@ -3,6 +3,7 @@ title: 'Twitter Sentiment Analysis of Catalan Referendum'
 author: 'Pinn Xu'
 date: '2024-11-01'
 categories: [Python, NLP, Social Media, Visualization]
+description: 'Sentiment mining on tweets surrounding the 2017 Catalan independence referendum using NLP techniques.'
 bibliography: references.bib
 csl: ../../apa.csl
 

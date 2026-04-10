@@ -1,90 +1,238 @@
-/* projects landing page =============================================== */
+/* projects/index.qmd — style Quarto listing cards to match .featured-card
+    Relies on CSS vars defined in portfolio.css (loaded globally first)
+   ================================================================= */
 
-.gallery-wrapper {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+
+/* ── Layout ─────────────────────────────────────────────────────── */
+
+/* 2-column on md+, 1-column on mobile */
+.listing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+    margin-top: 0.25rem;
 }
 
-.tag-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+@media (max-width: 768px) {
+    .listing-grid {
+        grid-template-columns: 1fr !important;
+    }
 }
 
-.tag-btn {
-    padding: 0.3rem 0.85rem;
-    border: 1.5px solid #5cb8b2;
-    border-radius: 999px;
-    background: transparent;
-    color: #5cb8b2;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background 0.15s, color 0.15s;
-}
 
-.tag-btn:hover,
-.tag-btn.active {
-    background: #5cb8b2;
-    color: #fff;
-}
+/* ── Card shell — mirrors .featured-card ────────────────────────── */
 
-.project-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
-}
-
-.project-card {
-    border: 1px solid #dee2e6;
-    border-radius: 10px;
-    padding: 1.2rem 1.3rem;
-    text-decoration: none;
-    color: inherit;
+.quarto-grid-item.card {
+    background: #ffffff;
+    border: 1px solid var(--pf-border) !important;
+    border-radius: var(--pf-radius) !important;
+    padding: 1.4rem 1.5rem 1.4rem 1.75rem !important;
+    box-shadow: var(--pf-shadow) !important;
+    transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    transition: box-shadow 0.18s, transform 0.18s;
-    background: #fff;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    animation: fade-up 0.4s ease both;
 }
 
-.project-card:hover {
-    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
-    transform: translateY(-2px);
+/* teal left-border accent on hover */
+.quarto-grid-item.card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--pf-gradient);
+    border-radius: var(--pf-radius) 0 0 var(--pf-radius);
+    opacity: 0;
+    transition: opacity 0.22s ease;
+}
+/* corner glow on hover */
+.quarto-grid-item.card::after {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 100px; height: 100px;
+    background: radial-gradient(circle, rgba(94,234,212,0.12) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.quarto-grid-item.card:hover {
+    box-shadow: var(--pf-shadow-hover) !important;
+    transform: translateY(-3px);
+    border-color: rgba(13,148,136,0.25) !important;
+    text-decoration: none;
+}
+.quarto-grid-item.card:hover::before { opacity: 1; }
+.quarto-grid-item.card:hover::after  { opacity: 1; }
+
+/* stagger entrance */
+.quarto-grid-item:nth-child(1) { animation-delay: 0.05s; }
+.quarto-grid-item:nth-child(2) { animation-delay: 0.12s; }
+.quarto-grid-item:nth-child(3) { animation-delay: 0.19s; }
+.quarto-grid-item:nth-child(4) { animation-delay: 0.26s; }
+
+
+/* ── Card body — strip Bootstrap card-body padding (we handle it above) ── */
+
+.quarto-grid-item .card-body {
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+
+/* ── Title ──────────────────────────────────────────────────────── */
+
+.quarto-grid-item .listing-title {
+    font-family: 'DM Sans', system-ui, sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    color: var(--pf-text) !important;
+    margin: 0 !important;
+    line-height: 1.3;
+    transition: color 0.15s;
+}
+.quarto-grid-item a:hover .listing-title,
+.quarto-grid-item .listing-title a:hover {
+    color: var(--pf-primary) !important;
+}
+/* the anchor wrapping the title */
+.quarto-grid-item .card-body > a {
     text-decoration: none;
     color: inherit;
 }
 
-.project-card.hidden {
-    display: none;
-}
 
-.project-card h3 {
-    margin: 0;
-    font-size: 1.05rem;
-    color: #2c3e50;
-}
+/* ── Description ─────────────────────────────────────────────────── */
 
-.project-card p {
-    margin: 0;
+.quarto-grid-item .listing-description {
     font-size: 0.88rem;
-    color: #555;
-    line-height: 1.5;
+    color: var(--pf-text-secondary);
+    line-height: 1.55;
+    margin: 0;
 }
 
-.project-tags {
+
+/* ── Category badges — mirror .featured-card code tags ──────────── */
+
+.quarto-grid-item .listing-categories {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
     margin-top: auto;
-    padding-top: 0.6rem;
+    padding-top: 0.5rem;
 }
 
-.project-tag {
+.quarto-grid-item .listing-category {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+    font-size: 0.63rem !important;
+    font-weight: 500 !important;
+    background: var(--pf-primary-light) !important;
+    color: var(--pf-primary-hover) !important;
+    border-radius: 999px !important;
+    padding: 0.1rem 0.5rem !important;
+    border: 1px solid rgba(13,148,136,0.15) !important;
+    transition: background 0.15s, color 0.15s;
+    cursor: pointer;
+}
+.quarto-grid-item:hover .listing-category {
+    background: rgba(13,148,136,0.12) !important;
+}
+
+
+/* ── Category filter sidebar → style as horizontal pill buttons ──── */
+
+/* Quarto listing puts the category list at .quarto-listing-category */
+.quarto-listing-category-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pf-text-muted);
+    margin-bottom: 0.55rem;
+}
+
+.quarto-listing-category {
+    display: flex !important;
+    flex-wrap: wrap;
+    flex-direction: row !important;
+    gap: 0.45rem;
+    margin-bottom: 1.5rem;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* hide the default vertical sidebar styling */
+.quarto-listing-category .category {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.7rem !important;
+    border: 1.5px solid var(--pf-primary) !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: var(--pf-primary) !important;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
-    background: #e8f5f4;
-    color: #3a9e97;
-    border-radius: 999px;
-    padding: 0.15rem 0.6rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+}
+.quarto-listing-category .category:hover {
+    background: var(--pf-primary-light) !important;
+    color: var(--pf-primary-hover) !important;
+}
+.quarto-listing-category .category.active {
+    background: var(--pf-primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(13,148,136,0.18);
+}
+
+/* hide the "(N)" count badge that Quarto appends */
+.quarto-listing-category .category .quarto-category-count {
+    display: none;
+}
+
+/* ── Quarto listing "no results" message ─────────────────────────── */
+.quarto-listing-no-matching {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--pf-text-muted);
+    padding: 2rem 0;
+    text-align: center;
+}
+.quarto-listing-no-matching::before {
+    content: '// ';
+    color: var(--pf-primary-mid);
+}
+
+
+/* ── Responsive: categories below title, above cards on narrow screens ─ */
+
+/* JS in projects/index.qmd moves #quarto-margin-sidebar into main.content
+   (after #title-block-header) on ≤991 px, then back out on wider screens.
+   These rules style the sidebar once it is in that position.              */
+@media (max-width: 991px) {
+    /* Sidebar is moved into main by JS; make it visible and full-width  */
+    #quarto-margin-sidebar {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin-bottom: 1rem;
+        /* override any Quarto absolute/grid positioning */
+        position: static !important;
+        float: none !important;
+    }
+
+    /* Tighten category filter pill spacing on mobile */
+    .quarto-listing-category {
+        gap: 0.3rem;
+        margin-bottom: 0.5rem;
+    }
 }

@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Pinn (Aiqi) Xu Projects"
+  title: "Pinn (Aiqi) Xu"
   #title-separator: " | "
   description: "A collection of projects by Pinn (Aiqi) Xu, showcasing work in data science, machine learning, and software development."
   favicon: src/img/favicon.ico
@@ -18,7 +18,7 @@ website:
         href: about/index.qmd
   sidebar:
     style: 'docked'
-    background: light
+    # background: light
     # search: true
     collapse: true
     # contents: auto
@@ -43,10 +43,11 @@ format:
   html:
     # self-contained: false
     smooth-scroll: true
-    theme:
-      - minty
+    theme: minty
     syntax-highlighting: pygments
-    css: src/styles/styles.css
+    css:
+      - src/styles/styles.css
+      - src/styles/portfolio.css
     include-after-body: 
       - src/scripts/fix-code-fold.html
       # - src/scripts/fix-navbar-active.html
