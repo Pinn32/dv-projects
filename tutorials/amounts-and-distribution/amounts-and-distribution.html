@@ -1,0 +1,2247 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>目录 – Pinn (Aiqi) Xu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../src/img/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ef0e0a761eca2246a004107746f42e82.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../src/styles/styles.css">
+<link rel="stylesheet" href="../../src/styles/portfolio.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Pinn (Aiqi) Xu</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../projects/index.html" aria-current="page"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutorials/index.html"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about/index.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>目录</strong></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../projects/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">All Projects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Twitter Sentiment Analysis of Catalan Referendum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Global Visa Cost Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Student Social Media Usage &amp; Addiction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Most Streamed Songs on Spotify</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../about/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#拓展两种求-同一个岛屿内的企鹅总数-的方式" id="toc-拓展两种求-同一个岛屿内的企鹅总数-的方式" class="nav-link active" data-scroll-target="#拓展两种求-同一个岛屿内的企鹅总数-的方式"><strong>⭕拓展：两种求 “同一个岛屿内的企鹅总数” 的方式</strong></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><strong>目录</strong></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p><strong><a href="#section1">1. Seaborn 库 和 Matplotlib 库</a></strong></p>
+<p><strong><a href="#section2">2. 绘制柱状图</a></strong><br>
+&gt;<strong><a href="#section2.1">2.1 用 Seaborn 绘制基础柱状图</a></strong><br>
+&gt;&gt;<strong><a href="#section2.1.1">2.1.1 基础柱状图</a></strong><br>
+&gt;&gt; &gt;&gt;<strong><a href="#section2.1.2">2.1.2 Count Plot</a></strong><br>
+&gt; &gt;<strong><a href="#section2.2">2.2 柱分组 &amp; 去除误差线</a></strong><br>
+&gt; &gt;<strong><a href="#section2.3">2.3 设置总主题风格</a></strong><br>
+&gt; &gt;<strong><a href="#section2.4">2.4 调整图例</a></strong><br>
+&gt; &gt;<strong><a href="#section2.5">2.5 修改颜色</a></strong></p>
+<p><strong><a href="#section3">3. 绘制其他图</a></strong><br>
+&gt;<strong><a href="#section3.1">3.1 点线图</a></strong><br>
+&gt; &gt;<strong><a href="#section3.2">3.2 直方图</a></strong><br>
+&gt;&gt;<strong><a href="#section3.2.1">3.2.1 stat 参数</a></strong> &gt;&gt; &gt;&gt;<strong><a href="#section3.2.2">3.2.2 common_norm 参数</a></strong> &gt; &gt;<strong><a href="#section3.3">3.3 箱线图</a></strong><br>
+&gt; &gt;<strong><a href="#section3.4">3.4 小提琴图</a></strong><br>
+&gt; &gt;<strong><a href="#section3.5">3.5 散点图 &amp; 分簇散点图</a></strong></p>
+<p><strong><a href="#links">相关链接合集</a></strong></p>
+</blockquote>
+**
+<h1 id="section1">
+<ol type="1">
+<li>Seaborn 库 和 Matplotlib 库
+</li></ol></h1>
+**
+
+<p>⭕<strong>注意：预先下载 Seaborn 库</strong></p>
+<p>用 VS code (本地) 编辑 Jupyter Notebook 时，若想导入 Seaborn 库 (to import Seaborn library)，需要先下载库 (to install Seaborn library)，用以下代码下载最新版 Seaborn 库：</p>
+<pre><code>pip install seaborn</code></pre>
+<p>用 Google Colab 编辑则无需下载。</p>
+<div id="cell-4" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns  <span class="co"># 导入 Seaborn 库</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="cell-5" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt  <span class="co"># 导入 Matplotlib 库</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>👆此处是导入 Matplotlib 库（Library）并将 <code>matplotlib.pyplot</code> 定义为 <code>plt</code> 短称，为了方便使用。<br>
+如果不使用短称，也可以直接通过使用完整路径来调用 Matplotlib 库，例如：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> matplotlib.pyplot     <span class="co"># 从 matplotlib.pyplot 接口导入 Matplotlib 库</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    matplotlib.pyplot.plot(略)  <span class="co"># 用 .plot() 函数画图</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    matplotlib.pyplot.show()     <span class="co"># 用 .show() 函数展示画好的图表</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>但不推荐这样用，更常见的方式是用 <code>plt</code> 作为 matplotlib.pyplot 的别名，这样更简洁：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt <span class="co"># 从 matplotlib.pyplot 接口导入 Matplotlib 库，并给予短称 'plt'</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    plt.plot(略)                  <span class="co"># 用 .plot() 函数画图</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    plt.show()                      <span class="co"># 用 .show() 函数展示画好的图表</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p><code>mpl</code> 是 <code>matplotlib</code> 的常用短称，是整个库的入口，包含很多子模块和工具，<br>
+适合做全局配置、修改底层属性，或使用高级的子模块（如色彩映射 cm、三维绘图等）。</p></li>
+<li><p><code>plt</code> 是 <code>matplotlib.pyplot</code> 的常用短称，主要用于快速创建和管理图表，<br>
+是一个更高层次的接口。如果仅需快速绘图和调整图表，仅用 <code>plt</code> 即可。</p></li>
+</ul>
+<p><strong>相关链接：<a href="https://matplotlib.org/stable/api/pyplot_summary.html">matplotlib.pyplot 教程</a></strong></p>
+<div id="cell-9" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)  <span class="co"># 用 Seaborn 加载一个自带的示例 dataset —— 企鹅 dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="cell-10" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.info()  <span class="co"># show info of df</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 344 entries, 0 to 343
+Data columns (total 7 columns):
+ #   Column             Non-Null Count  Dtype  
+---  ------             --------------  -----  
+ 0   species            344 non-null    object 
+ 1   island             344 non-null    object 
+ 2   bill_length_mm     342 non-null    float64
+ 3   bill_depth_mm      342 non-null    float64
+ 4   flipper_length_mm  342 non-null    float64
+ 5   body_mass_g        342 non-null    float64
+ 6   sex                333 non-null    object 
+dtypes: float64(4), object(3)
+memory usage: 18.9+ KB</code></pre>
+</div>
+</div>
+<p><strong>【float data】</strong></p>
+<p>length/depth…等 float data（浮点数），都是 decimal 数（小数）。<br>
+float (浮点数) 数据类型可以用来表示 ratio 或 interval data，此处的数据 (长度、质量等) 有 true zero（0代表“无”），所以是 ratio data；<br>
+如果是用浮点数表示的温度数据（18.5°、36.8°等），无 true zero (0°不代表“没有温度”)，则为 interval data</p>
+<p><strong>【object data】</strong></p>
+<p>species/island/sex… 等 object (对象) 数据都是 string（字符串）。<br>
+object 数据类型可以用来表示 nominal 或 ordinal data。<br>
+此处的 species (种类名称) 和 insland (岛名称) 是 nominal data；sex (性别) 是 ordinal data。</p>
+<div id="cell-12" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.head()  <span class="co"># show the first 5 rows of df</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>Female</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df.tail()  <span class="co"># show the last 5 rows of df</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">339</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">340</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>46.8</td>
+<td>14.3</td>
+<td>215.0</td>
+<td>4850.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">341</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>50.4</td>
+<td>15.7</td>
+<td>222.0</td>
+<td>5750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">342</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>45.2</td>
+<td>14.8</td>
+<td>212.0</td>
+<td>5200.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">343</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>49.9</td>
+<td>16.1</td>
+<td>213.0</td>
+<td>5400.0</td>
+<td>Male</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-14" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df.sample(<span class="dv">5</span>)  <span class="co"># show 5 random rows (随机展示五个条目)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">21</th>
+<td>Adelie</td>
+<td>Biscoe</td>
+<td>37.7</td>
+<td>18.7</td>
+<td>180.0</td>
+<td>3600.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">6</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>38.9</td>
+<td>17.8</td>
+<td>181.0</td>
+<td>3625.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">267</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>50.5</td>
+<td>15.9</td>
+<td>225.0</td>
+<td>5400.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">181</th>
+<td>Chinstrap</td>
+<td>Dream</td>
+<td>52.8</td>
+<td>20.0</td>
+<td>205.0</td>
+<td>4550.0</td>
+<td>Male</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">261</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>49.6</td>
+<td>16.0</td>
+<td>225.0</td>
+<td>5700.0</td>
+<td>Male</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>⭕注意：函数 (funcitno) v.s. 方法 (method)</strong></p>
+<p><code>df.info()</code> <code>df.head()</code> <code>df.tail()</code> <code>df.sample()</code> 等都是对于 df 这个具体 DataFrame 对象的【方法 (method)】，其功能类似【函数 (function)】，但不是函数。method 是基于具体对象的，对具体对象做出改变，不可凭空调用。</p>
+<p>例如，<code>pd.read_csv()</code> 是一个 Pandas 库中预先定义好的函数 (function)：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(<span class="st">'文件路径'</span>)   <span class="co"># 读取 csv 文件</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>而 <code>df.sample()</code> 是对 df 这个具体的 DataFrame 对象进行操作的方法 (method)：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    df.sample(<span class="dv">4</span>)   <span class="co"># 任意选取四行</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+**
+<h1 id="section2">
+<ol start="2" type="1">
+<li>绘制柱状图
+</li></ol></h1>
+**
+
+**
+<h2 id="section2.1" class="anchored">
+2.1 用 Seaborn 绘制基础柱状图
+</h2>
+<p>**</p>
+**
+<h3 id="section2.1.1" class="anchored">
+2.1.1 基础柱状图
+</h3>
+<p>**</p>
+<div id="cell-19" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 用 Seaborn 绘制基础柱状图</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>)  <span class="co">#⭐1</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 👆调用 plt.show() 函数来展示 plot</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 也可以不写 plt.show()，jupyter notebook 或 google colab 会自动展示上面的图表</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 但画的图比较复杂时可能会在 output 里显示很多文字信息，因此最好每次都写 plt.show()</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ⭕【Barchart】</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   用 Seaborn 画 bar chart 时，默认输入的 x 轴值作为 category，y 轴值作为 amount</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   如果对于同一个 category，有多个 amount，则默认取平均值。可以通过修改【estimator参数】来改成别的值。</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ⭕【Error Bar】</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   黑色竖线是 error bar (误差线)。默认 sns.barplot() 函数中的【errorbar参数】 为 errorbar=('ci', 95)</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   意为使用 置信区间 (confidence interval) 公式计算误差 (error)，置信水平为 95% (“有 95% 的把握确定计算得出的结果就是误差区间”)。</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   默认 error bar 显示为一条黑线，可以通过设置 errcolor 和 errwidth 等参数来进一步设置 error bar。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-20" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 更改柱显示值为【总和】（默认为【平均值】）</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>,estimator<span class="op">=</span><span class="st">'sum'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【estimator参数】</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   默认 estimator='mean'，此处改成了 'sum' 来求每个岛上的企鹅总数</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>相关链接: <a href="https://seaborn.pydata.org/generated/seaborn.barplot.html"><code>sns.barplot()</code> 函数的用法</a></strong> (查看 <strong><em>estimator参数</em></strong> 的用法)</p>
+<div id="cell-22" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 展示你当前使用的 Seaborn 库的版本号</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sns.__version__</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Seaborn 0.12 版本中，默认生成 bar chart 是不同颜色的 bar</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 但是这种颜色区分其实是 visual distraction，是 big duck</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 因为通过 x 轴上的名称标签已经可以区分这三个 bar 了，无需再用颜色区分</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 所以 Seaborn 0.13 版本中改进了这一点，全部默认为蓝色 bar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>'0.13.2'</code></pre>
+</div>
+</div>
+<div id="cell-23" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 求所有来自【Biscoe岛】的企鹅的【体质量】的平均值</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df.loc[(df[<span class="st">'island'</span>]<span class="op">==</span><span class="st">'Biscoe'</span>), <span class="st">'body_mass_g'</span>].mean()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕注意：</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   这个值，即为刚才画的图表中，【Biscoe】bar 在 y轴 上对应的值。</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   因为【Biscoe岛】这个 category 下的【体质量】amount 有多个数值，调用 sns.barplot() 函数画图时默认取了平均值，并显示了误差范围（黑线）。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>4716.017964071856</code></pre>
+</div>
+</div>
+**
+<h3 id="section2.1.2" class="anchored">
+2.1.2 Count Plot
+</h3>
+<p>**</p>
+<div id="cell-25" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制计数图表</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df,x<span class="op">=</span><span class="st">'species'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 不同于 Bar Plot 需要输入两个轴的数据，计数图表只需要输入一个轴的数据，</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 他会自动统计每个 category 出现的次数，作为另一个轴的数据。</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 此处自动统计了 “每个种类的企鹅分别出现的次数”。</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>相关链接： <a href="https://seaborn.pydata.org/generated/seaborn.countplot.html"><code>sns.countplot()</code> 用法</a></strong></p>
+**
+<h2 id="section2.2" class="anchored">
+2.2 柱分组 &amp; 去除误差线
+</h2>
+<p>**</p>
+<p><strong>为了更好地展示信息，我们对 bar 进行分组，并去除 error bar (黑线)</strong></p>
+<div id="cell-29" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 为了更好地展示信息，我们对 bar 进行分组，并去除 error bar (黑线)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span>(<span class="st">'ci'</span>,<span class="dv">0</span>),hue<span class="op">=</span><span class="st">'sex'</span>)  <span class="co">#⭐2</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#⭐2 在 ⭐1 的基础上，加入了两句 keyword argument：</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># errorbar=('ci', 0) 和 hue='sex' </span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 来设置 “误差线” 和 “色相” 两个参数</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【errorbar参数】</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   errorbar=('ci',0) 代表 “按照置信区间 (ci) 计算公式求误差范围，其中置信水平为 0% (即，完全不相信) ”，</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   而当置信水平为 0 的时候，置信区间的计算没有意义，没有误差范围。</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   即，没有 error bar。</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【注意1】</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   此处完全可以直接设置 errorbar 参数为 errorbar=None，直接不计算误差范围（即，不显示黑线）。</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【hue参数】</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   hue='sex' 意为用颜色/色相 (hue) 对 df 中的 'sex' attribute (性别列) 进行分组，并自动生成图例 (legend)。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>相关链接</strong> * <strong><a href="https://seaborn.pydata.org/generated/seaborn.barplot.html"><code>sns.barplot()</code> 函数的用法</a></strong> （查看 <strong><em>errorbar 参数</em></strong> 和 <strong><em>hue 参数</em></strong> ）</p>
+**
+<h2 id="section2.3" class="anchored">
+2.3 旋转刻度标签
+</h2>
+<p>**</p>
+<p><strong>当 categories 的名称 (岛名称，即当前x轴刻度名称) 过长且密集时，可以旋转刻度名称：</strong></p>
+<div id="cell-33" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 用 Matplotlib 库，让现在 x 轴的刻度标签(数字)分别旋转 45°</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span>(<span class="st">'ci'</span>,<span class="dv">0</span>),hue<span class="op">=</span><span class="st">'sex'</span>)  <span class="co">#⭐2</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)  </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 【rotation参数】旋转的角度数，默认逆时针旋转。</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 【ha参数】horizontal alignment (水平对齐) 的缩写，ha='right' 意为刻度标签的右端与刻度线对齐。</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 详见链接 plt.xticks() 函数用法中，对于【kwargs】(keyword argument) 栏目的介绍</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>相关链接：</strong><br>
+* <strong><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html"><code>plt.xticks()</code> 函数用法</a></strong> （ <strong><em>kwargs</em></strong> (keyword argument) 栏目中写了如何旋转刻度标签）</p>
+<p><strong>然而，根据 <a href="https://clauswilke.com/dataviz/visualizing-amounts.html#bar-plots">Wilke (2019, chap.&nbsp;6.1)</a> 的主张，旋转的文字刻度并不方便阅读。对于 category 多且密集的表格，他建议让表格横过来排版:</strong></p>
+<div id="cell-36" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 在 ⭐2 的基础上，交换 xy 轴的数据，使表格横过来</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>)  <span class="co">#⭐3</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕注意：</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   xy 轴的 data 交换后，Seaborn 默认让 nominal data (此处为岛的名称) </span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   当 category，让 ratio data (此处为体质量) 当 amount；</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   而非仍然默认 x轴 为 category ，y轴 为 amount。</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>但我们作图的时候并非必须要遵循 <a href="https://clauswilke.com/dataviz/">Wilke (2019)</a> 的主张，也可以让刻度倾斜。</strong></p>
+<p><strong>以上技巧同样适用于计数图表 (Count Plot)：</strong></p>
+<div id="cell-39" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 以上技巧同样适用于 Count Plot</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'species'</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 直接让 y轴 当 categories，并根据性别按照颜色分组。</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 此时 x轴 代表 “每种企鹅出现的次数”</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+**
+<h2 id="section2.3" class="anchored">
+2.3 设置总主题风格
+</h2>
+<p>**</p>
+<div id="cell-41" class="cell" data-execution_count="18">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置 Seaborn 绘图的总主题风格</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>sns.set_theme(font_scale<span class="op">=</span><span class="fl">1.2</span>, style<span class="op">=</span><span class="st">'darkgrid'</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 字号 1.2，风格深色带网格。</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ⭕注意：sns.set_theme() 是 Seaborn 的一个全局函数，针对接下来所有用 Seaborn 画的图，而不是仅限于此代码块；</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   而 ax.set() 等方法（下文提到），仅针对 ax 这个具体的图表。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><strong><code>sns.set_theme()</code> 函数一般用于可视化项目最开始的时候设置全局绘图主题。</strong><br>
+<strong>如果想要恢复初始主题，可以直接调用 <code>sns.reset_orig()</code> 函数恢复全局默认设置。</strong></p>
+<div id="cell-43" class="cell" data-execution_count="19">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 在新主题风格下用 Seaborn 画图</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>)  <span class="co">#还是⭐3，但定义了变量 ax，为了方便下一行 ax.set() 操作</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 然后，用 Matplotlib 库中的 ax.set() 方法 (method) ，给刚画的图表设置标题、标签等元素</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>⭕注意1：</strong></p>
+<p>👆此处的 ax 变量是一个用 Seaborn 生成的 Axes 对象（即，含有多个轴的图表对象）。<br>
+把用 Seaborn 生成的一个具体图表 (具体 Axes 对象) 定义为 ax 变量之后，可以利用其他库 (比如 MatPlotLib) 再进行后续操作。<br>
+此操作类似于给特定的 DataFrame 对象设置为 df 变量，然后再用具体的 方法 (method) 对 df 进行操作。</p>
+<p><strong>⭕注意2：</strong></p>
+<p>不要将 <strong>Matplotlib 库</strong> 中基于具体图表 (具体 Axes 对象) 的 <strong><code>ax.set()</code> 方法</strong> 和 <strong>Seaborn 库</strong> 中的 <strong><code>sns.set()</code> 函数</strong> 混淆。</p>
+<ul>
+<li><p><code>sns.set()</code> 和 <code>sns.set_theme()</code> 是 Seaborn 库中，完全一致的函数，<code>sns.set()</code> 只是 <code>sns.set_theme()</code> 的别称罢了 (为了方便书写)。<br>
+其中，<code>sns.set_theme()</code> 是该函数的首选接口 (preferred interface)。该函数用来设置 Seaborn 的全局主题风格。</p></li>
+<li><p><code>ax.set()</code> 是 Matplotlib 库中，基于具体图表对象的一个方法 (method)，用来修改具体图表对象。</p></li>
+</ul>
+<p><strong>相关链接：</strong><br>
+<a href="https://seaborn.pydata.org/generated/seaborn.set.html"><code>sns.set()</code> 函数</a><br>
+<a href="https://seaborn.pydata.org/generated/seaborn.set_theme.html#seaborn.set_theme"><code>sns.set_theme()</code> 函数</a><br>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set.html"><code>ax.set()</code> 方法</a></p>
+**
+<h2 id="section2.4" class="anchored">
+2.4 调整图例
+</h2>
+<p>**</p>
+<p><strong>【拓展】<em>errorbar 参数</em> 设置对于图例位置的影响：</strong></p>
+<div id="cell-49" class="cell" data-execution_count="20">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># errorbar 不存在</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>) </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ⭕注：error bar 不存在，图例自动生成在右边</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-50" class="cell" data-execution_count="21">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># errorbar 存在，但大小为0</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span>(<span class="st">'ci'</span>,<span class="dv">0</span>),hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕注：error bar 存在但为 0，图例生成时自动避免了遮挡 error bar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>不论 <code>errorbar=('ci',0)</code> 还是 <code>errorbar=None</code>，上图中的图例 (legend) 对柱状图都有所遮挡，需要调整图例的位置。</strong></p>
+<div id="cell-52" class="cell" data-execution_count="22">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⭐3</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 在 ⭐3 基础上加了一句函数调整图例位置大小</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>sns.move_legend(ax,bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>,<span class="op">-</span><span class="fl">0.2</span>),loc<span class="op">=</span><span class="st">'upper center'</span>,ncols<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【obj参数】</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   obj 参数是 sns.move_legend() 函数括号内的第一个参数。</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   它是一个图表对象，作为需要移动图例的源图表对象，此处为 ax。</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【loc参数】</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   Seaborn 中此处的 loc参数 默认可以为 字符串 (str) 或 整数 (int)。</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   默认的字符串有 'upper left' 'upper center' 'down right' 等，</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   让图例自动位于图表的左上角、上部居中、右下角等位置。</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【注意】</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   只设置了 loc参数 而不设置 bbox_to_anchor参数 时，loc 参数 代表 “图例位于整个图表的 XX (e.g. 右上角)”</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   而当同时设置了 loc参数 和 bbox_to_anchor参数 时，loc参数 代表 “图例的 XX (e.g.右上角) 位于整个图表的 (x,y) 位置”</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【bbox_to_anchor参数】</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   用边界框来固定 (use a bound box to anchor the legend)。必须和 loc参数联用。</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   可以设置二元数组 (x,y) 或四元数组 (横坐标,纵坐标,宽度,高度)，此处只用了二元数组。</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   此处 bbox_to_anchor=(0.5,-0.2) 和 loc='upper center' 联用，</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="co">#   意为 “让图例的上边缘中点，位于整个图表的 (0.5,-0.2) 位置”。</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【ncols参数】</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="co">#   图例的列数 (The number of columns that the legend has)，默认为 1</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   此处只有 male 和 female 两个组，最多分两列。</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-53" class="cell" data-execution_count="23">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 同上</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 只设置 loc参数 而不设置 bbox_to_anchor参数</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>sns.move_legend(ax,loc<span class="op">=</span><span class="st">'lower right'</span>)  </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 意为 “让图例位于整个图表的右下角”</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-54" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 同上</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># bbox_to_anchor参数 和 loc参数 联用</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>sns.move_legend(ax,bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>),loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 意为 “让图例的左上角位于整个图表的 (1,1) 位置”</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-24-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>相关链接：</strong><br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.move_legend.html"><code>sns.move_legend()</code> 用法</a></strong> （查看 <strong><em>obj参数</em></strong> 和 <strong><em>loc参数</em></strong> 的用法）<br>
+<strong><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html"><code>matplotlib.axes.Axes.legend()</code> 用法</a></strong> （查看 <strong><em>loc参数</em></strong> ，<strong><em>ncols参数</em></strong> 和 <strong><em>bbox_to_anchor参数</em></strong> 的用法）</p>
+**
+<h2 id="section2.5" class="anchored">
+2.5 修改颜色
+</h2>
+<p>**</p>
+<p>为了美观与直观，我们可以修改图表的颜色（但注意不要形成 big duck）。<br>
+可以使用 Seaborn 库中预设的调色盘 (predifined Seaborn palettes)，或者手动输入十六进制颜色代码 (hexadecimal colour codes)。</p>
+<div id="cell-58" class="cell" data-execution_count="25">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#【⭐4】默认初始 Seaborn 颜色方案</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>sns.move_legend(ax,bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>),loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-59" class="cell" data-execution_count="26">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⭐4 的基础上，增加了 palette='flare' （'flare' 是 Seaborn 的预设颜色方案名称之一）</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>, palette<span class="op">=</span><span class="st">'flare'</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>sns.move_legend(ax,bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>),loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-26-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-60" class="cell" data-execution_count="27">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seaborn 预设颜色名称：'blue' 和 'orange'</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>, palette<span class="op">=</span>[<span class="st">'blue'</span>,<span class="st">'orange'</span>])</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>sns.move_legend(ax,bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>),loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-61" class="cell" data-execution_count="28">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 十六进制颜色代码：'#a1c9f4' 和 '#8de5a1'</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>,errorbar<span class="op">=</span><span class="va">None</span>,hue<span class="op">=</span><span class="st">'sex'</span>, palette<span class="op">=</span>[<span class="st">'#a1c9f4'</span>,<span class="st">'#8de5a1'</span>])</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>sns.move_legend(ax,bbox_to_anchor<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>),loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong><code>sns.barplot()</code> 函数中的 <code>palette</code> 参数可以是:</strong></p>
+<blockquote class="blockquote">
+<p><strong>1. Seaborn 的预定义调色板 (palette) 名称，可以直接通过名称调用，分别为：</strong><br>
+&gt; <strong>‘deep’：</strong> 一种深色调的调色板，适合区分度高的颜色。<strong>(默认为 ‘deep’)</strong><br>
+&gt; <strong>‘muted’：</strong> 柔和的颜色，适合低对比度的图表。<br>
+&gt; <strong>‘bright’：</strong> 鲜艳的颜色，适合强调某些重要信息。<br>
+&gt; <strong>‘pastel’：</strong> 柔和且淡雅的色调，适合平缓的展示。<br>
+&gt; <strong>‘dark’：</strong> 深色系调色板，适合与较暗的背景搭配。<br>
+&gt; <strong>‘colorblind’：</strong> 设计时考虑了色盲友好的配色，保证对不同色盲类型的用户依然可读。</p>
+<p><strong>2. Matplotlib Colormap 的名称</strong></p>
+<blockquote class="blockquote">
+<p>Seaborn 库允许使用 Matplotlib 库的内置渐变色图 (colormap) 名称。Matplotlib 提供了多种配色方案，如：<br>
+&gt;<strong>‘viridis’：</strong> 一个色盲友好的配色渐变，从深紫到亮黄。<br>
+&gt;<strong>‘plasma’：</strong> 从深紫到亮黄色的渐变。<br>
+&gt;<strong>‘coolwarm’：</strong> 从冷色到暖色的渐变。<br>
+&gt;<strong>‘Blues’、‘Reds’：</strong> 单色的不同明暗度的渐变。</p>
+<p>使用这些 colormap 名称，颜色会按数据值的范围进行渐变显示。</p>
+</blockquote>
+<p><strong>3. ‘hls’ 或 ‘husl’</strong><br>
+&gt;这两种表示法使用 HLS 颜色模型 (Hue-Lightness-Saturation)，表示颜色的色相、亮度和饱和度。<br>
+&gt;&gt;<strong>‘hls’：</strong> 标准的 HLS 模型，用于在色调之间平滑过渡。<br>
+&gt;&gt;<strong>‘husl’：</strong> 将 HLS 模型改进为等感知度，保证色彩在感知上的均衡。<br>
+&gt; &gt;注：通常叫作 HSL 颜色模型 (Hue-Saturation-Lightness)，但 Seaborn 中写作 hls。</p>
+<p><strong>4. ‘ch:&lt;cubehelix arguments&gt;’</strong><br>
+&gt;‘cubehelix’ 是一种颜色渐变方案，可以通过参数自定义颜色的范围、亮度等。<br>
+&gt;例如，<code>palette='ch:s=0.5,r=-0.5'</code> 可以控制渐变中的色彩饱和度 (s: saturation) 和旋转方向 (r: rotation)。<br>
+&gt;cubehelix 配色方案的特点是色盲友好，并且可用于灰度模式下的打印。</p>
+<p><strong>5. ‘light:&lt;color&gt;’, ‘dark:&lt;color&gt;’</strong><br>
+&gt;这些表示法允许从给定颜色生成更浅或更深的版本。<color> 可以填写颜色名称或者十六进制颜色代码。<br>
+&gt;比如：<code>palette='light: Blue'</code> 意为生成浅蓝色调；<br>
+&gt;<code>palette='dark:#ff5733'</code> 意为生成给定颜色的深色版本。</color></p>
+<p><strong>6. ‘blend:&lt;color1&gt;,&lt;color2&gt;’</strong><br>
+&gt;用于将两种颜色混合，形成一个新的调色板。例如：<br>
+&gt;<code>palette='blend:Red,Blue'</code> 意为混合红色和蓝色生成中间过渡色调；<br>
+&gt;<code>palette='blend:#ff5733,#33c5ff'</code> 意为使用具体的十六进制颜色混合。</p>
+<p><strong>7. 其它形式的 Matplotlib 兼容的颜色代码序列，如：</strong><br>
+&gt;十六进制颜色代码：例如 <code>palette=['#FF5733', '#33FF57', '#3357FF']</code><br>
+&gt;RGB 或 RGBA 元组：例如 <code>palette=[(1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)]</code><br>
+&gt;Matplotlib 颜色名称：例如 <code>palette=['red', 'green', 'blue']</code></p>
+</blockquote>
+<p><strong>相关链接：</strong><br>
+<a href="https://seaborn.pydata.org/generated/seaborn.set_theme.html">Seaborn <code>sns.set_theme()</code> 函数</a> （查看 <strong><em>palette参数</em></strong> ）<br>
+<a href="https://seaborn.pydata.org/generated/seaborn.color_palette.html">Seaborn <code>sns.color_palette()</code> 函数</a> （查看 <strong><em>palette参数</em></strong> 预设调色盘名称表）<br>
+<a href="https://matplotlib.org/stable/gallery/color/named_colors.html">Matplotlib 预命名颜色一览</a><br>
+<a href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Matplotlib Colormap 一览</a><br>
+<a href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Matplotlib Colormap 使用介绍</a><br>
+<a href="https://www.w3schools.com/colors/colors_picker.asp">w3schools 颜色提取器</a> （查看任意颜色的十六进制代码）</p>
+<section id="拓展两种求-同一个岛屿内的企鹅总数-的方式" class="level2">
+<h2 class="anchored" data-anchor-id="拓展两种求-同一个岛屿内的企鹅总数-的方式"><strong>⭕拓展：两种求 “同一个岛屿内的企鹅总数” 的方式</strong></h2>
+<p>(以便后续画 “不同岛屿上的企鹅总量” 柱状图时，根据企鹅总量大小进行 sort)</p>
+<p><strong>法1: Pandas <code>df.groupby()</code> 函数和 <code>.size()</code> 函数</strong></p>
+<div id="cell-66" class="cell" data-execution_count="29">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#【法1】Pandas df.groupby() 函数和 .size() 函数</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'island'</span>).size()</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co">#👆根据 'island' 列进行分组，同一个岛的所有行都分为一组。分组后得到一个 groupby object。</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  再用 .size() 函数求该 groupby object 的数据大小。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>island
+Biscoe       168
+Dream        124
+Torgersen     52
+dtype: int64</code></pre>
+</div>
+</div>
+<p><strong>法2: Pandas <code>df.value_counts()</code> 函数</strong></p>
+<div id="cell-68" class="cell" data-execution_count="30">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#【法2】Pandas df.value_counts() 函数</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>df.value_counts(<span class="st">'island'</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 直接用 .value_counts() 函数求 'island' 列内【每种】数据的数量。</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 如下，Biscoe 是一种数据，</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>island
+Biscoe       168
+Dream        124
+Torgersen     52
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+**
+<h1 id="section3">
+<ol start="3" type="1">
+<li>绘制其他图
+</li></ol></h1>
+**
+
+**
+<h2 id="section3.1" class="anchored">
+3.1 点线图
+</h2>
+<p>**</p>
+<p>为了避免在视觉上误导读者，柱状图的 amount 必须从 0 开始。因为根据直觉，每根柱子的面积应当显示了该种类对象的总量；柱状图应当直观体现不同类别总量之间的数量关系（比如，A地的企鹅总量是 B地的企鹅总量的 2倍，则 A柱 应该是 B柱 的两倍高）。同理，饼状图、柱状图等展示比例的图表应当避免使用 3D 图表，而应当使用 2D图表 (俯视)，因为 3D 图表改变观测角度之后，读者实际看到的图形面积比例并非真正的数据值比例，这样不够直观。这一原则被 <strong><a href="https://clauswilke.com/dataviz/proportional-ink.html">Wilke (2019, chap.17)</a></strong> 称为 <strong><em>“The principle of proportional ink”</em></strong> 。</p>
+<p>而点线图则不必从 0 开始，点线图的点只展示柱状图中最高点的值。下图中自动生成的点线图即从 3250 开始。<br>
+点线图的另一个优点是，比起柱状图，点线图的 data-ink ratio 更高，即，有效信息量占据图表总信息量（总 ink 量）的比例更高，干扰信息更少。</p>
+<p>（但柱状图的优点是能直观展示数量比例，需要根据具体实例选择用哪种图表）</p>
+<div id="cell-72" class="cell" data-execution_count="31">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 用 sns.pointplot() 函数画点线图</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>sns.pointplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>, hue<span class="op">=</span><span class="st">'sex'</span>,linestyle<span class="op">=</span><span class="st">'none'</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕注意：</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   也可以不写 linestyle='none'，而写 join=False，意为不显示点与点之间的折线。</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   但是，join 参数将在 v0.15.0 版本的 Seaborn 库中被移除，建议使用 linestyle='none'</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 图中每个点上下的线是误差线</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-31-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>此处的 category 数据为不同的岛屿，是 nominal 而不是 ordinal 数据，不同岛屿名称之间没有联系，因此不必展示点之间的连线。</p>
+<p><strong>相关链接：<a href="https://seaborn.pydata.org/generated/seaborn.pointplot.html#"><code>sns.pointplot()</code> 函数用法</a></strong></p>
+**
+<h2 id="section3.2" class="anchored">
+3.2 直方图
+</h2>
+<p>**</p>
+<p>柱状图 (bar chart) 的 x轴 一般是离散的几种数据类别 (discrete data categories)，其数据类型一般是 norminal 或 ordinal；而直方图 (histogram) 的 x轴 是连续的数据区间 (continuous data range)，数据类型是 ratio。</p>
+<div id="cell-77" class="cell" data-execution_count="32">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 用 sns.histplot() 函数画直方图</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>)  <span class="co"># x: 鳍长(mm)</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-32-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-78" class="cell" data-execution_count="33">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 增加 hue 参数设置</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df,x<span class="op">=</span><span class="st">'flipper_length_mm'</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>             ,hue<span class="op">=</span><span class="st">'island'</span>  <span class="co"># 按照岛屿进行颜色分组。</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>                            <span class="co"># 相当于每个岛屿内的企鹅单独画了一个 histogram，</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                            <span class="co"># 再将四个 histogram 重叠了起来。</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 注意纵坐标值范围，已产生变化。</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-33-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-79" class="cell" data-execution_count="34">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#【1】原直方图</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>plt.show() <span class="co">#👈展示第一个直方图 (原直方图)</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">#【2】增加 hue 参数设置后的直方图</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df,x<span class="op">=</span><span class="st">'flipper_length_mm'</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>             ,hue<span class="op">=</span><span class="st">'island'</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 可以通过设置 plt.ylim() 函数来调整 y 轴的刻度值范围，让两张图刻度范围一样，来观察区别</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>,<span class="dv">80</span>)  </span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>plt.show() <span class="co">#👈展示第二个直方图</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-34-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-34-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-80" class="cell" data-execution_count="35">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>             ,hue<span class="op">=</span><span class="st">'island'</span>        <span class="co"># 按照岛屿进行颜色分组</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>             ,stat<span class="op">=</span><span class="st">'density'</span>      <span class="co"># 使 bins 面积之和为 1，表示概率密度。</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>             ,common_norm<span class="op">=</span> <span class="va">False</span>  <span class="co"># 对整个每个组（每个岛屿）的数据单独进行归一化处理，下文会解释</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-35-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+**
+<h3 id="section3.2.1" class="anchored">
+3.2.1 stat 参数
+</h3>
+<p>**</p>
+<p>填写字符串值。用于调整绘制直方图时所使用的统计方法。<br>
+<code>stat</code> 参数可以填写：<br>
+* ‘count’<br>
+* ‘frequency’<br>
+* ‘probability’ 或 ‘proportion’<br>
+* ‘percent’<br>
+* ‘density’</p>
+<p><strong>1. <code>'count'</code></strong><br>
+每个分箱 (bin) 的【高度】等于【该分箱中数据点的数量】(count，又称“频数”)。<br>
+这是最基本的直方图类型，每个条形表示有多少数据点落入该分箱。<br>
+* <strong>例如:</strong><br>
+在第一个直方图 <code>sns.histplot(data=df, x='flipper_length_mm')</code> 中，鳍长为180-185mm区间内 (一个bin单位的区间) 的企鹅共有22只，则该 bin 的高度为22。<br>
+<strong>注:</strong> 实际上此图自动生成的 bin 区间并不是正好 180-185mm，真正的区间长度约为 5.9mm，此处为了方便演示，估算为 5mm。以下例子都是估算值。</p>
+<div id="cell-84" class="cell" data-execution_count="36">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【1】stat='count'</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,stat<span class="op">=</span><span class="st">'count'</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 在每个条形上显示 bin 的【高度 (计数)】，此处仅为了方便展示，不用管下面的代码是什么意思。</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> ax.patches:</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> p.get_height()  <span class="co"># 获取条形高度</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    ax.text(p.get_x() <span class="op">+</span> p.get_width() <span class="op">/</span> <span class="dv">2</span>, height, <span class="bu">int</span>(height),  <span class="co"># int() 取整</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>)  <span class="co"># 在每个条形顶部显示高度</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-36-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>2. <code>'frequency'</code></strong><br>
+每个 bin 的【高度】等于【该 bin 中的数据点数量】除以【该 bin 的宽度区间】。即，bin 高度 = 单位宽度区间内的数据点数量。<br>
+通过 bin 宽度区间来标准化数据点数量，可以用于处理 bin 宽度不统一的直方图。<br>
+* <strong>例如:</strong><br>
+鳍长为180-185mm区间内 (宽度为5) 的企鹅共有22只，则该 bin 的高度为22/5=4.4。<br>
+<strong>注：</strong> 真正高度约为 22/5.9，约为3（如图）。</p>
+<div id="cell-86" class="cell" data-execution_count="37">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【2】stat='frequency'</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,stat<span class="op">=</span><span class="st">'frequency'</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 在每个条形上显示 bin 的【高度】</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> ax.patches:</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> p.get_height()  <span class="co"># 获取条形高度</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    ax.text(p.get_x() <span class="op">+</span> p.get_width() <span class="op">/</span> <span class="dv">2</span>, height, <span class="bu">int</span>(height),  <span class="co"># int() 取整</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>)  <span class="co"># 在每个条形顶部显示高度</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-37-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>3. <code>'probability'</code> 或者 <code>'proportion'</code></strong><br>
+归一化直方图，使所有 bin 的【高度】加起来为 1。<br>
+每个 bin 中的数据点数量除以总的数据点数量，从而表示每个分箱的数据比例。<br>
+* <strong>例如:</strong><br>
+总共有344只企鹅，鳍长为180-185mm区间内有22只企鹅，则该 bin 的高度为22/344=0.064</p>
+<div id="cell-88" class="cell" data-execution_count="38">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【3】stat='probability'</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,stat<span class="op">=</span><span class="st">'probability'</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 在每个条形上显示 bin 的【高度】</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> ax.patches:</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> p.get_height()  <span class="co"># 获取条形高度</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    ax.text(p.get_x() <span class="op">+</span> p.get_width() <span class="op">/</span> <span class="dv">2</span>, height, <span class="ss">f'</span><span class="sc">{</span>height<span class="sc">:.2f}</span><span class="ss">'</span>,  <span class="co"># f'{}' 保留小数点后两位</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>)  <span class="co"># 在每个条形顶部显示高度</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-38-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>4. <code>'percent'</code></strong><br>
+归一化直方图，使所有条形的【高度】加起来为 100。<br>
+将每个分箱中的数据点数量转换为百分比。<br>
+* <strong>例如:</strong><br>
+总共有344只企鹅，鳍长为180-185mm区间内有22只企鹅，则该 bin 的高度为(22/344)*100=6.4，<br>
+即，鳍长为180-185mm区间内的企鹅数量占据总企鹅数量的 6.4%</p>
+<div id="cell-90" class="cell" data-execution_count="39">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【4】stat='probability'</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,stat<span class="op">=</span><span class="st">'percent'</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 在每个条形上显示 bin 的【高度】</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> ax.patches:</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> p.get_height()  <span class="co"># 获取条形高度</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    ax.text(p.get_x() <span class="op">+</span> p.get_width() <span class="op">/</span> <span class="dv">2</span>, height, <span class="bu">int</span>(height), <span class="co"># int() 取整</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>)  <span class="co"># 在每个条形顶部显示高度</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-39-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>⭐5. <code>'density'</code></strong><br>
+归一化直方图，使条形总面积等于 1。此图称为 “频率分布直方图”，高中学的。<br>
+bin高度 = 频率密度 = 频率 / 组距 = 【bin内数据量/总数据量】/【bin宽度】<br>
+这样，每个 bin 的面积即为该 bin 内数据量的频率，全图所有 bin 的面积总和为 1。<br>
+这种方式的直方图常用于估计概率密度函数。<br>
+* <strong>例如:</strong><br>
+总共有344只企鹅，鳍长为180-185mm区间内有22只企鹅，则该 bin 的高度为 22/(5<em>344)=0.013<br>
+</em> <strong>拓展：</strong><br>
+当频率分布直方图的 bin 宽度无限趋近于 0 时，所有 bin 的最高点将连成一个光滑曲线——总体密度曲线，也就形成了密度图。</p>
+<div id="cell-92" class="cell" data-execution_count="40">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#⭕【5】stat='density'</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,stat<span class="op">=</span><span class="st">'density'</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 在每个条形上显示 bin 的【高度】</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> ax.patches:</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> p.get_height()  <span class="co"># 获取条形高度</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    ax.text(p.get_x() <span class="op">+</span> p.get_width() <span class="op">/</span> <span class="dv">2</span>, height, <span class="ss">f'</span><span class="sc">{</span>height<span class="sc">:.3f}</span><span class="ss">'</span>, <span class="co"># f'{}' 保留小数点后三位</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>)  <span class="co"># 在每个条形顶部显示高度</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-40-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+**
+<h3 id="section3.2.2" class="anchored">
+3.2.2 common_norm 参数
+</h3>
+<p>**</p>
+<p><code>common_norm</code> 是一个布尔参数（True 或 False），用于控制是否在数据归一化时对整个数据集进行统一处理，默认为 True。<br>
+即，当 <code>stat</code> 参数为 <code>'probability'</code> , <code>'proportion'</code> , <code>'percent'</code> 或 <code>'density'</code> 时，<code>common_norm</code> 参数才能发挥作用。</p>
+<ul>
+<li><p>当 <code>common_norm=True</code> 时，归一化会针对 <strong>整个数据集</strong> 进行处理。这意味着在分组（例如通过 hue 参数）进行绘图时，所有组的直方图将共享同一个归一化标准。这样，直方图的条形高度可以直接在不同组之间比较，因为归一化基于整个数据集。</p></li>
+<li><p>当 <code>common_norm=False</code> 时，归一化会针对 <strong>每个子组</strong> 单独进行。这意味着每个组的直方图会各自归一化，条形高度的比例仅在同一组内有意义，但不适用于不同组之间的比较。</p></li>
+</ul>
+<div id="cell-95" class="cell" data-execution_count="41">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># common_norm = True</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>             ,hue<span class="op">=</span><span class="st">'island'</span>       <span class="co"># 按照岛屿进行颜色分组</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>             ,stat<span class="op">=</span><span class="st">'density'</span>     <span class="co"># 使 bins 面积之和为 1，表示概率密度。</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>             ,common_norm<span class="op">=</span><span class="va">True</span>   <span class="co"># 对整个数据集（所有组）进行归一化处理。即，所有颜色的 bins 面积总和为 1。</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="co"># 注：bins 都是默认半透明的，三组分布重叠在一起。</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-41-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-96" class="cell" data-execution_count="42">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># common_norm = False</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>             ,hue<span class="op">=</span><span class="st">'island'</span>       <span class="co"># 按照岛屿进行颜色分组</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>             ,stat<span class="op">=</span><span class="st">'density'</span>     <span class="co"># 使 bins 面积之和为 1，表示概率密度。</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>             ,common_norm<span class="op">=</span><span class="va">False</span>  <span class="co"># 对每个组（岛屿）单独进行归一化处理。</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="co"># 即，每种颜色的 bins 面积之和分别为 1，</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="co"># 即，所有蓝色的 bins (Torgersen岛) 面积总和加起来为 1；</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="co"># 所有橘黄色 bins (Biscoe岛) 面积加起来为 1；</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>                                 <span class="co"># 所有绿色 bins (Dream岛) 面积加起来也为 1。</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-42-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>⭕拓展：</strong><br>
+当组数较多时，用颜色分组后，不同组别的分布图重叠在一起，可能并不直观。可以选择每个组单独做一个分布图。<br>
+可以通过 <code>data=df[df['特定列']==特定值]</code> 来筛选想要画图的【行】。<br>
+如：<code>data=df[df['island']=='Torgersen']</code> 意为 “选出所有在 Torgersen 岛上的企鹅 (所在的行)，作为数据进行绘图”</p>
+<div id="cell-98" class="cell" data-execution_count="43">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 分布图1：Torgersen 岛上所有企鹅根据鳍长的分布情况</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df[df[<span class="st">'island'</span>]<span class="op">==</span><span class="st">'Torgersen'</span>], x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,stat<span class="op">=</span><span class="st">'density'</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Torgersen'</span>, xlabel<span class="op">=</span><span class="st">'Flipper Length (mm)'</span>)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 分布图2：Biscoe 岛上所有企鹅根据鳍长的分布情况</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df[df[<span class="st">'island'</span>]<span class="op">==</span><span class="st">'Biscoe'</span>], x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,stat<span class="op">=</span><span class="st">'density'</span>)</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Biscoe'</span>, xlabel<span class="op">=</span><span class="st">'Flipper Length (mm)'</span>)</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 分布图3：Dream 岛上所有企鹅根据鳍长的分布情况</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df[df[<span class="st">'island'</span>]<span class="op">==</span><span class="st">'Dream'</span>], x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,stat<span class="op">=</span><span class="st">'density'</span>)</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Dream'</span>, xlabel<span class="op">=</span><span class="st">'Flipper Length (mm)'</span>)</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-43-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-43-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-43-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>相关链接： <a href="https://seaborn.pydata.org/generated/seaborn.histplot.html"><code>sns.histplot()</code> 函数用法</a></strong> （查看 <strong><em>hue参数</em></strong> ，<strong><em>stat参数</em></strong> 和 <strong><em>common_norm参数</em></strong> ）</p>
+**
+<h2 id="section3.3" class="anchored">
+3.3 箱线图
+</h2>
+<p>**</p>
+<p>箱线图（boxplot，也称为盒须图）是一种图表，用于表示数据的分布、集中趋势和离散性。<br>
+箱线图展示了数据的最小值（Min）、第一四分位数（Q1）、中位数（Q2）、第三四分位数（Q3）和最大值（Max），并用“须”来描绘数据分布的范围，超出须的点通常表示异常值。</p>
+<p><strong>箱线图的结构：</strong><br>
+<strong>箱体：</strong> 从Q1延伸到Q3，代表数据的中间50%。<br>
+<strong>箱内的线：</strong> 表示中位数（Q2）。<br>
+<strong>须 (whisker)：</strong> 从Q1和Q3向外延伸，通常到达离Q1和Q3 1.5倍IQR（四分位距）以内的最小 (Min) 和最大值 (Max)。<br>
+<strong>异常值 (outlier)：</strong> 超过须的点被单独标记出来，显示数据中的极端值。</p>
+<p><img src="https://3232.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F651b821c-3a18-4974-bc1c-e01f9e3a12d7%2F059d44cb-8c69-451f-92dc-92b313c5e7d5%2Fimage-1.png?table=block&amp;id=12ca25f9-fecd-80c9-99c5-d7ba83b7d470&amp;spaceId=651b821c-3a18-4974-bc1c-e01f9e3a12d7&amp;width=2000&amp;userId=&amp;cache=v2" width="30%"></p>
+<p><img src="https://3232.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F651b821c-3a18-4974-bc1c-e01f9e3a12d7%2F54b431a4-9065-43f7-aa2d-bcff712bad2d%2Fimage-2.png?table=block&amp;id=12ca25f9-fecd-8067-97f6-dd74897408fa&amp;spaceId=651b821c-3a18-4974-bc1c-e01f9e3a12d7&amp;width=2000&amp;userId=&amp;cache=v2" width="30%"></p>
+<p><strong>箱线图 vs.&nbsp;直方图</strong></p>
+<p><img src="https://3232.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F651b821c-3a18-4974-bc1c-e01f9e3a12d7%2F500e943d-da9e-4cf8-91e7-b584f40acee6%2Fimage-3.png?table=block&amp;id=12ca25f9-fecd-8052-b7a2-c37c8a947fb7&amp;spaceId=651b821c-3a18-4974-bc1c-e01f9e3a12d7&amp;width=2000&amp;userId=&amp;cache=v2" width="65%"></p>
+<p><strong>总结来说，【箱线图】适合【快速识别数据 大致分布 和 异常值】，而【直方图】则更适合了解【具体区间内的频率分布】。</strong></p>
+<div id="cell-105" class="cell" data-execution_count="44">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 用 sns.boxplot() 函数绘制箱线图</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, y<span class="op">=</span><span class="st">'island'</span>,hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co">#👆绘制不同岛屿上雌雄企鹅各自的箱线图</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-44-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-106" class="cell" data-execution_count="45">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 调整【fliersize参数】来修改异常点的大小</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, y<span class="op">=</span><span class="st">'island'</span>, hue<span class="op">=</span><span class="st">'sex'</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>             ,fliersize<span class="op">=</span><span class="dv">8</span>   <span class="co"># 异常点的大小设置为 8 个单位。</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-45-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-107" class="cell" data-execution_count="46">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 调整【whis参数】来修改须的长度范围</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, y<span class="op">=</span><span class="st">'island'</span>, hue<span class="op">=</span><span class="st">'sex'</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>             ,fliersize<span class="op">=</span><span class="dv">8</span>   <span class="co"># 异常点的大小设置为 8 个单位。</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>             ,whis<span class="op">=</span><span class="dv">2</span>        <span class="co"># 须分别延伸至距离 Q1 和 Q3【2倍IQR】的范围。默认为 1.5倍IQR。</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                            <span class="co"># 注：此处 whis 设置为 2 之后，须 (whisker) 已经涵盖了所有数据值，图上也就没有异常点了。</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-46-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>相关链接：<a href="https://seaborn.pydata.org/generated/seaborn.boxplot.html"><code>sns.boxplot()</code> 函数用法</a></strong> (查看 <strong><em>fliersize参数</em></strong> 和 <strong><em>whis参数</em></strong> )</p>
+**
+<h2 id="section3.4" class="anchored">
+3.4 小提琴图
+</h2>
+<p>**</p>
+<p>小提琴图类似箱线图和直方图，也能直观显示数据的大致分布情况以及中位数。<br>
+不同于箱线图，小提琴图不能直观显示异常点；而不同于直方图，小提琴图的分布呈现光滑的曲线而非逐个 bins。<br>
+需要注意的是，当数据总量很少的时候，小提琴图的光滑曲线可能误导读者，可以选择直方图或者箱线图。</p>
+<div id="cell-111" class="cell" data-execution_count="47">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 用 sns.violinplot() 函数绘制小提琴图</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>sns.violinplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-47-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-112" class="cell" data-execution_count="48">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过【split参数】控制不同分组的图是否合并在一起</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>sns.violinplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, hue<span class="op">=</span><span class="st">'sex'</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>                ,split<span class="op">=</span><span class="va">True</span>  <span class="co"># 加入 split=True，让不同分组（不同性别）的图合并在一起，便于观察</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-48-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>相关链接：<a href="https://seaborn.pydata.org/generated/seaborn.violinplot.html"><code>sns.violinplot()</code> 函数用法</a></strong> (查看 <strong><em>split参数</em></strong> )</p>
+**
+<h2 id="section3.5" class="anchored">
+3.5 散点图 &amp; 分簇散点图
+</h2>
+<p>**</p>
+<p>分布散点图 (strip plot) 用于显示数据分布情况。不同于前面提到的几种描绘分布情况的图，<br>
+散点图不是用一个图形来描述整体分布情况，而是画出所有数据点，每个数据点都显示为一个圆点。<br>
+但当同一个值上的数据点过多时，圆点可能重叠。</p>
+<p><strong>注意：</strong><br>
+strip plot 用于显示数据的分布情况（一个数据在不同区间内有多少量），<br>
+和用于显示数据变化趋势（一个数据随另一个数据变化而呈现什么样的变化趋势）的 scatter plot 不同。</p>
+<p><img src="https://3232.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F651b821c-3a18-4974-bc1c-e01f9e3a12d7%2F846ea4db-0f24-4875-aed5-3be0868c6722%2Fimage.png?table=block&amp;id=12ca25f9-fecd-8025-8239-fa09575bf49b&amp;spaceId=651b821c-3a18-4974-bc1c-e01f9e3a12d7&amp;width=2000&amp;userId=&amp;cache=v2" width="60%"></p>
+<div id="cell-117" class="cell" data-execution_count="49">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 用 sns.stripplot() 函数绘制散点图</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>sns.stripplot(data<span class="op">=</span>df,x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,y<span class="op">=</span><span class="st">'island'</span>,hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-49-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-118" class="cell" data-execution_count="50">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 用 sns.swarmplot() 函数绘制分簇散点图</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(data<span class="op">=</span>df,x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,y<span class="op">=</span><span class="st">'island'</span>,hue<span class="op">=</span><span class="st">'sex'</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="amounts-and-distribution_files/figure-html/cell-50-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>相关链接：</strong><br>
+<a href="https://seaborn.pydata.org/generated/seaborn.stripplot.html"><code>sns.stripplot()</code> 函数</a><br>
+<a href="https://seaborn.pydata.org/generated/seaborn.swarmplot.html"><code>sns.swarmplot()</code> 函数</a></p>
+**
+<h1 id="links">
+相关链接合集
+</h1>
+<p>**</p>
+<blockquote class="blockquote">
+<p><strong>总体链接：</strong><br>
+<strong><a href="https://docs.python.org/zh-cn/3/library/functions.html">Python3 教程文档 (中文)</a></strong> (查看内置函数用法等)<br>
+<strong><a href="https://pandas.pydata.org/docs/reference/frame.html">Pandas库 教程文档</a></strong> (DataFrame)<br>
+<strong><a href="https://matplotlib.org/stable/api/pyplot_summary.html">Matplotlib库 教程文档</a></strong> (plt)<br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.barplot.html">Seaborn库 教程文档</a></strong> (barplot)</p>
+<p><strong><a href="https://seaborn.pydata.org/generated/seaborn.barplot.html"><code>sns.barplot()</code> 函数</a></strong>（用 Seaborn 绘制 柱状图）<br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.countplot.html"><code>sns.countplot()</code> 函数</a></strong> （用 Seaborn 绘制 计数图）</p>
+<p><strong>修改图表主题风格：</strong><br>
+<strong><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html"><code>plt.xticks()</code> 函数</a></strong> （ <strong><em>kwargs</em></strong> (keyword argument) 栏目中写了如何旋转刻度标签）<br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.set.html"><code>sns.set()</code> 函数</a></strong> （同 <code>sns.set_theme()</code> 函数）<br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.set_theme.html#seaborn.set_theme"><code>sns.set_theme()</code> 函数</a></strong> （设置 Seaborn 绘图的全局主题风格）<br>
+<strong><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set.html"><code>ax.set()</code> 方法</a></strong> （Matplotlib 中 对于特定图表 ax 设置标题、轴标签等元素的方法）</p>
+<p><strong>修改图例：</strong><br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.move_legend.html"><code>sns.move_legend()</code> 函数</a></strong> （Seaborn 中 移动图例的函数）（查看 <strong><em>obj参数</em></strong> 和 <strong><em>loc参数</em></strong> 的用法）<br>
+<strong><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html"><code>matplotlib.axes.Axes.legend()</code> 函数</a></strong> （Matplotlib 中 设置图例的函数，其指令也适用于 <code>sns.move_legend()</code>）（查看 <strong><em>loc参数</em></strong> ，<strong><em>ncols参数</em></strong> 和 <strong><em>bbox_to_anchor参数</em></strong> 的用法）</p>
+<p><strong>修改图表颜色：</strong><br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.color_palette.html">Seaborn <code>sns.color_palette()</code> 函数</a></strong> （查看 <strong><em>palette参数</em></strong> 预设调色盘名称表）<br>
+<strong><a href="https://matplotlib.org/stable/gallery/color/named_colors.html">Matplotlib 预命名颜色一览</a></strong><br>
+<strong><a href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Matplotlib Colormap 一览</a></strong><br>
+<strong><a href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">Matplotlib Colormap 使用介绍</a></strong><br>
+<strong><a href="https://www.w3schools.com/colors/colors_picker.asp">w3schools 颜色提取器</a></strong> （查看任意颜色的十六进制代码）</p>
+<p><strong>其他图表：</strong><br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.pointplot.html#"><code>sns.pointplot()</code> 函数用法</a></strong> （点线图画法）<br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.histplot.html"><code>sns.histplot()</code> 函数用法</a></strong> （频率分布直方图画法）（查看 <strong><em>hue参数</em></strong> ，<strong><em>stat参数</em></strong> 和 <strong><em>common_norm参数</em></strong> ）<br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.boxplot.html"><code>sns.boxplot()</code> 函数用法</a></strong> （箱线图画法） (查看 <strong><em>fliersize参数</em></strong> 和 <strong><em>whis参数</em></strong> )<br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.violinplot.html"><code>sns.violinplot()</code> 函数用法</a></strong> （小提琴图画法）<br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.stripplot.html"><code>sns.stripplot()</code> 函数</a></strong> （分布散点图画法）<br>
+<strong><a href="https://seaborn.pydata.org/generated/seaborn.swarmplot.html"><code>sns.swarmplot()</code> 函数</a></strong> （分簇分布散点图画法）</p>
+<p><strong>教材书 <em>Fundamentals of Data Visualization</em> (Wilke, 2019) ：</strong><br>
+<strong><a href="https://clauswilke.com/dataviz/visualizing-amounts.html#bar-plots">6.1 Bar Plot</a></strong> (旋转的文字刻度不方便阅读，应当横过来排版)<br>
+<strong><a href="https://clauswilke.com/dataviz/proportional-ink.html">17. The Principle of Proportional Ink</a></strong> （比例标记的原则：图形大小比例应当和数据真实的比例一样。e.g.&nbsp;柱状图的柱子应当从 0 开始）</p>
+</blockquote>
+**
+<p>
+<a href="#top">⇧ 返回页面顶部</a>
+</p>
+<p>**</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="fix-code-fold" type="text/javascript">
+    const showBtn = document.getElementById('quarto-show-all-code');
+    const hideBtn = document.getElementById('quarto-hide-all-code');
+
+    if (showBtn) {
+        showBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                el.setAttribute('open', '');
+            });
+        });
+    }
+
+    if (hideBtn) {
+        hideBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                el.removeAttribute('open');
+            });
+        });
+    }
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Pinn32\.github\.io\/dv-projects\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

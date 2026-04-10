@@ -1,0 +1,20 @@
+[
+  {
+    "listing": "/projects/index.html",
+    "items": [
+      "/projects/most-streamed-songs/index.html",
+      "/projects/student-media-usage/index.html",
+      "/projects/global-visa-cost/index.html",
+      "/projects/catalan-referendum/index.html"
+    ]
+  },
+  {
+    "listing": "/tutorials/index.html",
+    "items": [
+      "/tutorials/amounts-and-distribution/zh/index.html",
+      "/tutorials/data-processing/zh/index.html",
+      "/tutorials/multivariate-plots/zh/index.html",
+      "/tutorials/sankey-and-network/zh/index.html"
+    ]
+  }
+]

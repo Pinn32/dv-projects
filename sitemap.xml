@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Pinn32.github.io/dv-projects/tutorials/index.html</loc>
-    <lastmod>2026-04-04T04:25:40.659Z</lastmod>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/amounts-and-distribution/zh/raw-index.html</loc>
+    <lastmod>2026-04-07T20:13:17.506Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/amounts-and-distribution/amounts-and-distribution.html</loc>
+    <lastmod>2026-04-07T20:44:50.791Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/multivariate-plots/zh/index.html</loc>
+    <lastmod>2026-04-10T15:29:05.429Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/data-processing/zh/raw-index.html</loc>
+    <lastmod>2026-04-07T20:58:53.166Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/sankey-and-network/sankey-and-network.html</loc>
+    <lastmod>2025-10-07T13:31:41.338Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/sankey-and-network/zh/index.html</loc>
+    <lastmod>2026-04-10T15:30:21.775Z</lastmod>
   </url>
   <url>
     <loc>https://Pinn32.github.io/dv-projects/about/index.html</loc>
@@ -10,26 +30,50 @@
   </url>
   <url>
     <loc>https://Pinn32.github.io/dv-projects/projects/global-visa-cost/index.html</loc>
-    <lastmod>2026-04-03T23:23:15.463Z</lastmod>
+    <lastmod>2026-04-10T13:37:49.181Z</lastmod>
   </url>
   <url>
     <loc>https://Pinn32.github.io/dv-projects/projects/index.html</loc>
-    <lastmod>2026-04-04T03:21:35.739Z</lastmod>
+    <lastmod>2026-04-10T15:08:40.422Z</lastmod>
   </url>
   <url>
     <loc>https://Pinn32.github.io/dv-projects/projects/catalan-referendum/index.html</loc>
-    <lastmod>2026-04-03T23:14:03.114Z</lastmod>
+    <lastmod>2026-04-10T13:37:47.742Z</lastmod>
   </url>
   <url>
     <loc>https://Pinn32.github.io/dv-projects/projects/most-streamed-songs/index.html</loc>
-    <lastmod>2026-04-04T03:35:42.846Z</lastmod>
+    <lastmod>2026-04-10T13:37:51.042Z</lastmod>
   </url>
   <url>
     <loc>https://Pinn32.github.io/dv-projects/projects/student-media-usage/index.html</loc>
-    <lastmod>2026-04-04T03:34:49.295Z</lastmod>
+    <lastmod>2026-04-10T15:06:19.397Z</lastmod>
   </url>
   <url>
     <loc>https://Pinn32.github.io/dv-projects/index.html</loc>
-    <lastmod>2026-04-04T04:25:43.417Z</lastmod>
+    <lastmod>2026-04-10T13:14:09.608Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/sankey-and-network/zh/raw-index.html</loc>
+    <lastmod>2026-04-07T20:58:47.229Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/data-processing/zh/index.html</loc>
+    <lastmod>2026-04-10T15:27:59.138Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/index.html</loc>
+    <lastmod>2026-04-10T15:25:15.576Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/multivariate-plots/multivariate-plots.html</loc>
+    <lastmod>2025-10-07T13:29:56.723Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/multivariate-plots/zh/raw-index.html</loc>
+    <lastmod>2026-04-10T15:29:18.786Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Pinn32.github.io/dv-projects/tutorials/amounts-and-distribution/zh/index.html</loc>
+    <lastmod>2026-04-07T21:52:34.011Z</lastmod>
   </url>
 </urlset>
