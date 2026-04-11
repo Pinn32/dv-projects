@@ -1,9 +1,9 @@
 ---
-title: 'Twitter Sentiment Analysis of Catalan Referendum'
+title: 'Twitter 加泰罗尼亚公投情感分析'
 author: 'Pinn Xu'
 date: '2024-11-01'
 categories: [Python, NLP, Social Media, Visualization]
-description: 'Sentiment mining on tweets surrounding the 2017 Catalan independence referendum using NLP techniques.'
+description: '使用 NLP 技术对 2017 年加泰罗尼亚独立公投相关推文进行情感挖掘。'
 bibliography: references.bib
 csl: ../../../src/apa.csl
 
@@ -23,9 +23,9 @@ matplotlib==3.9.x
 seaborn==0.13.2
 ```
 
-# Introduction
+# 简介
 
-This project uses a data set consisting of tweets about the Catalan referendum in Spain on Twitter, with attributes including basic information and emotional word counts of each tweet detected by different lexicons [@jimenezZafra2021] (see [Appendix I](#appendix-attributes) for further description of attributes). A bar plot addresses performance differences between lexicons in detecting sentiment among tweets. In addition, the distribution of the author’s popularity among all tweets is illustrated by a histogram, distinguished by sentiments.
+本项目使用一份关于西班牙加泰罗尼亚公投的 Twitter 推文数据集，属性包括每条推文的基本信息及由不同词典检测到的情感词计数 [@jimenezZafra2021]（属性详细说明见[附录一](#appendix-attributes)）。本文通过条形图展示各词典在推文情感检测上的表现差异，并以直方图按情感类别呈现所有推文的作者受欢迎度分布。
 
 ```{python}
 # Import libraries
@@ -44,7 +44,7 @@ df = pd.read_csv(
 df.head()
 ```
 
-# Data Processing
+# 数据处理
 
 ```{python}
 ## Drop missing values (see Appendix II)
@@ -65,14 +65,14 @@ df = df.rename(
 )
 ```
 
-## Setting Count Attributes
+## 计数属性设置
 
 ```{python}
 # Inspect attribute datatypes
 df.info()
 ```
 
-![Datatypes and Attributes](../../../src/img/proj/catalan/fig1-datatypes-attributes.png){#fig-datatypes-attributes fig-alt="Datatypes and Attributes"}
+![数据类型与属性](../../../src/img/proj/catalan/fig1-datatypes-attributes.png){#fig-datatypes-attributes fig-alt="Datatypes and Attributes"}
 
 ```{python}
 #| results: 'hold'
@@ -101,7 +101,7 @@ float_cols = df.select_dtypes(include='float').columns  # all float columns
 df[float_cols] = df[float_cols].astype(int)
 ```
 
-## Setting Boolean Attributes
+## 布尔属性设置
 
 ```{python}
 #| results: 'hold'
@@ -114,9 +114,9 @@ df['is_quote_status']=df['is_quote_status'].map({'True':True, 'False':False})
 df['verified_user']=df['verified_user'].map({'True':True, 'False':False})
 ```
 
-# Data Visualisation
+# 数据可视化
 
-## Sentiment Distribution
+## 情感分布
 
 ```{python}
 ## Melt sentiment word count columns to long format for visualisation
@@ -138,10 +138,10 @@ df_melted.head()  # initial melt result, before further processing
 
 ```{python}
 #| label: fig-sentiment-bar
-#| fig-cap: 'Online Sentiment towards the Catalan Referendum'
+#| fig-cap: '加泰罗尼亚公投的网络情感'
 ## Add sentiment column (positive/negative)
 
-# each returns a boolean Series checking 
+# each returns a boolean Series checking
 # if sentiment_and_source contains the keyword
 is_positive = df_melted['sentiment_and_source'].str.contains('positive')
 is_negative = df_melted['sentiment_and_source'].str.contains('negative')
@@ -168,7 +168,7 @@ df_melted.head()  # sentiment and source are now separate columns
 sns.set_theme(font = 'Arial', font_scale = 1.2, style = 'whitegrid')
 
 sns.barplot(
-    data = df_melted, x = 'source', y = 'count', hue = 'sentiment', 
+    data = df_melted, x = 'source', y = 'count', hue = 'sentiment',
     # palette: salmon (warm) for positive, royalblue (cool) for negative
     palette = ['salmon', 'royalblue'], errorbar = None,
 )
@@ -180,23 +180,23 @@ plt.legend(title = 'Sentiment')
 plt.show()
 ```
 
-@fig-sentiment-bar presents the average counts of emotional words detected from the selected tweets about the Catalan referendum, divided by three emotion analysis lexicons: iSOL, NRC, and mlSenticon. Positive and negative sentiments are distinguished by different colours, where a warm red colour ‘salmon’ is assigned to positive ones and a cool blue colour ‘royalblue’ to negative ones, which are two predefined colours in Matplotlib [@matplotlibColors]. They are moderate in saturation and intensity, avoiding eye strain of audiences [@wilke2019, chap. 19.1]. Additionally, the colour assignment is intuitive because their temperature tendency typically corresponds to their allocated sentiments [@hanada2018], enhancing the ‘data-ink ratio’ of this plot [@wilke2019, chap. 23].
+@fig-sentiment-bar 展示了所选加泰罗尼亚公投相关推文中，由三种情感分析词典（iSOL、NRC、mlSenticon）检测到的情感词平均计数，并按正面与负面情感分色呈现——暖红色"salmon"对应正面情感，冷蓝色"royalblue"对应负面情感，两者均为 Matplotlib 预定义颜色 [@matplotlibColors]。这两种颜色饱和度与亮度适中，有效避免视觉疲劳 [@wilke2019, chap. 19.1]。此外，颜色与情感的对应关系符合直觉，因为颜色的冷暖倾向通常与其所代表的情感相对应 [@hanada2018]，从而提升了图表的"数据-墨水比" [@wilke2019, chap. 23]。
 
-Overall, the number of negative words consistently exceeds that of positive ones, reflecting the relatively negative online public attitude towards the Catalan referendum.
+总体而言，负面情感词的数量始终多于正面情感词，反映了网络公众对加泰罗尼亚公投的总体负面态度。
 
-Regarding the performance of each lexicon, NRC possibly has the most balanced performance in determining the emotional tendency of discourse reflected by the bar chart. Conversely, mlSenticon is likely less effective in this work, inferred from its lowest figure for both sentiments.
+从各词典的表现来看，NRC 在判断话语情感倾向方面可能最为均衡；而 mlSenticon 在本项目中的效果相对较弱，其正负情感的计数均为三者中最低。
 
-## Popularity Distribution
+## 受欢迎度分布
 
-The formula below is introduced to calculate the *popularity* [@riquelme2016, pp. 6, 11] of tweet authors:
+以下公式用于计算推文作者的*受欢迎度* [@riquelme2016, pp. 6, 11]：
 
 $$Popularity(i) = 1 - e^{-λ·Fi} $$
 
-*Popularity* indicates how popular a user could be, where *e* is the base of the natural logarithm, λ is a constant. The introduction of *popularity* aims to create an attribute storing ratio data reasonably distributed in histograms, since the original ratio attributes (e.g. follower count) seem too scattered to view.
+*受欢迎度*表示用户的知名程度，其中 *e* 为自然对数的底数，λ 为常数。引入*受欢迎度*旨在创建一个在直方图中分布合理的比率型属性，因为原始比率属性（如粉丝数）过于分散，难以直观呈现。
 
 ```{python}
 #| label: fig-popularity-hist
-#| fig-cap: 'Author Popularity Distribution Histogram'
+#| fig-cap: '作者受欢迎度分布直方图'
 ## Define popularity calculation function
 # F1: author follower count; e ≈ 2.718, λ = 0.001
 def calc_popularity(F1):
@@ -240,82 +240,82 @@ plt.ylim((0, 300))  # set y-axis range
 plt.show()
 ```
 
-@fig-popularity-hist shows the distribution of author *popularity* among tweets, grouped by sentiments. Overall, most participants are at the lowest levels of *popularity*, and the number of tweets gradually decreases with the author *popularity* increasing, until the figure for *popularity* reaches its highest levels. Moreover, the majority of tweets are neutral, while negative contributions are more prevalent than positive ones.
+@fig-popularity-hist 展示了推文按情感分组后的作者*受欢迎度*分布。总体而言，绝大多数参与者处于最低受欢迎度水平，随着作者*受欢迎度*的提升，推文数量逐渐减少，直至*受欢迎度*达到最高水平。此外，大多数推文为中立，而负面推文的数量多于正面推文。
 
-# Reflection
+# 反思
 
-These two plots only analyse a limited number of attributes in the dataset, where there is room for improvement. Other attributes could have also been employed in visualisation since their data types have been processed. For instance, basic information attributes such as retweet count and like count can be used to estimate the engagement of each tweet, with a histogram as visualisation.
+这两张图仅分析了数据集中有限数量的属性，仍有改进空间。在数据类型处理完成后，其他属性同样可用于可视化。例如，转发数和点赞数等基本信息属性可用于估算每条推文的互动程度，并以直方图加以呈现。
 
-# Conclusion
+# 结论
 
-This project analyses the overall online attitude towards the Catalan referendum and compares three lexicons' performance by a bar plot, where the public attitude tends to be negative, and the NRC lexicon seems the most balanced. Additionally, users with lower *popularity* contributed the most presented by a histogram showing the distribution of user *popularity* divided by the attitude orientation of each tweet.
+本项目通过条形图分析了网络公众对加泰罗尼亚公投的总体态度，并比较了三种词典的表现。结果显示公众态度总体偏向负面，而 NRC 词典表现最为均衡。此外，受欢迎度较低的用户贡献了最多推文，这一结论通过按推文情感倾向分组的用户*受欢迎度*分布直方图得到呈现。
 
-# References
+# 参考文献
 
 ::: {#refs}
 :::
 
-# Appendix I: Attributes Description {#appendix-attributes}
+# 附录一：属性说明 {#appendix-attributes}
 
-Below is the overall instruction of [the original dataset](https://zenodo.org/records/4750661) and description of each attribute offered by the dataset provider.
+以下为[原始数据集](https://zenodo.org/records/4750661)的整体介绍及数据集提供者对各属性的描述。
 
-> This corpus consists of 46,962 tweets related to the Catalan referendum, a very controversial topic in Spain due to it was an independence referendum called by the Catalan regional government and suspended by the Constitutional Court of Spain after a request from the Spanish government. All the tweets were downloaded on October 1, 2017 with the hashtags #CatalanReferendum or #ReferendumCatalan. Later, we collected features of these tweets on October 31, 2017 in order to analyze their virality. Each item in this collection is made up of the features we used from each tweet to perform the virality analysis.
+> 本语料库共包含 46,962 条与加泰罗尼亚公投相关的推文。加泰罗尼亚公投是西班牙一场极具争议的独立公投，由加泰罗尼亚地区政府发起，后经西班牙政府申请，被西班牙宪法法院宣布中止。所有推文均于 2017 年 10 月 1 日以话题标签 #CatalanReferendum 或 #ReferendumCatalan 下载。2017 年 10 月 31 日，我们进一步收集了这些推文的特征，以分析其传播性。语料库中的每条记录由我们用于病毒式传播分析的推文特征构成。
 
-## Tweet Metadata Attributes
+## 推文元数据属性
 
-| Attribute | Description |
+| 属性 | 说明 |
 |---------------------------------|---------------------------------------|
-| `lang` | Tweet language |
-| `retweet_count` | Total number of retweets recorded for a given tweet. |
-| `favourite_count`<br>(renamed as `like_count`) | Total number of favourites recorded for a given tweet. |
-| `is_quote_status` | Whether a tweet includes a quote of another tweet. |
-| `num_hashtags` | Total number of hashtags in the tweet. |
-| `num_urls` | Total number of URLs in the tweet. |
-| `num_mentions` | Total number of users mentioned in the tweet. |
-| `interval_time` | Interval of the day on which the tweet was published (morning 06:00–12:00, afternoon 12:00–18:00, evening 18:00–00:00, or night 00:00–06:00). |
+| `lang` | 推文语言 |
+| `retweet_count` | 该推文被转发的总次数 |
+| `favourite_count`<br>（重命名为 `like_count`） | 该推文被收藏的总次数 |
+| `is_quote_status` | 该推文是否引用了其他推文 |
+| `num_hashtags` | 推文中话题标签的总数 |
+| `num_urls` | 推文中 URL 的总数 |
+| `num_mentions` | 推文中提及用户的总数 |
+| `interval_time` | 推文发布的时间段（早晨 06:00–12:00、下午 12:00–18:00、晚上 18:00–00:00 或深夜 00:00–06:00） |
 
-## Emotional Word Count Attributes
+## 情感词计数属性
 
-| Attribute | Description |
+| 属性 | 说明 |
 |---------------------------------|---------------------------------------|
-| `positive_words_iSOL` | Total number of positive words found in the tweet using iSOL lexicon. |
-| `negative_words_iSOL` | Total number of negative words found in the tweet using iSOL lexicon. |
-| `positive_words_NRC` | Total number of positive words found in the tweet using NRC lexicon. |
-| `negative_words_NRC` | Total number of negative words found in the tweet using NRC lexicon. |
-| `positive_words_mlSenticon` | Total number of positive words found in the tweet using ML-SentiCon lexicon. |
-| `negative_words_mlSenticon` | Total number of negative words found in the tweet using ML-SentiCon lexicon. |
+| `positive_words_iSOL` | 使用 iSOL 词典检测到的推文正面词总数 |
+| `negative_words_iSOL` | 使用 iSOL 词典检测到的推文负面词总数 |
+| `positive_words_NRC` | 使用 NRC 词典检测到的推文正面词总数 |
+| `negative_words_NRC` | 使用 NRC 词典检测到的推文负面词总数 |
+| `positive_words_mlSenticon` | 使用 ML-SentiCon 词典检测到的推文正面词总数 |
+| `negative_words_mlSenticon` | 使用 ML-SentiCon 词典检测到的推文负面词总数 |
 
-## Author Metadata Attributes
+## 作者元数据属性
 
-| Attribute | Description |
+| 属性 | 说明 |
 |---------------------------------|---------------------------------------|
-| `verified_user` | Whether the tweet is from a verified user. |
-| `followers_count_user` | Total number of users who follow the author of a tweet. |
-| `friends_count_user` | Total number of friends that the author is following. |
-| `listed_count_user` | Total number of lists that include the author of a tweet. |
-| `favourites_count_user`<br>(renamed as `likes_count_user`) | Total number of favourited tweets by a user. |
-| `statuses_count_user`<br>(renamed as `tweets_count_user`) | Total number of tweets made by the author since the creation of the account. |
+| `verified_user` | 该推文是否来自认证用户 |
+| `followers_count_user` | 关注该推文作者的用户总数 |
+| `friends_count_user` | 该作者正在关注的好友总数 |
+| `listed_count_user` | 将该推文作者加入列表的总数 |
+| `favourites_count_user`<br>（重命名为 `likes_count_user`） | 该用户点赞的推文总数 |
+| `statuses_count_user`<br>（重命名为 `tweets_count_user`） | 该账号自创建以来发布的推文总数 |
 
-# Appendix II: Validating Values Before Modifying Data Types {#appendix-data-types}
+# 附录二：修改数据类型前的值验证 {#appendix-data-types}
 
-In the beginning, only missing data of certain subsets were dropped via `.dropna()` method (@fig-drop-na).
+最初，仅通过 `.dropna()` 方法删除特定子集中的缺失值（@fig-drop-na）。
 
-![Dropping NAs from certain columns only](../../../src/img/proj/catalan/fig4-drop-na-from-col.png){#fig-drop-na fig-alt="Dropping NAs from certain columns only"}
+![仅删除特定列中的缺失值](../../../src/img/proj/catalan/fig4-drop-na-from-col.png){#fig-drop-na fig-alt="Dropping NAs from certain columns only"}
 
-However, errors occurred subsequently when modifying data types via `.astype()` method (@fig-astype-error).
+然而，随后在使用 `.astype()` 方法修改数据类型时发生了错误（@fig-astype-error）。
 
-![Error when using `.astype(int)`](../../../src/img/proj/catalan/fig5-error-astype-int.png){#fig-astype-error fig-alt="Error when using .astype(int)"}
+![使用 `.astype(int)` 时的报错](../../../src/img/proj/catalan/fig5-error-astype-int.png){#fig-astype-error fig-alt="Error when using .astype(int)"}
 
-It was because the strings in those attributes were not all numerical, in which case the strings cannot be directly changed into integers via `.astype(int)` (@fig-non-num-str).
+原因在于，这些属性中的字符串并非全部为数值型，因此无法直接通过 `.astype(int)` 转换为整数（@fig-non-num-str）。
 
-![Check non-numerical strings](../../../src/img/proj/catalan/fig6-check-non-num-str.png){#fig-non-num-str fig-alt="Check non-numerical strings"}
+![检查非数值字符串](../../../src/img/proj/catalan/fig6-check-non-num-str.png){#fig-non-num-str fig-alt="Check non-numerical strings"}
 
-Therefore, it is necessary to check if all strings are numerical before applying methods to change the data type. Moreover, it was found that if all missing values were dropped initially via simply `.dropna()` (no keyword arguments), the probability of not returning errors would significantly increase.
+因此，在应用数据类型转换方法前，有必要先验证所有字符串是否均为数值型。此外发现，若在最初直接使用不带关键字参数的 `.dropna()` 删除所有缺失值，则不产生报错的概率将大幅提升。
 
-# Appendix III: Modifying Seaborn Histograms' Legend {#appendix-legend}
+# 附录三：修改 Seaborn 直方图图例 {#appendix-legend}
 
-@fig-popularity-hist (histogram of author *popularity*) was plotted via the seaborn function `.histplot()`, grouped in colours by defining the `hue` parameter (@fig-first-attempt). By this means, the legend was automatically generated, with the column label ‘overall_sentiment’ as the title. However, it does not make much sense as a title. The `plt.legend()` was thus employed aiming at changing the legend title and maintaining all other information. Nevertheless, it did not work perfectly with the legend as shown below. It is supposed that the error might be because there were conflicts between the legend automatically generated by Seaborn and the manually added legend via `plt.legend()` function.
+@fig-popularity-hist（作者*受欢迎度*直方图）通过 seaborn 的 `.histplot()` 函数绘制，并通过设置 `hue` 参数按颜色分组（@fig-first-attempt）。此方式会自动生成图例，以列名 'overall_sentiment' 作为标题，但这并不适合作为图例标题。为此，尝试使用 `plt.legend()` 修改图例标题并保留其他信息，但效果不理想（如下图所示）。推测原因是 Seaborn 自动生成的图例与手动添加的 `plt.legend()` 之间存在冲突。
 
-![First Attempt](../../../src/img/proj/catalan/fig7-first-attempt.png){#fig-first-attempt fig-alt="First Attempt"}
+![初次尝试](../../../src/img/proj/catalan/fig7-first-attempt.png){#fig-first-attempt fig-alt="First Attempt"}
 
-Therefore, the `plt.legend()` argument was changed into the `ax.get_legend().set_title()` argument, which detected the generated legend in this plot, and then set a new title to it.
+因此，将 `plt.legend()` 改为 `ax.get_legend().set_title()` ——该方法可检测当前图表中已生成的图例，并为其设置新标题。

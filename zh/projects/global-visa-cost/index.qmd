@@ -1,9 +1,9 @@
 ---
-title: 'Global Visa Cost Analysis and Interactive Visualization'
+title: '全球签证费用分析与交互式可视化'
 author: 'Pinn Xu'
 date: '2024-12-12'
 categories: [Python, EDA, Sankey Diagram, Choropleth Map, Visualization]
-description: 'A comparative study of visa costs across countries, exploring affordability and geographic patterns.'
+description: '跨国签证费用的比较研究，探索可负担性与地理分布规律。'
 bibliography: references.bib
 csl: ../../../src/apa.csl
 # css: 'jupyter-page.css'
@@ -19,9 +19,9 @@ matplotlib==3.9.x
 plotly==5.24.1
 ```
 
-# Introduction
+# 简介
 
-This project uses the Global Visa Cost Dataset [@recchi2020] created by researchers from the European University Institute's Migration Policy Centre, which provides detailed information on visa costs between country pairs for seven categories in 2019 (see [Appendix](#appendix) for further explanation). Data was primarily collected manually from governmental websites. Three types of interactive graphs – Sankey diagram, bar chart, and choropleth – will be employed to visualize data in the following sections.
+本项目使用由欧洲大学学院移民政策中心研究人员创建的全球签证费用数据集 [@recchi2020]，该数据集提供了 2019 年各国家对之间七类签证费用的详细信息（详细说明见[附录](#appendix)）。数据主要通过手动从各国政府官网收集。以下各节将使用三种交互式图表——桑基图、条形图和等值线地图——对数据进行可视化。
 
 ```{python}
 import pandas as pd  # to deal with DataFrames
@@ -31,19 +31,19 @@ path = "../../../src/data/GMP_GlobalVisaCostDataset_version1.1.csv"
 df = pd.read_csv(path, delimiter='\t') # read in tab separated CSV file
 
 #【delimiter】
-# This parameter determines the separator used to interpret the in CSV file, 
+# This parameter determines the separator used to interpret the in CSV file,
 # where '\t' denotes a tab character (Pandas, 2024e).
 ```
 
-# Data Visualization and Analysis
+# 数据可视化与分析
 
-## Sankey Diagram
+## 桑基图
 
-### Cleaning DataFrame
+### 数据清洗
 
 ```{python}
-## Defining a new variable df0 to store DataFrame without missing data 
-# in the specified columns, to ensure that the sankey diagram will 
+## Defining a new variable df0 to store DataFrame without missing data
+# in the specified columns, to ensure that the sankey diagram will
 # only contain valid nodes.
 
 df0 = df.dropna(
@@ -59,15 +59,15 @@ df0 = df.dropna(
 # This method drops rows with any missing values (Pandas, 2024b).
 
 #【subset】
-# This parameter specifies which columns to consider when removing rows with 
-# missing values. In this case, these are the columns to be used for 
+# This parameter specifies which columns to consider when removing rows with
+# missing values. In this case, these are the columns to be used for
 # creating sankey diagram.
 
-# For convenience, this project will only use data about tourist visa, 
+# For convenience, this project will only use data about tourist visa,
 # as the most common type of visa (Recchi et al., 2021, p. 7).
 ```
 
-### Defining Nodes
+### 定义节点
 
 ```{python}
 ##############################################################################
@@ -76,17 +76,17 @@ source_region_labels = list(df0['source_region'].unique())
 source_subregion_labels = list(df0['source_subregion'].unique())
 
 #【.unique()】
-# This method returns an Array object containing a list of unique values 
-# from a Series object (Pandas, 2024f). In this case, the columns 
-# 'source_region' and 'source_subregion' in the DataFrame df0 serve as 
-# the Series objects, where missing values are already dropped via 
-# .dropna() method. Subsequently, .unique() method is used to return 
-# Array objects containing lists of unique values from each column. 
-# These values will be used to create node labels. 
+# This method returns an Array object containing a list of unique values
+# from a Series object (Pandas, 2024f). In this case, the columns
+# 'source_region' and 'source_subregion' in the DataFrame df0 serve as
+# the Series objects, where missing values are already dropped via
+# .dropna() method. Subsequently, .unique() method is used to return
+# Array objects containing lists of unique values from each column.
+# These values will be used to create node labels.
 
 #【list()】
-# This built-in Python function (also class) converts the input to 
-# a list (Python, 2024a). In this case, it is used to convert the 
+# This built-in Python function (also class) converts the input to
+# a list (Python, 2024a). In this case, it is used to convert the
 # Array objects mentioned above into Python list objects.
 
 ##############################################################################
@@ -94,8 +94,8 @@ source_subregion_labels = list(df0['source_subregion'].unique())
 node_labels = ['World'] + source_region_labels + source_subregion_labels
 
 #【+】
-# This operator concatenates two or more sequences (e.g., lists) 
-# into a single sequence (Python, 2024b). In this case, it is used 
+# This operator concatenates two or more sequences (e.g., lists)
+# into a single sequence (Python, 2024b). In this case, it is used
 # to combine lists of node labels into a single list.
 
 #【'World'】
@@ -106,16 +106,16 @@ node_labels = ['World'] + source_region_labels + source_subregion_labels
 node_ids = range(len(node_labels))
 
 #【len()】
-# This built-in Python function returns the number of items in an object 
-# (i.e., the length of an object), which can be a sequence (e.g., list) 
-# or a collection (e.g., dictionary) (Python, 2024a). In this case, 
-# it is used to return the length of the list node_labels storing 
+# This built-in Python function returns the number of items in an object
+# (i.e., the length of an object), which can be a sequence (e.g., list)
+# or a collection (e.g., dictionary) (Python, 2024a). In this case,
+# it is used to return the length of the list node_labels storing
 # all node labels, which equals to 23.
 
 #【range()】
-# This built-in Python function (also class) returns a sequence of numbers, 
-# starting from zero by default (Python, 2024a). In this case, 
-# range(23) starts from 0 to 22, which equal to the indices of items 
+# This built-in Python function (also class) returns a sequence of numbers,
+# starting from zero by default (Python, 2024a). In this case,
+# range(23) starts from 0 to 22, which equal to the indices of items
 # in the list node_labels.
 
 ##############################################################################
@@ -123,25 +123,25 @@ node_ids = range(len(node_labels))
 nodes = dict(zip(node_labels, node_ids))
 
 #【zip()】
-# This built-in Python function iterate over several iterables in parallel, 
+# This built-in Python function iterate over several iterables in parallel,
 # producing tuples with an item from each one (Python, 2024a).
 
 #【dict()】
-# This built-in Python function (also class) creates a dictionary from 
-# two or more sequences (Python, 2024a). In this case, it is used 
-# to create a dictionary where the keys are node labels 
+# This built-in Python function (also class) creates a dictionary from
+# two or more sequences (Python, 2024a). In this case, it is used
+# to create a dictionary where the keys are node labels
 # and values are the indices of node labels.
 ```
 
-### Defining Links
+### 定义链接
 
 ```{python}
 ##############################################################################
-## Creating an aggregated DataFrame to store relevant data, which will be used 
+## Creating an aggregated DataFrame to store relevant data, which will be used
 # to calculate the value of link towards each subregion.
 to_subregion_value = df0.groupby('source_subregion').agg(
     {
-    'source_region':'first', # the region of each subregion 
+    'source_region':'first', # the region of each subregion
     'tourist_visa':'mean', # mean of tourist visa cost in each subregion
     }
 )
@@ -153,9 +153,9 @@ to_subregion_value = df0.groupby('source_subregion').agg(
 # This method is used to calculate the aggregation of values in each group.
 
 #【'first'】
-# This aggregation function returns the first entry of each column within 
-# each group in the DataFrameGroupBy object (Pandas, 2024a). 
-# In this case, it is used to select the first region encountered 
+# This aggregation function returns the first entry of each column within
+# each group in the DataFrameGroupBy object (Pandas, 2024a).
+# In this case, it is used to select the first region encountered
 # in each group of subregions (i.e., the region for each subregion).
 
 ##############################################################################
@@ -193,13 +193,13 @@ for subregion in source_subregion_labels:
     sources.append(nodes[region])
 
     # Append each subregion as the target nodes
-    targets.append(nodes[subregion]) 
-    
+    targets.append(nodes[subregion])
+
     # Append values in df0_agg2 for each subregion as the value for each link
     values.append(to_subregion_value.loc[subregion,'tourist_visa'])
 ```
 
-### Assigning Colors
+### 配色方案
 
 ```{python}
 source_region_labels # Checking regions in df0
@@ -217,7 +217,7 @@ region_colors = {
     'Europe': '#85D6D5',  # Blue
 }
 
-# These colors are generated (in hex) via Nichols's (no date) 
+# These colors are generated (in hex) via Nichols's (no date)
 # color palette generator for better visibility to color blind people.
 
 ##############################################################################
@@ -229,24 +229,24 @@ node_colors = []  # Creating an empty list to store node colors
 for label in node_labels:
     if label in source_region_labels:
         node_colors.append(region_colors[label])
-    
+
     elif label in source_subregion_labels:
         # get the corresponding region
         region = to_subregion_value.loc[label,'source_region']
         node_colors.append(region_colors[region])
 
-    else: # if label is 'World'  
-        node_colors.append('silver') 
+    else: # if label is 'World'
+        node_colors.append('silver')
 
 ##############################################################################
 ## Define link colors with transparency
 import matplotlib.colors as c  # to create faint colors in RGBA format
 
 ## Defining strings to store faint colors for links in RGBA format
-faint_Africa = 'rgba'+str(c.to_rgba(region_colors['Africa'], 0.5)) 
-faint_Asia = 'rgba'+str(c.to_rgba(region_colors['Asia'], 0.5)) 
-faint_Americas = 'rgba'+str(c.to_rgba(region_colors['Americas'], 0.5)) 
-faint_Oceania = 'rgba'+str(c.to_rgba(region_colors['Oceania'], 0.5)) 
+faint_Africa = 'rgba'+str(c.to_rgba(region_colors['Africa'], 0.5))
+faint_Asia = 'rgba'+str(c.to_rgba(region_colors['Asia'], 0.5))
+faint_Americas = 'rgba'+str(c.to_rgba(region_colors['Americas'], 0.5))
+faint_Oceania = 'rgba'+str(c.to_rgba(region_colors['Oceania'], 0.5))
 faint_Europe = 'rgba'+str(c.to_rgba(region_colors['Europe'], 0.5))
 
 # 0.5: alpha=0.5, means 50% transparency of colors
@@ -269,7 +269,7 @@ link_colors = []  # Creating an empty list to store link colors
 for source, target in zip(sources, targets):
     if node_labels[source] in source_region_labels:
         link_colors.append(faint_region_colors[node_labels[source]])
-    
+
     elif node_labels[target] in source_region_labels:
         link_colors.append(faint_region_colors[node_labels[target]])
 
@@ -281,11 +281,11 @@ print(len(node_colors) == len(nodes))
 print(len(link_colors) == len(sources) == len(targets) == len(values))
 ```
 
-### Creating Sankey Diagram
+### 绘制桑基图
 
 ```{python}
 #| label: fig-sankey
-#| fig-cap: 'Sankey diagram of average tourist visa costs from each area'
+#| fig-cap: '各地区平均旅游签证费用桑基图'
 ##############################################################################
 import plotly.graph_objects as go  # to create sankey diagram
 
@@ -323,9 +323,9 @@ fig1.update_layout(
     ''',
     title_x = 0.5, title_y = 0.95,  # location of the title
     font = {'style':'italic'},      # font style of the figure
-) 
+)
     #【.update_layout()】
-    # This method is used to update the layout of the figure, 
+    # This method is used to update the layout of the figure,
     # including the size, title, font, etc. (Plotly, 2024b).
 
 fig1.show(config = {"responsive": True})      # display the sankey diagram
@@ -342,17 +342,17 @@ fig1.show(config = {"responsive": True})      # display the sankey diagram
     # cells using Jupyter (but working for exported HTML file).
 ```
 
-As shown above, @fig-sankey illustrates the distribution of average tourist visa costs from global regions (e.g., Asia, Europe, Africa) to their corresponding subregions (e.g., Eastern Asia, Northern Europe). The width of the links from regions to subregions represents the average tourist visa cost per country (as countries of origin) in each subregion, while the widths of the links on the left-hand side (from the ‘World’ node to each region node) are the sum of their corresponding links towards the subregions. Overall, this Sankey diagram (@fig-sankey) shows the flow of global tourist visa costs.
+如上所示，@fig-sankey 展示了全球各地区（如亚洲、欧洲、非洲）到其对应子地区（如东亚、北欧）的平均旅游签证费用流向。从各地区到子地区的链接宽度代表每个子地区（作为签证申请来源地）各国的平均旅游签证费用，而左侧从"世界"节点到各地区节点的链接宽度则为其对应子地区链接的总和。总体而言，该桑基图（@fig-sankey）展示了全球旅游签证费用的流向分布。
 
-![Sankey diagram of average tourist visa costs from each area (sorted)](../../../src/img/proj/visa/fig2-sankey-sorted.png){#fig-sankey-sorted fig-alt="Sankey diagram of average tourist visa costs from each area (sorted)"}
+![各地区平均旅游签证费用桑基图（已排序）](../../../src/img/proj/visa/fig2-sankey-sorted.png){#fig-sankey-sorted fig-alt="Sankey diagram of average tourist visa costs from each area (sorted)"}
 
-Moreover, @fig-sankey-sorted provides the same Sankey diagram with manually sorted subregion nodes by their links’ values (average tourist visa costs), which could be of better interpretation for gaps between areas in tourist visa costs. As shown in @fig-sankey-sorted, subregions belonging to Asia and Africa exhibit significantly larger flows, indicating their higher overall tourist visa cost. In contrast, smaller flows can be seen in Europe, Australia and New Zealand, and Northern America, reflecting their lower average tourist visa costs. Meanwhile, within Asia, the Southern Asia area has the highest figure whereas Eastern Asia has the lowest. Likewise, Western Europe has the lowest figure among all European areas.
+此外，@fig-sankey-sorted 提供了经手动按链接值（平均旅游签证费用）对子地区节点排序后的同一桑基图，以便更直观地解读各地区签证费用之间的差距。如 @fig-sankey-sorted 所示，属于亚洲和非洲的子地区呈现出显著更大的流量，反映出其较高的平均旅游签证费用。相比之下，欧洲、澳大利亚与新西兰以及北美洲的流量较小，说明这些地区的平均旅游签证费用较低。在亚洲内部，南亚地区费用最高，而东亚最低；类似地，西欧在欧洲各子地区中费用最低。
 
-In general, @fig-sankey and @fig-sankey-sorted reveal potential inequality between countries in different areas regarding the ability to leave their country. This gap will be further demonstrated in the following sections on the bar chart (@fig-bar-visa-cost and @fig-bar-daily-income).
+总体而言，@fig-sankey 和 @fig-sankey-sorted 揭示了不同地区国家在出境能力方面的潜在不平等。这一差距将在下一节的条形图（@fig-bar-visa-cost 和 @fig-bar-daily-income）中进一步呈现。
 
-## Bar Chart
+## 条形图
 
-### Aggregating Data
+### 数据聚合
 
 ```{python}
 import plotly.express as px  # to create plotly interactive graphs
@@ -367,23 +367,23 @@ bar_agg = df.groupby('source_subregion').agg(
 ).reset_index()  # resetting index to make 'source_subregion' a regular column
 
 #【.reset_index()】
-# This method is used to reset the index of the aggregated DataFrame, 
-# placing all columns into a single level index (Pandas, 2024c). 
-# Namely, transform the automatically generated index ('source_subregion') 
+# This method is used to reset the index of the aggregated DataFrame,
+# placing all columns into a single level index (Pandas, 2024c).
+# Namely, transform the automatically generated index ('source_subregion')
 # into a regular column.
 ```
 
-### Creating Bar Chart
+### 绘制条形图
 
 ```{python}
 #| label: fig-bar-visa-cost
-#| fig-cap: 'Bar chart of average tourist visa costs from each subregion'
+#| fig-cap: '各子地区平均旅游签证费用条形图'
 # Creating a bar chart to show average tourist visa cost in each subregion
 
 fig2 = px.bar(
     bar_agg, x = 'tourist_visa', y = 'source_subregion',
-    labels = {  # assigning x and y labels 
-        'tourist_visa':'Average tourist visa cost ($)',  
+    labels = {  # assigning x and y labels
+        'tourist_visa':'Average tourist visa cost ($)',
         'source_subregion':'Subregion',
     },
     color = 'source_region',  # grouping bars by region in different colors
@@ -402,19 +402,19 @@ fig2.update_layout(
         'title':'Region',
         'orientation': 'h',  # horizontal oriented legend
         'xanchor': 'right',
-        'yanchor': 'bottom', 
+        'yanchor': 'bottom',
         'x': 1, 'y': 1,
     },
-) 
+)
 
 fig2.show(config = {"responsive": True}) # displaying the figure
 ```
 
-@fig-bar-visa-cost presents the same data as in @fig-sankey and @fig-sankey-sorted, which is the average tourist visa costs from each area (only subregions in @fig-bar-visa-cost), grouped by region in different colors, while the bar chart (@fig-bar-visa-cost) can show the difference in value more clearly as compared to @fig-sankey-sorted since the length in @fig-bar-visa-cost (bar chart) are more distinguishable than the width of links in @fig-sankey, which is also in line with Wilke’s [@wilke2019, chap. 6] suggestion that bar chart could be more suitable for presenting variations in amount of value. It may be inferred from @fig-sankey, @fig-sankey-sorted and @fig-bar-visa-cost, that people in countries in well-developed areas (e.g., Western Europe) have to pay less to go abroad whereas those in underdeveloped countries in areas such as Southern Asia and Northern Africa should pay more to go abroad. Nevertheless, another variable ‘tourist_perdailyincome’ (see [Appendix](#appendix) for detailed description) is introduced to calculate the underlying *actual* data on the level of tourist visa costs when adjusted by the average daily income in each country [@recchi2021, p. 4].
+@fig-bar-visa-cost 与 @fig-sankey 和 @fig-sankey-sorted 呈现了相同的数据，即各地区（在 @fig-bar-visa-cost 中仅显示子地区）按大洲分色的平均旅游签证费用。相比于桑基图，条形图能更清晰地展示数值差异，因为条形长度比链接宽度更易于区分，这也与 Wilke [@wilke2019, chap. 6] 的建议一致——条形图更适合呈现数值量的变化。由 @fig-sankey、@fig-sankey-sorted 和 @fig-bar-visa-cost 可以推断：来自欧洲等发达地区的公民出境所需支付的签证费用较少，而来自南亚、北非等欠发达地区的公民则需支付更高的签证费用。然而，为了反映签证费用的真实负担，另一变量 'tourist_perdailyincome'（详见[附录](#appendix)）被引入，以各国平均日收入为基准衡量签证的实际可负担性 [@recchi2021, p. 4]。
 
 ```{python}
 #| label: fig-bar-daily-income
-#| fig-cap: 'Average working days to afford tourist visa per subregion'
+#| fig-cap: '各子地区负担旅游签证所需平均工作天数'
 # Creating a bar chart to show average tourist visa cost per daily income
 # in each subregion, namely, the average working days to afford a
 # tourist visa from countries in each subregion.
@@ -424,7 +424,7 @@ fig3 = px.bar(
     labels = dict( # assigning x and y labels
         tourist_perdailyincome = '''
             Average working days to afford tourist visa (day)
-        ''', 
+        ''',
         source_subregion = 'Subregion',
     ),
     color = 'source_region', # grouping by region in different colors
@@ -445,19 +445,19 @@ fig3.update_layout(
         'title':'Region',
         'orientation': 'h',  # horizontal oriented legend
         'xanchor': 'right',
-        'yanchor': 'bottom', 
+        'yanchor': 'bottom',
         'x': 1, 'y': 1,
     },
-) 
+)
 
 fig3.show(config = {"responsive": True}) # displaying the figure
 ```
 
-As shown in @fig-bar-daily-income, there are even more significant gaps between areas regarding their income-adjusted average tourist visa costs (i.e., average working days to afford a tourist visa), revealing a paradoxical global situation – the poorer a country, the more citizens in it should pay for tourist visas to go abroad.
+如 @fig-bar-daily-income 所示，以日收入为基准的平均旅游签证费用（即负担旅游签证所需的平均工作天数）在各地区之间的差距更为悬殊，揭示了一个全球性的悖论：越贫穷的国家，其公民出境所需支付的签证费用反而越高。
 
-## Choropleth
+## 等值线地图
 
-### Aggregating Data
+### 数据聚合
 
 ```{python}
 # Aggregating data in order to draw the choropleth
@@ -472,21 +472,21 @@ choro_agg = (
 )
 
 #【.sort_values()】
-# This method is used to sort the aggregated DataFrame by 'tourist_visa' 
+# This method is used to sort the aggregated DataFrame by 'tourist_visa'
 # column, in descending order (ascending=False) (Pandas, 2024d).
 
 #【.reset_index()】
 # resetting index to make 'source_iso3' a regular column
 ```
 
-### Creating Choropleth
+### 绘制等值线地图
 
 ```{python}
 #| label: fig-choropleth
-#| fig-cap: 'Choropleth map of average tourist visa costs'
+#| fig-cap: '各国平均旅游签证费用等值线地图'
 # Creating a choropleth map to show average tourist visa cost in each country
 fig4 = px.choropleth(
-    choro_agg, 
+    choro_agg,
     locations = 'source_iso3', # region identifiers for locations
     locationmode = 'ISO-3', # country codes
     color = 'tourist_visa', # map color by tourist visa costs
@@ -516,83 +516,83 @@ fig4.update_layout(
 fig4.show(config = {"responsive": True}) # displaying the figure
 ```
 
-Furthermore, we may gain insights by moving from the sub-region level to the country level. @fig-choropleth provides information about the distribution of average tourist visa costs in specific countries around the world, which varies with the continuous color indicator. According to @wilke2019 \[p. 173\], as for choropleth, it is typically accepted that dark-colored background areas in the maps behave better in visibility than light-colored background areas for webpages. @fig-choropleth thus employs a color map with dark-colored background areas, where the color gradually fades with the value increasing [@plotlyColorscales].
+进一步地，将分析粒度从子地区细化到国家层面可以获得更多洞见。@fig-choropleth 通过连续色标直观呈现了全球各国平均旅游签证费用的分布情况。根据 @wilke2019 \[p. 173\] 的观点，在等值线地图中，深色背景区域通常比浅色背景区域在网页上具有更好的可视性，因此 @fig-choropleth 采用了深色背景的配色方案，颜色随数值增大而逐渐变浅 [@plotlyColorscales]。
 
-# Reflection and Possible Improvements
+# 反思与改进空间
 
-There is still space for improvement in this project. For instance, it only discussed one category of visa – tourist visa. Other types of visas could be included to gain more insights into nuanced variation. In addition, the color bar of the choropleth (@fig-choropleth) may be refined by binned continuous color scales, because continuous color scales seem not easy to recognise specific color values and match them with areas in the map [@wilke2019, pp. 174–175].
+本项目仍有改进余地。例如，项目仅讨论了旅游签证这一类别；纳入其他签证类型将有助于深入了解签证费用的细微差异。此外，等值线地图（@fig-choropleth）的色条可以采用分箱式连续色标加以优化，因为连续色标在辨识具体色值并与地图区域对应方面较为困难 [@wilke2019, pp. 174–175]。
 
-# Conclusion
+# 结论
 
-In conclusion, this project visualizes and analyses data about global tourist visa costs in different areas, revealing the paradoxical situation that the richer a country, the less tourist fee nationals in it need to pay to go abroad.
+综上所述，本项目对全球不同地区的旅游签证费用数据进行了可视化与分析，揭示了一个悖论性的全球现象：一个国家越富裕，其公民出境所需支付的签证费用反而越低。
 
-# References
+# 参考文献
 
 ::: {#refs}
 :::
 
-# Appendix: Dataset Information {#appendix}
+# 附录：数据集信息 {#appendix}
 
-**This appendix contains additional information about the dataset used in this project (the Global Visa Cost Dataset v1.1), including introduction of the dataset and detailed description of variables.**
+**本附录包含本项目所用数据集（全球签证费用数据集 v1.1）的补充信息，包括数据集介绍及各变量的详细说明。**
 
-## Global Visa Cost Dataset
+## 全球签证费用数据集
 
-The Global Visa Cost Dataset, created by researchers from the European University Institute's Migration Policy Centre, provides comprehensive data on visa costs for seven categories between country pairs in 2019. The dataset was developed through manual data collection primarily from official government websites and consulates.
+全球签证费用数据集由欧洲大学学院移民政策中心的研究人员创建，提供了 2019 年各国家对之间七类签证费用的全面数据，主要通过手动从官方政府网站和领事馆收集。
 
-Visa costs are coded in the following categories: tourist, student, business, work, family reunification, transit, and other motives, recorded in US dollars.
+签证费用按以下类别编码（单位：美元）：旅游、学生、商务、工作、家庭团聚、过境及其他目的。
 
-For countries where information was not available in English, French, Spanish, Arabic, Italian or Russian, a translation website was used to obtain the necessary information from the primary language of the country.
+对于无法通过英语、法语、西班牙语、阿拉伯语、意大利语或俄语获取信息的国家，使用了翻译网站从该国主要语言中获取相关信息。
 
-Several countries, including Palestine and the Syrian Arab Republic, are not coded due to a lack of information about travel access to their territory. Some countries needed a second round of visa cost checks due to difficulties in finding the information about their visa policy and visa requirements. In the case of many country pairs, there is visa policy information but there is no indication of the actual visa costs. For instance, Nauru in Oceania required a particularly engaging search to retrieve an official document on Immigration Regulations of January 2014, where the actual visa categories and costs are mentioned. This information is not indicated in any other official online source. For country pairs where information is not available in the dataset, missing values are introduced.
+由于缺乏进入其领土的旅行信息，巴勒斯坦和阿拉伯叙利亚共和国等国家未被编入数据集。部分国家因其签证政策和签证要求信息难以获取，需进行第二轮核查。对于许多国家对，虽有签证政策信息，但无实际签证费用说明。例如，大洋洲的瑙鲁需要特别费力地搜索才能找到一份 2014 年 1 月的官方移民法规文件，其中列出了签证类别和费用，而该信息在任何其他官方在线渠道上均未出现。对于数据集中无法获取信息的国家对，引入缺失值。
 
-## Variable Description
+## 变量说明
 
-### Variables: Countries and Regions
+### 变量：国家与地区
 
-These variables represent the countries and regions of origin and destination, where 'region' refers to the continent a country is located in, and 'subregion' refers to sub-regions within continents.
+这些变量表示来源国和目的国的国家与地区，其中"地区"指国家所在的大洲，"子地区"指大洲内的次级区域。
 
-> **source:** Country of origin\
-> **target:** Country of destination\
-> **source_iso3:** ISO3 code of country of origin\
-> **target_iso3:** ISO3 code of country of destination
+> **source：** 来源国\
+> **target：** 目的国\
+> **source_iso3：** 来源国 ISO3 代码\
+> **target_iso3：** 目的国 ISO3 代码
 
-> **source_region:** World region country of origin is located in\
-> **target_region:** World region country of destination is located in\
-> **source_subregion:** World sub-region country of destination is located in\
-> **target_subregion:** World sub-region country of destination is located in
+> **source_region：** 来源国所在的世界地区\
+> **target_region：** 目的国所在的世界地区\
+> **source_subregion：** 来源国所在的世界子地区\
+> **target_subregion：** 目的国所在的世界子地区
 
-*Note: Regions and sub-regions are based on the UN M.49 GeoScheme.*
+*注：地区与子地区基于联合国 M.49 地理方案。*
 
-### Variables: Visa Costs to the Target Countries
+### 变量：前往目的国的签证费用
 
-These variables are visa costs to the target countries from the source countries based on the official visa policies and visa requirements of the target countries in 2019, measured in US dollars.
+这些变量为目的国基于其官方签证政策与要求向来源国收取的 2019 年签证费用，以美元计。
 
-> **tourist_visa:** Tourist visa costs (in USD)\
-> **student_visa:** Student visa costs (in USD)\
-> **business_visa:** Business visa costs (in USD)\
-> **work_visa:** Work visa costs (in USD)\
-> **family_reunification_visa:** Family reunification visa costs (in USD)\
-> **transit_visa:** Transit visa costs (in USD)\
-> **other_motives_visa:** Other motives visa costs (in USD)
+> **tourist_visa：** 旅游签证费用（美元）\
+> **student_visa：** 学生签证费用（美元）\
+> **business_visa：** 商务签证费用（美元）\
+> **work_visa：** 工作签证费用（美元）\
+> **family_reunification_visa：** 家庭团聚签证费用（美元）\
+> **transit_visa：** 过境签证费用（美元）\
+> **other_motives_visa：** 其他目的签证费用（美元）
 
-### Variables: Average Working Days to Pay Visa Costs
+### 变量：负担签证费用所需平均工作天数
 
-These variables estimates how many days people in the source countries have to work on average to be able to afford a visa to the target countries, measured in days.
+这些变量估算来源国居民平均需要工作多少天才能负担前往目的国的签证费用，以天为单位。
 
-> **tourist_perdailyincome:** Tourist visa costs (in average daily incomes)\
-> **student_perdailyincome:** Student visa costs (in average daily incomes)\
-> **business_perdailyincome:** Business visa costs (in average daily incomes)\
-> **work_perdailyincome:** Work visa costs (in average daily incomes)\
-> **family_perdailyincome:** Family reunification costs (in average daily incomes)\
-> **transit_perdailyincome:** Transit visa costs (in average daily incomes)\
-> **other_perdailyincome:** Other motives visa costs (in average daily incomes)
+> **tourist_perdailyincome：** 旅游签证费用（以平均日收入为单位）\
+> **student_perdailyincome：** 学生签证费用（以平均日收入为单位）\
+> **business_perdailyincome：** 商务签证费用（以平均日收入为单位）\
+> **work_perdailyincome：** 工作签证费用（以平均日收入为单位）\
+> **family_perdailyincome：** 家庭团聚签证费用（以平均日收入为单位）\
+> **transit_perdailyincome：** 过境签证费用（以平均日收入为单位）\
+> **other_perdailyincome：** 其他目的签证费用（以平均日收入为单位）
 
-*Note: The authors used the GNI per capita as an approximation of the mean income of the average person in a country to calculate what the real costs of visas may be like. Information about GNI per capita are from World Bank (2019), which is available at: https://data.worldbank.org/indicator/NY.GNP.PCAP.CD .*
+*注：作者使用人均国民总收入（GNI per capita）作为各国居民平均收入的近似值，以计算签证的实际成本水平。人均 GNI 数据来自世界银行（2019），可在以下链接获取：https://data.worldbank.org/indicator/NY.GNP.PCAP.CD 。*
 
-### Variable: Updates Compared to the Previous Version
+### 变量：与前一版本相比的更新情况
 
-This variable indicates updates to the previous version of the dataset.
+该变量记录与上一版本数据集相比的更新内容。
 
-> **updated:** 1 if value was added/altered in the November 2020 update of the dataset from version 1.0 to version 1.1
+> **updated：** 若该值在 2020 年 11 月从 1.0 版更新至 1.1 版时被添加或修改，则标记为 1。
 
-*Note: Updates in version 1.1 compared to version 1.0 include corrections, additional data for numerous countries, and a new variable 'updated' to track changes. This project only used the updated version (version 1.1) of the dataset.*
+*注：1.1 版相比 1.0 版的更新包括数据修正、多国补充数据以及新增 'updated' 变量以追踪变更。本项目仅使用更新版本（1.1 版）的数据集。*

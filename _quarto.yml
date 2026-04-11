@@ -79,7 +79,7 @@ website:
           - text: "Sankey & Network Diagrams"
             href: en/tutorials/sankey-and-network/index.qmd
       - text: "About"
-        href: about/index.qmd
+        href: en/about/index.qmd
 
 format:
   html:

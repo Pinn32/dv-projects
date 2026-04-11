@@ -1,16 +1,16 @@
 ---
-title: '404 Page Not Found'
+title: '404 页面未找到'
 sidebar: false
 toc: false
-css: 
+css:
     - './src/styles/projects.css'
     - './src/styles/portfolio.css'
 ---
 
-Oops! The page you're looking for doesn't exist or has been moved.
+哎呀！您访问的页面不存在或已被移动。
 
-**Check out other sections of the site:**
+**浏览网站的其他内容：**
 
-> [Data Projects](/projects/)  
-> [Data Visualization Tutorials](/tutorials/)  
-> [Go to Home](/)  
+> [数据项目](/zh/projects/)
+> [数据可视化教程](/zh/tutorials/)
+> [返回首页](/zh/)

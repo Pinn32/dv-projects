@@ -1,9 +1,9 @@
 ---
-title: 'Student Social Media Usage and Well-being Analysis'
+title: '学生社交媒体使用与幸福感分析'
 author: 'Pinn Xu'
 date: '2026-02-23'
 categories: [R, EDA, Social Media, Mental Health, Visualization]
-description: 'Analysis of social media habits and addiction patterns among students, with behavioral and academic insights.'
+description: '分析学生的社交媒体使用习惯与成瘾模式，探究行为与学业相关洞察。'
 
 ## All below for Rmd
 # output:
@@ -26,58 +26,58 @@ tidyverse==2.0.0
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  fig.width = 8, 
+  fig.width = 8,
   fig.height = 5,
   # fig.align = 'left',  # only suitable for static image
   # fig.asp=0.8,         # only suitable for static image
   out.width = "95%",     # let fig width occupy 95% of parent element's width
-  results='hold', 
-  echo=TRUE, 
-  warning=FALSE, 
+  results='hold',
+  echo=TRUE,
+  warning=FALSE,
   message=FALSE
 )
 ```
 
-# Introduction
+# 简介
 
-## Environment and Package Version
+## 环境与包版本
 
-This project was conducted in R v4.5.2 using the *plotly* (v4.12.0) and *sampling* packages, and the package collection *tidyverse* (v2.0.0), with packages such as *stringr* (v1.6.0), *tibble* (v3.3.1), and *dplyr* (v1.1.4) included.
+本项目在 R v4.5.2 环境下完成，使用了 *plotly*（v4.12.0）和 *sampling* 包，以及包含 *stringr*（v1.6.0）、*tibble*（v3.3.1）和 *dplyr*（v1.1.4）等包的集合 *tidyverse*（v2.0.0）。
 
 ```{r eval=FALSE, results='hold'}
 # view versions
-getRversion()                # [1] ‘4.5.2’
-packageVersion("plotly")     # [1] ‘4.12.0’
-packageVersion("sampling")   # [1] ‘2.11’
-packageVersion("tidyverse")  # [1] ‘2.0.0’
-packageVersion("stringr")    # [1] ‘1.6.0’
-packageVersion("tibble")     # [1] ‘3.3.1’
-packageVersion("dplyr")      # [1] ‘1.1.4’
+getRversion()                # [1] '4.5.2'
+packageVersion("plotly")     # [1] '4.12.0'
+packageVersion("sampling")   # [1] '2.11'
+packageVersion("tidyverse")  # [1] '2.0.0'
+packageVersion("stringr")    # [1] '1.6.0'
+packageVersion("tibble")     # [1] '3.3.1'
+packageVersion("dplyr")      # [1] '1.1.4'
 ```
 
-## Dataset Overview
+## 数据集概览
 
-The dataset named *Student Social Media & Relationships* from [Kaggle](https://www.kaggle.com/datasets/adilshamim8/social-media-addiction-vs-relationships) was used for this analysis. It provided anonymous cross-sectional survey data among students aged 16-25 in different educational background across multiple countries, capturing key dimensions such as social media usage intensity, platform preferences, and relationship dynamics, allowing researchers to examine how digital behaviors relate to personal and academic outcomes. Each observation represented an individual student's response, making the dataset suitable for statistical analysis, with sufficient sample size (N = 705).
+本分析使用来自 [Kaggle](https://www.kaggle.com/datasets/adilshamim8/social-media-addiction-vs-relationships) 的数据集 *Student Social Media & Relationships*，包含来自不同国家、不同教育背景、年龄在 16-25 岁之间的学生匿名横截面调查数据，涵盖社交媒体使用强度、平台偏好和人际关系等关键维度，可供研究者探究数字行为与个人及学业成果之间的关联。每条观测代表一名学生的问卷回答，数据集样本量充足（N = 705），适合统计分析。
 
-In terms of the variables, there was one identifier variable `Student_ID` , giving each observation an unique ID. Other nominal variables included such as `Gender` , `Country` , `Most_Used_Platform` , `Relationship_Status` with non-ordinal levels, and `Academic_Level` , `Affects_Academic_Performance` (Boolean) with ordinal or Boolean levels. Numerical variables includes `Age` , `Avg_Daily_Usage_Hours` , `Sleep_Hours_Per_Night` , `Mental_Health_Score` , `Conflicts_Over_Social_Media` , and `Addicted_Score` , where mental health score and addicted score were self-rated levels from 1 to 10.
+在变量方面，包含一个标识变量 `Student_ID`，为每条观测分配唯一 ID。其他类别变量包括 `Gender`、`Country`、`Most_Used_Platform`、`Relationship_Status`（非有序类别），以及 `Academic_Level`、`Affects_Academic_Performance`（布尔型，有序类别）。数值变量包括 `Age`、`Avg_Daily_Usage_Hours`、`Sleep_Hours_Per_Night`、`Mental_Health_Score`、`Conflicts_Over_Social_Media` 和 `Addicted_Score`，其中心理健康评分和成瘾评分均为 1 到 10 的自评量表。
 
-## Goal of Analysis
+## 分析目标
 
-This project aimed to investigate the complex correlations between students' social media patterns (e.g. average usage hours, platform preference), contextual and demographic factors (e.g. academic level, country, age, gender), and student well-being and performance (e.g. average sleep hours, mental health, addiction).
+本项目旨在探究学生社交媒体使用模式（如平均使用时长、平台偏好）、背景与人口统计因素（如学业水平、国家、年龄、性别）与学生幸福感及学业表现（如平均睡眠时长、心理健康、成瘾程度）之间的复杂相关关系。
 
-The suitability of the selected dataset stemmed from its robust sample size (N = 705) and multidimensional structure with different types of variables, which provided statistical power to draw reliable insights on student behavior.
+选用该数据集的原因在于其较大的样本量（N = 705）和多维度的变量结构，提供了足够的统计效力以获取可靠的学生行为洞察。
 
-The analytical phase of this project was structured into three primary stages. Firstly, descriptive analyses were conducted to establish a basic understanding of the sample's demographics and social media usage patterns. Secondly, the analysis dived into correlation between indices regarding students' digital habits and well-being level, followed by an application of the Central Limit Theorem (CLT) to validate the reliability of statistical inferences. Finally, it compared and evaluated the efficiency and precision of three different sampling methods: simple random, systematic, and stratified sampling.
+分析阶段分为三个主要步骤：首先，进行描述性分析，建立对样本人口统计特征和社交媒体使用模式的基本认知；其次，深入分析学生数字习惯与幸福感指标之间的相关关系，并通过中心极限定理（CLT）验证统计推断的可靠性；最后，比较评估三种抽样方法的效率与精度：简单随机抽样、系统抽样和分层抽样。
 
-Regarding the visualization process, the project mainly used used data wrangling methods from packages in `tidyverse` to manipulate data before plotting, including pipe operator `|>` and functions such as `group_by()` and `summarize()` from the *dplyr* package; and then tools from the *plotly* package was used to draw plots.
+在可视化方面，项目主要使用 `tidyverse` 包中的数据处理方法（包括管道运算符 `|>` 以及 *dplyr* 包中的 `group_by()` 和 `summarize()` 等函数）对数据进行处理，再使用 *plotly* 包中的工具进行绘图。
 
-Furthermore, to improve the accessibility of visual storytelling, this project adopted colorblind-friendly palettes generated using the [online tool](https://davidmathlogic.com/colorblind/) developed by David Nichols.
+此外，为提升视觉叙事的可及性，本项目采用了由 David Nichols 开发的[在线工具](https://davidmathlogic.com/colorblind/)生成的色觉友好配色方案。
 
-# Data Preparation
+# 数据准备
 
-## Importing Dataset
+## 导入数据集
 
-The dataset was downloaded from [Kaggle](https://www.kaggle.com/datasets/adilshamim8/social-media-addiction-vs-relationships) and saved to a local directory. It was then imported into R as `df0` using the built-in `read.csv()` function with a relative file path. The structure of `df0` was shown in Output 1 below.
+数据集从 [Kaggle](https://www.kaggle.com/datasets/adilshamim8/social-media-addiction-vs-relationships) 下载并保存至本地目录，随后使用内置函数 `read.csv()` 以相对路径导入 R，存储为 `df0`。输出 1 展示了 `df0` 的结构。
 
 ```{r}
 # import dataset
@@ -85,13 +85,13 @@ df0 <- read.csv("../../../src/data/student-social-media-addiction.csv")
 str(df0) # view dataframe structure
 ```
 
-*Output 1. Structure of the Dataframe*
+*输出 1. 数据框结构*
 
-## Preprocessing
+## 数据预处理
 
-To facilitate further investigation and visualization of the data, a few processing steps were conducted in advance.
+为便于后续分析与可视化，提前进行了若干处理步骤。
 
-Firstly, relative packages was loaded, and the original dataset `df0` was converted to a tibble as `df` , while preserving the original dataset unchanged. Next, the names of categorical and numerical variables that would be used in subsequent analyses were specified and stored in separate vectors ( `names_catvar` and `names_numvar` ).
+首先，加载相关包，将原始数据集 `df0` 转换为 tibble 并存储为 `df`，保持原始数据集不变。随后，将后续分析中使用的类别变量名称和数值变量名称分别指定并存储在向量 `names_catvar` 和 `names_numvar` 中。
 
 ```{r}
 # attach packages
@@ -110,25 +110,25 @@ names_catvar <- c(
 
 # store names of numerical variables to use
 names_numvar <- c(
-  "Age", "Avg_Daily_Usage_Hours", "Sleep_Hours_Per_Night", 
+  "Age", "Avg_Daily_Usage_Hours", "Sleep_Hours_Per_Night",
   "Mental_Health_Score", "Conflicts_Over_Social_Media", "Addicted_Score"
 )
 ```
 
-## Missing Data
+## 缺失值
 
-An initial inspection for missing values was conducted using `sum(is.na(df))` , and no explicit missing data were identified in the dataset (shown in Output 2).
+使用 `sum(is.na(df))` 对缺失值进行初步检查，数据集中未发现显式缺失值（输出 2）。
 
 ```{r}
 # check the number of missing values
 sum(is.na(df))
 ```
 
-*Output 2. Number of NA Values*
+*输出 2. 缺失值数量*
 
-## Categorical Data
+## 类别数据
 
-For categorical variables, their numbers of categories (see Output 3) and counts of observations in each category (see Output 4) were first examined. The results indicated that most categorical variables contained a moderate number of categories, whereas *country* and *most-used platform* variables had relatively larger numbers of categories and therefore required further processing.
+对于类别变量，首先检查各变量的类别数量（见输出 3）及每个类别的观测计数（见输出 4）。结果显示，大多数类别变量包含适中数量的类别，而*国家*和*最常用平台*变量的类别数相对较多，因此需要进一步处理。
 
 ```{r}
 ## All Categorical Variables
@@ -139,7 +139,7 @@ for (name in names_catvar) {
 }
 ```
 
-*Output 3. Numbers of Unique Values in Categorical Variables*
+*输出 3. 类别变量中唯一值的数量*
 
 ```{r}
 ## All Categorical Variables Except Country & Platform
@@ -152,9 +152,9 @@ for (name in setdiff(names_catvar, c("Country", "Most_Used_Platform"))) {
 }
 ```
 
-*Output 4. Numbers of Observations of Each Value in Categorical Variables*
+*输出 4. 类别变量各取值的观测数量*
 
-Top five countries and platforms with the most counts of observations were thereby selected with their names stored ( vectors `top5_countries` and `top5_platforms` ). The results were displayed in Output 5.
+因此，分别筛选出观测数最多的前五个国家和平台，并将其名称存储在向量 `top5_countries` 和 `top5_platforms` 中，结果见输出 5。
 
 ```{r results='hold'}
 ## Country & Platform
@@ -168,7 +168,7 @@ cat("\n")
 head(sort(table(df["Most_Used_Platform"]), decreasing = TRUE), 5)
 ```
 
-*Output 5. Numbers of Observations in Each Country and Platform*
+*输出 5. 各国家和平台的观测数量*
 
 ```{r}
 ## Country & Platform
@@ -185,7 +185,7 @@ top5_platforms <- names(
 
 ```
 
-In addition, the `Affects_Academic_Performance` variable was converted from character to logical ( "Yes" = `TRUE` , "No" = `FALSE` ) as shown in Output 6.
+此外，`Affects_Academic_Performance` 变量由字符型转换为逻辑型（"Yes" = `TRUE`，"No" = `FALSE`），见输出 6。
 
 ```{r}
 ## Boolean Variable
@@ -193,18 +193,18 @@ In addition, the `Affects_Academic_Performance` variable was converted from char
 # convert variable from character to logical
 df$Affects_Academic_Performance <- df$Affects_Academic_Performance == "Yes"
 
-  # As the variable contains only "Yes" and "No" responses, 
+  # As the variable contains only "Yes" and "No" responses,
   # no further data cleaning was needed.
 
 # check the converted variable
 str(df$Affects_Academic_Performance)
 ```
 
-*Output 6. Boolean Variable*
+*输出 6. 布尔变量*
 
-## Numerical Data
+## 数值数据
 
-Descriptive statistics for the numerical variables were obtained using the `summary()` function in Output 7. The results indicate that the variables fall within reasonable ranges, with no apparent extreme or abnormal values. Thus, no further preprocessing was deemed necessary at this stage.
+使用 `summary()` 函数获取数值变量的描述性统计（输出 7）。结果表明各变量均在合理范围内，无明显极端或异常值，因此在此阶段无需进一步预处理。
 
 ```{r}
 ## All Numerical Variables
@@ -216,11 +216,11 @@ for (name in names_numvar) {
 }
 ```
 
-*Output 7. Descriptive Summaries of Numerical Variables*
+*输出 7. 数值变量的描述性统计*
 
-Moreover, the `Age` variable was categorized into three groups due to its limited range and variability. As shown in Output 8, treating `Age` as continuous offers minimal dispersion within such a narrow interval (18-24) and limited continuity (only 7 unique numbers), while treating the values as single-year categories would possibly lead to several small and uneven subgroups. Categorizing into three groups therefore provides a more suitable structure for subsequent analysis.
+此外，由于 `Age` 变量的范围较窄且变异有限，将其分组为三个年龄段。如输出 8 所示，将 `Age` 视为连续变量在如此狭窄的区间（18-24）内离散程度极低（仅有 7 个唯一值），而将各年龄值作为单独类别则可能导致若干小而不均的子组。因此，分组为三个区间能提供更适合后续分析的结构。
 
-To achieve this, a histogram was firstly used to view age distribution and obtain suitable breaks for grouping. Then, grouping information was stored into a new variable named `Age_Group` (see Output 9).
+为此，首先使用直方图查看年龄分布并确定合适的分组断点，然后将分组信息存入新变量 `Age_Group`（见输出 9）。
 
 ```{r results='hold'}
 ## Age
@@ -232,7 +232,7 @@ range(df$Age)
 length(unique(df$Age))
 ```
 
-*Output 8. Range of Age and Numbers of Unique Age*
+*输出 8. 年龄范围及唯一年龄值数量*
 
 ```{r fig.width=7, fig.height=5, results='hold'}
 ## Age
@@ -256,14 +256,14 @@ breaks <- hist_data$breaks
 ## Add new variable Age_Group to df
 
 # store grouping information into a new variable Age_Group
-df <- df |> 
+df <- df |>
   mutate(
     Age_Group = case_when(
-      (breaks[1] <= Age) & (Age <= breaks[2]) ~ 
+      (breaks[1] <= Age) & (Age <= breaks[2]) ~
       sprintf("%d-%d", breaks[1], breaks[2]),
-      (breaks[2] <= Age) & (Age <= breaks[3]) ~ 
+      (breaks[2] <= Age) & (Age <= breaks[3]) ~
       sprintf("%d-%d", breaks[2], breaks[3]),
-      (breaks[3] <= Age) & (Age <= breaks[4]) ~ 
+      (breaks[3] <= Age) & (Age <= breaks[4]) ~
       sprintf("%d-%d", breaks[3], breaks[4]),
     )
   )
@@ -272,21 +272,21 @@ df <- df |>
 table(df["Age_Group"])
 ```
 
-*Output 9. Age Groups*
+*输出 9. 年龄分组*
 
-# Descriptive Analysis
+# 描述性分析
 
-This section demonstrated several core contextual and behavioral patterns of the sample.
+本节展示了样本的若干核心背景特征与行为模式。
 
-## Demographics
+## 人口统计特征
 
-### Gender
+### 性别
 
-@fig-gender-dist illustrated a highly balanced gender distribution within the dataset (N = 705). The sample was almost perfectly split, with females representing 50.1% and males representing 49.9% of the participants. This balanced distribution allowed relatively unbiased gender-based comparisons of behavioral patterns.
+@fig-gender-dist 展示了数据集（N = 705）中高度均衡的性别分布。样本中女性占 50.1%，男性占 49.9%，比例近乎完美对等，为后续基于性别的行为模式比较提供了相对无偏的基础。
 
 ```{r}
 #| label: fig-gender-dist
-#| fig-cap: "Sample Gender Distribution"
+#| fig-cap: "样本性别分布"
 ## Gender
 
 # pie chart
@@ -296,20 +296,20 @@ plot_ly(
   values = ~Freq,
   type = "pie",                # pie chart
   textinfo = "label+percent",  # display label & percent on pie slices
-    
+
   # plotting area for pie chart
   domain = list(
     x = c(0, 1),    # horizontal: full height
     y = c(0, 0.85)  # vertical: leave 15% margin on the top
   ),
-  
+
   # aesthetics
   marker = list(
     colors = c("Female" = "#FFB697", "Male" = "#8fc4de"), # filling color
     line = list(color = "#222", width = 1.5)              # outline
   )
-) |> 
-  
+) |>
+
   layout(
     showlegend = FALSE,           # remove legend
     margin = list(l = 1, r = 1),  # left & right margin
@@ -320,17 +320,17 @@ plot_ly(
   )
 ```
 
-### Country
+### 国家
 
-The bar plot (@fig-country-dist) followed by Output 10 showing percentages of observations for top 5 countries with respect to the whole sample illustrated the sample's top five countries, with India leading at 7.5%, followed by the USA (5.7%) and Canada (4.8%). Denmark and France each represent 3.8% of the total, highlighting geographical diversity of participants, centered primarily in South Asian and North American regions.
+@fig-country-dist 及其后的输出 10 展示了样本前五个国家的分布情况及各国占总样本的百分比。印度以 7.5% 领先，其次是美国（5.7%）和加拿大（4.8%）。丹麦和法国各占 3.8%，体现了参与者地理来源的多样性，主要集中在南亚和北美地区。
 
 ```{r}
 #| label: fig-country-dist
-#| fig-cap: "Sample Country Distribution (top 5)"
+#| fig-cap: "样本国家分布（前 5）"
 ## Country
 
 # extract top 5 country data
-top5_countries_data <- df |> 
+top5_countries_data <- df |>
   filter(Country %in% top5_countries)
 
 # barplot
@@ -341,14 +341,14 @@ plot_ly(
   x = ~Country,
   y = ~Freq,
   type = "bar",  # barplot
-  
+
   # aesthetics
   marker = list(
     color = "#add4a0",                        # filling color
     line = list(color = "#222", width = 1.5)  # outline color & width
   )
-) |> 
-  
+) |>
+
   layout(
     margin = list(t = 50),  # margin top
     title = list(
@@ -373,15 +373,15 @@ plot_ly(
 sort(table(top5_countries_data$Country), decreasing = TRUE) / nrow(df) * 100
 ```
 
-*Output 10. Percentages of Top 5 Countries Relative to the Population*
+*输出 10. 前五国家占总体的百分比*
 
-### Age Group
+### 年龄分组
 
-The age group distribution (shown in @fig-age-group-dist) was skewed toward younger participants, with the 18-20 and 20-22 cohorts being the most predominant. The 22-24 group has a significantly lower frequency, indicating that the sample primarily consists of early-stage university students.
+如 @fig-age-group-dist 所示，年龄分布偏向年轻参与者，18-20 和 20-22 岁组占比最大。22-24 岁组频率显著较低，表明样本主要由大学低年级学生构成。
 
 ```{r}
 #| label: fig-age-group-dist
-#| fig-cap: "Sample Age Group Distribution"
+#| fig-cap: "样本年龄分组分布"
 ## Age Group
 
 # barplot
@@ -392,14 +392,14 @@ plot_ly(
   x = ~Age_Group,
   y = ~Freq,
   type = "bar",  # barplot
-  
+
   # aesthetics
   marker = list(
     color = "#FFD794",                        # filling color
     line = list(color = "#222", width = 1.5)  # outline color & width
   )
-) |> 
-  
+) |>
+
   layout(
     margin = list(t = 50),  # margin top
     title = list(
@@ -417,17 +417,17 @@ plot_ly(
   )
 ```
 
-## Platform Preference
+## 平台偏好
 
-@fig-top5-platforms showed the frequency distribution of the five most popular social platforms. It can be seen that Instagram (249) was the most popular platform among the sample, followed by TikTok (154) and Facebook (123), while WhatsApp (54) and Twitter (30) showed much lower frequencies.
+@fig-top5-platforms 展示了五大最受欢迎社交平台的频率分布。Instagram（249 人）为样本中最受欢迎的平台，其次是 TikTok（154 人）和 Facebook（123 人），而 WhatsApp（54 人）和 Twitter（30 人）使用频率明显较低。
 
 ```{r}
 #| label: fig-top5-platforms
-#| fig-cap: "Top 5 Popular Platforms"
+#| fig-cap: "前 5 大热门平台"
 ## Platform
 
 # extract top 5 platform data
-top5_platforms_data <- df |> 
+top5_platforms_data <- df |>
   filter(Most_Used_Platform %in% top5_platforms)
 
 # barplot
@@ -438,14 +438,14 @@ plot_ly(
   x = ~Most_Used_Platform,
   y = ~Freq,
   type = "bar",  # barplot
-  
+
   # aesthetics
   marker = list(
     color = "#c3a4cf",                        # filling color
     line = list(color = "#222", width = 1.5)  # outline color & width
   )
-) |> 
-  
+) |>
+
   layout(
     margin = list(t = 50),  # margin top
     title = list(
@@ -460,17 +460,17 @@ plot_ly(
   )
 ```
 
-Notably, after grouping by gender (shown in @fig-top5-platforms-gender), there were clear gender differences in platform preferences. Instagram and TikTok were more popular among females, with Instagram showing a larger gender gap. In contrast, Facebook and WhatsApp showed a more male-dominated trend. Twitter, on the other hand, showed a minimal gender variation. Overall, it appeared to be that females prefer visual platforms whereas males favor communication-oriented ones.
+值得注意的是，按性别分组后（@fig-top5-platforms-gender），各平台使用存在明显的性别差异。Instagram 和 TikTok 在女性中更受欢迎，其中 Instagram 的性别差距更大；而 Facebook 和 WhatsApp 则呈现出男性主导的趋势；Twitter 的性别差异最小。总体来看，女性似乎更偏爱视觉型平台，而男性则更倾向于通讯型平台。
 
 ```{r}
 #| label: fig-top5-platforms-gender
-#| fig-cap: "Top 5 Popular Platforms by Gender"
+#| fig-cap: "按性别分组的前 5 大热门平台"
 ## Platform ~ Gender
 
 # obtain data
-platform_gender_data <- top5_platforms_data |> 
-  group_by(Most_Used_Platform, Gender) |> 
-  summarize(Count = n(), .groups = 'drop') |> 
+platform_gender_data <- top5_platforms_data |>
+  group_by(Most_Used_Platform, Gender) |>
+  summarize(Count = n(), .groups = 'drop') |>
   arrange(desc(Count))
 
 # barplot
@@ -479,15 +479,15 @@ plot_ly(
   x = ~factor(Most_Used_Platform, top5_platforms),  # sort
   y = ~Count,
   type = "bar",     # barplot
-  color = ~Gender,  # map Gender to bar color 
+  color = ~Gender,  # map Gender to bar color
   colors = c("Female" = "#FFB697", "Male" = "#8fc4de"),
-  
+
   # aesthetics
   marker = list(
     line = list(color = "#222", width = 1.5)  # outline color & width
   )
-) |> 
-  
+) |>
+
   layout(
     barmode = "group",                     # side-by-side bar groups
     legend = list(
@@ -509,28 +509,28 @@ plot_ly(
 
 ```
 
-## Usage Hours
+## 使用时长
 
-The histogram of average media usage hours (@fig-usage-hours-dist) followed a symmetrical distribution, peaking between 4.5 and 5 hours, suggesting a consistent high-engagement digital lifestyle across the surveyed students.
+平均社交媒体使用时长的直方图（@fig-usage-hours-dist）呈对称分布，峰值在 4.5 到 5 小时之间，表明受访学生的数字生活方式整体高度投入且较为一致。
 
 ```{r}
 #| label: fig-usage-hours-dist
-#| fig-cap: "Daily Usage Hours Distribution"
+#| fig-cap: "日均使用时长分布"
 ## Usage Hours
 
 # histogram
 plot_ly(
   df,
-  x = ~Avg_Daily_Usage_Hours, 
+  x = ~Avg_Daily_Usage_Hours,
   type = "histogram",
-  
+
   # aesthetics
   marker = list(
     color = "#55D2C6",                        # filling color
     line = list(color = "#222", width = 1.5)  # outline
   )
-) |> 
-  
+) |>
+
   layout(
     margin = list(t = 50),  # margin top
     title = list(
@@ -546,28 +546,28 @@ plot_ly(
   )
 ```
 
-Boxplots (@fig-usage-hours-boxplot) were used to illustrate the distribution of average daily usage hours across the top 5 countries. USA and India exhibit the highest levels of engagement, with median usage hours significantly exceeding those of other nations. In contrast, Canada, France, and Denmark show lower overall usage, with Denmark recording the most conservative median. In addition, a notable outlier is observed in the Indian group, representing a user with exceptionally low daily engagement compared to the national trend.
+箱线图（@fig-usage-hours-boxplot）展示了前五国家的日均使用时长分布。美国和印度的使用投入度最高，中位使用时长显著高于其他国家。相比之下，加拿大、法国和丹麦的总体使用时长较低，其中丹麦的中位数最为保守。此外，印度组中存在一个明显的离群值，代表一名日均使用时长远低于该国整体趋势的用户。
 
 ```{r fig.width=8, fig.height=6}
 #| label: fig-usage-hours-boxplot
-#| fig-cap: "Daily Usage Hours Boxplot by Top 5 Countries"
+#| fig-cap: "前 5 国家日均使用时长箱线图"
 ## Usage Hours ~ Top 5 Countries
 
 ## Sorting
 
 # find median usage hours of each country
-countries_by_usage <- top5_countries_data |> 
+countries_by_usage <- top5_countries_data |>
   group_by(Country) |>
-  
+
   # create new variable to store medians
   summarize(
-    Median_Usage_Hour = median(Avg_Daily_Usage_Hours, na.rm = TRUE), 
+    Median_Usage_Hour = median(Avg_Daily_Usage_Hours, na.rm = TRUE),
     .groups = "drop"  # drop grouping information
-  ) |> 
-  
+  ) |>
+
   # sort by median descending
-  arrange(desc(Median_Usage_Hour)) |> 
-  
+  arrange(desc(Median_Usage_Hour)) |>
+
   # pull out the vector of Country variable
   # (country names with median usage hours descending)
   pull(Country)
@@ -578,24 +578,24 @@ countries_by_usage <- top5_countries_data |>
 # boxplot
 plot_ly(
   top5_countries_data,
-  
-  # make Country variable a factor by levels of 
+
+  # make Country variable a factor by levels of
   # countries with median usage hours descending
   x = ~factor(Country, countries_by_usage),
   y = ~Avg_Daily_Usage_Hours,
   type = "box",  # boxplot
-  
+
   # aesthetics: boundary box
   fillcolor = "#55D2C6",
   line = list(color = "#222", width = 1.5),
-  
+
   # aesthetics: outliers
   marker = list(
     color = "#55D2C6",                        # filling color
     line = list(color = "#222", width = 1.5)  # outline
   )
-) |> 
-  
+) |>
+
   layout(
     margin = list(t = 50),  # margin top
     title = list(
@@ -614,28 +614,28 @@ plot_ly(
   )
 ```
 
-## Sleep Hours
+## 睡眠时长
 
-Meanwhile, the distribution of sleep hours was also investigated. @fig-sleep-hours-dist revealed a roughly symmetrical distribution centered around a peak of approximately 7 to 7.5 hours of sleep per night. While the majority of students fall within a healthier range of 6 to 8 hours, the distribution exhibits a broad spread, with some individuals reporting as little as 4 hours and others reaching nearly 10 hours. This variation suggests a diverse range of sleeping habits within the student population.
+同时，本项目也对睡眠时长的分布进行了分析。@fig-sleep-hours-dist 显示，睡眠时长分布大致对称，峰值约在每晚 7 到 7.5 小时。大多数学生的睡眠时长在 6 到 8 小时的较健康范围内，但分布较为分散，部分学生每晚仅睡约 4 小时，也有学生接近 10 小时，反映出学生群体中睡眠习惯的多样性。
 
 ```{r}
 #| label: fig-sleep-hours-dist
-#| fig-cap: "Average Sleep Hours Distribution"
+#| fig-cap: "平均睡眠时长分布"
 ## Sleep Hours
 
 # histogram
 plot_ly(
-  df, 
-  x = ~Sleep_Hours_Per_Night, 
+  df,
+  x = ~Sleep_Hours_Per_Night,
   type = "histogram",
-  
+
   # aesthetics
   marker = list(
     color = "#FFABB6",                        # filling color
     line = list(color = "#222", width = 1.5)  # outline
   )
-) |> 
-  
+) |>
+
   layout(
     margin = list(t = 50),  # margin top
     title = list(
@@ -654,28 +654,28 @@ plot_ly(
   )
 ```
 
-Furthermore, looking into the distribution of average sleep hours by top 5 countries, @fig-sleep-hours-boxplot showed a significant inverse trend compared to the previously analyzed usage hours distribution (@fig-usage-hours-boxplot). While the USA and India presented the highest social media engagement, they recorded the lowest median sleep duration, both falling below 6 hours per night. Conversely, Denmark and France, which showed the most conservative usage patterns, enjoyed the highest median sleep hours, with Denmark leading at approximately 8.2 hours. In addition, India displayed a high number of upper outliers, indicating a group of students who maintained high sleep levels despite regional trends. These geographical variation suggested a negative correlation between digital engagement and sleeping, providing a critical baseline to later analysis of the relationship between behavioral patterns.
+进一步按前五国家分析平均睡眠时长分布，@fig-sleep-hours-boxplot 与前述使用时长分布（@fig-usage-hours-boxplot）呈现出显著的反向趋势。社交媒体使用投入度最高的美国和印度，其睡眠时长中位数最低，均不足 6 小时；而使用模式最为保守的丹麦和法国，睡眠时长中位数最高，其中丹麦约为 8.2 小时。此外，印度组存在大量上方离群值，表明部分学生即使在整体趋势下仍保持了较高的睡眠水平。这些地理差异暗示数字使用与睡眠之间存在负相关关系，为后续行为模式相关分析提供了重要基线。
 
 ```{r fig.width=8, fig.height=6}
 #| label: fig-sleep-hours-boxplot
-#| fig-cap: "Average Sleep Hours Distribution by Top 5 Countries"
+#| fig-cap: "前 5 国家平均睡眠时长箱线图"
 ## Sleep Hours ~ Top 5 Countries
 
 ## Sorting
 
 # find median sleep hours of each country
-countries_by_sleep <- top5_countries_data |> 
+countries_by_sleep <- top5_countries_data |>
   group_by(Country) |>
-  
+
   # create new variable to store medians
   summarize(
-    Median_Sleep_Hour = median(Sleep_Hours_Per_Night, na.rm = TRUE), 
+    Median_Sleep_Hour = median(Sleep_Hours_Per_Night, na.rm = TRUE),
     .groups = "drop"  # drop grouping information
-  ) |> 
-  
+  ) |>
+
   # sort by median ascending
-  arrange(Median_Sleep_Hour) |> 
-  
+  arrange(Median_Sleep_Hour) |>
+
   # pull out the vector of Country variable
   # (country names with median sleep hours ascending)
   pull(Country)
@@ -686,24 +686,24 @@ countries_by_sleep <- top5_countries_data |>
 # boxplot
 plot_ly(
   top5_countries_data,
-  
-  # make Country variable a factor by levels of 
+
+  # make Country variable a factor by levels of
   # countries with sleep hours ascending
   x = ~factor(Country, countries_by_sleep),
   y = ~Sleep_Hours_Per_Night,
   type = "box",  # boxplot
-  
+
   # aesthetics: boundary box
   fillcolor = "#FFABB6",
   line = list(color = "#222", width = 1.5),
-  
+
   # aesthetics: outliers
   marker = list(
     color = "#FFABB6",                        # filling color
     line = list(color = "#222", width = 1.5)  # outline
   )
-) |> 
-  
+) |>
+
   layout(
     margin = list(t = 50),  # margin top
     title = list(
@@ -722,29 +722,29 @@ plot_ly(
   )
 ```
 
-# Correlation Analysis
+# 相关性分析
 
-## Sleep Hours and Usage Hours
+## 睡眠时长与使用时长
 
-The scatter plot (@fig-usage-sleep-scatter) demonstrate a strong negative correlation between daily media usage and sleep duration. As usage rises from 2 to 8 hours, sleep generally drops by about 1 hour for every additional 1 hours of use. Most points cluster along this downward trend, though some heavy users (6+ hours) still report around 7 hours of sleep, while moderate users (4-6 hours) fall to 6-8 hours of sleep.
+散点图（@fig-usage-sleep-scatter）展示了日均社交媒体使用时长与睡眠时长之间的强负相关关系。随着使用时长从 2 小时增至 8 小时，睡眠时长大约每增加 1 小时使用便减少 1 小时。大多数数据点沿这一下降趋势聚集，尽管部分重度用户（6 小时以上）仍报告约 7 小时的睡眠，中度用户（4-6 小时）的睡眠则降至 6-8 小时。
 
 ```{r}
 #| label: fig-usage-sleep-scatter
-#| fig-cap: "Relationship between Usage Hours and Sleep Hours"
+#| fig-cap: "使用时长与睡眠时长的关系"
 ## Sleep Hours ~ Usage Hours
 
 # scatter plot
 plot_ly(
   df,
   x = ~Avg_Daily_Usage_Hours
-) |> 
-  
+) |>
+
   # add scatters
   add_markers(
-   y = ~Sleep_Hours_Per_Night, 
+   y = ~Sleep_Hours_Per_Night,
    marker = list(color = "#3B9FE4", opacity = 0.6)
-  ) |> 
-  
+  ) |>
+
   layout(
     margin = list(t = 50),  # margin top
     title = list(
@@ -758,12 +758,12 @@ plot_ly(
     ),
     yaxis = list(
       title = "Average Sleep Hours",
-      range = c(3, 10)      # let y axis be exhaustive 
+      range = c(3, 10)      # let y axis be exhaustive
     )
   )
 ```
 
-To validate the trend, a Pearson's correlation test was conducted. As shown in the results (see Output 11), the correlation coefficient was around -0.79 (*p* \< .001). It therefore indicated that there was a high potential of students' average daily social media usage hours being negatively correlated with their sleep hours.
+为验证上述趋势，进行了 Pearson 相关性检验。如输出 11 所示，相关系数约为 -0.79（*p* \< .001），表明学生日均社交媒体使用时长与睡眠时长之间存在高度潜在的负相关关系。
 
 ```{r results='hold'}
 ## Sleep Hours ~ Usage Hours
@@ -772,13 +772,13 @@ To validate the trend, a Pearson's correlation test was conducted. As shown in t
 cor.test(x = df$Avg_Daily_Usage_Hours, y = df$Sleep_Hours_Per_Night)
 ```
 
-*Output 11. Pearson's Correlation Test Result*
+*输出 11. Pearson 相关性检验结果*
 
-@fig-usage-sleep-linear showed a linear fit of the two variables, which further clarified the negative correlation.
+@fig-usage-sleep-linear 通过对两变量拟合线性模型，进一步呈现了这一负相关关系。
 
 ```{r}
 #| label: fig-usage-sleep-linear
-#| fig-cap: "Linear Relationship between Usage Hours and Sleep Hours"
+#| fig-cap: "使用时长与睡眠时长的线性关系"
 ## Sleep Hours ~ Usage Hours
 
 # linear model
@@ -788,22 +788,22 @@ fit <- lm(Sleep_Hours_Per_Night ~ Avg_Daily_Usage_Hours, data = df)
 plot_ly(
   df,
   x = ~Avg_Daily_Usage_Hours
-) |> 
-  
+) |>
+
   # add scatters
   add_markers(
-   y = ~Sleep_Hours_Per_Night, 
-   name = "Data Points", 
+   y = ~Sleep_Hours_Per_Night,
+   name = "Data Points",
    marker = list(color = "#3B9FE4", opacity = 0.6)
-  ) |> 
-  
+  ) |>
+
   # add linear fit
   add_lines(
-    y = ~fitted(fit), 
-    name = "Linear Fit", 
+    y = ~fitted(fit),
+    name = "Linear Fit",
     line = list(color = '#D53132', width = 1.5)
-  ) |> 
-  
+  ) |>
+
   layout(
     legend = list(
       orientation = "h",                  # arrangement of legend labels
@@ -822,14 +822,14 @@ plot_ly(
     ),
     yaxis = list(
       title = "Average Sleep Hours",
-      range = c(3, 10)                    # let y axis be exhaustive 
+      range = c(3, 10)                    # let y axis be exhaustive
     )
   )
 ```
 
-## Other Indices
+## 其他指标
 
-In addition, it was also considered worthwhile investigating the relationship between other indices such as mental health score and addicted score (names of indices were shown in Output 12). Therefore, a faceted 5×5 paired scatter plot matrix was used to display all of the relationship trends (see @fig-indices-scatter).
+此外，心理健康评分与成瘾评分等其他指标之间的关系同样值得探究（指标名称见输出 12）。为此，使用 5×5 的分面散点图矩阵展示所有指标之间的关系趋势（见 @fig-indices-scatter）。
 
 ```{r }
 ## Relationship between Indices
@@ -838,11 +838,11 @@ In addition, it was also considered worthwhile investigating the relationship be
 (names_numvar <- setdiff(names_numvar, "Age"))
 ```
 
-*Output 12. Names of Indices to Compare*
+*输出 12. 待比较指标的名称*
 
 ```{r fig.width=8, fig.height=6, out.width='95%'}
 #| label: fig-indices-scatter
-#| fig-cap: "Relationship between Indices"
+#| fig-cap: "各指标之间的关系"
 ## Relationship between Indices
 
 # extract numerical variable data
@@ -852,7 +852,7 @@ num_data <- df[, names_numvar]
 plot_ly(
   num_data,
   type = "splom",  # scatter plots matrix
-  
+
   # indices to compare
   dimensions = list(
     list(label = "Usage", values = ~Avg_Daily_Usage_Hours),
@@ -861,15 +861,15 @@ plot_ly(
     list(label = "Conflicts", values = ~Conflicts_Over_Social_Media),
     list(label = "Addicted", values = ~Addicted_Score)
   ),
-  
+
   # aesthetics
   marker = list(
     color = "#3B9FE4",
     opacity = 0.5,
     size = 4
   )
-) |> 
-  
+) |>
+
   layout(
     margin = list(t = 60),  # margin top
     title = list(
@@ -879,9 +879,9 @@ plot_ly(
   )
 ```
 
-The scatter plot matrix (@fig-indices-scatter) illustrated a complex web of behavioral and psychological correlations, primarily centered on the detrimental effects of excessive social media usage. Meanwhile, Output 13 showed a correlation test matrix for all five indices, providing valid insights into behavioral trends.
+散点图矩阵（@fig-indices-scatter）揭示了行为与心理指标之间复杂的相关网络，核心在于过度社交媒体使用的负面影响。输出 13 展示了所有五项指标的相关系数矩阵，提供了对行为趋势的有效洞见。
 
-As shown by the results, a dominant negative correlation existed between usage hours and sleep, where increased screen time consistently aligns with diminished rest. This trend was further demonstrated by a positive correlation between usage and addiction levels, which in turn led to higher frequencies of life conflicts. Conversely, better mental health outcomes were associated with lower addiction scores, reduced usage, and longer sleep duration. Ultimately, the data suggested a negative feedback loop where high device dependency compromised sleep and social harmony, collectively contributing to poorer mental well-being.
+结果显示，使用时长与睡眠之间存在显著的负相关——屏幕时间增加持续对应睡眠减少。这一趋势进一步体现在使用时长与成瘾程度的正相关关系上，成瘾程度的上升又带来更多的生活冲突。相反，更好的心理健康结果与较低的成瘾评分、较少的使用时长和更长的睡眠时长相关。总体而言，数据揭示了一个负反馈循环：高度的设备依赖损害了睡眠与社会和谐，共同导致心理健康状况的恶化。
 
 ```{r}
 ## Relationship between Indices
@@ -890,18 +890,18 @@ As shown by the results, a dominant negative correlation existed between usage h
 (cor_matrix <- round(cor(num_data), 2))
 ```
 
-*Output 13. Correlation Matrix of Indices*
+*输出 13. 各指标相关系数矩阵*
 
-Notably, the correlation between addicted score and mental health (*r* = -.95), and that between addicted score and conflicts number over social media (*r* = .93) appeared to be the most significant with both \| *r* \| \> .9 (see Output 14), indicating that as addictive behaviors intensify, psychological well-being collapses and interpersonal friction rises almost in lockstep.
+值得注意的是，成瘾评分与心理健康之间的相关系数（*r* = -.95），以及成瘾评分与社交媒体冲突次数之间的相关系数（*r* = .93）最为显著，两者 \|*r*\| > .9（见输出 14），表明随着成瘾行为的加深，心理健康状况几乎同步崩溃，人际摩擦也随之上升。
 
-In conclusion, addiction scores served as the most potent predictor of negative life outcomes in this dataset.
+综上，成瘾评分是本数据集中预测负面生活结果最有力的指标。
 
 ```{r}
 ## Relationship between Indices
 
 # find location of pairs where |r| > 0.9
 loc <- which(
-  abs(cor_matrix) > 0.9 & cor_matrix != 1, 
+  abs(cor_matrix) > 0.9 & cor_matrix != 1,
   arr.ind = TRUE  # return matrix of row and column indices
 )
 
@@ -915,17 +915,17 @@ for(i in 1:nrow(loc)) {
 }
 ```
 
-*Output 14. Pairs of Indices with the Strongest Correlation (\|r\|\>.9)*
+*输出 14. 相关性最强的指标对（\|r\| > .9）*
 
-# Application of CLT
+# 中心极限定理的应用
 
-This section repeatedly drew random samples (1000 times) with different sample sizes (n = 10, 30, 50, 100) from the population dataset ( `df` ), and then observed patterns of sample mean distributions, aiming to seek for applicability of the Central Limit Theorem (CLT).
+本节对总体数据集（`df`）以不同样本量（n = 10、30、50、100）反复随机抽样（重复 1000 次），并观察样本均值分布的规律，以验证中心极限定理（CLT）的适用性。
 
-Central Limit Theorem suggests that as sample size increases, the sampling distribution of the sample mean approaches a normal distribution, regardless of the population’s original distribution.
+中心极限定理指出，随着样本量的增加，样本均值的抽样分布趋近于正态分布，无论总体的原始分布形状如何。
 
-In the meantime, the standard deviations of sample means (observed standard errors) are related to the population standard deviation *σ* the and sample size *n*, where the standard error is defined by a formula $SE = \frac{\sigma}{\sqrt n}$ . This formula was used in later analyses to calculate the theoretical standard error.
+同时，样本均值的标准差（观测标准误）与总体标准差 *σ* 和样本量 *n* 相关，标准误的计算公式为 $SE = \frac{\sigma}{\sqrt n}$。该公式在后续分析中用于计算理论标准误。
 
-To investigate the applicability of CLT, a function was firstly defined to draw random samples with specified sample size, sampling time, variable to sample, and other relative parameters.
+为探究 CLT 的适用性，首先定义了一个函数，以指定的样本量、抽样次数、抽样变量及其他相关参数进行随机抽样。
 
 ```{r}
 ## CLT
@@ -936,14 +936,14 @@ To investigate the applicability of CLT, a function was firstly defined to draw 
 sizes <- c(10, 30, 50, 100)
 
 # define a function to randomly sample from df with
-# specified sample size and plot sample means histogram with 
+# specified sample size and plot sample means histogram with
 # specified parameters
 
 make_hist <- function(
-    n, col, time = 1000, ymax = 1, 
+    n, col, time = 1000, ymax = 1,
     binwidth = 0.2, bincolor = "#FFA472", xdtick = 1
   ) {
-  
+
   ## n: sample size
   ## col: column to select from df
   ## time: times to replicate sampling process
@@ -951,12 +951,12 @@ make_hist <- function(
   ## binwidth: width of bins in histogram
   ## bincolor: color of bins
   ## xdtick: distance between ticks in x asix
-  
+
   # randomly sample data from df and calculate sample means
   sample_means <- replicate(
     time,   # repetition times, default is 1000
     mean(
-      sample(df[[col]], size = n, replace = TRUE), 
+      sample(df[[col]], size = n, replace = TRUE),
       na.rm = TRUE
     )
   )
@@ -964,15 +964,15 @@ make_hist <- function(
   # find population mean & standard deviation
   pop_mean <- mean(df[[col]], na.rm = TRUE)
   pop_sd <- sd(df[[col]], na.rm = TRUE)
-  
+
   # find fixed x range
   xmin <- pop_mean - (2 * pop_sd)
   xmax <- pop_mean + (2 * pop_sd)
-  
+
   # plot sample means probability distribution histogram
   plot_ly(
     x = sample_means,
-    type = "histogram", 
+    type = "histogram",
     histnorm = "probability",  # probability distribution
     name = paste("n =", n),
     xbins = list(
@@ -980,17 +980,17 @@ make_hist <- function(
       end = xmax,
       size = binwidth          # specify binwidth, default is 0.4
     ),
-    
+
     # aesthetics
     marker = list(
       color = bincolor,        # specify bincolor, default is "#FFA472"
       line = list(color = "#222", width = 1.5)
     )
-  ) |> 
-    
+  ) |>
+
     layout(
       margin = list(t = 60),   # margin top
-      
+
       # add annotation of sample size
       annotations = list(
         list(
@@ -1004,7 +1004,7 @@ make_hist <- function(
           showarrow = FALSE    # remove arrow of annotation
         )
       ),
-      
+
       # axis limits
       xaxis = list(
         range = c(xmin, xmax),          # x axis range
@@ -1015,15 +1015,15 @@ make_hist <- function(
 }
 ```
 
-## Usage Hours
+## 使用时长
 
-In terms of the average media usage hours variable, a 2×2 histogram matrix (@fig-usage-sample-means-grid) of sample mean distributions with different sample sizes (n = 10, 30, 50, 100) was plotted with axis scales being the same to see the trend of distribution shape. Meanwhile, Output 15 showed the population and sample statistics regarding usage hours.
+对于日均使用时长变量，绘制了 2×2 的直方图矩阵（@fig-usage-sample-means-grid），在相同坐标轴范围下展示不同样本量（n = 10、30、50、100）的样本均值分布，以观察分布形态的变化趋势。与此同时，输出 15 展示了关于使用时长的总体与样本统计量。
 
-As results shown, with sample size increased, the distribution of sample means became more centralized, with smaller standard deviations. Meanwhile, all four means of sample means were nearly closed to the population mean, successfully predicting it; and the observed standard error (standard deviation of sample means) were approximate to the theoretical standard error derived using the population standard deviation.
+结果显示，随着样本量增加，样本均值分布显著趋于集中，标准差减小；所有四种样本量的样本均值均值均接近总体均值，成功预测了总体；观测标准误（样本均值的标准差）也近似于由总体标准差推导出的理论标准误。
 
 ```{r fig.width = 8, fig.height=5}
 #| label: fig-usage-sample-means-grid
-#| fig-cap: "Usage Hours Sample Means Probability Distribution"
+#| fig-cap: "使用时长样本均值概率分布"
 ## CLT - Usage Hours
 
 ## Draw random samples and plot
@@ -1044,7 +1044,7 @@ subplot(
   plots,
   nrows = 2,     # number of rows in subplot matrix
   margin = 0.08  # margin between subplots
-) |> 
+) |>
 
   layout(
     showlegend = FALSE,  # remove legend
@@ -1071,7 +1071,7 @@ sample_means_usage <- lapply(
     replicate(
       1000,      # repetition times
       mean(
-        sample(df[["Avg_Daily_Usage_Hours"]], size = n, replace = TRUE), 
+        sample(df[["Avg_Daily_Usage_Hours"]], size = n, replace = TRUE),
         na.rm = TRUE)
       )
   }
@@ -1120,31 +1120,31 @@ clt_results_usage <- data.frame(
 
 print(clt_results_usage)
 
-cat("\nPopulation Mean:", round(pop_mean_usage, 2), 
+cat("\nPopulation Mean:", round(pop_mean_usage, 2),
     "\nPopulation SD:", round(pop_sd_usage, 2), "\n"
 )
 ```
 
-*Output 15. Comparison of Statistics Regarding Media Usage Hours*
+*输出 15. 使用时长相关统计量对比*
 
-In addition, @fig-usage-sample-means-normal displayed one of the sample means distributions (n = 100, repeated 1000 times) with an ideal normal curve (n = 100) over it, which was calculated using the function `dnorm()` . The results demonstrated a highly coincident overlap between the sample means histogram and normal curve, in line with the CLT.
+此外，@fig-usage-sample-means-normal 展示了其中一种样本均值分布（n = 100，重复 1000 次）及叠加其上的理想正态曲线（n = 100，由 `dnorm()` 函数计算）。结果显示样本均值直方图与正态曲线高度吻合，与中心极限定理一致。
 
 ```{r}
 #| label: fig-usage-sample-means-normal
-#| fig-cap: "Usage Hours Sample Means Probability Distribution (with Normal Curve)"
+#| fig-cap: "使用时长样本均值概率分布（含正态曲线）"
 ## CLT - Usage Hours
 
 ## Ideal normal distribution data
 
 x_values <- seq(
   min(tail(sample_means_usage, 1)[[1]]),  # the last set of means, n = 100
-  max(tail(sample_means_usage, 1)[[1]]), 
+  max(tail(sample_means_usage, 1)[[1]]),
   length.out = 100                        # sequence length = 100
 )
 
 y_values <- dnorm(
-  x_values, 
-  mean = mean(tail(sample_means_usage, 1)[[1]]), 
+  x_values,
+  mean = mean(tail(sample_means_usage, 1)[[1]]),
   sd = sd(tail(sample_means_usage, 1)[[1]])
 )
 
@@ -1152,31 +1152,31 @@ y_values <- dnorm(
 ## Sample Mean Distribution v.s. Normal Curve
 
 plot_ly() |>
-  
+
   # histogram
   add_histogram(
-    x = tail(sample_means_usage, 1)[[1]], 
-    type = "histogram", 
+    x = tail(sample_means_usage, 1)[[1]],
+    type = "histogram",
     histnorm = "probability",
     xbins = list(size = 0.05),  # binwidth
     name = "Sample Means",      # histogram label
-    
+
     # aesthetics
     marker = list(
       color = "#55D2C6",                         # filling color
       line = list(color = "#222", width = 1.5),  # outline
       opacity = 0.6
     )
-  ) |> 
-  
+  ) |>
+
   # normal curve
   add_lines(
-    x = x_values, 
-    y = y_values * 0.05, 
+    x = x_values,
+    y = y_values * 0.05,
     name = "Normal Curve",    # line label
     line = list(color = '#D53132', width = 2)
-  ) |> 
-  
+  ) |>
+
   layout(
     legend = list(
       orientation = "h",                   # arrangement of legend labels
@@ -1199,13 +1199,13 @@ plot_ly() |>
   )
 ```
 
-## Sleep Hours
+## 睡眠时长
 
-Likewise, similar approaches were applied to another numerical variable sleep hours. The result patterns shown in @fig-sleep-sample-means-grid, Output 15, and Output 16 were closely similar to those of media usage hours, again demonstrating the applicability of CLT.
+类似地，对睡眠时长变量采用相同方法进行分析。@fig-sleep-sample-means-grid、输出 15 及输出 16 所呈现的结果规律与使用时长高度相似，再次验证了中心极限定理的适用性。
 
 ```{r fig.width = 8, fig.height=5}
 #| label: fig-sleep-sample-means-grid
-#| fig-cap: "Sleep Hours Sample Means Probability Distribution"
+#| fig-cap: "睡眠时长样本均值概率分布"
 ## CLT - Sleep Hours
 
 # set random seed for reproducibility
@@ -1224,7 +1224,7 @@ subplot(
   plots,
   nrows = 2,
   margin = 0.08
-) |> 
+) |>
 
   layout(
     showlegend = FALSE,  # remove legend
@@ -1251,7 +1251,7 @@ sample_means_sleep <- lapply(
     replicate(
       1000,      # repetition times
       mean(
-        sample(df[["Sleep_Hours_Per_Night"]], size = n, replace = TRUE), 
+        sample(df[["Sleep_Hours_Per_Night"]], size = n, replace = TRUE),
         na.rm = TRUE)
       )
   }
@@ -1300,29 +1300,29 @@ clt_results_sleep <- data.frame(
 
 print(clt_results_sleep)
 
-cat("\nPopulation Mean:", round(pop_mean_sleep, 2), 
+cat("\nPopulation Mean:", round(pop_mean_sleep, 2),
     "\nPopulation SD:", round(pop_sd_sleep, 2), "\n"
 )
 ```
 
-*Output 16. Comparison of Statistics Regarding Sleep Hours*
+*输出 16. 睡眠时长相关统计量对比*
 
 ```{r}
 #| label: fig-sleep-sample-means-normal
-#| fig-cap: "Sleep Hours Sample Means Probability Distribution (with Normal Curve)"
+#| fig-cap: "睡眠时长样本均值概率分布（含正态曲线）"
 ## CLT - Sleep Hours
 
 ## Ideal normal distribution data
 
 x_values <- seq(
-  min(tail(sample_means_sleep, 1)[[1]]), 
-  max(tail(sample_means_sleep, 1)[[1]]), 
+  min(tail(sample_means_sleep, 1)[[1]]),
+  max(tail(sample_means_sleep, 1)[[1]]),
   length.out = 100  # select 100 numbers
 )
 
 y_values <- dnorm(
-  x_values, 
-  mean = mean(tail(sample_means_sleep, 1)[[1]]), 
+  x_values,
+  mean = mean(tail(sample_means_sleep, 1)[[1]]),
   sd = sd(tail(sample_means_sleep, 1)[[1]])
 )
 
@@ -1330,31 +1330,31 @@ y_values <- dnorm(
 ## Sample Mean Distribution v.s. Normal Curve
 
 plot_ly() |>
-  
+
   # histogram
   add_histogram(
-    x = tail(sample_means_sleep, 1)[[1]], 
-    type = "histogram", 
+    x = tail(sample_means_sleep, 1)[[1]],
+    type = "histogram",
     histnorm = "probability",
     xbins = list(size = 0.05),  # binwidth
     name = "Sample Means",      # histogram label
-    
+
     # aesthetics
     marker = list(
       color = "#FFABB6",                         # filling color
       line = list(color = "#222", width = 1.5),  # outline
       opacity = 0.6
     )
-  ) |> 
-  
+  ) |>
+
   # normal curve
   add_lines(
-    x = x_values, 
-    y = y_values * 0.05, 
+    x = x_values,
+    y = y_values * 0.05,
     name = "Normal Curve",    # line label
     line = list(color = '#D53132', width = 2)
-  ) |> 
-  
+  ) |>
+
   layout(
     legend = list(
       orientation = "h",                   # arrangement of legend labels
@@ -1371,15 +1371,15 @@ plot_ly() |>
   )
 ```
 
-# Sampling Methods
+# 抽样方法
 
-In this section, the top 5 platform data was used as population dataset, and three samples were drew using different sampling methods, including simple random with replacement, systematic with unequal probabilities, and stratified sampling without replacement. These three sampling methods were thus compared and contrasted to see the differences between their ability to predict population patterns.
+本节以前五平台数据作为总体数据集，使用三种抽样方法各抽取一个样本：有放回的简单随机抽样、不等概率系统抽样和无放回的分层抽样，并对这三种方法的总体预测能力进行比较分析。
 
-Output 17, 18, and 19 showed the results of different samples, regarding the proportion of different platforms, and the mean and standard deviation of media usage hours.
+输出 17、18 和 19 展示了不同样本的结果，包括各平台的比例分布以及日均使用时长的均值和标准差。
 
-## Simple Random Sampling
+## 简单随机抽样
 
-The simple random sampling (with replacement) was conducted using the function `srswr()` , and then samples were store in `sample1` .
+使用 `srswr()` 函数进行有放回的简单随机抽样，样本存储于 `sample1`。
 
 ```{r results='hold'}
 ## Simple Random Sampling with Replacement
@@ -1405,18 +1405,18 @@ sample1 <- top5_platforms_data[rows, ]
 
 # define function to calculate percentages
 calc_perc <- function(sample_data, n = 100) {
-  
+
   ## sample_data: sample data drew with different methods
   ## n: sample size
-  
+
   # frequency
   f <- table(
     factor(
-      sample_data$Most_Used_Platform, 
+      sample_data$Most_Used_Platform,
       levels = top5_platforms  # to ensure the same platform sequence
     )
   )
-  
+
   # percentage
   return(f / n)  # n: sample size
 }
@@ -1434,11 +1434,11 @@ cat("Sample Mean of Usage Hour:", mean1, "\n")
 cat("Sample SD of Usage Hour:", round(sd1, 3), "\n")
 ```
 
-*Output 17. Results of Simple Random Sampling with Replacement*
+*输出 17. 有放回简单随机抽样结果*
 
-## Systematic Sampling
+## 系统抽样
 
-For systematic sampling, the inclusion probabilities by usage hours was firstly calculated using the function `inclusionprobabilities()` and stored in `pik` , then the samples were drew using `UPsystematic(pik)` and stored in `sample2` .
+对于系统抽样，首先使用 `inclusionprobabilities()` 函数根据使用时长计算纳入概率并存储于 `pik`，再使用 `UPsystematic(pik)` 抽取样本，存储于 `sample2`。
 
 ```{r results='hold'}
 ## Systematic Sampling with Unequal Probabilities
@@ -1473,11 +1473,11 @@ cat("Sample Mean of Usage Hour:", mean2, "\n")
 cat("Sample SD of Usage Hour:", round(sd2, 3), "\n")
 ```
 
-*Output 18. Results of Systematic Sampling with Unequal Probabilities*
+*输出 18. 不等概率系统抽样结果*
 
-## Stratified Sampling
+## 分层抽样
 
-For stratified sampling, the population data were firstly ordered by platform using `order()` function, and the samples were drew using `strata()` function and stored in `sample3` , with stratum sizes calculated by each platform's proportion.
+对于分层抽样，首先使用 `order()` 函数按平台对总体数据进行排序，再使用 `strata()` 函数抽取样本，存储于 `sample3`，各层样本量按平台比例计算。
 
 ```{r results='hold'}
 ## Stratified Sampling without Replacement
@@ -1530,13 +1530,13 @@ cat("Sample Mean of Usage Hour:", mean3, "\n")
 cat("Sample SD of Usage Hour:", round(sd3, 3), "\n")
 ```
 
-*Output 19. Stratified Sampling without Replacement*
+*输出 19. 无放回分层抽样结果*
 
-## Comparison of Sampling Methods
+## 抽样方法比较
 
-### Percentages of Platforms
+### 平台比例
 
-Output 20 presented the results of proportions of platforms in the population (top 5 platform data) and three samples. To facilitate the investigation, the means of difference between each sample value with its associated population value were calculated and shown in Output 21. Furthermore, @fig-sampling-diff visualized the results in Output 21.
+输出 20 展示了总体（前五平台数据）和三种样本中各平台的比例。为便于分析，计算了各样本值与对应总体值之差的均值，见输出 21。此外，@fig-sampling-diff 对输出 21 的结果进行了可视化。
 
 ```{r results='hold'}
 ## Comparison of Sampling Methods
@@ -1562,9 +1562,9 @@ cat("Sample Percentages:\n\n")
 sample_percs
 ```
 
-*Output 20. Population and Sample Percentages of Different Platforms*
+*输出 20. 不同平台的总体与样本比例*
 
-As shown in Output 21 and @fig-sampling-diff, the values of stratified sampling without replacement showed the smallest difference from population values (0.002), indicating its strongest predictive power for platform proportion. In contrast, simple random sampling without replacement showed the lowest predictive power for it (mean difference was 0.029). Stratified sampling without replacement performed best may because it preserved the population’s underlying platform distribution within each stratum of platform, reducing sampling variability, whereas simple random sampling was more random and unpredictable across platform proportions.
+如输出 21 和 @fig-sampling-diff 所示，无放回分层抽样与总体值的差异最小（0.002），预测平台比例的能力最强。相比之下，有放回简单随机抽样的预测能力最弱（均值差异为 0.029）。分层抽样表现最佳，可能是因为它在抽样前按平台类别划定层次，保留了总体中平台分布的内在结构，从而降低了抽样变异性；而简单随机抽样更为随机，平台比例的预测较不稳定。
 
 ```{r results='hold'}
 ## Comparison of Sampling Methods
@@ -1573,15 +1573,15 @@ As shown in Output 21 and @fig-sampling-diff, the values of stratified sampling 
 
 # find mean differences between
 # sample percentages and population percentages
-mean_diffs <- sample_percs |> 
-  
+mean_diffs <- sample_percs |>
+
   # calculate differences
   lapply(\(percs) abs(percs - pop_perc)) |>
     # lapply: list apply, return a list
     # where \() is anonymous function, same as function(percs)
     # it passes values from sample_percs as percs and apply function
     # to them, then returns a list
-  
+
   # calculate means of differences
   sapply(mean, na.rm = TRUE)
     # sapply: simple apply, flexible at data types of returns.
@@ -1592,11 +1592,11 @@ cat("Differences from Population Percentages:\n")
 sort(round(mean_diffs, 3)); cat("\n")
 ```
 
-*Output 21. Differences from Population Percentage by Sampling Method*
+*输出 21. 各抽样方法与总体比例之差*
 
 ```{r}
 #| label: fig-sampling-diff
-#| fig-cap: "Differences from Population Percentages by Sampling Method"
+#| fig-cap: "各抽样方法与总体比例之差"
 ## Comparison of Sampling Methods
 
 ## Percentages of Platforms
@@ -1606,14 +1606,14 @@ plot_ly(
   x = toupper(names(mean_diffs)),  # capitalized method names
   y = mean_diffs,
   type = "bar",                    # barplot
-  
+
   # aesthetics
   marker = list(
     color = "#c3a4cf",                        # filling color
     line = list(color = "#222", width = 1.5)  # outline color & width
   )
-) |> 
-  
+) |>
+
   layout(
     margin = list(t = 50),  # margin top
     title = list(
@@ -1631,9 +1631,9 @@ plot_ly(
   )
 ```
 
-### Statistics of Usage Hours
+### 使用时长统计量
 
-In addition to predicting the proportions of categories, the ability to predict mean and standard deviation across the three sampling methods were also tested. Output 22 showed the results of means and standard deviations, and a clearer visualization was shown in @fig-sampling-means-sds.
+除预测类别比例外，还对三种抽样方法预测均值和标准差的能力进行了测试。输出 22 展示了均值和标准差的结果，@fig-sampling-means-sds 提供了更直观的可视化呈现。
 
 ```{r results='hold'}
 ## Comparison of Sampling Methods
@@ -1653,21 +1653,21 @@ cat("Population SD:", round(pop_sd_usage, 3), "\n")
 cat("Sample SDs:\n"); round(sample_sds, 3)
 ```
 
-*Output 22. Population and Sample Statistics of Media Usage Hours*
+*输出 22. 社交媒体使用时长的总体与样本统计量*
 
-In @fig-sampling-means-sds, the dots at the centers of sticks represented the sample means, and the black whiskers represented the range of one sample standard deviation away from sample means, where the population mean and standard deviation were denoted using dashed lines with instruction text labels.
+在 @fig-sampling-means-sds 中，棒中间的点代表样本均值，黑色误差棒表示距样本均值一个样本标准差的范围，虚线及标注文字标记了总体均值和总体标准差。
 
-Combining Output 22 and @fig-sampling-means-sds, it could be seen that for mean of numerical variable, stratified sampling without replacement showed the nearest result and the highest predictive power, whereas systematic sampling with unequal probabilities had the lowest predictive power.
+综合输出 22 和 @fig-sampling-means-sds，就数值变量均值而言，无放回分层抽样预测结果最接近总体，预测能力最强；不等概率系统抽样的预测能力最弱。
 
-However, in terms of standard deviation, simple random sampling with replacement had the most accurate prediction whereas stratified sampling without replacement had the least accurate prediction.
+然而在标准差方面，有放回简单随机抽样的预测最为准确，而无放回分层抽样的预测精度最低。
 
-These discrepancies in predictive power likely stemmed from the inherent design of each sampling method. Stratified sampling without replacement excelled at estimating means by ensuring all subgroups were proportionally represented and reduced variance by eliminating duplicate data points, whereas systematic sampling with unequal probabilities may introduce bias if the selection interval aligns with hidden patterns in the data.
+这些预测能力上的差异很可能源于各抽样方法的内在设计。无放回分层抽样通过确保所有子组按比例代表，在估计均值上表现出色，并通过消除重复数据点来减少方差；而不等概率系统抽样若抽样间隔与数据中的隐藏模式相吻合，可能引入偏差。
 
-Conversely, simple random sampling with replacement provided a more accurate estimation of standard deviation possibly because the replacement mechanism allowed the sample to better reflect the true variability and noise of the underlying population, while the structured nature of stratification tended to compress internal variance, leading to an underestimation of the overall spread.
+相反，有放回简单随机抽样对标准差的估计更为准确，可能是因为有放回机制允许样本更好地反映总体的真实变异性与噪声，而分层的结构化特性则倾向于压缩内部方差，导致对总体分散程度的低估。
 
 ```{r fig.width=8, fig.height=6}
 #| label: fig-sampling-means-sds
-#| fig-cap: "Comparison of Means & SDs across Sampling Methods"
+#| fig-cap: "各抽样方法均值与标准差比较"
 ## Comparison of Sampling Methods
 
 ## Means & SDs of Usage Hours
@@ -1681,25 +1681,25 @@ plot_data <- data.frame(
 
 # stick plot
 plot_ly(
-  plot_data, 
+  plot_data,
   x = ~Method,
   y = ~Mean
-) |> 
-  
+) |>
+
   # add sticks
   add_markers(
     name = "Sample Mean",  # stick label
-    
+
     # error stick (sample SDs)
     error_y = list(
       type = "data",  # take the data specified in array as stick length
       array = ~SD,    # data to use for stick length
       color = '#222'  # stick color
     ),
-    
+
     # aesthetics of marker (sample means)
     marker = list(size = 12, color = '#55D2C6')
-  ) |> 
+  ) |>
 
   layout(
     margin = list(t = 60, b = 60),  # margin top & bottom
@@ -1721,49 +1721,49 @@ plot_ly(
       categoryorder = "array",             # let order be specified
       categoryarray = plot_data$Method     # specify category order
     ),
-    
-    
+
+
     # add lines of population statistics
     shapes = list(
-      
+
       # population mean
       list(
         type = "line",        # add line
         xref = "x",           # x values are relative to x-axis (0,1,2)
         x0 = -0.4, x1 = 2.4,  # xrange of line
         y0 = pop_mean_usage,  # y of line
-        y1 = pop_mean_usage,  
+        y1 = pop_mean_usage,
         line = list(
-          color = "#D53132", 
+          color = "#D53132",
           dash = "dash",      # line type
           width = 2
         )
       ),
-      
+
       # pop_mean + pop_sd
       list(
-        type = "line", 
+        type = "line",
         xref = "x",
-        x0 = -0.4, x1 = 2.4, 
-        y0 = pop_mean_usage + pop_sd_usage, 
-        y1 = pop_mean_usage + pop_sd_usage, 
+        x0 = -0.4, x1 = 2.4,
+        y0 = pop_mean_usage + pop_sd_usage,
+        y1 = pop_mean_usage + pop_sd_usage,
         line = list(color = "#FFA472", dash = "dot", width = 2)
       ),
-      
+
       # pop_mean - pop_sd
       list(
-        type = "line", 
+        type = "line",
         xref = "x",
-        x0 = -0.4, x1 = 2.4, 
-        y0 = pop_mean_usage - pop_sd_usage, 
+        x0 = -0.4, x1 = 2.4,
+        y0 = pop_mean_usage - pop_sd_usage,
         y1 = pop_mean_usage - pop_sd_usage,
         line = list(color = "#FFA472", dash = "dot", width = 2)
       )
     ),
-    
+
     # annotations for lines
     annotations = list(
-      
+
       # population mean
       list(
         text = "Population Mean\n(4.919)",
@@ -1772,7 +1772,7 @@ plot_ly(
         xanchor = "left",
         showarrow = FALSE
       ),
-      
+
       # pop_mean + pop_sd
       list(
         text = "+1 Population SD\n(+1.257)",
@@ -1781,7 +1781,7 @@ plot_ly(
         xanchor = "left",
         showarrow = FALSE
       ),
-      
+
       list(
         text = "-1 Population SD\n(-1.257)",
         x = 2.5,

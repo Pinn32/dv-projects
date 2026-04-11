@@ -1,29 +1,29 @@
 ---
-title: "About"
+title: "关于"
 sidebar: false
 toc: false
 ---
 
-## About This Site
+## 关于本站
 
-This is a personal data visualization and analysis portfolio built by **Pinn (Aiqi) Xu**.
+本站是由 **Pinn（许爱琦）** 构建的个人数据可视化与分析作品集。
 
-The site collects data projects exploring real-world datasets through exploratory data analysis (EDA), statistical methods, and interactive visualizations. Projects are written in **R** and **Python**, rendered with [Quarto](https://quarto.org/).
+本站收录了多个数据项目，通过探索性数据分析（EDA）、统计方法与交互式可视化，对真实世界数据集进行深入研究。项目使用 **R** 和 **Python** 编写，并通过 [Quarto](https://quarto.org/) 发布。
 
-## Topics Covered
+## 涵盖主题
 
-- **NLP & Social Media** — sentiment analysis, text mining on social media data
-- **EDA & Visualization** — uncovering patterns and trends in public datasets
-- **Comparative Studies** — cross-country and demographic analyses
+- **NLP 与社交媒体** — 社交媒体数据的情感分析与文本挖掘
+- **EDA 与可视化** — 挖掘公共数据集中的规律与趋势
+- **比较研究** — 跨国及人口统计学分析
 
-## Tools & Stack
+## 工具与技术栈
 
-| Category      | Tools                                        |
-|---------------|----------------------------------------------|
-| Languages     | R, Python                                    |
-| Visualization | Ggplot2, Plotly, Matplotlib, Seaborn, Base R |
-| Publishing    | Quarto, GitHub Pages                         |
+| 类别       | 工具                                         |
+|------------|----------------------------------------------|
+| 编程语言   | R, Python                                    |
+| 可视化     | Ggplot2, Plotly, Matplotlib, Seaborn, Base R |
+| 发布       | Quarto, GitHub Pages                         |
 
-## Contact
+## 联系方式
 
-Feel free to reach out or explore the source code on [GitHub](https://github.com/pinn32).
+欢迎通过 [GitHub](https://github.com/pinn32) 探索源代码或与我联系。

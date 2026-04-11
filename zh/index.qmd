@@ -1,44 +1,44 @@
 ---
 title: "Pinn (Aiqi) Xu"
-subtitle: "Data Science & Visualization Portfolio"
+subtitle: "数据科学与可视化作品集"
 sidebar: false
 toc: false
 ---
 
-Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, storytelling, and code.
+你好，我是 **Pinn** —— 热衷于数据分析、数据叙事与编程的数据爱好者。
 
-This site collects my data projects: exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with [Quarto](https://quarto.org/).
+本站收录了我的数据项目：探索性分析、NLP 实验，以及用 **R** 和 **Python** 构建的交互式可视化，通过 [Quarto](https://quarto.org/) 发布。
 
-[Browse all projects →](projects/){.btn .btn-primary}
+[浏览所有项目 →](projects/){.btn .btn-primary}
 
-## Featured Projects
+## 精选项目
 
 ::::::: grid
 ::: {.g-col-12 .g-col-md-6 .featured-card}
-[**Twitter Sentiment Analysis of Catalan Referendum**](projects/catalan-referendum/)\
-Sentiment mining on tweets surrounding the 2017 Catalan independence referendum.\
+[**加泰罗尼亚公投 Twitter 情感分析**](projects/catalan-referendum/)\
+对 2017 年加泰罗尼亚独立公投期间相关推文的情感挖掘。\
 `Python` `NLP` `Social Media`
 :::
 
 ::: {.g-col-12 .g-col-md-6 .featured-card}
-[**Global Visa Cost Analysis**](projects/global-visa-cost/)\
-A comparative study of visa costs across countries, exploring affordability and geographic patterns.\
+[**全球签证费用分析**](projects/global-visa-cost/)\
+跨国签证费用的比较研究，探索可负担性与地理分布规律。\
 `Python` `EDA` `Visualization`
 :::
 
 ::: {.g-col-12 .g-col-md-6 .featured-card}
-[**Most Streamed Songs on Spotify 2023**](projects/most-streamed-songs/)\
-Exploratory analysis of the most-streamed tracks on Spotify, uncovering trends in music popularity.\
+[**Spotify 2023 最高播放量歌曲**](projects/most-streamed-songs/)\
+对 Spotify 最高播放量曲目的探索性分析，揭示音乐流行趋势。\
 `R` `EDA` `Visualization`
 :::
 
 ::: {.g-col-12 .g-col-md-6 .featured-card}
-[**Student Social Media Usage & Addiction**](projects/student-media-usage/)\
-Analysis of social media habits and addiction patterns among students.\
+[**学生社交媒体使用与成瘾**](projects/student-media-usage/)\
+分析学生的社交媒体使用习惯与成瘾模式。\
 `R` `EDA` `Social Media`
 :::
 :::::::
 
 ------------------------------------------------------------------------
 
-[About this site →](about/){.btn .btn-outline-primary}
+[关于本站 →](about/){.btn .btn-outline-primary}
