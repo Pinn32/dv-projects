@@ -5,7 +5,7 @@ date: '2024-12-12'
 categories: [Python, EDA, Sankey Diagram, Choropleth Map, Visualization]
 description: 'A comparative study of visa costs across countries, exploring affordability and geographic patterns.'
 bibliography: references.bib
-csl: ../../apa.csl
+csl: ../../src/apa.csl
 # css: 'jupyter-page.css'
 # jupyter: dv-env
 ---

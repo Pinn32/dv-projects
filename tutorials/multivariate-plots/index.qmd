@@ -1,5 +1,5 @@
 ---
-title: '**W05 多变量图表 Multivariate Plots**'
+title: '\*\*W05 多变量图表 Multivariate Plots\*\*'
 jupyter: python3
 ---
 

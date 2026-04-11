@@ -1,7 +1,20 @@
 ---
-title: '**W02 Data Processing (数据处理)**'
-jupyter: python3
+title: '数据清理'
+author: 'Pinn Xu'
+date: '2024-10-10'
+categories: ["Python", "Data Processing", "Pandas", "DataFrame"]
+description: '本章介绍数据清理的基本方法和技巧，包括处理缺失值、重命名和创建新列、查找重复值、重新排序和重塑数据，以及连接数据等常见操作。'
+jupyter: dv-env
+code-fold: false
+order: 1
 ---
+
+```{python}
+#| eval: false
+#| code-summary: "环境与版本"
+python==3.12
+pandas==2.2.2
+```
 
 ```{python}
 import pandas as pd  # 必须先导入 pandas 图书馆

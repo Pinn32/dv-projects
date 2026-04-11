@@ -8,6 +8,12 @@ website:
   favicon: src/img/favicon.ico
   navbar:
     tools: 
+      - icon: translate
+        menu: 
+          - text: English
+            href: index.qmd
+          - text: 中文
+            href: index.zh.qmd
       - icon: github
         menu:
           - text: Source Code
@@ -16,8 +22,9 @@ website:
             href: https://github.com/Pinn32/dv-projects/issues
       - icon: linkedin
         href: https://www.linkedin.com/in/aiqi-xu-71943b378/
-      - icon: https://cdn.brandfetch.io/idriarYq6Q/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1686028240869
-        href: https://twitter.com/Pinn32
+
+      # - icon: https://cdn.brandfetch.io/idriarYq6Q/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1686028240869
+      #   href: https://twitter.com/Pinn32
 
     left:
       # - href: index.qmd
@@ -30,17 +37,22 @@ website:
         href: hobbies/index.qmd
       # - text: About
       #   href: about/index.qmd
-
+    
+    # right: 
+    #   - text: EN
+    #     href: index.qmd
+    #   - text: 中文
+    #     href: index.zh.qmd
 
   sidebar:
     logo: false
     style: 'docked'
     # background: light
     # search: true
-    collapse: true
+    collapse-level: 1
     # contents: auto
     contents: 
-      - section: "All Projects"
+      - section: "Projects"
         href: projects/index.qmd
         contents:
           - text: "Twitter Sentiment Analysis of Catalan Referendum"
@@ -51,8 +63,17 @@ website:
             href: projects/student-media-usage/index.qmd
           - text: "Most Streamed Songs on Spotify"
             href: projects/most-streamed-songs/index.qmd
-      - text: "Tutorials"
+      - section: "Tutorials"
         href: tutorials/index.qmd
+        contents:
+          - text: "Data Processing"
+            href: tutorials/data-processing/index.qmd
+          - text: "Amounts and Distribution"
+            href: tutorials/amounts-and-distribution/index.qmd
+          - text: "Multivariate Plots"
+            href: tutorials/multivariate-plots/index.qmd
+          - text: "Sankey & Network Diagrams"
+            href: tutorials/sankey-and-network/index.qmd
       - text: "About"
         href: about/index.qmd
 
@@ -63,11 +84,12 @@ format:
     theme: minty
     syntax-highlighting: pygments
     css:
-      - src/styles/styles.css
-      - src/styles/portfolio.css
+      - ./src/styles/styles.css
+      - ./src/styles/portfolio.css
+      - ./src/styles/projects.css
     include-after-body: 
-      - src/scripts/fix-code-fold.html
-      # - src/scripts/fix-navbar-active.html
+      - ./src/scripts/fix-code-fold.html
+      # - ./src/scripts/fix-navbar-active.html
     toc: true
     code-tools: true
       # toggle: true
@@ -77,5 +99,5 @@ format:
     # code-summary: "Show the code"
 
 brand: _brand.yml
-editor: visual
+editor: source
 

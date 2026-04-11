@@ -2,10 +2,15 @@
 title: '404 Page Not Found'
 sidebar: false
 toc: false
+css: 
+    - './src/styles/projects.css'
+    - './src/styles/portfolio.css'
 ---
 
-The page you're looking for doesn't exist or has been moved.
+Oops! The page you're looking for doesn't exist or has been moved.
 
-- [Go to Home](/)
-- [View Projects](/projects/)
-- [About Me](/about/)
+**Check out other sections of the site:**
+
+> [Data Projects](/projects/)  
+> [Data Visualization Tutorials](/tutorials/)  
+> [Go to Home](/)  

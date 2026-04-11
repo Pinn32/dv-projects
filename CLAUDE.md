@@ -18,22 +18,30 @@ Tutorials have a Chinese (`zh/`) variant (`index.qmd`) alongside the English sou
 ## File Structure
 
 ```
-_quarto.yml              # site config, navbar, sidebar, format defaults
+_quarto.yml               # site config, navbar, sidebar, format defaults
+_brand.yml                # site branding (logo)
+404.qmd                   # 404 page
 projects/
-  _metadata.yml          # shared metadata for all projects (jupyter: dv-env, sidebar: true)
+  _metadata.yml           # shared metadata for all projects (jupyter: dv-env, sidebar: true)
   <project-name>/
     index.qmd
+    index.zh.qmd
 tutorials/
-  _metadata.yml          # shared metadata for all tutorials
+  _metadata.yml           # shared metadata for all tutorials
   <tutorial-name>/
-    <tutorial>.ipynb     # English source (Jupyter notebook)
-    zh/
-      index.qmd          # Chinese version
-      raw-index.qmd      # draft Chinese version, not part of published site
+    index.qmd             # English version
+    index.zh.qmd          # Chinese version
+hobbies/                  
+  index.qmd               # hobbies page
 src/
-  styles/styles.css
-  scripts/               # JS post-processing (fix-code-fold.html, etc.)
+  styles/
+    styles.css            # customized styles for general elements
+    portfolio.css         # customized professional portfolio styles & root elements
+    projects.css          # project/tutorial landing page styles
+  scripts/
+    <script-name>.html    # JS post-processing (fix-code-fold.html, etc.)
   img/
+  apa.csl                 # APA citation format
 ```
 
 ## Common Commands

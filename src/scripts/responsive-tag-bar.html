@@ -1,0 +1,35 @@
+<script>
+    (function () {
+        const BREAKPOINT = 991;
+        let sidebar, titleBlock, mainEl, quartoContent;
+
+        function init() {
+            sidebar = document.getElementById('quarto-margin-sidebar');
+            titleBlock = document.getElementById('title-block-header');
+            mainEl = document.querySelector('#quarto-content > main.content');
+            quartoContent = document.getElementById('quarto-content');
+        }
+
+        function relocate() {
+            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
+
+            if (window.innerWidth <= BREAKPOINT) {
+            // Place sidebar after the title block, inside main
+            if (sidebar.parentNode !== mainEl) {
+                titleBlock.insertAdjacentElement('afterend', sidebar);
+            }
+            } else {
+            // Restore sidebar as first child of #quarto-content (before main)
+            if (sidebar.parentNode !== quartoContent) {
+                quartoContent.insertBefore(sidebar, mainEl);
+            }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            init();
+            relocate();
+        });
+        window.addEventListener('resize', relocate);
+    })();
+</script>

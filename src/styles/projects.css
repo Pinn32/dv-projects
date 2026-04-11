@@ -123,8 +123,8 @@
 .quarto-grid-item .listing-categories {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-top: auto;
+    gap: 0.1rem;
+    margin: 0 0 auto;
     padding-top: 0.5rem;
 }
 

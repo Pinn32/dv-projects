@@ -7,7 +7,7 @@ toc: false
 sidebar: false
 listing:
   id: tutorials-listing
-  contents: "*/index.qmd"
+  contents: "*/index.zh.qmd"
   type: grid
   categories: true
   sort: "order asc"

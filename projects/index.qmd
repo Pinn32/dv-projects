@@ -2,6 +2,7 @@
 title: 'Projects'
 subtitle: 'Data analysis & visualization projects using R/Python.'
 css: '/src/styles/projects.css'
+include-after-body: '../src/scripts/responsive-tag-bar.html'
 toc: false
 sidebar: false
 listing:
@@ -9,48 +10,10 @@ listing:
   contents: "*/index.qmd"
   type: grid
   categories: true
-  sort: "date desc"
+  sort: "order asc"
   fields: [title, description, categories]
   grid-columns: 2
   image-height: "0px"
   filter-ui: false
   page-size: 20
 ---
-
-```{=html}
-<script>
-(function () {
-  var BREAKPOINT = 991;
-  var sidebar, titleBlock, mainEl, quartoContent;
-
-  function init() {
-    sidebar      = document.getElementById('quarto-margin-sidebar');
-    titleBlock   = document.getElementById('title-block-header');
-    mainEl       = document.querySelector('#quarto-content > main.content');
-    quartoContent = document.getElementById('quarto-content');
-  }
-
-  function relocate() {
-    if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
-
-    if (window.innerWidth <= BREAKPOINT) {
-      // Place sidebar after the title block, inside main
-      if (sidebar.parentNode !== mainEl) {
-        titleBlock.insertAdjacentElement('afterend', sidebar);
-      }
-    } else {
-      // Restore sidebar as first child of #quarto-content (before main)
-      if (sidebar.parentNode !== quartoContent) {
-        quartoContent.insertBefore(sidebar, mainEl);
-      }
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function () {
-    init();
-    relocate();
-  });
-  window.addEventListener('resize', relocate);
-})();
-</script>
-```

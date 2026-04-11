@@ -586,8 +586,7 @@ hr {
 /* footer: subtle top gradient line */
 .nav-footer {
     border-top: 2px solid transparent;
-    background-image: linear-gradient(white, white),
-                      var(--pf-gradient);
+    background-image: linear-gradient(white, white), var(--pf-gradient);
     background-origin: border-box;
     background-clip: padding-box, border-box;
 }
@@ -595,9 +594,22 @@ hr {
 
 /* 12. Code blocks — coder identity ====================================== */
 
-/* ── Code Tools ──────────────────────────────────────────────────────── */
+/* ── Code Tools / Menu / Dropdown Item ────────────────────────────────── */
+.navbar .dropdown-menu.show {
+    display: inline-flex;
+    flex-direction: column;
+    width: fit-content;
+    min-width: 0;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+}
+
 .dropdown-item:hover {
-    background-color: var(--pf-primary);
+    background-color: #5ab5ad;
 }
 
 /* ─── Fix Search Button Color ───────────────────────────────────────── */

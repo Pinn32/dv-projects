@@ -7,6 +7,12 @@ div#refs.hanging-indent {
     }
 }
 
+/* description ============================================================= */
+div.description {
+    font-size: 0.85rem;
+    color: #7d8790;
+}
+
 /* figure / output caption ================================================= */
 figcaption, 
 .caption {
