@@ -1,0 +1,44 @@
+---
+title: "Pinn (Aiqi) Xu"
+subtitle: "Data Science & Visualization Portfolio"
+sidebar: false
+toc: false
+---
+
+Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, storytelling, and code.
+
+This site collects my data projects: exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with [Quarto](https://quarto.org/).
+
+[Browse all projects →](projects/){.btn .btn-primary}
+
+## Featured Projects
+
+::::::: grid
+::: {.g-col-12 .g-col-md-6 .featured-card}
+[**Twitter Sentiment Analysis of Catalan Referendum**](projects/catalan-referendum/)\
+Sentiment mining on tweets surrounding the 2017 Catalan independence referendum.\
+`Python` `NLP` `Social Media`
+:::
+
+::: {.g-col-12 .g-col-md-6 .featured-card}
+[**Global Visa Cost Analysis**](projects/global-visa-cost/)\
+A comparative study of visa costs across countries, exploring affordability and geographic patterns.\
+`Python` `EDA` `Visualization`
+:::
+
+::: {.g-col-12 .g-col-md-6 .featured-card}
+[**Most Streamed Songs on Spotify 2023**](projects/most-streamed-songs/)\
+Exploratory analysis of the most-streamed tracks on Spotify, uncovering trends in music popularity.\
+`R` `EDA` `Visualization`
+:::
+
+::: {.g-col-12 .g-col-md-6 .featured-card}
+[**Student Social Media Usage & Addiction**](projects/student-media-usage/)\
+Analysis of social media habits and addiction patterns among students.\
+`R` `EDA` `Social Media`
+:::
+:::::::
+
+------------------------------------------------------------------------
+
+[About this site →](about/){.btn .btn-outline-primary}

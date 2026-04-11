@@ -1,0 +1,29 @@
+---
+title: "About"
+sidebar: false
+toc: false
+---
+
+## About This Site
+
+This is a personal data visualization and analysis portfolio built by **Pinn (Aiqi) Xu**.
+
+The site collects data projects exploring real-world datasets through exploratory data analysis (EDA), statistical methods, and interactive visualizations. Projects are written in **R** and **Python**, rendered with [Quarto](https://quarto.org/).
+
+## Topics Covered
+
+- **NLP & Social Media** — sentiment analysis, text mining on social media data
+- **EDA & Visualization** — uncovering patterns and trends in public datasets
+- **Comparative Studies** — cross-country and demographic analyses
+
+## Tools & Stack
+
+| Category      | Tools                                        |
+|---------------|----------------------------------------------|
+| Languages     | R, Python                                    |
+| Visualization | Ggplot2, Plotly, Matplotlib, Seaborn, Base R |
+| Publishing    | Quarto, GitHub Pages                         |
+
+## Contact
+
+Feel free to reach out or explore the source code on [GitHub](https://github.com/pinn32).

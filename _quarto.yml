@@ -11,9 +11,13 @@ website:
       - icon: translate
         menu: 
           - text: English
-            href: index.qmd
+            href: en/index.qmd
+            # href: "#"
+            # class: lang-switch
           - text: 中文
-            href: index.zh.qmd
+            href: zh/index.qmd
+            # href: "#"
+            # class: lang-switch
       - icon: github
         menu:
           - text: Source Code
@@ -30,11 +34,11 @@ website:
       # - href: index.qmd
       #   text: Home
       - text: Projects
-        href: projects/index.qmd
+        href: en/projects/index.qmd
       - text: Tutorials
-        href: tutorials/index.qmd
+        href: en/tutorials/index.qmd
       - text: Hobbies
-        href: hobbies/index.qmd
+        href: en/hobbies/index.qmd
       # - text: About
       #   href: about/index.qmd
     
@@ -53,27 +57,27 @@ website:
     # contents: auto
     contents: 
       - section: "Projects"
-        href: projects/index.qmd
+        href: en/projects/index.qmd
         contents:
           - text: "Twitter Sentiment Analysis of Catalan Referendum"
-            href: projects/catalan-referendum/index.qmd
+            href: en/projects/catalan-referendum/index.qmd
           - text: "Global Visa Cost Analysis"
-            href: projects/global-visa-cost/index.qmd
+            href: en/projects/global-visa-cost/index.qmd
           - text: "Student Social Media Usage & Addiction"
-            href: projects/student-media-usage/index.qmd
+            href: en/projects/student-media-usage/index.qmd
           - text: "Most Streamed Songs on Spotify"
-            href: projects/most-streamed-songs/index.qmd
+            href: en/projects/most-streamed-songs/index.qmd
       - section: "Tutorials"
-        href: tutorials/index.qmd
+        href: en/tutorials/index.qmd
         contents:
           - text: "Data Processing"
-            href: tutorials/data-processing/index.qmd
+            href: en/tutorials/data-processing/index.qmd
           - text: "Amounts and Distribution"
-            href: tutorials/amounts-and-distribution/index.qmd
+            href: en/tutorials/amounts-and-distribution/index.qmd
           - text: "Multivariate Plots"
-            href: tutorials/multivariate-plots/index.qmd
+            href: en/tutorials/multivariate-plots/index.qmd
           - text: "Sankey & Network Diagrams"
-            href: tutorials/sankey-and-network/index.qmd
+            href: en/tutorials/sankey-and-network/index.qmd
       - text: "About"
         href: about/index.qmd
 
@@ -89,6 +93,7 @@ format:
       - ./src/styles/projects.css
     include-after-body: 
       - ./src/scripts/fix-code-fold.html
+      # - ./src/scripts/lang-switch.html
       # - ./src/scripts/fix-navbar-active.html
     toc: true
     code-tools: true

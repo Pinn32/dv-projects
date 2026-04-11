@@ -1,0 +1,421 @@
+---
+title: 'Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis'
+author: 'Pinn Xu'
+date: '2026-02-25'
+categories: [R, EDA, Music, Visualization, Sampling, CLT]
+description: 'Exploratory analysis of the most-streamed tracks on Spotify in 2023, uncovering trends in music popularity.'
+
+## All below for Rmd
+# output:
+#   html_document:
+#     fig_width: 8
+#     code_folding: hide
+#     highlight: tango
+#     theme: default
+#     toc: true
+#     toc_float:
+#       collapsed: true
+---
+
+```{r eval=FALSE, include=TRUE}
+#| code-summary: 'Environment & Versions'
+R==4.5.2
+plotly==4.12.0
+sampling==2.11
+tidyverse==2.0.0
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.width=8, fig.height=5, results='hold',
+  echo=TRUE, warning=FALSE, message=FALSE
+)
+```
+
+# Dataset Overview
+
+This project uses the dataset *Most Streamed Spotify Songs 2023* from [Kaggle](https://www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023/). It contains 953 Spotify's most popular songs in 2023. Attributes involve *track name*, *artist(s) name*, *release date*, *Spotify playlists and charts*, *streaming statistics*, *Apple Music presence*, *Deezer presence*, *Shazam charts*, and several audio features.
+
+Core numerical variables used in this project include *streams*, *BPM*, *valence index*, and *presence count in Spotify and Deezer playlists*. *Strems* is the number of times a song being played over 2023, which should be positive integers. Likewise, the *presence counts* are also count numbers (non-negative integers). *BPM* refers to beats per minute, which determines the pace and speed of music. *Valence index* indicates the degree of positivity of a song's music content, which is coded from 0 to 100 (0 = no positivity, 100 = full positivity).
+
+Nominal variables include music *mode* and *key*, where *mode* has two levels — major and minor — which are two general categories of chords; and *key* involves such as C, C#, D, D#, and so on, which determines the foundational set of notes and chords used in a song.
+
+Overall, due to the variance of aspect and type of variables, this dataset is considered suitable for later analyzing process.
+
+# Goal of Analysis
+
+The goal of this project is to analyze significant patterns and trends of music features regarding the most popular songs in Spotify in 2023, as well as investigating potential relationship between indices. In addition, samples will be drawn through different sampling methods, in order to demonstrate the applicability of Central Limit Theorem (CLT) and compare the ability of each sampling methods to predict the population.
+
+# Data Preparation
+
+Before diving into the analysis, the dataset was firstly downloaded from the Kaggle website, and located into a local folder, then imported into R using `read.csv()` function. Below shows the structure of the imported dataset as a DataFrame object.
+
+```{r}
+# import dataset
+spotify_data <- read.csv("../../../src/data/spotify-2023.csv")
+str(spotify_data)
+```
+
+Subsequently, main packages used in this project, including such as *tidyverse*, *plotly*, and *sampling*, were attached, and to facilitate further data manipulation process, the original dataset was transformed into a tibble ( `df` ) using `tibble()` function.
+
+Below shows an initial view of the the dataset, including sample size (N = 953) and whether there is any missing data, where `anyNA()` function was used to get the information of missing data.
+
+```{r}
+# attach packages
+library(readr)
+library(tidyverse)
+library(sampling)
+library(plotly)
+
+# change dataframe to tibble
+df <- tibble(spotify_data)
+
+# sample size
+cat("Sample Size:", nrow(df), '\n')
+
+# check na
+cat("Whether there is NA:", anyNA(df), "\n")
+```
+
+## Streams
+
+As shown below, the data type of the *streams* variable is character, whereas stream counts should be numbers instead of strings, it therefore requires transformation.
+
+```{r}
+# view structure
+str(df["streams"])
+```
+
+Before coercing data type to numeric, we firstly check if there are any invalid values which are not numeric-like strings, using data wrangling strategies with regular expressions to specify what is numeric-like in this case. As shown in the output below, there is one observation with invalid streams.
+
+```{r}
+# view invalid values
+cat("Invalid Streams: \n\n")
+df |>
+  select(streams) |> 
+  filter(!str_detect(streams, "^(0|[1-9][0-9]*)$"))
+```
+
+Next, `df` is redefined keeping only observations with valid streams, and then coerced into numeric data type. Below shows the results of missing data and variable structure after coercion.
+
+```{r}
+# keep only valid values
+df <- df |>
+  filter(str_detect(streams, "^[1-9][0-9]*"))
+
+# coerce datatype to numeric
+df <- df |> 
+  mutate(streams = as.numeric(streams))
+
+# check if there are NA in streams after coercion
+cat("Whether there is NA in streams:", anyNA(df$streams), "\n\n")
+
+# new structure
+str(df["streams"])
+```
+
+## Presence in Deezer Playlists
+
+Likewise, the variable of presence counts in Deezer playlists also appears to be character type originally. We therefore use `str_detect()` again to check whether there are invalid format of numbers. As shown in the two outputs below, there are several comma-separated format of numbers, and no more invalid numbers in any other format, we therefore need to do further manipulation before coercing.
+
+```{r}
+# view values that are not 0 or pure numbers
+cat("Non-Number Values:\n\n")
+df |> 
+  select(in_deezer_playlists) |> 
+  filter(!str_detect(in_deezer_playlists, "^(0|[1-9][0-9]*)$"))
+```
+
+```{r}
+# appnly new pattern: comma-separated number
+cat("Neither Pure Number Nor Comma-Separated:\n\n")
+df |> 
+  select(in_deezer_playlists) |> 
+  filter(!str_detect(
+    in_deezer_playlists, "^(0|[1-9][0-9]*|[1-9][0-9]*,[0-9]*)$")
+  )
+```
+
+After replacing all commas with empty strings, we coerced the variable into numeric type, and check whether there are NA data after coercion. The result below shows that no NA appears.
+
+```{r}
+# replace comma with empty string
+df <- df |> 
+  mutate(in_deezer_playlists = str_replace_all(in_deezer_playlists, ",", ""))
+
+# coerce datatype to numeric
+df <- df |> 
+  mutate(in_deezer_playlists = as.numeric(in_deezer_playlists))
+
+# check if there are NA after coersion in streams
+cat("Whether there is NA in in_deezer_playlists:", 
+    anyNA(df$in_deezer_playlists), "\n"
+    )
+```
+
+## Key
+
+In terms of the *key* variable, we first check all categories of keys. The result shows that there are empty strings with no key information. Thus, we removes those songs without key information. After removal, the categories are checked again to ensure the validity.
+
+```{r}
+# check categories of the key variable
+cat("Categories of Key:\n")
+unique(df$key)
+
+# remove rows with empty key
+df <- df[df$key != "", ]
+
+# check again after removal
+cat("\nCategories After Removal:\n")
+unique(df$key)
+```
+
+# Univariate Analysis
+
+## Mode Distribution
+
+As shown by the pie chart below, there is a relatively balanced split between the two categories of music mode in this dataset. Specifically, the major mode accounts for 55.3% of the distribution, while the minor mode follows closely at 44.7%. This 10.6% gap suggests that while the major mode songs, which are often associated with brighter emotional qualities, are more prevalent, minor mode songs remain a significant portion.
+
+```{r}
+# pie chart
+plot_ly(
+  as.data.frame(table(df["mode"])), 
+  labels = ~mode, values = ~Freq, type = "pie",
+  textinfo = "label+percent", 
+  marker = list(
+    colors = c("khaki", "paleturquoise"),
+    line = list(width = 2))
+) |> 
+  layout(
+    title = "Distribution of Music Mode", showlegend = FALSE,
+    margin = list(t = 80, l = 60, r = 60)
+  )
+```
+
+## BPM Distribution
+
+In terms of BPM, its distribution shown in the histogram below peaks around 110-130 BPM. Most songs are between 90 and 150 BPM, indicating a preference of moderate pace for most people.
+
+```{r}
+# BPM distribution
+plot_ly(
+  df, x = ~bpm, type = "histogram",
+  marker = list(
+    color = "pink", line = list(width = 1.5, color = "white")
+  )
+) |> 
+  layout(
+    title = "BPM Distribution",
+    xaxis = list(
+      title = "Beats Per Minute (BPM)",
+      linewidth = 2,
+      dtick = 20,
+      ticks = "outside",
+      ticklen = 5,
+      tickwidth = 1
+    ),
+    yaxis = list(title = "Frequency")
+  )
+```
+
+# Multivariate Analysis
+
+## Top 5 Keys by Streams
+
+The bar plot below shows the top 5 keys with respect to the streams, where C# appears to be the most popular key, with the highest mean streams (around 600M). E ranks second, followed by D# and A# with similar averages. D has the lowest among the top five. Overall, differences are moderate, suggesting relatively balanced popularity across these keys.
+
+```{r}
+# find keys with top 5 mean stream
+top5_key <- df |> 
+  group_by(key) |> 
+  summarize(mean_streams = mean(streams), .groups = "drop") |> 
+  arrange(desc(mean_streams)) |> 
+  head(5) |> 
+  mutate(key = reorder(key, -mean_streams))  # make key factor
+```
+
+```{r}
+# barplot
+plot_ly(
+  top5_key, x = ~key, y = ~mean_streams, type = "bar", 
+  marker = list(color = "mediumaquamarine")
+) |> 
+  layout(
+    title = "Top 5 Popular Keys",
+    xaxis = list(title = "Key", linewidth = 2, range = c(-0.8, 4.8)),
+    yaxis = list(title = list(text = "Mean Streams", standoff = 10)),
+    margin = list(l = 80, r = 20)
+  )
+```
+
+## Valence Distribution by Mode
+
+The boxplot shows the distribution of *valence* by categories of *mode*, where minor-mode songs have a slightly higher median valence (54) than major-mode songs (48). Both modes display wide ranges and similar variability, with overlapping interquartile range. While minor appears marginally more positive on average, the substantial overlap suggests mode alone does not strongly determine valence.
+
+```{r}
+# boxplot
+plot_ly(
+  df, x = ~mode, y = ~valence_., type = "box",
+  fillcolor = "thistle",
+  line = list(width = 2, color = "darkslateblue")
+) |> 
+  
+  layout(
+    title = "Valence Distribution by Mode",
+    xaxis = list(title = "Music Mode"),
+    yaxis = list(title = "Valence")
+  )
+```
+
+## Presence in Spotify and Deezer Playlists
+
+The scatter plot below shows the relationship between the count of presence of songs in Spotify and Deezer playlists. It reveals a positive correlation between the two variables. As songs gain streams in one platform, they appear more frequently played on the other. Overall, the data is most concentrated under 10 thousand Spotify / 2 thousand Deezer counts, with a few high-performing outliers reaching over 50 / 12 thousand.
+
+```{r}
+# scatter plot
+plot_ly(df, x = ~in_spotify_playlists) |> 
+  add_markers(
+    y = ~in_deezer_playlists, 
+    marker = list(color = "salmon", opacity = 0.6)
+  ) |> 
+  layout(
+    title = "Relationship Between Presence in Spotify and Deezer Playlists",
+    xaxis = list(title = "Presence Counts in Spotify Playlists"),
+    yaxis = list(title = "Presence Counts in Deezer Playlists")
+  )
+```
+
+# Central Limit Theorem
+
+Central Limit Theorem suggests that with the sample size increases, the distribution of sample means becomes more closed to a normal distribution with symmetrical shape, regardless of the shape of population distribution.
+
+In this section, samples with different sizes (n = 10, 20, 30, 40) are drawn from the *bpm* variable in `df` and be replicated 1000 times to obtain sample mean distributions. The histogram matrix below shows the results of sample mean distributions with the same scales of x and y axes in order to compare their shapes. Following the matrix is an output comparing statistics of all four sample mean distributions and the population.
+
+According to the results, it can be seen that with the sample size increases, the sample mean distribution becomes significantly more centralized, with smaller standard deviation. Meanwhile, all four means of sample means are approximate to the population mean, indicating the predictive nature of sample mean distribution for the population. In addition, all results of sample mean distributions appear to be symmetrical and similar to normal distributions in shape.
+
+In conclusion, the patterns shown in this section are in accordance with the CLT.
+
+```{r}
+# define variables
+sizes <- c(10, 20, 30, 40) # sample sizes
+sample_means <- numeric(1000) # sample means
+means_sample_means <- numeric(length(sizes)) # means of sample means
+sds_sample_means <- numeric(length(sizes)) # SDs of sample means
+p <- list() # plots
+
+# replicate sampling 1000 times
+set.seed(123)
+for (i in 1:length(sizes)) {
+  
+  # draw sample & calculate means
+  sample_means <- replicate(
+    1000, mean(sample(df$bpm, size = sizes[i], replace = TRUE), na.rm = TRUE)
+  )
+  
+  # store mean & SD of sample means
+  means_sample_means[i] <- mean(sample_means, na.rm = TRUE)
+  sds_sample_means[i] <- sd(sample_means, na.rm = TRUE)
+  
+  # store plot information
+  p[[i]] <- plot_ly(
+    x = sample_means, type = "histogram",
+    xbins = list(size = 2),
+    marker = list(color = "pink")
+  ) |> 
+    layout(
+      xaxis = list(
+        title = paste("n =", sizes[i]), 
+        range = c(90, 150), 
+        dtick = 15,
+        ticks = "outside",
+        ticklen = 5,
+        tickwidth = 1
+      ),
+      yaxis = list(range = c(0, 180), dtick = 60)
+    )
+}
+
+# show plots
+subplot(p, nrows = 2, margin = 0.1, titleX = TRUE) |> 
+  layout(
+    title = "Sample Mean Distributions of BPM",
+    showlegend = FALSE,
+    margin = list(t = 40)
+  )
+```
+
+```{r}
+# population mean & SD
+pop_mean <- mean(df$bpm, na.rm = TRUE)
+pop_sd <- sd(df$bpm, na.rm = TRUE)
+
+# show results
+cat(paste("Population Mean:", round(pop_mean, 2)), "\n")
+cat(paste("Population SD:", round(pop_sd, 2)), "\n\n")
+cat("Means of Sample Means:\n")
+cat(paste0(
+    round(means_sample_means, 2), " (n=", seq(10, 40, 10), ")",
+    collapse = "\n"
+  ))
+cat("\n\n")
+cat("SDs of Sample Means:\n")
+cat(paste0(
+    round(sds_sample_means, 2), " (n=", seq(10, 40, 10), ")",
+    collapse = "\n"
+  ))
+```
+
+# Sampling Methods
+
+## Sampling
+
+Three sampling methods are used and compared in this section — simple random sampling with replacement, systematic sampling with unequal probability (by *bpm*), and stratified sampling (by *mode*) without replacement. The sample size is set as 100, and functions from the *sampling* package are used to obtain samples.
+
+```{r}
+# simple random sampling with replacement
+n <- 100
+set.seed(123)
+s <- srswr(n, nrow(df))
+rows <- (1:nrow(df))[s!=0]
+rows <- rep(rows, s[s!=0])
+sample1 <- df[rows, ]
+
+
+# systematic sampling with unequal probability
+set.seed(123)
+pik <- inclusionprobabilities(df$bpm, n) # prob by bpm
+s <- UPsystematic(pik)
+sample2 <- df[s!= 0, ]
+
+
+# stratified sampling without replacement
+# set stratums by mode
+order_index <- order(df$mode)
+data <- df[order_index, ]
+prop_table <- table(data$mode) / nrow(data)
+sizes <- round(prop_table * n)
+# sampling
+set.seed(32)
+st <- sampling::strata(
+  data, stratanames = "mode", size = sizes, method = "srswor"
+)
+sample3 <- sampling::getdata(data, st)
+
+```
+
+## Comparison
+
+Below shows the proportions of mode categories calculated from each sample and the population. As shown, the stratified sampling method performs the best in predicting the proportion of modes of the population, because it sets stratums based on the categories of mode before selecting data. In contrast, the simple random sampling method performs the worst, which is probably because its random and unstable nature of drawing samples without specific patterns like stratums in stratified sampling. In addition, the systematic sampling method has a moderate performance of prediction, which is better than simple random sampling whereas not as accurate as stratified sampling. This might stems from that the systematic sampling draws samples by intervals, and the samples are relatively evenly distributed in the dataset, which might allow a higher accuracy regarding proportions of categorical attributes. Meanwhile, it uses unequal probability gained from *bpm*, which could potentially influence the pattern of *mode* proportions.
+
+```{r}
+# proportions of modes
+cat("Proportion of Modes in Population:")
+(pct0 <- round(table(df$mode) / nrow(df), 2)); cat("\n")
+
+cat("Proportion of Modes in Sample 1 (Simple Random):")
+(pct1 <- table(sample1$mode) / nrow(sample1)); cat("\n")
+cat("Proportion of Modes in Sample 2 (Systematic):")
+(pct2 <- table(sample2$mode) / nrow(sample2)); cat("\n")
+cat("Proportion of Modes in Sample 3 (Stratified):")
+(pct3 <- table(sample3$mode) / nrow(sample3))
+```

@@ -1,0 +1,15 @@
+<script>
+(function () {
+    const path = window.location.pathname;
+
+    const isZh = path.includes("/zh/");
+
+    const target = isZh
+        ? path.replace("/zh/", "/")
+        : "/zh" + path;
+
+    document.querySelectorAll(".navbar .lang-switch").forEach(el => {
+        el.href = target;
+    });
+})();
+</script>
