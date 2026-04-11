@@ -54,11 +54,32 @@
 }
 
 /* ── Scrollbar (Webkit) ─────────────────────────────────────────── */
-::-webkit-scrollbar       { width: 6px; height: 6px; }
+/* ::-webkit-scrollbar       { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--pf-surface); }
 ::-webkit-scrollbar-thumb { background: var(--pf-primary); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--pf-primary-hover); }
+::-webkit-scrollbar-thumb:hover { background: var(--pf-primary-hover); } */
 
+/* Chrome / Edge / Safari */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pf-primary);
+    border-radius: 999px;
+    border: 2px solid #ffffff;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--pf-primary) transparent;
+}
 
 /* 3. Base Typography ===================================================== */
 
