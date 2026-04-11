@@ -523,11 +523,11 @@ plt.show()
 - **须**：从 Q1/Q3 向外延伸，默认至 1.5 × IQR 范围内的极值。
 - **异常值**：超出须范围的点单独标记。
 
-![正态分布图 & IQR](../img/normal-dist.png)
+![正态分布图 & IQR](../../../src/img/ttl/amt-dist/normal-dist.png)
 
 **箱线图 vs. 直方图**
 
-![箱线图](../img/boxplot.png)
+![箱线图](../../../src/img/ttl/amt-dist/boxplot.png)
 
 箱线图适合快速识别分布概况与异常值；直方图适合查看具体区间内的频率分布。
 
