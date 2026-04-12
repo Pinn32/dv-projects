@@ -1,6 +1,5 @@
 ---
 title: '**W11 Sankey & Network Diagrams**'
-jupyter: python3
 ---
 
 \*\*
