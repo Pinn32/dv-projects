@@ -5,7 +5,7 @@ date: '2026-02-23'
 categories: [R, EDA, Social Media, Mental Health, Visualization]
 description: '分析学生的社交媒体使用习惯与成瘾模式，探究行为与学业相关洞察。'
 
-## All below for Rmd
+## 以下内容用于 Rmd
 # output:
 #   html_document:
 #     code_folding: hide
@@ -17,7 +17,7 @@ description: '分析学生的社交媒体使用习惯与成瘾模式，探究行
 ---
 
 ```{r eval=FALSE, include=TRUE}
-#| code-summary: 'Environment & Versions'
+#| code-summary: '环境与版本'
 R==4.5.2
 plotly==4.12.0
 sampling==2.11
@@ -28,9 +28,9 @@ tidyverse==2.0.0
 knitr::opts_chunk$set(
   fig.width = 8,
   fig.height = 5,
-  # fig.align = 'left',  # only suitable for static image
-  # fig.asp=0.8,         # only suitable for static image
-  out.width = "95%",     # let fig width occupy 95% of parent element's width
+  # fig.align = 'left',  # 仅适用于静态图像
+  # fig.asp=0.8,         # 仅适用于静态图像
+  out.width = "95%",     # 让图片宽度占父元素宽度的 95%
   results='hold',
   echo=TRUE,
   warning=FALSE,
@@ -45,7 +45,7 @@ knitr::opts_chunk$set(
 本项目在 R v4.5.2 环境下完成，使用了 *plotly*（v4.12.0）和 *sampling* 包，以及包含 *stringr*（v1.6.0）、*tibble*（v3.3.1）和 *dplyr*（v1.1.4）等包的集合 *tidyverse*（v2.0.0）。
 
 ```{r eval=FALSE, results='hold'}
-# view versions
+# 查看版本
 getRversion()                # [1] '4.5.2'
 packageVersion("plotly")     # [1] '4.12.0'
 packageVersion("sampling")   # [1] '2.11'
@@ -77,15 +77,17 @@ packageVersion("dplyr")      # [1] '1.1.4'
 
 ## 导入数据集
 
-数据集从 [Kaggle](https://www.kaggle.com/datasets/adilshamim8/social-media-addiction-vs-relationships) 下载并保存至本地目录，随后使用内置函数 `read.csv()` 以相对路径导入 R，存储为 `df0`。输出 1 展示了 `df0` 的结构。
+数据集从 [Kaggle](https://www.kaggle.com/datasets/adilshamim8/social-media-addiction-vs-relationships) 下载并保存至本地目录，随后使用内置函数 `read.csv()` 以相对路径导入 R，存储为 `df0`。[输出 1](#str-df) 展示了 `df0` 的结构。
 
+:::{#str-df}
 ```{r}
-# import dataset
+# 导入数据集
 df0 <- read.csv("../../../src/data/student-social-media-addiction.csv")
-str(df0) # view dataframe structure
+str(df0) # 查看数据框结构
 ```
 
-*输出 1. 数据框结构*
+[*输出 1. 数据框结构*]{.caption}
+:::
 
 ## 数据预处理
 
@@ -94,21 +96,21 @@ str(df0) # view dataframe structure
 首先，加载相关包，将原始数据集 `df0` 转换为 tibble 并存储为 `df`，保持原始数据集不变。随后，将后续分析中使用的类别变量名称和数值变量名称分别指定并存储在向量 `names_catvar` 和 `names_numvar` 中。
 
 ```{r}
-# attach packages
+# 加载包
 library(tidyverse)
 library(plotly)
 library(sampling)
 
-# create a tibble
-df <- tibble(df0) # store tibble in df, let df0 remain what it is
+# 创建 tibble
+df <- tibble(df0) # 将 tibble 存入 df，保留 df0 不变
 
-# store names of categorical variables to use
+# 存储后续使用的类别变量名称
 names_catvar <- c(
   "Gender", "Country", "Most_Used_Platform", "Relationship_Status",
   "Academic_Level", "Affects_Academic_Performance"
 )
 
-# store names of numerical variables to use
+# 存储后续使用的数值变量名称
 names_numvar <- c(
   "Age", "Avg_Daily_Usage_Hours", "Sleep_Hours_Per_Night",
   "Mental_Health_Score", "Conflicts_Over_Social_Media", "Addicted_Score"
@@ -117,145 +119,160 @@ names_numvar <- c(
 
 ## 缺失值
 
-使用 `sum(is.na(df))` 对缺失值进行初步检查，数据集中未发现显式缺失值（输出 2）。
+使用 `sum(is.na(df))` 对缺失值进行初步检查，数据集中未发现显式缺失值（[输出 2](#num-of-NA)）。
 
+:::{#num-of-NA}
 ```{r}
-# check the number of missing values
+# 检查缺失值数量
 sum(is.na(df))
 ```
 
-*输出 2. 缺失值数量*
+[*输出 2. 缺失值数量*]{.caption}
+:::
 
 ## 类别数据
 
-对于类别变量，首先检查各变量的类别数量（见输出 3）及每个类别的观测计数（见输出 4）。结果显示，大多数类别变量包含适中数量的类别，而*国家*和*最常用平台*变量的类别数相对较多，因此需要进一步处理。
+对于类别变量，首先检查各变量的类别数量（见 [输出 3](#cat-unique)）及每个类别的观测计数（见 [输出 4](#cat-counts)）。结果显示，大多数类别变量包含适中数量的类别，而*国家*和*最常用平台*变量的类别数相对较多，因此需要进一步处理。
 
+:::{#cat-unique}
 ```{r}
-## All Categorical Variables
+## 所有类别变量
 
-# check the number of categories of each categorical variable
+# 检查每个类别变量的类别数量
 for (name in names_catvar) {
   print(paste(name, length(unique(df[[name]]))))
 }
 ```
 
-*输出 3. 类别变量中唯一值的数量*
+[*输出 3. 类别变量中唯一值的数量*]{.caption}
+:::
 
+:::{#cat-counts}
 ```{r}
-## All Categorical Variables Except Country & Platform
+## 除国家和平台外的所有类别变量
 
-# check the count of observations in each category
-# (except the country and most-used platform variables)
+# 检查每个类别的观测数量
+# （不包括国家和最常用平台变量）
 for (name in setdiff(names_catvar, c("Country", "Most_Used_Platform"))) {
   print(table(df[name]))
   cat("\n")
 }
 ```
 
-*输出 4. 类别变量各取值的观测数量*
+[*输出 4. 类别变量各取值的观测数量*]{.caption}
+:::
 
-因此，分别筛选出观测数最多的前五个国家和平台，并将其名称存储在向量 `top5_countries` 和 `top5_platforms` 中，结果见输出 5。
+因此，分别筛选出观测数最多的前五个国家和平台，并将其名称存储在向量 `top5_countries` 和 `top5_platforms` 中，结果见 [输出 5](#top-cats)。
 
+:::{#top-cats}
 ```{r results='hold'}
-## Country & Platform
+## 国家与平台
 
-# check counts of observation of top 5 countries
+# 检查前五个国家的观测数量
 head(sort(table(df["Country"]), decreasing = TRUE), 5)
 
 cat("\n")
 
-# check counts of observation of top 5 platforms
+# 检查前五个平台的观测数量
 head(sort(table(df["Most_Used_Platform"]), decreasing = TRUE), 5)
 ```
 
-*输出 5. 各国家和平台的观测数量*
+[*输出 5. 各国家和平台的观测数量*]{.caption}
+:::
 
 ```{r}
-## Country & Platform
+## 国家与平台
 
-# store top 5 countries
+# 存储前五个国家
 top5_countries <- names(
   head(sort(table(df$Country), decreasing = TRUE), 5)
 )
 
-# store top 5 platforms
+# 存储前五个平台
 top5_platforms <- names(
   head(sort(table(df$Most_Used_Platform), decreasing = TRUE), 5)
 )
 
 ```
 
-此外，`Affects_Academic_Performance` 变量由字符型转换为逻辑型（"Yes" = `TRUE`，"No" = `FALSE`），见输出 6。
+此外，`Affects_Academic_Performance` 变量由字符型转换为逻辑型（"Yes" = `TRUE`，"No" = `FALSE`），见 [输出 6](#bool-var)。
 
+:::{#bool-var}
 ```{r}
-## Boolean Variable
+## 布尔变量
 
-# convert variable from character to logical
+# 将变量由字符型转换为逻辑型
 df$Affects_Academic_Performance <- df$Affects_Academic_Performance == "Yes"
 
-  # As the variable contains only "Yes" and "No" responses,
-  # no further data cleaning was needed.
+  # 由于该变量仅包含 "Yes" 和 "No" 回答，
+  # 因此无需进一步清理。
 
-# check the converted variable
+# 检查转换后的变量
 str(df$Affects_Academic_Performance)
 ```
 
-*输出 6. 布尔变量*
+[*输出 6. 布尔变量*]{.caption}
+:::
 
 ## 数值数据
 
-使用 `summary()` 函数获取数值变量的描述性统计（输出 7）。结果表明各变量均在合理范围内，无明显极端或异常值，因此在此阶段无需进一步预处理。
+使用 `summary()` 函数获取数值变量的描述性统计（[输出 7](#num-summary)）。结果表明各变量均在合理范围内，无明显极端或异常值，因此在此阶段无需进一步预处理。
 
+:::{#num-summary}
 ```{r}
-## All Numerical Variables
+## 所有数值变量
 
-# view descriptive summaries of numerical variables
+# 查看数值变量的描述性统计
 for (name in names_numvar) {
   print(summary(df[name]))
   cat("\n")
 }
 ```
 
-*输出 7. 数值变量的描述性统计*
+[*输出 7. 数值变量的描述性统计*]{.caption}
+:::
 
-此外，由于 `Age` 变量的范围较窄且变异有限，将其分组为三个年龄段。如输出 8 所示，将 `Age` 视为连续变量在如此狭窄的区间（18-24）内离散程度极低（仅有 7 个唯一值），而将各年龄值作为单独类别则可能导致若干小而不均的子组。因此，分组为三个区间能提供更适合后续分析的结构。
+此外，由于 `Age` 变量的范围较窄且变异有限，将其分组为三个年龄段。如 [输出 8](#age-range) 所示，将 `Age` 视为连续变量在如此狭窄的区间（18-24）内离散程度极低（仅有 7 个唯一值），而将各年龄值作为单独类别则可能导致若干小而不均的子组。因此，分组为三个区间能提供更适合后续分析的结构。
 
-为此，首先使用直方图查看年龄分布并确定合适的分组断点，然后将分组信息存入新变量 `Age_Group`（见输出 9）。
+为此，首先使用直方图查看年龄分布并确定合适的分组断点，然后将分组信息存入新变量 `Age_Group`（见 [输出 9](#age-groups)）。
 
+:::{#age-range}
 ```{r results='hold'}
-## Age
+## 年龄
 
-# check value range
+# 检查取值范围
 range(df$Age)
 
-# check numbers of unique values in Age
+# 检查 Age 中唯一值的数量
 length(unique(df$Age))
 ```
 
-*输出 8. 年龄范围及唯一年龄值数量*
+[*输出 8. 年龄范围及唯一年龄值数量*]{.caption}
+:::
 
+:::{#age-groups}
 ```{r fig.width=7, fig.height=5, results='hold'}
-## Age
+## 年龄
 
-## Store histogram data
+## 存储直方图数据
 
-# store histogram data with 3 bins
+# 存储包含 3 个分箱的直方图数据
 hist_data <- hist(
   df$Age,
   breaks = 4,
-  xlab = "Age",
+  xlab = "年龄",
   col = "#FFD794",
-  main = "Age Distribution",
-  plot = FALSE  # do not display plot
+  main = "年龄分布",
+  plot = FALSE  # 不显示图形
 )
 
-# store breaks for grouping
+# 存储分组断点
 breaks <- hist_data$breaks
 
 
-## Add new variable Age_Group to df
+## 向 df 添加新变量 Age_Group
 
-# store grouping information into a new variable Age_Group
+# 将分组信息存入新变量 Age_Group
 df <- df |>
   mutate(
     Age_Group = case_when(
@@ -268,11 +285,12 @@ df <- df |>
     )
   )
 
-# view new variable
+# 查看新变量
 table(df["Age_Group"])
 ```
 
-*输出 9. 年龄分组*
+[*输出 9. 年龄分组*]{.caption}
+:::
 
 # 描述性分析
 
@@ -287,93 +305,105 @@ table(df["Age_Group"])
 ```{r}
 #| label: fig-gender-dist
 #| fig-cap: "样本性别分布"
-## Gender
+## 性别
 
-# pie chart
+# 饼图
 plot_ly(
-  as.data.frame(table(df["Gender"])),
+  as.data.frame(table(Gender = recode(df$Gender, Female = "女性", Male = "男性"))),
   labels = ~Gender,
   values = ~Freq,
-  type = "pie",                # pie chart
-  textinfo = "label+percent",  # display label & percent on pie slices
+  type = "pie",                # 饼图
+  textinfo = "label+percent",  # 在扇区上显示标签和百分比
 
-  # plotting area for pie chart
+  # 饼图绘图区
   domain = list(
-    x = c(0, 1),    # horizontal: full height
-    y = c(0, 0.85)  # vertical: leave 15% margin on the top
+    x = c(0, 1),    # 水平方向：占满宽度
+    y = c(0, 0.85)  # 垂直方向：顶部留出 15% 边距
   ),
 
-  # aesthetics
+  # 美学设置
   marker = list(
-    colors = c("Female" = "#FFB697", "Male" = "#8fc4de"), # filling color
-    line = list(color = "#222", width = 1.5)              # outline
+    colors = c("女性" = "#FFB697", "男性" = "#8fc4de"), # 填充颜色
+    line = list(color = "#222", width = 1.5)             # 轮廓线
   )
 ) |>
 
   layout(
-    showlegend = FALSE,           # remove legend
-    margin = list(l = 1, r = 1),  # left & right margin
+    showlegend = FALSE,           # 移除图例
+    margin = list(l = 1, r = 1),  # 左右边距
     title = list(
-      y = 0.95,                   # y position of title
-      text = "Sample Gender Distribution"
+      y = 0.95,                   # 标题的 y 位置
+      text = "样本性别分布"
     )
   )
 ```
 
 ### 国家
 
-@fig-country-dist 及其后的输出 10 展示了样本前五个国家的分布情况及各国占总样本的百分比。印度以 7.5% 领先，其次是美国（5.7%）和加拿大（4.8%）。丹麦和法国各占 3.8%，体现了参与者地理来源的多样性，主要集中在南亚和北美地区。
+@fig-country-dist 及其后的 [输出 10](#country-pct) 展示了样本前五个国家的分布情况及各国占总样本的百分比。印度以 7.5% 领先，其次是美国（5.7%）和加拿大（4.8%）。丹麦和法国各占 3.8%，体现了参与者地理来源的多样性，主要集中在南亚和北美地区。
 
 ```{r}
 #| label: fig-country-dist
 #| fig-cap: "样本国家分布（前 5）"
-## Country
+## 国家
 
-# extract top 5 country data
+# 提取前五国家数据
 top5_countries_data <- df |>
-  filter(Country %in% top5_countries)
+  filter(Country %in% top5_countries) |>
+  mutate(
+    Country_CN = recode(
+      Country,
+      India = "印度",
+      USA = "美国",
+      Canada = "加拿大",
+      Denmark = "丹麦",
+      France = "法国"
+    )
+  )
 
-# barplot
+# 柱状图
 plot_ly(
   as.data.frame(
-    sort(table(top5_countries_data["Country"]), decreasing = TRUE) # sort
+    sort(table(top5_countries_data["Country_CN"]), decreasing = TRUE) # 排序
   ),
-  x = ~Country,
+  x = ~Country_CN,
   y = ~Freq,
-  type = "bar",  # barplot
+  type = "bar",  # 柱状图
 
-  # aesthetics
+  # 美学设置
   marker = list(
-    color = "#add4a0",                        # filling color
-    line = list(color = "#222", width = 1.5)  # outline color & width
+    color = "#add4a0",                        # 填充颜色
+    line = list(color = "#222", width = 1.5)  # 轮廓线颜色与宽度
   )
 ) |>
 
   layout(
-    margin = list(t = 50),  # margin top
+    margin = list(t = 50),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Sample Country Distribution (top 5)"
+      y = 0.95,             # 标题的 y 位置
+      text = "样本国家分布（前 5）"
     ),
     xaxis = list(
-      title = "Countries",
-      range = c(-0.8, 4.8)  # extend x axis (0 = the 1st category)
+      title = "国家",
+      range = c(-0.8, 4.8)  # 扩展 x 轴范围（0 = 第一个类别）
     ),
     yaxis = list(
-      title = "Frequency",
-      range = c(0, 60)      # let y axis be exhaustive
+      title = "频数",
+      range = c(0, 60)      # 使 y 轴覆盖全部取值
     )
   )
 ```
 
+:::{#country-pct}
 ```{r}
-## Country
+## 国家
 
-# view percentage of observations for top 5 countries
-sort(table(top5_countries_data$Country), decreasing = TRUE) / nrow(df) * 100
+# 查看前五国家观测值占总体的百分比
+sort(table(top5_countries_data$Country_CN), decreasing = TRUE) / nrow(df) * 100
 ```
 
-*输出 10. 前五国家占总体的百分比*
+[*输出 10. 前五国家占总体的百分比*]{.caption}
+:::
 
 ### 年龄分组
 
@@ -382,37 +412,37 @@ sort(table(top5_countries_data$Country), decreasing = TRUE) / nrow(df) * 100
 ```{r}
 #| label: fig-age-group-dist
 #| fig-cap: "样本年龄分组分布"
-## Age Group
+## 年龄分组
 
-# barplot
+# 柱状图
 plot_ly(
   as.data.frame(
-    sort(table(df["Age_Group"]), decreasing = TRUE) # sort
+    sort(table(df["Age_Group"]), decreasing = TRUE) # 排序
   ),
   x = ~Age_Group,
   y = ~Freq,
-  type = "bar",  # barplot
+  type = "bar",  # 柱状图
 
-  # aesthetics
+  # 美学设置
   marker = list(
-    color = "#FFD794",                        # filling color
-    line = list(color = "#222", width = 1.5)  # outline color & width
+    color = "#FFD794",                        # 填充颜色
+    line = list(color = "#222", width = 1.5)  # 轮廓线颜色与宽度
   )
 ) |>
 
   layout(
-    margin = list(t = 50),  # margin top
+    margin = list(t = 50),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Sample Age Group Distribution"
+      y = 0.95,             # 标题的 y 位置
+      text = "样本年龄分组分布"
     ),
     xaxis = list(
-      title = "Age Groups",
-      range = c(-0.8, 2.8)  # extend x axis (0 = the 1st category)
+      title = "年龄分组",
+      range = c(-0.8, 2.8)  # 扩展 x 轴范围（0 = 第一个类别）
     ),
     yaxis = list(
-      title = "Frequency",
-      range = c(0, 400)     # let y axis be exhaustive
+      title = "频数",
+      range = c(0, 400)     # 使 y 轴覆盖全部取值
     )
   )
 ```
@@ -424,39 +454,39 @@ plot_ly(
 ```{r}
 #| label: fig-top5-platforms
 #| fig-cap: "前 5 大热门平台"
-## Platform
+## 平台
 
-# extract top 5 platform data
+# 提取前五平台数据
 top5_platforms_data <- df |>
   filter(Most_Used_Platform %in% top5_platforms)
 
-# barplot
+# 柱状图
 plot_ly(
   as.data.frame(
     sort(table(top5_platforms_data["Most_Used_Platform"]), decreasing = TRUE)
   ),
   x = ~Most_Used_Platform,
   y = ~Freq,
-  type = "bar",  # barplot
+  type = "bar",  # 柱状图
 
-  # aesthetics
+  # 美学设置
   marker = list(
-    color = "#c3a4cf",                        # filling color
-    line = list(color = "#222", width = 1.5)  # outline color & width
+    color = "#c3a4cf",                        # 填充颜色
+    line = list(color = "#222", width = 1.5)  # 轮廓线颜色与宽度
   )
 ) |>
 
   layout(
-    margin = list(t = 50),  # margin top
+    margin = list(t = 50),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Top 5 Popular Platforms"
+      y = 0.95,             # 标题的 y 位置
+      text = "前 5 大热门平台"
     ),
     xaxis = list(
-      title = "Platforms",
-      range = c(-0.8, 4.8)  # extend x axis (0 = the 1st category)
+      title = "平台",
+      range = c(-0.8, 4.8)  # 扩展 x 轴范围（0 = 第一个类别）
     ),
-    yaxis = list(title = "Frequency")
+    yaxis = list(title = "频数")
   )
 ```
 
@@ -465,46 +495,47 @@ plot_ly(
 ```{r}
 #| label: fig-top5-platforms-gender
 #| fig-cap: "按性别分组的前 5 大热门平台"
-## Platform ~ Gender
+## 平台 ~ 性别
 
-# obtain data
+# 获取数据
 platform_gender_data <- top5_platforms_data |>
-  group_by(Most_Used_Platform, Gender) |>
+  mutate(Gender_CN = recode(Gender, Female = "女性", Male = "男性")) |>
+  group_by(Most_Used_Platform, Gender_CN) |>
   summarize(Count = n(), .groups = 'drop') |>
   arrange(desc(Count))
 
-# barplot
+# 柱状图
 plot_ly(
   platform_gender_data,
-  x = ~factor(Most_Used_Platform, top5_platforms),  # sort
+  x = ~factor(Most_Used_Platform, top5_platforms),  # 排序
   y = ~Count,
-  type = "bar",     # barplot
-  color = ~Gender,  # map Gender to bar color
-  colors = c("Female" = "#FFB697", "Male" = "#8fc4de"),
+  type = "bar",        # 柱状图
+  color = ~Gender_CN,  # 将性别映射到条形颜色
+  colors = c("女性" = "#FFB697", "男性" = "#8fc4de"),
 
-  # aesthetics
+  # 美学设置
   marker = list(
-    line = list(color = "#222", width = 1.5)  # outline color & width
+    line = list(color = "#222", width = 1.5)  # 轮廓线颜色与宽度
   )
 ) |>
 
   layout(
-    barmode = "group",                     # side-by-side bar groups
+    barmode = "group",                     # 并排显示条形组
     legend = list(
-      orientation = "h",                   # horizontal legend labels
-      xanchor = "right", yanchor = "top",  # anchor points of the legend
-      x = 1, y = 1                         # position of the legend
+      orientation = "h",                   # 水平排列图例标签
+      xanchor = "right", yanchor = "top",  # 图例锚点
+      x = 1, y = 1                         # 图例位置
     ),
-    margin = list(t = 50),                 # margin top
+    margin = list(t = 50),                 # 顶部边距
     title = list(
-      y = 0.95,                            # y position of title
-      text = "Top 5 Popular Platforms by Gender"
+      y = 0.95,                            # 标题的 y 位置
+      text = "按性别分组的前 5 大热门平台"
     ),
     xaxis = list(
-      title = "Platforms",
-      range = c(-0.6, 4.6)  # extend x axis (0 = the 1st category)
+      title = "平台",
+      range = c(-0.6, 4.6)  # 扩展 x 轴范围（0 = 第一个类别）
     ),
-    yaxis = list(title = "Frequency")
+    yaxis = list(title = "频数")
   )
 
 ```
@@ -516,33 +547,33 @@ plot_ly(
 ```{r}
 #| label: fig-usage-hours-dist
 #| fig-cap: "日均使用时长分布"
-## Usage Hours
+## 使用时长
 
-# histogram
+# 直方图
 plot_ly(
   df,
   x = ~Avg_Daily_Usage_Hours,
   type = "histogram",
 
-  # aesthetics
+  # 美学设置
   marker = list(
-    color = "#55D2C6",                        # filling color
-    line = list(color = "#222", width = 1.5)  # outline
+    color = "#55D2C6",                        # 填充颜色
+    line = list(color = "#222", width = 1.5)  # 轮廓线
   )
 ) |>
 
   layout(
-    margin = list(t = 50),  # margin top
+    margin = list(t = 50),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Average Daily Usage Hours Distribution"
+      y = 0.95,             # 标题的 y 位置
+      text = "日均使用时长分布"
     ),
     xaxis = list(
-      title = "Average Daily Usage Hours",
-      range = c(0.8, 9.4),  # let x aixs be exhaustive
-      dtick = 1             # distance between ticks
+      title = "日均使用时长",
+      range = c(0.8, 9.4),  # 使 x 轴覆盖全部取值
+      dtick = 1             # 刻度间距
     ),
-    yaxis = list(title = "Frequency")
+    yaxis = list(title = "频数")
   )
 ```
 
@@ -551,65 +582,65 @@ plot_ly(
 ```{r fig.width=8, fig.height=6}
 #| label: fig-usage-hours-boxplot
 #| fig-cap: "前 5 国家日均使用时长箱线图"
-## Usage Hours ~ Top 5 Countries
+## 使用时长 ~ 前五国家
 
-## Sorting
+## 排序
 
-# find median usage hours of each country
+# 计算每个国家的使用时长中位数
 countries_by_usage <- top5_countries_data |>
-  group_by(Country) |>
+  group_by(Country_CN) |>
 
-  # create new variable to store medians
+  # 创建新变量以存储中位数
   summarize(
     Median_Usage_Hour = median(Avg_Daily_Usage_Hours, na.rm = TRUE),
-    .groups = "drop"  # drop grouping information
+    .groups = "drop"  # 删除分组信息
   ) |>
 
-  # sort by median descending
+  # 按中位数降序排序
   arrange(desc(Median_Usage_Hour)) |>
 
-  # pull out the vector of Country variable
-  # (country names with median usage hours descending)
-  pull(Country)
+  # 提取 Country_CN 变量向量
+  # （按使用时长中位数降序排列的国家名称）
+  pull(Country_CN)
 
 
-## Plotting
+## 绘图
 
-# boxplot
+# 箱线图
 plot_ly(
   top5_countries_data,
 
-  # make Country variable a factor by levels of
-  # countries with median usage hours descending
-  x = ~factor(Country, countries_by_usage),
+  # 按使用时长中位数降序排列的国家名称
+  # 将 Country_CN 变量设为因子
+  x = ~factor(Country_CN, countries_by_usage),
   y = ~Avg_Daily_Usage_Hours,
-  type = "box",  # boxplot
+  type = "box",  # 箱线图
 
-  # aesthetics: boundary box
+  # 美学设置：箱体边界
   fillcolor = "#55D2C6",
   line = list(color = "#222", width = 1.5),
 
-  # aesthetics: outliers
+  # 美学设置：离群值
   marker = list(
-    color = "#55D2C6",                        # filling color
-    line = list(color = "#222", width = 1.5)  # outline
+    color = "#55D2C6",                        # 填充颜色
+    line = list(color = "#222", width = 1.5)  # 轮廓线
   )
 ) |>
 
   layout(
-    margin = list(t = 50),  # margin top
+    margin = list(t = 50),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Average Daily Usage Hours Distribution by Top 5 Countries"
+      y = 0.95,             # 标题的 y 位置
+      text = "前 5 国家日均使用时长箱线图"
     ),
     xaxis = list(
-      title = "Top 5 Countries",
-      range = c(-0.6, 4.6)  # extend x axis (0 = the 1st category)
+      title = "前 5 国家",
+      range = c(-0.6, 4.6)  # 扩展 x 轴范围（0 = 第一个类别）
     ),
     yaxis = list(
-      title = "Average Daily Usage Hours",
-      range = c(1, 10),     # let y axis be exhaustive
-      dtick = 1             # distance between ticks
+      title = "日均使用时长",
+      range = c(1, 10),     # 使 y 轴覆盖全部取值
+      dtick = 1             # 刻度间距
     )
   )
 ```
@@ -621,35 +652,35 @@ plot_ly(
 ```{r}
 #| label: fig-sleep-hours-dist
 #| fig-cap: "平均睡眠时长分布"
-## Sleep Hours
+## 睡眠时长
 
-# histogram
+# 直方图
 plot_ly(
   df,
   x = ~Sleep_Hours_Per_Night,
   type = "histogram",
 
-  # aesthetics
+  # 美学设置
   marker = list(
-    color = "#FFABB6",                        # filling color
-    line = list(color = "#222", width = 1.5)  # outline
+    color = "#FFABB6",                        # 填充颜色
+    line = list(color = "#222", width = 1.5)  # 轮廓线
   )
 ) |>
 
   layout(
-    margin = list(t = 50),  # margin top
+    margin = list(t = 50),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Average Sleep Hours Distribution"
+      y = 0.95,             # 标题的 y 位置
+      text = "平均睡眠时长分布"
     ),
     xaxis = list(
-      title = "Average Sleep Hours",
-      range = c(2.8, 11),   # let x aixs be exhaustive
-      dtick = 1             # distance between ticks
+      title = "平均睡眠时长",
+      range = c(2.8, 11),   # 使 x 轴覆盖全部取值
+      dtick = 1             # 刻度间距
     ),
     yaxis = list(
-      title = "Frequency",
-      range = c(0, 60)      # let y axis be exhaustive
+      title = "频数",
+      range = c(0, 60)      # 使 y 轴覆盖全部取值
     )
   )
 ```
@@ -659,65 +690,65 @@ plot_ly(
 ```{r fig.width=8, fig.height=6}
 #| label: fig-sleep-hours-boxplot
 #| fig-cap: "前 5 国家平均睡眠时长箱线图"
-## Sleep Hours ~ Top 5 Countries
+## 睡眠时长 ~ 前五国家
 
-## Sorting
+## 排序
 
-# find median sleep hours of each country
+# 计算每个国家的睡眠时长中位数
 countries_by_sleep <- top5_countries_data |>
-  group_by(Country) |>
+  group_by(Country_CN) |>
 
-  # create new variable to store medians
+  # 创建新变量以存储中位数
   summarize(
     Median_Sleep_Hour = median(Sleep_Hours_Per_Night, na.rm = TRUE),
-    .groups = "drop"  # drop grouping information
+    .groups = "drop"  # 删除分组信息
   ) |>
 
-  # sort by median ascending
+  # 按中位数升序排序
   arrange(Median_Sleep_Hour) |>
 
-  # pull out the vector of Country variable
-  # (country names with median sleep hours ascending)
-  pull(Country)
+  # 提取 Country_CN 变量向量
+  # （按睡眠时长中位数升序排列的国家名称）
+  pull(Country_CN)
 
 
-## Plotting
+## 绘图
 
-# boxplot
+# 箱线图
 plot_ly(
   top5_countries_data,
 
-  # make Country variable a factor by levels of
-  # countries with sleep hours ascending
-  x = ~factor(Country, countries_by_sleep),
+  # 按睡眠时长中位数升序排列的国家名称
+  # 将 Country_CN 变量设为因子
+  x = ~factor(Country_CN, countries_by_sleep),
   y = ~Sleep_Hours_Per_Night,
-  type = "box",  # boxplot
+  type = "box",  # 箱线图
 
-  # aesthetics: boundary box
+  # 美学设置：箱体边界
   fillcolor = "#FFABB6",
   line = list(color = "#222", width = 1.5),
 
-  # aesthetics: outliers
+  # 美学设置：离群值
   marker = list(
-    color = "#FFABB6",                        # filling color
-    line = list(color = "#222", width = 1.5)  # outline
+    color = "#FFABB6",                        # 填充颜色
+    line = list(color = "#222", width = 1.5)  # 轮廓线
   )
 ) |>
 
   layout(
-    margin = list(t = 50),  # margin top
+    margin = list(t = 50),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Average Sleep Hours Distribution by Top 5 Countries"
+      y = 0.95,             # 标题的 y 位置
+      text = "前 5 国家平均睡眠时长箱线图"
     ),
     xaxis = list(
-      title = "Top 5 Countries",
-      range = c(-0.6, 4.6)  # extend x axis (0 = the 1st category)
+      title = "前 5 国家",
+      range = c(-0.6, 4.6)  # 扩展 x 轴范围（0 = 第一个类别）
     ),
     yaxis = list(
-      title = "Average Sleep Hours",
-      range = c(3, 10),     # let y axis be exhaustive
-      dtick = 1             # distance between ticks
+      title = "平均睡眠时长",
+      range = c(3, 10),     # 使 y 轴覆盖全部取值
+      dtick = 1             # 刻度间距
     )
   )
 ```
@@ -731,138 +762,142 @@ plot_ly(
 ```{r}
 #| label: fig-usage-sleep-scatter
 #| fig-cap: "使用时长与睡眠时长的关系"
-## Sleep Hours ~ Usage Hours
+## 睡眠时长 ~ 使用时长
 
-# scatter plot
+# 散点图
 plot_ly(
   df,
   x = ~Avg_Daily_Usage_Hours
 ) |>
 
-  # add scatters
+  # 添加散点
   add_markers(
-   y = ~Sleep_Hours_Per_Night,
-   marker = list(color = "#3B9FE4", opacity = 0.6)
+    y = ~Sleep_Hours_Per_Night,
+    marker = list(color = "#3B9FE4", opacity = 0.6)
   ) |>
 
   layout(
-    margin = list(t = 50),  # margin top
+    margin = list(t = 50),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Relationship between Usage Hours and Sleep Hours"
+      y = 0.95,             # 标题的 y 位置
+      text = "使用时长与睡眠时长的关系"
     ),
     xaxis = list(
-      title = "Average Daily Usage Hours",
-      range = c(0.8, 9.2),  # let x axis be exhaustive
-      dtick = 1             # distance between ticks
+      title = "日均使用时长",
+      range = c(0.8, 9.2),  # 使 x 轴覆盖全部取值
+      dtick = 1             # 刻度间距
     ),
     yaxis = list(
-      title = "Average Sleep Hours",
-      range = c(3, 10)      # let y axis be exhaustive
+      title = "平均睡眠时长",
+      range = c(3, 10)      # 使 y 轴覆盖全部取值
     )
   )
 ```
 
-为验证上述趋势，进行了 Pearson 相关性检验。如输出 11 所示，相关系数约为 -0.79（*p* \< .001），表明学生日均社交媒体使用时长与睡眠时长之间存在高度潜在的负相关关系。
+为验证上述趋势，进行了 Pearson 相关性检验。如 [输出 11](#sleep-cor) 所示，相关系数约为 -0.79（*p* \< .001），表明学生日均社交媒体使用时长与睡眠时长之间存在高度潜在的负相关关系。
 
+:::{#sleep-cor}
 ```{r results='hold'}
-## Sleep Hours ~ Usage Hours
+## 睡眠时长 ~ 使用时长
 
-# correlation test
+# 相关性检验
 cor.test(x = df$Avg_Daily_Usage_Hours, y = df$Sleep_Hours_Per_Night)
 ```
 
-*输出 11. Pearson 相关性检验结果*
+[*输出 11. Pearson 相关性检验结果*]{.caption}
+:::
 
 @fig-usage-sleep-linear 通过对两变量拟合线性模型，进一步呈现了这一负相关关系。
 
 ```{r}
 #| label: fig-usage-sleep-linear
 #| fig-cap: "使用时长与睡眠时长的线性关系"
-## Sleep Hours ~ Usage Hours
+## 睡眠时长 ~ 使用时长
 
-# linear model
+# 线性模型
 fit <- lm(Sleep_Hours_Per_Night ~ Avg_Daily_Usage_Hours, data = df)
 
-# scatter plot
+# 散点图
 plot_ly(
   df,
   x = ~Avg_Daily_Usage_Hours
 ) |>
 
-  # add scatters
+  # 添加散点
   add_markers(
-   y = ~Sleep_Hours_Per_Night,
-   name = "Data Points",
-   marker = list(color = "#3B9FE4", opacity = 0.6)
+    y = ~Sleep_Hours_Per_Night,
+    name = "数据点",
+    marker = list(color = "#3B9FE4", opacity = 0.6)
   ) |>
 
-  # add linear fit
+  # 添加线性拟合
   add_lines(
     y = ~fitted(fit),
-    name = "Linear Fit",
+    name = "线性拟合",
     line = list(color = '#D53132', width = 1.5)
   ) |>
 
   layout(
     legend = list(
-      orientation = "h",                  # arrangement of legend labels
-      xanchor = "right", yanchor = "top", # anchor point of the legend
-      x = 1, y = 1                        # position of the legend
+      orientation = "h",                  # 图例标签排列方式
+      xanchor = "right", yanchor = "top", # 图例锚点
+      x = 1, y = 1                        # 图例位置
     ),
-    margin = list(t = 50),                # margin top
+    margin = list(t = 50),                # 顶部边距
     title = list(
-      y = 0.95,                           # y position of title
-      text = "Linear Relationship between Usage Hours and Sleep Hours"
+      y = 0.95,                           # 标题的 y 位置
+      text = "使用时长与睡眠时长的线性关系"
     ),
     xaxis = list(
-      title = "Average Daily Usage Hours",
-      range = c(0.8, 9.2),                # let x axis be exhaustive
-      dtick = 1                           # distance between ticks
+      title = "日均使用时长",
+      range = c(0.8, 9.2),                # 使 x 轴覆盖全部取值
+      dtick = 1                           # 刻度间距
     ),
     yaxis = list(
-      title = "Average Sleep Hours",
-      range = c(3, 10)                    # let y axis be exhaustive
+      title = "平均睡眠时长",
+      range = c(3, 10)                    # 使 y 轴覆盖全部取值
     )
   )
 ```
 
 ## 其他指标
 
-此外，心理健康评分与成瘾评分等其他指标之间的关系同样值得探究（指标名称见输出 12）。为此，使用 5×5 的分面散点图矩阵展示所有指标之间的关系趋势（见 @fig-indices-scatter）。
+此外，心理健康评分与成瘾评分等其他指标之间的关系同样值得探究（指标名称见 [输出 12](#index-names)）。为此，使用 5×5 的分面散点图矩阵展示所有指标之间的关系趋势（见 @fig-indices-scatter）。
 
+:::{#index-names}
 ```{r }
-## Relationship between Indices
+## 各指标之间的关系
 
-# remove Age from names_numvar
+# 从 names_numvar 中移除 Age
 (names_numvar <- setdiff(names_numvar, "Age"))
 ```
 
-*输出 12. 待比较指标的名称*
+[*输出 12. 待比较指标的名称*]{.caption}
+:::
 
 ```{r fig.width=8, fig.height=6, out.width='95%'}
 #| label: fig-indices-scatter
 #| fig-cap: "各指标之间的关系"
-## Relationship between Indices
+## 各指标之间的关系
 
-# extract numerical variable data
+# 提取数值变量数据
 num_data <- df[, names_numvar]
 
-# paired scatter plots
+# 成对散点图
 plot_ly(
   num_data,
-  type = "splom",  # scatter plots matrix
+  type = "splom",  # 散点图矩阵
 
-  # indices to compare
+  # 待比较指标
   dimensions = list(
-    list(label = "Usage", values = ~Avg_Daily_Usage_Hours),
-    list(label = "Sleep", values = ~Sleep_Hours_Per_Night),
-    list(label = "Mental Health", values = ~Mental_Health_Score),
-    list(label = "Conflicts", values = ~Conflicts_Over_Social_Media),
-    list(label = "Addicted", values = ~Addicted_Score)
+    list(label = "使用时长", values = ~Avg_Daily_Usage_Hours),
+    list(label = "睡眠时长", values = ~Sleep_Hours_Per_Night),
+    list(label = "心理健康", values = ~Mental_Health_Score),
+    list(label = "社交媒体冲突", values = ~Conflicts_Over_Social_Media),
+    list(label = "成瘾评分", values = ~Addicted_Score)
   ),
 
-  # aesthetics
+  # 美学设置
   marker = list(
     color = "#3B9FE4",
     opacity = 0.5,
@@ -871,41 +906,44 @@ plot_ly(
 ) |>
 
   layout(
-    margin = list(t = 60),  # margin top
+    margin = list(t = 60),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Relationship between Indices"
+      y = 0.95,             # 标题的 y 位置
+      text = "各指标之间的关系"
     )
   )
 ```
 
-散点图矩阵（@fig-indices-scatter）揭示了行为与心理指标之间复杂的相关网络，核心在于过度社交媒体使用的负面影响。输出 13 展示了所有五项指标的相关系数矩阵，提供了对行为趋势的有效洞见。
+散点图矩阵（@fig-indices-scatter）揭示了行为与心理指标之间复杂的相关网络，核心在于过度社交媒体使用的负面影响。[输出 13](#index-cor) 展示了所有五项指标的相关系数矩阵，提供了对行为趋势的有效洞见。
 
 结果显示，使用时长与睡眠之间存在显著的负相关——屏幕时间增加持续对应睡眠减少。这一趋势进一步体现在使用时长与成瘾程度的正相关关系上，成瘾程度的上升又带来更多的生活冲突。相反，更好的心理健康结果与较低的成瘾评分、较少的使用时长和更长的睡眠时长相关。总体而言，数据揭示了一个负反馈循环：高度的设备依赖损害了睡眠与社会和谐，共同导致心理健康状况的恶化。
 
+:::{#index-cor}
 ```{r}
-## Relationship between Indices
+## 各指标之间的关系
 
-# view correlation matrix (pearson correlation coefficient)
+# 查看相关系数矩阵（Pearson 相关系数）
 (cor_matrix <- round(cor(num_data), 2))
 ```
 
-*输出 13. 各指标相关系数矩阵*
+[*输出 13. 各指标相关系数矩阵*]{.caption}
+:::
 
-值得注意的是，成瘾评分与心理健康之间的相关系数（*r* = -.95），以及成瘾评分与社交媒体冲突次数之间的相关系数（*r* = .93）最为显著，两者 \|*r*\| > .9（见输出 14），表明随着成瘾行为的加深，心理健康状况几乎同步崩溃，人际摩擦也随之上升。
+值得注意的是，成瘾评分与心理健康之间的相关系数（*r* = -.95），以及成瘾评分与社交媒体冲突次数之间的相关系数（*r* = .93）最为显著，两者 \|*r*\| > .9（见 [输出 14](#strong-cor)），表明随着成瘾行为的加深，心理健康状况几乎同步崩溃，人际摩擦也随之上升。
 
 综上，成瘾评分是本数据集中预测负面生活结果最有力的指标。
 
+:::{#strong-cor}
 ```{r}
-## Relationship between Indices
+## 各指标之间的关系
 
-# find location of pairs where |r| > 0.9
+# 查找 |r| > 0.9 的变量对位置
 loc <- which(
   abs(cor_matrix) > 0.9 & cor_matrix != 1,
-  arr.ind = TRUE  # return matrix of row and column indices
+  arr.ind = TRUE  # 返回行列索引矩阵
 )
 
-# print results
+# 打印结果
 for(i in 1:nrow(loc)) {
   row <- loc[i, 1]
   col <- loc[i, 2]
@@ -915,7 +953,8 @@ for(i in 1:nrow(loc)) {
 }
 ```
 
-*输出 14. 相关性最强的指标对（\|r\| > .9）*
+[*输出 14. 相关性最强的指标对（\|r\| > .9）*]{.caption}
+:::
 
 # 中心极限定理的应用
 
@@ -928,148 +967,148 @@ for(i in 1:nrow(loc)) {
 为探究 CLT 的适用性，首先定义了一个函数，以指定的样本量、抽样次数、抽样变量及其他相关参数进行随机抽样。
 
 ```{r}
-## CLT
+## 中心极限定理
 
-## Define function to plot
+## 定义绘图函数
 
-# store different sample sizes
+# 存储不同样本量
 sizes <- c(10, 30, 50, 100)
 
-# define a function to randomly sample from df with
-# specified sample size and plot sample means histogram with
-# specified parameters
+# 定义函数：按指定样本量从 df 随机抽样，
+# 并按指定参数绘制样本均值直方图
 
 make_hist <- function(
     n, col, time = 1000, ymax = 1,
     binwidth = 0.2, bincolor = "#FFA472", xdtick = 1
   ) {
 
-  ## n: sample size
-  ## col: column to select from df
-  ## time: times to replicate sampling process
-  ## ymax: maximum value of y axis in histogram
-  ## binwidth: width of bins in histogram
-  ## bincolor: color of bins
-  ## xdtick: distance between ticks in x asix
+  ## n：样本量
+  ## col：从 df 中选择的列
+  ## time：重复抽样次数
+  ## ymax：直方图 y 轴最大值
+  ## binwidth：直方图分箱宽度
+  ## bincolor：分箱颜色
+  ## xdtick：x 轴刻度间距
 
-  # randomly sample data from df and calculate sample means
+  # 从 df 随机抽样并计算样本均值
   sample_means <- replicate(
-    time,   # repetition times, default is 1000
+    time,   # 重复次数，默认 1000
     mean(
       sample(df[[col]], size = n, replace = TRUE),
       na.rm = TRUE
     )
   )
 
-  # find population mean & standard deviation
+  # 计算总体均值和标准差
   pop_mean <- mean(df[[col]], na.rm = TRUE)
   pop_sd <- sd(df[[col]], na.rm = TRUE)
 
-  # find fixed x range
+  # 计算固定的 x 轴范围
   xmin <- pop_mean - (2 * pop_sd)
   xmax <- pop_mean + (2 * pop_sd)
 
-  # plot sample means probability distribution histogram
+  # 绘制样本均值概率分布直方图
   plot_ly(
     x = sample_means,
     type = "histogram",
-    histnorm = "probability",  # probability distribution
+    histnorm = "probability",  # 概率分布
     name = paste("n =", n),
     xbins = list(
       start = xmin,
       end = xmax,
-      size = binwidth          # specify binwidth, default is 0.4
+      size = binwidth          # 指定分箱宽度，默认值为 0.4
     ),
 
-    # aesthetics
+    # 美学设置
     marker = list(
-      color = bincolor,        # specify bincolor, default is "#FFA472"
+      color = bincolor,        # 指定分箱颜色，默认值为 "#FFA472"
       line = list(color = "#222", width = 1.5)
     )
   ) |>
 
     layout(
-      margin = list(t = 60),   # margin top
+      margin = list(t = 60),   # 顶部边距
 
-      # add annotation of sample size
+      # 添加样本量注释
       annotations = list(
         list(
-          text = paste("Sample Size:", n),
-          x = 0.5,             # x position of annotation
-          y = -0.25,           # y position of annotation
-          xanchor = "center",  # anchor of annotation for x
-          yanchor = "bottom",  # anchor of annotation for y
-          xref = "paper",      # position relative to current subplot
+          text = paste("样本量：", n),
+          x = 0.5,             # 注释的 x 位置
+          y = -0.25,           # 注释的 y 位置
+          xanchor = "center",  # 注释的 x 锚点
+          yanchor = "bottom",  # 注释的 y 锚点
+          xref = "paper",      # 相对当前子图定位
           yref = "paper",
-          showarrow = FALSE    # remove arrow of annotation
+          showarrow = FALSE    # 移除注释箭头
         )
       ),
 
-      # axis limits
+      # 坐标轴范围
       xaxis = list(
-        range = c(xmin, xmax),          # x axis range
-        dtick = xdtick                  # specify dtick, default is 1
+        range = c(xmin, xmax),          # x 轴范围
+        dtick = xdtick                  # 指定刻度间距，默认值为 1
       ),
-      yaxis = list(range = c(0, ymax))  # specify ymax, default is 1
+      yaxis = list(range = c(0, ymax))  # 指定 y 轴最大值，默认值为 1
     )
 }
 ```
 
 ## 使用时长
 
-对于日均使用时长变量，绘制了 2×2 的直方图矩阵（@fig-usage-sample-means-grid），在相同坐标轴范围下展示不同样本量（n = 10、30、50、100）的样本均值分布，以观察分布形态的变化趋势。与此同时，输出 15 展示了关于使用时长的总体与样本统计量。
+对于日均使用时长变量，绘制了 2×2 的直方图矩阵（@fig-usage-sample-means-grid），在相同坐标轴范围下展示不同样本量（n = 10、30、50、100）的样本均值分布，以观察分布形态的变化趋势。与此同时，[输出 15](#usage-stats) 展示了关于使用时长的总体与样本统计量。
 
 结果显示，随着样本量增加，样本均值分布显著趋于集中，标准差减小；所有四种样本量的样本均值均值均接近总体均值，成功预测了总体；观测标准误（样本均值的标准差）也近似于由总体标准差推导出的理论标准误。
 
 ```{r fig.width = 8, fig.height=5}
 #| label: fig-usage-sample-means-grid
 #| fig-cap: "使用时长样本均值概率分布"
-## CLT - Usage Hours
+## 中心极限定理 - 使用时长
 
-## Draw random samples and plot
+## 抽取随机样本并绘图
 
-# set random seed for reproducibility
+# 设置随机种子以保证可复现
 set.seed(32)
 
-# get plot information
-# (iterate sizes and pass values as n, apply function)
+# 获取绘图信息
+# （遍历 sizes，将取值作为 n 传入函数）
 plots <- lapply(
   sizes, function(n) make_hist(
     n, "Avg_Daily_Usage_Hours", bincolor = "#55D2C6", ymax = 0.6
   )
 )
 
-# show subplots in 2*2 matrix
+# 以 2*2 矩阵显示子图
 subplot(
   plots,
-  nrows = 2,     # number of rows in subplot matrix
-  margin = 0.08  # margin between subplots
+  nrows = 2,     # 子图矩阵的行数
+  margin = 0.08  # 子图之间的间距
 ) |>
 
   layout(
-    showlegend = FALSE,  # remove legend
+    showlegend = FALSE,  # 移除图例
     margin = list(
-      t = 80,            # margin top
-      b = 60             # margin bottom
+      t = 80,            # 顶部边距
+      b = 60             # 底部边距
     ),
     title = list(
       y = 0.95,
-      text = "Usage Hours Sample Means Probability Distributions"
+      text = "使用时长样本均值概率分布"
     )
   )
 ```
 
+:::{#usage-stats}
 ```{r results='hold'}
-## CLT - Usage Hours
+## 中心极限定理 - 使用时长
 
-## Store sample means
+## 存储样本均值
 
-# create list to store sample means of usage in different sizes
+# 创建列表，存储不同样本量下的使用时长样本均值
 sample_means_usage <- lapply(
-  sizes,         # iterate sample sizes
-  function(n) {  # n: sample sizes passed from sizes
+  sizes,         # 遍历样本量
+  function(n) {  # n：由 sizes 传入的样本量
     replicate(
-      1000,      # repetition times
+      1000,      # 重复次数
       mean(
         sample(df[["Avg_Daily_Usage_Hours"]], size = n, replace = TRUE),
         na.rm = TRUE)
@@ -1078,38 +1117,38 @@ sample_means_usage <- lapply(
 )
 
 
-## Store means & SDs of sample means
+## 存储样本均值的均值和标准差
 
-# initialize empty vector
+# 初始化空向量
 mean_sample_means_usage <- numeric(length(sizes))
 
-# find means of usage sample means
+# 计算使用时长样本均值的均值
 for (i in seq_along(sizes)) {
   mean_sample_means_usage[i] <- round(
     mean(sample_means_usage[[i]], na.rm = TRUE),
-    digits = 2  # round to 2 digits
+    digits = 2  # 保留 2 位小数
   )
 }
 
-# initialize empty vector
+# 初始化空向量
 sd_sample_means_usage <- numeric(length(sizes))
 
-# find sds of usage sample means
+# 计算使用时长样本均值的标准差
 for (i in seq_along(sizes)) {
   sd_sample_means_usage[i] <- round(
     sd(sample_means_usage[[i]], na.rm = TRUE),
-    digits = 2  # round to 2 digits
+    digits = 2  # 保留 2 位小数
   )
 }
 
 
-## Population mean & SD
+## 总体均值和标准差
 
 pop_mean_usage <- mean(df$Avg_Daily_Usage_Hours, na.rm = TRUE)
 pop_sd_usage <- sd(df$Avg_Daily_Usage_Hours, na.rm = TRUE)
 
 
-## Print results
+## 打印结果
 
 clt_results_usage <- data.frame(
   Sample_Size = sizes,
@@ -1120,26 +1159,27 @@ clt_results_usage <- data.frame(
 
 print(clt_results_usage)
 
-cat("\nPopulation Mean:", round(pop_mean_usage, 2),
-    "\nPopulation SD:", round(pop_sd_usage, 2), "\n"
+cat("\n总体均值：", round(pop_mean_usage, 2),
+    "\n总体标准差：", round(pop_sd_usage, 2), "\n"
 )
 ```
 
-*输出 15. 使用时长相关统计量对比*
+[*输出 15. 使用时长相关统计量对比*]{.caption}
+:::
 
 此外，@fig-usage-sample-means-normal 展示了其中一种样本均值分布（n = 100，重复 1000 次）及叠加其上的理想正态曲线（n = 100，由 `dnorm()` 函数计算）。结果显示样本均值直方图与正态曲线高度吻合，与中心极限定理一致。
 
 ```{r}
 #| label: fig-usage-sample-means-normal
 #| fig-cap: "使用时长样本均值概率分布（含正态曲线）"
-## CLT - Usage Hours
+## 中心极限定理 - 使用时长
 
-## Ideal normal distribution data
+## 理想正态分布数据
 
 x_values <- seq(
-  min(tail(sample_means_usage, 1)[[1]]),  # the last set of means, n = 100
+  min(tail(sample_means_usage, 1)[[1]]),  # 最后一组均值，n = 100
   max(tail(sample_means_usage, 1)[[1]]),
-  length.out = 100                        # sequence length = 100
+  length.out = 100                        # 序列长度为 100
 )
 
 y_values <- dnorm(
@@ -1149,51 +1189,51 @@ y_values <- dnorm(
 )
 
 
-## Sample Mean Distribution v.s. Normal Curve
+## 样本均值分布与正态曲线
 
 plot_ly() |>
 
-  # histogram
+  # 直方图
   add_histogram(
     x = tail(sample_means_usage, 1)[[1]],
     type = "histogram",
     histnorm = "probability",
-    xbins = list(size = 0.05),  # binwidth
-    name = "Sample Means",      # histogram label
+    xbins = list(size = 0.05),  # 分箱宽度
+    name = "样本均值",          # 直方图标签
 
-    # aesthetics
+    # 美学设置
     marker = list(
-      color = "#55D2C6",                         # filling color
-      line = list(color = "#222", width = 1.5),  # outline
+      color = "#55D2C6",                         # 填充颜色
+      line = list(color = "#222", width = 1.5),  # 轮廓线
       opacity = 0.6
     )
   ) |>
 
-  # normal curve
+  # 正态曲线
   add_lines(
     x = x_values,
     y = y_values * 0.05,
-    name = "Normal Curve",    # line label
+    name = "正态曲线",        # 线条标签
     line = list(color = '#D53132', width = 2)
   ) |>
 
   layout(
     legend = list(
-      orientation = "h",                   # arrangement of legend labels
-      xanchor = "left", yanchor = "top",   # anchor point of the legend
-      x = 0, y = 1.1                       # position of the legend
+      orientation = "h",                   # 图例标签排列方式
+      xanchor = "left", yanchor = "top",   # 图例锚点
+      x = 0, y = 1.1                       # 图例位置
     ),
-    margin = list(t = 90),    # margin top
+    margin = list(t = 90),    # 顶部边距
     title = list(
-      y = 0.95,               # y position of title
-      text = "Usage Hours Sample Means Probability Distribution"
+      y = 0.95,               # 标题的 y 位置
+      text = "使用时长样本均值概率分布（含正态曲线）"
     ),
     xaxis = list(
-      title = "Sample Means of Daily Usage Hours (n = 100)",
+      title = "日均使用时长样本均值（n = 100）",
       range = c(4.38, 5.4)
     ),
     yaxis = list(
-      title = "Probability",
+      title = "概率",
       range = c(0, 0.18)
     )
   )
@@ -1201,25 +1241,25 @@ plot_ly() |>
 
 ## 睡眠时长
 
-类似地，对睡眠时长变量采用相同方法进行分析。@fig-sleep-sample-means-grid、输出 15 及输出 16 所呈现的结果规律与使用时长高度相似，再次验证了中心极限定理的适用性。
+类似地，对睡眠时长变量采用相同方法进行分析。@fig-sleep-sample-means-grid、[输出 15](#usage-stats) 及 [输出 16](#sleep-stats) 所呈现的结果规律与使用时长高度相似，再次验证了中心极限定理的适用性。
 
 ```{r fig.width = 8, fig.height=5}
 #| label: fig-sleep-sample-means-grid
 #| fig-cap: "睡眠时长样本均值概率分布"
-## CLT - Sleep Hours
+## 中心极限定理 - 睡眠时长
 
-# set random seed for reproducibility
+# 设置随机种子以保证可复现
 set.seed(32)
 
-# get plot information
-# (iterate sizes and pass values as n, apply function)
+# 获取绘图信息
+# （遍历 sizes，将取值作为 n 传入函数）
 plots <- lapply(
   sizes, function(n) make_hist(
     n, "Sleep_Hours_Per_Night", bincolor = "#FFABB6", ymax = 0.6
   )
 )
 
-# show subplots in 2*2 matrix
+# 以 2*2 矩阵显示子图
 subplot(
   plots,
   nrows = 2,
@@ -1227,29 +1267,30 @@ subplot(
 ) |>
 
   layout(
-    showlegend = FALSE,  # remove legend
+    showlegend = FALSE,  # 移除图例
     margin = list(
-      t = 80,            # margin top
-      b = 60             # margin bottom
+      t = 80,            # 顶部边距
+      b = 60             # 底部边距
     ),
     title = list(
       y = 0.95,
-      text = "Sleep Hours Sample Means Probability Distributions"
+      text = "睡眠时长样本均值概率分布"
     )
   )
 ```
 
+:::{#sleep-stats}
 ```{r results='hold'}
-## CLT - Sleep Hours
+## 中心极限定理 - 睡眠时长
 
-## Store sample means
+## 存储样本均值
 
-# create list to store sample means of usage in different sizes
+# 创建列表，存储不同样本量下的睡眠时长样本均值
 sample_means_sleep <- lapply(
-  sizes,         # iterate sample sizes
-  function(n) {  # n: sample sizes passed from sizes
+  sizes,         # 遍历样本量
+  function(n) {  # n：由 sizes 传入的样本量
     replicate(
-      1000,      # repetition times
+      1000,      # 重复次数
       mean(
         sample(df[["Sleep_Hours_Per_Night"]], size = n, replace = TRUE),
         na.rm = TRUE)
@@ -1258,38 +1299,38 @@ sample_means_sleep <- lapply(
 )
 
 
-## Store means & sds of sample means
+## 存储样本均值的均值和标准差
 
-# initialize empty vector
+# 初始化空向量
 mean_sample_means_sleep <- numeric(length(sizes))
 
-# find means of usage sample means
+# 计算睡眠时长样本均值的均值
 for (i in seq_along(sizes)) {
   mean_sample_means_sleep[i] <- round(
     mean(sample_means_sleep[[i]], na.rm = TRUE),
-    digits = 2  # round to 2 digits
+    digits = 2  # 保留 2 位小数
   )
 }
 
-# initialize empty vector
+# 初始化空向量
 sd_sample_means_sleep <- numeric(length(sizes))
 
-# find sds of usage sample means
+# 计算睡眠时长样本均值的标准差
 for (i in seq_along(sizes)) {
   sd_sample_means_sleep[i] <- round(
     sd(sample_means_sleep[[i]], na.rm = TRUE),
-    digits = 2  # round to 2 digits
+    digits = 2  # 保留 2 位小数
   )
 }
 
 
-## Population mean & sd
+## 总体均值和标准差
 
 pop_mean_sleep <- mean(df$Sleep_Hours_Per_Night, na.rm = TRUE)
 pop_sd_sleep <- sd(df$Sleep_Hours_Per_Night, na.rm = TRUE)
 
 
-## Print results
+## 打印结果
 
 clt_results_sleep <- data.frame(
   Sample_Size = sizes,
@@ -1300,24 +1341,25 @@ clt_results_sleep <- data.frame(
 
 print(clt_results_sleep)
 
-cat("\nPopulation Mean:", round(pop_mean_sleep, 2),
-    "\nPopulation SD:", round(pop_sd_sleep, 2), "\n"
+cat("\n总体均值：", round(pop_mean_sleep, 2),
+    "\n总体标准差：", round(pop_sd_sleep, 2), "\n"
 )
 ```
 
-*输出 16. 睡眠时长相关统计量对比*
+[*输出 16. 睡眠时长相关统计量对比*]{.caption}
+:::
 
 ```{r}
 #| label: fig-sleep-sample-means-normal
 #| fig-cap: "睡眠时长样本均值概率分布（含正态曲线）"
-## CLT - Sleep Hours
+## 中心极限定理 - 睡眠时长
 
-## Ideal normal distribution data
+## 理想正态分布数据
 
 x_values <- seq(
   min(tail(sample_means_sleep, 1)[[1]]),
   max(tail(sample_means_sleep, 1)[[1]]),
-  length.out = 100  # select 100 numbers
+  length.out = 100  # 选择 100 个数
 )
 
 y_values <- dnorm(
@@ -1327,47 +1369,47 @@ y_values <- dnorm(
 )
 
 
-## Sample Mean Distribution v.s. Normal Curve
+## 样本均值分布与正态曲线
 
 plot_ly() |>
 
-  # histogram
+  # 直方图
   add_histogram(
     x = tail(sample_means_sleep, 1)[[1]],
     type = "histogram",
     histnorm = "probability",
-    xbins = list(size = 0.05),  # binwidth
-    name = "Sample Means",      # histogram label
+    xbins = list(size = 0.05),  # 分箱宽度
+    name = "样本均值",          # 直方图标签
 
-    # aesthetics
+    # 美学设置
     marker = list(
-      color = "#FFABB6",                         # filling color
-      line = list(color = "#222", width = 1.5),  # outline
+      color = "#FFABB6",                         # 填充颜色
+      line = list(color = "#222", width = 1.5),  # 轮廓线
       opacity = 0.6
     )
   ) |>
 
-  # normal curve
+  # 正态曲线
   add_lines(
     x = x_values,
     y = y_values * 0.05,
-    name = "Normal Curve",    # line label
+    name = "正态曲线",        # 线条标签
     line = list(color = '#D53132', width = 2)
   ) |>
 
   layout(
     legend = list(
-      orientation = "h",                   # arrangement of legend labels
-      xanchor = "left", yanchor = "top",   # anchor point of the legend
-      x = 0, y = 1.1                       # position of the legend
+      orientation = "h",                   # 图例标签排列方式
+      xanchor = "left", yanchor = "top",   # 图例锚点
+      x = 0, y = 1.1                       # 图例位置
     ),
-    margin = list(t = 90),    # margin top
+    margin = list(t = 90),    # 顶部边距
     title = list(
-      y = 0.95,               # y position of title
-      text = "Sleep Hours Sample Means Probability Distribution"
+      y = 0.95,               # 标题的 y 位置
+      text = "睡眠时长样本均值概率分布（含正态曲线）"
     ),
-    xaxis = list(title = "Sample Means of Sleep Hours (n = 100)"),
-    yaxis = list(title = "Probability")
+    xaxis = list(title = "睡眠时长样本均值（n = 100）"),
+    yaxis = list(title = "概率")
   )
 ```
 
@@ -1375,178 +1417,185 @@ plot_ly() |>
 
 本节以前五平台数据作为总体数据集，使用三种抽样方法各抽取一个样本：有放回的简单随机抽样、不等概率系统抽样和无放回的分层抽样，并对这三种方法的总体预测能力进行比较分析。
 
-输出 17、18 和 19 展示了不同样本的结果，包括各平台的比例分布以及日均使用时长的均值和标准差。
+[输出 17](#srswr)、[输出 18](#ups) 和 [输出 19](#strata) 展示了不同样本的结果，包括各平台的比例分布以及日均使用时长的均值和标准差。
 
 ## 简单随机抽样
 
 使用 `srswr()` 函数进行有放回的简单随机抽样，样本存储于 `sample1`。
 
+:::{#srswr}
 ```{r results='hold'}
-## Simple Random Sampling with Replacement
+## 有放回简单随机抽样
 
-## Sampling
+## 抽样
 
-# sample size & random seed
+# 样本量与随机种子
 n <- 100
 set.seed(32)
 
-# simple random sampling
+# 简单随机抽样
 s <- srswr(n, nrow(top5_platforms_data))
 
-# find rows where observations are sampled
+# 查找被抽中观测所在的行
 rows <- (1:nrow(top5_platforms_data))[s!=0]
 rows <- rep(rows, s[s!=0])
 
-# extract sampled data
+# 提取样本数据
 sample1 <- top5_platforms_data[rows, ]
 
 
-## Calculating
+## 计算
 
-# define function to calculate percentages
+# 定义计算百分比的函数
 calc_perc <- function(sample_data, n = 100) {
 
-  ## sample_data: sample data drew with different methods
-  ## n: sample size
+  ## sample_data：通过不同方法抽取的样本数据
+  ## n：样本量
 
-  # frequency
+  # 频数
   f <- table(
     factor(
       sample_data$Most_Used_Platform,
-      levels = top5_platforms  # to ensure the same platform sequence
+      levels = top5_platforms  # 确保平台顺序一致
     )
   )
 
-  # percentage
-  return(f / n)  # n: sample size
+  # 百分比
+  return(f / n)  # n：样本量
 }
 
-# percentages of platforms
+# 平台百分比
 perc1 <- calc_perc(sample1)
 
-# sample mean & SD of usage hour
+# 使用时长的样本均值和标准差
 mean1 <- mean(sample1$Avg_Daily_Usage_Hours, na.rm = TRUE)
 sd1 <- sd(sample1$Avg_Daily_Usage_Hours, na.rm = TRUE)
 
-# print results
-cat("Percentages of Platforms(%):\n"); perc1 * 100; cat("\n")
-cat("Sample Mean of Usage Hour:", mean1, "\n")
-cat("Sample SD of Usage Hour:", round(sd1, 3), "\n")
+# 打印结果
+cat("平台百分比（%）：\n"); perc1 * 100; cat("\n")
+cat("使用时长样本均值：", mean1, "\n")
+cat("使用时长样本标准差：", round(sd1, 3), "\n")
 ```
 
-*输出 17. 有放回简单随机抽样结果*
+[*输出 17. 有放回简单随机抽样结果*]{.caption}
+:::
 
 ## 系统抽样
 
 对于系统抽样，首先使用 `inclusionprobabilities()` 函数根据使用时长计算纳入概率并存储于 `pik`，再使用 `UPsystematic(pik)` 抽取样本，存储于 `sample2`。
 
+:::{#ups}
 ```{r results='hold'}
-## Systematic Sampling with Unequal Probabilities
+## 不等概率系统抽样
 
-## Sampling
+## 抽样
 
-# random seed
+# 随机种子
 set.seed(32)
 
-# calculate inclusion probabilities by usage hours
+# 根据使用时长计算纳入概率
 pik <- inclusionprobabilities(top5_platforms_data$Avg_Daily_Usage_Hours, n)
 
-# systematic sampling with unequal probabilities
+# 不等概率系统抽样
 s <- UPsystematic(pik)
 
-# extract sampled data
+# 提取样本数据
 sample2 <- top5_platforms_data[s!= 0, ]
 
 
-## Calculating
+## 计算
 
-# percentages of platforms
+# 平台百分比
 perc2 <- calc_perc(sample2)
 
-# sample mean & SD of usage hour
+# 使用时长的样本均值和标准差
 mean2 <- mean(sample2$Avg_Daily_Usage_Hours, na.rm = TRUE)
 sd2 <- sd(sample2$Avg_Daily_Usage_Hours, na.rm = TRUE)
 
-# print results
-cat("Percentages of Platforms(%):\n"); perc2 * 100; cat("\n")
-cat("Sample Mean of Usage Hour:", mean2, "\n")
-cat("Sample SD of Usage Hour:", round(sd2, 3), "\n")
+# 打印结果
+cat("平台百分比（%）：\n"); perc2 * 100; cat("\n")
+cat("使用时长样本均值：", mean2, "\n")
+cat("使用时长样本标准差：", round(sd2, 3), "\n")
 ```
 
-*输出 18. 不等概率系统抽样结果*
+[*输出 18. 不等概率系统抽样结果*]{.caption}
+:::
 
 ## 分层抽样
 
 对于分层抽样，首先使用 `order()` 函数按平台对总体数据进行排序，再使用 `strata()` 函数抽取样本，存储于 `sample3`，各层样本量按平台比例计算。
 
+:::{#strata}
 ```{r results='hold'}
-## Stratified Sampling without Replacement
+## 无放回分层抽样
 
-## Ordering Data
+## 排序数据
 
-# order data by platform
+# 按平台对数据排序
 order_index <- order(top5_platforms_data$Most_Used_Platform)
-data <- top5_platforms_data[order_index, ]  # use ordered data
+data <- top5_platforms_data[order_index, ]  # 使用排序后的数据
 
-# calculate proportion
+# 计算比例
 prop_table <- table(data$Most_Used_Platform) / nrow(data)
 
-# find strata sizes
+# 计算各层样本量
 sizes <- round(prop_table * n)
 
-# check if sum of sizes = n
+# 检查样本量总和是否等于 n
 # sum(sizes)  # [1] 100
 
 
-## Stratified Sampling
+## 分层抽样
 
-# random seed
+# 随机种子
 set.seed(32)
 
-# find stratums
+# 查找分层
 st <- sampling::strata(
   data,
   stratanames = "Most_Used_Platform",
   size = sizes,
-  method = "srswor"  # simple random sampling without replacement
+  method = "srswor"  # 无放回简单随机抽样
 )
 
-# extract sampled data
+# 提取样本数据
 sample3 <- sampling::getdata(data, st)
 
 
-## Calculating
+## 计算
 
-# percentages of platforms
+# 平台百分比
 perc3 <- calc_perc(sample3)
 
-# sample mean & SD of usage hour
+# 使用时长的样本均值和标准差
 mean3 <- mean(sample3$Avg_Daily_Usage_Hours, na.rm = TRUE)
 sd3 <- sd(sample3$Avg_Daily_Usage_Hours, na.rm = TRUE)
 
-# print results
-cat("Percentages of Platforms(%):\n"); perc3 * 100; cat("\n")
-cat("Sample Mean of Usage Hour:", mean3, "\n")
-cat("Sample SD of Usage Hour:", round(sd3, 3), "\n")
+# 打印结果
+cat("平台百分比（%）：\n"); perc3 * 100; cat("\n")
+cat("使用时长样本均值：", mean3, "\n")
+cat("使用时长样本标准差：", round(sd3, 3), "\n")
 ```
 
-*输出 19. 无放回分层抽样结果*
+[*输出 19. 无放回分层抽样结果*]{.caption}
+:::
 
 ## 抽样方法比较
 
 ### 平台比例
 
-输出 20 展示了总体（前五平台数据）和三种样本中各平台的比例。为便于分析，计算了各样本值与对应总体值之差的均值，见输出 21。此外，@fig-sampling-diff 对输出 21 的结果进行了可视化。
+[输出 20](#platform-pct) 展示了总体（前五平台数据）和三种样本中各平台的比例。为便于分析，计算了各样本值与对应总体值之差的均值，见 [输出 21](#platform-diff)。此外，@fig-sampling-diff 对 [输出 21](#platform-diff) 的结果进行了可视化。
 
+:::{#platform-pct}
 ```{r results='hold'}
-## Comparison of Sampling Methods
+## 抽样方法比较
 
-## Percentages of Platforms
+## 平台百分比
 
-# store sample percentages
+# 存储样本百分比
 sample_percs <- list(srswr = perc1, ups = perc2, stwor = perc3)
 
-# calculate population percentages
+# 计算总体百分比
 pop_perc <- table(
   factor(
     top5_platforms_data$Most_Used_Platform,
@@ -1555,109 +1604,120 @@ pop_perc <- table(
 ) / nrow(top5_platforms_data)
 
 
-# show results of percentages
-cat("Population Percentages:\n")
+# 显示百分比结果
+cat("总体百分比：\n")
 round(pop_perc, 2); cat("\n\n")
-cat("Sample Percentages:\n\n")
+cat("样本百分比：\n\n")
 sample_percs
 ```
 
-*输出 20. 不同平台的总体与样本比例*
+[*输出 20. 不同平台的总体与样本比例*]{.caption}
+:::
 
-如输出 21 和 @fig-sampling-diff 所示，无放回分层抽样与总体值的差异最小（0.002），预测平台比例的能力最强。相比之下，有放回简单随机抽样的预测能力最弱（均值差异为 0.029）。分层抽样表现最佳，可能是因为它在抽样前按平台类别划定层次，保留了总体中平台分布的内在结构，从而降低了抽样变异性；而简单随机抽样更为随机，平台比例的预测较不稳定。
+如 [输出 21](#platform-diff) 和 @fig-sampling-diff 所示，无放回分层抽样与总体值的差异最小（0.002），预测平台比例的能力最强。相比之下，有放回简单随机抽样的预测能力最弱（均值差异为 0.029）。分层抽样表现最佳，可能是因为它在抽样前按平台类别划定层次，保留了总体中平台分布的内在结构，从而降低了抽样变异性；而简单随机抽样更为随机，平台比例的预测较不稳定。
 
+:::{#platform-diff}
 ```{r results='hold'}
-## Comparison of Sampling Methods
+## 抽样方法比较
 
-## Percentages of Platforms
+## 平台百分比
 
-# find mean differences between
-# sample percentages and population percentages
+# 计算样本百分比与总体百分比之间
+# 差异的均值
 mean_diffs <- sample_percs |>
 
-  # calculate differences
+  # 计算差异
   lapply(\(percs) abs(percs - pop_perc)) |>
-    # lapply: list apply, return a list
-    # where \() is anonymous function, same as function(percs)
-    # it passes values from sample_percs as percs and apply function
-    # to them, then returns a list
+    # lapply：列表应用，返回一个列表
+    # 其中 \() 是匿名函数，等同于 function(percs)
+    # 它将 sample_percs 中的取值作为 percs 传入并应用函数，
+    # 然后返回一个列表
 
-  # calculate means of differences
+  # 计算差异均值
   sapply(mean, na.rm = TRUE)
-    # sapply: simple apply, flexible at data types of returns.
-    # it returns a named vector here
+    # sapply：简化版 apply，返回值数据类型更灵活。
+    # 此处返回一个命名向量
 
-# show results
-cat("Differences from Population Percentages:\n")
+# 显示结果
+cat("与总体百分比的差异：\n")
 sort(round(mean_diffs, 3)); cat("\n")
 ```
 
-*输出 21. 各抽样方法与总体比例之差*
+[*输出 21. 各抽样方法与总体比例之差*]{.caption}
+:::
 
 ```{r}
 #| label: fig-sampling-diff
 #| fig-cap: "各抽样方法与总体比例之差"
-## Comparison of Sampling Methods
+## 抽样方法比较
 
-## Percentages of Platforms
+## 平台百分比
 
-# barplot of differences from population percentages
+# 绘制与总体百分比差异的柱状图
+method_labels <- c(
+  srswr = "简单随机",
+  ups = "系统抽样",
+  stwor = "分层抽样"
+)
+
 plot_ly(
-  x = toupper(names(mean_diffs)),  # capitalized method names
-  y = mean_diffs,
-  type = "bar",                    # barplot
+  x = unname(method_labels[names(mean_diffs)]),  # 抽样方法名称
+  y = unname(mean_diffs),
+  type = "bar",  # 柱状图
 
-  # aesthetics
+  # 美学设置
   marker = list(
-    color = "#c3a4cf",                        # filling color
-    line = list(color = "#222", width = 1.5)  # outline color & width
+    color = "#c3a4cf",                        # 填充颜色
+    line = list(color = "#222", width = 1.5)  # 轮廓线颜色与宽度
   )
 ) |>
 
   layout(
-    margin = list(t = 50),  # margin top
+    margin = list(t = 50),  # 顶部边距
     title = list(
-      y = 0.95,             # y position of title
-      text = "Differences from Population Percentages by Sampling Method"
+      y = 0.95,             # 标题的 y 位置
+      text = "各抽样方法与总体比例之差"
     ),
     xaxis = list(
-      title = "Sampling Methods",
-      type = "category",                        # categorical axis
-      categoryorder = "array",                  # let order be specified
-      categoryarray = names(sort(mean_diffs)),  # specify category order
-      range = c(2.2, 5.8)
+      title = "抽样方法",
+      type = "category",        # 使用分类x轴
+      categoryorder = "array",  # 使用自定义类顺序
+      categoryarray = unname(method_labels[names(sort(mean_diffs))]), # 类顺序
+      range = c(-0.5, 2.5)
     ),
-    yaxis = list(title = "Difference")
+    yaxis = list(title = "差异")
   )
 ```
 
 ### 使用时长统计量
 
-除预测类别比例外，还对三种抽样方法预测均值和标准差的能力进行了测试。输出 22 展示了均值和标准差的结果，@fig-sampling-means-sds 提供了更直观的可视化呈现。
+除预测类别比例外，还对三种抽样方法预测均值和标准差的能力进行了测试。[输出 22](#usage-sampling-stats) 展示了均值和标准差的结果，@fig-sampling-means-sds 提供了更直观的可视化呈现。
 
+:::{#usage-sampling-stats}
 ```{r results='hold'}
-## Comparison of Sampling Methods
+## 抽样方法比较
 
-## Means & SDs of Usage Hours
+## 使用时长的均值和标准差
 
-# store sample means & sds
+# 存储样本均值和标准差
 sample_means <- c(srswr = mean1, ups = mean2, stwor = mean3)
 sample_sds <- c(srswr = sd1, ups = sd2, stwor = sd3)
 
-# show results of means
-cat("Population Mean:", round(pop_mean_usage, 3), "\n")
-cat("Sample Means:\n"); sample_means; cat("\n")
+# 显示均值结果
+cat("总体均值：", round(pop_mean_usage, 3), "\n")
+cat("样本均值：\n"); sample_means; cat("\n")
 
-# show results of SDs
-cat("Population SD:", round(pop_sd_usage, 3), "\n")
-cat("Sample SDs:\n"); round(sample_sds, 3)
+# 显示标准差结果
+cat("总体标准差：", round(pop_sd_usage, 3), "\n")
+cat("样本标准差：\n"); round(sample_sds, 3)
 ```
 
-*输出 22. 社交媒体使用时长的总体与样本统计量*
+[*输出 22. 社交媒体使用时长的总体与样本统计量*]{.caption}
+:::
 
 在 @fig-sampling-means-sds 中，棒中间的点代表样本均值，黑色误差棒表示距样本均值一个样本标准差的范围，虚线及标注文字标记了总体均值和总体标准差。
 
-综合输出 22 和 @fig-sampling-means-sds，就数值变量均值而言，无放回分层抽样预测结果最接近总体，预测能力最强；不等概率系统抽样的预测能力最弱。
+综合 [输出 22](#usage-sampling-stats) 和 @fig-sampling-means-sds，就数值变量均值而言，无放回分层抽样预测结果最接近总体，预测能力最强；不等概率系统抽样的预测能力最弱。
 
 然而在标准差方面，有放回简单随机抽样的预测最为准确，而无放回分层抽样的预测精度最低。
 
@@ -1668,79 +1728,79 @@ cat("Sample SDs:\n"); round(sample_sds, 3)
 ```{r fig.width=8, fig.height=6}
 #| label: fig-sampling-means-sds
 #| fig-cap: "各抽样方法均值与标准差比较"
-## Comparison of Sampling Methods
+## 抽样方法比较
 
-## Means & SDs of Usage Hours
+## 使用时长的均值和标准差
 
-# store methods, sample means & SDs into dataframe
+# 将方法、样本均值和标准差存入数据框
 plot_data <- data.frame(
-  Method = toupper(names(sample_means)),  # capitalized method names
+  Method = method_labels[names(sample_means)],  # 抽样方法名称
   Mean   = sample_means,
   SD     = sample_sds
 )
 
-# stick plot
+# 棒状图
 plot_ly(
   plot_data,
   x = ~Method,
   y = ~Mean
 ) |>
 
-  # add sticks
+  # 添加误差棒
   add_markers(
-    name = "Sample Mean",  # stick label
+    name = "样本均值",  # 棒状图标签
 
-    # error stick (sample SDs)
+    # 误差棒（样本标准差）
     error_y = list(
-      type = "data",  # take the data specified in array as stick length
-      array = ~SD,    # data to use for stick length
-      color = '#222'  # stick color
+      type = "data",    # 使用 array 中指定的数据作为误差棒长度
+      array = ~SD,      # 用作误差棒长度的数据
+      color = '#222'  # 误差棒颜色
     ),
 
-    # aesthetics of marker (sample means)
+    # 标记点（样本均值）的美学设置
     marker = list(size = 12, color = '#55D2C6')
   ) |>
 
   layout(
-    margin = list(t = 60, b = 60),  # margin top & bottom
+    margin = list(t = 60, b = 60),  # 顶部和底部边距
     title = list(
-      y = 0.95,                     # y position of title
-      text = "Comparison of Means & SDs across Sampling Methods"
+      y = 0.95,                     # 标题的 y 位置
+      text = "各抽样方法均值与标准差比较"
     ),
     yaxis = list(
-      title = "Usage Hours",
-      range = c(              # y limits
+      title = "使用时长",
+      range = c(              # y 轴范围
         pop_mean_usage - 1.5*pop_sd_usage,
         pop_mean_usage + 1.5*pop_sd_usage
       )
     ),
     xaxis = list(
-      title = "Sampling Method",
-      range = c(-0.5, 3),                  # x limits
-      type = "category",                   # categorical axis
-      categoryorder = "array",             # let order be specified
-      categoryarray = plot_data$Method     # specify category order
+      title = "抽样方法",
+      range = c(-0.5, 3),                  # x 轴范围
+      type = "category",                   # 类别轴
+      categoryorder = "array",             # 使用指定顺序
+      categoryarray = plot_data$Method     # 指定类别顺序
     ),
 
 
-    # add lines of population statistics
+    # 添加总体统计量参考线
     shapes = list(
 
-      # population mean
+      # 总体均值
       list(
-        type = "line",        # add line
-        xref = "x",           # x values are relative to x-axis (0,1,2)
-        x0 = -0.4, x1 = 2.4,  # xrange of line
-        y0 = pop_mean_usage,  # y of line
+        type = "line",        # 添加线条
+        xref = "x",           # x 值相对于 x 轴（0,1,2）
+        x0 = -0.4, x1 = 2.4,  # 线条的 x 范围
+        y0 = pop_mean_usage,  # 线条的 y 值
         y1 = pop_mean_usage,
         line = list(
           color = "#D53132",
-          dash = "dash",      # line type
+          dash = "dash",      # 线型
           width = 2
         )
       ),
 
-      # pop_mean + pop_sd
+      # 总体均值 + 总体标准差
       list(
         type = "line",
         xref = "x",
@@ -1750,7 +1810,7 @@ plot_ly(
         line = list(color = "#FFA472", dash = "dot", width = 2)
       ),
 
-      # pop_mean - pop_sd
+      # 总体均值 - 总体标准差
       list(
         type = "line",
         xref = "x",
@@ -1761,21 +1821,21 @@ plot_ly(
       )
     ),
 
-    # annotations for lines
+    # 参考线注释
     annotations = list(
 
-      # population mean
+      # 总体均值
       list(
-        text = "Population Mean\n(4.919)",
+        text = "总体均值\n(4.919)",
         x = 2.5,
         y = pop_mean_usage,
         xanchor = "left",
         showarrow = FALSE
       ),
 
-      # pop_mean + pop_sd
+      # 总体均值 + 总体标准差
       list(
-        text = "+1 Population SD\n(+1.257)",
+        text = "+1 总体标准差\n(+1.257)",
         x = 2.5,
         y = pop_mean_usage + pop_sd_usage,
         xanchor = "left",
@@ -1783,7 +1843,7 @@ plot_ly(
       ),
 
       list(
-        text = "-1 Population SD\n(-1.257)",
+        text = "-1 总体标准差\n(-1.257)",
         x = 2.5,
         y = pop_mean_usage - pop_sd_usage,
         xanchor = "left",
