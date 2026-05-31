@@ -516,7 +516,7 @@ fig4.update_layout(
 fig4.show(config = {"responsive": True}) # displaying the figure
 ```
 
-进一步地，将分析粒度从子地区细化到国家层面可以获得更多洞见。@fig-choropleth 通过连续色标直观呈现了全球各国平均旅游签证费用的分布情况。根据 @wilke2019 \[p. 173\] 的观点，在等值线地图中，深色背景区域通常比浅色背景区域在网页上具有更好的可视性，因此 @fig-choropleth 采用了深色背景的配色方案，颜色随数值增大而逐渐变浅 [@plotlyColorscales]。
+进一步地，将分析粒度从子地区细化到国家层面可以获得更多洞见。@fig-choropleth 通过连续色标直观呈现了全球各国平均旅游签证费用的分布情况。根据 @wilke2019 [p. 173] 的观点，在等值线地图中，深色背景区域通常比浅色背景区域在网页上具有更好的可视性，因此 @fig-choropleth 采用了深色背景的配色方案，颜色随数值增大而逐渐变浅 [@plotlyColorscales]。
 
 # 反思与改进空间
 

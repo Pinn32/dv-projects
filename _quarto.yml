@@ -103,7 +103,7 @@ format:
     code-fold: true
     # code-summary: "Show the code"
 
-lang: en-US
+lang: en
 brand: _brand.yml
 editor: source
 
