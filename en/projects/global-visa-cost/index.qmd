@@ -516,7 +516,7 @@ fig4.update_layout(
 fig4.show(config = {"responsive": True}) # displaying the figure
 ```
 
-Furthermore, we may gain insights by moving from the sub-region level to the country level. @fig-choropleth provides information about the distribution of average tourist visa costs in specific countries around the world, which varies with the continuous color indicator. According to @wilke2019 \[p. 173\], as for choropleth, it is typically accepted that dark-colored background areas in the maps behave better in visibility than light-colored background areas for webpages. @fig-choropleth thus employs a color map with dark-colored background areas, where the color gradually fades with the value increasing [@plotlyColorscales].
+Furthermore, we may gain insights by moving from the sub-region level to the country level. @fig-choropleth provides information about the distribution of average tourist visa costs in specific countries around the world, which varies with the continuous color indicator. According to @wilke2019 [p. 173], as for choropleth, it is typically accepted that dark-colored background areas in the maps behave better in visibility than light-colored background areas for webpages. @fig-choropleth thus employs a color map with dark-colored background areas, where the color gradually fades with the value increasing [@plotlyColorscales].
 
 # Reflection and Possible Improvements
 
