@@ -8,15 +8,15 @@ bibliography: references.bib
 csl: ../../../src/apa.csl
 
 # code-tools: true
-# jupyter: dv-env  # use jupyter to render
-# format: html     # use knitr to render
-# df-print: kable  # df-print: only works with Rmd & knitr renderer
+# jupyter: dv-env  # 使用 jupyter 渲染
+# format: html     # 使用 knitr 渲染
+# df-print: kable  # df-print：仅适用于 Rmd 与 knitr 渲染器
 # aliases: [ "catalan-referendum" ]
 ---
 
 ```{python}
 #| eval: false
-#| code-summary: 'Environment & Versions'
+#| code-summary: '环境与版本'
 python==3.12
 pandas==2.2.2
 matplotlib==3.9.x
@@ -28,34 +28,34 @@ seaborn==0.13.2
 本项目使用一份关于西班牙加泰罗尼亚公投的 Twitter 推文数据集，属性包括每条推文的基本信息及由不同词典检测到的情感词计数 [@jimenezZafra2021]（属性详细说明见[附录一](#appendix-attributes)）。本文通过条形图展示各词典在推文情感检测上的表现差异，并以直方图按情感类别呈现所有推文的作者受欢迎度分布。
 
 ```{python}
-# Import libraries
-import pandas as pd   # data manipulation
-import matplotlib.pyplot as plt   # plotting
-import seaborn as sns   # plotting
+# 导入库
+import pandas as pd   # 数据处理
+import matplotlib.pyplot as plt   # 绘图
+import seaborn as sns   # 绘图
 
-# Load CSV
+# 读取 CSV 文件
 df = pd.read_csv(
     '../../../src/data/Catalan_Referendum_Twitter_corpus.csv',
-    encoding = 'latin',  # non-utf-8 encoding
+    encoding = 'latin',  # 非 UTF-8 编码
     delimiter = ';',
 )
 
-# Preview data
+# 预览数据
 df.head()
 ```
 
 # 数据处理
 
 ```{python}
-## Drop missing values (see Appendix II)
+## 删除缺失值（见附录二）
 df = df.dropna()
 
-## Sample 1000 rows and reset index
+## 抽取 1000 行样本并重置索引
 df = df.sample(1000, random_state = 32).reset_index(drop = True)
 
-## Rename columns for readability
-# 1) unify favorite/favourites spelling
-# 2) clarify statuses_count_user
+## 重命名列以提升可读性
+# 1) 统一 favorite/favourites 拼写
+# 2) 明确 statuses_count_user 的含义
 df = df.rename(
     columns = {
         'favorite_count':'like_count',
@@ -68,7 +68,7 @@ df = df.rename(
 ## 计数属性设置
 
 ```{python}
-# Inspect attribute datatypes
+# 检查属性数据类型
 df.info()
 ```
 
@@ -76,28 +76,28 @@ df.info()
 
 ```{python}
 #| results: 'hold'
-## Check dtypes of 3 object-type count attributes
+## 检查 3 个 object 类型计数属性的数据类型
 print(df[['retweet_count', 'num_urls', 'positive_words_mlSenticon']].dtypes)
 
 print("")
 
-## Confirm all values are numeric strings (safe to cast with .astype())
+## 确认所有值都是数字字符串（可安全使用 .astype() 转换）
 print(
     df['retweet_count'].str.isnumeric().all(),
     df['num_urls'].str.isnumeric().all(),
     df['positive_words_mlSenticon'].str.isnumeric().all()
 )
 
-## Cast all count attributes to int
-# object -> int
+## 将所有计数属性转换为整数
+# object 转 int
 df[[
     'retweet_count', 'num_urls', 'positive_words_mlSenticon',
 ]] = df[[
     'retweet_count', 'num_urls', 'positive_words_mlSenticon',
 ]].astype(int)
 
-# float -> int
-float_cols = df.select_dtypes(include='float').columns  # all float columns
+# float 转 int
+float_cols = df.select_dtypes(include='float').columns  # 所有 float 列
 df[float_cols] = df[float_cols].astype(int)
 ```
 
@@ -105,11 +105,11 @@ df[float_cols] = df[float_cols].astype(int)
 
 ```{python}
 #| results: 'hold'
-# Confirm bool columns only contain 'True'/'False' strings
+# 确认布尔列只包含 'True'/'False' 字符串
 print(df['is_quote_status'].unique())
 print(df['verified_user'].unique())
 
-# Cast string bool columns to bool
+# 将字符串布尔列转换为 bool 类型
 df['is_quote_status']=df['is_quote_status'].map({'True':True, 'False':False})
 df['verified_user']=df['verified_user'].map({'True':True, 'False':False})
 ```
@@ -119,10 +119,10 @@ df['verified_user']=df['verified_user'].map({'True':True, 'False':False})
 ## 情感分布
 
 ```{python}
-## Melt sentiment word count columns to long format for visualisation
-# value_vars: all sentiment count columns (positive/negative for each lexicon)
-# var_name: stores original column name (encodes sentiment and source)
-# value_name: stores the corresponding count
+## 将情感词计数列转换为长格式，便于可视化
+# value_vars：所有情感计数列（各词典的正面/负面词计数）
+# var_name：存储原始列名（包含情感类别和来源信息）
+# value_name：存储对应计数
 df_melted = df.melt(
     value_vars = [
         'positive_words_iSOL','negative_words_iSOL',
@@ -133,24 +133,24 @@ df_melted = df.melt(
     value_name = 'count',
 )
 
-df_melted.head()  # initial melt result, before further processing
+df_melted.head()  # 初始长格式结果，尚未进一步处理
 ```
 
 ```{python}
 #| label: fig-sentiment-bar
 #| fig-cap: '加泰罗尼亚公投的网络情感'
-## Add sentiment column (positive/negative)
+## 添加情感类别列（正面/负面）
 
-# each returns a boolean Series checking
-# if sentiment_and_source contains the keyword
+# 以下变量分别返回布尔序列，用于检查
+# sentiment_and_source 是否包含指定关键词
 is_positive = df_melted['sentiment_and_source'].str.contains('positive')
 is_negative = df_melted['sentiment_and_source'].str.contains('negative')
 
-# assign 'positive'/'negative' to the new sentiment column by index
-df_melted.loc[df_melted[is_positive].index,'sentiment'] = 'positive'
-df_melted.loc[df_melted[is_negative].index,'sentiment'] = 'negative'
+# 按索引将'正面'/'负面'赋值给新的情感类别列
+df_melted.loc[df_melted[is_positive].index,'sentiment'] = '正面'
+df_melted.loc[df_melted[is_negative].index,'sentiment'] = '负面'
 
-## Add source column (lexicon name)
+## 添加来源列（词典名称）
 is_iSOL = df_melted['sentiment_and_source'].str.contains('iSOL')
 is_NRC = df_melted['sentiment_and_source'].str.contains('NRC')
 is_mlSenticon = df_melted['sentiment_and_source'].str.contains('mlSenticon')
@@ -158,25 +158,25 @@ df_melted.loc[df_melted[is_iSOL].index,'source'] = 'iSOL'
 df_melted.loc[df_melted[is_NRC].index,'source'] = 'NRC'
 df_melted.loc[df_melted[is_mlSenticon].index,'source'] = 'mlSenticon'
 
-## Drop the now-redundant sentiment_and_source column
+## 删除已经冗余的 sentiment_and_source 列
 df_melted = df_melted.drop(columns = 'sentiment_and_source')
-df_melted.head()  # sentiment and source are now separate columns
+df_melted.head()  # 情感类别和来源现已拆分为独立列
 
 ##############################################################################
-## Set seaborn theme and plot bar chart
+## 设置 seaborn 主题并绘制条形图
 
 sns.set_theme(font = 'Arial', font_scale = 1.2, style = 'whitegrid')
 
 sns.barplot(
     data = df_melted, x = 'source', y = 'count', hue = 'sentiment',
-    # palette: salmon (warm) for positive, royalblue (cool) for negative
+    # 调色板：salmon（暖色）表示正面，royalblue（冷色）表示负面
     palette = ['salmon', 'royalblue'], errorbar = None,
 )
-plt.title('Online Sentiment towards the Catalan Referendum')
-plt.ylim(0, 0.7)  # set y-axis range
-plt.xlabel('Emotion Analysis Lexicon')
-plt.ylabel('Average Emotional Word Count')
-plt.legend(title = 'Sentiment')
+plt.title('加泰罗尼亚公投的网络情感')
+plt.ylim(0, 0.7)  # 设置 y 轴范围
+plt.xlabel('情感分析词典')
+plt.ylabel('平均情感词计数')
+plt.legend(title = '情感类别')
 plt.show()
 ```
 
@@ -197,46 +197,46 @@ $$Popularity(i) = 1 - e^{-λ·Fi} $$
 ```{python}
 #| label: fig-popularity-hist
 #| fig-cap: '作者受欢迎度分布直方图'
-## Define popularity calculation function
-# F1: author follower count; e ≈ 2.718, λ = 0.001
+## 定义受欢迎度计算函数
+# F1：作者粉丝数；e ≈ 2.718，λ = 0.001
 def calc_popularity(F1):
     result = 1 - 2.718 ** (-0.001*F1)
     return result
 
-## Add popularity column
-# apply calc_popularity row-wise to followers_count_user
+## 添加受欢迎度列
+# 对 followers_count_user 逐行应用 calc_popularity
 df['popularity'] = df['followers_count_user'].apply(calc_popularity)
 
-## Define overall_sentiment function (based on iSOL lexicon)
+## 定义总体情感判断函数（基于 iSOL 词典）
 def determ_sentiment(row):
     if row['positive_words_iSOL'] > row['negative_words_iSOL']:
-        return 'positive'
+        return '正面'
     elif row['positive_words_iSOL'] < row['negative_words_iSOL']:
-        return 'negative'
+        return '负面'
     else:
-        return 'neutral'
+        return '中立'
 
-## Add overall_sentiment column
-# axis=1: apply function row-wise
+## 添加总体情感列
+# axis=1：逐行应用函数
 df['overall_sentiment'] = df.apply(determ_sentiment, axis=1)
 
-## Plot author popularity distribution histogram
+## 绘制作者受欢迎度分布直方图
 ax = sns.histplot(
     data = df, x = 'popularity',
     hue = 'overall_sentiment',
-    hue_order = ['neutral', 'positive', 'negative'],
-    # palette: colors map intuitively to sentiment
+    hue_order = ['中立', '正面', '负面'],
+    # 调色板：颜色与情感含义保持直观对应
     palette = ['lightgray', 'salmon', 'royalblue'],
-    multiple = 'stack',  # stack groups
-    alpha = 0.9  # transparency
+    multiple = 'stack',  # 堆叠分组
+    alpha = 0.9  # 透明度
 )
 
-# update legend title (see Appendix III)
-ax.get_legend().set_title('Overall Sentiment')
-plt.title('Author Popularity Distribution Histogram')
-plt.xlabel('Author Popularity')
-plt.ylabel('Tweet Count')
-plt.ylim((0, 300))  # set y-axis range
+# 更新图例标题（见附录三）
+ax.get_legend().set_title('总体情感')
+plt.title('作者受欢迎度分布直方图')
+plt.xlabel('作者受欢迎度')
+plt.ylabel('推文数量')
+plt.ylim((0, 300))  # 设置 y 轴范围
 plt.show()
 ```
 
