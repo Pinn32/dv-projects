@@ -12,7 +12,7 @@ csl: ../../../src/apa.csl
 
 ```{python}
 #| eval: false
-#| code-summary: 'Environment & Versions'
+#| code-summary: '环境与版本'
 python==3.12
 pandas==2.2.2
 matplotlib==3.9.x
@@ -24,15 +24,15 @@ plotly==5.24.1
 本项目使用由欧洲大学学院移民政策中心研究人员创建的全球签证费用数据集 [@recchi2020]，该数据集提供了 2019 年各国家对之间七类签证费用的详细信息（详细说明见[附录](#appendix)）。数据主要通过手动从各国政府官网收集。以下各节将使用三种交互式图表——桑基图、条形图和等值线地图——对数据进行可视化。
 
 ```{python}
-import pandas as pd  # to deal with DataFrames
+import pandas as pd  # 用于处理 DataFrame
 
-# Defining path to the dataset file and reading in the dataset
+# 定义数据集文件路径并读取数据集
 path = "../../../src/data/GMP_GlobalVisaCostDataset_version1.1.csv"
-df = pd.read_csv(path, delimiter='\t') # read in tab separated CSV file
+df = pd.read_csv(path, delimiter='\t') # 读取以制表符分隔的 CSV 文件
 
 #【delimiter】
-# This parameter determines the separator used to interpret the in CSV file,
-# where '\t' denotes a tab character (Pandas, 2024e).
+# 该参数指定读取 CSV 文件时使用的分隔符，
+# 其中 '\t' 表示制表符（Pandas, 2024e）。
 ```
 
 # 数据可视化与分析
@@ -42,9 +42,8 @@ df = pd.read_csv(path, delimiter='\t') # read in tab separated CSV file
 ### 数据清洗
 
 ```{python}
-## Defining a new variable df0 to store DataFrame without missing data
-# in the specified columns, to ensure that the sankey diagram will
-# only contain valid nodes.
+## 定义新变量 df0，用于存储指定列中不含缺失值的 DataFrame，
+# 从而确保桑基图只包含有效节点。
 
 df0 = df.dropna(
     subset=[
@@ -56,110 +55,101 @@ df0 = df.dropna(
 )
 
 #【.dropna()】
-# This method drops rows with any missing values (Pandas, 2024b).
+# 该方法会删除包含任意缺失值的行（Pandas, 2024b）。
 
 #【subset】
-# This parameter specifies which columns to consider when removing rows with
-# missing values. In this case, these are the columns to be used for
-# creating sankey diagram.
+# 该参数指定删除缺失值时需要考虑哪些列。在本例中，
+# 这些列将用于创建桑基图。
 
-# For convenience, this project will only use data about tourist visa,
-# as the most common type of visa (Recchi et al., 2021, p. 7).
+# 为了简化分析，本项目仅使用最常见的旅游签证数据
+# (Recchi et al., 2021, p. 7)。
 ```
 
 ### 定义节点
 
 ```{python}
 ##############################################################################
-## Defining lists to store labels for nodes
+## 定义列表，用于存储节点标签
 source_region_labels = list(df0['source_region'].unique())
 source_subregion_labels = list(df0['source_subregion'].unique())
 
 #【.unique()】
-# This method returns an Array object containing a list of unique values
-# from a Series object (Pandas, 2024f). In this case, the columns
-# 'source_region' and 'source_subregion' in the DataFrame df0 serve as
-# the Series objects, where missing values are already dropped via
-# .dropna() method. Subsequently, .unique() method is used to return
-# Array objects containing lists of unique values from each column.
-# These values will be used to create node labels.
+# 该方法会从 Series 对象中返回一个包含唯一值列表的 Array 对象
+# (Pandas, 2024f)。在本例中，DataFrame df0 中的
+# 'source_region' 和 'source_subregion' 列作为 Series 对象，
+# 且缺失值已通过 .dropna() 方法删除。随后使用 .unique() 方法
+# 从各列返回包含唯一值列表的 Array 对象。这些值将用于创建节点标签。
 
 #【list()】
-# This built-in Python function (also class) converts the input to
-# a list (Python, 2024a). In this case, it is used to convert the
-# Array objects mentioned above into Python list objects.
+# 该 Python 内置函数（也是类）会将输入转换为列表（Python, 2024a）。
+# 在本例中，它用于将上述 Array 对象转换为 Python 列表对象。
 
 ##############################################################################
-## Combining lists to define an entire list storing all node labels
+## 合并列表，定义一个包含全部节点标签的完整列表
 node_labels = ['World'] + source_region_labels + source_subregion_labels
 
 #【+】
-# This operator concatenates two or more sequences (e.g., lists)
-# into a single sequence (Python, 2024b). In this case, it is used
-# to combine lists of node labels into a single list.
+# 该运算符会将两个或多个序列（如列表）拼接成一个序列
+# (Python, 2024b)。在本例中，它用于将多个节点标签列表合并为一个列表。
 
 #【'World'】
-# 'World' is added to the start of the list, serving as the root node label.
+# 'World' 被添加到列表开头，作为根节点标签。
 
 ##############################################################################
-## Defining an an iterable range object to store the index for each node
+## 定义可迭代的 range 对象，用于存储各节点的索引
 node_ids = range(len(node_labels))
 
 #【len()】
-# This built-in Python function returns the number of items in an object
-# (i.e., the length of an object), which can be a sequence (e.g., list)
-# or a collection (e.g., dictionary) (Python, 2024a). In this case,
-# it is used to return the length of the list node_labels storing
-# all node labels, which equals to 23.
+# 该 Python 内置函数会返回对象中的项目数量（即对象长度），
+# 对象可以是序列（如列表）或集合（如字典）（Python, 2024a）。
+# 在本例中，它用于返回存储全部节点标签的 node_labels 列表长度，
+# 该长度等于 23。
 
 #【range()】
-# This built-in Python function (also class) returns a sequence of numbers,
-# starting from zero by default (Python, 2024a). In this case,
-# range(23) starts from 0 to 22, which equal to the indices of items
-# in the list node_labels.
+# 该 Python 内置函数（也是类）会返回一个数字序列，
+# 默认从 0 开始（Python, 2024a）。在本例中，
+# range(23) 表示从 0 到 22，正好对应 node_labels 列表中各项的索引。
 
 ##############################################################################
-## Defining a dictionary to store the label and index for each node
+## 定义字典，用于存储各节点的标签与索引
 nodes = dict(zip(node_labels, node_ids))
 
 #【zip()】
-# This built-in Python function iterate over several iterables in parallel,
-# producing tuples with an item from each one (Python, 2024a).
+# 该 Python 内置函数会并行迭代多个可迭代对象，
+# 并生成由各对象对应元素组成的元组（Python, 2024a）。
 
 #【dict()】
-# This built-in Python function (also class) creates a dictionary from
-# two or more sequences (Python, 2024a). In this case, it is used
-# to create a dictionary where the keys are node labels
-# and values are the indices of node labels.
+# 该 Python 内置函数（也是类）会从两个或多个序列创建字典
+# (Python, 2024a)。在本例中，它用于创建一个字典，
+# 其中键为节点标签，值为节点标签对应的索引。
 ```
 
 ### 定义链接
 
 ```{python}
 ##############################################################################
-## Creating an aggregated DataFrame to store relevant data, which will be used
-# to calculate the value of link towards each subregion.
+## 创建聚合后的 DataFrame，用于存储相关数据，
+# 并计算指向各子地区链接的数值。
 to_subregion_value = df0.groupby('source_subregion').agg(
     {
-    'source_region':'first', # the region of each subregion
-    'tourist_visa':'mean', # mean of tourist visa cost in each subregion
+    'source_region':'first', # 各子地区所属地区
+    'tourist_visa':'mean', # 各子地区的旅游签证费用均值
     }
 )
 
 #【.groupby()】
-# This method is used to group rows of df0 based on the column 'source_region'.
+# 该方法用于根据 'source_region' 列对 df0 中的行进行分组。
 
 #【.agg()】
-# This method is used to calculate the aggregation of values in each group.
+# 该方法用于计算各分组内数值的聚合结果。
 
 #【'first'】
-# This aggregation function returns the first entry of each column within
-# each group in the DataFrameGroupBy object (Pandas, 2024a).
-# In this case, it is used to select the first region encountered
-# in each group of subregions (i.e., the region for each subregion).
+# 该聚合函数会返回 DataFrameGroupBy 对象中各分组内每列的第一个值
+# (Pandas, 2024a)。在本例中，它用于选择各子地区分组中遇到的第一个地区
+# （即该子地区所属地区）。
 
 ##############################################################################
-## Creating an aggregated DataFrame to store values of link towards each region.
+## 创建聚合后的 DataFrame，用于存储指向各地区链接的数值。
 to_region_value = (
     to_subregion_value
     .groupby('source_region')
@@ -167,105 +157,105 @@ to_region_value = (
 )
 
 ##############################################################################
-## Creating empty lists to store the source, source, and value for each link
-sources = [] # to be filled with the indices of node labels of source nodes
-targets = [] # to be filled with the indices of node labels of target nodes
-values = [] # to be filled with the values for each link (tourist_visa)
+## 创建空列表，用于存储每条链接的来源、目标和值
+sources = [] # 用于填入来源节点在节点标签中的索引
+targets = [] # 用于填入目标节点在节点标签中的索引
+values = [] # 用于填入每条链接的数值（tourist_visa）
 
-## From 'World' to regions
+## 从 'World' 到各地区
 for region in source_region_labels:
 
-    # Append 'World' as the source nodes
+    # 将 'World' 作为来源节点加入列表
     sources.append(nodes['World'])
 
-    # Append each region as the target nodes
+    # 将各地区作为目标节点加入列表
     targets.append(nodes[region])
 
-    # Append values in df0_agg1 for each region as the value for each link
+    # 将 df0_agg1 中各地区的数值作为对应链接的值加入列表
     values.append(to_region_value.loc[region,'tourist_visa'])
 
-## From regions to subregions
+## 从各地区到各子地区
 for subregion in source_subregion_labels:
 
-    # Append each corresponding region as the source nodes
-    # get the corresponding region
+    # 将对应地区作为来源节点加入列表
+    # 获取对应地区
     region = to_subregion_value.loc[subregion,'source_region']
     sources.append(nodes[region])
 
-    # Append each subregion as the target nodes
+    # 将各子地区作为目标节点加入列表
     targets.append(nodes[subregion])
 
-    # Append values in df0_agg2 for each subregion as the value for each link
+    # 将 df0_agg2 中各子地区的数值作为对应链接的值加入列表
     values.append(to_subregion_value.loc[subregion,'tourist_visa'])
 ```
 
 ### 配色方案
 
 ```{python}
-source_region_labels # Checking regions in df0
+source_region_labels # 检查 df0 中的地区
 ```
 
 ```{python}
 ##############################################################################
-## Defining a dictionary to store region colors
+## 定义字典，用于存储地区颜色
 
 region_colors = {
-    'Africa': '#6B3A09',  # Brown
-    'Asia': '#7FA709',  # Green
-    'Americas': '#EC6C92', # Pink
-    'Oceania': '#F5DA29',  # Yellow
-    'Europe': '#85D6D5',  # Blue
+    'Africa': '#6B3A09',  # 棕色
+    'Asia': '#7FA709',  # 绿色
+    'Americas': '#EC6C92', # 粉色
+    'Oceania': '#F5DA29',  # 黄色
+    'Europe': '#85D6D5',  # 蓝色
 }
 
-# These colors are generated (in hex) via Nichols's (no date)
-# color palette generator for better visibility to color blind people.
+# 这些十六进制颜色由 Nichols（无日期）的配色生成器生成，
+# 以便提高色盲人群的可见性。
 
 ##############################################################################
-## Defining node colors based on regions
+## 根据地区定义节点颜色
 
-node_colors = []  # Creating an empty list to store node colors
+node_colors = []  # 创建空列表，用于存储节点颜色
 
-# Using for loop to append node colors to the list
+# 使用 for 循环将节点颜色加入列表
 for label in node_labels:
     if label in source_region_labels:
         node_colors.append(region_colors[label])
 
     elif label in source_subregion_labels:
-        # get the corresponding region
+        # 获取对应地区
         region = to_subregion_value.loc[label,'source_region']
         node_colors.append(region_colors[region])
 
-    else: # if label is 'World'
+    else: # 如果标签为 'World'
         node_colors.append('silver')
 
 ##############################################################################
-## Define link colors with transparency
-import matplotlib.colors as c  # to create faint colors in RGBA format
+## 定义带透明度的链接颜色
+import matplotlib.colors as c  # 用于创建 RGBA 格式的浅色
 
-## Defining strings to store faint colors for links in RGBA format
+## 定义字符串，用于存储 RGBA 格式的浅色链接颜色
 faint_Africa = 'rgba'+str(c.to_rgba(region_colors['Africa'], 0.5))
 faint_Asia = 'rgba'+str(c.to_rgba(region_colors['Asia'], 0.5))
 faint_Americas = 'rgba'+str(c.to_rgba(region_colors['Americas'], 0.5))
 faint_Oceania = 'rgba'+str(c.to_rgba(region_colors['Oceania'], 0.5))
 faint_Europe = 'rgba'+str(c.to_rgba(region_colors['Europe'], 0.5))
 
-# 0.5: alpha=0.5, means 50% transparency of colors
+# 0.5: alpha=0.5，表示颜色透明度为 50%
 
 ##############################################################################
-## Defining a dictionary to store faint link colors based on regions
+## 定义字典，用于按地区存储浅色链接颜色
 faint_region_colors = {
-    'Africa': faint_Africa,  # faint brown
-    'Asia': faint_Asia,  # faint green
-    'Americas': faint_Americas,  # faint pink
-    'Oceania': faint_Oceania,  # faint yellow
-    'Europe': faint_Europe,  # faint blue
+    'Africa': faint_Africa,  # 浅棕色
+    'Asia': faint_Asia,  # 浅绿色
+    'Americas': faint_Americas,  # 浅粉色
+    'Oceania': faint_Oceania,  # 浅黄色
+    'Europe': faint_Europe,  # 浅蓝色
 }
 
 ##############################################################################
-## Defining link colors based on regions
-link_colors = []  # Creating an empty list to store link colors
+## 根据地区定义链接颜色
+link_colors = []  # 创建空列表，用于存储链接颜色
 
-# Using for loop to append link colors to the list
+# 使用 for 循环将链接颜色加入列表
 for source, target in zip(sources, targets):
     if node_labels[source] in source_region_labels:
         link_colors.append(faint_region_colors[node_labels[source]])
@@ -274,10 +264,10 @@ for source, target in zip(sources, targets):
         link_colors.append(faint_region_colors[node_labels[target]])
 
 ##############################################################################
-# Check if the number of node colors matches the number of nodes
+# 检查节点颜色数量是否与节点数量一致
 print(len(node_colors) == len(nodes))
 
-# Check if the number of link colors matches the number of links
+# 检查链接颜色数量是否与链接数量一致
 print(len(link_colors) == len(sources) == len(targets) == len(values))
 ```
 
@@ -287,64 +277,62 @@ print(len(link_colors) == len(sources) == len(targets) == len(values))
 #| label: fig-sankey
 #| fig-cap: '各地区平均旅游签证费用桑基图'
 ##############################################################################
-import plotly.graph_objects as go  # to create sankey diagram
+import plotly.graph_objects as go  # 用于创建桑基图
 
-## Creating a Sankey object to store sankey data via go.Sankey() function
+## 通过 go.Sankey() 函数创建 Sankey 对象，用于存储桑基图数据
 
-sankey_data = go.Sankey(   # defining a variable to store sankey data
-    # defining nodes
+sankey_data = go.Sankey(   # 定义变量，用于存储桑基图数据
+    # 定义节点
     node = dict(
-        label = node_labels,  # labels for nodes
-        color = node_colors,  # colors for nodes
-        pad = 30,  # the horizontal distance between nodes
-        thickness = 20,  # thickness of nodes
-        line = {'color':'black','width':0.5},  # style for node outlines
+        label = node_labels,  # 节点标签
+        color = node_colors,  # 节点颜色
+        pad = 30,  # 节点之间的水平距离
+        thickness = 20,  # 节点厚度
+        line = {'color':'black','width':0.5},  # 节点轮廓样式
     ),
 
-    # defining links
+    # 定义链接
     link = dict(
-        source = sources,  # indices of source nodes in node_labels
-        target = targets,  # indices of target nodes in node_labels
-        value = values,  # values for links
-        color = link_colors, # colors for links
+        source = sources,  # 来源节点在 node_labels 中的索引
+        target = targets,  # 目标节点在 node_labels 中的索引
+        value = values,  # 链接数值
+        color = link_colors, # 链接颜色
     )
 )
 
 ##############################################################################
-# Creating a Figure object to store sankey data via go.Figure() function
+# 通过 go.Figure() 函数创建 Figure 对象，用于存储桑基图数据
 fig1 = go.Figure(sankey_data)
 
-# Updating layout of the figure
+# 更新图形布局
 fig1.update_layout(
     # width = 800, height = 600,
-    margin = dict(t = 60, b = 10),  # margin top & bottom
+    margin = dict(t = 60, b = 10),  # 上下边距
     title_text = '''
-        Sankey diagram of average tourist visa costs from each area
+        各地区平均旅游签证费用桑基图
     ''',
-    title_x = 0.5, title_y = 0.95,  # location of the title
-    font = {'style':'italic'},      # font style of the figure
+    title_x = 0.5, title_y = 0.95,  # 标题位置
+    font = {'style':'italic'},      # 图形字体样式
 )
     #【.update_layout()】
-    # This method is used to update the layout of the figure,
-    # including the size, title, font, etc. (Plotly, 2024b).
+    # 该方法用于更新图形布局，
+    # 包括尺寸、标题、字体等（Plotly, 2024b）。
 
-fig1.show(config = {"responsive": True})      # display the sankey diagram
+fig1.show(config = {"responsive": True})      # 显示桑基图
 
     #【renderer】
-    # This parameter is used to specify the renderer used to render
-    # the figure (Plotly, 2024b), and 'notebook' refers to Jupyter notebook.
+    # 该参数用于指定渲染图形时使用的渲染器（Plotly, 2024b），
+    # 其中 'notebook' 指 Jupyter notebook。
 
-    # This project is edited and exported to HTML file using
-    # Visual Studio Code with Jupyter extensions, in which case
-    # renderer='notebook' is effective for diagram display within
-    # Visual Studio Code and the exported HTML file. However,
-    # this argument seems not working for diagram display within output
-    # cells using Jupyter (but working for exported HTML file).
+    # 本项目使用带 Jupyter 扩展的 Visual Studio Code 编辑并导出为 HTML 文件。
+    # 在这种情况下，renderer='notebook' 对 Visual Studio Code 中的图形显示
+    # 和导出的 HTML 文件有效。不过，该参数在 Jupyter 的输出单元格中
+    # 似乎无法正常显示图形（但对导出的 HTML 文件有效）。
 ```
 
 如上所示，@fig-sankey 展示了全球各地区（如亚洲、欧洲、非洲）到其对应子地区（如东亚、北欧）的平均旅游签证费用流向。从各地区到子地区的链接宽度代表每个子地区（作为签证申请来源地）各国的平均旅游签证费用，而左侧从"世界"节点到各地区节点的链接宽度则为其对应子地区链接的总和。总体而言，该桑基图（@fig-sankey）展示了全球旅游签证费用的流向分布。
 
-![各地区平均旅游签证费用桑基图（已排序）](../../../src/img/proj/visa/fig2-sankey-sorted.png){#fig-sankey-sorted fig-alt="Sankey diagram of average tourist visa costs from each area (sorted)"}
+![各地区平均旅游签证费用桑基图（已排序）](../../../src/img/proj/visa/fig2-sankey-sorted.png){#fig-sankey-sorted fig-alt="各地区平均旅游签证费用桑基图（已排序）"}
 
 此外，@fig-sankey-sorted 提供了经手动按链接值（平均旅游签证费用）对子地区节点排序后的同一桑基图，以便更直观地解读各地区签证费用之间的差距。如 @fig-sankey-sorted 所示，属于亚洲和非洲的子地区呈现出显著更大的流量，反映出其较高的平均旅游签证费用。相比之下，欧洲、澳大利亚与新西兰以及北美洲的流量较小，说明这些地区的平均旅游签证费用较低。在亚洲内部，南亚地区费用最高，而东亚最低；类似地，西欧在欧洲各子地区中费用最低。
 
@@ -355,22 +343,21 @@ fig1.show(config = {"responsive": True})      # display the sankey diagram
 ### 数据聚合
 
 ```{python}
-import plotly.express as px  # to create plotly interactive graphs
+import plotly.express as px  # 用于创建 Plotly 交互式图表
 
-# Aggregating data in order to draw the bar chart
+# 聚合数据，用于绘制条形图
 bar_agg = df.groupby('source_subregion').agg(
     {
-    'source_region':'first', # region of each subregion
-    'tourist_visa':'mean',   # average tourist visa cost
-    'tourist_perdailyincome':'mean', # average tourist visa cost per daily income
+    'source_region':'first', # 各子地区所属地区
+    'tourist_visa':'mean',   # 平均旅游签证费用
+    'tourist_perdailyincome':'mean', # 按日收入折算的平均旅游签证费用
     }
-).reset_index()  # resetting index to make 'source_subregion' a regular column
+).reset_index()  # 重置索引，使 'source_subregion' 成为普通列
 
 #【.reset_index()】
-# This method is used to reset the index of the aggregated DataFrame,
-# placing all columns into a single level index (Pandas, 2024c).
-# Namely, transform the automatically generated index ('source_subregion')
-# into a regular column.
+# 该方法用于重置聚合后 DataFrame 的索引，
+# 将所有列放回单层索引结构中（Pandas, 2024c）。
+# 也就是说，将自动生成的索引（'source_subregion'）转换为普通列。
 ```
 
 ### 绘制条形图
@@ -378,36 +365,36 @@ bar_agg = df.groupby('source_subregion').agg(
 ```{python}
 #| label: fig-bar-visa-cost
 #| fig-cap: '各子地区平均旅游签证费用条形图'
-# Creating a bar chart to show average tourist visa cost in each subregion
+# 创建条形图，展示各子地区的平均旅游签证费用
 
 fig2 = px.bar(
     bar_agg, x = 'tourist_visa', y = 'source_subregion',
-    labels = {  # assigning x and y labels
-        'tourist_visa':'Average tourist visa cost ($)',
-        'source_subregion':'Subregion',
+    labels = {  # 指定 x 轴和 y 轴标签
+        'tourist_visa':'平均旅游签证费用（美元）',
+        'source_subregion':'子地区',
     },
-    color = 'source_region',  # grouping bars by region in different colors
-    color_discrete_map = region_colors  # assigning colors (previously defined)
+    color = 'source_region',  # 按地区分组，并使用不同颜色显示条形
+    color_discrete_map = region_colors  # 指定颜色（前文已定义）
 )
 
-# Updating layout properties of the figure
+# 更新图形布局属性
 fig2.update_layout(
     # width=800, height=480,
-    margin = dict(t = 90, b = 10),    # margin top & bottom
-    title_text='Average tourist visa costs per subregion',
-    title_x = 0.5, title_y = 0.95,    # location of the title
-    titlefont = {'style': 'italic'},  # font style of the title
-    yaxis = {'categoryorder': 'total ascending'}, # sort by values ascending
+    margin = dict(t = 90, b = 10),    # 上下边距
+    title_text='各子地区平均旅游签证费用',
+    title_x = 0.5, title_y = 0.95,    # 标题位置
+    titlefont = {'style': 'italic'},  # 标题字体样式
+    yaxis = {'categoryorder': 'total ascending'}, # 按数值升序排序
     legend = {
-        'title':'Region',
-        'orientation': 'h',  # horizontal oriented legend
+        'title':'地区',
+        'orientation': 'h',  # 水平图例
         'xanchor': 'right',
         'yanchor': 'bottom',
         'x': 1, 'y': 1,
     },
 )
 
-fig2.show(config = {"responsive": True}) # displaying the figure
+fig2.show(config = {"responsive": True}) # 显示图形
 ```
 
 @fig-bar-visa-cost 与 @fig-sankey 和 @fig-sankey-sorted 呈现了相同的数据，即各地区（在 @fig-bar-visa-cost 中仅显示子地区）按大洲分色的平均旅游签证费用。相比于桑基图，条形图能更清晰地展示数值差异，因为条形长度比链接宽度更易于区分，这也与 Wilke [@wilke2019, chap. 6] 的建议一致——条形图更适合呈现数值量的变化。由 @fig-sankey、@fig-sankey-sorted 和 @fig-bar-visa-cost 可以推断：来自欧洲等发达地区的公民出境所需支付的签证费用较少，而来自南亚、北非等欠发达地区的公民则需支付更高的签证费用。然而，为了反映签证费用的真实负担，另一变量 'tourist_perdailyincome'（详见[附录](#appendix)）被引入，以各国平均日收入为基准衡量签证的实际可负担性 [@recchi2021, p. 4]。
@@ -415,42 +402,41 @@ fig2.show(config = {"responsive": True}) # displaying the figure
 ```{python}
 #| label: fig-bar-daily-income
 #| fig-cap: '各子地区负担旅游签证所需平均工作天数'
-# Creating a bar chart to show average tourist visa cost per daily income
-# in each subregion, namely, the average working days to afford a
-# tourist visa from countries in each subregion.
+# 创建条形图，展示各子地区按日收入折算的平均旅游签证费用，
+# 即各子地区国家居民负担旅游签证所需的平均工作天数。
 
 fig3 = px.bar(
     bar_agg, x = 'tourist_perdailyincome', y = 'source_subregion',
-    labels = dict( # assigning x and y labels
+    labels = dict( # 指定 x 轴和 y 轴标签
         tourist_perdailyincome = '''
-            Average working days to afford tourist visa (day)
+            负担旅游签证所需平均工作天数（天）
         ''',
-        source_subregion = 'Subregion',
+        source_subregion = '子地区',
     ),
-    color = 'source_region', # grouping by region in different colors
-    color_discrete_map = region_colors # assigning colors (previously defined)
+    color = 'source_region', # 按地区分组，并使用不同颜色显示
+    color_discrete_map = region_colors # 指定颜色（前文已定义）
 )
 
-# Updating layout properties of the figure
+# 更新图形布局属性
 fig3.update_layout(
     # width=800, height=480,
-    margin = dict(t = 90, b = 10),    # margin top & bottom
+    margin = dict(t = 90, b = 10),    # 上下边距
     title_text='''
-        Average working days to afford tourist visa per subregion
+        各子地区负担旅游签证所需平均工作天数
     ''',
-    title_x = 0.5, title_y = 0.95,    # location of the title
-    titlefont = {'style': 'italic'},  # font style of the title
-    yaxis = {'categoryorder': 'total ascending'}, # sort by values ascending
+    title_x = 0.5, title_y = 0.95,    # 标题位置
+    titlefont = {'style': 'italic'},  # 标题字体样式
+    yaxis = {'categoryorder': 'total ascending'}, # 按数值升序排序
     legend = {
-        'title':'Region',
-        'orientation': 'h',  # horizontal oriented legend
+        'title':'地区',
+        'orientation': 'h',  # 水平图例
         'xanchor': 'right',
         'yanchor': 'bottom',
         'x': 1, 'y': 1,
     },
 )
 
-fig3.show(config = {"responsive": True}) # displaying the figure
+fig3.show(config = {"responsive": True}) # 显示图形
 ```
 
 如 @fig-bar-daily-income 所示，以日收入为基准的平均旅游签证费用（即负担旅游签证所需的平均工作天数）在各地区之间的差距更为悬殊，揭示了一个全球性的悖论：越贫穷的国家，其公民出境所需支付的签证费用反而越高。
@@ -460,7 +446,7 @@ fig3.show(config = {"responsive": True}) # displaying the figure
 ### 数据聚合
 
 ```{python}
-# Aggregating data in order to draw the choropleth
+# 聚合数据，用于绘制等值线地图
 choro_agg = (
     df.groupby('source')
     .agg({
@@ -472,11 +458,11 @@ choro_agg = (
 )
 
 #【.sort_values()】
-# This method is used to sort the aggregated DataFrame by 'tourist_visa'
-# column, in descending order (ascending=False) (Pandas, 2024d).
+# 该方法用于按 'tourist_visa' 列对聚合后的 DataFrame 进行排序，
+# 此处为降序排序（ascending=False）（Pandas, 2024d）。
 
 #【.reset_index()】
-# resetting index to make 'source_iso3' a regular column
+# 重置索引，使 'source_iso3' 成为普通列
 ```
 
 ### 绘制等值线地图
@@ -484,36 +470,36 @@ choro_agg = (
 ```{python}
 #| label: fig-choropleth
 #| fig-cap: '各国平均旅游签证费用等值线地图'
-# Creating a choropleth map to show average tourist visa cost in each country
+# 创建等值线地图，展示各国平均旅游签证费用
 fig4 = px.choropleth(
     choro_agg,
-    locations = 'source_iso3', # region identifiers for locations
-    locationmode = 'ISO-3', # country codes
-    color = 'tourist_visa', # map color by tourist visa costs
-    hover_name = 'source', # hover: region name
-    hover_data = 'tourist_visa', # hover: data
-    color_continuous_scale = 'aggrnyl', # color scale for the choropleth
+    locations = 'source_iso3', # 地理位置标识符
+    locationmode = 'ISO-3', # 国家代码
+    color = 'tourist_visa', # 按旅游签证费用设置地图颜色
+    hover_name = 'source', # 悬停显示：地区名称
+    hover_data = 'tourist_visa', # 悬停显示：数据
+    color_continuous_scale = 'aggrnyl', # 等值线地图色标
 )
 
-# Updating layout properties of the figure
+# 更新图形布局属性
 fig4.update_layout(
     # width = 800, height = 500,
-    title = 'Choropleth map of average tourist visa costs',
+    title = '各国平均旅游签证费用等值线地图',
     margin = dict(t = 50, b = 0),
-    title_x = 0.5, title_y = 0.95,  # location of the title
-    title_font = {'style':'italic'},  # font style of the title
+    title_x = 0.5, title_y = 0.95,  # 标题位置
+    title_font = {'style':'italic'},  # 标题字体样式
     coloraxis = dict(
-        colorbar = dict(  # specify colorbar properties
-            orientation = 'h',  # orientation of the colorbar: horizontal
-            title = 'Average tourist visa cost ($)', # title of the colorbar
+        colorbar = dict(  # 指定色条属性
+            orientation = 'h',  # 色条方向：水平
+            title = '平均旅游签证费用（美元）', # 色条标题
             xanchor = 'right', x = 1,
             yanchor = 'top', y = 1,
-            len = 0.8, thickness = 16,  # length and thickness of the colorbar
+            len = 0.8, thickness = 16,  # 色条长度和厚度
         ),
     ),
 )
 
-fig4.show(config = {"responsive": True}) # displaying the figure
+fig4.show(config = {"responsive": True}) # 显示图形
 ```
 
 进一步地，将分析粒度从子地区细化到国家层面可以获得更多洞见。@fig-choropleth 通过连续色标直观呈现了全球各国平均旅游签证费用的分布情况。根据 @wilke2019 [p. 173] 的观点，在等值线地图中，深色背景区域通常比浅色背景区域在网页上具有更好的可视性，因此 @fig-choropleth 采用了深色背景的配色方案，颜色随数值增大而逐渐变浅 [@plotlyColorscales]。

@@ -165,7 +165,16 @@ df_melted.head()  # 情感类别和来源现已拆分为独立列
 ##############################################################################
 ## 设置 seaborn 主题并绘制条形图
 
-sns.set_theme(font = 'Arial', font_scale = 1.2, style = 'whitegrid')
+sns.set_theme(
+    font_scale = 1.2,
+    style = 'whitegrid',
+    rc = {
+        'font.family': [
+            'Arial Unicode MS', 'Heiti TC', 'Arial',
+        ],
+        'axes.unicode_minus': False,
+    },
+)
 
 sns.barplot(
     data = df_melted, x = 'source', y = 'count', hue = 'sentiment',
