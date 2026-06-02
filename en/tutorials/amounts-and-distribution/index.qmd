@@ -1,9 +1,9 @@
 ---
-title: "数量与分布可视化"
+title: "Amounts and Distribution"
 author: "Pinn Xu"
 date: "2024-10-01"
 categories: ["Python", "Visualization", "Distribution", "Histogram", "Bar Plot", "Point Plot", "Box Plot", "Violin Plot"]
-description: "本章介绍如何使用 Seaborn 库绘制柱状图、点线图、直方图、箱线图等常见的数量与分布可视化图表，并通过调整参数实现更清晰的信息传达。"
+description: "This tutorial introduces how to use Seaborn to create common visualizations for amounts and distributions, including bar plots, point plots, histograms, box plots, and more, while adjusting parameters to communicate information more clearly."
 code-fold: false
 order: 2
 ---
@@ -11,16 +11,16 @@ order: 2
 ```{python}
 #| eval: false
 #| code-fold: true
-#| code-summary: "环境和版本"
+#| code-summary: "Environment and Versions"
 python==3.12
 pandas==2.2.2
 matplotlib==3.9.x
 seaborn==0.13.2
 ```
 
-# 1. Seaborn 与 Matplotlib
+# 1. Seaborn and Matplotlib
 
-> **注:** 使用本地环境 (如 Jupyter, VS Code 等) 需先安装 Seaborn；若使用 Google Colab, 已预置, 无需手动安装。
+> **Note:** If you are using a local environment such as Jupyter or VS Code, install Seaborn first. If you are using Google Colab, Seaborn is already available and does not need to be installed manually.
 
 ```{python}
 #| eval: false
@@ -32,197 +32,199 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 ```
 
-`matplotlib.pyplot` 通常缩写为 `plt`，以便快速调用绘图接口。不推荐使用完整路径：
+`matplotlib.pyplot` is usually abbreviated as `plt` so plotting functions can be called more conveniently. Using the full path is not recommended:
 
 ```{python}
 #| eval: false
 import matplotlib.pyplot
-matplotlib.pyplot.plot(略)
+matplotlib.pyplot.plot(...)
 matplotlib.pyplot.show()
 ```
 
-推荐写法：
+Recommended style:
 
 ```{python}
 #| eval: false
-import matplotlib.pyplot as plt  # 以 'plt' 为别名导入，便于后续调用
-plt.plot(略)
+import matplotlib.pyplot as plt  # Import with the alias 'plt' for later use
+plt.plot(...)
 plt.show()
 ```
 
-- `mpl`：`matplotlib` 的别名，用于全局配置、底层属性及高级子模块（色彩映射、3D 绘图等）。
-- `plt`：`matplotlib.pyplot` 的别名，用于快速创建和管理图表，是日常绘图的主要接口。
+- `mpl`: an alias for `matplotlib`, commonly used for global configuration, lower-level properties, and advanced submodules such as colormaps and 3D plotting.
+- `plt`: an alias for `matplotlib.pyplot`, the main everyday interface for quickly creating and managing figures.
 
-**参考：[matplotlib.pyplot 教程](https://matplotlib.org/stable/api/pyplot_summary.html)**
+**Reference: [matplotlib.pyplot tutorial](https://matplotlib.org/stable/api/pyplot_summary.html)**
 
 ```{python}
-df = sns.load_dataset('penguins')  # 加载企鹅示例数据集
-df.info()  # 查看列名、数据类型及非空值数量
+df = sns.load_dataset('penguins')  # Load the penguins example dataset
+df.info()  # View column names, data types, and non-null counts
 ```
 
-**float 数据**
+**Float Data**
 
-长度、质量等浮点列为连续数值。有 true zero（0 代表"无"）的为 ratio data（如长度、质量）；无 true zero 的为 interval data（如温度）。
+Floating-point columns such as length and mass are continuous numerical variables. Variables with a true zero, where 0 means "none", are ratio data, such as length and mass. Variables without a true zero are interval data, such as temperature.
 
-**object 数据**
+**Object Data**
 
-种类名称（species）、岛名（island）等为 nominal data；性别（sex）为 ordinal data。
-
-```{python}
-df.head()  # 查看前五行
-```
+Species names and island names are nominal data. Sex is ordinal data.
 
 ```{python}
-df.tail()  # 查看后五行
+df.head()  # View the first five rows
 ```
 
 ```{python}
-df.sample(5)  # 随机抽取五行
+df.tail()  # View the last five rows
 ```
 
-**注意：函数 (function) vs. 方法 (method)**
+```{python}
+df.sample(5)  # Randomly sample five rows
+```
 
-`df.info()`、`df.head()`、`df.tail()`、`df.sample()` 均为 DataFrame 对象的**方法**，必须基于具体对象调用，不可独立使用。
+**Note: Function vs. Method**
 
-`pd.read_csv()` 为 Pandas 预定义的**函数**，可直接调用：
+`df.info()`, `df.head()`, `df.tail()`, and `df.sample()` are all **methods** of a DataFrame object. They must be called from a specific object and cannot be used independently.
+
+`pd.read_csv()` is a predefined Pandas **function** and can be called directly:
 
 ```{python}
 #| eval: false
-df = pd.read_csv('文件路径')
+df = pd.read_csv('file_path')
 ```
 
-`df.sample()` 则为对 df 对象操作的方法：
+By contrast, `df.sample()` is a method that operates on the `df` object:
 
 ```{python}
 df.sample(4)
 ```
 
-# 2. 绘制柱状图
+# 2. Drawing Bar Plots
 
-## 2.1 用 Seaborn 绘制基础柱状图
+## 2.1 Basic Bar Plots with Seaborn
 
-### 2.1.1 基础柱状图
+### 2.1.1 Basic Bar Plot
 
 ```{python}
-# 基础柱状图：x 轴为类别，y 轴默认取均值；黑色误差线为 95% 置信区间
+# Basic bar plot: the x-axis is categorical, and the y-axis shows the mean by default.
+# The black error bars show 95% confidence intervals.
 sns.barplot(data=df, x='island', y='body_mass_g')
 plt.show()
 ```
 
 ```{python}
-# estimator='sum'：将柱高改为求和（默认为均值）
+# estimator='sum': use the sum as the bar height instead of the default mean
 sns.barplot(data=df, x='island', y='body_mass_g', estimator='sum')
 plt.show()
 ```
 
-**参考：[`sns.barplot()` 函数的用法](https://seaborn.pydata.org/generated/seaborn.barplot.html)**（`estimator` 参数）
+**Reference: [`sns.barplot()` documentation](https://seaborn.pydata.org/generated/seaborn.barplot.html)** (`estimator` parameter)
 
 ```{python}
-sns.__version__  # 查看当前 Seaborn 版本（0.13 起默认单色，避免无意义的颜色区分）
+sns.__version__  # View the current Seaborn version. Since 0.13, the default is a single color to avoid meaningless color distinctions.
 ```
 
 ```{python}
-# 验证：Biscoe 岛体质量均值即为柱状图对应的柱高
+# Check: the mean body mass for Biscoe Island is the bar height shown in the chart.
 df.loc[df['island'] == 'Biscoe', 'body_mass_g'].mean()
 ```
 
 ### 2.1.2 Count Plot
 
 ```{python}
-# 计数图：自动统计每个类别的出现次数
+# Count plot: automatically counts the number of observations in each category
 sns.countplot(data=df, x='species')
 plt.show()
 ```
 
-**参考：[`sns.countplot()` 用法](https://seaborn.pydata.org/generated/seaborn.countplot.html)**
+**Reference: [`sns.countplot()` documentation](https://seaborn.pydata.org/generated/seaborn.countplot.html)**
 
-## 2.2 柱分组 & 去除误差线
+## 2.2 Grouping Bars and Removing Error Bars
 
-使用 `hue` 参数按类别分组，设置 `errorbar=None` 去除误差线。
+Use the `hue` parameter to group by category, and set `errorbar=None` to remove error bars.
 
 ```{python}
-# hue 按性别分组显示，errorbar=None 去除误差线
+# Group by sex with hue, and remove error bars with errorbar=None
 sns.barplot(data=df, x='island', y='body_mass_g', errorbar=None, hue='sex')
 plt.show()
 ```
 
-**参考：[`sns.barplot()` 函数的用法](https://seaborn.pydata.org/generated/seaborn.barplot.html)**（`errorbar` 参数、`hue` 参数）
+**Reference: [`sns.barplot()` documentation](https://seaborn.pydata.org/generated/seaborn.barplot.html)** (`errorbar` and `hue` parameters)
 
-## 2.3 旋转刻度标签
+## 2.3 Rotating Tick Labels
 
-x 轴标签过长时，可用 `plt.xticks()` 旋转标签：
+When x-axis labels are too long, use `plt.xticks()` to rotate them:
 
 ```{python}
 sns.barplot(data=df, x='island', y='body_mass_g', errorbar=None, hue='sex')
 
-# 标签旋转 45°，ha='right' 使标签右端与刻度线对齐
+# Rotate labels by 45 degrees. ha='right' aligns the right edge of each label with the tick.
 plt.xticks(rotation=45, ha='right')
 plt.show()
 ```
 
-**参考：[`plt.xticks()` 函数用法](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html)**（`kwargs` 栏目）
+**Reference: [`plt.xticks()` documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html)** (`kwargs` section)
 
-[Wilke (2019, chap. 6.1)](https://clauswilke.com/dataviz/visualizing-amounts.html#bar-plots) 建议：标签密集时，改为横向排版比旋转标签更易读：
+[Wilke (2019, chap. 6.1)](https://clauswilke.com/dataviz/visualizing-amounts.html#bar-plots) suggests that when labels are dense, a horizontal layout is easier to read than rotated labels:
 
 ```{python}
-# 交换 xy 轴：标签密集时横向排版更易读
+# Swap the x and y axes: a horizontal layout is easier to read when labels are dense.
 sns.barplot(data=df, y='island', x='body_mass_g', errorbar=None, hue='sex')
 plt.show()
 ```
 
-同样适用于 Count Plot：
+The same idea applies to count plots:
 
 ```{python}
 sns.countplot(data=df, y='species', hue='sex')
 plt.show()
 ```
 
-## 2.4 设置总主题风格
+## 2.4 Setting the Global Theme
 
 ```{python}
-# 设置全局绘图主题（作用于后续所有 Seaborn 图表，可用 sns.reset_orig() 还原）
+# Set the global plotting theme. It applies to all subsequent Seaborn charts.
+# Use sns.reset_orig() to restore the default theme.
 sns.set_theme(font_scale=1.2, style='darkgrid')
 ```
 
-`sns.set_theme()` 设置全局绘图主题，作用于之后所有 Seaborn 图表。调用 `sns.reset_orig()` 可恢复默认主题。
+`sns.set_theme()` sets the global plotting theme for all later Seaborn charts. Call `sns.reset_orig()` to restore the default theme.
 
 ```{python}
-# 定义一个图表对象 ax
+# Define a chart object named ax
 ax = sns.barplot(
     data=df, x='body_mass_g', y='island',
     errorbar=None, hue='sex',
 )
 
-# 设置标题与轴标签
+# Set the title and axis labels
 ax.set(title='Penguin', xlabel='Body Mass (g)', ylabel='Island')
 plt.show()
 ```
 
-将 Seaborn 图表赋值给变量 `ax` 后，可调用 Matplotlib 方法进一步修改（类似将 DataFrame 赋值给 `df` 后再调用方法）。
+After assigning a Seaborn chart to the variable `ax`, you can call Matplotlib methods on it for further customization, similar to assigning a DataFrame to `df` and then calling its methods.
 
-**注意：区分以下两者：**
+**Note the difference between these two:**
 
-- `sns.set()` / `sns.set_theme()`：Seaborn **全局**主题设置函数（两者等价，`sns.set_theme()` 为首选）。
-- `ax.set()`：Matplotlib 中针对**特定图表对象**的方法，用于设置标题、轴标签等。
+- `sns.set()` / `sns.set_theme()`: Seaborn **global** theme-setting functions. They are equivalent, but `sns.set_theme()` is preferred.
+- `ax.set()`: a Matplotlib method for a **specific chart object**, used to set titles, axis labels, and related elements.
 
-**参考：**\
-[`sns.set()` 函数](https://seaborn.pydata.org/generated/seaborn.set.html)\
-[`sns.set_theme()` 函数](https://seaborn.pydata.org/generated/seaborn.set_theme.html#seaborn.set_theme)\
-[`ax.set()` 方法](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set.html)
+**References:**\
+[`sns.set()` documentation](https://seaborn.pydata.org/generated/seaborn.set.html)\
+[`sns.set_theme()` documentation](https://seaborn.pydata.org/generated/seaborn.set_theme.html#seaborn.set_theme)\
+[`ax.set()` documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set.html)
 
-## 2.5 调整图例
+## 2.5 Adjusting the Legend
 
-无论 `errorbar=None` 还是 `errorbar=('ci',0)`，图例均可能遮挡图表，需用 `sns.move_legend()` 手动调整位置。
+Whether you use `errorbar=None` or `errorbar=('ci', 0)`, the legend may cover the plot, so you may need to adjust its position manually with `sns.move_legend()`.
 
 ```{python}
-# errorbar=None：图例自动置于右侧
+# errorbar=None: the legend is automatically placed on the right
 ax = sns.barplot(data=df, y='island', x='body_mass_g', errorbar=None, hue='sex')
 ax.set(title='Penguin', xlabel='Body Mass (g)', ylabel='Island')
 plt.show()
 ```
 
 ```{python}
-# errorbar=('ci', 0)：图例自动避让误差线区域
+# errorbar=('ci', 0): the legend is automatically moved away from the error-bar area
 ax = sns.barplot(
     data=df, y='island', x='body_mass_g', 
     errorbar=('ci', 0), hue='sex',
@@ -235,7 +237,7 @@ plt.show()
 ax = sns.barplot(data=df, y='island', x='body_mass_g', errorbar=None, hue='sex')
 ax.set(title='Penguin', xlabel='Body Mass (g)', ylabel='Island')
 
-# bbox_to_anchor + loc 联用：将图例的 loc 参考点移至坐标 (0.5, -0.2)
+# Combine bbox_to_anchor with loc: move the legend's loc reference point to (0.5, -0.2)
 sns.move_legend(ax, bbox_to_anchor=(0.5, -0.2), loc='upper center', ncols=2)
 plt.show()
 ```
@@ -243,7 +245,7 @@ plt.show()
 ```{python}
 ax = sns.barplot(data=df, y='island', x='body_mass_g', errorbar=None, hue='sex')
 ax.set(title='Penguin', xlabel='Body Mass (g)', ylabel='Island')
-sns.move_legend(ax, loc='lower right')  # 仅设置 loc：图例移至图表右下角
+sns.move_legend(ax, loc='lower right')  # Set loc only: move the legend to the lower right of the plot
 plt.show()
 ```
 
@@ -251,29 +253,29 @@ plt.show()
 ax = sns.barplot(data=df, y='island', x='body_mass_g', errorbar=None, hue='sex')
 ax.set(title='Penguin', xlabel='Body Mass (g)', ylabel='Island')
 
-# 图例左上角置于图表 (1, 1) 处
+# Place the upper-left corner of the legend at (1, 1) relative to the axes
 sns.move_legend(ax, loc='upper left', bbox_to_anchor=(1, 1))
 plt.show()
 ```
 
-**参考：**\
-[`sns.move_legend()` 用法](https://seaborn.pydata.org/generated/seaborn.move_legend.html)（`obj` 参数、`loc` 参数）\
-[`matplotlib.axes.Axes.legend()` 用法](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html)（`loc`、`ncols`、`bbox_to_anchor` 参数）
+**References:**\
+[`sns.move_legend()` documentation](https://seaborn.pydata.org/generated/seaborn.move_legend.html) (`obj` and `loc` parameters)\
+[`matplotlib.axes.Axes.legend()` documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html) (`loc`, `ncols`, and `bbox_to_anchor` parameters)
 
-## 2.6 修改颜色
+## 2.6 Changing Colors
 
-使用 `palette` 参数修改图表配色，可传入以下类型的值：
+Use the `palette` parameter to change chart colors. It can take the following kinds of values:
 
-1.  **Seaborn 预定义调色板名称**（默认 `'deep'`）：`'deep'`、`'muted'`、`'bright'`、`'pastel'`、`'dark'`、`'colorblind'`
-2.  **Matplotlib Colormap 名称**：如 `'viridis'`、`'plasma'`、`'coolwarm'`、`'Blues'`、`'Reds'`
-3.  **HLS/HUSL 颜色模型**：`'hls'`、`'husl'`
-4.  **Cubehelix 方案**：`'ch:<args>'`，如 `'ch:s=0.5,r=-0.5'`（色盲友好，支持灰度打印）
-5.  **渐变色**：`'light:<color>'`、`'dark:<color>'`
-6.  **混合色**：`'blend:<color1>,<color2>'`
-7.  **颜色代码列表**：十六进制（`['#FF5733', '#33FF57']`）、RGB 元组、Matplotlib 颜色名称
+1. **Seaborn predefined palette names** (default: `'deep'`): `'deep'`, `'muted'`, `'bright'`, `'pastel'`, `'dark'`, `'colorblind'`
+2. **Matplotlib colormap names**: for example, `'viridis'`, `'plasma'`, `'coolwarm'`, `'Blues'`, `'Reds'`
+3. **HLS/HUSL color models**: `'hls'`, `'husl'`
+4. **Cubehelix schemes**: `'ch:<args>'`, for example `'ch:s=0.5,r=-0.5'` (colorblind-friendly and suitable for grayscale printing)
+5. **Gradients**: `'light:<color>'`, `'dark:<color>'`
+6. **Blends**: `'blend:<color1>,<color2>'`
+7. **Lists of color codes**: hexadecimal codes such as `['#FF5733', '#33FF57']`, RGB tuples, or Matplotlib color names
 
 ```{python}
-# 默认调色板
+# Default palette
 ax = sns.barplot(data=df, y='island', x='body_mass_g', errorbar=None, hue='sex')
 ax.set(title='Penguin', xlabel='Body Mass (g)', ylabel='Island')
 sns.move_legend(ax, bbox_to_anchor=(1, 1), loc='upper left')
@@ -281,7 +283,7 @@ plt.show()
 ```
 
 ```{python}
-# palette='flare'：使用 Seaborn 预设调色板
+# palette='flare': use a predefined Seaborn palette
 ax = sns.barplot(data=df, y='island', x='body_mass_g', errorbar=None, hue='sex', palette='flare')
 ax.set(title='Penguin', xlabel='Body Mass (g)', ylabel='Island')
 sns.move_legend(ax, bbox_to_anchor=(1, 1), loc='upper left')
@@ -289,7 +291,7 @@ plt.show()
 ```
 
 ```{python}
-# palette 传入 Matplotlib 颜色名称列表
+# Pass a list of Matplotlib color names to palette
 ax = sns.barplot(data=df, y='island', x='body_mass_g', errorbar=None, hue='sex', palette=['blue', 'orange'])
 ax.set(title='Penguin', xlabel='Body Mass (g)', ylabel='Island')
 sns.move_legend(ax, bbox_to_anchor=(1, 1), loc='upper left')
@@ -297,7 +299,7 @@ plt.show()
 ```
 
 ```{python}
-# palette 传入十六进制颜色代码列表
+# Pass a list of hexadecimal color codes to palette
 ax = sns.barplot(
     data=df, y='island', x='body_mass_g', 
     errorbar=None, hue='sex', palette=['#a1c9f4', '#8de5a1'],
@@ -307,50 +309,51 @@ sns.move_legend(ax, bbox_to_anchor=(1, 1), loc='upper left')
 plt.show()
 ```
 
-**参考：**\
-[Seaborn `sns.set_theme()` 函数](https://seaborn.pydata.org/generated/seaborn.set_theme.html)（`palette` 参数）\
-[Seaborn `sns.color_palette()` 函数](https://seaborn.pydata.org/generated/seaborn.color_palette.html)（预设调色盘名称表）\
-[Matplotlib 预命名颜色一览](https://matplotlib.org/stable/gallery/color/named_colors.html)\
-[Matplotlib Colormap 一览](https://matplotlib.org/stable/users/explain/colors/colormaps.html)\
-[w3schools 颜色提取器](https://www.w3schools.com/colors/colors_picker.asp)
+**References:**\
+[Seaborn `sns.set_theme()` documentation](https://seaborn.pydata.org/generated/seaborn.set_theme.html) (`palette` parameter)\
+[Seaborn `sns.color_palette()` documentation](https://seaborn.pydata.org/generated/seaborn.color_palette.html) (list of predefined palette names)\
+[Matplotlib named colors](https://matplotlib.org/stable/gallery/color/named_colors.html)\
+[Matplotlib colormaps](https://matplotlib.org/stable/users/explain/colors/colormaps.html)\
+[w3schools color picker](https://www.w3schools.com/colors/colors_picker.asp)
 
-## 拓展：统计每个岛屿的企鹅数量
+## Extension: Counting Penguins on Each Island
 
-以下两种方式等效，可用于后续按总量排序柱状图。
+The following two approaches are equivalent and can be used later to sort bar plots by totals.
 
-**法1：`df.groupby().size()`**
+**Method 1: `df.groupby().size()`**
 
 ```{python}
-# 按 island 分组后统计每组行数
+# Group by island and count the number of rows in each group
 df.groupby('island').size()
 ```
 
-**法2：`df.value_counts()`**
+**Method 2: `df.value_counts()`**
 
 ```{python}
-# 统计 island 列中各值的出现次数
+# Count the occurrences of each value in the island column
 df.value_counts('island')
 ```
 
-# 3. 绘制其他图
+# 3. Drawing Other Plots
 
-## 3.1 点线图
+## 3.1 Point Plot
 
-柱状图的纵轴必须从 0 开始，以保证视觉比例与数据比例一致（[Wilke (2019, chap.17)](https://clauswilke.com/dataviz/proportional-ink.html) 的 ***Principle of Proportional Ink***）。点线图无此限制，纵轴从数据范围起始，且 data-ink ratio 更高（干扰信息更少）。
+The y-axis of a bar plot must start at 0 to ensure that the visual proportions match the data proportions, following Wilke's [Principle of Proportional Ink](https://clauswilke.com/dataviz/proportional-ink.html) ([Wilke 2019, chap. 17](https://clauswilke.com/dataviz/proportional-ink.html)). Point plots do not have this restriction: the y-axis can start from the data range, and the data-ink ratio is higher because there is less visual clutter.
 
-当 x 轴为 nominal data（如岛屿名称）时，各点之间无需连线。
+When the x-axis is nominal data, such as island names, the points do not need to be connected with lines.
 
 ```{python}
-# linestyle='none'：x 轴为离散类别时不连线；点上下的线段为误差线
+# linestyle='none': do not connect points when the x-axis is categorical.
+# The vertical segments around points are error bars.
 sns.pointplot(data=df, x='island', y='body_mass_g', hue='sex', linestyle='none')
 plt.show()
 ```
 
-**参考：[`sns.pointplot()` 函数用法](https://seaborn.pydata.org/generated/seaborn.pointplot.html#)**
+**Reference: [`sns.pointplot()` documentation](https://seaborn.pydata.org/generated/seaborn.pointplot.html#)**
 
-## 3.2 直方图
+## 3.2 Histogram
 
-柱状图的 x 轴为**离散类别**（nominal/ordinal data）；直方图的 x 轴为**连续数值区间**（ratio data）。
+The x-axis of a bar plot represents **discrete categories** (nominal or ordinal data). The x-axis of a histogram represents **continuous numerical intervals** (ratio data).
 
 ```{python}
 sns.histplot(data=df, x='flipper_length_mm')
@@ -358,13 +361,13 @@ plt.show()
 ```
 
 ```{python}
-# hue 分组：各岛企鹅分别绘图后叠加显示
+# Group with hue: plot penguins from each island separately and overlay the distributions
 sns.histplot(data=df, x='flipper_length_mm', hue='island')
 plt.show()
 ```
 
 ```{python}
-# 统一 y 轴范围，对比有无 hue 分组的差异
+# Use a consistent y-axis range to compare the plot with and without hue grouping
 sns.histplot(data=df, x='flipper_length_mm')
 plt.show()
 
@@ -377,42 +380,42 @@ plt.show()
 sns.histplot(
     data=df, x='flipper_length_mm',
     hue='island',
-    stat='density',     # 各 bin 面积之和为 1（概率密度）
-    common_norm=False   # 各组独立归一化 (每组面积和为1, 若 True 则所有面积和为1)
+    stat='density',     # The total area of all bins is 1 (probability density)
+    common_norm=False   # Normalize each group separately. If True, all groups share one total area of 1.
 )
 plt.show()
 ```
 
-### 3.2.1 stat 参数
+### 3.2.1 The `stat` Parameter
 
-控制直方图的统计方式，可选值：
+This parameter controls the statistic shown by the histogram. Available values include:
 
-- `'count'`：bin 高度 = 该 bin 内的数据点数量（频数）。
-- `'frequency'`：bin 高度 = 频数 / bin 宽度（单位宽度内的频数，适用于 bin 宽度不统一的情况）。
-- `'probability'` / `'proportion'`：bin 高度 = 频数 / 总数，所有 bin 高度之和为 1。
-- `'percent'`：bin 高度 = (频数 / 总数) × 100，所有 bin 高度之和为 100。
-- `'density'`：bin 高度 = 频率 / 组距，所有 bin **面积**之和为 1（频率分布直方图）。当 bin 宽度趋近于 0 时，即得到平滑密度曲线。
+- `'count'`: bin height = number of data points in the bin.
+- `'frequency'`: bin height = count / bin width, or frequency per unit width. This is useful when bin widths are unequal.
+- `'probability'` / `'proportion'`: bin height = count / total count, so all bin heights sum to 1.
+- `'percent'`: bin height = (count / total count) * 100, so all bin heights sum to 100.
+- `'density'`: bin height = frequency / bin width, so the total **area** of all bins is 1. As bin width approaches 0, this becomes a smooth density curve.
 
 ```{python}
-# stat='count'：柱高 = bin 内数据点数量
+# stat='count': bar height = number of data points in each bin
 ax = sns.histplot(data=df, x='flipper_length_mm', stat='count')
 
-# 遍历每个柱子（patch），获取高度并在柱顶显示数值标签
+# Iterate over each bar (patch), get its height, and show a value label above it
 for p in ax.patches:
-    # 获取柱子高度（即区间内的数据点频数）
+    # Get the bar height, which is the frequency in the interval
     height = p.get_height()
-    # 添加文字
+    # Add text
     ax.text(
-        p.get_x() + p.get_width() / 2,  # x(文字横坐标): 柱子中心位置
-        height, # y(文字纵坐标): 柱子高度
-        int(height), # str(文字内容): 显示整数频数
-        ha='center', va='bottom', # horizontal/vertical anchor (水平/垂直对齐方式)
+        p.get_x() + p.get_width() / 2,  # x coordinate: center of the bar
+        height, # y coordinate: bar height
+        int(height), # text: integer frequency
+        ha='center', va='bottom', # horizontal/vertical alignment
     )
 plt.show()
 ```
 
 ```{python}
-# stat='frequency'：柱高 = 频数 / bin 宽度
+# stat='frequency': bar height = count / bin width
 ax = sns.histplot(data=df, x='flipper_length_mm', stat='frequency')
 for p in ax.patches:
     height = p.get_height()
@@ -425,20 +428,20 @@ plt.show()
 ```
 
 ```{python}
-# stat='probability'：柱高 = 频数 / 总数，所有柱高之和为 1
+# stat='probability': bar height = count / total count, and all bar heights sum to 1
 ax = sns.histplot(data=df, x='flipper_length_mm', stat='probability')
 for p in ax.patches:
     height = p.get_height()
     ax.text(
         p.get_x() + p.get_width() / 2, 
-        height, f'{height:.2f}', # 保留两位小数
+        height, f'{height:.2f}', # Keep two decimal places
         ha='center', va='bottom',
     )
 plt.show()
 ```
 
 ```{python}
-# stat='percent'：柱高 = (频数 / 总数) × 100，所有柱高之和为 100
+# stat='percent': bar height = (count / total count) * 100, and all bar heights sum to 100
 ax = sns.histplot(data=df, x='flipper_length_mm', stat='percent')
 for p in ax.patches:
     height = p.get_height()
@@ -451,7 +454,7 @@ plt.show()
 ```
 
 ```{python}
-# stat='density'：柱高 = 频率 / 组距，所有 bin 面积之和为 1
+# stat='density': bar height = frequency / bin width, and the total bin area is 1
 ax = sns.histplot(data=df, x='flipper_length_mm', stat='density')
 for p in ax.patches:
     height = p.get_height()
@@ -463,17 +466,17 @@ for p in ax.patches:
 plt.show()
 ```
 
-### 3.2.2 common_norm 参数
+### 3.2.2 The `common_norm` Parameter
 
-布尔值，仅在 `stat` 为 `'probability'`、`'proportion'`、`'percent'` 或 `'density'` 时生效，默认为 `True`：
+This boolean parameter only applies when `stat` is `'probability'`, `'proportion'`, `'percent'`, or `'density'`. Its default value is `True`:
 
-- `common_norm=True`：基于**整个数据集**归一化，不同组间的 bin 高度可直接比较。
-- `common_norm=False`：各**子组独立**归一化，bin 高度仅在组内有意义。
+- `common_norm=True`: normalize using the **entire dataset**, so bin heights can be compared across groups.
+- `common_norm=False`: normalize each **subgroup independently**, so bin heights are only meaningful within each group.
 
 ```{python}
 sns.histplot(
     data=df, x='flipper_length_mm', hue='island', 
-    stat='density', common_norm=True, # 整体归一化：所有组的 bin 面积总和为 1
+    stat='density', common_norm=True, # Overall normalization: the total bin area across all groups is 1
 )
 plt.show()
 ```
@@ -481,15 +484,15 @@ plt.show()
 ```{python}
 sns.histplot(
     data=df, x='flipper_length_mm', hue='island',
-    stat='density', common_norm=False, # 各组独立归一化: 每组 bin 面积之和分别为 1
+    stat='density', common_norm=False, # Separate normalization: each group's bin area sums to 1
 )
 plt.show()
 ```
 
-分组重叠不清晰时，可用 `data=df[df['列']==值]` 筛选数据，为各组分别绘图：
+When overlapping groups are difficult to read, use `data=df[df['column']==value]` to filter the data and plot each group separately:
 
 ```{python}
-# 分岛绘图，避免分组叠加，逐一观察各岛分布
+# Plot by island to avoid overlapping groups and inspect each island's distribution separately
 ax = sns.histplot(
     data=df[df['island'] == 'Torgersen'], 
     x='flipper_length_mm', stat='density'
@@ -512,24 +515,24 @@ ax.set(title='Dream Island', xlabel='Flipper Length (mm)')
 plt.show()
 ```
 
-**参考：[`sns.histplot()` 函数用法](https://seaborn.pydata.org/generated/seaborn.histplot.html)**（`hue`、`stat`、`common_norm` 参数）
+**Reference: [`sns.histplot()` documentation](https://seaborn.pydata.org/generated/seaborn.histplot.html)** (`hue`, `stat`, and `common_norm` parameters)
 
-## 3.3 箱线图
+## 3.3 Box Plot
 
-箱线图（boxplot）通过五个关键值概括数据分布：Min、Q1、Q2（中位数）、Q3、Max，并标记超出须范围的异常值。
+A box plot summarizes a distribution with five key values: min, Q1, Q2 (median), Q3, and max. It also marks outliers beyond the whisker range.
 
-- **箱体**：Q1 至 Q3，包含中间 50% 的数据。
-- **箱内线**：中位数（Q2）。
-- **须**：从 Q1/Q3 向外延伸，默认至 1.5 × IQR 范围内的极值。
-- **异常值**：超出须范围的点单独标记。
+- **Box**: from Q1 to Q3, containing the middle 50% of the data.
+- **Line inside the box**: the median (Q2).
+- **Whiskers**: extend outward from Q1 and Q3, by default to the extreme values within 1.5 * IQR.
+- **Outliers**: points beyond the whisker range, marked separately.
 
-![正态分布图 & IQR](../../../src/img/ttl/amt-dist/normal-dist.png)
+![Normal distribution and IQR](../../../src/img/ttl/amt-dist/normal-dist.png)
 
-**箱线图 vs. 直方图**
+**Box Plot vs. Histogram**
 
-![箱线图](../../../src/img/ttl/amt-dist/boxplot.png)
+![Box plot](../../../src/img/ttl/amt-dist/boxplot.png)
 
-箱线图适合快速识别分布概况与异常值；直方图适合查看具体区间内的频率分布。
+Box plots are useful for quickly identifying a distribution summary and outliers. Histograms are better for seeing the frequency distribution within specific intervals.
 
 ```{python}
 sns.boxplot(data=df, x='flipper_length_mm', y='island', hue='sex')
@@ -539,7 +542,7 @@ plt.show()
 ```{python}
 sns.boxplot(
     data=df, x='flipper_length_mm', y='island', hue='sex',
-    fliersize=8,  # fliersize: 异常点大小（默认 5）
+    fliersize=8,  # fliersize: size of outlier points (default: 5)
 )
 plt.show()
 ```
@@ -547,16 +550,16 @@ plt.show()
 ```{python}
 sns.boxplot(
     data=df, x='flipper_length_mm', y='island', hue='sex', fliersize=8,
-    whis=2,  # whisker:须延伸至 Q1/Q3 ± 2×IQR（默认 1.5），更大值减少异常点
+    whis=2,  # whisker: extend to Q1/Q3 +/- 2*IQR (default: 1.5); larger values reduce outlier points
 )
 plt.show()
 ```
 
-**参考：[`sns.boxplot()` 函数用法](https://seaborn.pydata.org/generated/seaborn.boxplot.html)**（`fliersize`、`whis` 参数）
+**Reference: [`sns.boxplot()` documentation](https://seaborn.pydata.org/generated/seaborn.boxplot.html)** (`fliersize` and `whis` parameters)
 
-## 3.4 小提琴图
+## 3.4 Violin Plot
 
-小提琴图结合了箱线图（中位数、分位数）与密度曲线（平滑分布）的特点。数据量较少时，平滑曲线可能失真，建议改用直方图或箱线图。
+A violin plot combines features of a box plot, such as medians and quantiles, with a density curve that shows the smoothed distribution. When the dataset is small, the smoothed curve may be misleading, so a histogram or box plot may be preferable.
 
 ```{python}
 sns.violinplot(data=df, y='island', x='flipper_length_mm', hue='sex')
@@ -564,32 +567,32 @@ plt.show()
 ```
 
 ```{python}
-# split=True: 将同类别的两组合并为同一小提琴，便于对比分布形态
+# split=True: combine the two hue groups in the same category into one violin for easier distribution comparison
 sns.violinplot(
     data=df, y='island', x='flipper_length_mm', hue='sex', 
-    split=True, # 将两个 hue 不同的组分布合并为同一小提琴，便于对比分布形态
+    split=True, # Combine two hue groups into one violin for easier comparison
 )
 plt.show()
 ```
 
-**参考：[`sns.violinplot()` 函数用法](https://seaborn.pydata.org/generated/seaborn.violinplot.html)**（`split` 参数）
+**Reference: [`sns.violinplot()` documentation](https://seaborn.pydata.org/generated/seaborn.violinplot.html)** (`split` parameter)
 
-## 3.5 条带图 & 蜂群图
+## 3.5 Strip Plot and Swarm Plot
 
-**条带图 (strip plot)** 绘制所有数据点 (每点圆点是一个数据点) 并随机抖动 (同一数值下的点随机沿轴向抖动, 为了避免数据点重叠), 展示数据分布情况；**蜂群图 (swarm plot)** 自动排列重叠的数据点, 可读性更高。
+**Strip plots** draw every data point, with each dot representing one observation. Points are randomly jittered along the categorical axis to reduce overlap. **Swarm plots** automatically arrange overlapping data points and are easier to read.
 
-注意：两者均展示单变量**分布**（某数据在各区间的密度），不同于展示两变量**相关趋势**的 scatter plot。
+Note that both plots show a univariate **distribution**, meaning how densely one variable appears across its range. This is different from a scatter plot, which shows the **relationship** between two variables.
 
-| 对比维度 | strip plot（散点条带图） | swarm plot（蜂群图） |
+| Comparison | Strip Plot | Swarm Plot |
 |-------------------|----------------------------|-------------------------|
-| 基本概念 | 将数据点沿分类轴随机抖动（jitter）以避免重叠 | 通过算法精确排列点，避免重叠并展示分布 |
-| 点的排列方式 | 随机抖动，可能仍有重叠 | 非随机，基于密度自动调整位置，完全避免重叠 |
-| 可读性 | 数据量小时较清晰，数据量大时容易重叠 | 在中小规模数据中更清晰展示分布形状 |
-| 计算复杂度 | 较低，绘制速度快 | 较高，数据量大时绘制较慢 |
-| 适用场景 | 快速可视化、小数据集、对精确分布要求不高 | 展示数据分布细节、中等规模数据 |
-| 分布表现能力 | 一般，难以体现真实密度 | 较强，可直观体现数据密度 |
-| 参数控制 | 可通过 `jitter` 控制抖动程度 | 无需 jitter，由算法自动调整 |
-| 示例函数 | `sns.stripplot()` | `sns.swarmplot()` |
+| Basic idea | Randomly jitter data points along the categorical axis to avoid overlap | Precisely arrange points with an algorithm to avoid overlap and show the distribution |
+| Point placement | Random jitter; overlap may still occur | Non-random; automatically adjusted by density to avoid overlap |
+| Readability | Clear for small datasets; can overlap heavily with large datasets | Clearer for showing distribution shape in small to medium datasets |
+| Computational cost | Lower and faster to draw | Higher and slower for large datasets |
+| Suitable uses | Quick visualization, small datasets, situations where exact distribution shape is less important | Showing distribution details for medium-sized datasets |
+| Distribution detail | Moderate; true density can be hard to see | Stronger; data density is easier to read visually |
+| Parameter control | Jitter can be controlled with `jitter` | No jitter needed; the algorithm adjusts placement automatically |
+| Example function | `sns.stripplot()` | `sns.swarmplot()` |
 
 ```{python}
 sns.stripplot(data=df, x='flipper_length_mm', y='island', hue='sex')
@@ -601,48 +604,48 @@ sns.swarmplot(data=df, x='flipper_length_mm', y='island', hue='sex')
 plt.show()
 ```
 
-**参考：**\
-[`sns.stripplot()` 函数](https://seaborn.pydata.org/generated/seaborn.stripplot.html)\
-[`sns.swarmplot()` 函数](https://seaborn.pydata.org/generated/seaborn.swarmplot.html)
+**References:**\
+[`sns.stripplot()` documentation](https://seaborn.pydata.org/generated/seaborn.stripplot.html)\
+[`sns.swarmplot()` documentation](https://seaborn.pydata.org/generated/seaborn.swarmplot.html)
 
-# 相关链接合集
+# Reference Links
 
-> **总体链接：**\
-> [**Python3 教程文档 (中文)**](https://docs.python.org/zh-cn/3/library/functions.html) (查看内置函数用法等)\
-> [**Pandas库 教程文档**](https://pandas.pydata.org/docs/reference/frame.html) (DataFrame)\
-> [**Matplotlib库 教程文档**](https://matplotlib.org/stable/api/pyplot_summary.html) (plt)\
-> [**Seaborn库 教程文档**](https://seaborn.pydata.org/generated/seaborn.barplot.html) (barplot)
+> **General links:**\
+> [**Python 3 documentation**](https://docs.python.org/3/library/functions.html) (for built-in functions and related usage)\
+> [**Pandas documentation**](https://pandas.pydata.org/docs/reference/frame.html) (DataFrame)\
+> [**Matplotlib documentation**](https://matplotlib.org/stable/api/pyplot_summary.html) (`plt`)\
+> [**Seaborn documentation**](https://seaborn.pydata.org/generated/seaborn.barplot.html) (`barplot`)
 >
-> [**`sns.barplot()` 函数**](https://seaborn.pydata.org/generated/seaborn.barplot.html)（用 Seaborn 绘制 柱状图）\
-> [**`sns.countplot()` 函数**](https://seaborn.pydata.org/generated/seaborn.countplot.html) （用 Seaborn 绘制 计数图）
+> [**`sns.barplot()` documentation**](https://seaborn.pydata.org/generated/seaborn.barplot.html) (drawing bar plots with Seaborn)\
+> [**`sns.countplot()` documentation**](https://seaborn.pydata.org/generated/seaborn.countplot.html) (drawing count plots with Seaborn)
 >
-> **修改图表主题风格：**\
-> [**`plt.xticks()` 函数**](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html) （ ***kwargs*** (keyword argument) 栏目中写了如何旋转刻度标签）\
-> [**`sns.set()` 函数**](https://seaborn.pydata.org/generated/seaborn.set.html) （同 `sns.set_theme()` 函数）\
-> [**`sns.set_theme()` 函数**](https://seaborn.pydata.org/generated/seaborn.set_theme.html#seaborn.set_theme) （设置 Seaborn 绘图的全局主题风格）\
-> [**`ax.set()` 方法**](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set.html) （Matplotlib 中 对于特定图表 ax 设置标题、轴标签等元素的方法）
+> **Changing chart themes:**\
+> [**`plt.xticks()` documentation**](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html) (the `kwargs` section explains how to rotate tick labels)\
+> [**`sns.set()` documentation**](https://seaborn.pydata.org/generated/seaborn.set.html) (equivalent to `sns.set_theme()`)\
+> [**`sns.set_theme()` documentation**](https://seaborn.pydata.org/generated/seaborn.set_theme.html#seaborn.set_theme) (set the global Seaborn plotting theme)\
+> [**`ax.set()` documentation**](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set.html) (set titles, axis labels, and related elements for a specific Matplotlib axes object)
 >
-> **修改图例：**\
-> [**`sns.move_legend()` 函数**](https://seaborn.pydata.org/generated/seaborn.move_legend.html) （Seaborn 中 移动图例的函数）（查看 ***obj参数*** 和 ***loc参数*** 的用法）\
-> [**`matplotlib.axes.Axes.legend()` 函数**](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html) （Matplotlib 中 设置图例的函数，其指令也适用于 `sns.move_legend()`）（查看 ***loc参数*** ，***ncols参数*** 和 ***bbox_to_anchor参数*** 的用法）
+> **Changing legends:**\
+> [**`sns.move_legend()` documentation**](https://seaborn.pydata.org/generated/seaborn.move_legend.html) (Seaborn function for moving legends; see the `obj` and `loc` parameters)\
+> [**`matplotlib.axes.Axes.legend()` documentation**](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html) (Matplotlib legend function; its options also apply to `sns.move_legend()`; see `loc`, `ncols`, and `bbox_to_anchor`)
 >
-> **修改图表颜色：**\
-> [**Seaborn `sns.color_palette()` 函数**](https://seaborn.pydata.org/generated/seaborn.color_palette.html) （查看 ***palette参数*** 预设调色盘名称表）\
-> [**Matplotlib 预命名颜色一览**](https://matplotlib.org/stable/gallery/color/named_colors.html)\
-> [**Matplotlib Colormap 一览**](https://matplotlib.org/stable/users/explain/colors/colormaps.html)\
-> [**Matplotlib Colormap 使用介绍**](https://matplotlib.org/stable/users/explain/colors/colormaps.html)\
-> [**w3schools 颜色提取器**](https://www.w3schools.com/colors/colors_picker.asp) （查看任意颜色的十六进制代码）
+> **Changing chart colors:**\
+> [**Seaborn `sns.color_palette()` documentation**](https://seaborn.pydata.org/generated/seaborn.color_palette.html) (predefined palette names for the `palette` parameter)\
+> [**Matplotlib named colors**](https://matplotlib.org/stable/gallery/color/named_colors.html)\
+> [**Matplotlib colormaps**](https://matplotlib.org/stable/users/explain/colors/colormaps.html)\
+> [**Matplotlib colormap guide**](https://matplotlib.org/stable/users/explain/colors/colormaps.html)\
+> [**w3schools color picker**](https://www.w3schools.com/colors/colors_picker.asp) (view hexadecimal codes for colors)
 >
-> **其他图表：**\
-> [**`sns.pointplot()` 函数用法**](https://seaborn.pydata.org/generated/seaborn.pointplot.html#) （点线图画法）\
-> [**`sns.histplot()` 函数用法**](https://seaborn.pydata.org/generated/seaborn.histplot.html) （频率分布直方图画法）（查看 ***hue参数*** ，***stat参数*** 和 ***common_norm参数*** ）\
-> [**`sns.boxplot()` 函数用法**](https://seaborn.pydata.org/generated/seaborn.boxplot.html) （箱线图画法） (查看 ***fliersize参数*** 和 ***whis参数*** )\
-> [**`sns.violinplot()` 函数用法**](https://seaborn.pydata.org/generated/seaborn.violinplot.html) （小提琴图画法）\
-> [**`sns.stripplot()` 函数**](https://seaborn.pydata.org/generated/seaborn.stripplot.html) （分布散点图画法）\
-> [**`sns.swarmplot()` 函数**](https://seaborn.pydata.org/generated/seaborn.swarmplot.html) （分簇分布散点图画法）
+> **Other charts:**\
+> [**`sns.pointplot()` documentation**](https://seaborn.pydata.org/generated/seaborn.pointplot.html#) (drawing point plots)\
+> [**`sns.histplot()` documentation**](https://seaborn.pydata.org/generated/seaborn.histplot.html) (drawing histograms; see `hue`, `stat`, and `common_norm`)\
+> [**`sns.boxplot()` documentation**](https://seaborn.pydata.org/generated/seaborn.boxplot.html) (drawing box plots; see `fliersize` and `whis`)\
+> [**`sns.violinplot()` documentation**](https://seaborn.pydata.org/generated/seaborn.violinplot.html) (drawing violin plots)\
+> [**`sns.stripplot()` documentation**](https://seaborn.pydata.org/generated/seaborn.stripplot.html) (drawing distribution scatter plots)\
+> [**`sns.swarmplot()` documentation**](https://seaborn.pydata.org/generated/seaborn.swarmplot.html) (drawing clustered distribution scatter plots)
 >
-> **教材书 *Fundamentals of Data Visualization* (Wilke, 2019) ：**\
-> [**6.1 Bar Plot**](https://clauswilke.com/dataviz/visualizing-amounts.html#bar-plots) (旋转的文字刻度不方便阅读，应当横过来排版)\
-> [**17. The Principle of Proportional Ink**](https://clauswilke.com/dataviz/proportional-ink.html) （比例标记的原则：图形大小比例应当和数据真实的比例一样。e.g. 柱状图的柱子应当从 0 开始）
+> **Textbook: *Fundamentals of Data Visualization* (Wilke, 2019):**\
+> [**6.1 Bar Plot**](https://clauswilke.com/dataviz/visualizing-amounts.html#bar-plots) (rotated tick labels are harder to read; a horizontal layout is preferable)\
+> [**17. The Principle of Proportional Ink**](https://clauswilke.com/dataviz/proportional-ink.html) (the proportions of graphical marks should match the true proportions in the data; for example, bars in a bar plot should start from 0)
 
-[⇧ 返回页面顶部](#)
+[⇧ Back to top](#)
