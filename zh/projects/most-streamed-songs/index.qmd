@@ -18,7 +18,7 @@ description: '对 2023 年 Spotify 最高播放量歌曲进行探索性分析，
 ---
 
 ```{r eval=FALSE, include=TRUE}
-#| code-summary: 'Environment & Versions'
+#| code-summary: '环境与版本'
 R==4.5.2
 plotly==4.12.0
 sampling==2.11
@@ -51,7 +51,7 @@ knitr::opts_chunk$set(
 在正式分析前，数据集首先从 Kaggle 网站下载并存储至本地文件夹，随后使用 `read.csv()` 函数导入 R。以下展示了导入后数据集作为 DataFrame 对象的结构。
 
 ```{r}
-# import dataset
+# 导入数据集
 spotify_data <- read.csv("../../../src/data/spotify-2023.csv")
 str(spotify_data)
 ```
@@ -61,19 +61,19 @@ str(spotify_data)
 以下展示了数据集的初步概览，包括样本量（N = 953）及是否存在缺失值（使用 `anyNA()` 函数获取缺失值信息）。
 
 ```{r}
-# attach packages
+# 加载包
 library(readr)
 library(tidyverse)
 library(sampling)
 library(plotly)
 
-# change dataframe to tibble
+# 将 dataframe 转换为 tibble
 df <- tibble(spotify_data)
 
-# sample size
+# 样本量
 cat("Sample Size:", nrow(df), '\n')
 
-# check na
+# 检查缺失值
 cat("Whether there is NA:", anyNA(df), "\n")
 ```
 
@@ -82,14 +82,14 @@ cat("Whether there is NA:", anyNA(df), "\n")
 如下所示，*streams* 变量的数据类型为字符型，而播放量应为数值型而非字符串，因此需要进行类型转换。
 
 ```{r}
-# view structure
+# 查看结构
 str(df["streams"])
 ```
 
 在将数据类型转换为数值型之前，首先检查是否存在无法识别为数值的非法字符串，使用正则表达式进行数据筛选。结果显示，有 1 条观测的播放量值无效。
 
 ```{r}
-# view invalid values
+# 查看无效值
 cat("Invalid Streams: \n\n")
 df |>
   select(streams) |>
@@ -99,18 +99,18 @@ df |>
 随后，仅保留播放量有效的观测，并将数据类型转换为数值型。以下展示了转换后缺失值的情况及变量结构。
 
 ```{r}
-# keep only valid values
+# 仅保留有效值
 df <- df |>
   filter(str_detect(streams, "^[1-9][0-9]*"))
 
-# coerce datatype to numeric
+# 将数据类型强制转换为数值型
 df <- df |>
   mutate(streams = as.numeric(streams))
 
-# check if there are NA in streams after coercion
+# 检查类型转换后 streams 中是否存在 NA
 cat("Whether there is NA in streams:", anyNA(df$streams), "\n\n")
 
-# new structure
+# 新结构
 str(df["streams"])
 ```
 
@@ -119,7 +119,7 @@ str(df["streams"])
 同样，Deezer 播放列表收录次数变量的原始类型也为字符型。再次使用 `str_detect()` 检查是否存在格式无效的数值。结果显示，存在若干逗号分隔格式的数值，且无其他格式的无效数值，因此在类型转换前需进行进一步处理。
 
 ```{r}
-# view values that are not 0 or pure numbers
+# 查看不是 0 或纯数字的值
 cat("Non-Number Values:\n\n")
 df |>
   select(in_deezer_playlists) |>
@@ -127,7 +127,7 @@ df |>
 ```
 
 ```{r}
-# appnly new pattern: comma-separated number
+# 应用新模式：逗号分隔的数字
 cat("Neither Pure Number Nor Comma-Separated:\n\n")
 df |>
   select(in_deezer_playlists) |>
@@ -139,15 +139,15 @@ df |>
 将所有逗号替换为空字符串后，对变量进行数值类型转换，并检查转换后是否存在缺失值。结果显示无缺失值。
 
 ```{r}
-# replace comma with empty string
+# 将逗号替换为空字符串
 df <- df |>
   mutate(in_deezer_playlists = str_replace_all(in_deezer_playlists, ",", ""))
 
-# coerce datatype to numeric
+# 将数据类型强制转换为数值型
 df <- df |>
   mutate(in_deezer_playlists = as.numeric(in_deezer_playlists))
 
-# check if there are NA after coersion in streams
+# 检查类型转换后是否存在 NA
 cat("Whether there is NA in in_deezer_playlists:",
     anyNA(df$in_deezer_playlists), "\n"
     )
@@ -158,14 +158,14 @@ cat("Whether there is NA in in_deezer_playlists:",
 对于*调性*变量，首先检查其所有类别。结果显示存在无调性信息的空字符串，因此删除这些无调性信息的歌曲。删除后再次检查类别以确保数据有效。
 
 ```{r}
-# check categories of the key variable
+# 检查 key 变量的类别
 cat("Categories of Key:\n")
 unique(df$key)
 
-# remove rows with empty key
+# 删除 key 为空的行
 df <- df[df$key != "", ]
 
-# check again after removal
+# 删除后再次检查
 cat("\nCategories After Removal:\n")
 unique(df$key)
 ```
@@ -177,7 +177,7 @@ unique(df$key)
 如下饼图所示，本数据集中两种音乐调式的占比相对均衡。具体而言，大调占比 55.3%，小调紧随其后，占比 44.7%。10.6% 的差距表明，通常与明亮情感特质相关的大调歌曲更为普遍，但小调歌曲仍占据相当比例。
 
 ```{r}
-# pie chart
+# 饼图
 plot_ly(
   as.data.frame(table(df["mode"])),
   labels = ~mode, values = ~Freq, type = "pie",
@@ -187,7 +187,7 @@ plot_ly(
     line = list(width = 2))
 ) |>
   layout(
-    title = "Distribution of Music Mode", showlegend = FALSE,
+    title = list(y = 0.9, text = "音乐调式分布"), showlegend = FALSE,
     margin = list(t = 80, l = 60, r = 60)
   )
 ```
@@ -197,7 +197,7 @@ plot_ly(
 在 BPM（每分钟拍数）方面，如下直方图所示，其分布在 110–130 BPM 附近达到峰值。大多数歌曲的 BPM 介于 90 到 150 之间，表明大众偏好适中节奏的音乐。
 
 ```{r}
-# BPM distribution
+# BPM 分布
 plot_ly(
   df, x = ~bpm, type = "histogram",
   marker = list(
@@ -205,16 +205,17 @@ plot_ly(
   )
 ) |>
   layout(
-    title = "BPM Distribution",
+    margin = list(t = 80),
+    title = list(y = 0.9, text = "BPM 分布"),
     xaxis = list(
-      title = "Beats Per Minute (BPM)",
+      title = "每分钟拍数（BPM）",
       linewidth = 2,
       dtick = 20,
       ticks = "outside",
       ticklen = 5,
       tickwidth = 1
     ),
-    yaxis = list(title = "Frequency")
+    yaxis = list(title = "频数")
   )
 ```
 
@@ -225,26 +226,26 @@ plot_ly(
 如下条形图所示，在播放量方面，C# 为最受欢迎的调性，平均播放量最高（约 6 亿次）。E 位居第二，D# 与 A# 均值相近紧随其后。D 在前五中最低。总体而言，各调性之间的差异较为适中，表明这些调性在流行度上较为均衡。
 
 ```{r}
-# find keys with top 5 mean stream
+# 找出平均播放量最高的前五个调性
 top5_key <- df |>
   group_by(key) |>
   summarize(mean_streams = mean(streams), .groups = "drop") |>
   arrange(desc(mean_streams)) |>
   head(5) |>
-  mutate(key = reorder(key, -mean_streams))  # make key factor
+  mutate(key = reorder(key, -mean_streams))  # 将 key 转换为因子
 ```
 
 ```{r}
-# barplot
+# 条形图
 plot_ly(
   top5_key, x = ~key, y = ~mean_streams, type = "bar",
   marker = list(color = "mediumaquamarine")
 ) |>
   layout(
-    title = "Top 5 Popular Keys",
-    xaxis = list(title = "Key", linewidth = 2, range = c(-0.8, 4.8)),
-    yaxis = list(title = list(text = "Mean Streams", standoff = 10)),
-    margin = list(l = 80, r = 20)
+    title = list(y = 0.9, text = "最受欢迎的前五个调性"),
+    xaxis = list(title = "调性", linewidth = 2, range = c(-0.8, 4.8)),
+    yaxis = list(title = list(text = "平均播放量", standoff = 10)),
+    margin = list(t = 80, l = 80, r = 20)
   )
 ```
 
@@ -253,7 +254,7 @@ plot_ly(
 箱线图展示了不同*调式*类别下*情绪效价*（valence）的分布。小调歌曲的情绪效价中位数（54）略高于大调歌曲（48），两者的分布范围较宽，变异程度相似，四分位距存在重叠。尽管小调的平均情绪效价略高，但大量重叠表明单凭调式并不能强烈预测情绪效价。
 
 ```{r}
-# boxplot
+# 箱线图
 plot_ly(
   df, x = ~mode, y = ~valence_., type = "box",
   fillcolor = "thistle",
@@ -261,9 +262,13 @@ plot_ly(
 ) |>
 
   layout(
-    title = "Valence Distribution by Mode",
-    xaxis = list(title = "Music Mode"),
-    yaxis = list(title = "Valence")
+    margin = list(t = 80),  # 顶部边距
+    title = list(
+      y = 0.9,
+      text = "不同调式的情绪效价分布"
+    ),
+    xaxis = list(title = "音乐调式"),
+    yaxis = list(title = "情绪效价")
   )
 ```
 
@@ -272,16 +277,20 @@ plot_ly(
 如下散点图展示了歌曲在 Spotify 与 Deezer 播放列表中收录次数的关系，呈现出正相关趋势。随着歌曲在一个平台上播放量的增加，在另一个平台上的出现频率也随之提升。总体而言，数据最集中于 Spotify 收录次数 1 万以下、Deezer 收录次数 2 千以下的区间，少数高表现的异常值在 Spotify 超过 5 万次、Deezer 超过 1.2 万次。
 
 ```{r}
-# scatter plot
+# 散点图
 plot_ly(df, x = ~in_spotify_playlists) |>
   add_markers(
     y = ~in_deezer_playlists,
     marker = list(color = "salmon", opacity = 0.6)
   ) |>
   layout(
-    title = "Relationship Between Presence in Spotify and Deezer Playlists",
-    xaxis = list(title = "Presence Counts in Spotify Playlists"),
-    yaxis = list(title = "Presence Counts in Deezer Playlists")
+    margin = list(t = 80),
+    title = list(
+      y = 0.9,
+      text = "Spotify 与 Deezer 播放列表收录次数的关系"
+    ),
+    xaxis = list(title = "Spotify 播放列表收录次数"),
+    yaxis = list(title = "Deezer 播放列表收录次数")
   )
 ```
 
@@ -296,27 +305,27 @@ plot_ly(df, x = ~in_spotify_playlists) |>
 综上，本节结果与中心极限定理的预测一致。
 
 ```{r}
-# define variables
-sizes <- c(10, 20, 30, 40) # sample sizes
-sample_means <- numeric(1000) # sample means
-means_sample_means <- numeric(length(sizes)) # means of sample means
-sds_sample_means <- numeric(length(sizes)) # SDs of sample means
-p <- list() # plots
+# 定义变量
+sizes <- c(10, 20, 30, 40) # 样本量
+sample_means <- numeric(1000) # 样本均值
+means_sample_means <- numeric(length(sizes)) # 样本均值的均值
+sds_sample_means <- numeric(length(sizes)) # 样本均值的标准差
+p <- list() # 图形
 
-# replicate sampling 1000 times
+# 重复抽样 1000 次
 set.seed(123)
 for (i in 1:length(sizes)) {
 
-  # draw sample & calculate means
+  # 抽取样本并计算均值
   sample_means <- replicate(
     1000, mean(sample(df$bpm, size = sizes[i], replace = TRUE), na.rm = TRUE)
   )
 
-  # store mean & SD of sample means
+  # 存储样本均值的均值与标准差
   means_sample_means[i] <- mean(sample_means, na.rm = TRUE)
   sds_sample_means[i] <- sd(sample_means, na.rm = TRUE)
 
-  # store plot information
+  # 存储图形信息
   p[[i]] <- plot_ly(
     x = sample_means, type = "histogram",
     xbins = list(size = 2),
@@ -335,21 +344,21 @@ for (i in 1:length(sizes)) {
     )
 }
 
-# show plots
+# 显示图形
 subplot(p, nrows = 2, margin = 0.1, titleX = TRUE) |>
   layout(
-    title = "Sample Mean Distributions of BPM",
+    title = list(y = 0.9, text = "BPM 样本均值分布"),
     showlegend = FALSE,
-    margin = list(t = 40)
+    margin = list(t = 80)
   )
 ```
 
 ```{r}
-# population mean & SD
+# 总体均值与标准差
 pop_mean <- mean(df$bpm, na.rm = TRUE)
 pop_sd <- sd(df$bpm, na.rm = TRUE)
 
-# show results
+# 显示结果
 cat(paste("Population Mean:", round(pop_mean, 2)), "\n")
 cat(paste("Population SD:", round(pop_sd, 2)), "\n\n")
 cat("Means of Sample Means:\n")
@@ -372,7 +381,7 @@ cat(paste0(
 本节使用并比较三种抽样方法：有放回的简单随机抽样、以 *bpm* 为概率的不等概率系统抽样，以及按 *mode* 分层的无放回分层抽样。样本量设定为 100，并使用 *sampling* 包中的函数进行抽样。
 
 ```{r}
-# simple random sampling with replacement
+# 有放回简单随机抽样
 n <- 100
 set.seed(123)
 s <- srswr(n, nrow(df))
@@ -381,20 +390,20 @@ rows <- rep(rows, s[s!=0])
 sample1 <- df[rows, ]
 
 
-# systematic sampling with unequal probability
+# 不等概率系统抽样
 set.seed(123)
-pik <- inclusionprobabilities(df$bpm, n) # prob by bpm
+pik <- inclusionprobabilities(df$bpm, n) # 以 bpm 计算抽中概率
 s <- UPsystematic(pik)
 sample2 <- df[s!= 0, ]
 
 
-# stratified sampling without replacement
-# set stratums by mode
+# 无放回分层抽样
+# 按 mode 设置层
 order_index <- order(df$mode)
 data <- df[order_index, ]
 prop_table <- table(data$mode) / nrow(data)
 sizes <- round(prop_table * n)
-# sampling
+# 抽样
 set.seed(32)
 st <- sampling::strata(
   data, stratanames = "mode", size = sizes, method = "srswor"
@@ -408,7 +417,7 @@ sample3 <- sampling::getdata(data, st)
 以下展示了从每个样本和总体中计算出的调式类别比例。如结果所示，分层抽样方法在预测总体调式比例方面表现最佳，因为它在抽样前根据调式类别划定层次。相比之下，简单随机抽样的表现最差，这可能是由于其随机性较强、缺乏分层抽样那样的结构性规律。此外，系统抽样的预测效果居中，优于简单随机抽样但不及分层抽样。这可能源于系统抽样按固定间隔抽取样本，样本在数据集中分布相对均匀，有助于提高类别属性比例的准确性；与此同时，以 *bpm* 为基础的不等概率选取也可能影响 *mode* 比例的分布规律。
 
 ```{r}
-# proportions of modes
+# 调式比例
 cat("Proportion of Modes in Population:")
 (pct0 <- round(table(df$mode) / nrow(df), 2)); cat("\n")
 

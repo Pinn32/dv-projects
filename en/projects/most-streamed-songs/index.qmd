@@ -187,7 +187,8 @@ plot_ly(
     line = list(width = 2))
 ) |> 
   layout(
-    title = "Distribution of Music Mode", showlegend = FALSE,
+    title = list(y = 0.9, text = "Distribution of Music Mode"),
+    showlegend = FALSE,
     margin = list(t = 80, l = 60, r = 60)
   )
 ```
@@ -205,7 +206,8 @@ plot_ly(
   )
 ) |> 
   layout(
-    title = "BPM Distribution",
+    margin = list(t = 80),
+    title = list(y = 0.9, text = "BPM Distribution"),
     xaxis = list(
       title = "Beats Per Minute (BPM)",
       linewidth = 2,
@@ -241,10 +243,10 @@ plot_ly(
   marker = list(color = "mediumaquamarine")
 ) |> 
   layout(
-    title = "Top 5 Popular Keys",
+    title = list(y = 0.9, text = "Top 5 Popular Keys"),
     xaxis = list(title = "Key", linewidth = 2, range = c(-0.8, 4.8)),
     yaxis = list(title = list(text = "Mean Streams", standoff = 10)),
-    margin = list(l = 80, r = 20)
+    margin = list(t = 80, l = 80, r = 20)
   )
 ```
 
@@ -261,7 +263,8 @@ plot_ly(
 ) |> 
   
   layout(
-    title = "Valence Distribution by Mode",
+    margin = list(t = 80),
+    title = list(y = 0.9, text = "Valence Distribution by Mode"),
     xaxis = list(title = "Music Mode"),
     yaxis = list(title = "Valence")
   )
@@ -279,7 +282,11 @@ plot_ly(df, x = ~in_spotify_playlists) |>
     marker = list(color = "salmon", opacity = 0.6)
   ) |> 
   layout(
-    title = "Relationship Between Presence in Spotify and Deezer Playlists",
+    margin = list(t = 80),
+    title = list(
+      y = 0.9,
+      text = "Relationship Between Presence in Spotify and Deezer Playlists"
+    ),
     xaxis = list(title = "Presence Counts in Spotify Playlists"),
     yaxis = list(title = "Presence Counts in Deezer Playlists")
   )
@@ -338,9 +345,9 @@ for (i in 1:length(sizes)) {
 # show plots
 subplot(p, nrows = 2, margin = 0.1, titleX = TRUE) |> 
   layout(
-    title = "Sample Mean Distributions of BPM",
+    title = list(y = 0.9, text = "Sample Mean Distributions of BPM"),
     showlegend = FALSE,
-    margin = list(t = 40)
+    margin = list(t = 80)
   )
 ```
 
