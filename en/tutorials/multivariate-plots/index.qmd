@@ -1,76 +1,76 @@
 ---
-title: '多变量图表 Multivariate Plots'
+title: 'Multivariate Plots'
 author: 'Pinn Xu'
-date: ''
+date: '2024-10-27'
 categories: ["Python", "Visualization", "Multivariate Plots", "FacetGrid", "Scatter Plot", "Line Plot", "Heatmap", "2D Histogram", "Joint Plot", "Pair Plot"]
-description: "本教程介绍如何使用 Seaborn 库绘制散点图、折线图、热力图、二维直方图、双变量图和配对图等常见的多变量可视化图表，并通过调整参数实现更清晰的信息传达。"
+description: 'This tutorial introduces how to use the Seaborn library to create common multivariate visualizations, including scatter plots, line plots, heatmaps, 2D histograms, joint plots, and pair plots, and how to adjust parameters for clearer data communication.'
 code-fold: false
 number-sections: true
 order: 3
 ---
 
-# 多变量数据
+# Multivariate Data
 
-**"tidy/flat" 的表格数据:** 每行为一个 **observation** (或 instance、record) ，每列为一个 **variable** (变量，也称 attribute、feature、parameter) 。
+**"Tidy/flat" tabular data:** Each row is one **observation** (also called instance or record), and each column is one **variable** (also called attribute, feature, or parameter).
 
-通常，**multivariate** (多变量) 用于描述变量超过两个的数据，即，multivariate plot 通常使用了原 DataFrame 中三个或三个以上的列作为数据。
+Typically, **multivariate** refers to data with more than two variables — a multivariate plot generally uses three or more columns from the original DataFrame.
 
-绘制柱状图时，除了 x、y 两个变量之外，还可以设置 `hue` 参数，从而绘制包含三个变量的柱状图。比如 @fig-bar-variables 中包含了 `'island'`、`'body_mass_g'`、`'sex'` 三个变量。
+When creating a bar chart, in addition to the x and y variables, you can also set the `hue` parameter to include a third variable. For example, @fig-bar-variables includes three variables: `'island'`, `'body_mass_g'`, and `'sex'`.
 
 ```{python}
-# 导入库
+# import libraries
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 ```
 
 ```{python}
-# 从 Seaborn 加载示例数据集
+# load example dataset from Seaborn
 df = sns.load_dataset('penguins')
 ```
 
 ```{python}
 #| label: fig-bar-variables
-#| fig-cap: "包含三个变量的柱状图"
+#| fig-cap: "Bar chart with three variables"
 sns.barplot(df, x='island', y='body_mass_g', hue='sex')
 plt.show()
 ```
 
-然而，有的图表类型不支持同时设置 `x`、`y` 和 `hue` 三个参数。比如直方图只支持 `x` 和 `hue` (见 @fig-histogram-variables) x 轴展示鳍长的分布区间，y 轴展示每个区间内的企鹅数量，只涉及两个变量。
+However, some chart types do not support setting `x`, `y`, and `hue` all at once. For example, a histogram only supports `x` and `hue` (see @fig-histogram-variables): the x-axis shows distribution intervals of flipper length, and the y-axis shows the number of penguins in each interval, involving only two variables.
 
 ```{python}
 #| label: fig-histogram-variables
-#| fig-cap: "包含两个变量的直方图"
+#| fig-cap: "Histogram with two variables"
 sns.histplot(data=df, x='flipper_length_mm', hue='island')
 plt.show()
 ```
 
-# 分面网格
+# Facet Grid
 
-分面网格 (facetgrid) 是展示多元变量的常用方法。若干个小图表 (分面，facet) 以网格状排列，组成分面网格 (facetgrid) 。如果既想展示直方图，又想展示两个以上变量，可以使用分面网格。
+A facet grid (FacetGrid) is a common method for displaying multivariate data. Several small charts (facets) are arranged in a grid to form a facet grid. If you want to display a histogram while also showing more than two variables, you can use a facet grid.
 
-通过 Seaborn 绘制分面网格的方法如下：
+The method for creating a facet grid with Seaborn is as follows:
 
 ```{python}
 #| label: fig-empty-facetgrid
-#| fig-cap: "空的 3×2 分面网格"
-# 创建空的分面网格
+#| fig-cap: "Empty 3×2 facet grid"
+# create an empty facet grid
 g = sns.FacetGrid(
     data=df,
-    col='sex',    # 'sex' 有多少种，就生成多少列
-    row='island', # 'island' 有三个值，生成三行
+    col='sex',    # creates one column per unique value of 'sex'
+    row='island', # 'island' has three values, creating three rows
 )
 plt.show()
 ```
 
-如 @fig-empty-facetgrid，我们创建了一个 3×2 的分面网格，但此时只有网格，还需要通过 `.map_dataframe()` 方法来指定填充内容。
+As shown in @fig-empty-facetgrid, we created a 3×2 facet grid, but it is currently empty. Use the `.map_dataframe()` method to specify the content to fill in.
 
 ```{python}
 #| label: fig-filled-facetgrid
-#| fig-cap: "填充后的分面网格"
-# 填充完整分面网格
+#| fig-cap: "Filled facet grid"
+# fill the complete facet grid
 
-# 第一步：创建分面网格
+# Step 1: create facet grid
 g = sns.FacetGrid(
     data=df,
     col='sex',
@@ -78,103 +78,103 @@ g = sns.FacetGrid(
     hue='species',
 )
 
-# 第二步：填充直方图
+# Step 2: fill with histograms
 g.map_dataframe(
     sns.histplot,
     x='flipper_length_mm',
-    stat='density',    # 各组 bar 面积之和为 1
-    common_norm=False, # 每个分面内各颜色分别归一化
+    stat='density',    # sum of bar areas equals 1 for each group
+    common_norm=False, # each color normalized independently within each facet
 )
 
-# 第三步：添加并调整图例
+# Step 3: add and adjust legend
 g.add_legend()
 sns.move_legend(
     g,
     loc='lower center',
     bbox_to_anchor=(0.5, 1),
-    ncol=3,  # 图例列数
+    ncol=3,  # number of legend columns
 )
 plt.show()
 ```
 
-**stat 与 common_norm**  
-`stat='density'` 用频率密度统计绘图，使直方图内所有 bar 的面积之和为 1。`common_norm=False` 配合 `stat` 使用，表示在同一分面中，每种颜色的 bar 面积之和分别为 1，而非所有颜色的 bar 面积总和为 1。
+**stat and common_norm**
+`stat='density'` uses frequency density for plotting, so the total area of all bars in the histogram sums to 1. `common_norm=False` is used alongside `stat`, meaning each color's bars within the same facet are normalized independently, rather than all colors being normalized together.
 
-**loc 与 bbox_to_anchor**  
-同时设置两个参数，让图例的下边缘中点 (lower center) 位于整个网格图的 (0.5, 1) 位置。如果只设置 `loc='lower center'`，图例将直接定位于整个网格图的中下部。
+**loc and bbox_to_anchor**
+Setting both parameters together positions the lower-center edge of the legend at coordinates (0.5, 1) of the entire grid figure. If only `loc='lower center'` is set, the legend will be placed at the lower center of the grid figure directly.
 
-如 @fig-filled-facetgrid ，分面网格按岛屿分行、按性别分列、按种类分色，同时展示了四个变量 (鳍长、岛屿、性别、种类) 。通过分行和分列可以额外增加两个离散型变量；通过颜色区分还可再增加一个离散型变量。
+As shown in @fig-filled-facetgrid, the facet grid separates rows by island, columns by sex, and colors by species, simultaneously displaying four variables (flipper length, island, sex, species). Splitting by rows and columns allows two additional discrete variables; color differentiation can add one more discrete variable.
 
-> 注：由于分行和分列的特性，分面网格只能用于额外增加离散型变量。若要对连续型变量分面，可先将其划分区间，保存为新的离散型变量列，再用分面网格进行分行或分列。
+> Note: Because of how rows and columns work, facet grids can only add discrete variables. To facet by a continuous variable, first bin it into intervals and save as a new discrete variable column, then use the facet grid for row or column splitting.
 
-**刻度范围一致性**  
-同时展示多个子图时，每个子图的刻度范围应当相同，因为读者往往默认多图的刻度范围一致，不一致会造成误判 [ (Wilke, 2019, pp. 257-258) ](https://clauswilke.com/dataviz/multi-panel-figures.html#small-multiples)。
+**Consistent Axis Ranges**
+When displaying multiple subplots together, each subplot should have the same axis range, because readers tend to assume that axis ranges are consistent across panels — inconsistency can lead to misinterpretation [(Wilke, 2019, pp. 257-258)](https://clauswilke.com/dataviz/multi-panel-figures.html#small-multiples).
 
-@fig-ba-degrees-variable-y-lims 中各子图纵坐标刻度范围各不相同，容易让人误判。将其改为 @fig-ba-degrees-fixed-y-lims 这样所有刻度范围都相同，可减少阅读困难。
+In @fig-ba-degrees-variable-y-lims, each subplot has a different y-axis range, which is easy to misread. Changing to @fig-ba-degrees-fixed-y-lims with consistent axis ranges across all subplots reduces reading difficulty.
 
-[![反面案例: 刻度范围不同 (Wilke, 2019, p. 258)](https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-variable-y-lims-1.png){#fig-ba-degrees-variable-y-lims fig-alt="差的多图刻度范围 (Wilke, 2019, p. 258)"}](https://clauswilke.com/dataviz/multi-panel-figures.html#fig:BA-degrees-variable-y-lims)
+[![Counter-example: inconsistent axis ranges (Wilke, 2019, p. 258)](https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-variable-y-lims-1.png){#fig-ba-degrees-variable-y-lims fig-alt="Bad multi-panel axis ranges (Wilke, 2019, p. 258)"}](https://clauswilke.com/dataviz/multi-panel-figures.html#fig:BA-degrees-variable-y-lims)
 
-[![改良版: 统一刻度范围 (Wilke, 2019, p. 259)](https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-fixed-y-lims-1.png){#fig-ba-degrees-fixed-y-lims fig-alt="改良版多图刻度范围 (Wilke, 2019, p. 259)"}](https://clauswilke.com/dataviz/multi-panel-figures.html#fig:BA-degrees-fixed-y-lims)
+[![Improved version: consistent axis ranges (Wilke, 2019, p. 259)](https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-fixed-y-lims-1.png){#fig-ba-degrees-fixed-y-lims fig-alt="Improved multi-panel axis ranges (Wilke, 2019, p. 259)"}](https://clauswilke.com/dataviz/multi-panel-figures.html#fig:BA-degrees-fixed-y-lims)
 
-# 散点图
+# Scatter Plot
 
-## 区分散点图和点图
+## Distinguishing Scatter Plots from Point Plots
 
-在画散点图之前，需要注意区分 **散点图 (scatter plot)** 和 **点图(point plot)**。
+Before creating scatter plots, it is important to distinguish between **scatter plots** and **point plots**.
 
-> 注：点图又称 dot plot [(Wilke, 2019, p.43)](https://clauswilke.com/dataviz/directory-of-visualizations.html#directory-uncertainty)。以下对散点图与点图的区别的理解均基于 Seaborn 库，在其他语境下可能有所不同。
+> Note: Point plots are also called dot plots [(Wilke, 2019, p.43)](https://clauswilke.com/dataviz/directory-of-visualizations.html#directory-uncertainty). The following distinction between scatter plots and point plots is based on the Seaborn library and may differ in other contexts.
 
-**点图 (point plot) ** 可以起到类似柱状图的作用：点图中每个点所在的竖线相当于柱状图的 bar，点相当于柱状图中每个 bar 的顶边缘中点。像柱状图一样，点图可以用于展示 category-amount 型图表 (见 @fig-pointplot-category-amount 和 @fig-barplot-category-amount) ：
+**A point plot** can function similarly to a bar chart: the vertical line at each point is equivalent to a bar in a bar chart, and the point corresponds to the midpoint of the top edge of each bar. Like a bar chart, a point plot can be used for category-amount charts (see @fig-pointplot-category-amount and @fig-barplot-category-amount):
 
 ```{python}
 #| label: fig-pointplot-category-amount
-#| fig-cap: "点图: 企鹅种类-喙长 (黑线为误差线)"
+#| fig-cap: "Point plot: penguin species vs. bill length (black lines are error bars)"
 sns.pointplot(
     data=df, x='species', y='bill_length_mm',
-    linestyles='none',  # 点与点之间不连线
+    linestyles='none',  # no lines connecting points
 )
 plt.show()
 ```
 
 ```{python}
 #| label: fig-barplot-category-amount
-#| fig-cap: "柱状图: 企鹅种类-喙长 (黑线为误差线)"
+#| fig-cap: "Bar chart: penguin species vs. bill length (black lines are error bars)"
 sns.barplot(data=df, x='species', y='bill_length_mm')
 plt.show()
 ```
 
-如 @fig-pointplot-category-amount 和 @fig-barplot-category-amount 所示，点图和柱状图都可以表示 类型-数量 (category-amount) 关系。二者区别之一是：柱状图的 数量 (amount) 必须从 0 开始，而点图不需要。点图和柱状图都只展示纵坐标的平均值 (也可设置为其他统计值，如中位数) ，每个横坐标值只能对应一个纵坐标值。
+As shown in @fig-pointplot-category-amount and @fig-barplot-category-amount, both point plots and bar charts can represent category-amount relationships. One key difference is that the amount axis in a bar chart must start at 0, while a point plot does not. Both point plots and bar charts only show the mean of the y-axis values (or other statistics such as the median), with each x-axis value corresponding to only one y-axis value.
 
-**散点图 (scatter plot) ** 会显示每一个数据点 (见 @fig-scatterplot-category-amount) ：
+**A scatter plot** displays every individual data point (see @fig-scatterplot-category-amount):
 
 ```{python}
 #| label: fig-scatterplot-category-amount
-#| fig-cap: "散点图: 类型-数量 (显示所有数据点，而非平均值)"
+#| fig-cap: "Scatter plot: category-amount (shows all data points, not averages)"
 sns.scatterplot(data=df, x='species', y='bill_length_mm')
 plt.show()
 ```
 
-散点图中每个横坐标可以对应多个纵坐标，而点图中每个横坐标只对应一个纵坐标。
+In a scatter plot, each x-axis value can correspond to multiple y-axis values, while in a point plot each x-axis value corresponds to only one y-axis value.
 
-散点图常用于探究两个 (或多个) 变量之间的关系 (relationship) ，查看变量间是否存在关联性 (correlation) ，主要用于探究两种连续数值型数据之间的关系。因此散点图横轴通常为 ratio data，刻度自动显示为连续数值区间 (见 @fig-scatterplot-ratio-ratio) ：
+Scatter plots are commonly used to explore the relationship between two (or more) variables and to examine whether correlations exist, primarily between two continuous numeric variables. The x-axis of a scatter plot is therefore usually ratio data, with tick marks automatically displayed as a continuous numeric range (see @fig-scatterplot-ratio-ratio):
 
 ```{python}
 #| label: fig-scatterplot-ratio-ratio
-#| fig-cap: "散点图: 企鹅喙长-喙深 (ratio-ratio)"
+#| fig-cap: "Scatter plot: penguin bill length vs. bill depth (ratio-ratio)"
 sns.scatterplot(
     data=df, x='bill_length_mm', y='bill_depth_mm',
-    alpha=0.7,  # 半透明，便于观察点的堆积
+    alpha=0.7,  # semi-transparent to reveal point clustering
 )
 plt.show()
 ```
 
-> 注：设置半透明有助于观察点的堆积，但若已使用渐变颜色区分某变量 (如 @fig-scatter-continuous-variables) ，则不宜再使用半透明。
+> Note: Using transparency helps reveal point clustering, but if a gradient color is already used to differentiate a variable (as in @fig-scatter-continuous-variables), transparency should not be applied.
 
-**点图 (point plot) ** 使用 ratio data 作横轴时，每个点会对应一个特定刻度，效果如 @fig-pointplot-ratio-ratio 所示:
+When a **point plot** uses ratio data as the x-axis, each point maps to a specific tick mark, as shown in @fig-pointplot-ratio-ratio:
 
 ```{python}
 #| label: fig-pointplot-ratio-ratio
-#| fig-cap: "点图: 使用 ratio 变量作横轴"
+#| fig-cap: "Point plot: ratio variable on x-axis"
 sns.pointplot(
     data=df, x='bill_length_mm', y='bill_depth_mm',
     linestyle='none', errorbar=None, alpha=0.7,
@@ -182,31 +182,31 @@ sns.pointplot(
 plt.show()
 ```
 
-> 注：虽然 @fig-scatterplot-ratio-ratio 和 @fig-pointplot-ratio-ratio 点的分布看似相似，但点图中每个横坐标有且仅有一个对应的点，散点图可以对应多个。此外，`sns.pointplot()` 不支持调整点的大小，`sns.scatterplot()` 支持。
+> Note: Although the point distribution in @fig-scatterplot-ratio-ratio and @fig-pointplot-ratio-ratio looks similar, each x-axis value in a point plot has exactly one corresponding point, while a scatter plot can have multiple. Also, `sns.pointplot()` does not support adjusting point size, while `sns.scatterplot()` does.
 
-因此，**点图不适用于横坐标为连续型数据且刻度过多**的情况，更**适用于横坐标为离散型数据**且刻度不宜过多的场景。**散点图** 则相反，更适用于 ratio-ratio 数据。
+Therefore, **point plots are not suitable when the x-axis is continuous data with too many tick marks**; they work best **when the x-axis is discrete data** with a limited number of categories. **Scatter plots** are the opposite — better suited for ratio-ratio data.
 
-点图的另一个特点是点与点之间可以连线，适用于横轴为 ordinal 或 interval data 的情况。比如 @fig-pointplot-interval-ratio 中年份为 interval data，连线可以表示乘客量随年份的变化趋势；而 @fig-pointplot-category-amount 中横坐标为企鹅种类 (nominal data) ，顺序没有意义，因此不画连线。
+Another feature of point plots is that points can be connected with lines, which is appropriate when the x-axis uses ordinal or interval data. For example, in @fig-pointplot-interval-ratio, year is interval data and the connecting lines show passenger trends over time; in @fig-pointplot-category-amount, the x-axis represents penguin species (nominal data) where order is meaningless, so lines are not drawn.
 
-这种点图变得和折线图非常类似，我们将在 [折线图 Line Plot](#sec-line-plot) 中继续讨论。
+This type of point plot becomes very similar to a line plot, which we will continue to discuss in [Line Plot](#sec-line-plot).
 
 ```{python}
 #| label: fig-pointplot-interval-ratio
-#| fig-cap: "点图: 年份-乘客数 (interval-ratio)"
+#| fig-cap: "Point plot: year vs. passenger count (interval-ratio)"
 flights = sns.load_dataset('flights')
 sns.pointplot(data=flights, x='year', y='passengers')
 plt.show()
 ```
 
-## 多变量散点图
+## Multivariate Scatter Plot
 
-除了 x、y 轴展示的两种连续变量之外，还可以通过设置 `hue` (点颜色) 、`size` (点大小) 、`style` (点形状) 等参数来引入其他变量。`hue` 和 `size` 可以应用于连续型或离散型变量；`style` 只能应用于离散型变量，因为点形状无法连续渐变 (仅限 Seaborn 库) 。
+In addition to the two continuous variables on the x and y axes, other variables can be introduced by setting parameters such as `hue` (point color), `size` (point size), and `style` (point shape). `hue` and `size` can be applied to either continuous or discrete variables; `style` can only be applied to discrete variables, because point shapes cannot vary continuously (in Seaborn).
 
-比如 @fig-scatter-discrete-variables 同时引入了三个离散变量：
+For example, @fig-scatter-discrete-variables introduces three discrete variables simultaneously:
 
 ```{python}
 #| label: fig-scatter-discrete-variables
-#| fig-cap: "增加三个离散变量: hue & size & style"
+#| fig-cap: "Adding three discrete variables: hue & size & style"
 ax = sns.scatterplot(
     data=df, x='bill_length_mm', y='bill_depth_mm',
     hue='sex',
@@ -217,11 +217,11 @@ sns.move_legend(ax, loc='upper left', bbox_to_anchor=(1, 1))
 plt.show()
 ```
 
-@fig-scatter-discrete-variables 中，除横纵轴的两个连续变量 (喙长、喙深) 外，还设置了三个离散变量 (性别、岛屿、种类) 。再比如 @fig-scatter-continuous-variables 引入了两个连续变量：
+In @fig-scatter-discrete-variables, in addition to the two continuous variables on the axes (bill length and bill depth), three discrete variables are encoded (sex, island, and species). Similarly, @fig-scatter-continuous-variables introduces two continuous variables:
 
 ```{python}
 #| label: fig-scatter-continuous-variables
-#| fig-cap: "增加两个连续变量: hue & size (已有渐变色，不宜使用半透明)"
+#| fig-cap: "Adding two continuous variables: hue & size (gradient color used, avoid transparency)"
 ax = sns.scatterplot(
     data=df, x='bill_length_mm', y='bill_depth_mm',
     hue='flipper_length_mm',
@@ -231,25 +231,25 @@ sns.move_legend(ax, loc='upper left', bbox_to_anchor=(1, 1))
 plt.show()
 ```
 
-> 注：虽然 `hue` 和 `size` 可以应用于连续型变量，但其图例并非严格连续的。
+> Note: Although `hue` and `size` can be applied to continuous variables, their legends are not strictly continuous.
 
-**多变量散点图与分面网格的区别**见 @tbl-scatter-vs-facetgrid：
+See @tbl-scatter-vs-facetgrid for a comparison of **multivariate scatter plots and facet grids**:
 
-| 维度 | 多变量散点图 | 分面网格 |
+| Dimension | Multivariate Scatter Plot | Facet Grid |
 |:---|:---:|:---:|
-| 视图 | 全局，所有点在同一坐标系 | 分格展示，便于子图对比 |
-| 图形空间 | 少，只需一张图 | 多，需创建多个子图 |
-| 连续变量 | 可直接引入，自动生成图例 | 需手动划分区间保存为新变量 |
-| 视觉复杂度 | 信息集中，可能过于拥挤 | 各子图独立，阅读负担较低 |
-| 图例依赖 | 需反复对照图例 | 子图标题直接说明 |
+| View | Global, all points in one coordinate system | Split into panels for easy subplot comparison |
+| Space | Compact, only one chart needed | Larger, requires multiple subplots |
+| Continuous variables | Can be added directly with auto-generated legend | Requires manual binning into a new discrete variable |
+| Visual complexity | Information concentrated, may feel crowded | Each subplot is independent, lower reading burden |
+| Legend reliance | Requires repeatedly consulting the legend | Subplot titles explain directly |
 
-: 多变量散点图与分面网格的比较 {#tbl-scatter-vs-facetgrid}
+: Comparison of multivariate scatter plots and facet grids {#tbl-scatter-vs-facetgrid}
 
-为了让散点图更易辨认，建议 **同时使用颜色和形状区分同一变量** [(Wilke, 2019, pp.243-247)](https://clauswilke.com/dataviz/redundant-coding.html#designing-legends-with-redundant-coding)，如 @fig-scatter-hue-style-island：
+To make scatter plots easier to read, it is recommended to **use both color and shape to distinguish the same variable** [(Wilke, 2019, pp.243-247)](https://clauswilke.com/dataviz/redundant-coding.html#designing-legends-with-redundant-coding), as in @fig-scatter-hue-style-island:
 
 ```{python}
 #| label: fig-scatter-hue-style-island
-#| fig-cap: "hue+style 同时控制同一变量 (岛屿)"
+#| fig-cap: "hue+style both control the same variable (island)"
 ax = sns.scatterplot(
     data=df, x='bill_length_mm', y='bill_depth_mm',
     hue='island',
@@ -259,11 +259,11 @@ sns.move_legend(ax, loc='upper left', bbox_to_anchor=(1, 1))
 plt.show()
 ```
 
-此外，**尽量不要在同一图表内同时使用 `style` 和 `size` 控制两个不同变量**，因为形状改变后大小的区分会变得不够直观 (见 @fig-scatter-size-flipper) ：
+Furthermore, **avoid using both `style` and `size` to control two different variables in the same chart**, because when shapes differ, size differences become harder to perceive (see @fig-scatter-size-flipper):
 
 ```{python}
 #| label: fig-scatter-size-flipper
-#| fig-cap: "hue+style 控制岛屿，size 另控制鳍长"
+#| fig-cap: "hue+style control island, size controls flipper length separately"
 ax = sns.scatterplot(
     data=df, x='bill_length_mm', y='bill_depth_mm',
     hue='island',
@@ -274,58 +274,58 @@ sns.move_legend(ax, loc='upper left', bbox_to_anchor=(1, 1))
 plt.show()
 ```
 
-**其他注意事项：**
+**Other notes:**
 
-- 使用颜色时应尽量兼顾色觉缺陷读者，选择**在色相和明度上均有明显差异**的颜色。
-- 当折点过多时，不宜在折线图中展示点。
+- When using color, try to accommodate color-vision-impaired readers by choosing colors with **clearly distinct differences in both hue and lightness**.
+- When there are too many data points, it is not recommended to display markers in a line plot.
 
-这些细节将在 @sec-line-plot 中进一步讨论。
+These details will be further discussed in @sec-line-plot.
 
-## 对数尺度
+## Logarithmic Scale
 
-**对数尺度 (logarithmic scale) **是一个非线性测量尺度，适用于有较大范围差异的数据，如里氏震级、声学音量、光学光强、溶液 pH 值等。为此类数据绘制散点图时，可将坐标轴设置为对数尺度 (默认为线性尺度，如 @fig-scatterplot-ratio-ratio 中 x 轴刻度 35, 40, 45, 50 是线性增长的数字) ，让原本拥挤的数据点变得较为均匀，更容易观察 ([维基百科 - 对数尺度](https://zh.wikipedia.org/wiki/%E5%B0%8D%E6%95%B8%E5%B0%BA%E5%BA%A6)) 。
+**A logarithmic scale** is a nonlinear measurement scale used for data with a wide range of values, such as the Richter scale, acoustic volume, optical intensity, and solution pH. When plotting such data, the axis can be set to a logarithmic scale (the default is a linear scale — for example, the x-axis tick marks 35, 40, 45, 50 in @fig-scatterplot-ratio-ratio increase linearly), making otherwise crowded data points more evenly distributed and easier to observe ([Wikipedia - Logarithmic scale](https://en.wikipedia.org/wiki/Logarithmic_scale)).
 
-[Wilke (2019, p.17)](https://clauswilke.com/dataviz/coordinate-systems-axes.html#nonlinear-axes) 以 $(1, 3.16, 10, 31.6, 100)$ 为例画了四个数轴 (@fig-linear-log-scales) ，其中 $10^{0.5} = \sqrt{10} \approx 3.16$，$10^{1.5} \approx 31.6$。
+[Wilke (2019, p.17)](https://clauswilke.com/dataviz/coordinate-systems-axes.html#nonlinear-axes) uses $(1, 3.16, 10, 31.6, 100)$ as an example to illustrate four number lines (@fig-linear-log-scales), where $10^{0.5} = \sqrt{10} \approx 3.16$ and $10^{1.5} \approx 31.6$.
 
-[![四个数轴 (Wilke, 2019, p.17)](https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/linear-log-scales-1.png){#fig-linear-log-scales fig-alt="四个数轴 (Wilke, 2019, p.17)" width="80%"}](https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:linear-log-scales)
+[![Four number lines (Wilke, 2019, p.17)](https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/linear-log-scales-1.png){#fig-linear-log-scales fig-alt="Four number lines (Wilke, 2019, p.17)" width="80%"}](https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:linear-log-scales)
 
-如 @fig-linear-log-scales，四个数轴含义如下：
+As shown in @fig-linear-log-scales, the four number lines are interpreted as follows:
 
-- **第一个数轴**使用线性尺度，刻度为 $(0, 25, 50, 75, 100)$，展示原数据 $x$，数据点分布不均匀。
-- **第二个数轴**同样使用线性尺度，但对原数据取对数，展示 $\log_{10}(x)$，数据点均匀分布，轴标签为 $\log_{10}(x)$。
-- **第三个数轴**使用原数据 $x$，但改用对数尺度，刻度为 $(1, 3.16, 10, 31.6, 100)$ (即 $(10^{0.0}, 10^{0.5}, 10^{1.0}, 10^{1.5}, 10^{2.0})$) ，数据点均匀分布。
-- **第四个数轴**同第三个，但轴标签错误地写成了 $\log_{10}(x)$。
+- **The first number line** uses a linear scale with tick marks at $(0, 25, 50, 75, 100)$, displaying the original data $x$. The data points are unevenly distributed.
+- **The second number line** also uses a linear scale, but applies a logarithm to the data, displaying $\log_{10}(x)$. Data points are evenly distributed, with axis labels showing $\log_{10}(x)$.
+- **The third number line** uses the original data $x$ but switches to a logarithmic scale, with tick marks at $(1, 3.16, 10, 31.6, 100)$ (i.e., $(10^{0.0}, 10^{0.5}, 10^{1.0}, 10^{1.5}, 10^{2.0})$). Data points are evenly distributed.
+- **The fourth number line** is the same as the third, but the axis label incorrectly reads $\log_{10}(x)$.
 
-对比第一个和第三个数轴：对于同一组数据，线性尺度中分布不均匀的点，在对数尺度中变得均匀。这样调整有助于观察分布不均匀的数据，尤其是呈指数型增长趋势的数据。
+Comparing the first and third number lines: for the same data, points that are unevenly distributed on a linear scale become evenly distributed on a logarithmic scale. This adjustment helps observe data that is unevenly distributed, especially data following an exponential growth trend.
 
-需要注意的是，改用对数尺度只改变了轴刻度的展示方式，并没有改变数据点的值。因此，对于仅改用刻度尺度、不改动原数据的图，不可以将轴标题写作 $\log_{10}(x)$ (见第四个数轴) 。
+Note that switching to a logarithmic scale only changes how the axis tick marks are displayed — it does not change the values of the data points. Therefore, for a chart that only changes the scale without modifying the original data, the axis title must not be written as $\log_{10}(x)$ (see the fourth number line).
 
-**对数尺度适用的情况及其优缺点**：
+**When to use a logarithmic scale and its trade-offs:**
 
-**适用情况**
+**When to use**
 
-- 数据范围跨度极大（跨多个数量级），例如人口、收入、距离、质量等
-- 更关注相对变化（倍数关系），而不是绝对差值
-- 数据呈指数增长或指数衰减趋势（在对数尺度下更接近线性关系）
+- Data spans an extremely wide range (multiple orders of magnitude), such as population, income, distance, or mass
+- Relative change (multiplicative relationships) matters more than absolute differences
+- Data follows an exponential growth or decay trend (which appears more linear on a log scale)
 
-**优点**
+**Advantages**
 
-- 压缩数据范围：同时展示极大值与极小值，避免大值“压扁”整体结构
-- 改善可视化分布：减少数据在某一区间的堆积，使分布更均匀
-- 强化倍数比较：相同的轴距离表示相同的“倍数变化”，更符合某些分析需求
-- 有助识别指数关系：指数增长/衰减在对数尺度下更容易观察
+- Compresses data range: allows very large and very small values to be shown together without large values "flattening" the overall structure
+- Improves visual distribution: reduces clustering in one interval, making the distribution more uniform
+- Highlights multiplicative comparisons: equal axis distances represent equal multiplicative change, better suited for certain analyses
+- Helps identify exponential relationships: exponential growth or decay is easier to observe on a log scale
 
-**缺点**
+**Disadvantages**
 
-- 不适用于零值与负值：对数函数定义域为正数
-- 可读性较低：对不熟悉对数尺度的读者不够直观
-- 可能掩盖绝对差异：压缩高值区间，弱化原始差距的视觉表达
+- Not applicable to zero or negative values: the logarithm function is only defined for positive numbers
+- Lower readability: not intuitive for readers unfamiliar with logarithmic scales
+- May obscure absolute differences: compresses the high-value range, weakening the visual representation of raw differences
 
-例如，@fig-planets-linear-scale 中数据范围差异较大且左边过于集中——可以改用对数尺度 (@fig-planets-log-scale) 。
+For example, @fig-planets-linear-scale shows data with a large range that is too concentrated on the left — switching to a logarithmic scale (@fig-planets-log-scale) improves the distribution.
 
 ```{python}
 #| label: fig-planets-linear-scale
-#| fig-cap: "散点图: 行星距离-质量，线性尺度"
+#| fig-cap: "Scatter plot: planetary distance vs. mass, linear scale"
 planets = sns.load_dataset('planets')
 g = sns.scatterplot(data=planets, x='distance', y='mass')
 plt.title('Relationship between planetary distance and mass')
@@ -334,213 +334,208 @@ plt.show()
 
 ```{python}
 #| label: fig-planets-log-scale
-#| fig-cap: "散点图: 行星距离-质量，对数尺度"
+#| fig-cap: "Scatter plot: planetary distance vs. mass, logarithmic scale"
 planets = sns.load_dataset('planets')
 g = sns.scatterplot(data=planets, x='distance', y='mass')
-g.set_xscale('log')  # 默认底数为 10，可通过 base 参数修改
+g.set_xscale('log')  # default base is 10; use the base parameter to change it
 g.set_yscale('log')
 plt.show()
 ```
 
-> 注：@fig-planets-log-scale 中，刻度 $(10^0, 10^1, 10^2, ...)$ 是等距的对数尺度刻度。每两个大刻度间的小刻度代表等差的实际数值，如从 $10^0$ 到 $10^1$ 之间分别为 $2, 3, ..., 9$，从 $10^1$ 到 $10^2$ 之间分别为 $20, 30, ..., 90$，以此类推。
+> Note: In @fig-planets-log-scale, the tick marks $(10^0, 10^1, 10^2, ...)$ are evenly spaced on a logarithmic scale. The minor tick marks between each pair of major tick marks represent linearly spaced actual values — for example, between $10^0$ and $10^1$ they are $2, 3, ..., 9$, and between $10^1$ and $10^2$ they are $20, 30, ..., 90$, and so on.
 
-由于对数尺度无 0 值 (以 1 即底数的 0 次方为原点) ，**对数尺度适合用于展示比例数据**。如 [Wilke (2019, pp.18-20)](https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-log) 将德克萨斯州各县人口除以人口中位数作为纵轴，用对数尺度 (@fig-texas-counties-pop-ratio-log) 展示了各县人口在中位数附近的分布 (比值为 1 时说明该县人口恰好为中位数) 。
+Because a logarithmic scale has no zero (with 1, i.e., the base raised to the power of 0, as the origin), **a logarithmic scale is well suited for displaying ratio data**. For example, [Wilke (2019, pp.18-20)](https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-log) divides each county's population in Texas by the median population as the y-axis, using a logarithmic scale (@fig-texas-counties-pop-ratio-log) to show how each county's population is distributed around the median (a ratio of 1 means the county's population equals exactly the median).
 
-[![德克萨斯州各县人口分布 - 对数尺度](https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/texas-counties-pop-ratio-log-1.png){#fig-texas-counties-pop-ratio-log fig-alt="德克萨斯州各县人口分布情况 - 对数尺度"}](https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-log)
+[![Texas county population distribution — logarithmic scale](https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/texas-counties-pop-ratio-log-1.png){#fig-texas-counties-pop-ratio-log fig-alt="Texas county population distribution — logarithmic scale"}](https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-log)
 
-如果改用线性尺度展示 @fig-texas-counties-pop-ratio-log 中的数据，则以 0 为原点，无法清晰展示数据在 1 两侧的分布 (@fig-texas-counties-pop-ratio-lin) 。
+If the data in @fig-texas-counties-pop-ratio-log were displayed with a linear scale, the origin would be 0, making it impossible to clearly show the distribution of values around 1 (@fig-texas-counties-pop-ratio-lin).
 
-[![德克萨斯州各县人口分布 - 线性尺度](https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/texas-counties-pop-ratio-lin-1.png){#fig-texas-counties-pop-ratio-lin fig-alt="德克萨斯州各县人口分布情况 - 线性尺度"}](https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-lin)
+[![Texas county population distribution — linear scale](https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/texas-counties-pop-ratio-lin-1.png){#fig-texas-counties-pop-ratio-lin fig-alt="Texas county population distribution — linear scale"}](https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-lin)
 
-## 回归图
+## Regression Plot
 
-**回归图 (regression plot)** 将散点图拟合成一条线，用于展示两个变量之间的关系。最常见的是 **线性拟合 (linear fitting)** ，即将散点图拟合成线性回归线。置信区间用于显示回归线 (作为估计值) 的不确定性：置信水平 95% 时，真实值有 95% 的可能落在该区间内。如 @fig-regression-plot ，直线是线性回归线，阴影部分是置信区间。
+**A regression plot** fits the scatter plot to a line, showing the relationship between two variables. The most common is **linear fitting**, which fits a linear regression line to the scatter plot. The confidence interval shows the uncertainty of the regression line (as an estimate): at a 95% confidence level, the true value has a 95% chance of falling within that interval. In @fig-regression-plot, the line is the linear regression line and the shaded area is the confidence interval.
 
 ```{python}
 #| label: fig-regression-plot
-#| fig-cap: "线性回归图"
+#| fig-cap: "Linear regression plot"
 sns.lmplot(data=df, x='bill_length_mm', y='bill_depth_mm', hue='sex')
 plt.show()
 ```
 
-`sns.lmplot()` (linear model plot) 默认使用 95% 置信区间来衡量回归线的不确定性。
+`sns.lmplot()` (linear model plot) uses a 95% confidence interval by default to measure the uncertainty of the regression line.
 
-> 注：`hue` 参数仅适用于离散型数据。
+> Note: The `hue` parameter only works with discrete data.
 
-# 折线图 {#sec-line-plot}
+# Line Plot {#sec-line-plot}
 
-**散点图 (scatter plot)** 中数据点独立存在，通常用于探索 **两个变量** 之间的相关性或分布，数据点之间无先后关系。**折线图 (line plot)** 中数据点通过线段连接，强调数据的连续性或变化趋势，通常用于时间序列数据，展示 **一个变量** 随时间的变化，数据点之间存在先后关系。
+In a **scatter plot**, data points exist independently and are typically used to explore the correlation or distribution between **two variables**, with no inherent ordering among data points. In a **line plot**, data points are connected by line segments to emphasize continuity or trend, typically used for time-series data to show how **one variable** changes over time, where data points have an inherent ordering.
 
-如 @fig-lineplot-hue ，展示了某航空公司每月乘客量随年份增长的变化：
+For example, @fig-lineplot-hue shows how monthly passenger counts for an airline change over the years:
 
 ```{python}
 #| label: fig-lineplot-hue
-#| fig-cap: "按月份颜色区分的折线图"
+#| fig-cap: "Line plot with colors distinguishing months"
 sns.lineplot(
     data=flights, x='year', y='passengers',
     hue='month',
 )
-# 注：年份和人数虽非严格连续数据，但数据量足以体现变化趋势
+# note: year and passengers are not strictly continuous, but the data is sufficient to show trends
 plt.show()
 ```
 
-也可以通过设置 `markers=True` 和 `dashes=False` 展示折点 (@fig-lineplot-hue-style) ：
+You can also display markers by setting `markers=True` and `dashes=False` (@fig-lineplot-hue-style):
 
 ```{python}
 #| label: fig-lineplot-hue-style
-#| fig-cap: "按月份颜色和点形状区分的折线图"
+#| fig-cap: "Line plot with colors and marker shapes distinguishing months"
 sns.lineplot(
     data=flights, x='year', y='passengers',
     hue='month', style='month',
-    markers=True,  # 需与 style 联用
+    markers=True,  # must be used together with style
     dashes=False,
 )
 plt.show()
 ```
 
-当折点很多时，不建议在折线图中展示折点，过多的折点会阻碍阅读；清晰的线条更能彰显变化趋势 [(Wilke, 2019, pp. 135-137)](https://clauswilke.com/dataviz/time-series.html#multiple-time-series-and-doseresponse-curves)。
+When there are many data points, it is not recommended to display markers in a line plot — too many markers impede readability; clean lines better convey the trend [(Wilke, 2019, pp. 135-137)](https://clauswilke.com/dataviz/time-series.html#multiple-time-series-and-doseresponse-curves).
 
-也可以用点图达到类似效果 (见 @fig-pointplot-passenger-trend) ，但 `sns.pointplot()` 不可用不同点形状区分变量，也不可去除点，因此要观察变量随时间的变化趋势，最好选择 `sns.lineplot()`。
+A similar effect can be achieved with a point plot (see @fig-pointplot-passenger-trend), but `sns.pointplot()` cannot use different marker shapes to distinguish variables and cannot remove markers, so `sns.lineplot()` is the better choice for observing trends over time.
 
 ```{python}
 #| label: fig-pointplot-passenger-trend
-#| fig-cap: "点图: 乘客量随时间的变化趋势"
+#| fig-cap: "Point plot: passenger count trend over time"
 sns.pointplot(
     data=flights, x='year', y='passengers', hue='month',
 )
 plt.show()
 ```
 
-当 y 轴变量在每个时间点上有多个值，且未对其进行颜色区分时，`sns.lineplot()` 会自动生成平均值折线和误差区间 (默认 95% 置信水平) ，见 @fig-lineplot-without-hue-style：
+When the y-axis variable has multiple values at each time point and no color distinction is applied, `sns.lineplot()` automatically generates a mean line and error band (default 95% confidence level), see @fig-lineplot-without-hue-style:
 
 ```{python}
 #| label: fig-lineplot-without-hue-style
-#| fig-cap: "不做区分则生成平均值折线 (上下边缘为旺淡季)"
+#| fig-cap: "Without hue, a mean line is generated (upper/lower edges indicate peak and off-peak seasons)"
 sns.lineplot(data=flights, x='year', y='passengers')
 plt.show()
 ```
 
-**在折线图中使用颜色区分线条时，需要注意：**
+**When using color to distinguish lines in a line plot, note:**
 
-- **图例颜色顺序应当符合线条颜色顺序。**
-- **选色尽量兼顾色觉缺陷读者。**
+- **The order of colors in the legend should match the order of the lines.**
+- **Choose colors that are accessible to color-vision-impaired readers.**
 
-@fig-tech-stocks-bad-legend 中图例和线条颜色顺序不一致，会增加阅读困难，[Wilke (2019, p.248)](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend) 提供了反面案例:  
+In @fig-tech-stocks-bad-legend, the legend and line color orders are inconsistent, which increases reading difficulty. [Wilke (2019, p.248)](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend) provides a counter-example:
 
-[![反面案例：图例和线条颜色顺序不匹配](https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-bad-legend-1.png){#fig-tech-stocks-bad-legend fig-alt="反面案例：图例和线条颜色顺序不匹配" width="85%"}](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend)
+[![Counter-example: legend and line color order do not match](https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-bad-legend-1.png){#fig-tech-stocks-bad-legend fig-alt="Counter-example: legend and line color order do not match" width="85%"}](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend)
 
-相反，@fig-tech-stocks-good-legend 中图例和线条颜色顺序相符，[Wilke (2019, p.249)](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend) 提供了改良后的图表:  
+In contrast, @fig-tech-stocks-good-legend has matching legend and line color orders. [Wilke (2019, p.249)](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend) provides the improved chart:
 
-[![改良版：图例和线条颜色顺序匹配 (且选色兼顾色觉缺陷读者) ](https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-1.png){#fig-tech-stocks-good-legend fig-alt="改良版：图例和线条颜色顺序匹配 (且选色兼顾色觉缺陷读者) " width="85%"}](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend)
+[![Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)](https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-1.png){#fig-tech-stocks-good-legend fig-alt="Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)" width="85%"}](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend)
 
-[Wilke (2019, p.250)](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend-cvd) 还展示了 @fig-tech-stocks-good-legend 在不同色觉缺陷模拟下及去除饱和度后的效果 (@fig-tech-stocks-good-legend-cvd) ：
+[Wilke (2019, p.250)](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend-cvd) also shows how @fig-tech-stocks-good-legend appears under simulations of different color vision deficiencies and after desaturation (@fig-tech-stocks-good-legend-cvd):
 
-[![不同色觉缺陷模拟 & 去饱和度 (分别为：绿色弱，红色弱，蓝色弱，去除饱和度) ](https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-cvd-1.png){#fig-tech-stocks-good-legend-cvd fig-alt="不同色觉缺陷模拟 & 去饱和度下的图表"}](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend-cvd)
+[![Color vision deficiency simulations & desaturation (deuteranopia, protanopia, tritanopia, and desaturated)](https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-cvd-1.png){#fig-tech-stocks-good-legend-cvd fig-alt="Chart under color vision deficiency simulations and desaturation"}](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend-cvd)
 
-由 @fig-tech-stocks-good-legend-cvd 可见，@fig-tech-stocks-good-legend 的配色对三种色觉缺陷患者均可区分，去除饱和度后也能通过明度区分。因此图例与线条颜色顺序匹配尤为重要。
+From @fig-tech-stocks-good-legend-cvd, the color scheme in @fig-tech-stocks-good-legend is distinguishable for all three types of color vision deficiencies, and remains distinguishable by lightness after desaturation. This is why matching legend and line color order is especially important.
 
-此外，[Wilke (2019, p.251)](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend) 还建议**去除图例，直接在折线旁标注文字** (@fig-tech-stocks-good-no-legend) ，可节省读者对照图例的工作量，让图表更易读。但这种做法通过 Seaborn 实现较困难，本课程中使用 @fig-tech-stocks-good-legend 中符合颜色顺序的图例即可。
+Additionally, [Wilke (2019, p.251)](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend) recommends **removing the legend and labeling each line directly** (@fig-tech-stocks-good-no-legend), which saves readers the effort of consulting a legend and makes the chart easier to read. However, this is difficult to implement in Seaborn, so in this course it is sufficient to use a legend with colors in the correct order as in @fig-tech-stocks-good-legend.
 
-[![去除图例，直接在折线旁标注文字](https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-no-legend-1.png){#fig-tech-stocks-good-no-legend fig-alt="去除图例，直接在折线旁边标注文字" width="90%"}](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend)
+[![Remove legend and label lines directly](https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-no-legend-1.png){#fig-tech-stocks-good-no-legend fig-alt="Remove legend and label each line directly" width="90%"}](https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend)
 
-# 热力图
+# Heatmap
 
-## 数据透视表
+## Pivot Table
 
-在绘制热力图之前，需要先为原数据创建 **pivot table (数据透视表，又称枢轴表) **。数据透视表将原表格中的两个变量以矩阵形式展现：列名是一个变量，行名是另一个变量。
+Before creating a heatmap, the original data must first be reshaped into a **pivot table**. A pivot table presents two variables from the original table in matrix form: column names represent one variable and row names represent the other.
 
-pivot 操作将原表某列中的所有数据种类转变为新的列名 (column label) 或行名/索引 (index) 。如 @tbl-flights-pivot 将 @tbl-flights-head 中 `'year'` 列的所有数据种类 (1949～1960) 变为新列名，将 `'month'` 列的数据种类变为新行名。
+The pivot operation converts all unique values in a column of the original table into new column labels or row indices. For example, @tbl-flights-pivot converts all unique values of the `'year'` column in @tbl-flights-head (1949–1960) into new column names, and the unique values of the `'month'` column into row names.
 
-pivot 操作和 melt 操作相反：pivot 将"长表格"变为"宽表格"，melt 将"宽表格"变为"长表格" (melt 将原列名变为数据值，让表格行数增多) 。
+The pivot and melt operations are opposites: pivot converts a "long" table into a "wide" table, while melt converts a "wide" table into a "long" table (melt turns column names into data values, increasing the number of rows).
 
 ```{python}
 #| label: tbl-flights-head
-#| tbl-cap: "原飞行乘客表 (预览前五行)"
+#| tbl-cap: "Original flights dataset (first five rows)"
 flights.head()
 ```
 
 ```{python}
 #| label: tbl-flights-pivot
-#| tbl-cap: "数据透视表: 年&月 - 乘客量"
-# 创建数据透视表 (也可命名为 matrix) 
+#| tbl-cap: "Pivot table: year & month vs. passenger count"
+# create pivot table (can also be named matrix)
 flights_pivot = pd.pivot_table(
     flights,
-    index='month',   # 'month' 的数据种类作为新行名
-    columns='year',  # 'year' 的数据种类作为新列名
+    index='month',   # unique values of 'month' become row index
+    columns='year',  # unique values of 'year' become column names
     values='passengers',
-    observed=False,  # 显示所有分类变量的可能组合
+    observed=False,  # show all possible combinations of categorical variables
 )
 
 flights_pivot
 ```
 
-**关于 `aggfunc` 参数。** `pd.pivot_table()` 的 `aggfunc` (aggregation function) 默认为 `'mean'`，即当一个单元格对应多行原数据时，默认取平均值。
+**About the `aggfunc` parameter.** The `aggfunc` (aggregation function) in `pd.pivot_table()` defaults to `'mean'`, meaning when a single cell corresponds to multiple rows in the original data, it takes the mean by default.
 
-@tbl-flights-head 中特定 year 和 month 下 passenger 只有一个值，不需要求平均值。而如 @tbl-penguins-head 所示的企鹅数据表，同一种类、同一岛屿的企鹅不止一只，在数据透视表 (@tbl-penguins-pivot) 中只对应一个单元格，因此默认求平均值。
+In @tbl-flights-head, each combination of year and month has only one passenger value, so no averaging is needed. However, in the penguin dataset shown in @tbl-penguins-head, there is more than one penguin per species-island combination, and each combination maps to a single cell in the pivot table (@tbl-penguins-pivot), so the default mean is applied.
 
 ```{python}
 #| label: tbl-penguins-head
-#| #| tbl-cap: "原企鹅数据表 (预览前五行)"
+#| #| tbl-cap: "Original penguin dataset (first five rows)"
 df.head()
 ```
 
 ```{python}
-# 用企鹅数据集的种类和岛屿列制作数据透视表
+#| label: tbl-penguins-pivot
+#| tbl-cap: "Pivot table: penguin species & island vs. bill length"
+# create pivot table using species and island columns from the penguin dataset
 df_pivot = pd.pivot_table(
     df,
     index='species',
     columns='island',
     values='bill_length_mm',
 )
-```
 
-```{python}
-#| label: tbl-penguins-pivot
-#| tbl-cap: "数据透视表：企鹅种类 & 岛屿 - 喙长"
 df_pivot
 ```
 
-## 绘制热力图
+## Creating a Heatmap
 
-使用 @tbl-flights-pivot 绘制热力图，见 @fig-heatmap-flights:
+Using @tbl-flights-pivot to create a heatmap, see @fig-heatmap-flights:
 
 ```{python}
 #| label: fig-heatmap-flights
-#| fig-cap: "Heatmap: flights"
-# Figure 5.2-1: 基本热力图
+#| fig-cap: "Basic heatmap: flights"
 sns.heatmap(
     data=flights_pivot,
-    cbar_kws={'label': 'passengers'},  # 色彩条标签
+    cbar_kws={'label': 'passengers'},  # colorbar label
 )
 plt.show()
 ```
 
-`.heatmap` 直接使用矩阵形式的表格画图，而非通过 x/y 参数指定特定列。`cbar_kws` (colorbar keyword arguments) 用于设置色彩条的标签。
+`.heatmap` plots directly from a matrix-shaped table, rather than specifying particular columns through x/y parameters. `cbar_kws` (colorbar keyword arguments) sets the label for the colorbar.
 
-还可以通过设置 `cmap` 和 `annot` 等参数进一步修改热力图 (@fig-heatmap-flights-arguments) ：
+Additional parameters such as `cmap` and `annot` can be used to further customize the heatmap (@fig-heatmap-flights-arguments):
 
 ```{python}
 #| label: fig-heatmap-flights-arguments
-#| fig-cap: "Heatmap: flights (added more arguments)"
-# Figure 5.2-2: 添加更多参数
+#| fig-cap: "Heatmap with additional parameters"
 sns.heatmap(
     data=flights_pivot,
     cbar_kws={'label': 'passengers'},
-    cmap='viridis',  # Matplotlib 预制 colormap
-    annot=True,      # 在格子中显示数值
-    fmt='.0f',       # 格式：保留整数 ('.nf' 保留 n 位小数) 
+    cmap='viridis',  # Matplotlib built-in colormap
+    annot=True,      # show values in each cell
+    fmt='.0f',       # format: integer ('.nf' keeps n decimal places)
 )
 plt.show()
 ```
 
-`cmap` 可以使用 Seaborn 或 Matplotlib 中预制的 color palette 或 colormap 名称，如 `'crest'`、`'flare'`、`'viridis'`、`'pink'` 等。
+`cmap` accepts the name of a predefined color palette or colormap from Seaborn or Matplotlib, such as `'crest'`, `'flare'`, `'viridis'`, or `'pink'`.
 
-同理，使用 @tbl-penguins-pivot 绘制热力图 (@fig-heatmap-penguins) ：
+Similarly, using @tbl-penguins-pivot to create a heatmap (@fig-heatmap-penguins):
 
 ```{python}
 #| label: fig-heatmap-penguins
-#| fig-cap: "Heatmap: penguins"
-# Figure 5.2-3: 企鹅数据热力图
+#| fig-cap: "Penguin data heatmap"
 sns.heatmap(
     data=df_pivot,
     cmap='crest',
@@ -550,59 +545,59 @@ sns.heatmap(
 plt.show()
 ```
 
-# 二维直方图
+# 2D Histogram
 
-根据 Wilke (2019, pp. 222-225)，含半透明点的散点图可展示数据在两个变量控制下的分布，但当数据点过多、过密时，散点图难以展示整体分布 (见 @fig-nycflights-points: 点密度高的区域显示为均匀深色斑点，密度低的区域几乎不可见) 。
+According to [Wilke (2019, pp. 222-225)](https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points), scatter plots with semi-transparent points can show the distribution of data across two variables, but when data points are too numerous and dense, a scatter plot struggles to convey the overall distribution (see @fig-nycflights-points: high-density areas appear as uniform dark blotches while low-density areas are nearly invisible).
 
-[![数据点过多、过密的散点图 (Wilke, 2019, p. 223)](https://clauswilke.com/dataviz/overlapping_points_files/figure-html/nycflights-points-1.png){#fig-nycflights-points fig-alt="数据点过多、过密的散点图 (Wilke, 2019, p. 223)" width="80%"}](https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points)
+[![Scatter plot with too many dense data points (Wilke, 2019, p. 223)](https://clauswilke.com/dataviz/overlapping_points_files/figure-html/nycflights-points-1.png){#fig-nycflights-points fig-alt="Scatter plot with too many dense data points (Wilke, 2019, p. 223)" width="80%"}](https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points)
 
-此时可改用**二维直方图 (2D histogram) **：将 x-y 平面细分为小矩形 (分箱，bin) ，计算落入每个分箱的数据量，并按数据量对矩形着色 (见 @fig-2d-histogram) ：
+In such cases, a **2D histogram** can be used instead: the x-y plane is divided into small rectangles (bins), the number of data points falling into each bin is counted, and each rectangle is colored according to that count (see @fig-2d-histogram):
 
 ```{python}
 #| label: fig-2d-histogram
-#| fig-cap: "二维直方图"
+#| fig-cap: "2D histogram"
 sns.histplot(
     data=df, x='bill_depth_mm', y='bill_length_mm',
-    cbar=True,  # 显示色彩条
+    cbar=True,  # show colorbar
     cbar_kws={'label': 'count'},
 )
 plt.show()
 ```
 
-@tbl-heatmap-2d-histogram 展示了热力图和二维直方图的区别：
+@tbl-heatmap-2d-histogram shows the differences between heatmaps and 2D histograms:
 
-| 特性 | 热力图 (Heatmap) | 二维直方图 (2D Histogram) |
+| Property | Heatmap | 2D Histogram |
 |------|------|------|
-| 输入数据 | 预处理的矩阵 (通常来自 Pivot Table)  | 原始数据 |
-| 横纵轴 | 通常表示两个离散变量 | 通常表示两个连续变量 |
-| 变量个数 | 三个：横纵轴和颜色 | 两个：横纵轴 |
-| 颜色含义 | 单元格中的数值大小 | 分箱 (bin) 中的数据点数量 |
-| 排布方式 | 行列数固定，颜色对应值固定 | 根据分箱数量可改变形状 |
-| 主要用途 | 展示矩阵中的数值模式 | 展示两个变量的联合分布密度 |
+| Input data | Pre-processed matrix (usually from a pivot table) | Raw data |
+| Axes | Usually represent two discrete variables | Usually represent two continuous variables |
+| Number of variables | Three: axes and color | Two: axes only |
+| Color meaning | Magnitude of the value in each cell | Number of data points in each bin |
+| Layout | Fixed rows and columns, fixed color-value mapping | Shape can vary depending on the number of bins |
+| Main use | Show numerical patterns in a matrix | Show the joint distribution density of two variables |
 
-: 热力图和二维直方图的区别 {#tbl-heatmap-2d-histogram}
+: Differences between heatmaps and 2D histograms {#tbl-heatmap-2d-histogram}
 
-# 双变量图
+# Joint Plot
 
-利用 `sns.jointplot()` 可以同时展示两个变量的二元分布图和各自的一元分布图。
+`sns.jointplot()` can simultaneously display the bivariate distribution of two variables along with their individual univariate distributions.
 
-如 @fig-jointplot-histograms，可以在展示二维直方图 (同 @fig-2d-histogram) 的同时，展示两个变量各自的一维直方图：
+As shown in @fig-jointplot-histograms, you can display a 2D histogram (same as @fig-2d-histogram) while also showing the 1D histogram of each variable:
 
 ```{python}
 #| label: fig-jointplot-histograms
-#| fig-cap: "双变量图: 直方图形式"
+#| fig-cap: "Joint plot: histogram form"
 sns.jointplot(
     data=df, x='bill_depth_mm', y='bill_length_mm',
-    kind='hist',  # 默认为 'scatter'，此处改为直方图
+    kind='hist',  # default is 'scatter'; changed here to histogram
 )
 plt.show()
 ```
 
-还可以通过 `kind='hex'` 让中间的格子呈六边形 (@fig-jointplot-hexagonal) ：
+You can also set `kind='hex'` to use hexagonal bins in the center panel (@fig-jointplot-hexagonal):
 
 ```{python}
 #| label: fig-jointplot-hexagonal
-#| fig-cap: "双变量图: 六边形图形式"
+#| fig-cap: "Joint plot: hexagonal bin form"
 sns.jointplot(
     data=df, x='bill_depth_mm', y='bill_length_mm',
     kind='hex',
@@ -610,11 +605,11 @@ sns.jointplot(
 plt.show()
 ```
 
-还可以用颜色区分变量 (@fig-jointplot-hue) ：
+Color can also be used to distinguish variables (@fig-jointplot-hue):
 
 ```{python}
 #| label: fig-jointplot-hue
-#| fig-cap: "双变量图: 用 hue 区分 (外部一元图自动变为密度图)"
+#| fig-cap: "Joint plot: using hue (marginal plots automatically become density plots)"
 sns.jointplot(
     data=df, x="bill_depth_mm", y="bill_length_mm",
     hue="species",
@@ -622,11 +617,11 @@ sns.jointplot(
 plt.show()
 ```
 
-还可以通过 `kind='kde'` (kernel density estimation) 生成光滑化的分布曲线 (见 @fig-jointplot-kde) 。 但光滑化后的曲线并非真实数据，尤其在数据点很少时可能误导读者，因此本课程中不建议使用。
+You can also use `kind='kde'` (kernel density estimation) to generate smoothed distribution curves (see @fig-jointplot-kde). However, smoothed curves are not actual data and can mislead readers, especially when there are few data points, so they are not recommended in this course.
 
 ```{python}
 #| label: fig-jointplot-kde
-#| fig-cap: "双变量图: 用 kde 人工光滑化 (不推荐)"
+#| fig-cap: "Joint plot: KDE smoothing (not recommended)"
 sns.jointplot(
     data=df, x="bill_depth_mm", y="bill_length_mm",
     hue="species", kind='kde',
@@ -634,29 +629,29 @@ sns.jointplot(
 plt.show()
 ```
 
-# 配对图
+# Pair Plot
 
-使用 `sns.pairplot()` 可以轻松画出原数据表中多个变量 (即多列) 各自两两配对的分布图，形成图表阵 (@fig-pairplot) ：
+`sns.pairplot()` makes it easy to plot pairwise distributions for multiple variables (i.e., multiple columns) in the original dataset, forming a grid of plots (@fig-pairplot):
 
 ```{python}
 #| label: fig-pairplot
-#| fig-cap: "配对图 (height 调整图片高度)"
+#| fig-cap: "Pair plot (height adjusts the figure height)"
 sns.pairplot(data=df, hue='species', height=1.7)
 plt.show()
 ```
 
-@fig-pairplot 中，原 DataFrame 中的四个 ratio 变量被自动识别并画图：对角线的图是各变量各自的一元分布图，其余每个子图是基于一对变量绘制的二元分布图。
+In @fig-pairplot, the four ratio variables in the original DataFrame are automatically detected and plotted: the diagonal plots are the univariate distributions of each variable, while the remaining subplots are bivariate distributions based on each pair of variables.
 
-还可以通过设置 `diag_kind` 和 `kind` 来修改对角线图表和其他二元图表的格式 (@fig-pairplot-histograms) ：
+You can also modify the format of the diagonal and off-diagonal plots using `diag_kind` and `kind` (@fig-pairplot-histograms):
 
 ```{python}
 #| label: fig-pairplot-histograms
-#| fig-cap: "配对图: 直方图形式"
+#| fig-cap: "Pair plot: histogram form"
 sns.pairplot(
     data=df,
     hue='species',
-    diag_kind='hist',  # 对角线图表的形式
-    kind='hist',       # 其他二元分布图的形式
+    diag_kind='hist',  # format of diagonal plots
+    kind='hist',       # format of off-diagonal bivariate plots
     height=1.7,
 )
 plt.show()
