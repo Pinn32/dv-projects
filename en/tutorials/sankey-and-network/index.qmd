@@ -1,7 +1,7 @@
 ---
 title: '桑基图与网络图'
 author: 'Pinn Xu'
-date: ''
+date: '2024-12-05'
 categories: ["Python", "Visualization", "Sankey Diagram", "Network Diagram", "Plotly"]
 description: '本章介绍桑基图与网络图的绘制方法，包括数据准备、图表创建和样式调整等。'
 order: 4

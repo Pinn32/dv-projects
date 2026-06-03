@@ -1,0 +1,11 @@
+---
+title: 'Pinn (Aiqi) Xu'
+subtitle: "Data Science & Visualization Portfolio"
+lang: 'en'
+sidebar: false
+toc: false
+---
+
+<script>
+    window.location.replace("/en/");
+</script>

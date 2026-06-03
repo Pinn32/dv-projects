@@ -15,29 +15,37 @@ website:
   repo-actions: [source, issue]
   repo-link-target: _blank
 
+  #############################################################################
   navbar:
     tools: 
+
+    ###### Language Switch / Translation ######
       - icon: translate
         menu: 
           - text: English
-            href: en/index.qmd
+            href: "#"
+            # id: switch-en # 没有 id 属性
             # href: "#"
             # class: lang-switch
           - text: 中文
-            href: zh/index.qmd
+            href: "#"
+            # id: switch-zh # 没有 id 属性
             # href: "#"
             # class: lang-switch
+
+
       - icon: github
-        menu:
-          - text: Source Code
-            href: https://github.com/Pinn32/dv-projects
-          - text: Report a Bug
-            href: https://github.com/Pinn32/dv-projects/issues
+        href: https://github.com/Pinn32/dv-projects
+        # menu:
+        #   - text: Source Code
+        #     href: https://github.com/Pinn32/dv-projects
+        #   - text: Report a Bug
+        #     href: https://github.com/Pinn32/dv-projects/issues
       - icon: linkedin
         href: https://www.linkedin.com/in/aiqi-xu-71943b378/
 
       # - icon: https://cdn.brandfetch.io/idriarYq6Q/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1686028240869
-      #   href: https://twitter.com/Pinn32
+      #   href: https://twitter.com/<insert_twitter_id_here>
 
     left:
       # - href: index.qmd
@@ -57,6 +65,8 @@ website:
     #   - text: 中文
     #     href: index.zh.qmd
 
+
+  #############################################################################
   sidebar:
     logo: false
     style: 'docked'
@@ -90,6 +100,8 @@ website:
       - text: "About"
         href: en/about/index.qmd
 
+
+###############################################################################
 format:
   html:
     # self-contained: false
@@ -100,10 +112,14 @@ format:
       - ./src/styles/styles.css
       - ./src/styles/portfolio.css
       - ./src/styles/projects.css
+    
+    ###### JS Scripts ######
     include-after-body: 
       - ./src/scripts/fix-code-fold.html
-      # - ./src/scripts/lang-switch.html
+      - ./src/scripts/lang-switch.html
       # - ./src/scripts/fix-navbar-active.html
+    
+
     toc: true
     code-tools: true
       # toggle: true
@@ -112,7 +128,10 @@ format:
     code-fold: true
     # code-summary: "Show the code"
 
-lang: en
+
+##############################################################################
+
+# lang: en
 brand: _brand.yml
 editor: source
 

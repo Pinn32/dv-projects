@@ -1,0 +1,9 @@
+---
+title: 'Hobbies'
+subtitle: 'Subtitle Placeholder'
+---
+
+# Placeholder: H1
+## H2
+something text
+

@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 (function () {
     const path = window.location.pathname;
 
@@ -12,4 +12,32 @@
         el.href = target;
     });
 })();
+</script> -->
+
+
+<script>
+function switchLanguage(targetLang) {
+    const path = window.location.pathname;
+    const match = path.match(/^\/(en|zh)(\/.*)?$/);
+    const rest = match ? (match[2] || '/') : '/';
+    window.location.pathname = '/' + targetLang + rest;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // 遍历所有 navbar 下拉菜单链接，按文字匹配
+    document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+        const text = el.textContent.trim();
+        if (text === 'English') {
+            el.addEventListener('click', function (e) {
+            e.preventDefault();
+            switchLanguage('en');
+            });
+        } else if (text === '中文') {
+            el.addEventListener('click', function (e) {
+            e.preventDefault();
+            switchLanguage('zh');
+            });
+        }
+    });
+});
 </script>
