@@ -1,9 +1,9 @@
 ---
-title: "Amounts and Distribution"
-author: "Pinn Xu"
-date: "2024-10-01"
+title: 'Amounts and Distribution'
+author: 'Pinn Xu'
+date: '2024-10-01'
 categories: ["Python", "Visualization", "Distribution", "Histogram", "Bar Plot", "Point Plot", "Box Plot", "Violin Plot"]
-description: "This tutorial introduces how to use Seaborn to create common visualizations for amounts and distributions, including bar plots, point plots, histograms, box plots, and more, while adjusting parameters to communicate information more clearly."
+description: 'This tutorial introduces how to use Seaborn to create common visualizations for amounts and distributions, including bar plots, point plots, histograms, box plots, and more, while adjusting parameters to communicate information more clearly.'
 code-fold: false
 order: 2
 ---
@@ -18,7 +18,7 @@ matplotlib==3.9.x
 seaborn==0.13.2
 ```
 
-# 1. Seaborn and Matplotlib
+# Seaborn and Matplotlib
 
 > **Note:** If you are using a local environment such as Jupyter or VS Code, install Seaborn first. If you are using Google Colab, Seaborn is already available and does not need to be installed manually.
 
@@ -97,11 +97,11 @@ By contrast, `df.sample()` is a method that operates on the `df` object:
 df.sample(4)
 ```
 
-# 2. Drawing Bar Plots
+# Drawing Bar Plots
 
-## 2.1 Basic Bar Plots with Seaborn
+## Basic Bar Plots with Seaborn
 
-### 2.1.1 Basic Bar Plot
+### Basic Bar Plot
 
 ```{python}
 # Basic bar plot: the x-axis is categorical, and the y-axis shows the mean by default.
@@ -127,7 +127,7 @@ sns.__version__  # View the current Seaborn version. Since 0.13, the default is 
 df.loc[df['island'] == 'Biscoe', 'body_mass_g'].mean()
 ```
 
-### 2.1.2 Count Plot
+### Count Plot
 
 ```{python}
 # Count plot: automatically counts the number of observations in each category
@@ -137,7 +137,7 @@ plt.show()
 
 **Reference: [`sns.countplot()` documentation](https://seaborn.pydata.org/generated/seaborn.countplot.html)**
 
-## 2.2 Grouping Bars and Removing Error Bars
+## Grouping Bars and Removing Error Bars
 
 Use the `hue` parameter to group by category, and set `errorbar=None` to remove error bars.
 
@@ -149,7 +149,7 @@ plt.show()
 
 **Reference: [`sns.barplot()` documentation](https://seaborn.pydata.org/generated/seaborn.barplot.html)** (`errorbar` and `hue` parameters)
 
-## 2.3 Rotating Tick Labels
+## Rotating Tick Labels
 
 When x-axis labels are too long, use `plt.xticks()` to rotate them:
 
@@ -178,7 +178,7 @@ sns.countplot(data=df, y='species', hue='sex')
 plt.show()
 ```
 
-## 2.4 Setting the Global Theme
+## Setting the Global Theme
 
 ```{python}
 # Set the global plotting theme. It applies to all subsequent Seaborn charts.
@@ -212,7 +212,7 @@ After assigning a Seaborn chart to the variable `ax`, you can call Matplotlib me
 [`sns.set_theme()` documentation](https://seaborn.pydata.org/generated/seaborn.set_theme.html#seaborn.set_theme)\
 [`ax.set()` documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set.html)
 
-## 2.5 Adjusting the Legend
+## Adjusting the Legend
 
 Whether you use `errorbar=None` or `errorbar=('ci', 0)`, the legend may cover the plot, so you may need to adjust its position manually with `sns.move_legend()`.
 
@@ -262,7 +262,7 @@ plt.show()
 [`sns.move_legend()` documentation](https://seaborn.pydata.org/generated/seaborn.move_legend.html) (`obj` and `loc` parameters)\
 [`matplotlib.axes.Axes.legend()` documentation](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html) (`loc`, `ncols`, and `bbox_to_anchor` parameters)
 
-## 2.6 Changing Colors
+## Changing Colors
 
 Use the `palette` parameter to change chart colors. It can take the following kinds of values:
 
@@ -316,7 +316,7 @@ plt.show()
 [Matplotlib colormaps](https://matplotlib.org/stable/users/explain/colors/colormaps.html)\
 [w3schools color picker](https://www.w3schools.com/colors/colors_picker.asp)
 
-## Extension: Counting Penguins on Each Island
+## Extension: Counting Penguins on Each Island {.unnumbered}
 
 The following two approaches are equivalent and can be used later to sort bar plots by totals.
 
@@ -334,9 +334,9 @@ df.groupby('island').size()
 df.value_counts('island')
 ```
 
-# 3. Drawing Other Plots
+# Drawing Other Plots
 
-## 3.1 Point Plot
+## Point Plot
 
 The y-axis of a bar plot must start at 0 to ensure that the visual proportions match the data proportions, following Wilke's [Principle of Proportional Ink](https://clauswilke.com/dataviz/proportional-ink.html) ([Wilke 2019, chap. 17](https://clauswilke.com/dataviz/proportional-ink.html)). Point plots do not have this restriction: the y-axis can start from the data range, and the data-ink ratio is higher because there is less visual clutter.
 
@@ -351,7 +351,7 @@ plt.show()
 
 **Reference: [`sns.pointplot()` documentation](https://seaborn.pydata.org/generated/seaborn.pointplot.html#)**
 
-## 3.2 Histogram
+## Histogram
 
 The x-axis of a bar plot represents **discrete categories** (nominal or ordinal data). The x-axis of a histogram represents **continuous numerical intervals** (ratio data).
 
@@ -386,7 +386,7 @@ sns.histplot(
 plt.show()
 ```
 
-### 3.2.1 The `stat` Parameter
+### The `stat` Parameter
 
 This parameter controls the statistic shown by the histogram. Available values include:
 
@@ -466,7 +466,7 @@ for p in ax.patches:
 plt.show()
 ```
 
-### 3.2.2 The `common_norm` Parameter
+### The `common_norm` Parameter
 
 This boolean parameter only applies when `stat` is `'probability'`, `'proportion'`, `'percent'`, or `'density'`. Its default value is `True`:
 
@@ -517,7 +517,7 @@ plt.show()
 
 **Reference: [`sns.histplot()` documentation](https://seaborn.pydata.org/generated/seaborn.histplot.html)** (`hue`, `stat`, and `common_norm` parameters)
 
-## 3.3 Box Plot
+## Box Plot
 
 A box plot summarizes a distribution with five key values: min, Q1, Q2 (median), Q3, and max. It also marks outliers beyond the whisker range.
 
@@ -557,7 +557,7 @@ plt.show()
 
 **Reference: [`sns.boxplot()` documentation](https://seaborn.pydata.org/generated/seaborn.boxplot.html)** (`fliersize` and `whis` parameters)
 
-## 3.4 Violin Plot
+## Violin Plot
 
 A violin plot combines features of a box plot, such as medians and quantiles, with a density curve that shows the smoothed distribution. When the dataset is small, the smoothed curve may be misleading, so a histogram or box plot may be preferable.
 
@@ -577,7 +577,7 @@ plt.show()
 
 **Reference: [`sns.violinplot()` documentation](https://seaborn.pydata.org/generated/seaborn.violinplot.html)** (`split` parameter)
 
-## 3.5 Strip Plot and Swarm Plot
+## Strip Plot and Swarm Plot
 
 **Strip plots** draw every data point, with each dot representing one observation. Points are randomly jittered along the categorical axis to reduce overlap. **Swarm plots** automatically arrange overlapping data points and are easier to read.
 
@@ -608,7 +608,7 @@ plt.show()
 [`sns.stripplot()` documentation](https://seaborn.pydata.org/generated/seaborn.stripplot.html)\
 [`sns.swarmplot()` documentation](https://seaborn.pydata.org/generated/seaborn.swarmplot.html)
 
-# Reference Links
+# Reference Links {.unnumbered}
 
 > **General links:**\
 > [**Python 3 documentation**](https://docs.python.org/3/library/functions.html) (for built-in functions and related usage)\

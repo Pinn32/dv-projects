@@ -2,4 +2,5 @@ code-tools: true
 code-fold: true
 jupyter: dv-env
 sidebar: true
+number-sections: true
 back-to-top-navigation: true

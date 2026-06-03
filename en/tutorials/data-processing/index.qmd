@@ -1,9 +1,9 @@
 ---
-title: "Data Processing"
-author: "Pinn Xu"
-date: "2024-10-10"
+title: 'Data Processing'
+author: 'Pinn Xu'
+date: '2024-10-10'
 categories: ["Python", "Data Processing", "Pandas", "DataFrame"]
-description: "This tutorial covers essential data processing workflows in Pandas, including missing values, column management, duplicates, reshaping, joins, and aggregation."
+description: 'This tutorial covers essential data processing workflows in Pandas, including missing values, column management, duplicates, reshaping, joins, and aggregation.'
 code-fold: false
 order: 1
 ---
@@ -17,7 +17,7 @@ pandas==2.2.2
 ```
 
 
-# 1. Handling Missing Values
+# Handling Missing Values
 
 **Reading CSV Files:**  
 
@@ -32,7 +32,7 @@ df = pd.read_csv(path) # read csv file into a DataFrame
 df.head(2) # view first 2 rows
 ```
 
-## 1.1 Dropping Missing Values
+## Dropping Missing Values
 
 Use `dropna()` to remove rows with missing values in the columns required for analysis.
 
@@ -58,7 +58,7 @@ df.shape # view original shape (num of rows, num of cols)
 df_clean.shape # shape after dropping rows with missing values
 ```
 
-## 1.2 Filling Missing Values
+## Filling Missing Values
 
 Use `fillna()` when a missing value should be replaced rather than removed.
 
@@ -75,7 +75,7 @@ df.head(3)["mentions"]
 - Use `df.fillna(value)` to replace missing values in a specific column with a placeholder, such as a string.  
 - Assign the result back to the column to update the DataFrame.  
 
-## 1.3 Replacing Specific Values
+## Replacing Specific Values
 
 Use `replace()` to convert placeholder values into a more useful representation.
 
@@ -92,9 +92,9 @@ df.head(3)["mentions"]
 - Use `df.replace(old_value, new_value)` to substitute specific values in a column.  
 - This is useful for converting placeholders into more appropriate representations, like numbers.  
 
-# 2. Renaming and Creating Columns
+# Renaming and Creating Columns
 
-## 2.1 Renaming Columns
+## Renaming Columns
 
 Use `rename()` to make column names shorter and more descriptive.
 
@@ -112,7 +112,7 @@ df.head(2)
 - This improves readability and descriptiveness.  
 - Similarly, use `index` parameter for renaming indices.  
 
-## 2.2 Creating New Columns
+## Creating New Columns
 
 Drop rows with missing follower counts before creating derived metrics.
 
@@ -128,7 +128,7 @@ df.head(2)
 
 - First, clean the data by dropping rows with missing values in relevant columns using `df.dropna(subset=['column'])`.  
 
-### 2.2.1 Applying Basic Column Operations
+### Applying Basic Column Operations
 
 Create a new column by applying a vectorized calculation to an existing column.
 
@@ -144,7 +144,7 @@ df.head(3)[["followers_k", "user.followers_count"]]
 
 - Create new columns by performing vectorized operations on existing columns, e.g., `df['new_col'] = df['existing_col'] / 1000`.  
 
-### 2.2.2 Applying a Custom Function
+### Applying a Custom Function
 
 Define a reusable function when the transformation is clearer as named logic.
 
@@ -180,7 +180,7 @@ ax = df[["er_rt_fo", "retweet_count", "user.followers_count"]].plot(
 - Use `.values` if needed to extract array from Series.  
 - Visualize relationships using `df.plot()` with `subplots=True` for separate plots, `figsize` for dimensions, and `kind` for plot types (default 'line', options include 'bar', 'hist', 'scatter', 'pie').  
 
-# 3. Finding Duplicates
+# Finding Duplicates
 
 Remove fully duplicated rows with `duplicated()`.
 
@@ -204,7 +204,7 @@ Find users who posted multiple times on the same date by specifying a subset of 
 df[df.duplicated(subset=["user", "date"], keep=False)].head(2)
 ```
 
-# 4. Reordering and Reshaping Data
+# Reordering and Reshaping Data
 
 Sort rows by multiple columns with `sort_values()`.
 
@@ -227,7 +227,7 @@ Transpose the DataFrame when you need to switch rows and columns for inspection.
 df.transpose().head(3) # view the DataFrame with rows and columns swapped
 ```
 
-# 5. Joining Data
+# Joining Data
 
 Load a second dataset and combine it with `concat()`.
 
@@ -257,7 +257,7 @@ Reset the index after concatenation when you want a continuous row index.
 pd.concat([df, df2]).reset_index(drop=True).iloc[428:432,]
 ```
 
-# 6. Grouping and Aggregation
+# Grouping and Aggregation
 
 Use `groupby()` with `agg()` to compute summary statistics by group. The example below calculates total retweets and average follower count for each user.
 
@@ -289,9 +289,9 @@ df[~df.duplicated(subset="user")].shape
 df["user"].nunique()
 ```
 
-# 7. Melting and Pivoting
+# Melting and Pivoting
 
-## 7.1 Melting Data
+## Melting Data
 
 **Melting: wide → long**  
 
@@ -329,7 +329,7 @@ melted_df = pd.melt(
 )
 ```
 
-## 7.2 Pivoting Data
+## Pivoting Data
 
 **Pivot: long → wide**  
 
