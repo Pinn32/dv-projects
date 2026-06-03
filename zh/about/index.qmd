@@ -6,7 +6,7 @@ toc: false
 
 ## 关于本站
 
-本站是由 **Pinn（许爱琦）** 构建的个人数据可视化与分析作品集。
+本站是由 **Pinn (Aiqi) Xu** 构建的个人数据可视化与分析作品集。
 
 本站收录了多个数据项目，通过探索性数据分析（EDA）、统计方法与交互式可视化，对真实世界数据集进行深入研究。项目使用 **R** 和 **Python** 编写，并通过 [Quarto](https://quarto.org/) 发布。
 
@@ -26,4 +26,4 @@ toc: false
 
 ## 联系方式
 
-欢迎通过 [GitHub](https://github.com/pinn32) 探索源代码或与我联系。
+欢迎通过 [GitHub](https://github.com/Pinn32) 查看源代码或与我联系。
