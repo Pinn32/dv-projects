@@ -5,6 +5,8 @@ css: '../../src/styles/projects.css'
 include-after-body: '../../src/scripts/responsive-tag-bar.html'
 toc: false
 sidebar: false
+back-to-top-navigation: false
+
 listing:
   id: tutorials-listing
   contents: "*/index.qmd"

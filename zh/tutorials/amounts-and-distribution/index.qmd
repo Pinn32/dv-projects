@@ -5,7 +5,6 @@ date: "2024-10-01"
 categories: ["Python", "Visualization", "Distribution", "Histogram", "Bar Plot", "Point Plot", "Box Plot", "Violin Plot"]
 description: "本章介绍如何使用 Seaborn 库绘制柱状图、点线图、直方图、箱线图等常见的数量与分布可视化图表，并通过调整参数实现更清晰的信息传达。"
 code-fold: false
-jupyter: dv-env
 order: 2
 ---
 
