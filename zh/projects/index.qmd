@@ -1,7 +1,7 @@
 ---
 title: '项目'
 subtitle: '使用 R/Python 进行数据分析与可视化的项目。'
-css: '/src/styles/projects.css'
+# css: '../../src/styles/projects.css'
 include-after-body: '../../src/scripts/responsive-tag-bar.html'
 toc: false
 sidebar: false

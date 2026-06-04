@@ -2,71 +2,64 @@
 
 ## Project Overview
 
-A Quarto website (`_quarto.yml`) for data visualization projects and tutorials by Pinn (Aiqi) Xu. The site contains:
-- **Projects** — analytical write-ups (e.g., Catalan referendum sentiment, visa costs, Spotify streams)
-- **Tutorials** — data visualization guides using Python (Matplotlib, Seaborn, Plotly, Pyvis, NetworkX)
+Quarto website for data visualization projects and tutorials by Pinn (Aiqi) Xu.
+**URL:** https://pinn32.github.io/dv-projects
 
-Tutorials have a Chinese (`zh/`) variant (`index.qmd`) alongside the English source notebook (`.ipynb`).
+Content is organized into two language trees (`en/`, `zh/`), each mirroring the same structure:
+- **Projects** — analytical write-ups (Catalan referendum sentiment, visa costs, Spotify streams, student media usage)
+- **Tutorials** — data visualization guides (data processing, amounts & distribution, multivariate plots, Sankey & network)
+- **Hobbies**, **About** pages
 
 ## Tech Stack
 
-- **Quarto** — static site generator; content lives in `.qmd` and `.ipynb` files
-- **Python kernel** — `dv-env` (conda env defined in `envs/environment.yml`)
-  - Python 3.12, pandas, plotly, seaborn, matplotlib, pyvis, networkx
-- **Theme** — Minty (Bootswatch), custom CSS at `src/styles/styles.css`
+- **Quarto** — static site generator (`_quarto.yml`)
+- **Python kernel** — `dv-env` conda env (`envs/environment.yml`); Python 3.12, pandas, plotly, seaborn, matplotlib, pyvis, networkx
+- **Theme** — Minty (Bootswatch)
 
 ## File Structure
 
 ```
 _quarto.yml               # site config, navbar, sidebar, format defaults
-_brand.yml                # site branding (logo)
-404.qmd                   # 404 page
-projects/
-  _metadata.yml           # shared metadata for all projects (jupyter: dv-env, sidebar: true)
-  <project-name>/
-    index.qmd
-    index.zh.qmd
-tutorials/
-  _metadata.yml           # shared metadata for all tutorials
-  <tutorial-name>/
-    index.qmd             # English version
-    index.zh.qmd          # Chinese version
-hobbies/                  
-  index.qmd               # hobbies page
+_brand.yml                # branding (logo)
+en/                       # English content
+  _metadata.yml
+  index.qmd
+  404.qmd
+  projects/<name>/index.qmd
+  tutorials/<name>/index.qmd
+  hobbies/index.qmd
+  about/index.qmd
+zh/                       # Chinese content (same structure as en/)
 src/
   styles/
-    styles.css            # customized styles for general elements
-    portfolio.css         # customized professional portfolio styles & root elements
-    projects.css          # project/tutorial landing page styles
+    styles.css            # general elements
+    portfolio.css         # root variables & portfolio styles
+    projects.css          # project/tutorial landing pages
   scripts/
-    <script-name>.html    # JS post-processing (fix-code-fold.html, etc.)
+    fix-code-fold.html    # JS post-processing
+    lang-switch.html      # language switcher logic
+  filters/
+    reading-stats.lua     # reading time
   img/
+  data/                   # shared CSV datasets
   apa.csl                 # APA citation format
 ```
 
 ## Common Commands
 
 ```bash
-# Preview site locally
-quarto preview
-
-# Render full site
-quarto render
-
-# Render a single file
-quarto render tutorials/amounts-and-distribution/zh/index.qmd
-
-# Activate conda env (needed to run Python cells)
-conda activate dv-env
+quarto preview                                        # local dev server
+quarto render                                         # full build
+quarto render en/tutorials/amounts-and-distribution/index.qmd  # single file
+conda activate dv-env                                 # needed for Python cells
 ```
 
 ## Conventions
 
-- **Code folding** is on by default (`code-fold: true` in `_quarto.yml`); tutorials override with `code-fold: false`
-- **Citations** use APA style (`apa.csl`); `.bib` files live alongside each project's `index.qmd`
-- **Sidebar** is docked and manually listed in `_quarto.yml` — add new pages there when creating content
-- Chinese tutorials (`zh/index.qmd`) are standalone `.qmd` files, not converted from the `.ipynb` directly
-- `raw-index.qmd` files are drafts/scratch — not part of the published site
+- **Code folding** — on by default (`code-fold: true`); tutorials override with `code-fold: false`
+- **Sidebar** — manually listed in `_quarto.yml`; add new pages there when creating content
+- **Citations** — APA style (`apa.csl`); `.bib` files live alongside each project's `index.qmd`
+- Chinese content (`zh/`) is standalone `.qmd`, not converted from `.ipynb`
 
 ## After Fixing Bugs
-- run test after fixing bugs, until no more errors
+- Run tests after fixing bugs until no more errors

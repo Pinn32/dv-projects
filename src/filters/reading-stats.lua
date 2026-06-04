@@ -28,7 +28,7 @@ function Pandoc(doc)
 
     local en_words = 0
 
-    for _ in text:gmatch("[%a%d][%w%-']*") do
+    for _ in text:gmatch("[A-Za-z0-9][A-Za-z0-9%-']*") do
     en_words = en_words + 1
     end
 
