@@ -7,5 +7,5 @@ toc: false
 ---
 
 <script>
-    window.location.replace("/en/");
+    window.location.replace("en/");
 </script>
