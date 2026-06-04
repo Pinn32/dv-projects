@@ -4,3 +4,4 @@ jupyter: dv-env
 sidebar: true
 number-sections: true
 back-to-top-navigation: true
+reading-meta-enabled: true

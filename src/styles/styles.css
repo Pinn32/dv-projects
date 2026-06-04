@@ -7,6 +7,21 @@ div#refs.hanging-indent {
     }
 }
 
+/* reading time =============================================================*/
+/* these styles are for src/includes/reading-meta.html */
+/* registered in _quarto.yml */
+
+.reading-meta {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.reading-meta span {
+    margin-right: 0.3rem;
+}
+
+
 /* description ============================================================= */
 div.description {
     font-size: 0.85rem;

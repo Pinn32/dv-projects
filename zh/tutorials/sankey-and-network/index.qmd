@@ -437,7 +437,7 @@ gp.show('net.html', notebook=False)
 
 ![输出的 html 文件自动储存在 Colab 文件中](../../../src/img/ttl/sankey/fig6-colab.png){#fig-colab}
 
-![网络图 html 输出结果演示（gif 动图）](../../../src/img/ttl/sankey/fig7-network-sample.gif){#fig-network-sample}
+![网络图 html 输出结果演示（gif 动图）](../../../src/img/ttl/sankey/fig7-network-sample.gif){#fig-network-sample width="60%"}
 
 ```{python}
 print(gp.nodes[0])    # 查看第一个节点（index 为 0）的信息
@@ -457,7 +457,7 @@ gp.show('net-modified.html', notebook=False)
 
 修改后效果见 @fig-network-sample-modified：
 
-![修改后的网络图](../../../src/img/ttl/sankey/fig8-network-sample-modified.png){#fig-network-sample-modified}
+![修改后的网络图](../../../src/img/ttl/sankey/fig8-network-sample-modified.png){#fig-network-sample-modified width="50%"}
 
 ## 从文件中读取网络关系
 

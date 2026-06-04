@@ -119,7 +119,6 @@ format:
       - ./src/scripts/lang-switch.html
       # - ./src/scripts/fix-navbar-active.html
     
-
     toc: true
     code-tools: true
       # toggle: true
@@ -134,4 +133,6 @@ format:
 # lang: en
 brand: _brand.yml
 editor: source
+filters: 
+  - src/filters/reading-stats.lua  # for reading time
 
