@@ -1,5 +1,5 @@
 code-tools: true
-code-fold: true
+code-fold: false
 jupyter: dv-env
 sidebar: true
 number-sections: true
