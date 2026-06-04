@@ -1,0 +1,2749 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Pinn Xu">
+<meta name="description" content="本教程介绍 Pandas 中常用的数据处理流程，包括缺失值处理、列管理、重复值、数据重塑、表连接和分组聚合。">
+
+<title>数据清理 – Pinn (Aiqi) Xu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../src/img/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../../src/styles/styles.css">
+<link rel="stylesheet" href="../../../src/styles/portfolio.css">
+<link rel="stylesheet" href="../../../src/styles/projects.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo light-content">
+    <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Pinn (Aiqi) Xu</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="搜索"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../en/projects/index.html" aria-current="page"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/tutorials/index.html"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/hobbies/index.html"> 
+<span class="menu-text">Hobbies</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-translate"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
+            English
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
+            中文
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="https://github.com/Pinn32/dv-projects" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/in/aiqi-xu-71943b378/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">数据清理</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/projects/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projects</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Twitter Sentiment Analysis of Catalan Referendum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Global Visa Cost Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Student Social Media Usage &amp; Addiction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Most Streamed Songs on Spotify</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/tutorials/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/data-processing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/amounts-and-distribution/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amounts and Distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/multivariate-plots/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multivariate Plots</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/sankey-and-network/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sankey &amp; Network Diagrams</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/about/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#处理缺失值" id="toc-处理缺失值" class="nav-link active" data-scroll-target="#处理缺失值"><span class="header-section-number">1</span> 处理缺失值</a>
+  <ul class="collapse">
+  <li><a href="#删除缺失值" id="toc-删除缺失值" class="nav-link" data-scroll-target="#删除缺失值"><span class="header-section-number">1.1</span> 删除缺失值</a></li>
+  <li><a href="#填充缺失值" id="toc-填充缺失值" class="nav-link" data-scroll-target="#填充缺失值"><span class="header-section-number">1.2</span> 填充缺失值</a></li>
+  <li><a href="#替换特定值" id="toc-替换特定值" class="nav-link" data-scroll-target="#替换特定值"><span class="header-section-number">1.3</span> 替换特定值</a></li>
+  </ul></li>
+  <li><a href="#重命名和创建列" id="toc-重命名和创建列" class="nav-link" data-scroll-target="#重命名和创建列"><span class="header-section-number">2</span> 重命名和创建列</a>
+  <ul class="collapse">
+  <li><a href="#重命名列" id="toc-重命名列" class="nav-link" data-scroll-target="#重命名列"><span class="header-section-number">2.1</span> 重命名列</a></li>
+  <li><a href="#创建新列" id="toc-创建新列" class="nav-link" data-scroll-target="#创建新列"><span class="header-section-number">2.2</span> 创建新列</a>
+  <ul class="collapse">
+  <li><a href="#对现有列进行基础运算" id="toc-对现有列进行基础运算" class="nav-link" data-scroll-target="#对现有列进行基础运算"><span class="header-section-number">2.2.1</span> 对现有列进行基础运算</a></li>
+  <li><a href="#应用自定义函数" id="toc-应用自定义函数" class="nav-link" data-scroll-target="#应用自定义函数"><span class="header-section-number">2.2.2</span> 应用自定义函数</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#查找重复值" id="toc-查找重复值" class="nav-link" data-scroll-target="#查找重复值"><span class="header-section-number">3</span> 查找重复值</a></li>
+  <li><a href="#重新排序和重塑数据" id="toc-重新排序和重塑数据" class="nav-link" data-scroll-target="#重新排序和重塑数据"><span class="header-section-number">4</span> 重新排序和重塑数据</a></li>
+  <li><a href="#连接数据" id="toc-连接数据" class="nav-link" data-scroll-target="#连接数据"><span class="header-section-number">5</span> 连接数据</a></li>
+  <li><a href="#分组和聚合" id="toc-分组和聚合" class="nav-link" data-scroll-target="#分组和聚合"><span class="header-section-number">6</span> 分组和聚合</a></li>
+  <li><a href="#melt-和-pivot" id="toc-melt-和-pivot" class="nav-link" data-scroll-target="#melt-和-pivot"><span class="header-section-number">7</span> Melt 和 Pivot</a>
+  <ul class="collapse">
+  <li><a href="#melt-数据" id="toc-melt-数据" class="nav-link" data-scroll-target="#melt-数据"><span class="header-section-number">7.1</span> Melt 数据</a></li>
+  <li><a href="#pivot-数据" id="toc-pivot-数据" class="nav-link" data-scroll-target="#pivot-数据"><span class="header-section-number">7.2</span> Pivot 数据</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/data-processing/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">数据清理</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 代码</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">显示所有代码</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">隐藏所有代码</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">查看源代码</a></li></ul></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">Data Processing</div>
+    <div class="quarto-category">Pandas</div>
+    <div class="quarto-category">DataFrame</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    本教程介绍 Pandas 中常用的数据处理流程，包括缺失值处理、列管理、重复值、数据重塑、表连接和分组聚合。
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pinn Xu </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">发布于</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2024年10月10日</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="reading-meta"><span>        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+        </svg>
+     16 min read</span><span> · </span><span>2306 EN words</span><span> · </span><span>1327 中文字</span></div>
+<div id="7edf4126" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>环境与版本</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pandas<span class="op">==</span><span class="fl">2.2.2</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="处理缺失值" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 处理缺失值</h1>
+<p><strong>读取 CSV 文件：</strong></p>
+<ul>
+<li>使用 <code>pd.read_csv(path)</code> 将 CSV 文件读取为 Pandas DataFrame。<br>
+</li>
+<li>文件路径中的分隔符建议使用正斜杠 <code>/</code>（Windows 中也可以使用转义反斜杠 <code>\\</code>）。</li>
+</ul>
+<div id="d7d53e57" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入数据</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"../../../src/data/beer-and-curry.csv"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(path) <span class="co"># 将 CSV 文件读取为 DataFrame</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>) <span class="co"># 查看前 2 行</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">created_at</th>
+<th data-quarto-table-cell-role="th">utc_time</th>
+<th data-quarto-table-cell-role="th">mentions</th>
+<th data-quarto-table-cell-role="th">text</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">favorite_count</th>
+<th data-quarto-table-cell-role="th">user</th>
+<th data-quarto-table-cell-role="th">user.location</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+<th data-quarto-table-cell-role="th">user.friends_count</th>
+<th data-quarto-table-cell-role="th">user.created_at</th>
+<th data-quarto-table-cell-role="th">user.favourites_count</th>
+<th data-quarto-table-cell-role="th">user.verified</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>06/05/2020</td>
+<td>11:11:49</td>
+<td>NaN</td>
+<td>NINE SPICES?????????????????\n?9??SPICE????NIN...</td>
+<td>https://t.co/wddjIaJTcD</td>
+<td>24</td>
+<td>12</td>
+<td>9spices</td>
+<td>??????????2-1-2 HANROKU??B1</td>
+<td>3820</td>
+<td>1961</td>
+<td>10/02/2010</td>
+<td>296</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>07/07/2020</td>
+<td>08:08:54</td>
+<td>@lizzie_hubbard2 @JetsettersFlyin @suziday123 ...</td>
+<td>Thanks for the invite to join #TravelWinePart...</td>
+<td>https://t.co/6Z7GgkJE8v</td>
+<td>6</td>
+<td>17</td>
+<td>ExpressionsSA</td>
+<td>Cape Town South Africa</td>
+<td>5088</td>
+<td>5284</td>
+<td>24/06/2011</td>
+<td>15625</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="删除缺失值" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="删除缺失值"><span class="header-section-number">1.1</span> 删除缺失值</h2>
+<p>当分析所需的列中存在缺失值时，可以使用 <code>dropna()</code> 删除对应行。</p>
+<div id="a0500299" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除 'text' 或 'retweet_count' 缺失（值为 NA 或 NaN）的行</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"text"</span>, <span class="st">"retweet_count"</span>])</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>删除缺失值：</strong></p>
+<ul>
+<li>使用 <code>df.dropna()</code> 删除包含缺失值（NA 或 NaN）的行。<br>
+</li>
+<li>默认情况下，只要某一行中至少有一个缺失值，该行就会被删除。<br>
+</li>
+<li>可以通过 <code>subset</code> 指定列名列表，只根据这些列中的缺失值来决定是否删除整行。<br>
+</li>
+<li><code>subset</code> 的列名集合可以使用圆括号 <code>()</code> 或方括号 <code>[]</code>。</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>注意：</strong> 数据预处理时，通常不需要直接删除所有包含缺失值的行。更稳妥的做法是只针对分析所需的关键列删除缺失值，以尽量保持数据准确性。</p>
+</blockquote>
+<div id="0e538222" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.shape <span class="co"># 查看原始形状（行数和列数）</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>(430, 14)</code></pre>
+</div>
+</div>
+<div id="bd2f3577" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_clean.shape <span class="co"># 删除缺失值后的形状</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>(429, 14)</code></pre>
+</div>
+</div>
+</section>
+<section id="填充缺失值" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="填充缺失值"><span class="header-section-number">1.2</span> 填充缺失值</h2>
+<p>当缺失值应该被替换而不是删除时，可以使用 <code>fillna()</code>。</p>
+<div id="f68ca253" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 用占位字符串填充 'mentions' 中的缺失值</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].fillna(<span class="st">"No Mentioned User"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 'mentions' 列中替换后的值</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[<span class="st">"mentions"</span>]</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>0                                    No Mentioned User
+1    @lizzie_hubbard2 @JetsettersFlyin @suziday123 ...
+2    @craftbeerncl! @RidgesideBrewer @Manjitskitche...
+Name: mentions, dtype: object</code></pre>
+</div>
+</div>
+<p><strong>填充缺失值：</strong></p>
+<ul>
+<li>使用 <code>df.fillna(value)</code> 将某一列中的缺失值替换为指定占位值，例如字符串。<br>
+</li>
+<li>如果需要更新原 DataFrame，需要将结果重新赋值回该列。</li>
+</ul>
+</section>
+<section id="替换特定值" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="替换特定值"><span class="header-section-number">1.3</span> 替换特定值</h2>
+<p>使用 <code>replace()</code> 可以将占位值转换为更适合后续分析的表示方式。</p>
+<div id="122b9251" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将占位字符串替换为 0</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].replace(<span class="st">"No Mentioned User"</span>, <span class="dv">0</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 'mentions' 列中替换后的值</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[<span class="st">"mentions"</span>]</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>0                                                    0
+1    @lizzie_hubbard2 @JetsettersFlyin @suziday123 ...
+2    @craftbeerncl! @RidgesideBrewer @Manjitskitche...
+Name: mentions, dtype: object</code></pre>
+</div>
+</div>
+<p><strong>替换特定值：</strong></p>
+<ul>
+<li>使用 <code>df.replace(old_value, new_value)</code> 替换某一列中的特定值。<br>
+</li>
+<li>这常用于将占位字符串转换为更合适的形式，例如数字。</li>
+</ul>
+</section>
+</section>
+<section id="重命名和创建列" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 重命名和创建列</h1>
+<section id="重命名列" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="重命名列"><span class="header-section-number">2.1</span> 重命名列</h2>
+<p>使用 <code>rename()</code> 可以让列名更简短、更清晰。</p>
+<div id="554701dd" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 'text' 重命名为 'content'，将 'created_at' 重命名为 'date'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"text"</span>: <span class="st">"content"</span>, <span class="st">"created_at"</span>: <span class="st">"date"</span>})</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看重命名后的列</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">utc_time</th>
+<th data-quarto-table-cell-role="th">mentions</th>
+<th data-quarto-table-cell-role="th">content</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">favorite_count</th>
+<th data-quarto-table-cell-role="th">user</th>
+<th data-quarto-table-cell-role="th">user.location</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+<th data-quarto-table-cell-role="th">user.friends_count</th>
+<th data-quarto-table-cell-role="th">user.created_at</th>
+<th data-quarto-table-cell-role="th">user.favourites_count</th>
+<th data-quarto-table-cell-role="th">user.verified</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>06/05/2020</td>
+<td>11:11:49</td>
+<td>0</td>
+<td>NINE SPICES?????????????????\n?9??SPICE????NIN...</td>
+<td>https://t.co/wddjIaJTcD</td>
+<td>24</td>
+<td>12</td>
+<td>9spices</td>
+<td>??????????2-1-2 HANROKU??B1</td>
+<td>3820</td>
+<td>1961</td>
+<td>10/02/2010</td>
+<td>296</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>07/07/2020</td>
+<td>08:08:54</td>
+<td>@lizzie_hubbard2 @JetsettersFlyin @suziday123 ...</td>
+<td>Thanks for the invite to join #TravelWinePart...</td>
+<td>https://t.co/6Z7GgkJE8v</td>
+<td>6</td>
+<td>17</td>
+<td>ExpressionsSA</td>
+<td>Cape Town South Africa</td>
+<td>5088</td>
+<td>5284</td>
+<td>24/06/2011</td>
+<td>15625</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>重命名列：</strong></p>
+<ul>
+<li>使用 <code>df.rename(columns={'old_name': 'new_name'})</code> 通过字典重命名列。<br>
+</li>
+<li>这可以提高数据表的可读性和描述性。<br>
+</li>
+<li>类似地，也可以使用 <code>index</code> 参数重命名索引。</li>
+</ul>
+</section>
+<section id="创建新列" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="创建新列"><span class="header-section-number">2.2</span> 创建新列</h2>
+<p>在创建衍生指标前，先删除粉丝数缺失的行。</p>
+<div id="bb2db7af" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定特定列，用于删除含缺失值的行</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"user.followers_count"</span>])</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看已清理的数据，其中粉丝数没有缺失值</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">utc_time</th>
+<th data-quarto-table-cell-role="th">mentions</th>
+<th data-quarto-table-cell-role="th">content</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">favorite_count</th>
+<th data-quarto-table-cell-role="th">user</th>
+<th data-quarto-table-cell-role="th">user.location</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+<th data-quarto-table-cell-role="th">user.friends_count</th>
+<th data-quarto-table-cell-role="th">user.created_at</th>
+<th data-quarto-table-cell-role="th">user.favourites_count</th>
+<th data-quarto-table-cell-role="th">user.verified</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>06/05/2020</td>
+<td>11:11:49</td>
+<td>0</td>
+<td>NINE SPICES?????????????????\n?9??SPICE????NIN...</td>
+<td>https://t.co/wddjIaJTcD</td>
+<td>24</td>
+<td>12</td>
+<td>9spices</td>
+<td>??????????2-1-2 HANROKU??B1</td>
+<td>3820</td>
+<td>1961</td>
+<td>10/02/2010</td>
+<td>296</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>07/07/2020</td>
+<td>08:08:54</td>
+<td>@lizzie_hubbard2 @JetsettersFlyin @suziday123 ...</td>
+<td>Thanks for the invite to join #TravelWinePart...</td>
+<td>https://t.co/6Z7GgkJE8v</td>
+<td>6</td>
+<td>17</td>
+<td>ExpressionsSA</td>
+<td>Cape Town South Africa</td>
+<td>5088</td>
+<td>5284</td>
+<td>24/06/2011</td>
+<td>15625</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>创建新列：</strong></p>
+<ul>
+<li>首先使用 <code>df.dropna(subset=['column'])</code> 清理相关列中的缺失值。</li>
+</ul>
+<section id="对现有列进行基础运算" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="对现有列进行基础运算"><span class="header-section-number">2.2.1</span> 对现有列进行基础运算</h3>
+<p>可以对现有列进行向量化计算，并将结果保存为新列。</p>
+<div id="ea490060" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过将 'user.followers_count' 除以 1000 创建新列 'followers_k'</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"followers_k"</span>] <span class="op">=</span> df[<span class="st">"user.followers_count"</span>] <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 同时查看新列和原始粉丝数</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[[<span class="st">"followers_k"</span>, <span class="st">"user.followers_count"</span>]]</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">followers_k</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>3.820</td>
+<td>3820</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>5.088</td>
+<td>5088</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.446</td>
+<td>446</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>创建新列：</strong></p>
+<ul>
+<li>可以通过对现有列进行向量化运算创建新列，例如 <code>df['new_col'] = df['existing_col'] / 1000</code>。</li>
+</ul>
+</section>
+<section id="应用自定义函数" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="应用自定义函数"><span class="header-section-number">2.2.2</span> 应用自定义函数</h3>
+<p>当转换逻辑用命名函数表达更清晰时，可以先定义可复用函数。</p>
+<div id="20620ac6" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义函数，用于计算百分比形式的互动率（Engagement Rate: ER）</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_er(engagement_count, follower_count):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (engagement_count <span class="op">/</span> follower_count) <span class="op">*</span> <span class="dv">100</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e90c13e1" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 应用计算出的互动率，并赋值给新列 'er_rt_fo'</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"er_rt_fo"</span>] <span class="op">=</span> calc_er(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"retweet_count"</span>],</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"user.followers_count"</span>],</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 同时查看新的互动率列和原始指标</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[[<span class="st">"er_rt_fo"</span>, <span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>]]</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">er_rt_fo</th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.628272</td>
+<td>24</td>
+<td>3820</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.117925</td>
+<td>6</td>
+<td>5088</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.896861</td>
+<td>4</td>
+<td>446</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="a460942a" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 可视化互动率与另外两个指标之间的关系</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df[[<span class="st">"er_rt_fo"</span>, <span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>]].plot(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    subplots<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Engagement Rate vs Retweets and Followers"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-14-output-1.png" width="592" height="459" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>创建新列：</strong></p>
+<ul>
+<li>对于更复杂的计算，可以先定义函数，例如效率比率：ER = (effective cost / full cost) * 100。<br>
+</li>
+<li>将函数应用到 DataFrame 的列上，即可生成新的指标列。<br>
+</li>
+<li>如有需要，可以使用 <code>.values</code> 从 Series 中提取数组值。<br>
+</li>
+<li>可以使用 <code>df.plot()</code> 进行快速可视化；<code>subplots=True</code> 会生成分面图，<code>figsize</code> 控制尺寸，<code>kind</code> 控制图形类型（默认是 <code>'line'</code>，也可以使用 <code>'bar'</code>、<code>'hist'</code>、<code>'scatter'</code>、<code>'pie'</code>）。</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="查找重复值" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 查找重复值</h1>
+<p>使用 <code>duplicated()</code> 删除完全重复的行。</p>
+<div id="eab3c044" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除完全重复的行（保留第一次出现的记录）</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ~ 是取反运算符</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[<span class="op">~</span>df.duplicated()]</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>查找重复值：</strong></p>
+<ul>
+<li>使用 <code>df.duplicated()</code> 识别重复行；它会返回一个布尔值 Series。<br>
+</li>
+<li>使用 <code>~df.duplicated()</code> 可以只保留非重复行。<br>
+</li>
+<li>可以通过 <code>subset</code> 指定列名列表，只根据这些列判断是否重复。<br>
+</li>
+<li>使用 <code>keep=False</code> 可以标记所有重复项。</li>
+</ul>
+<p>通过指定列子集，可以找出同一个用户在同一天发布多条内容的记录。</p>
+<div id="37609378" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 根据 'user' 和 'date' 列查找重复行（保留所有重复记录）</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df[df.duplicated(subset<span class="op">=</span>[<span class="st">"user"</span>, <span class="st">"date"</span>], keep<span class="op">=</span><span class="va">False</span>)].head(<span class="dv">2</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">utc_time</th>
+<th data-quarto-table-cell-role="th">mentions</th>
+<th data-quarto-table-cell-role="th">content</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">favorite_count</th>
+<th data-quarto-table-cell-role="th">user</th>
+<th data-quarto-table-cell-role="th">user.location</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+<th data-quarto-table-cell-role="th">user.friends_count</th>
+<th data-quarto-table-cell-role="th">user.created_at</th>
+<th data-quarto-table-cell-role="th">user.favourites_count</th>
+<th data-quarto-table-cell-role="th">user.verified</th>
+<th data-quarto-table-cell-role="th">followers_k</th>
+<th data-quarto-table-cell-role="th">er_rt_fo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">7</th>
+<td>29/02/2020</td>
+<td>14:42:01</td>
+<td>@MCRCycleSam @CatrionaSwanson @bricycle @marty...</td>
+<td>A gathering of UK transport activists; cycle s...</td>
+<td>https://t.co/OcyyKkhmUh</td>
+<td>3</td>
+<td>15</td>
+<td>davelostdave</td>
+<td>somewhere</td>
+<td>459</td>
+<td>1287</td>
+<td>15/06/2009</td>
+<td>23700</td>
+<td>False</td>
+<td>0.459</td>
+<td>0.653595</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">10</th>
+<td>29/02/2020</td>
+<td>23:41:58</td>
+<td>@CatrionaSwanson @Chris_Boardman @Chris_Boardman</td>
+<td>Maybe we could put the spotlight on #Bradford ...</td>
+<td>https://t.co/0ExO7wr1ld</td>
+<td>3</td>
+<td>11</td>
+<td>davelostdave</td>
+<td>somewhere</td>
+<td>459</td>
+<td>1287</td>
+<td>15/06/2009</td>
+<td>23700</td>
+<td>False</td>
+<td>0.459</td>
+<td>0.653595</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="重新排序和重塑数据" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 重新排序和重塑数据</h1>
+<p>使用 <code>sort_values()</code> 按多个列对行排序。</p>
+<div id="33ff6c5d" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 先按 'retweet_count'，再按 'user.followers_count' 降序排序</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df.sort_values(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    by<span class="op">=</span>[<span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>],</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    ascending<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>).head(<span class="dv">2</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">utc_time</th>
+<th data-quarto-table-cell-role="th">mentions</th>
+<th data-quarto-table-cell-role="th">content</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">favorite_count</th>
+<th data-quarto-table-cell-role="th">user</th>
+<th data-quarto-table-cell-role="th">user.location</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+<th data-quarto-table-cell-role="th">user.friends_count</th>
+<th data-quarto-table-cell-role="th">user.created_at</th>
+<th data-quarto-table-cell-role="th">user.favourites_count</th>
+<th data-quarto-table-cell-role="th">user.verified</th>
+<th data-quarto-table-cell-role="th">followers_k</th>
+<th data-quarto-table-cell-role="th">er_rt_fo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>06/05/2020</td>
+<td>11:11:49</td>
+<td>0</td>
+<td>NINE SPICES?????????????????\n?9??SPICE????NIN...</td>
+<td>https://t.co/wddjIaJTcD</td>
+<td>24</td>
+<td>12</td>
+<td>9spices</td>
+<td>??????????2-1-2 HANROKU??B1</td>
+<td>3820</td>
+<td>1961</td>
+<td>10/02/2010</td>
+<td>296</td>
+<td>False</td>
+<td>3.820</td>
+<td>0.628272</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>07/07/2020</td>
+<td>08:08:54</td>
+<td>@lizzie_hubbard2 @JetsettersFlyin @suziday123 ...</td>
+<td>Thanks for the invite to join #TravelWinePart...</td>
+<td>https://t.co/6Z7GgkJE8v</td>
+<td>6</td>
+<td>17</td>
+<td>ExpressionsSA</td>
+<td>Cape Town South Africa</td>
+<td>5088</td>
+<td>5284</td>
+<td>24/06/2011</td>
+<td>15625</td>
+<td>False</td>
+<td>5.088</td>
+<td>0.117925</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>重新排序和重塑：</strong></p>
+<ul>
+<li>使用 <code>df.sort_values(by=['col1', 'col2'], ascending=False)</code> 可以按多个列进行降序排序。<br>
+</li>
+<li>使用 <code>df.transpose()</code> 可以交换行和列。</li>
+</ul>
+<p>当需要切换行和列以便检查数据时，可以转置 DataFrame。</p>
+<div id="f18fadc4" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df.transpose().head(<span class="dv">3</span>) <span class="co"># 查看行列互换后的 DataFrame</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+<th data-quarto-table-cell-role="th">2</th>
+<th data-quarto-table-cell-role="th">3</th>
+<th data-quarto-table-cell-role="th">4</th>
+<th data-quarto-table-cell-role="th">5</th>
+<th data-quarto-table-cell-role="th">6</th>
+<th data-quarto-table-cell-role="th">7</th>
+<th data-quarto-table-cell-role="th">8</th>
+<th data-quarto-table-cell-role="th">9</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">420</th>
+<th data-quarto-table-cell-role="th">421</th>
+<th data-quarto-table-cell-role="th">422</th>
+<th data-quarto-table-cell-role="th">423</th>
+<th data-quarto-table-cell-role="th">424</th>
+<th data-quarto-table-cell-role="th">425</th>
+<th data-quarto-table-cell-role="th">426</th>
+<th data-quarto-table-cell-role="th">427</th>
+<th data-quarto-table-cell-role="th">428</th>
+<th data-quarto-table-cell-role="th">429</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">date</th>
+<td>06/05/2020</td>
+<td>07/07/2020</td>
+<td>31/03/2020</td>
+<td>29/05/2020</td>
+<td>28/11/2020</td>
+<td>01/07/2020</td>
+<td>08/01/2020</td>
+<td>29/02/2020</td>
+<td>03/05/2020</td>
+<td>16/01/2020</td>
+<td>...</td>
+<td>10/04/2020</td>
+<td>27/11/2020</td>
+<td>09/12/2020</td>
+<td>25/03/2020</td>
+<td>25/06/2020</td>
+<td>30/12/2020</td>
+<td>30/08/2020</td>
+<td>04/03/2020</td>
+<td>10/08/2020</td>
+<td>07/03/2020</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">utc_time</th>
+<td>11:11:49</td>
+<td>08:08:54</td>
+<td>13:39:02</td>
+<td>20:58:17</td>
+<td>04:46:37</td>
+<td>06:35:04</td>
+<td>10:26:36</td>
+<td>14:42:01</td>
+<td>17:05:51</td>
+<td>17:50:08</td>
+<td>...</td>
+<td>23:23:26</td>
+<td>23:31:09</td>
+<td>23:32:06</td>
+<td>23:36:02</td>
+<td>23:38:41</td>
+<td>23:45:00</td>
+<td>23:54:19</td>
+<td>23:55:19</td>
+<td>23:55:38</td>
+<td>23:59:42</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">mentions</th>
+<td>0</td>
+<td>@lizzie_hubbard2 @JetsettersFlyin @suziday123 ...</td>
+<td>@craftbeerncl! @RidgesideBrewer @Manjitskitche...</td>
+<td>@StCannas @keralankaravan</td>
+<td>@yooneedmorejodi</td>
+<td>0</td>
+<td>0</td>
+<td>@MCRCycleSam @CatrionaSwanson @bricycle @marty...</td>
+<td>@DrewPritchard</td>
+<td>@Nellachops73 @MotorheadBeer @CameronsBrewery ...</td>
+<td>...</td>
+<td>@ashley_collings</td>
+<td>@101andyhibberd</td>
+<td>@MariaMo71609443 @jckiker @ScottAdamsSays</td>
+<td>@lonelyplanet</td>
+<td>0</td>
+<td>@Photos_in_Chile</td>
+<td>@jesshousty @WilliamHousty</td>
+<td>@beer_porter @siretoknote</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<p>3 rows × 430 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="连接数据" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 连接数据</h1>
+<p>读取第二个数据集，并使用 <code>concat()</code> 合并。</p>
+<div id="d2743744" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>path2 <span class="op">=</span> <span class="st">"../../../src/data/keto-and-vegan.csv"</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> pd.read_csv(path2, encoding<span class="op">=</span><span class="st">"latin-1"</span>) <span class="co"># 加载 df</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df2.head(<span class="dv">2</span>) <span class="co"># 查看前 2 行</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">created_at</th>
+<th data-quarto-table-cell-role="th">utc_time</th>
+<th data-quarto-table-cell-role="th">mentions</th>
+<th data-quarto-table-cell-role="th">text</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">favorite_count</th>
+<th data-quarto-table-cell-role="th">user</th>
+<th data-quarto-table-cell-role="th">user.location</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+<th data-quarto-table-cell-role="th">user.friends_count</th>
+<th data-quarto-table-cell-role="th">user.created_at</th>
+<th data-quarto-table-cell-role="th">user.favourites_count</th>
+<th data-quarto-table-cell-role="th">user.verified</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>01/01/2020</td>
+<td>23:10:27</td>
+<td>@BioLayne</td>
+<td>is one of the most respected and unbiased nutr...</td>
+<td>https://t.co/WDDhoIvXl5</td>
+<td>0</td>
+<td>0</td>
+<td>Eric_OGrey</td>
+<td>Sacramento, CA</td>
+<td>2333</td>
+<td>1084</td>
+<td>10/03/2016</td>
+<td>23996</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>02/01/2020</td>
+<td>18:16:26</td>
+<td>@greggprescott1</td>
+<td>I am O +, which is high protein, than fat, the...</td>
+<td>https://t.co/1hBpp6MGnu</td>
+<td>0</td>
+<td>0</td>
+<td>Glory32X</td>
+<td>Belgium</td>
+<td>636</td>
+<td>64</td>
+<td>11/07/2009</td>
+<td>22357</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>将列结构匹配的数据表纵向追加：</p>
+<div id="afa8b0dc" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 纵向拼接 df 和 df2（堆叠行）</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).iloc[<span class="dv">428</span>:<span class="dv">432</span>,] <span class="co"># 查看第 428 到 431 行</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">utc_time</th>
+<th data-quarto-table-cell-role="th">mentions</th>
+<th data-quarto-table-cell-role="th">content</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">favorite_count</th>
+<th data-quarto-table-cell-role="th">user</th>
+<th data-quarto-table-cell-role="th">user.location</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+<th data-quarto-table-cell-role="th">user.friends_count</th>
+<th data-quarto-table-cell-role="th">user.created_at</th>
+<th data-quarto-table-cell-role="th">user.favourites_count</th>
+<th data-quarto-table-cell-role="th">user.verified</th>
+<th data-quarto-table-cell-role="th">followers_k</th>
+<th data-quarto-table-cell-role="th">er_rt_fo</th>
+<th data-quarto-table-cell-role="th">created_at</th>
+<th data-quarto-table-cell-role="th">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">428</th>
+<td>10/08/2020</td>
+<td>23:55:38</td>
+<td>0</td>
+<td>Made the terrible horrible no-good mistake of ...</td>
+<td>https://t.co/AF23qFRBTv</td>
+<td>0</td>
+<td>3</td>
+<td>elizvogt</td>
+<td>NYC now, Texas forever</td>
+<td>687</td>
+<td>1105</td>
+<td>07/03/2011</td>
+<td>39909</td>
+<td>False</td>
+<td>0.687</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">429</th>
+<td>07/03/2020</td>
+<td>23:59:42</td>
+<td>0</td>
+<td>This is how I'm celebrating tonight y'all! Bee...</td>
+<td>https://t.co/Fh7wRYCguR</td>
+<td>0</td>
+<td>30</td>
+<td>Rose262</td>
+<td>Atlanta, GA</td>
+<td>1776</td>
+<td>1121</td>
+<td>10/05/2009</td>
+<td>30246</td>
+<td>False</td>
+<td>1.776</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>NaN</td>
+<td>23:10:27</td>
+<td>@BioLayne</td>
+<td>NaN</td>
+<td>https://t.co/WDDhoIvXl5</td>
+<td>0</td>
+<td>0</td>
+<td>Eric_OGrey</td>
+<td>Sacramento, CA</td>
+<td>2333</td>
+<td>1084</td>
+<td>10/03/2016</td>
+<td>23996</td>
+<td>False</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>01/01/2020</td>
+<td>is one of the most respected and unbiased nutr...</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>NaN</td>
+<td>18:16:26</td>
+<td>@greggprescott1</td>
+<td>NaN</td>
+<td>https://t.co/1hBpp6MGnu</td>
+<td>0</td>
+<td>0</td>
+<td>Glory32X</td>
+<td>Belgium</td>
+<td>636</td>
+<td>64</td>
+<td>11/07/2009</td>
+<td>22357</td>
+<td>False</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>02/01/2020</td>
+<td>I am O +, which is high protein, than fat, the...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>连接数据：</strong></p>
+<ul>
+<li>使用 <code>pd.read_csv()</code> 读取额外数据集，必要时指定 <code>encoding</code>。<br>
+</li>
+<li>使用 <code>pd.concat([df1, df2])</code> 可以将列结构匹配的 DataFrame 纵向拼接。<br>
+</li>
+<li>使用 <code>.reset_index(drop=True)</code> 可以重置索引，使合并后的行索引连续。</li>
+</ul>
+<p>拼接后，如果希望得到连续的行索引，可以重置索引。</p>
+<div id="ef79e92c" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 拼接 df 和 df2，然后重置索引</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).reset_index(drop<span class="op">=</span><span class="va">True</span>).iloc[<span class="dv">428</span>:<span class="dv">432</span>,]</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">utc_time</th>
+<th data-quarto-table-cell-role="th">mentions</th>
+<th data-quarto-table-cell-role="th">content</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">favorite_count</th>
+<th data-quarto-table-cell-role="th">user</th>
+<th data-quarto-table-cell-role="th">user.location</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+<th data-quarto-table-cell-role="th">user.friends_count</th>
+<th data-quarto-table-cell-role="th">user.created_at</th>
+<th data-quarto-table-cell-role="th">user.favourites_count</th>
+<th data-quarto-table-cell-role="th">user.verified</th>
+<th data-quarto-table-cell-role="th">followers_k</th>
+<th data-quarto-table-cell-role="th">er_rt_fo</th>
+<th data-quarto-table-cell-role="th">created_at</th>
+<th data-quarto-table-cell-role="th">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">428</th>
+<td>10/08/2020</td>
+<td>23:55:38</td>
+<td>0</td>
+<td>Made the terrible horrible no-good mistake of ...</td>
+<td>https://t.co/AF23qFRBTv</td>
+<td>0</td>
+<td>3</td>
+<td>elizvogt</td>
+<td>NYC now, Texas forever</td>
+<td>687</td>
+<td>1105</td>
+<td>07/03/2011</td>
+<td>39909</td>
+<td>False</td>
+<td>0.687</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">429</th>
+<td>07/03/2020</td>
+<td>23:59:42</td>
+<td>0</td>
+<td>This is how I'm celebrating tonight y'all! Bee...</td>
+<td>https://t.co/Fh7wRYCguR</td>
+<td>0</td>
+<td>30</td>
+<td>Rose262</td>
+<td>Atlanta, GA</td>
+<td>1776</td>
+<td>1121</td>
+<td>10/05/2009</td>
+<td>30246</td>
+<td>False</td>
+<td>1.776</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">430</th>
+<td>NaN</td>
+<td>23:10:27</td>
+<td>@BioLayne</td>
+<td>NaN</td>
+<td>https://t.co/WDDhoIvXl5</td>
+<td>0</td>
+<td>0</td>
+<td>Eric_OGrey</td>
+<td>Sacramento, CA</td>
+<td>2333</td>
+<td>1084</td>
+<td>10/03/2016</td>
+<td>23996</td>
+<td>False</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>01/01/2020</td>
+<td>is one of the most respected and unbiased nutr...</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">431</th>
+<td>NaN</td>
+<td>18:16:26</td>
+<td>@greggprescott1</td>
+<td>NaN</td>
+<td>https://t.co/1hBpp6MGnu</td>
+<td>0</td>
+<td>0</td>
+<td>Glory32X</td>
+<td>Belgium</td>
+<td>636</td>
+<td>64</td>
+<td>11/07/2009</td>
+<td>22357</td>
+<td>False</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>02/01/2020</td>
+<td>I am O +, which is high protein, than fat, the...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="分组和聚合" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> 分组和聚合</h1>
+<p>使用 <code>groupby()</code> 搭配 <code>agg()</code> 可以按组计算汇总统计值。下面的例子会计算每个用户的总转发量和平均粉丝数。</p>
+<div id="ef680f7a" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 按 'user' 分组，然后对 'retweet_count' 求和，</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 对 'user.followers_count' 求平均值</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>df_agg <span class="op">=</span> df.groupby(<span class="st">"user"</span>).agg(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"retweet_count"</span>: <span class="st">"sum"</span>, <span class="st">"user.followers_count"</span>: <span class="st">"mean"</span>,}</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看聚合结果</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>df_agg.head(<span class="dv">3</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">retweet_count</th>
+<th data-quarto-table-cell-role="th">user.followers_count</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">user</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1nnkeeper</th>
+<td>0</td>
+<td>557.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">353a9f40f97e4a9</th>
+<td>2</td>
+<td>4440.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6M70_JET</th>
+<td>0</td>
+<td>548.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>分组和聚合：</strong></p>
+<ul>
+<li>使用 <code>df.groupby('column').agg({'col1': 'sum', 'col2': 'mean'})</code> 可以按某一列分组，并计算聚合统计值。<br>
+</li>
+<li>可以使用 <code>df[~df.duplicated(subset='column')].shape</code> 或 <code>df['column'].nunique()</code> 检查分组数量。</li>
+</ul>
+<p>可以将分组结果与唯一用户数量进行比较：</p>
+<div id="8c878e66" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过基于 'user' 列删除重复值来统计唯一用户</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df[<span class="op">~</span>df.duplicated(subset<span class="op">=</span><span class="st">"user"</span>)].shape</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>(390, 16)</code></pre>
+</div>
+</div>
+<div id="7b54dc3f" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者直接用 nunique() 统计唯一用户数量</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"user"</span>].nunique()</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>390</code></pre>
+</div>
+</div>
+</section>
+<section id="melt-和-pivot" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Melt 和 Pivot</h1>
+<section id="melt-数据" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="melt-数据"><span class="header-section-number">7.1</span> Melt 数据</h2>
+<p><strong>Melt: wide → long</strong></p>
+<p>使用 <code>melt()</code> 可以将宽表转换为长表，便于分析和绘图。</p>
+<div id="8e3067d5" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个包含宠物类型和数量的宽格式示例 DataFrame</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df_wide <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="dv">4</span>, <span class="dv">5</span>],</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="dv">7</span>, <span class="dv">4</span>],</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"pet"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>],</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>df_wide <span class="co"># 查看该 DataFrame</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">pet</th>
+<th data-quarto-table-cell-role="th">male</th>
+<th data-quarto-table-cell-role="th">female</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>cat</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>dog</td>
+<td>7</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>rabbit</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>不传入参数时，<code>melt()</code> 会将所有列折叠为 variable-value 形式。</p>
+<div id="89bbaaea" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_wide.melt() <span class="co"># 将所有列转换为变量-值对（转换为长表）</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">variable</th>
+<th data-quarto-table-cell-role="th">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>pet</td>
+<td>cat</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>pet</td>
+<td>dog</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>pet</td>
+<td>rabbit</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>male</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>male</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>male</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>female</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>female</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>female</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>可以指定标识符列和值列，得到结构更清晰的长表。</p>
+<div id="5f014e93" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>melted_df <span class="op">=</span> pd.melt(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    df_wide,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"pet"</span>], <span class="co"># 保留 'pet' 作为标识符列</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">"male"</span>, <span class="st">"female"</span>], <span class="co"># 值列</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    var_name<span class="op">=</span><span class="st">"sex"</span>, <span class="co"># 新变量列的名称</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    value_name<span class="op">=</span><span class="st">"count"</span>, <span class="co"># 新值列的名称</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="pivot-数据" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="pivot-数据"><span class="header-section-number">7.2</span> Pivot 数据</h2>
+<p><strong>Pivot: long → wide</strong></p>
+<p>将长表重新转换回宽表：</p>
+<div id="0d2748a8" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="op">=</span> melted_df.pivot(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"pet"</span>, <span class="co"># 标识符列变为索引</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"sex"</span>, <span class="co"># 变量列中的类别变为新列</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"count"</span>, <span class="co"># 值列变为新的数值</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>).reset_index() <span class="co"># 重置索引，将 'pet' 转回普通列</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>df_pivot.columns.name <span class="op">=</span> <span class="va">None</span> <span class="co"># 移除列索引的名称</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="co"># 查看透视后的 DataFrame</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">pet</th>
+<th data-quarto-table-cell-role="th">female</th>
+<th data-quarto-table-cell-role="th">male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>cat</td>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>dog</td>
+<td>4</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>rabbit</td>
+<td>3</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>当 index/column 组合存在重复值时，应使用 <code>pivot_table()</code> 而不是 <code>pivot()</code>，并指定类似 <code>aggfunc='mean'</code> 的聚合函数来汇总重复项。</p>
+<p>例如，如果存在重复的宠物记录：</p>
+<div id="8645ffad" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个包含重复宠物记录的示例 DataFrame</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="st">"male"</span>, <span class="dv">4</span>],</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="st">"female"</span>, <span class="dv">5</span>],</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="st">"female"</span>, <span class="dv">7</span>],</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="st">"male"</span>, <span class="dv">4</span>],</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="st">"male"</span>, <span class="dv">2</span>],</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="st">"female"</span>, <span class="dv">3</span>],</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"pet"</span>, <span class="st">"sex"</span>, <span class="st">"count"</span>],</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>df_long <span class="co"># 查看包含重复值的长格式 DataFrame</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">pet</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>cat</td>
+<td>male</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>cat</td>
+<td>female</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>dog</td>
+<td>female</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>dog</td>
+<td>male</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>rabbit</td>
+<td>male</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>rabbit</td>
+<td>female</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>要将这个长表转换回宽表，可以使用 <code>pivot_table()</code> 处理重复项：</p>
+<div id="cbc98995" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建透视表，对重复记录的数量取平均值</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>(df_long</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>.pivot_table(</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"pet"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"count"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    aggfunc<span class="op">=</span><span class="st">"mean"</span>, <span class="co"># 对重复记录的数量取平均值</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>.rename_axis(<span class="va">None</span>, axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># 移除列标题的名称</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>.rename_axis(<span class="va">None</span>) <span class="co"># 移除索引的名称</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">female</th>
+<th data-quarto-table-cell-role="th">male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">cat</th>
+<td>5.0</td>
+<td>4.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">dog</th>
+<td>7.0</td>
+<td>4.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">rabbit</th>
+<td>3.0</td>
+<td>2.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> 回到顶部</a></main> <!-- /main -->
+<script id="fix-code-fold" type="text/javascript">
+    const showBtn = document.getElementById('quarto-show-all-code');
+    const hideBtn = document.getElementById('quarto-hide-all-code');
+
+    if (showBtn) {
+        showBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                el.setAttribute('open', '');
+            });
+        });
+    }
+
+    if (hideBtn) {
+        hideBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                el.removeAttribute('open');
+            });
+        });
+    }
+</script>
+<!-- <script>
+(function () {
+    const path = window.location.pathname;
+
+    const isZh = path.includes("/zh/");
+
+    const target = isZh
+        ? path.replace("/zh/", "/")
+        : "/zh" + path;
+
+    document.querySelectorAll(".navbar .lang-switch").forEach(el => {
+        el.href = target;
+    });
+})();
+</script> -->
+
+
+<script>
+function switchLanguage(targetLang) {
+    const path = window.location.pathname;
+    const match = path.match(/^\/(en|zh)(\/.*)?$/);
+    const rest = match ? (match[2] || '/') : '/';
+    window.location.pathname = '/' + targetLang + rest;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // 遍历所有 navbar 下拉菜单链接，按文字匹配
+    document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+        const text = el.textContent.trim();
+        if (text === 'English') {
+            el.addEventListener('click', function (e) {
+            e.preventDefault();
+            switchLanguage('en');
+            });
+        } else if (text === '中文') {
+            el.addEventListener('click', function (e) {
+            e.preventDefault();
+            switchLanguage('zh');
+            });
+        }
+    });
+});
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Pinn32\.github\.io\/dv-projects\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "数据清理"</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Pinn Xu"</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2024-10-10"</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> ["Python", "Data Processing", "Pandas", "DataFrame"]</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "本教程介绍 Pandas 中常用的数据处理流程，包括缺失值处理、列管理、重复值、数据重塑、表连接和分组聚合。"</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> false</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="an">order:</span><span class="co"> 1</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "环境与版本"</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>pandas<span class="op">==</span><span class="fl">2.2.2</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># 处理缺失值</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>**读取 CSV 文件：**  </span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`pd.read_csv(path)`</span> 将 CSV 文件读取为 Pandas DataFrame。  </span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>文件路径中的分隔符建议使用正斜杠 <span class="in">`/`</span>（Windows 中也可以使用转义反斜杠 <span class="in">`\\`</span>）。</span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入数据</span></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"../../../src/data/beer-and-curry.csv"</span></span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(path) <span class="co"># 将 CSV 文件读取为 DataFrame</span></span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>) <span class="co"># 查看前 2 行</span></span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## 删除缺失值</span></span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a>当分析所需的列中存在缺失值时，可以使用 <span class="in">`dropna()`</span> 删除对应行。</span>
+<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除 'text' 或 'retweet_count' 缺失（值为 NA 或 NaN）的行</span></span>
+<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"text"</span>, <span class="st">"retweet_count"</span>])</span>
+<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a>**删除缺失值：**  </span>
+<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`df.dropna()`</span> 删除包含缺失值（NA 或 NaN）的行。  </span>
+<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>默认情况下，只要某一行中至少有一个缺失值，该行就会被删除。  </span>
+<span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>可以通过 <span class="in">`subset`</span> 指定列名列表，只根据这些列中的缺失值来决定是否删除整行。  </span>
+<span id="cb36-55"><a href="#cb36-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`subset`</span> 的列名集合可以使用圆括号 <span class="in">`()`</span> 或方括号 <span class="in">`[]`</span>。  </span>
+<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **注意：** 数据预处理时，通常不需要直接删除所有包含缺失值的行。更稳妥的做法是只针对分析所需的关键列删除缺失值，以尽量保持数据准确性。</span>  </span>
+<span id="cb36-58"><a href="#cb36-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-61"><a href="#cb36-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-62"><a href="#cb36-62" aria-hidden="true" tabindex="-1"></a>df.shape <span class="co"># 查看原始形状（行数和列数）</span></span>
+<span id="cb36-63"><a href="#cb36-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-64"><a href="#cb36-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-67"><a href="#cb36-67" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-68"><a href="#cb36-68" aria-hidden="true" tabindex="-1"></a>df_clean.shape <span class="co"># 删除缺失值后的形状</span></span>
+<span id="cb36-69"><a href="#cb36-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-70"><a href="#cb36-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-71"><a href="#cb36-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## 填充缺失值</span></span>
+<span id="cb36-72"><a href="#cb36-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-73"><a href="#cb36-73" aria-hidden="true" tabindex="-1"></a>当缺失值应该被替换而不是删除时，可以使用 <span class="in">`fillna()`</span>。</span>
+<span id="cb36-74"><a href="#cb36-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-77"><a href="#cb36-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-78"><a href="#cb36-78" aria-hidden="true" tabindex="-1"></a><span class="co"># 用占位字符串填充 'mentions' 中的缺失值</span></span>
+<span id="cb36-79"><a href="#cb36-79" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].fillna(<span class="st">"No Mentioned User"</span>)</span>
+<span id="cb36-80"><a href="#cb36-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-81"><a href="#cb36-81" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 'mentions' 列中替换后的值</span></span>
+<span id="cb36-82"><a href="#cb36-82" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[<span class="st">"mentions"</span>]</span>
+<span id="cb36-83"><a href="#cb36-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-84"><a href="#cb36-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-85"><a href="#cb36-85" aria-hidden="true" tabindex="-1"></a>**填充缺失值：**  </span>
+<span id="cb36-86"><a href="#cb36-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-87"><a href="#cb36-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`df.fillna(value)`</span> 将某一列中的缺失值替换为指定占位值，例如字符串。  </span>
+<span id="cb36-88"><a href="#cb36-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果需要更新原 DataFrame，需要将结果重新赋值回该列。  </span>
+<span id="cb36-89"><a href="#cb36-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-90"><a href="#cb36-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## 替换特定值</span></span>
+<span id="cb36-91"><a href="#cb36-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-92"><a href="#cb36-92" aria-hidden="true" tabindex="-1"></a>使用 <span class="in">`replace()`</span> 可以将占位值转换为更适合后续分析的表示方式。</span>
+<span id="cb36-93"><a href="#cb36-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-96"><a href="#cb36-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-97"><a href="#cb36-97" aria-hidden="true" tabindex="-1"></a><span class="co"># 将占位字符串替换为 0</span></span>
+<span id="cb36-98"><a href="#cb36-98" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].replace(<span class="st">"No Mentioned User"</span>, <span class="dv">0</span>)</span>
+<span id="cb36-99"><a href="#cb36-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-100"><a href="#cb36-100" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看 'mentions' 列中替换后的值</span></span>
+<span id="cb36-101"><a href="#cb36-101" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[<span class="st">"mentions"</span>]</span>
+<span id="cb36-102"><a href="#cb36-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-103"><a href="#cb36-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-104"><a href="#cb36-104" aria-hidden="true" tabindex="-1"></a>**替换特定值：**  </span>
+<span id="cb36-105"><a href="#cb36-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-106"><a href="#cb36-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`df.replace(old_value, new_value)`</span> 替换某一列中的特定值。  </span>
+<span id="cb36-107"><a href="#cb36-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>这常用于将占位字符串转换为更合适的形式，例如数字。  </span>
+<span id="cb36-108"><a href="#cb36-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-109"><a href="#cb36-109" aria-hidden="true" tabindex="-1"></a><span class="fu"># 重命名和创建列</span></span>
+<span id="cb36-110"><a href="#cb36-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-111"><a href="#cb36-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## 重命名列</span></span>
+<span id="cb36-112"><a href="#cb36-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-113"><a href="#cb36-113" aria-hidden="true" tabindex="-1"></a>使用 <span class="in">`rename()`</span> 可以让列名更简短、更清晰。</span>
+<span id="cb36-114"><a href="#cb36-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-117"><a href="#cb36-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-118"><a href="#cb36-118" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 'text' 重命名为 'content'，将 'created_at' 重命名为 'date'</span></span>
+<span id="cb36-119"><a href="#cb36-119" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"text"</span>: <span class="st">"content"</span>, <span class="st">"created_at"</span>: <span class="st">"date"</span>})</span>
+<span id="cb36-120"><a href="#cb36-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-121"><a href="#cb36-121" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看重命名后的列</span></span>
+<span id="cb36-122"><a href="#cb36-122" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span>
+<span id="cb36-123"><a href="#cb36-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-124"><a href="#cb36-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-125"><a href="#cb36-125" aria-hidden="true" tabindex="-1"></a>**重命名列：**  </span>
+<span id="cb36-126"><a href="#cb36-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-127"><a href="#cb36-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`df.rename(columns={'old_name': 'new_name'})`</span> 通过字典重命名列。  </span>
+<span id="cb36-128"><a href="#cb36-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>这可以提高数据表的可读性和描述性。  </span>
+<span id="cb36-129"><a href="#cb36-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>类似地，也可以使用 <span class="in">`index`</span> 参数重命名索引。  </span>
+<span id="cb36-130"><a href="#cb36-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-131"><a href="#cb36-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## 创建新列</span></span>
+<span id="cb36-132"><a href="#cb36-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-133"><a href="#cb36-133" aria-hidden="true" tabindex="-1"></a>在创建衍生指标前，先删除粉丝数缺失的行。</span>
+<span id="cb36-134"><a href="#cb36-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-137"><a href="#cb36-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-138"><a href="#cb36-138" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定特定列，用于删除含缺失值的行</span></span>
+<span id="cb36-139"><a href="#cb36-139" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"user.followers_count"</span>])</span>
+<span id="cb36-140"><a href="#cb36-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-141"><a href="#cb36-141" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看已清理的数据，其中粉丝数没有缺失值</span></span>
+<span id="cb36-142"><a href="#cb36-142" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span>
+<span id="cb36-143"><a href="#cb36-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-144"><a href="#cb36-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-145"><a href="#cb36-145" aria-hidden="true" tabindex="-1"></a>**创建新列：**  </span>
+<span id="cb36-146"><a href="#cb36-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-147"><a href="#cb36-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>首先使用 <span class="in">`df.dropna(subset=['column'])`</span> 清理相关列中的缺失值。  </span>
+<span id="cb36-148"><a href="#cb36-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-149"><a href="#cb36-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### 对现有列进行基础运算</span></span>
+<span id="cb36-150"><a href="#cb36-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-151"><a href="#cb36-151" aria-hidden="true" tabindex="-1"></a>可以对现有列进行向量化计算，并将结果保存为新列。</span>
+<span id="cb36-152"><a href="#cb36-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-155"><a href="#cb36-155" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-156"><a href="#cb36-156" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过将 'user.followers_count' 除以 1000 创建新列 'followers_k'</span></span>
+<span id="cb36-157"><a href="#cb36-157" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"followers_k"</span>] <span class="op">=</span> df[<span class="st">"user.followers_count"</span>] <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb36-158"><a href="#cb36-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-159"><a href="#cb36-159" aria-hidden="true" tabindex="-1"></a><span class="co"># 同时查看新列和原始粉丝数</span></span>
+<span id="cb36-160"><a href="#cb36-160" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[[<span class="st">"followers_k"</span>, <span class="st">"user.followers_count"</span>]]</span>
+<span id="cb36-161"><a href="#cb36-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-162"><a href="#cb36-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-163"><a href="#cb36-163" aria-hidden="true" tabindex="-1"></a>**创建新列：**  </span>
+<span id="cb36-164"><a href="#cb36-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-165"><a href="#cb36-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>可以通过对现有列进行向量化运算创建新列，例如 <span class="in">`df['new_col'] = df['existing_col'] / 1000`</span>。  </span>
+<span id="cb36-166"><a href="#cb36-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-167"><a href="#cb36-167" aria-hidden="true" tabindex="-1"></a><span class="fu">### 应用自定义函数</span></span>
+<span id="cb36-168"><a href="#cb36-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-169"><a href="#cb36-169" aria-hidden="true" tabindex="-1"></a>当转换逻辑用命名函数表达更清晰时，可以先定义可复用函数。</span>
+<span id="cb36-170"><a href="#cb36-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-173"><a href="#cb36-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-174"><a href="#cb36-174" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义函数，用于计算百分比形式的互动率（Engagement Rate: ER）</span></span>
+<span id="cb36-175"><a href="#cb36-175" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_er(engagement_count, follower_count):</span>
+<span id="cb36-176"><a href="#cb36-176" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (engagement_count <span class="op">/</span> follower_count) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb36-177"><a href="#cb36-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-178"><a href="#cb36-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-181"><a href="#cb36-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-182"><a href="#cb36-182" aria-hidden="true" tabindex="-1"></a><span class="co"># 应用计算出的互动率，并赋值给新列 'er_rt_fo'</span></span>
+<span id="cb36-183"><a href="#cb36-183" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"er_rt_fo"</span>] <span class="op">=</span> calc_er(</span>
+<span id="cb36-184"><a href="#cb36-184" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"retweet_count"</span>],</span>
+<span id="cb36-185"><a href="#cb36-185" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"user.followers_count"</span>],</span>
+<span id="cb36-186"><a href="#cb36-186" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-187"><a href="#cb36-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-188"><a href="#cb36-188" aria-hidden="true" tabindex="-1"></a><span class="co"># 同时查看新的互动率列和原始指标</span></span>
+<span id="cb36-189"><a href="#cb36-189" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[[<span class="st">"er_rt_fo"</span>, <span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>]]</span>
+<span id="cb36-190"><a href="#cb36-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-191"><a href="#cb36-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-194"><a href="#cb36-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-195"><a href="#cb36-195" aria-hidden="true" tabindex="-1"></a><span class="co"># 可视化互动率与另外两个指标之间的关系</span></span>
+<span id="cb36-196"><a href="#cb36-196" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df[[<span class="st">"er_rt_fo"</span>, <span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>]].plot(</span>
+<span id="cb36-197"><a href="#cb36-197" aria-hidden="true" tabindex="-1"></a>    subplots<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb36-198"><a href="#cb36-198" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Engagement Rate vs Retweets and Followers"</span>,</span>
+<span id="cb36-199"><a href="#cb36-199" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-200"><a href="#cb36-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-201"><a href="#cb36-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-202"><a href="#cb36-202" aria-hidden="true" tabindex="-1"></a>**创建新列：**  </span>
+<span id="cb36-203"><a href="#cb36-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-204"><a href="#cb36-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>对于更复杂的计算，可以先定义函数，例如效率比率：ER = (effective cost / full cost) * 100。  </span>
+<span id="cb36-205"><a href="#cb36-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>将函数应用到 DataFrame 的列上，即可生成新的指标列。  </span>
+<span id="cb36-206"><a href="#cb36-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如有需要，可以使用 <span class="in">`.values`</span> 从 Series 中提取数组值。  </span>
+<span id="cb36-207"><a href="#cb36-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>可以使用 <span class="in">`df.plot()`</span> 进行快速可视化；<span class="in">`subplots=True`</span> 会生成分面图，<span class="in">`figsize`</span> 控制尺寸，<span class="in">`kind`</span> 控制图形类型（默认是 <span class="in">`'line'`</span>，也可以使用 <span class="in">`'bar'`</span>、<span class="in">`'hist'`</span>、<span class="in">`'scatter'`</span>、<span class="in">`'pie'`</span>）。  </span>
+<span id="cb36-208"><a href="#cb36-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-209"><a href="#cb36-209" aria-hidden="true" tabindex="-1"></a><span class="fu"># 查找重复值</span></span>
+<span id="cb36-210"><a href="#cb36-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-211"><a href="#cb36-211" aria-hidden="true" tabindex="-1"></a>使用 <span class="in">`duplicated()`</span> 删除完全重复的行。</span>
+<span id="cb36-212"><a href="#cb36-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-215"><a href="#cb36-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-216"><a href="#cb36-216" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除完全重复的行（保留第一次出现的记录）</span></span>
+<span id="cb36-217"><a href="#cb36-217" aria-hidden="true" tabindex="-1"></a><span class="co"># ~ 是取反运算符</span></span>
+<span id="cb36-218"><a href="#cb36-218" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[<span class="op">~</span>df.duplicated()]</span>
+<span id="cb36-219"><a href="#cb36-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-220"><a href="#cb36-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-221"><a href="#cb36-221" aria-hidden="true" tabindex="-1"></a>**查找重复值：**  </span>
+<span id="cb36-222"><a href="#cb36-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-223"><a href="#cb36-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`df.duplicated()`</span> 识别重复行；它会返回一个布尔值 Series。  </span>
+<span id="cb36-224"><a href="#cb36-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`~df.duplicated()`</span> 可以只保留非重复行。  </span>
+<span id="cb36-225"><a href="#cb36-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>可以通过 <span class="in">`subset`</span> 指定列名列表，只根据这些列判断是否重复。  </span>
+<span id="cb36-226"><a href="#cb36-226" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`keep=False`</span> 可以标记所有重复项。  </span>
+<span id="cb36-227"><a href="#cb36-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-228"><a href="#cb36-228" aria-hidden="true" tabindex="-1"></a>通过指定列子集，可以找出同一个用户在同一天发布多条内容的记录。</span>
+<span id="cb36-229"><a href="#cb36-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-232"><a href="#cb36-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-233"><a href="#cb36-233" aria-hidden="true" tabindex="-1"></a><span class="co"># 根据 'user' 和 'date' 列查找重复行（保留所有重复记录）</span></span>
+<span id="cb36-234"><a href="#cb36-234" aria-hidden="true" tabindex="-1"></a>df[df.duplicated(subset<span class="op">=</span>[<span class="st">"user"</span>, <span class="st">"date"</span>], keep<span class="op">=</span><span class="va">False</span>)].head(<span class="dv">2</span>)</span>
+<span id="cb36-235"><a href="#cb36-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-236"><a href="#cb36-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-237"><a href="#cb36-237" aria-hidden="true" tabindex="-1"></a><span class="fu"># 重新排序和重塑数据</span></span>
+<span id="cb36-238"><a href="#cb36-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-239"><a href="#cb36-239" aria-hidden="true" tabindex="-1"></a>使用 <span class="in">`sort_values()`</span> 按多个列对行排序。</span>
+<span id="cb36-240"><a href="#cb36-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-243"><a href="#cb36-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-244"><a href="#cb36-244" aria-hidden="true" tabindex="-1"></a><span class="co"># 先按 'retweet_count'，再按 'user.followers_count' 降序排序</span></span>
+<span id="cb36-245"><a href="#cb36-245" aria-hidden="true" tabindex="-1"></a>df.sort_values(</span>
+<span id="cb36-246"><a href="#cb36-246" aria-hidden="true" tabindex="-1"></a>    by<span class="op">=</span>[<span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>],</span>
+<span id="cb36-247"><a href="#cb36-247" aria-hidden="true" tabindex="-1"></a>    ascending<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb36-248"><a href="#cb36-248" aria-hidden="true" tabindex="-1"></a>).head(<span class="dv">2</span>)</span>
+<span id="cb36-249"><a href="#cb36-249" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-250"><a href="#cb36-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-251"><a href="#cb36-251" aria-hidden="true" tabindex="-1"></a>**重新排序和重塑：**  </span>
+<span id="cb36-252"><a href="#cb36-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-253"><a href="#cb36-253" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`df.sort_values(by=['col1', 'col2'], ascending=False)`</span> 可以按多个列进行降序排序。  </span>
+<span id="cb36-254"><a href="#cb36-254" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`df.transpose()`</span> 可以交换行和列。  </span>
+<span id="cb36-255"><a href="#cb36-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-256"><a href="#cb36-256" aria-hidden="true" tabindex="-1"></a>当需要切换行和列以便检查数据时，可以转置 DataFrame。</span>
+<span id="cb36-257"><a href="#cb36-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-260"><a href="#cb36-260" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-261"><a href="#cb36-261" aria-hidden="true" tabindex="-1"></a>df.transpose().head(<span class="dv">3</span>) <span class="co"># 查看行列互换后的 DataFrame</span></span>
+<span id="cb36-262"><a href="#cb36-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-263"><a href="#cb36-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-264"><a href="#cb36-264" aria-hidden="true" tabindex="-1"></a><span class="fu"># 连接数据</span></span>
+<span id="cb36-265"><a href="#cb36-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-266"><a href="#cb36-266" aria-hidden="true" tabindex="-1"></a>读取第二个数据集，并使用 <span class="in">`concat()`</span> 合并。</span>
+<span id="cb36-267"><a href="#cb36-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-270"><a href="#cb36-270" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-271"><a href="#cb36-271" aria-hidden="true" tabindex="-1"></a>path2 <span class="op">=</span> <span class="st">"../../../src/data/keto-and-vegan.csv"</span></span>
+<span id="cb36-272"><a href="#cb36-272" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> pd.read_csv(path2, encoding<span class="op">=</span><span class="st">"latin-1"</span>) <span class="co"># 加载 df</span></span>
+<span id="cb36-273"><a href="#cb36-273" aria-hidden="true" tabindex="-1"></a>df2.head(<span class="dv">2</span>) <span class="co"># 查看前 2 行</span></span>
+<span id="cb36-274"><a href="#cb36-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-275"><a href="#cb36-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-276"><a href="#cb36-276" aria-hidden="true" tabindex="-1"></a>将列结构匹配的数据表纵向追加：</span>
+<span id="cb36-277"><a href="#cb36-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-280"><a href="#cb36-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-281"><a href="#cb36-281" aria-hidden="true" tabindex="-1"></a><span class="co"># 纵向拼接 df 和 df2（堆叠行）</span></span>
+<span id="cb36-282"><a href="#cb36-282" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).iloc[<span class="dv">428</span>:<span class="dv">432</span>,] <span class="co"># 查看第 428 到 431 行</span></span>
+<span id="cb36-283"><a href="#cb36-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-284"><a href="#cb36-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-285"><a href="#cb36-285" aria-hidden="true" tabindex="-1"></a>**连接数据：**  </span>
+<span id="cb36-286"><a href="#cb36-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-287"><a href="#cb36-287" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`pd.read_csv()`</span> 读取额外数据集，必要时指定 <span class="in">`encoding`</span>。  </span>
+<span id="cb36-288"><a href="#cb36-288" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`pd.concat([df1, df2])`</span> 可以将列结构匹配的 DataFrame 纵向拼接。  </span>
+<span id="cb36-289"><a href="#cb36-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`.reset_index(drop=True)`</span> 可以重置索引，使合并后的行索引连续。  </span>
+<span id="cb36-290"><a href="#cb36-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-291"><a href="#cb36-291" aria-hidden="true" tabindex="-1"></a>拼接后，如果希望得到连续的行索引，可以重置索引。</span>
+<span id="cb36-292"><a href="#cb36-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-295"><a href="#cb36-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-296"><a href="#cb36-296" aria-hidden="true" tabindex="-1"></a><span class="co"># 拼接 df 和 df2，然后重置索引</span></span>
+<span id="cb36-297"><a href="#cb36-297" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).reset_index(drop<span class="op">=</span><span class="va">True</span>).iloc[<span class="dv">428</span>:<span class="dv">432</span>,]</span>
+<span id="cb36-298"><a href="#cb36-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-299"><a href="#cb36-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-300"><a href="#cb36-300" aria-hidden="true" tabindex="-1"></a><span class="fu"># 分组和聚合</span></span>
+<span id="cb36-301"><a href="#cb36-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-302"><a href="#cb36-302" aria-hidden="true" tabindex="-1"></a>使用 <span class="in">`groupby()`</span> 搭配 <span class="in">`agg()`</span> 可以按组计算汇总统计值。下面的例子会计算每个用户的总转发量和平均粉丝数。</span>
+<span id="cb36-303"><a href="#cb36-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-306"><a href="#cb36-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-307"><a href="#cb36-307" aria-hidden="true" tabindex="-1"></a><span class="co"># 按 'user' 分组，然后对 'retweet_count' 求和，</span></span>
+<span id="cb36-308"><a href="#cb36-308" aria-hidden="true" tabindex="-1"></a><span class="co"># 对 'user.followers_count' 求平均值</span></span>
+<span id="cb36-309"><a href="#cb36-309" aria-hidden="true" tabindex="-1"></a>df_agg <span class="op">=</span> df.groupby(<span class="st">"user"</span>).agg(</span>
+<span id="cb36-310"><a href="#cb36-310" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"retweet_count"</span>: <span class="st">"sum"</span>, <span class="st">"user.followers_count"</span>: <span class="st">"mean"</span>,}</span>
+<span id="cb36-311"><a href="#cb36-311" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-312"><a href="#cb36-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-313"><a href="#cb36-313" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看聚合结果</span></span>
+<span id="cb36-314"><a href="#cb36-314" aria-hidden="true" tabindex="-1"></a>df_agg.head(<span class="dv">3</span>)</span>
+<span id="cb36-315"><a href="#cb36-315" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-316"><a href="#cb36-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-317"><a href="#cb36-317" aria-hidden="true" tabindex="-1"></a>**分组和聚合：**  </span>
+<span id="cb36-318"><a href="#cb36-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-319"><a href="#cb36-319" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用 <span class="in">`df.groupby('column').agg({'col1': 'sum', 'col2': 'mean'})`</span> 可以按某一列分组，并计算聚合统计值。  </span>
+<span id="cb36-320"><a href="#cb36-320" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>可以使用 <span class="in">`df[~df.duplicated(subset='column')].shape`</span> 或 <span class="in">`df['column'].nunique()`</span> 检查分组数量。  </span>
+<span id="cb36-321"><a href="#cb36-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-322"><a href="#cb36-322" aria-hidden="true" tabindex="-1"></a>可以将分组结果与唯一用户数量进行比较：</span>
+<span id="cb36-323"><a href="#cb36-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-326"><a href="#cb36-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-327"><a href="#cb36-327" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过基于 'user' 列删除重复值来统计唯一用户</span></span>
+<span id="cb36-328"><a href="#cb36-328" aria-hidden="true" tabindex="-1"></a>df[<span class="op">~</span>df.duplicated(subset<span class="op">=</span><span class="st">"user"</span>)].shape</span>
+<span id="cb36-329"><a href="#cb36-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-330"><a href="#cb36-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-333"><a href="#cb36-333" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-334"><a href="#cb36-334" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者直接用 nunique() 统计唯一用户数量</span></span>
+<span id="cb36-335"><a href="#cb36-335" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"user"</span>].nunique()</span>
+<span id="cb36-336"><a href="#cb36-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-337"><a href="#cb36-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-338"><a href="#cb36-338" aria-hidden="true" tabindex="-1"></a><span class="fu"># Melt 和 Pivot</span></span>
+<span id="cb36-339"><a href="#cb36-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-340"><a href="#cb36-340" aria-hidden="true" tabindex="-1"></a><span class="fu">## Melt 数据</span></span>
+<span id="cb36-341"><a href="#cb36-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-342"><a href="#cb36-342" aria-hidden="true" tabindex="-1"></a>**Melt: wide → long**  </span>
+<span id="cb36-343"><a href="#cb36-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-344"><a href="#cb36-344" aria-hidden="true" tabindex="-1"></a>使用 <span class="in">`melt()`</span> 可以将宽表转换为长表，便于分析和绘图。</span>
+<span id="cb36-345"><a href="#cb36-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-348"><a href="#cb36-348" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-349"><a href="#cb36-349" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个包含宠物类型和数量的宽格式示例 DataFrame</span></span>
+<span id="cb36-350"><a href="#cb36-350" aria-hidden="true" tabindex="-1"></a>df_wide <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb36-351"><a href="#cb36-351" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
+<span id="cb36-352"><a href="#cb36-352" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="dv">4</span>, <span class="dv">5</span>],</span>
+<span id="cb36-353"><a href="#cb36-353" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="dv">7</span>, <span class="dv">4</span>],</span>
+<span id="cb36-354"><a href="#cb36-354" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb36-355"><a href="#cb36-355" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb36-356"><a href="#cb36-356" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"pet"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>],</span>
+<span id="cb36-357"><a href="#cb36-357" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-358"><a href="#cb36-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-359"><a href="#cb36-359" aria-hidden="true" tabindex="-1"></a>df_wide <span class="co"># 查看该 DataFrame</span></span>
+<span id="cb36-360"><a href="#cb36-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-361"><a href="#cb36-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-362"><a href="#cb36-362" aria-hidden="true" tabindex="-1"></a>不传入参数时，<span class="in">`melt()`</span> 会将所有列折叠为 variable-value 形式。</span>
+<span id="cb36-363"><a href="#cb36-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-366"><a href="#cb36-366" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-367"><a href="#cb36-367" aria-hidden="true" tabindex="-1"></a>df_wide.melt() <span class="co"># 将所有列转换为变量-值对（转换为长表）</span></span>
+<span id="cb36-368"><a href="#cb36-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-369"><a href="#cb36-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-370"><a href="#cb36-370" aria-hidden="true" tabindex="-1"></a>可以指定标识符列和值列，得到结构更清晰的长表。</span>
+<span id="cb36-371"><a href="#cb36-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-374"><a href="#cb36-374" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-375"><a href="#cb36-375" aria-hidden="true" tabindex="-1"></a>melted_df <span class="op">=</span> pd.melt(</span>
+<span id="cb36-376"><a href="#cb36-376" aria-hidden="true" tabindex="-1"></a>    df_wide,</span>
+<span id="cb36-377"><a href="#cb36-377" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"pet"</span>], <span class="co"># 保留 'pet' 作为标识符列</span></span>
+<span id="cb36-378"><a href="#cb36-378" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">"male"</span>, <span class="st">"female"</span>], <span class="co"># 值列</span></span>
+<span id="cb36-379"><a href="#cb36-379" aria-hidden="true" tabindex="-1"></a>    var_name<span class="op">=</span><span class="st">"sex"</span>, <span class="co"># 新变量列的名称</span></span>
+<span id="cb36-380"><a href="#cb36-380" aria-hidden="true" tabindex="-1"></a>    value_name<span class="op">=</span><span class="st">"count"</span>, <span class="co"># 新值列的名称</span></span>
+<span id="cb36-381"><a href="#cb36-381" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-382"><a href="#cb36-382" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-383"><a href="#cb36-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-384"><a href="#cb36-384" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pivot 数据</span></span>
+<span id="cb36-385"><a href="#cb36-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-386"><a href="#cb36-386" aria-hidden="true" tabindex="-1"></a>**Pivot: long → wide**  </span>
+<span id="cb36-387"><a href="#cb36-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-388"><a href="#cb36-388" aria-hidden="true" tabindex="-1"></a>将长表重新转换回宽表：</span>
+<span id="cb36-389"><a href="#cb36-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-392"><a href="#cb36-392" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-393"><a href="#cb36-393" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="op">=</span> melted_df.pivot(</span>
+<span id="cb36-394"><a href="#cb36-394" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"pet"</span>, <span class="co"># 标识符列变为索引</span></span>
+<span id="cb36-395"><a href="#cb36-395" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"sex"</span>, <span class="co"># 变量列中的类别变为新列</span></span>
+<span id="cb36-396"><a href="#cb36-396" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"count"</span>, <span class="co"># 值列变为新的数值</span></span>
+<span id="cb36-397"><a href="#cb36-397" aria-hidden="true" tabindex="-1"></a>).reset_index() <span class="co"># 重置索引，将 'pet' 转回普通列</span></span>
+<span id="cb36-398"><a href="#cb36-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-399"><a href="#cb36-399" aria-hidden="true" tabindex="-1"></a>df_pivot.columns.name <span class="op">=</span> <span class="va">None</span> <span class="co"># 移除列索引的名称</span></span>
+<span id="cb36-400"><a href="#cb36-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-401"><a href="#cb36-401" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="co"># 查看透视后的 DataFrame</span></span>
+<span id="cb36-402"><a href="#cb36-402" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-403"><a href="#cb36-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-404"><a href="#cb36-404" aria-hidden="true" tabindex="-1"></a>当 index/column 组合存在重复值时，应使用 <span class="in">`pivot_table()`</span> 而不是 <span class="in">`pivot()`</span>，并指定类似 <span class="in">`aggfunc='mean'`</span> 的聚合函数来汇总重复项。</span>
+<span id="cb36-405"><a href="#cb36-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-406"><a href="#cb36-406" aria-hidden="true" tabindex="-1"></a>例如，如果存在重复的宠物记录：</span>
+<span id="cb36-409"><a href="#cb36-409" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-410"><a href="#cb36-410" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个包含重复宠物记录的示例 DataFrame</span></span>
+<span id="cb36-411"><a href="#cb36-411" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb36-412"><a href="#cb36-412" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
+<span id="cb36-413"><a href="#cb36-413" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="st">"male"</span>, <span class="dv">4</span>],</span>
+<span id="cb36-414"><a href="#cb36-414" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="st">"female"</span>, <span class="dv">5</span>],</span>
+<span id="cb36-415"><a href="#cb36-415" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="st">"female"</span>, <span class="dv">7</span>],</span>
+<span id="cb36-416"><a href="#cb36-416" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="st">"male"</span>, <span class="dv">4</span>],</span>
+<span id="cb36-417"><a href="#cb36-417" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="st">"male"</span>, <span class="dv">2</span>],</span>
+<span id="cb36-418"><a href="#cb36-418" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="st">"female"</span>, <span class="dv">3</span>],</span>
+<span id="cb36-419"><a href="#cb36-419" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb36-420"><a href="#cb36-420" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"pet"</span>, <span class="st">"sex"</span>, <span class="st">"count"</span>],</span>
+<span id="cb36-421"><a href="#cb36-421" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-422"><a href="#cb36-422" aria-hidden="true" tabindex="-1"></a>df_long <span class="co"># 查看包含重复值的长格式 DataFrame</span></span>
+<span id="cb36-423"><a href="#cb36-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-424"><a href="#cb36-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-425"><a href="#cb36-425" aria-hidden="true" tabindex="-1"></a>要将这个长表转换回宽表，可以使用 <span class="in">`pivot_table()`</span> 处理重复项：</span>
+<span id="cb36-426"><a href="#cb36-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-429"><a href="#cb36-429" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-430"><a href="#cb36-430" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建透视表，对重复记录的数量取平均值</span></span>
+<span id="cb36-431"><a href="#cb36-431" aria-hidden="true" tabindex="-1"></a>(df_long</span>
+<span id="cb36-432"><a href="#cb36-432" aria-hidden="true" tabindex="-1"></a>.pivot_table(</span>
+<span id="cb36-433"><a href="#cb36-433" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"pet"</span>,</span>
+<span id="cb36-434"><a href="#cb36-434" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb36-435"><a href="#cb36-435" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"count"</span>,</span>
+<span id="cb36-436"><a href="#cb36-436" aria-hidden="true" tabindex="-1"></a>    aggfunc<span class="op">=</span><span class="st">"mean"</span>, <span class="co"># 对重复记录的数量取平均值</span></span>
+<span id="cb36-437"><a href="#cb36-437" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-438"><a href="#cb36-438" aria-hidden="true" tabindex="-1"></a>.rename_axis(<span class="va">None</span>, axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># 移除列标题的名称</span></span>
+<span id="cb36-439"><a href="#cb36-439" aria-hidden="true" tabindex="-1"></a>.rename_axis(<span class="va">None</span>) <span class="co"># 移除索引的名称</span></span>
+<span id="cb36-440"><a href="#cb36-440" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-441"><a href="#cb36-441" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/data-processing/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -123,8 +123,8 @@
 .quarto-grid-item .listing-categories {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-top: auto;
+    gap: 0.1rem;
+    margin: 0 0 auto;
     padding-top: 0.5rem;
 }
 
@@ -140,8 +140,8 @@
     transition: background 0.15s, color 0.15s;
     cursor: pointer;
 }
-.quarto-grid-item:hover .listing-category {
-    background: rgba(13,148,136,0.12) !important;
+.quarto-grid-item .listing-category:hover {
+    background-color: rgba(13,148,136,0.12) !important;
 }
 
 

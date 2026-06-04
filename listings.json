@@ -1,20 +1,38 @@
 [
   {
-    "listing": "/projects/index.html",
+    "listing": "/en/tutorials/index.html",
     "items": [
-      "/projects/most-streamed-songs/index.html",
-      "/projects/student-media-usage/index.html",
-      "/projects/global-visa-cost/index.html",
-      "/projects/catalan-referendum/index.html"
+      "/en/tutorials/data-processing/index.html",
+      "/en/tutorials/amounts-and-distribution/index.html",
+      "/en/tutorials/multivariate-plots/index.html",
+      "/en/tutorials/sankey-and-network/index.html"
     ]
   },
   {
-    "listing": "/tutorials/index.html",
+    "listing": "/en/projects/index.html",
     "items": [
-      "/tutorials/amounts-and-distribution/zh/index.html",
-      "/tutorials/data-processing/zh/index.html",
-      "/tutorials/multivariate-plots/zh/index.html",
-      "/tutorials/sankey-and-network/zh/index.html"
+      "/en/projects/catalan-referendum/index.html",
+      "/en/projects/global-visa-cost/index.html",
+      "/en/projects/most-streamed-songs/index.html",
+      "/en/projects/student-media-usage/index.html"
+    ]
+  },
+  {
+    "listing": "/zh/tutorials/index.html",
+    "items": [
+      "/zh/tutorials/data-processing/index.html",
+      "/zh/tutorials/amounts-and-distribution/index.html",
+      "/zh/tutorials/multivariate-plots/index.html",
+      "/zh/tutorials/sankey-and-network/index.html"
+    ]
+  },
+  {
+    "listing": "/zh/projects/index.html",
+    "items": [
+      "/zh/projects/catalan-referendum/index.html",
+      "/zh/projects/global-visa-cost/index.html",
+      "/zh/projects/most-streamed-songs/index.html",
+      "/zh/projects/student-media-usage/index.html"
     ]
   }
 ]
