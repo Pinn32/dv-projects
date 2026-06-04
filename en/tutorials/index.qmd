@@ -1,6 +1,6 @@
 ---
 title: 'Tutorials'
-subtitle: 'Python data visualization tutorials in both English and Mandarin.'
+subtitle: 'Detailed Python data analysis and visualization tutorials.'
 # css: '../../src/styles/projects.css'
 include-after-body: '../../src/scripts/responsive-tag-bar.html'
 toc: false
