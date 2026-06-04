@@ -15,25 +15,25 @@ toc: false
 
 ::::::: grid
 ::: {.g-col-12 .g-col-md-6 .featured-card}
-[**加泰罗尼亚公投 Twitter 情感分析**](projects/catalan-referendum/)\
+[**加泰罗尼亚公投 Twitter 情感分析**](projects/catalan-referendum/){.stretched-link}\
 对 2017 年加泰罗尼亚独立公投期间相关推文的情感挖掘。\
 `Python` `NLP` `Social Media`
 :::
 
 ::: {.g-col-12 .g-col-md-6 .featured-card}
-[**全球签证费用分析**](projects/global-visa-cost/)\
+[**全球签证费用分析**](projects/global-visa-cost/){.stretched-link}\
 跨国签证费用的比较研究，探索可负担性与地理分布规律。\
 `Python` `EDA` `Visualization`
 :::
 
 ::: {.g-col-12 .g-col-md-6 .featured-card}
-[**Spotify 2023 最高播放量歌曲**](projects/most-streamed-songs/)\
+[**Spotify 2023 最高播放量歌曲**](projects/most-streamed-songs/){.stretched-link}\
 对 Spotify 最高播放量曲目的探索性分析，揭示音乐流行趋势。\
 `R` `EDA` `Visualization`
 :::
 
 ::: {.g-col-12 .g-col-md-6 .featured-card}
-[**学生社交媒体使用与成瘾**](projects/student-media-usage/)\
+[**学生社交媒体使用与成瘾**](projects/student-media-usage/){.stretched-link}\
 分析学生的社交媒体使用习惯与成瘾模式。\
 `R` `EDA` `Social Media`
 :::

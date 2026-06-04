@@ -308,7 +308,7 @@ h2#featured-projects::before,
     padding: 1.4rem 1.5rem 1.4rem 1.75rem;
     box-shadow: var(--pf-shadow);
     transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
-    cursor: default;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
