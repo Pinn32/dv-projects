@@ -393,13 +393,13 @@ window.Quarto = {
 <p><strong>“tidy/flat” 的表格数据:</strong> 每行为一个 <strong>observation</strong> (或 instance、record) ，每列为一个 <strong>variable</strong> (变量，也称 attribute、feature、parameter) 。</p>
 <p>通常，<strong>multivariate</strong> (多变量) 用于描述变量超过两个的数据，即，multivariate plot 通常使用了原 DataFrame 中三个或三个以上的列作为数据。</p>
 <p>绘制柱状图时，除了 x、y 两个变量之外，还可以设置 <code>hue</code> 参数，从而绘制包含三个变量的柱状图。比如 <a href="#fig-bar-variables" class="quarto-xref">图&nbsp;1</a> 中包含了 <code>'island'</code>、<code>'body_mass_g'</code>、<code>'sex'</code> 三个变量。</p>
-<div id="9d444603" class="cell" data-execution_count="1">
+<div id="e957eca6" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入库</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="6a31f62c" class="cell" data-execution_count="2">
+<div id="a32dd464" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 Seaborn 加载示例数据集</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -819,7 +819,7 @@ window.Quarto = {
 <h2 data-number="3.3" class="anchored" data-anchor-id="对数尺度"><span class="header-section-number">3.3</span> 对数尺度</h2>
 <p><strong>对数尺度 (logarithmic scale) </strong>是一个非线性测量尺度，适用于有较大范围差异的数据，如里氏震级、声学音量、光学光强、溶液 pH 值等。为此类数据绘制散点图时，可将坐标轴设置为对数尺度 (默认为线性尺度，如 <a href="#fig-scatterplot-ratio-ratio" class="quarto-xref">图&nbsp;10</a> 中 x 轴刻度 35, 40, 45, 50 是线性增长的数字) ，让原本拥挤的数据点变得较为均匀，更容易观察 (<a href="https://zh.wikipedia.org/wiki/%E5%B0%8D%E6%95%B8%E5%B0%BA%E5%BA%A6">维基百科 - 对数尺度</a>) 。</p>
 <p><a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#nonlinear-axes">Wilke (2019, p.17)</a> 以 <span class="math inline">\((1, 3.16, 10, 31.6, 100)\)</span> 为例画了四个数轴 (<a href="#fig-linear-log-scales" class="quarto-xref">图&nbsp;17</a>) ，其中 <span class="math inline">\(10^{0.5} = \sqrt{10} \approx 3.16\)</span>，<span class="math inline">\(10^{1.5} \approx 31.6\)</span>。</p>
-<div id="fig-linear-log-scales" class="quarto-float quarto-figure quarto-figure-center anchored" width="80%" alt="四个数轴 (Wilke, 2019, p.17)">
+<div id="fig-linear-log-scales" class="quarto-float quarto-figure quarto-figure-center anchored" alt="四个数轴 (Wilke, 2019, p.17)" width="80%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-linear-log-scales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:linear-log-scales"><img src="https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/linear-log-scales-1.png" class="img-fluid figure-img" style="width:80.0%" alt="四个数轴 (Wilke, 2019, p.17)"></a>
@@ -1036,7 +1036,7 @@ window.Quarto = {
 <li><strong>选色尽量兼顾色觉缺陷读者。</strong></li>
 </ul>
 <p><a href="#fig-tech-stocks-bad-legend" class="quarto-xref">图&nbsp;27</a> 中图例和线条颜色顺序不一致，会增加阅读困难，<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend">Wilke (2019, p.248)</a> 提供了反面案例:</p>
-<div id="fig-tech-stocks-bad-legend" class="quarto-float quarto-figure quarto-figure-center anchored" width="85%" alt="反面案例：图例和线条颜色顺序不匹配">
+<div id="fig-tech-stocks-bad-legend" class="quarto-float quarto-figure quarto-figure-center anchored" alt="反面案例：图例和线条颜色顺序不匹配" width="85%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-bad-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-bad-legend-1.png" class="img-fluid figure-img" style="width:85.0%" alt="反面案例：图例和线条颜色顺序不匹配"></a>
@@ -1047,7 +1047,7 @@ window.Quarto = {
 </figure>
 </div>
 <p>相反，<a href="#fig-tech-stocks-good-legend" class="quarto-xref">图&nbsp;28</a> 中图例和线条颜色顺序相符，<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend">Wilke (2019, p.249)</a> 提供了改良后的图表:</p>
-<div id="fig-tech-stocks-good-legend" class="quarto-float quarto-figure quarto-figure-center anchored" width="85%" alt="改良版：图例和线条颜色顺序匹配 (且选色兼顾色觉缺陷读者) ">
+<div id="fig-tech-stocks-good-legend" class="quarto-float quarto-figure quarto-figure-center anchored" alt="改良版：图例和线条颜色顺序匹配 (且选色兼顾色觉缺陷读者) " width="85%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-good-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-1.png" class="img-fluid figure-img" style="width:85.0%" alt="改良版：图例和线条颜色顺序匹配 (且选色兼顾色觉缺陷读者) "></a>
@@ -1070,7 +1070,7 @@ window.Quarto = {
 </div>
 <p>由 <a href="#fig-tech-stocks-good-legend-cvd" class="quarto-xref">图&nbsp;29</a> 可见，<a href="#fig-tech-stocks-good-legend" class="quarto-xref">图&nbsp;28</a> 的配色对三种色觉缺陷患者均可区分，去除饱和度后也能通过明度区分。因此图例与线条颜色顺序匹配尤为重要。</p>
 <p>此外，<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend">Wilke (2019, p.251)</a> 还建议<strong>去除图例，直接在折线旁标注文字</strong> (<a href="#fig-tech-stocks-good-no-legend" class="quarto-xref">图&nbsp;30</a>) ，可节省读者对照图例的工作量，让图表更易读。但这种做法通过 Seaborn 实现较困难，本课程中使用 <a href="#fig-tech-stocks-good-legend" class="quarto-xref">图&nbsp;28</a> 中符合颜色顺序的图例即可。</p>
-<div id="fig-tech-stocks-good-no-legend" class="quarto-float quarto-figure quarto-figure-center anchored" width="90%" alt="去除图例，直接在折线旁边标注文字">
+<div id="fig-tech-stocks-good-no-legend" class="quarto-float quarto-figure quarto-figure-center anchored" alt="去除图例，直接在折线旁边标注文字" width="90%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-good-no-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-no-legend-1.png" class="img-fluid figure-img" style="width:90.0%" alt="去除图例，直接在折线旁边标注文字"></a>
@@ -1618,7 +1618,7 @@ window.Quarto = {
 <section id="二维直方图" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> 二维直方图</h1>
 <p>根据 <a href="https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points">Wilke (2019, pp.&nbsp;222-225)</a>，含半透明点的散点图可展示数据在两个变量控制下的分布，但当数据点过多、过密时，散点图难以展示整体分布 (见 <a href="#fig-nycflights-points" class="quarto-xref">图&nbsp;34</a>: 点密度高的区域显示为均匀深色斑点，密度低的区域几乎不可见) 。</p>
-<div id="fig-nycflights-points" class="quarto-float quarto-figure quarto-figure-center anchored" width="80%" alt="数据点过多、过密的散点图 (Wilke, 2019, p. 223)">
+<div id="fig-nycflights-points" class="quarto-float quarto-figure quarto-figure-center anchored" alt="数据点过多、过密的散点图 (Wilke, 2019, p. 223)" width="80%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-nycflights-points-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points"><img src="https://clauswilke.com/dataviz/overlapping_points_files/figure-html/nycflights-points-1.png" class="img-fluid figure-img" style="width:80.0%" alt="数据点过多、过密的散点图 (Wilke, 2019, p. 223)"></a>

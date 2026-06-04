@@ -394,13 +394,13 @@ window.Quarto = {
 <p><strong>“Tidy/flat” tabular data:</strong> Each row is one <strong>observation</strong> (also called instance or record), and each column is one <strong>variable</strong> (also called attribute, feature, or parameter).</p>
 <p>Typically, <strong>multivariate</strong> refers to data with more than two variables — a multivariate plot generally uses three or more columns from the original DataFrame.</p>
 <p>When creating a bar chart, in addition to the x and y variables, you can also set the <code>hue</code> parameter to include a third variable. For example, <a href="#fig-bar-variables" class="quarto-xref">Figure&nbsp;1</a> includes three variables: <code>'island'</code>, <code>'body_mass_g'</code>, and <code>'sex'</code>.</p>
-<div id="16656439" class="cell" data-execution_count="1">
+<div id="35b41a17" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="4e979e18" class="cell" data-execution_count="2">
+<div id="c7229735" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load example dataset from Seaborn</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -553,7 +553,7 @@ Figure&nbsp;6: Improved version: consistent axis ranges (Wilke, 2019, p.&nbsp;25
 <div id="fig-pointplot-category-amount" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pointplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pointplot-category-amount-output-1.png" width="585" height="429" class="figure-img">
+<img src="index_files/figure-html/fig-pointplot-category-amount-output-1.png" width="585" height="431" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pointplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: Point plot: penguin species vs.&nbsp;bill length (black lines are error bars)
@@ -822,7 +822,7 @@ Figure&nbsp;16: hue+style control island, size controls flipper length separatel
 <h2 data-number="3.3" class="anchored" data-anchor-id="logarithmic-scale"><span class="header-section-number">3.3</span> Logarithmic Scale</h2>
 <p><strong>A logarithmic scale</strong> is a nonlinear measurement scale used for data with a wide range of values, such as the Richter scale, acoustic volume, optical intensity, and solution pH. When plotting such data, the axis can be set to a logarithmic scale (the default is a linear scale — for example, the x-axis tick marks 35, 40, 45, 50 in <a href="#fig-scatterplot-ratio-ratio" class="quarto-xref">Figure&nbsp;10</a> increase linearly), making otherwise crowded data points more evenly distributed and easier to observe (<a href="https://en.wikipedia.org/wiki/Logarithmic_scale">Wikipedia - Logarithmic scale</a>).</p>
 <p><a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#nonlinear-axes">Wilke (2019, p.17)</a> uses <span class="math inline">\((1, 3.16, 10, 31.6, 100)\)</span> as an example to illustrate four number lines (<a href="#fig-linear-log-scales" class="quarto-xref">Figure&nbsp;17</a>), where <span class="math inline">\(10^{0.5} = \sqrt{10} \approx 3.16\)</span> and <span class="math inline">\(10^{1.5} \approx 31.6\)</span>.</p>
-<div id="fig-linear-log-scales" class="quarto-float quarto-figure quarto-figure-center anchored" width="80%" alt="Four number lines (Wilke, 2019, p.17)">
+<div id="fig-linear-log-scales" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four number lines (Wilke, 2019, p.17)" width="80%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-linear-log-scales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:linear-log-scales"><img src="https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/linear-log-scales-1.png" class="img-fluid figure-img" style="width:80.0%" alt="Four number lines (Wilke, 2019, p.17)"></a>
@@ -1039,7 +1039,7 @@ Figure&nbsp;26: Without hue, a mean line is generated (upper/lower edges indicat
 <li><strong>Choose colors that are accessible to color-vision-impaired readers.</strong></li>
 </ul>
 <p>In <a href="#fig-tech-stocks-bad-legend" class="quarto-xref">Figure&nbsp;27</a>, the legend and line color orders are inconsistent, which increases reading difficulty. <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend">Wilke (2019, p.248)</a> provides a counter-example:</p>
-<div id="fig-tech-stocks-bad-legend" class="quarto-float quarto-figure quarto-figure-center anchored" width="85%" alt="Counter-example: legend and line color order do not match">
+<div id="fig-tech-stocks-bad-legend" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Counter-example: legend and line color order do not match" width="85%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-bad-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-bad-legend-1.png" class="img-fluid figure-img" style="width:85.0%" alt="Counter-example: legend and line color order do not match"></a>
@@ -1050,7 +1050,7 @@ Figure&nbsp;27: Counter-example: legend and line color order do not match
 </figure>
 </div>
 <p>In contrast, <a href="#fig-tech-stocks-good-legend" class="quarto-xref">Figure&nbsp;28</a> has matching legend and line color orders. <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend">Wilke (2019, p.249)</a> provides the improved chart:</p>
-<div id="fig-tech-stocks-good-legend" class="quarto-float quarto-figure quarto-figure-center anchored" width="85%" alt="Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)">
+<div id="fig-tech-stocks-good-legend" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)" width="85%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-good-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-1.png" class="img-fluid figure-img" style="width:85.0%" alt="Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)"></a>
@@ -1073,7 +1073,7 @@ Figure&nbsp;29: Color vision deficiency simulations &amp; desaturation (deuteran
 </div>
 <p>From <a href="#fig-tech-stocks-good-legend-cvd" class="quarto-xref">Figure&nbsp;29</a>, the color scheme in <a href="#fig-tech-stocks-good-legend" class="quarto-xref">Figure&nbsp;28</a> is distinguishable for all three types of color vision deficiencies, and remains distinguishable by lightness after desaturation. This is why matching legend and line color order is especially important.</p>
 <p>Additionally, <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend">Wilke (2019, p.251)</a> recommends <strong>removing the legend and labeling each line directly</strong> (<a href="#fig-tech-stocks-good-no-legend" class="quarto-xref">Figure&nbsp;30</a>), which saves readers the effort of consulting a legend and makes the chart easier to read. However, this is difficult to implement in Seaborn, so in this course it is sufficient to use a legend with colors in the correct order as in <a href="#fig-tech-stocks-good-legend" class="quarto-xref">Figure&nbsp;28</a>.</p>
-<div id="fig-tech-stocks-good-no-legend" class="quarto-float quarto-figure quarto-figure-center anchored" width="90%" alt="Remove legend and label each line directly">
+<div id="fig-tech-stocks-good-no-legend" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Remove legend and label each line directly" width="90%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-good-no-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-no-legend-1.png" class="img-fluid figure-img" style="width:90.0%" alt="Remove legend and label each line directly"></a>
@@ -1621,7 +1621,7 @@ Figure&nbsp;33: Penguin data heatmap
 <section id="d-histogram" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> 2D Histogram</h1>
 <p>According to <a href="https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points">Wilke (2019, pp.&nbsp;222-225)</a>, scatter plots with semi-transparent points can show the distribution of data across two variables, but when data points are too numerous and dense, a scatter plot struggles to convey the overall distribution (see <a href="#fig-nycflights-points" class="quarto-xref">Figure&nbsp;34</a>: high-density areas appear as uniform dark blotches while low-density areas are nearly invisible).</p>
-<div id="fig-nycflights-points" class="quarto-float quarto-figure quarto-figure-center anchored" width="80%" alt="Scatter plot with too many dense data points (Wilke, 2019, p. 223)">
+<div id="fig-nycflights-points" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter plot with too many dense data points (Wilke, 2019, p. 223)" width="80%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-nycflights-points-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points"><img src="https://clauswilke.com/dataviz/overlapping_points_files/figure-html/nycflights-points-1.png" class="img-fluid figure-img" style="width:80.0%" alt="Scatter plot with too many dense data points (Wilke, 2019, p. 223)"></a>
