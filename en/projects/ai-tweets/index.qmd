@@ -3,7 +3,7 @@ title: 'Evolution of Online AI Discourse'
 description: 'A Longitudinal Analysis of Public Sentiment and Thematic Trends in AI-Related Tweets'
 author: 'Pinn Xu'
 date: '2026-05-01'
-categories: [R, AI, NLP, Text Analysis, Sentiment Analysis, Topic Modeling, Social Media, Twitter]
+categories: [R, AI, NLP, Text Analysis, Sentiment Analysis, Topic Modeling, Social Media]
 bibliography: references.bib
 csl: ../../../src/apa.csl
 number-sections: true
@@ -190,6 +190,7 @@ The descriptive statistics across all three engagement metrics (counts of likes,
 
 ```{r tbl-desc-stats}
 #| label: tbl-desc-stats
+#| tbl-colwidths: [22, 12, 12, 11, 10, 10, 11, 12]
 num_vars <- c("likes_count", "replies_count", "retweets_count")
 
 num_stats_table <- data |>
@@ -218,7 +219,8 @@ knitr::kable(
       Mean = mean, SD = sd, Min = min,
       `25%` = q1, Median = median, `75%` = q3, Max = max
     ),
-  caption = "Table 2 Descriptive Statistics Summary of Numeric Variables"
+  align = c('l', 'c', 'c', 'c', 'c', 'c', 'c', 'c'),
+  caption = "Descriptive Statistics Summary of Numeric Variables"
 )
 ```
 
@@ -247,7 +249,7 @@ knitr::kable(
       `Count of Non-zero Values`= non_zero,
       `Proportion of Non-zero Values (%)` = pct_non_zero
     ),
-  caption = "Table 3 Zero and Non-zero Values of Numeric Variables"
+  caption = "Zero and Non-zero Values of Numeric Variables"
 )
 ```
 
@@ -278,6 +280,7 @@ ggplot(daily_count, aes(x = date_utc, y = n)) +
   geom_area(fill = "rosybrown", alpha = 0.7) +
   scale_x_date(breaks = x_breaks, date_labels = "%m-%d-%Y") +
   labs(
+    title = "Daily Distribution of AI-Related Tweets (2017–2021)",
     x = "Timeline (Daily Unit of Analysis)",
     y = "Number of Tweets"
   ) +
@@ -286,7 +289,8 @@ ggplot(daily_count, aes(x = date_utc, y = n)) +
     axis.text.x  = element_text(angle = 45, hjust = 1, size = 8),
     axis.title.x = element_text(margin = margin(t = 10)),
     axis.title.y = element_text(margin = margin(r = 10)),
-    panel.grid.minor = element_blank()
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(hjust = 0.5)
   )
 ```
 
@@ -510,8 +514,7 @@ save(lda_model, file = "./lda_model_ai.RData")
 ```{r fig-lda-words}
 #| label: fig-lda-words
 #| fig-cap: |
-#|   Top 10 Words per LDA Topic (K = 5).
-#|
+#|   Top 10 Words per LDA Topic (K = 5)<br>
 #|   *Note.* Bars represent word probability (beta) within each topic. Topics are labeled by their dominant semantic cluster.
 lda_beta <- tidy(lda_model, matrix = "beta")
 
@@ -524,8 +527,15 @@ lda_beta |>
   geom_col(show.legend = FALSE) +
   facet_wrap(~topic, scales = "free") +
   scale_y_reordered() +
-  labs(x = "Beta (Word Probability)", y = NULL) +
-  theme_minimal()
+  labs(
+    title = "Top 10 Words per LDA Topic (K = 5)",
+    x = "Beta (Word Probability)", 
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 @tbl-topic-dist presents the distribution of dominant topics, which is the topic with the highest membership probability for each tweet, across the 3,000 sampled tweets. Topic 1 (robotics and automation) was the most prevalent, accounting for 28.4% of tweets, followed by Topic 2 (technology and markets, 23.3%), Topic 3 (data science and security, 19.0%), Topic 4 (business and innovation, 15.3%), and Topic 5 (AI ecosystem buzzwords, 14.0%). The distribution was moderately uneven, with Topics 1 and 2 together covering more than half of all tweets.
@@ -546,6 +556,7 @@ meta_theta_df <- data |>
 
 ```{r tbl-topic-dist}
 #| label: tbl-topic-dist
+#| tbl-colwidths: [20, 40, 40]
 dominant_dist <- lda_gamma |>
   group_by(document) |>
   slice_max(gamma, n = 1) |>
@@ -555,8 +566,13 @@ dominant_dist <- lda_gamma |>
 
 knitr::kable(
   dominant_dist |>
-    rename(Topic = topic, `Tweet Count` = n, `Percentage (%)` = pct),
-  caption = "Table 4 Distribution of Dominant LDA Topics Across Tweets"
+    rename(
+      Topic = topic,
+      `Tweet Count` = n,
+      `Percentage (%)` = pct
+    ),
+  align = c('c','c','c'),
+  caption = "Distribution of Dominant LDA Topics Across Tweets"
 )
 ```
 
@@ -565,8 +581,7 @@ knitr::kable(
 ```{r fig-topic-over-time}
 #| label: fig-topic-over-time
 #| fig-cap: |
-#|   Topic Prevalence Over Time (2017–2021).
-#|
+#|   Topic Prevalence Over Time (2017–2021)<br>
 #|   *Note.* Lines represent mean gamma (topic membership probability) across all tweets in each year. All five topics remain close to 0.20 throughout the period, indicating thematic stability.
 topics_by_year <- lda_gamma |>
   mutate(tweet_index = as.integer(document)) |>
@@ -586,8 +601,16 @@ ggplot(topics_by_year, aes(x = year, y = mean_gamma, color = factor(topic))) +
     ),
     labels = paste("Topic", 1:5)
   ) +
-  labs(x = "Year", y = "Average Topic Probability (Gamma)", color = "Topic") +
-  theme_minimal()
+  labs(
+    title = "Topic Prevalence Over Time (2017–2021)",
+    x = "Year", 
+    y = "Average Topic Probability (Gamma)", 
+    color = "Topic"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 ## Hashtag and Cashtag Analysis
@@ -596,6 +619,7 @@ Hashtag and cashtag analysis complemented the topic model by examining the expli
 
 ```{r tbl-tag-presence}
 #| label: tbl-tag-presence
+#| tbl-colwidths: [19, 27, 27, 27]
 tag_presence_table <- tibble(
   tag_type = c("Hashtag", "Cashtag"),
   tweets_with_tag = c(
@@ -616,7 +640,8 @@ knitr::kable(
       `Percent of Tweets (%)` = pct_with_tag,
       `Avg. Tags per Tweet`   = avg_tags_per_tweet
     ),
-  caption = "Table 5 Prevalence of Hashtags and Cashtags in the Sample"
+  align = 'c',
+  caption = "Prevalence of Hashtags and Cashtags in the Sample"
 )
 ```
 
@@ -624,12 +649,14 @@ knitr::kable(
 
 ```{r tbl-top-hashtags}
 #| label: tbl-top-hashtags
+#| tbl-colwidths: [50, 50]
 top_hashtags <- hashtag_tokens |>
   count(hashtag, sort = TRUE) |>
   slice_max(n, n = 15)
 
 knitr::kable(
   top_hashtags |> rename(Hashtag = hashtag, Frequency = n),
+  align = 'c',
   caption = "Most Frequent Hashtags in AI-Related Tweets (2017–2021)"
 )
 ```
@@ -637,21 +664,27 @@ knitr::kable(
 ```{r fig-top-hashtags}
 #| label: fig-top-hashtags
 #| fig-cap: |
-#|   Top 15 Hashtags in AI-Related Tweets.
-#|
+#|   Top 15 Hashtags in AI-Related Tweets<br>
 #|   *Note.* Bars show overall frequency across the 2017–2021 sample. Broad AI labels (#artificialintelligence, #ai) dominate, followed by applied technical subfield terms.
 top_hashtags |>
   mutate(hashtag = reorder(hashtag, n)) |>
   ggplot(aes(x = n, y = hashtag)) +
   geom_col(fill = "darkcyan", alpha = 0.8) +
-  labs(x = "Frequency", y = NULL) +
-  theme_minimal()
+  labs(
+    title = "Top 15 Hashtags in AI-Related Tweets",
+    x = "Frequency", y = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 @tbl-hashtag-by-year presents the top five hashtags by year. #artificialintelligence and #ai remained the top two in every year from 2017 to 2021. However, the third through fifth positions shifted over time: in 2017 and 2018, #bigdata and #iot appeared prominently, while by 2020 and 2021, #datascience and #deeplearning replaced them. The count of #machinelearning grew steadily, from 47 uses in 2017 to 127 in 2021. @fig-hashtag-trends shows the share trends for the eight most commonly used hashtags, visually confirming the persistence of general AI labels alongside the rising prominence of applied technical subfields.
 
 ```{r tbl-hashtag-by-year}
 #| label: tbl-hashtag-by-year
+#| tbl-colwidths: [30, 40, 30]
 top_hashtags_year <- hashtag_tokens |>
   mutate(year = year(date_utc)) |>
   count(year, hashtag, sort = TRUE) |>
@@ -661,6 +694,7 @@ top_hashtags_year <- hashtag_tokens |>
 
 knitr::kable(
   top_hashtags_year |> rename(Year = year, Hashtag = hashtag, Frequency = n),
+  align = 'c',
   caption = "Top Five Hashtags by Year (2017–2021)"
 )
 ```
@@ -668,8 +702,7 @@ knitr::kable(
 ```{r fig-hashtag-trends}
 #| label: fig-hashtag-trends
 #| fig-cap: |
-#|   Top Hashtag Shares by Year.
-#|
+#|   Top Hashtag Shares by Year<br>
 #|   *Note.* Lines show each hashtag's share among the eight most common hashtags in each year. General AI labels maintain dominance while technical subfield terms gradually increase.
 focus_hashtags <- hashtag_tokens |>
   count(hashtag, sort = TRUE) |>
@@ -689,8 +722,16 @@ ggplot(hashtag_trends, aes(x = year, y = pct_year, color = hashtag)) +
   geom_point(size = 2) +
   scale_x_continuous(breaks = 2017:2021) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
-  labs(x = "Year", y = "Share of Hashtag Uses", color = "Hashtag") +
-  theme_minimal()
+  labs(
+    title = "Top Hashtag Shares by Year",
+    x = "Year", 
+    y = "Share of Hashtag Uses", 
+    color = "Hashtag"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 @tbl-top-cashtags presents the most frequently used cashtags. The top cashtags were $btc (4 uses), $btcusd (3 uses), and $v (3 uses), with nearly all others appearing only once. The very low frequency of cashtags indicates that market- and investment-oriented discourse about AI occupied a very small niche in this corpus, and cashtags are better understood as occasional markers of crypto- or finance-adjacent AI talk rather than a major framing device.
@@ -699,10 +740,11 @@ ggplot(hashtag_trends, aes(x = year, y = pct_year, color = hashtag)) +
 #| label: tbl-top-cashtags
 top_cashtags <- cashtag_tokens |>
   count(cashtag, sort = TRUE) |>
-  slice_max(n, n = 10)
+  slice_max(n, n = 5)
 
 knitr::kable(
   top_cashtags |> rename(Cashtag = cashtag, Frequency = n),
+  align = 'c',
   caption = "Most Frequent Cashtags in AI-Related Tweets (2017–2021)"
 )
 ```
@@ -740,7 +782,7 @@ afinn_scores <- sa_token_data |>
 
 afinn_coverage     <- nrow(afinn_scores)
 afinn_coverage_pct <- round(afinn_coverage / nrow(data) * 100, 1)
-cat("AFINN coverage:", afinn_coverage, "tweets (", afinn_coverage_pct, "%)\n")
+cat("AFINN coverage:", afinn_coverage, "tweets (", afinn_coverage_pct, "% )\n")
 ```
 
 ```{r bing-scores, cache=TRUE}
@@ -792,23 +834,30 @@ knitr::kable(
       `Tweets Scored` = tweets_scored,
       `Coverage (%)`  = coverage_pct
     ),
-  caption = "Table 9 Coverage of Sentiment Lexicons Across the Tweet Sample"
+  align = 'c',
+  caption = "Coverage of Sentiment Lexicons Across the Tweet Sample"
 )
 ```
 
 ```{r fig-lexicon-coverage}
 #| label: fig-lexicon-coverage
 #| fig-cap: |
-#|   Sentiment Lexicon Coverage Comparison.
-#|
+#|   Sentiment Lexicon Coverage Comparison<br>
 #|   *Note.* Bars represent the percentage of the 3,000 tweets that received a sentiment score from each lexicon. NRC achieves the widest coverage; AFINN covers a smaller share but provides continuous intensity scores.
 ggplot(coverage_df, aes(x = lexicon, y = coverage_pct, fill = lexicon)) +
   geom_col(alpha = 0.8) +
   geom_text(aes(label = paste0(coverage_pct, "%")), vjust = -0.4, size = 4) +
   ylim(0, 100) +
-  labs(x = NULL, y = "Coverage (%)") +
+  labs(
+    title = "Sentiment Lexicon Coverage Comparison",
+    x = NULL, 
+    y = "Coverage (%)"
+  ) +
   theme_minimal() +
-  theme(legend.position = "none")
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 ```{r lexicon-correlations}
@@ -852,6 +901,7 @@ summary(data$sentiment_afinn)
 
 ```{r tbl-sentiment-by-year}
 #| label: tbl-sentiment-by-year
+#| tbl-colwidths: [17, 15, 15, 15, 15, 15]
 sentiment_by_year <- data |>
   filter(!is.na(sentiment_afinn)) |>
   mutate(year = year(date_utc)) |>
@@ -873,7 +923,8 @@ knitr::kable(
       Year = year, `Tweets Scored` = n, `Mean Sentiment` = mean_sent,
       SE = se_sent, `95% CI Low` = ci_low, `95% CI High` = ci_high
     ),
-  caption = "Table 10 Mean AFINN Sentiment Score by Year with 95% Confidence Intervals",
+  align = 'c',
+  caption = "Mean AFINN Sentiment Score by Year with 95% Confidence Intervals",
   digits  = 3
 )
 ```
@@ -881,8 +932,7 @@ knitr::kable(
 ```{r fig-sentiment-by-year}
 #| label: fig-sentiment-by-year
 #| fig-cap: |
-#|   Mean AFINN Sentiment by Year (2017–2021).
-#|
+#|   Mean AFINN Sentiment by Year (2017–2021)<br>
 #|   *Note.* Points and line show yearly means; the ribbon represents the 95% confidence interval. The dashed horizontal line marks a score of zero (neutral). Sentiment increased consistently from 2017 to 2021.
 ggplot(sentiment_by_year, aes(x = year, y = mean_sent)) +
   geom_ribbon(aes(ymin = ci_low, ymax = ci_high), alpha = 0.2, fill = "steelblue") +
@@ -890,8 +940,15 @@ ggplot(sentiment_by_year, aes(x = year, y = mean_sent)) +
   geom_point(color = "steelblue", size = 3) +
   geom_hline(yintercept = 0, linetype = "dotted", color = "red") +
   scale_x_continuous(breaks = 2017:2021) +
-  labs(x = "Year", y = "Mean AFINN Sentiment Score") +
-  theme_minimal()
+  labs(
+    title = "Mean AFINN Sentiment by Year (2017–2021)",
+    x = "Year", 
+    y = "Mean AFINN Sentiment Score"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 ### Topic–Sentiment Relationship
@@ -932,8 +989,7 @@ topic_sent_avg <- tibble(
 ```{r fig-topic-sentiment}
 #| label: fig-topic-sentiment
 #| fig-cap: |
-#|   Weighted Average AFINN Sentiment by Topic.
-#|
+#|   Weighted Average AFINN Sentiment by Topic<br>
 #|   *Note.* Bars represent the average sentiment score for each topic, weighted by gamma (topic membership probability). The dashed line marks neutral sentiment. Differences across topics are minimal and statistically non-significant.
 ggplot(
   topic_sent_avg,
@@ -942,9 +998,16 @@ ggplot(
   geom_col(alpha = 0.8) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
   coord_flip() +
-  labs(x = "Topic", y = "Average AFINN Sentiment") +
+  labs(
+    title = "Weighted Average AFINN Sentiment by Topic",
+    x = "Topic", 
+    y = "Average AFINN Sentiment"
+  ) +
   theme_minimal() +
-  theme(legend.position = "none")
+  theme(
+    legend.position = "none", 
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 ```{r topic-sentiment-regression}
@@ -1005,7 +1068,8 @@ knitr::kable(
                         tag_engagement_summary$retweets_no_cashtag,
                         tag_engagement_summary$retweets_cashtag)
   ),
-  caption = "Table 11 Mean Engagement Metrics by Tag Presence"
+  align = c('l', 'c', 'c', 'c'),
+  caption = "Mean Engagement Metrics by Tag Presence"
 )
 ```
 
@@ -1057,6 +1121,7 @@ knitr::kable(
       `95% CI Low` = conf.low, `95% CI High` = conf.high, `p` = p.value
     ),
   caption = "Negative Binomial GLMs: Tag Features Predicting User Engagement",
+  align = c('l', 'l', 'c', 'c', 'c', 'c'),
   digits  = 3
 )
 ```
@@ -1064,8 +1129,7 @@ knitr::kable(
 ```{r fig-tag-irr}
 #| label: fig-tag-irr
 #| fig-cap: |
-#|   Tag-Based Predictors of Tweet Engagement (IRR Plot).
-#|
+#|   Tag-Based Predictors of Tweet Engagement (IRR Plot)<br>
 #|   *Note.* Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. IRR > 1 indicates a positive association with engagement.
 ggplot(tag_coef_all, aes(x = estimate, y = term, color = outcome)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray60") +
@@ -1074,9 +1138,15 @@ ggplot(tag_coef_all, aes(x = estimate, y = term, color = outcome)) +
     aes(xmin = conf.low, xmax = conf.high),
     height = 0.2, position = position_dodge(0.5)
   ) +
-  labs(x = "Incident Rate Ratio (IRR)", y = "Predictor", color = "Outcome") +
+  labs(
+    title = "Tag-Based Predictors of Tweet Engagement (IRR Plot)",
+    x = "Incident Rate Ratio (IRR)", y = "Predictor", color = "Outcome"
+  ) +
   theme_minimal() +
-  theme(legend.position = "bottom")
+  theme(
+    legend.position = "bottom", 
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 ### Sentiment and Topic as Predictors
@@ -1149,6 +1219,7 @@ knitr::kable(
       Outcome = outcome, Predictor = term, IRR = estimate,
       `95% CI Low` = conf.low, `95% CI High` = conf.high, `p` = p.value
     ),
+  align = c('l', 'l', 'c', 'c', 'c', 'c'),
   caption = "Negative Binomial GLMs: Sentiment and Topics Predicting User Engagement (Year Fixed Effects Excluded)",
   digits  = 3
 )
@@ -1157,8 +1228,7 @@ knitr::kable(
 ```{r fig-topic-irr}
 #| label: fig-topic-irr
 #| fig-cap: |
-#|   Sentiment and Topic Predictors of Tweet Engagement (IRR Plot).
-#|
+#|   Sentiment and Topic Predictors of Tweet Engagement (IRR Plot)<br>
 #|   *Note.* Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. Year fixed effects are excluded from the plot for clarity.
 ggplot(coef_all, aes(x = estimate, y = term, color = outcome)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray60") +
@@ -1167,9 +1237,15 @@ ggplot(coef_all, aes(x = estimate, y = term, color = outcome)) +
     aes(xmin = conf.low, xmax = conf.high),
     height = 0.2, position = position_dodge(0.5)
   ) +
-  labs(x = "Incident Rate Ratio (IRR)", y = "Predictor", color = "Outcome") +
+  labs(
+    title = "Sentiment and Topic Predictors of Tweet Engagement (IRR Plot)",
+    x = "Incident Rate Ratio (IRR)", y = "Predictor", color = "Outcome"
+  ) +
   theme_minimal() +
-  theme(legend.position = "bottom")
+  theme(
+    legend.position = "bottom", 
+    plot.title = element_text(hjust = 0.5)
+  )
 ```
 
 # Discussion & Conclusion
