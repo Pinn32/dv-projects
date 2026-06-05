@@ -2,7 +2,7 @@
 title: '全球签证费用分析与交互式可视化'
 author: 'Pinn Xu'
 date: '2024-12-12'
-categories: [Python, EDA, Sankey Diagram, Choropleth Map, Visualization]
+categories: [Python, EDA, 桑基图, 地图可视化, 可视化]
 description: '跨国签证费用的比较研究，探索可负担性与地理分布规律。'
 bibliography: references.bib
 csl: ../../../src/apa.csl

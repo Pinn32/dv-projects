@@ -2,7 +2,7 @@
 title: '多变量图表'
 author: 'Pinn Xu'
 date: '2024-10-27'
-categories: ["Python", "Visualization", "Multivariate Plots", "FacetGrid", "Scatter Plot", "Line Plot", "Heatmap", "2D Histogram", "Joint Plot", "Pair Plot"]
+categories: ["Python", "Seaborn", "可视化", "多变量", "热图"]
 description: '本教程介绍如何使用 Seaborn 库绘制散点图、折线图、热力图、二维直方图、双变量图和配对图等常见的多变量可视化图表，并通过调整参数实现更清晰的信息传达。'
 code-fold: false
 number-sections: true
