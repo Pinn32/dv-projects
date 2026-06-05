@@ -193,6 +193,7 @@ The descriptive statistics across all three engagement metrics (counts of likes,
 #| tbl-colwidths: [22, 12, 12, 11, 10, 10, 11, 12]
 num_vars <- c("likes_count", "replies_count", "retweets_count")
 
+# compute summary statistics for each numeric variable and pivot to long format
 num_stats_table <- data |>
   summarise(across(
     all_of(num_vars),
@@ -207,6 +208,8 @@ num_stats_table <- data |>
     ),
     .names = "{.col}###{.fn}"
   )) |>
+  # "###" is a collision-safe delimiter 
+  # for splitting "col###stat" in pivot_longer
   pivot_longer(
     everything(),
     names_to  = c("Variable", ".value"),
@@ -226,6 +229,7 @@ knitr::kable(
 
 ```{r tbl-zero-counts}
 #| label: tbl-zero-counts
+# count zero vs non-zero values for each engagement metric
 zero_counts_table <- data |>
   summarise(across(
     all_of(num_vars),
@@ -274,6 +278,8 @@ daily_count <- data |>
 
 min_date <- min(daily_count$date_utc)
 max_date <- max(daily_count$date_utc)
+# include both endpoints explicitly 
+# so the axis always shows actual start/end dates
 x_breaks <- sort(unique(c(min_date, seq(min_date, max_date, by = "9 months"), max_date)))
 
 ggplot(daily_count, aes(x = date_utc, y = n)) +
@@ -316,6 +322,7 @@ The `hashtags` is another textual variable. It contains lists of lowercase hasht
 In addition, as each tweet can contain multiple hashtags, the values are separated into single hashtags to gain more nuanced insights (see [Appendix](#appendix) for the separation process). As observed, there are 2,382 non-empty unique single hashtags. For example, `"ai"` and `"ml"` are two of the unique single hashtags.
 
 ```{r hashtag-explore}
+# count non-empty and unique hashtag values
 unique_hashtags <- data |>
   filter(hashtags != "[]") |>
   select(hashtags) |>
@@ -345,6 +352,7 @@ head(unique(single_hashtags$single_hashtags))
 Likewise, the `cashtags` variable contains lists of lowercase cashtags in each tweet, which are clickable financial ticker symbols on Twitter (now X), formed by prefixing a stock or cryptocurrency abbreviation with the `$` sign. There are no missing values (NAs), 22 non-empty values (i.e., 22 observations contain one or more cashtags), and 18 non-empty unique values. For example, `"['aieq', 'bikr']"` and `"['blk']"` are two of the values. Additionally, there are 23 non-empty unique single cashtags in total, such as `"ark"`, `"blk"`, and `"btc"`.
 
 ```{r cashtag-explore}
+# count non-empty and unique cashtag values
 unique_cashtags <- data |>
   filter(cashtags != "[]") |>
   select(cashtags) |>
@@ -357,6 +365,7 @@ head(unique(data$cashtags))
 ```
 
 ```{r single-cashtag-explore}
+# strip list formatting and split into one row per cashtag
 single_cashtags <- data |>
   mutate(single_cashtags = str_remove_all(cashtags, "[\\[\\]']")) |>
   separate_rows(single_cashtags, sep = ",\\s*") |>
@@ -375,19 +384,19 @@ Text cleaning and tokenization are performed as a preprocessing step for subsequ
 ```{r text-cleaning}
 # text cleaning
 data <- data |>
-  mutate(textBU = text) |>
+  mutate(textBU = text) |>           # back up raw text before cleaning
   filter(!is.na(text)) |>
   mutate(
-    text = textutils::HTMLdecode(text),
-    text = str_to_lower(text),
-    text = str_remove_all(text, "https?://\\S+"),
-    text = str_remove_all(text, "\\d+"),
-    text = str_remove_all(text, "[@]\\w+"),
-    text = str_squish(text)
+    text = textutils::HTMLdecode(text),           # decode HTML entities (e.g., &amp;)
+    text = str_to_lower(text),                    # normalize to lowercase
+    text = str_remove_all(text, "https?://\\S+"), # strip URLs
+    text = str_remove_all(text, "\\d+"),          # strip digits
+    text = str_remove_all(text, "[@]\\w+"),       # strip @mentions
+    text = str_squish(text)                        # collapse extra whitespace
   ) |>
   mutate(
-    tweet_index = row_number(),
-    nwords      = str_count(text, "\\w+")
+    tweet_index = row_number(),           # sequential ID for joining
+    nwords      = str_count(text, "\\w+") # word count after cleaning
   )
 
 head(data$text)
@@ -506,6 +515,8 @@ lda_model <- LDA(
   tweet_dtm, k = 5, method = "Gibbs",
   control = list(seed = 32, iter = 2000, burnin = 500, verbose = 0)
 )
+# persist to disk so the object survives 
+# chunk-cache invalidation and is usable externally
 save(lda_model, file = "./lda_model_ai.RData")
 ```
 
@@ -557,6 +568,7 @@ meta_theta_df <- data |>
 ```{r tbl-topic-dist}
 #| label: tbl-topic-dist
 #| tbl-colwidths: [20, 40, 40]
+# assign each tweet its dominant topic (highest gamma) and tabulate counts
 dominant_dist <- lda_gamma |>
   group_by(document) |>
   slice_max(gamma, n = 1) |>
@@ -583,6 +595,7 @@ knitr::kable(
 #| fig-cap: |
 #|   Topic Prevalence Over Time (2017–2021)<br>
 #|   *Note.* Lines represent mean gamma (topic membership probability) across all tweets in each year. All five topics remain close to 0.20 throughout the period, indicating thematic stability.
+# compute mean topic probability (gamma) per year for trend visualization
 topics_by_year <- lda_gamma |>
   mutate(tweet_index = as.integer(document)) |>
   left_join(data |> select(tweet_index, date_utc), by = "tweet_index") |>
@@ -620,6 +633,7 @@ Hashtag and cashtag analysis complemented the topic model by examining the expli
 ```{r tbl-tag-presence}
 #| label: tbl-tag-presence
 #| tbl-colwidths: [19, 27, 27, 27]
+# summarize hashtag and cashtag prevalence across the sample
 tag_presence_table <- tibble(
   tag_type = c("Hashtag", "Cashtag"),
   tweets_with_tag = c(
@@ -650,6 +664,7 @@ knitr::kable(
 ```{r tbl-top-hashtags}
 #| label: tbl-top-hashtags
 #| tbl-colwidths: [50, 50]
+# count and rank all single hashtags; keep top 15
 top_hashtags <- hashtag_tokens |>
   count(hashtag, sort = TRUE) |>
   slice_max(n, n = 15)
@@ -666,6 +681,7 @@ knitr::kable(
 #| fig-cap: |
 #|   Top 15 Hashtags in AI-Related Tweets<br>
 #|   *Note.* Bars show overall frequency across the 2017–2021 sample. Broad AI labels (#artificialintelligence, #ai) dominate, followed by applied technical subfield terms.
+# horizontal bar chart of the 15 most frequent hashtags
 top_hashtags |>
   mutate(hashtag = reorder(hashtag, n)) |>
   ggplot(aes(x = n, y = hashtag)) +
@@ -685,6 +701,7 @@ top_hashtags |>
 ```{r tbl-hashtag-by-year}
 #| label: tbl-hashtag-by-year
 #| tbl-colwidths: [30, 40, 30]
+# count hashtags per year and keep the top 5 per year
 top_hashtags_year <- hashtag_tokens |>
   mutate(year = year(date_utc)) |>
   count(year, hashtag, sort = TRUE) |>
@@ -704,11 +721,13 @@ knitr::kable(
 #| fig-cap: |
 #|   Top Hashtag Shares by Year<br>
 #|   *Note.* Lines show each hashtag's share among the eight most common hashtags in each year. General AI labels maintain dominance while technical subfield terms gradually increase.
+# identify the 8 most common hashtags overall
 focus_hashtags <- hashtag_tokens |>
   count(hashtag, sort = TRUE) |>
   slice_max(n, n = 8, with_ties = FALSE) |>
   pull(hashtag)
 
+# compute each hashtag's share of uses within each year
 hashtag_trends <- hashtag_tokens |>
   mutate(year = year(date_utc)) |>
   filter(hashtag %in% focus_hashtags) |>
@@ -738,6 +757,7 @@ ggplot(hashtag_trends, aes(x = year, y = pct_year, color = hashtag)) +
 
 ```{r tbl-top-cashtags}
 #| label: tbl-top-cashtags
+# count and rank cashtag frequency; keep top 5
 top_cashtags <- cashtag_tokens |>
   count(cashtag, sort = TRUE) |>
   slice_max(n, n = 5)
@@ -821,6 +841,7 @@ cat("NRC coverage:", nrc_coverage, "tweets (", nrc_coverage_pct, "%)\n")
 
 ```{r tbl-lexicon-coverage}
 #| label: tbl-lexicon-coverage
+# assemble pre-computed coverage counts into a comparison table
 coverage_df <- data.frame(
   lexicon       = c("AFINN", "Bing", "NRC"),
   tweets_scored = c(afinn_coverage, bing_coverage, nrc_coverage),
@@ -844,6 +865,7 @@ knitr::kable(
 #| fig-cap: |
 #|   Sentiment Lexicon Coverage Comparison<br>
 #|   *Note.* Bars represent the percentage of the 3,000 tweets that received a sentiment score from each lexicon. NRC achieves the widest coverage; AFINN covers a smaller share but provides continuous intensity scores.
+# bar chart comparing tweet coverage (%) across the three lexicons
 ggplot(coverage_df, aes(x = lexicon, y = coverage_pct, fill = lexicon)) +
   geom_col(alpha = 0.8) +
   geom_text(aes(label = paste0(coverage_pct, "%")), vjust = -0.4, size = 4) +
@@ -902,6 +924,7 @@ summary(data$sentiment_afinn)
 ```{r tbl-sentiment-by-year}
 #| label: tbl-sentiment-by-year
 #| tbl-colwidths: [17, 15, 15, 15, 15, 15]
+# yearly mean AFINN scores with standard errors and 95% CIs
 sentiment_by_year <- data |>
   filter(!is.na(sentiment_afinn)) |>
   mutate(year = year(date_utc)) |>
@@ -934,6 +957,7 @@ knitr::kable(
 #| fig-cap: |
 #|   Mean AFINN Sentiment by Year (2017–2021)<br>
 #|   *Note.* Points and line show yearly means; the ribbon represents the 95% confidence interval. The dashed horizontal line marks a score of zero (neutral). Sentiment increased consistently from 2017 to 2021.
+# line + confidence ribbon showing mean AFINN sentiment trend from 2017 to 2021
 ggplot(sentiment_by_year, aes(x = year, y = mean_sent)) +
   geom_ribbon(aes(ymin = ci_low, ymax = ci_high), alpha = 0.2, fill = "steelblue") +
   geom_line(color = "steelblue", linewidth = 1) +
@@ -991,6 +1015,7 @@ topic_sent_avg <- tibble(
 #| fig-cap: |
 #|   Weighted Average AFINN Sentiment by Topic<br>
 #|   *Note.* Bars represent the average sentiment score for each topic, weighted by gamma (topic membership probability). The dashed line marks neutral sentiment. Differences across topics are minimal and statistically non-significant.
+# horizontal bar chart of gamma-weighted average AFINN sentiment per topic
 ggplot(
   topic_sent_avg,
   aes(x = reorder(topic_label, avg_sentiment), y = avg_sentiment, fill = topic_label)
@@ -1036,6 +1061,7 @@ Descriptively, tweets containing hashtags received slightly higher mean likes (3
 
 ```{r tbl-tag-engagement}
 #| label: tbl-tag-engagement
+# compute mean engagement metrics by hashtag and cashtag presence
 tag_engagement_summary <- tag_features |>
   summarise(
     likes_no_hashtag    = round(mean(likes_count[!has_hashtag]), 2),
@@ -1076,6 +1102,7 @@ knitr::kable(
 @tbl-tag-glm and @fig-tag-irr present the exponentiated regression coefficients (incident rate ratios, IRRs) from the tag-based negative binomial models. The number of hashtags per tweet was a positive predictor of all three engagement outcomes: likes (IRR = 1.08, p < .001), replies (IRR = 1.06, p = .021), and retweets (IRR = 1.13, p < .001). By contrast, simply having any hashtag at all was a negative predictor for likes (IRR = 0.60, p < .001) and replies (IRR = 0.39, p < .001) once hashtag count was included in the model, and was not significant for retweets. This pattern reflects a compositional effect: tweets with only one or two hashtags do not benefit from the discoverability that rich hashtag networks provide, whereas tweets with many hashtags tend to attract more engagement across all metrics. Cashtag presence was not significantly associated with any engagement outcome.
 
 ```{r tag-glm-models}
+# fit negative binomial GLMs for each engagement metric using tag features
 tag_glm_likes <- glm.nb(
   likes_count ~ has_hashtag + has_cashtag + n_hashtag + year,
   data = tag_features
@@ -1095,6 +1122,8 @@ tag_coef_all <- bind_rows(lapply(names(tag_models), function(nm) {
   tidy(tag_models[[nm]], exponentiate = TRUE) |>
     filter(term != "(Intercept)") |>
     mutate(
+      # Wald CIs on the log-rate scale (delta method)
+      # faster than profile-likelihood confint()
       conf.low  = estimate * exp(-1.96 * std.error),
       conf.high = estimate * exp( 1.96 * std.error),
       outcome   = nm
@@ -1104,6 +1133,7 @@ tag_coef_all <- bind_rows(lapply(names(tag_models), function(nm) {
 
 ```{r tbl-tag-glm}
 #| label: tbl-tag-glm
+# extract and format exponentiated coefficients (IRRs) from the tag GLMs
 knitr::kable(
   tag_coef_all |>
     select(outcome, term, estimate, conf.low, conf.high, p.value) |>
@@ -1131,6 +1161,7 @@ knitr::kable(
 #| fig-cap: |
 #|   Tag-Based Predictors of Tweet Engagement (IRR Plot)<br>
 #|   *Note.* Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. IRR > 1 indicates a positive association with engagement.
+# IRR dot plot with 95% CIs for tag-based engagement predictors
 ggplot(tag_coef_all, aes(x = estimate, y = term, color = outcome)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray60") +
   geom_point(size = 3, position = position_dodge(0.5)) +
@@ -1160,11 +1191,13 @@ By contrast, year was a consistent and substantial predictor of engagement. Rela
 Topic effects were present for some outcomes but should be interpreted carefully because LDA topic probabilities are compositional—increasing one topic's probability necessarily reduces the others. Topic 2 showed a strong negative association with likes and retweets, while Topic 4 showed a strong positive association with replies. However, some estimated IRRs were extremely large or small, indicating instability likely due to near-collinearity among topic predictors. The most defensible interpretation is that business-innovation framing (Topic 4) may be associated with more conversational engagement, while certain technology-and-market content (Topic 2) may attract less passive amplification, but these conclusions require further testing with more robust specifications.
 
 ```{r glm-data-prep}
+# convert year to a factor so GLMs treat it as categorical fixed effects
 glm_data <- meta_theta_df |>
   mutate(year = factor(year(date_utc)))
 ```
 
 ```{r glm-models}
+# NB GLM: AFINN sentiment + LDA topic probabilities + year predicting likes
 glm_likes <- glm.nb(
   likes_count ~ sentiment_afinn + topic_1 + topic_2 + topic_3 + topic_4 + year,
   data = glm_data
@@ -1174,6 +1207,7 @@ summary(glm_likes)
 ```
 
 ```{r glm-replies}
+# same model structure predicting reply counts
 glm_replies <- glm.nb(
   replies_count ~ sentiment_afinn + topic_1 + topic_2 + topic_3 + topic_4 + year,
   data = glm_data
@@ -1183,6 +1217,7 @@ summary(glm_replies)
 ```
 
 ```{r glm-retweets}
+# same model structure predicting retweet counts
 glm_retweets <- glm.nb(
   retweets_count ~ sentiment_afinn + topic_1 + topic_2 + topic_3 + topic_4 + year,
   data = glm_data
@@ -1197,6 +1232,8 @@ models_list <- list(Likes = glm_likes, Replies = glm_replies, Retweets = glm_ret
 
 coef_all <- bind_rows(lapply(names(models_list), function(nm) {
   tidy(models_list[[nm]], exponentiate = TRUE) |>
+    # drop intercept and year fixed effects; 
+    # table shows only content predictors
     filter(!grepl("Intercept|^year", term)) |>
     mutate(
       conf.low  = estimate * exp(-1.96 * std.error),
@@ -1230,6 +1267,7 @@ knitr::kable(
 #| fig-cap: |
 #|   Sentiment and Topic Predictors of Tweet Engagement (IRR Plot)<br>
 #|   *Note.* Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. Year fixed effects are excluded from the plot for clarity.
+# IRR dot plot for sentiment and topic predictors (year fixed effects excluded)
 ggplot(coef_all, aes(x = estimate, y = term, color = outcome)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray60") +
   geom_point(size = 3, position = position_dodge(0.5)) +
