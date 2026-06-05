@@ -2,7 +2,7 @@
 title: 'Multivariate Plots'
 author: 'Pinn Xu'
 date: '2024-10-27'
-categories: ["Python", "Visualization", "Multivariate Plots", "FacetGrid", "Scatter Plot", "Line Plot", "Heatmap", "2D Histogram", "Joint Plot", "Pair Plot"]
+categories: ["Python", "Visualization", "Multivariate", "FacetGrid", "Heatmap", "Joint Plot", "Pair Plot"]
 description: 'This tutorial introduces how to use the Seaborn library to create common multivariate visualizations, including scatter plots, line plots, heatmaps, 2D histograms, joint plots, and pair plots, and how to adjust parameters for clearer data communication.'
 code-fold: false
 number-sections: true

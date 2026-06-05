@@ -2,7 +2,7 @@
 title: 'Amounts and Distribution'
 author: 'Pinn Xu'
 date: '2024-10-01'
-categories: ["Python", "Visualization", "Distribution", "Histogram", "Bar Plot", "Point Plot", "Box Plot", "Violin Plot"]
+categories: ["Python", "Seaborn", "Matplotlib", "Visualization", "Distribution", "Histogram", "Bar Plot", "Point Plot", "Box Plot"]
 description: 'This tutorial introduces how to use Seaborn to create common visualizations for amounts and distributions, including bar plots, point plots, histograms, box plots, and more, while adjusting parameters to communicate information more clearly.'
 code-fold: false
 order: 2
