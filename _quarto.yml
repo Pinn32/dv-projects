@@ -107,6 +107,7 @@ format:
     # self-contained: false
     smooth-scroll: true
     theme: minty
+    from: markdown+mark
     syntax-highlighting: pygments
     css:
       - ./src/styles/styles.css

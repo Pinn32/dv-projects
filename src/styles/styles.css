@@ -107,6 +107,14 @@ pre.text.cell-code code {
     color: #378e74;
 }
 
+/* highlight ==text== → <mark> ============================================= */
+mark {
+    background-color: #d4f1e4;
+    color: inherit;
+    padding: 0.05em 0.2em;
+    border-radius: 3px;
+}
+
 /* in-line codes */
 code:not(.sourceCode){
     color: #378e74;

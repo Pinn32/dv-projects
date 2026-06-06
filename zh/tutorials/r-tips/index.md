@@ -3,7 +3,7 @@ title: "EM747 Midterm Tips"
 # date: 2026-03-27
 ---
 
-# Top Tips
+# Top Tips {.unnumbered}
 - **确保写了姓名和 ID**
 - **先做简单题, 遇到不会的立刻跳过**
 - **用相对路径导入csv [(详细介绍)](#相对路径)**
@@ -29,7 +29,7 @@ title: "EM747 Midterm Tips"
     - 给 RStudio 添加 Snippet [(详细介绍)](#rstudio-snippet)
 
 
-***
+
 
 # 一. 观察数据
 
@@ -175,7 +175,7 @@ str_count(text, "\\S+")
 ```
 
 
-# 三. 可视化 (3题)
+# 三. 可视化
 ## Bar Chart
 ```r
 # 例: 画出 2019 年每月 post 数量的 bar chart
@@ -262,13 +262,8 @@ coef(m)[[2]]  # slope
 ```
 
 
-# 六. Reading (4个选择题)
-- Hofman et al. (2021)
-- Lazer et al. (2020)
-- Cappella (2017)
 
-***
-# 附加:
+# 附加
 
 ## 常用 dplyr 函数
 
@@ -449,10 +444,10 @@ data <- data |>
 ## RStudio Snippet
 
 在 RStudio > Tools > Edit Code Snippets  
-![[rstudio-snippet-1.png|350]]  
+![RStudio Snippet: 1](../../../src/img/ttl/r-tips/rstudio-snippet-1.png){width="400px"}
 
 R > 在最下方添加新代码 > 保存  
-![[rstudio-snippet-2.png]]  
+![RStudio Snippet: 2](../../../src/img/ttl/r-tips/rstudio-snippet-2.png)
 
 **比如 ggplot 画图的代码:**
 ```r
@@ -467,10 +462,10 @@ snippet ggplot
 ```
 
 保存成功后, 在 R 代码块里输入 `ggplot`, 选择 snippet  
-![[rstudio-snippet-3.png|500]]  
+![RStudio Snippet: 3](../../../src/img/ttl/r-tips/rstudio-snippet-3.png){width="550px"} 
 
 按回车, 自动嵌入模板  
-![[rstudio-snippet-4.png|300]]  
+![RStudio Snippet: 4](../../../src/img/ttl/r-tips/rstudio-snippet-4.png){width="350px"}
 
 
 [↑回到顶部](#)
