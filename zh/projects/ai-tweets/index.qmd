@@ -3,7 +3,7 @@ title: '网络AI话语的演变'
 description: '2017至2021年Twitter人工智能相关推文公众情感与主题趋势的纵向分析'
 author: 'Pinn Xu'
 date: '2026-05-01'
-categories: [R, AI, NLP, Text Analysis, Sentiment Analysis, Topic Modeling, Social Media]
+categories: [R, AI, NLP, 文本分析, 情感分析, 主题建模, 社交媒体]
 bibliography: references.bib
 csl: ../../../src/apa.csl
 number-sections: true
@@ -16,8 +16,11 @@ knitr::opts_chunk$set(
   results    = "hold",
   echo       = TRUE,
   warning    = FALSE,
-  message    = FALSE
+  message    = FALSE,
+  dev        = "ragg_png"
 )
+# Override theme_minimal so every ggplot uses a CJK-capable system font
+theme_minimal <- function(...) ggplot2::theme_minimal(base_family = "Heiti SC", ...)
 ```
 
 
@@ -1132,6 +1135,7 @@ tag_coef_all <- bind_rows(lapply(names(tag_models), function(nm) {
 
 ```{r tbl-tag-glm}
 #| label: tbl-tag-glm
+#| tbl-colwidths: [14, 18, 17, 17, 17, 17]
 # 提取并格式化标签GLM中的指数化系数（IRR）
 knitr::kable(
   tag_coef_all |>
@@ -1227,6 +1231,7 @@ summary(glm_retweets)
 
 ```{r tbl-sentiment-topic-glm}
 #| label: tbl-sentiment-topic-glm
+#| tbl-colwidths: [16, 16, 18, 16, 18, 16]
 models_list <- list(点赞 = glm_likes, 回复 = glm_replies, 转推 = glm_retweets)
 
 coef_all <- bind_rows(lapply(names(models_list), function(nm) {
