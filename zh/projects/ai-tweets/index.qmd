@@ -1,6 +1,6 @@
 ---
-title: 'Evolution of Online AI Discourse'
-description: 'A Longitudinal Analysis of Public Sentiment and Thematic Trends in AI-Related Tweets'
+title: '网络AI话语的演变'
+description: '2017至2021年Twitter人工智能相关推文公众情感与主题趋势的纵向分析'
 author: 'Pinn Xu'
 date: '2026-05-01'
 categories: [R, AI, NLP, Text Analysis, Sentiment Analysis, Topic Modeling, Social Media]
@@ -21,47 +21,47 @@ knitr::opts_chunk$set(
 ```
 
 
-# Introduction
+# 引言
 
-The rapid development of artificial intelligence (AI) over the past few years has fundamentally transformed how technology is embedded in daily life, reshaping industries, communication practices, and public discourse [@stone2022]. As AI evolved from a niche technical field into a widely discussed social phenomenon, public opinion surrounding it has expanded significantly across digital platforms. Social media, particularly Twitter (now X), has played a central role in this transformation by providing a space where users, individual founders, and institutions actively discuss, evaluate, and negotiate the meaning and implications of AI technologies [@bruns2015]. Given this context, Twitter data offers a valuable lens for understanding how people's perception and opinions toward AI develop over time, especially during periods of rapid technology progress. Analyzing such discourse through computational social data analysis is particularly meaningful for the social science field, enabling researchers to systematically examine how technological innovation is interpreted, debated, negotiated, and culturally integrated within society.
+过去几年间，人工智能（AI）的快速发展从根本上改变了技术融入日常生活的方式，重塑了各行各业、沟通方式以及公共话语的形态[@stone2022]。随着AI从一个小众技术领域演变为广受讨论的社会现象，围绕它的公众舆论在各数字平台上显著扩展。社交媒体，尤其是Twitter（现更名为X），在这一转变中发挥了核心作用，为用户、创始人个人及各类机构提供了积极讨论、评估和协商AI技术意义与影响的空间[@bruns2015]。在此背景下，Twitter数据为我们理解人们对AI的认知与观点如何随时间演变提供了宝贵视角，尤其是在技术快速进步时期。通过计算社会数据分析方法对此类话语展开研究，对社会科学领域具有重要意义，使研究者得以系统地考察技术创新如何在社会中被解读、辩论、协商与文化整合。
 
-Despite growing scholarly attention to AI-related communication, relatively few studies have examined how public discourse evolves longitudinally alongside the mainstream adoption of AI tools [@cave2019]. Most existing research tends to focus on public perceptions or attitudes measured through surveys or short-term datasets [@cave2019], which limits the ability to capture dynamic shifts in attention, framing, and emotional response over time. To address this gap, this study investigates AI-related discourse on Twitter between 2017 and 2021, a period during which the application of AI tools was significantly expanded. By analyzing large-scale tweet data, this research seeks to identify how thematic structures and sentiment patterns change across time and how these changes reflect broader socio-cultural shifts.
+尽管学界对AI相关传播的关注日益增多，但针对公众话语如何伴随AI工具主流化进程纵向演变的研究相对匮乏[@cave2019]。现有研究大多聚焦于通过问卷调查或短期数据集测量的公众认知或态度[@cave2019]，难以捕捉随时间推移而发生的关注焦点、话语框架和情感反应的动态变化。为弥补这一不足，本研究考察了2017至2021年间Twitter上的AI相关话语，这一时期AI工具的应用得到了显著扩展。通过分析大规模推文数据，本研究旨在识别主题结构与情感模式随时间的变化规律，以及这些变化如何反映更宏观的社会文化转变。
 
-Accordingly, this study is guided by two research questions:
+为此，本研究围绕以下两个研究问题展开：
 
-1. How did the core themes and topics of AI-related discourse on Twitter evolve between 2017 and 2021 as the technology moved toward mainstream adoption?
+1. 2017至2021年间，随着AI技术走向主流，Twitter上AI相关话语的核心主题与议题如何演变？
 
-2. How are these identified themes and specific sentiment polarities associated with user engagement (e.g., likes, replies, and retweets)?
+2. 所识别的主题与特定情感极性如何与用户互动（如点赞、回复和转推数）相关联？
 
-# Data
+# 数据
 
-## Dataset
+## 数据集
 
-To address the questions, this study used a curated and anonymized dataset with large-scaled AI-related tweets collected via the Twitter API from 2017 to 2021, including metadata such as engagement metrics, hashtags, language, and temporal features, supporting research on public discourse, sentiment, and topic evolution [@demarcelliswarin2025]. The unit of analysis for this study is each individual tweet with its associated metadata.
+为回答上述研究问题，本研究采用了一个经过整理与匿名处理的大规模数据集，该数据集通过Twitter API收集了2017至2021年间的AI相关推文，包含互动指标、话题标签、语言及时间特征等元数据，可支持公众话语、情感与主题演变方面的研究[@demarcelliswarin2025]。本研究的分析单元为每条推文及其关联的元数据。
 
 ```{r imports}
-library(MASS)         # glm.nb — load before tidyverse to avoid name conflicts
-library(tidyverse)    # readr, tidyr, tibble, dplyr, ggplot2, lubridate, etc.
-library(tidytext)     # text analysis (tokenize)
-library(textdata)     # sentiment lexicons
-library(topicmodels)  # topic modeling
-library(scales)       # axis scales
-library(broom)        # tidy() model outputs
+library(MASS)         # glm.nb — 在加载 tidyverse 之前加载，以避免命名冲突
+library(tidyverse)    # readr, tidyr, tibble, dplyr, ggplot2, lubridate 等
+library(tidytext)     # 文本分析（分词）
+library(textdata)     # 情感词典
+library(topicmodels)  # 主题建模
+library(scales)       # 坐标轴刻度
+library(broom)        # tidy() 模型输出
 
-# import dataset
+# 导入数据集
 data0 <- read_csv("../../../src/data/tweets_ai.csv")
 
-# view structure
+# 查看结构
 glimpse(data0)
 ```
 
 ```{r download-lexicons, include=FALSE, cache=FALSE}
-# textdata prompts interactively before downloading each sentiment lexicon,
-# which errors during non-interactive Quarto render. textdata imports menu()
-# into its OWN imports env (importFrom(utils, menu)), so patch it there — not
-# in utils — to auto-confirm, then pre-download/cache AFINN, Bing, and NRC so
-# the later get_sentiments() calls read from cache without prompting. Patch is
-# always restored on exit.
+# textdata 在下载每个情感词典前会交互式地提示用户，
+# 这会在非交互式的 Quarto 渲染过程中报错。textdata 将 menu()
+# 导入其自身的导入环境（importFrom(utils, menu)），因此需要在
+# 该环境而非 utils 中打补丁，以自动确认，然后预先下载并缓存
+# AFINN、Bing 和 NRC，使后续 get_sentiments() 调用可从缓存读取
+# 而无需提示。补丁在退出时始终恢复。
 local({
   imp <- parent.env(asNamespace("textdata"))
   orig_menu <- get("menu", envir = imp)
@@ -76,50 +76,50 @@ local({
 ```
 
 ```{r original-size}
-cat("Original Observations:", nrow(data0), "\n")
-cat("Original Variables:", length(data0), "\n")
+cat("原始观测数:", nrow(data0), "\n")
+cat("原始变量数:", length(data0), "\n")
 ```
 
-## Observations
+## 观测值
 
-To facilitate the analysis, this study narrows down the sample size by keeping only original tweets (excluding retweets) in English, and a stratified sampling by posting year was conducted with a sample size of 3,000 in order to ensure computational efficiency while maintaining a sufficient sample size for analysis (see [Appendix](#appendix) for the narrowing process).
+为便于分析，本研究通过保留英语原创推文（排除转推）来缩减样本规模，并按发帖年份进行分层抽样，样本量为3,000条，以在保证足够分析样本的前提下兼顾计算效率（筛选过程详见[附录](#appendix)）。
 
 ```{r preprocessing}
-# view language distribution
+# 查看语言分布
 data0 |>
   count(language, sort = TRUE) |>
   head(4)
 
 cat("\n")
 
-# view originality
+# 查看原创性
 data0 |> count(retweet)
 ```
 
 ```{r filter-en-original}
-# keep only original tweets in English
+# 仅保留英语原创推文
 data <- data0 |>
   filter(language == "en" & retweet == FALSE)
 
-cat("Observations after preprocessing:", nrow(data), "\n")
+cat("预处理后观测数:", nrow(data), "\n")
 ```
 
 ```{r check-date-na}
-# check missing data in date column
-cat("Any NA in date column:", anyNA(data$date), "\n")
+# 检查日期列的缺失值
+cat("日期列存在缺失值:", anyNA(data$date), "\n")
 ```
 
 ```{r count-by-year}
-# view observation counts by year
+# 按年份查看观测数
 data |>
   group_by(year = year(date)) |>
   count(year)
 ```
 
 ```{r stratified-sampling}
-# equal-allocation stratified random sampling by year
+# 按年份等比例分层随机抽样
 N <- 3000
-st_size <- N / length(unique(year(data$date)))  # stratum size
+st_size <- N / length(unique(year(data$date)))  # 各层样本量
 set.seed(32)
 data <- data |>
   group_by(year = year(date)) |>
@@ -127,36 +127,36 @@ data <- data |>
   ungroup()
 ```
 
-## Variables
+## 变量
 
-Several variables are included in the original dataset, such as the textual content of each tweet, metadata like time and engagement metrics, and hashtags. This diverse nature of variables enables multi-dimensional social data analysis. This study uses 7 variables stemmed from the original variables, including the textual content of tweets, hashtags, cashtags, posting date, and counts of likes, replies, and retweets (see @tbl-data-doc for detailed descriptions). Specifically, the original posting date variable was preprocessed and normalized to Coordinated Universal Time (UTC), stored in a new variable named `date_utc`. Meanwhile, the original variable for textual content of tweets was renamed to `text`.
+原始数据集包含多个变量，如每条推文的文本内容、时间与互动指标等元数据以及话题标签。变量的多元性使多维度社会数据分析成为可能。本研究使用从原始变量衍生的7个变量，包括推文文本内容、话题标签、现金标签、发帖日期以及点赞、回复和转推计数（详细描述见@tbl-data-doc）。具体而言，原始发帖日期变量经预处理并标准化为协调世界时（UTC），存储于新变量`date_utc`中；原推文文本内容变量重命名为`text`。
 
-| Variable | Data Type | Description |
+| 变量 | 数据类型 | 描述 |
 |:---|:---:|:---|
-| `date_utc` | Date | Posting date of each tweet in yyyy-mm-dd format in UTC |
-| `text` | Character | Textual content of each tweet |
-| `hashtags` | Character | List of hashtags included in each tweet |
-| `cashtags` | Character | List of cashtags (e.g., stock symbols) included in each tweet |
-| `likes_count` | Numeric | Number of likes received by each tweet |
-| `replies_count` | Numeric | Number of replies received by each tweet |
-| `retweets_count` | Numeric | Number of times each tweet was retweeted |
+| `date_utc` | 日期 | 每条推文的发帖日期，格式为 yyyy-mm-dd（UTC时区） |
+| `text` | 字符 | 每条推文的文本内容 |
+| `hashtags` | 字符 | 每条推文包含的话题标签列表 |
+| `cashtags` | 字符 | 每条推文包含的现金标签列表（如股票代码） |
+| `likes_count` | 数值 | 每条推文获得的点赞数 |
+| `replies_count` | 数值 | 每条推文获得的回复数 |
+| `retweets_count` | 数值 | 每条推文被转推的次数 |
 
-: Data Documentation Table {#tbl-data-doc tbl-colwidths="[18,16,66]"}
+: 数据说明表 {#tbl-data-doc tbl-colwidths="[18,16,66]"}
 
 ```{r utc-structure}
-# posting date info column
+# 发帖日期信息列
 str(data[["created_at"]])
 ```
 
 ```{r check-timezone}
-# check unique timezone suffix
+# 检查唯一时区后缀
 data |>
   mutate(suffix = str_sub(created_at, -3, -1)) |>
   count(suffix, sort = TRUE)
 ```
 
 ```{r utc-normalize}
-# normalize posting date to UTC
+# 将发帖日期标准化为 UTC
 data <- data |>
   mutate(
     created_at_ct = ymd_hms(created_at, tz = "America/New_York"),
@@ -165,7 +165,7 @@ data <- data |>
 ```
 
 ```{r select-vars}
-# keep only variables to be used
+# 仅保留待用变量
 data <- data |>
   mutate(text = tweet) |>
   select(
@@ -173,27 +173,27 @@ data <- data |>
     likes_count, replies_count, retweets_count
   )
 
-cat("Observations Count:", nrow(data), "\n")
-cat("Variables Count:", length(data), "\n")
-cat("Any NA in data:", anyNA(data), "\n")
+cat("观测数:", nrow(data), "\n")
+cat("变量数:", length(data), "\n")
+cat("数据存在缺失值:", anyNA(data), "\n")
 ```
 
 ```{r var-structure}
 str(data)
 ```
 
-## Descriptive Statistics of Engagement Metrics
+## 互动指标描述性统计
 
-@tbl-desc-stats shows the descriptive statistics of the numeric variables. As a supplement, @tbl-zero-counts shows the count and proportion of zero and non-zero values among these numeric variables.
+@tbl-desc-stats 展示了数值变量的描述性统计。作为补充，@tbl-zero-counts 呈现了这些数值变量中零值与非零值的计数与比例。
 
-The descriptive statistics across all three engagement metrics (counts of likes, replies, and retweets) show a highly skewed distribution, indicating that the majority of tweets in this dataset received no engagement. Among the metrics, likes are the most common form of interaction, with a mean of 3.04 and 40.40% of tweets receiving at least one like, followed closely by retweets at a mean of 2.35 and 41.40% non-zero values. Replies were notably rare, with only 7.07% of tweets receiving any response and a mean of just 0.14. The relatively large standard deviations, combined with the substantial gaps between the 75th percentile values (0 or 1) and the maximum values (898 likes, 83 replies, 367 retweets), suggest the presence of a small number of highly viral tweets that disproportionately inflate the averages.
+三项互动指标（点赞、回复和转推计数）的描述性统计均呈现高度偏态分布，表明数据集中大多数推文未获得任何互动。其中，点赞是最常见的互动形式，均值为3.04，40.40%的推文至少获得一个点赞；转推紧随其后，均值为2.35，非零值比例为41.40%。回复则明显稀少，仅7.07%的推文收到回应，均值仅为0.14。较大的标准差，加上第75百分位数值（0或1）与最大值（898个点赞、83条回复、367次转推）之间的显著差距，表明存在少量病毒式传播的推文，不成比例地拉高了平均值。
 
 ```{r tbl-desc-stats}
 #| label: tbl-desc-stats
 #| tbl-colwidths: [22, 12, 12, 11, 10, 10, 11, 12]
 num_vars <- c("likes_count", "replies_count", "retweets_count")
 
-# compute summary statistics for each numeric variable and pivot to long format
+# 计算各数值变量的汇总统计并转为长格式
 num_stats_table <- data |>
   summarise(across(
     all_of(num_vars),
@@ -208,8 +208,7 @@ num_stats_table <- data |>
     ),
     .names = "{.col}###{.fn}"
   )) |>
-  # "###" is a collision-safe delimiter 
-  # for splitting "col###stat" in pivot_longer
+  # "###" 是用于在 pivot_longer 中分割 "col###stat" 的安全分隔符
   pivot_longer(
     everything(),
     names_to  = c("Variable", ".value"),
@@ -219,17 +218,18 @@ num_stats_table <- data |>
 knitr::kable(
   num_stats_table |>
     rename(
-      Mean = mean, SD = sd, Min = min,
-      `25%` = q1, Median = median, `75%` = q3, Max = max
+      变量 = Variable,
+      均值 = mean, 标准差 = sd, 最小值 = min,
+      `25%分位数` = q1, 中位数 = median, `75%分位数` = q3, 最大值 = max
     ),
   align = c('l', 'c', 'c', 'c', 'c', 'c', 'c', 'c'),
-  caption = "Descriptive Statistics Summary of Numeric Variables"
+  caption = "数值变量描述性统计摘要"
 )
 ```
 
 ```{r tbl-zero-counts}
 #| label: tbl-zero-counts
-# count zero vs non-zero values for each engagement metric
+# 统计各互动指标的零值与非零值数量
 zero_counts_table <- data |>
   summarise(across(
     all_of(num_vars),
@@ -249,46 +249,46 @@ zero_counts_table <- data |>
 knitr::kable(
   zero_counts_table |>
     rename(
-      `Count of Zero Values`    = zero,
-      `Count of Non-zero Values`= non_zero,
-      `Proportion of Non-zero Values (%)` = pct_non_zero
+      变量 = Variable,
+      `零值计数`    = zero,
+      `非零值计数`  = non_zero,
+      `非零值比例 (%)` = pct_non_zero
     ),
-  caption = "Zero and Non-zero Values of Numeric Variables"
+  caption = "数值变量的零值与非零值统计"
 )
 ```
 
-## Date Variable
+## 日期变量
 
-The date variable involved in this study is `date_utc`, derived from the original `created_at` variable and normalized to UTC (see [Appendix](#appendix) for the conversion process). It ranges from January 27th, 2017, to July 19th, 2021, covering a total time span of 5 years (1,634 days).
+本研究涉及的日期变量为`date_utc`，由原始变量`created_at`衍生并标准化为UTC（转换过程详见[附录](#appendix)）。该变量的时间范围从2017年1月27日至2021年7月19日，共跨越5年（1,634天）。
 
-The unit of analysis over time in this study is each day. @fig-daily-dist shows the daily distribution of tweets, where the x-axis displays the time range of the dataset (January 27th, 2017, to July 19th, 2021) and the y-axis represents the counts of observed tweets by day. Overall, tweet volume remained relatively low and stable in the earlier years of the dataset, generally fluctuating between 0 and 20 tweets per day, before showing a notable increase in activity around 2020–2021, with several prominent spikes, including one approaching 100 tweets in a single day, suggesting a growing public interest in AI-related discourse toward the end of the observation period.
+本研究的时间分析单元为每天。@fig-daily-dist 展示了推文的日分布情况，x轴显示数据集的时间范围（2017年1月27日至2021年7月19日），y轴表示每日观测到的推文数量。总体而言，数据集早期年份的推文量相对较低且较为稳定，每日通常波动在0至20条之间；在2020至2021年前后出现了明显的活跃度上升，出现了若干显著峰值，其中有一天的推文量接近100条，表明观测期末段公众对AI相关话语的关注度显著提升。
 
 ```{r date-range}
-cat("Date Range (yyyy-mm-dd):\n",
-    as.character(range(data$date_utc)[1]), "to",
+cat("日期范围（yyyy-mm-dd）:\n",
+    as.character(range(data$date_utc)[1]), "至",
     as.character(range(data$date_utc)[2]), "\n")
 max(data$date_utc) - min(data$date_utc)
 ```
 
 ```{r fig-daily-dist}
 #| label: fig-daily-dist
-#| fig-cap: "Daily Distribution of AI-Related Tweets (2017–2021)"
+#| fig-cap: "AI相关推文日分布（2017—2021年）"
 daily_count <- data |>
   count(date_utc)
 
 min_date <- min(daily_count$date_utc)
 max_date <- max(daily_count$date_utc)
-# include both endpoints explicitly 
-# so the axis always shows actual start/end dates
+# 明确包含两端端点，使坐标轴始终显示实际起止日期
 x_breaks <- sort(unique(c(min_date, seq(min_date, max_date, by = "9 months"), max_date)))
 
 ggplot(daily_count, aes(x = date_utc, y = n)) +
   geom_area(fill = "rosybrown", alpha = 0.7) +
   scale_x_date(breaks = x_breaks, date_labels = "%m-%d-%Y") +
   labs(
-    title = "Daily Distribution of AI-Related Tweets (2017–2021)",
-    x = "Timeline (Daily Unit of Analysis)",
-    y = "Number of Tweets"
+    title = "AI相关推文日分布（2017—2021年）",
+    x = "时间轴（日分析单元）",
+    y = "推文数量"
   ) +
   theme_minimal() +
   theme(
@@ -300,124 +300,124 @@ ggplot(daily_count, aes(x = date_utc, y = n)) +
   )
 ```
 
-## Text Variables
+## 文本变量
 
-There are three textual variables involved in this study: `text`, `hashtags`, and `cashtags`.
+本研究涉及三个文本变量：`text`、`hashtags`和`cashtags`。
 
-### Text
+### 文本
 
-The `text` variable contains the unique textual content of each tweet, with no missing values (NAs) nor empty content (empty string `""`), with a sample size of 3,000. The number of unique values in the `text` variable is 2,995. For example, `"Brands Can't Afford to Underestimate the Power of Artificial Intelligence, OMD's Retail Revolution https://t.co/l1hSywqKgM #ai #ml #dl"` is one of the values.
+`text`变量包含每条推文的唯一文本内容，无缺失值（NA）也无空内容（空字符串`""`），样本量为3,000条。`text`变量中唯一值的数量为2,995。例如，`"Brands Can't Afford to Underestimate the Power of Artificial Intelligence, OMD's Retail Revolution https://t.co/l1hSywqKgM #ai #ml #dl"`即为其中一个值。
 
 ```{r text-explore}
-cat("Number of Empty Tweets:", sum(data$text == ""), "\n")
-cat("Number of Unique Tweets:", length(unique(data$text)), "\n\n")
-cat("First 6 Unique Tweets:\n")
+cat("空推文数量:", sum(data$text == ""), "\n")
+cat("唯一推文数量:", length(unique(data$text)), "\n\n")
+cat("前6条唯一推文:\n")
 head(unique(data$text))
 ```
 
-### Hashtags
+### 话题标签
 
-The `hashtags` is another textual variable. It contains lists of lowercase hashtags starting with the `#` symbol in each tweet (all hashtags from the original tweets were converted to lowercase), with no missing values (NAs). Specifically, it contains 2,059 non-empty values (i.e., 2,059 observations contain one or more hashtags), where there are 1,539 non-empty unique values (excluding `"[]"`). For instance, `"['ai', 'ml', 'dl']"` and `"['artificialintelligence', 'ai']"` are two of the values.
+`hashtags`是另一个文本变量，包含每条推文中以`#`符号开头的小写话题标签列表（原始推文中的所有话题标签均已转为小写），无缺失值（NA）。具体而言，该变量包含2,059个非空值（即2,059条观测包含一个或多个话题标签），其中有1,539个非空唯一值（不含`"[]"`）。例如，`"['ai', 'ml', 'dl']"`和`"['artificialintelligence', 'ai']"`是其中的两个值。
 
-In addition, as each tweet can contain multiple hashtags, the values are separated into single hashtags to gain more nuanced insights (see [Appendix](#appendix) for the separation process). As observed, there are 2,382 non-empty unique single hashtags. For example, `"ai"` and `"ml"` are two of the unique single hashtags.
+此外，由于每条推文可包含多个话题标签，各值被拆分为单个话题标签以获取更细粒度的洞察（拆分过程详见[附录](#appendix)）。统计发现，共有2,382个非空唯一单个话题标签，例如`"ai"`和`"ml"`是其中的两个。
 
 ```{r hashtag-explore}
-# count non-empty and unique hashtag values
+# 统计非空话题标签值及唯一值数量
 unique_hashtags <- data |>
   filter(hashtags != "[]") |>
   select(hashtags) |>
   count(hashtags)
 
-cat("Number of Non-empty Hashtags:", sum(data$hashtags != "[]"), "\n")
-cat("Number of Unique Non-empty Hashtags:", nrow(unique_hashtags), "\n\n")
-cat("First 6 Unique Hashtags:\n")
+cat("非空话题标签数量:", sum(data$hashtags != "[]"), "\n")
+cat("唯一非空话题标签数量:", nrow(unique_hashtags), "\n\n")
+cat("前6个唯一话题标签:\n")
 head(unique(data$hashtags))
 ```
 
 ```{r single-hashtag-explore}
-# find unique single hashtags
+# 查找唯一单个话题标签
 single_hashtags <- data |>
   mutate(single_hashtags = str_remove_all(hashtags, "[\\[\\]']")) |>
   separate_rows(single_hashtags, sep = ",\\s*") |>
   filter(single_hashtags != "") |>
   count(single_hashtags)
 
-cat("Number of Non-empty Unique Single Hashtags:", nrow(single_hashtags), "\n\n")
-cat("First 6 Non-empty Unique Single Hashtags:\n")
+cat("非空唯一单个话题标签数量:", nrow(single_hashtags), "\n\n")
+cat("前6个非空唯一单个话题标签:\n")
 head(unique(single_hashtags$single_hashtags))
 ```
 
-### Cashtags
+### 现金标签
 
-Likewise, the `cashtags` variable contains lists of lowercase cashtags in each tweet, which are clickable financial ticker symbols on Twitter (now X), formed by prefixing a stock or cryptocurrency abbreviation with the `$` sign. There are no missing values (NAs), 22 non-empty values (i.e., 22 observations contain one or more cashtags), and 18 non-empty unique values. For example, `"['aieq', 'bikr']"` and `"['blk']"` are two of the values. Additionally, there are 23 non-empty unique single cashtags in total, such as `"ark"`, `"blk"`, and `"btc"`.
+类似地，`cashtags`变量包含每条推文中的小写现金标签列表，即Twitter（现X）上可点击的金融代码符号，由股票或加密货币缩写加`$`前缀构成。该变量无缺失值（NA），共有22个非空值（即22条观测包含一个或多个现金标签）和18个非空唯一值。例如，`"['aieq', 'bikr']"`和`"['blk']"`是其中的两个值。此外，共有23个非空唯一单个现金标签，如`"ark"`、`"blk"`和`"btc"`。
 
 ```{r cashtag-explore}
-# count non-empty and unique cashtag values
+# 统计非空现金标签值及唯一值数量
 unique_cashtags <- data |>
   filter(cashtags != "[]") |>
   select(cashtags) |>
   count(cashtags)
 
-cat("Number of Non-empty Cashtags:", sum(data$cashtags != "[]"), "\n")
-cat("Number of Non-empty Unique Cashtags:", nrow(unique_cashtags), "\n\n")
-cat("First 6 Unique Cashtags:\n")
+cat("非空现金标签数量:", sum(data$cashtags != "[]"), "\n")
+cat("非空唯一现金标签数量:", nrow(unique_cashtags), "\n\n")
+cat("前6个唯一现金标签:\n")
 head(unique(data$cashtags))
 ```
 
 ```{r single-cashtag-explore}
-# strip list formatting and split into one row per cashtag
+# 去除列表格式，将每个现金标签拆分为独立行
 single_cashtags <- data |>
   mutate(single_cashtags = str_remove_all(cashtags, "[\\[\\]']")) |>
   separate_rows(single_cashtags, sep = ",\\s*") |>
   filter(single_cashtags != "") |>
   count(single_cashtags)
 
-cat("Number of Non-empty Unique Single Cashtags:", nrow(single_cashtags), "\n\n")
-cat("Head of Non-empty Unique Single Cashtags:\n")
+cat("非空唯一单个现金标签数量:", nrow(single_cashtags), "\n\n")
+cat("非空唯一单个现金标签（前若干个）:\n")
 head(unique(single_cashtags$single_cashtags))
 ```
 
-## Text Preparation
+## 文本预处理
 
-Text cleaning and tokenization are performed as a preprocessing step for subsequent analyses.
+作为后续分析的预处理步骤，进行文本清洗与分词处理。
 
 ```{r text-cleaning}
-# text cleaning
+# 文本清洗
 data <- data |>
-  mutate(textBU = text) |>           # back up raw text before cleaning
+  mutate(textBU = text) |>           # 清洗前备份原始文本
   filter(!is.na(text)) |>
   mutate(
-    text = textutils::HTMLdecode(text),           # decode HTML entities (e.g., &amp;)
-    text = str_to_lower(text),                    # normalize to lowercase
-    text = str_remove_all(text, "https?://\\S+"), # strip URLs
-    text = str_remove_all(text, "\\d+"),          # strip digits
-    text = str_remove_all(text, "[@]\\w+"),       # strip @mentions
-    text = str_squish(text)                        # collapse extra whitespace
+    text = textutils::HTMLdecode(text),           # 解码 HTML 实体（如 &amp;）
+    text = str_to_lower(text),                    # 标准化为小写
+    text = str_remove_all(text, "https?://\\S+"), # 去除 URL
+    text = str_remove_all(text, "\\d+"),          # 去除数字
+    text = str_remove_all(text, "[@]\\w+"),       # 去除 @提及
+    text = str_squish(text)                        # 合并多余空白
   ) |>
   mutate(
-    tweet_index = row_number(),           # sequential ID for joining
-    nwords      = str_count(text, "\\w+") # word count after cleaning
+    tweet_index = row_number(),           # 用于连接的顺序 ID
+    nwords      = str_count(text, "\\w+") # 清洗后的词数
   )
 
 head(data$text)
 ```
 
 ```{r tag-tokenization}
-# tokenize hashtags
+# 对话题标签分词
 hashtag_tokens <- data |>
   select(tweet_index, date_utc, hashtags) |>
   mutate(hashtag = str_remove_all(hashtags, "[\\[\\]']")) |>
   separate_rows(hashtag, sep = ",\\s*") |>
   filter(hashtag != "")
 
-# tokenize cashtags
+# 对现金标签分词
 cashtag_tokens <- data |>
   select(tweet_index, date_utc, cashtags) |>
   mutate(cashtag = str_remove_all(cashtags, "[\\[\\]']")) |>
   separate_rows(cashtag, sep = ",\\s*") |>
   filter(cashtag != "")
 
-# tweet-level tag features
+# 推文级标签特征
 tag_features <- data |>
   select(tweet_index, date_utc, likes_count, replies_count, retweets_count) |>
   left_join(
@@ -441,28 +441,28 @@ tag_features |>
   head()
 ```
 
-# Methods
+# 方法
 
-## Statistical Methods
+## 统计方法
 
-Prior to model estimation, correlation analysis is conducted as an exploratory step to examine the pairwise relationships between thematic features, sentiment scores, and user engagement metrics. This preliminary analysis helps identify potential associations and informs the selection of variables for subsequent modeling, while also providing an initial understanding of the direction and strength of relationships within the dataset.
+在模型估计之前，先进行相关性分析作为探索步骤，以检验主题特征、情感得分与用户互动指标之间的两两关系。这一初步分析有助于识别潜在关联，并为后续建模的变量选择提供依据，同时对数据集内关系的方向与强度形成初步理解。
 
-In the meantime, this paper employs Generalized Linear Models (GLMs) to generate models to examine the relationship between variables. GLMs were chosen over simple linear regression due to the nature of the engagement data containing a preponderance of zero values, which is a distributional characteristic that standard linear models may not adequately handle. By accommodating non-normal response distributions, GLMs offer a more flexible and appropriate modeling approach for count-based social media engagement data.
+本研究采用广义线性模型（GLM）构建模型，以考察变量间的关系。选择GLM而非简单线性回归，是因为互动数据包含大量零值，这种分布特征是标准线性模型可能无法充分处理的。通过适应非正态响应分布，GLM为基于计数的社交媒体互动数据提供了更灵活、更合适的建模方法。
 
-## Text-as-Data Methods
+## 文本数据分析方法
 
-For text analysis, this paper draws on two complementary computational techniques. Latent Dirichlet Allocation (LDA) topic modeling, which is a widely used unsupervised machine learning technique, is applied to uncover potential thematic structures within the dataset, identifying the core subjects that characterized AI-related discourse. Meanwhile, sentiment analysis with lexicons, a natural language processing approach evaluating the emotional tone of textual data by leveraging predefined lexical resources to classify polarity (e.g., positive, negative, or neutral), is also employed to establish the overall emotional polarity and trends among tweets. In addition, Term Frequency-Inverse Document Frequency (TF-IDF) is used to track how the salience of key AI-related terms shifted from 2017 to 2021, offering a longitudinal perspective on lexical change as AI moved toward mainstream adoption.
+在文本分析方面，本研究采用两种互补的计算技术。潜在狄利克雷分配（LDA）主题建模是一种广泛使用的无监督机器学习技术，用于揭示数据集中潜在的主题结构，识别AI相关话语的核心议题。同时，本研究还采用了基于词典的情感分析——一种通过利用预定义词汇资源对情感极性（如正面、负面或中性）进行分类，从而评估文本数据情感倾向的自然语言处理方法——以建立推文的整体情感极性与趋势。此外，词频-逆文档频率（TF-IDF）用于追踪关键AI相关词汇的显著性如何从2017年到2021年发生变化，从而提供词汇变化的纵向视角，反映AI走向主流过程中的语言演变。
 
-These methods directly support the research questions investigating how identified themes and sentiments polarities are associated with user engagement, as Topic Modeling and Sentiment Analysis allow the study to identify underlying themes and sentiments, while TF-IDF provides a temporal perspective on the evolving trends of AI-related key terms across the dataset. Together, these techniques inform the subsequent inferential analysis, in which GLM provide insights into the predictive relationships between textual variables and engagement metrics statistically.
+这些方法直接支持了探究所识别主题和情感极性与用户互动关联的研究问题：主题建模和情感分析识别潜在主题与情感，TF-IDF则提供数据集中AI相关关键词随时间演变趋势的纵向视角。这些技术共同为后续推断性分析提供依据，通过GLM从统计层面揭示文本变量与互动指标之间的预测关系。
 
-# Results
+# 结果
 
-## LDA Topic Modeling
+## LDA主题建模
 
-To identify the underlying thematic structure of AI-related tweets, LDA was applied to the preprocessed tweet corpus. After tokenization, tweets were filtered using a custom stopword list that removed general English stopwords, Twitter-specific terms (e.g., `"rt"`, `"tweet"`), and the search keyword `"artificial intelligence"`. A TF-IDF filter then retained only words appearing in more than 0.1% but fewer than 75% of all documents, reducing vocabulary noise while preserving informative terms. The resulting document-term matrix served as input to the LDA model, which was estimated with K = 5 topics using Gibbs sampling with 2,000 iterations and a 500-iteration burn-in period.
+为识别AI相关推文的潜在主题结构，对预处理后的推文语料库应用了LDA。分词后，使用自定义停用词表对推文进行过滤，去除了通用英语停用词、Twitter特定词汇（如`"rt"`、`"tweet"`）及搜索关键词`"artificial intelligence"`。TF-IDF过滤器随后保留了出现在超过0.1%但少于75%文档中的词汇，在减少词汇噪声的同时保留了具有信息量的词项。由此生成的文档-词项矩阵作为LDA模型的输入，该模型使用吉布斯采样估计，设置K=5个主题，迭代2,000次，烧入期500次。
 
 ```{r lda-tokenization}
-# custom domain-specific stopwords
+# 自定义领域特定停用词
 mystopwords <- c(
   stop_words$word,
   "comment", "post",
@@ -471,9 +471,9 @@ mystopwords <- c(
   "artificial", "intelligence"
 )
 mystopwords <- tolower(unique(mystopwords))
-cat("Total stopwords:", length(mystopwords), "\n")
+cat("停用词总数:", length(mystopwords), "\n")
 
-# tokenize
+# 分词
 tm_token_data <- data |>
   unnest_tokens(word, text) |>
   anti_join(data.frame(word = mystopwords)) |>
@@ -482,13 +482,13 @@ tm_token_data <- data |>
   filter(!grepl("[0-9]{1}", word)) |>
   filter(!grepl("\\W", word))
 
-cat("Total tokens:", nrow(tm_token_data), "\n")
+cat("词元总数:", nrow(tm_token_data), "\n")
 ```
 
 ```{r tfidf-filter}
 n_docs_total <- n_distinct(tm_token_data$tweet_index)
 
-# retain words in (0.1%, 75%) document frequency range
+# 保留文档频率在 (0.1%, 75%) 范围内的词汇
 good_words <- tm_token_data |>
   count(tweet_index, word) |>
   group_by(word) |>
@@ -498,15 +498,15 @@ good_words <- tm_token_data |>
 tm_token_data_pruned <- tm_token_data |>
   inner_join(good_words, by = "word")
 
-cat("Vocabulary after TF-IDF filter:", nrow(good_words), "words\n")
-cat("Tokens after filter:", nrow(tm_token_data_pruned), "\n")
+cat("TF-IDF 过滤后词汇量:", nrow(good_words), "个词\n")
+cat("过滤后词元数:", nrow(tm_token_data_pruned), "\n")
 
-# document-term matrix
+# 文档-词项矩阵
 tweet_dtm <- tm_token_data_pruned |>
   count(tweet_index, word) |>
   cast_dtm(tweet_index, word, n)
 
-cat("DTM:", nrow(tweet_dtm), "documents x", ncol(tweet_dtm), "terms\n")
+cat("DTM:", nrow(tweet_dtm), "篇文档 x", ncol(tweet_dtm), "个词项\n")
 ```
 
 ```{r lda-model, cache=TRUE}
@@ -515,18 +515,17 @@ lda_model <- LDA(
   tweet_dtm, k = 5, method = "Gibbs",
   control = list(seed = 32, iter = 2000, burnin = 500, verbose = 0)
 )
-# persist to disk so the object survives 
-# chunk-cache invalidation and is usable externally
+# 持久化到磁盘，使对象在分块缓存失效后依然可用且可被外部访问
 save(lda_model, file = "./lda_model_ai.RData")
 ```
 
-@fig-lda-words displays the top 10 words by probability (beta) for each of the five topics, providing the basis for thematic interpretation. Based on the word distributions, the topics were labeled as follows: Topic 1 represents robotics and automation, with key terms such as *robotics*, *automation*, and *robot*; Topic 2 reflects technology, research, and financial markets, featuring words like *blockchain*, *technology*, *research*, *market*, and *healthcare*; Topic 3 captures data science, machine learning, and security, with terms including *data*, *learning*, *machine*, and *security*; Topic 4 represents business-oriented AI innovation, characterized by words like *business*, *future*, *innovation*, *digital*, and *digitaltransformation*; and Topic 5 emphasizes applied AI ecosystem vocabulary, including *machinelearning*, *bigdata*, *datascience*, *iot*, and *deeplearning*.
+@fig-lda-words 展示了五个主题中概率（beta值）最高的前10个词汇，为主题解读提供依据。根据词汇分布，各主题标注如下：主题1代表机器人技术与自动化，关键词包括 *robotics*、*automation* 和 *robot*；主题2反映技术、研究与金融市场，涵盖 *blockchain*、*technology*、*research*、*market* 和 *healthcare* 等词汇；主题3聚焦数据科学、机器学习与安全，包括 *data*、*learning*、*machine* 和 *security* 等词项；主题4代表面向商业的AI创新，以 *business*、*future*、*innovation*、*digital* 和 *digitaltransformation* 等词为特征；主题5强调AI应用生态词汇，包括 *machinelearning*、*bigdata*、*datascience*、*iot* 和 *deeplearning*。
 
 ```{r fig-lda-words}
 #| label: fig-lda-words
 #| fig-cap: |
-#|   Top 10 Words per LDA Topic (K = 5)<br>
-#|   *Note.* Bars represent word probability (beta) within each topic. Topics are labeled by their dominant semantic cluster.
+#|   各LDA主题前10高频词（K = 5）<br>
+#|   *注.* 条形代表各主题内的词汇概率（beta值）。主题按其主导语义簇命名。
 lda_beta <- tidy(lda_model, matrix = "beta")
 
 lda_beta |>
@@ -539,8 +538,8 @@ lda_beta |>
   facet_wrap(~topic, scales = "free") +
   scale_y_reordered() +
   labs(
-    title = "Top 10 Words per LDA Topic (K = 5)",
-    x = "Beta (Word Probability)", 
+    title = "各LDA主题前10高频词（K = 5）",
+    x = "Beta（词汇概率）",
     y = NULL
   ) +
   theme_minimal() +
@@ -549,13 +548,13 @@ lda_beta |>
   )
 ```
 
-@tbl-topic-dist presents the distribution of dominant topics, which is the topic with the highest membership probability for each tweet, across the 3,000 sampled tweets. Topic 1 (robotics and automation) was the most prevalent, accounting for 28.4% of tweets, followed by Topic 2 (technology and markets, 23.3%), Topic 3 (data science and security, 19.0%), Topic 4 (business and innovation, 15.3%), and Topic 5 (AI ecosystem buzzwords, 14.0%). The distribution was moderately uneven, with Topics 1 and 2 together covering more than half of all tweets.
+@tbl-topic-dist 展示了3,000条抽样推文中主导主题（即每条推文中成员概率最高的主题）的分布情况。主题1（机器人技术与自动化）最为普遍，占推文总数的28.4%，其次为主题2（技术与市场，23.3%）、主题3（数据科学与安全，19.0%）、主题4（商业与创新，15.3%）和主题5（AI生态流行词，14.0%）。分布呈中度不均衡，主题1和主题2合计覆盖超过半数推文。
 
 ```{r lda-gamma-setup}
-# gamma matrix: document-topic probabilities
+# gamma矩阵：文档-主题概率
 lda_gamma <- tidy(lda_model, matrix = "gamma")
 
-# reshape wide and join with original data
+# 转为宽格式并与原始数据合并
 gamma_wide <- lda_gamma |>
   mutate(tweet_index = as.integer(document)) |>
   select(-document) |>
@@ -568,7 +567,7 @@ meta_theta_df <- data |>
 ```{r tbl-topic-dist}
 #| label: tbl-topic-dist
 #| tbl-colwidths: [20, 40, 40]
-# assign each tweet its dominant topic (highest gamma) and tabulate counts
+# 为每条推文分配主导主题（最高 gamma 值）并统计数量
 dominant_dist <- lda_gamma |>
   group_by(document) |>
   slice_max(gamma, n = 1) |>
@@ -579,23 +578,23 @@ dominant_dist <- lda_gamma |>
 knitr::kable(
   dominant_dist |>
     rename(
-      Topic = topic,
-      `Tweet Count` = n,
-      `Percentage (%)` = pct
+      主题 = topic,
+      `推文数量` = n,
+      `占比 (%)` = pct
     ),
   align = c('c','c','c'),
-  caption = "Distribution of Dominant LDA Topics Across Tweets"
+  caption = "推文中LDA主导主题分布"
 )
 ```
 
-@fig-topic-over-time traces average topic probabilities (gamma) across years from 2017 to 2021. Notably, all five topics maintained average probabilities close to 0.20 throughout the study period, indicating a relatively stable thematic structure over time. Despite this overall stability, subtle directional shifts were present. Topic 4 (business and innovation) showed a modest upward trend from 2017 to 2021, while Topic 2 (technology and markets) declined slightly. Topic 5 (AI ecosystem buzzwords) also edged upward by 2021. These patterns suggest that while the broad thematic balance of AI discourse remained intact, business- and implementation-oriented language gradually gained somewhat greater prominence as AI moved toward mainstream adoption.
+@fig-topic-over-time 追踪了2017至2021年各年平均主题概率（gamma值）的变化趋势。值得注意的是，五个主题在整个研究期间的平均概率均接近0.20，表明主题结构随时间推移相对稳定。尽管整体稳定，但仍存在细微的方向性变化：主题4（商业与创新）从2017年到2021年呈现温和上升趋势，主题2（技术与市场）略有下降，主题5（AI生态流行词）到2021年也略有上升。这些模式表明，尽管AI话语的广泛主题平衡格局保持不变，但随着AI走向主流，面向商业和实施的语言逐渐获得了更突出的地位。
 
 ```{r fig-topic-over-time}
 #| label: fig-topic-over-time
 #| fig-cap: |
-#|   Topic Prevalence Over Time (2017–2021)<br>
-#|   *Note.* Lines represent mean gamma (topic membership probability) across all tweets in each year. All five topics remain close to 0.20 throughout the period, indicating thematic stability.
-# compute mean topic probability (gamma) per year for trend visualization
+#|   主题流行度随时间变化（2017—2021年）<br>
+#|   *注.* 折线代表各年所有推文的平均 gamma 值（主题成员概率）。五个主题在整个研究期间均接近0.20，表明主题结构稳定。
+# 计算各年每个主题的平均概率（gamma），用于趋势可视化
 topics_by_year <- lda_gamma |>
   mutate(tweet_index = as.integer(document)) |>
   left_join(data |> select(tweet_index, date_utc), by = "tweet_index") |>
@@ -612,13 +611,13 @@ ggplot(topics_by_year, aes(x = year, y = mean_gamma, color = factor(topic))) +
       "1" = "coral", "2" = "darkgoldenrod3", "3" = "darkseagreen",
       "4" = "steelblue", "5" = "orchid3"
     ),
-    labels = paste("Topic", 1:5)
+    labels = paste("主题", 1:5)
   ) +
   labs(
-    title = "Topic Prevalence Over Time (2017–2021)",
-    x = "Year", 
-    y = "Average Topic Probability (Gamma)", 
-    color = "Topic"
+    title = "主题流行度随时间变化（2017—2021年）",
+    x = "年份",
+    y = "平均主题概率（Gamma）",
+    color = "主题"
   ) +
   theme_minimal() +
   theme(
@@ -626,16 +625,16 @@ ggplot(topics_by_year, aes(x = year, y = mean_gamma, color = factor(topic))) +
   )
 ```
 
-## Hashtag and Cashtag Analysis
+## 话题标签与现金标签分析
 
-Hashtag and cashtag analysis complemented the topic model by examining the explicit user-generated labels that framed AI-related tweets. @tbl-tag-presence summarizes the overall prevalence of hashtags and cashtags. Among the 3,000 sampled tweets, 2,059 (68.6%) contained at least one hashtag, with an average of 3.45 hashtags per tweet. By contrast, only 22 tweets (0.7%) contained any cashtag, with an average of just 0.01 per tweet. This large difference in frequency suggests that financial and market-oriented labeling through cashtags was marginal in this corpus, while hashtag use was both widespread and dense.
+话题标签与现金标签分析作为主题模型的补充，考察了用户在AI相关推文中自主使用的显式标签框架。@tbl-tag-presence 汇总了话题标签和现金标签的整体使用情况。在3,000条抽样推文中，2,059条（68.6%）包含至少一个话题标签，平均每条推文含3.45个话题标签。相比之下，仅22条推文（0.7%）包含现金标签，平均每条推文仅含0.01个。这一巨大差异表明，通过现金标签进行的金融与市场导向标注在本语料库中处于边缘位置，而话题标签的使用则既普遍又密集。
 
 ```{r tbl-tag-presence}
 #| label: tbl-tag-presence
 #| tbl-colwidths: [19, 27, 27, 27]
-# summarize hashtag and cashtag prevalence across the sample
+# 汇总样本中话题标签和现金标签的使用情况
 tag_presence_table <- tibble(
-  tag_type = c("Hashtag", "Cashtag"),
+  tag_type = c("话题标签", "现金标签"),
   tweets_with_tag = c(
     sum(tag_features$has_hashtag), sum(tag_features$has_cashtag)
   ),
@@ -649,46 +648,46 @@ tag_presence_table <- tibble(
 knitr::kable(
   tag_presence_table |>
     rename(
-      `Tag Type`              = tag_type,
-      `Tweets With Tag`       = tweets_with_tag,
-      `Percent of Tweets (%)` = pct_with_tag,
-      `Avg. Tags per Tweet`   = avg_tags_per_tweet
+      `标签类型`              = tag_type,
+      `含标签推文数`          = tweets_with_tag,
+      `占推文比例 (%)` = pct_with_tag,
+      `每条推文平均标签数`   = avg_tags_per_tweet
     ),
   align = 'c',
-  caption = "Prevalence of Hashtags and Cashtags in the Sample"
+  caption = "样本中话题标签与现金标签的使用情况"
 )
 ```
 
-@tbl-top-hashtags and @fig-top-hashtags display the 15 most frequently used hashtags across the full 2017–2021 sample. The top three were #artificialintelligence (1,427 uses), #ai (1,094 uses), and #machinelearning (483 uses), followed by #bigdata, #datascience, #deeplearning, #iot, and #ml. This ranking indicates that AI tweets were predominantly framed through technical and industry labels rather than through social, ethical, or political categories.
+@tbl-top-hashtags 和 @fig-top-hashtags 展示了2017至2021年全样本中使用频率最高的15个话题标签。前三名分别为 #artificialintelligence（1,427次）、#ai（1,094次）和 #machinelearning（483次），其后依次为 #bigdata、#datascience、#deeplearning、#iot 和 #ml。这一排名表明，AI推文主要通过技术性和行业性标签加以框架，而非社会、伦理或政治类标签。
 
 ```{r tbl-top-hashtags}
 #| label: tbl-top-hashtags
 #| tbl-colwidths: [50, 50]
-# count and rank all single hashtags; keep top 15
+# 统计并排序所有单个话题标签；保留前15个
 top_hashtags <- hashtag_tokens |>
   count(hashtag, sort = TRUE) |>
   slice_max(n, n = 15)
 
 knitr::kable(
-  top_hashtags |> rename(Hashtag = hashtag, Frequency = n),
+  top_hashtags |> rename(话题标签 = hashtag, 频次 = n),
   align = 'c',
-  caption = "Most Frequent Hashtags in AI-Related Tweets (2017–2021)"
+  caption = "AI相关推文中最常用话题标签（2017—2021年）"
 )
 ```
 
 ```{r fig-top-hashtags}
 #| label: fig-top-hashtags
 #| fig-cap: |
-#|   Top 15 Hashtags in AI-Related Tweets<br>
-#|   *Note.* Bars show overall frequency across the 2017–2021 sample. Broad AI labels (#artificialintelligence, #ai) dominate, followed by applied technical subfield terms.
-# horizontal bar chart of the 15 most frequent hashtags
+#|   AI相关推文中前15个话题标签<br>
+#|   *注.* 条形代表2017—2021年样本中的总体频次。广义AI标签（#artificialintelligence、#ai）占主导，其后为应用技术子领域词汇。
+# 前15个最高频话题标签的水平条形图
 top_hashtags |>
   mutate(hashtag = reorder(hashtag, n)) |>
   ggplot(aes(x = n, y = hashtag)) +
   geom_col(fill = "darkcyan", alpha = 0.8) +
   labs(
-    title = "Top 15 Hashtags in AI-Related Tweets",
-    x = "Frequency", y = NULL
+    title = "AI相关推文中前15个话题标签",
+    x = "频次", y = NULL
   ) +
   theme_minimal() +
   theme(
@@ -696,12 +695,12 @@ top_hashtags |>
   )
 ```
 
-@tbl-hashtag-by-year presents the top five hashtags by year. #artificialintelligence and #ai remained the top two in every year from 2017 to 2021. However, the third through fifth positions shifted over time: in 2017 and 2018, #bigdata and #iot appeared prominently, while by 2020 and 2021, #datascience and #deeplearning replaced them. The count of #machinelearning grew steadily, from 47 uses in 2017 to 127 in 2021. @fig-hashtag-trends shows the share trends for the eight most commonly used hashtags, visually confirming the persistence of general AI labels alongside the rising prominence of applied technical subfields.
+@tbl-hashtag-by-year 呈现了各年排名前五的话题标签。#artificialintelligence 和 #ai 在2017至2021年每一年均排名前两位。然而，第三至第五名随时间推移发生了变化：2017年和2018年，#bigdata 和 #iot 较为突出，而到2020年和2021年，#datascience 和 #deeplearning 取而代之。#machinelearning 的使用量稳步增长，从2017年的47次增至2021年的127次。@fig-hashtag-trends 展示了使用最广泛的8个话题标签的份额趋势，直观地印证了广义AI标签的持续主导地位，以及应用技术子领域标签日益上升的突出性。
 
 ```{r tbl-hashtag-by-year}
 #| label: tbl-hashtag-by-year
 #| tbl-colwidths: [30, 40, 30]
-# count hashtags per year and keep the top 5 per year
+# 按年统计话题标签数量，每年保留前5个
 top_hashtags_year <- hashtag_tokens |>
   mutate(year = year(date_utc)) |>
   count(year, hashtag, sort = TRUE) |>
@@ -710,24 +709,24 @@ top_hashtags_year <- hashtag_tokens |>
   ungroup()
 
 knitr::kable(
-  top_hashtags_year |> rename(Year = year, Hashtag = hashtag, Frequency = n),
+  top_hashtags_year |> rename(年份 = year, 话题标签 = hashtag, 频次 = n),
   align = 'c',
-  caption = "Top Five Hashtags by Year (2017–2021)"
+  caption = "各年前五话题标签（2017—2021年）"
 )
 ```
 
 ```{r fig-hashtag-trends}
 #| label: fig-hashtag-trends
 #| fig-cap: |
-#|   Top Hashtag Shares by Year<br>
-#|   *Note.* Lines show each hashtag's share among the eight most common hashtags in each year. General AI labels maintain dominance while technical subfield terms gradually increase.
-# identify the 8 most common hashtags overall
+#|   各年前8话题标签份额趋势<br>
+#|   *注.* 折线代表每年八个最常用话题标签中各标签的份额。广义AI标签持续占主导，技术子领域词汇逐渐增加。
+# 识别整体使用量最高的8个话题标签
 focus_hashtags <- hashtag_tokens |>
   count(hashtag, sort = TRUE) |>
   slice_max(n, n = 8, with_ties = FALSE) |>
   pull(hashtag)
 
-# compute each hashtag's share of uses within each year
+# 计算各话题标签在每年内的使用份额
 hashtag_trends <- hashtag_tokens |>
   mutate(year = year(date_utc)) |>
   filter(hashtag %in% focus_hashtags) |>
@@ -742,10 +741,10 @@ ggplot(hashtag_trends, aes(x = year, y = pct_year, color = hashtag)) +
   scale_x_continuous(breaks = 2017:2021) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
   labs(
-    title = "Top Hashtag Shares by Year",
-    x = "Year", 
-    y = "Share of Hashtag Uses", 
-    color = "Hashtag"
+    title = "各年前8话题标签份额趋势",
+    x = "年份",
+    y = "话题标签使用份额",
+    color = "话题标签"
   ) +
   theme_minimal() +
   theme(
@@ -753,43 +752,43 @@ ggplot(hashtag_trends, aes(x = year, y = pct_year, color = hashtag)) +
   )
 ```
 
-@tbl-top-cashtags presents the most frequently used cashtags. The top cashtags were $btc (4 uses), $btcusd (3 uses), and $v (3 uses), with nearly all others appearing only once. The very low frequency of cashtags indicates that market- and investment-oriented discourse about AI occupied a very small niche in this corpus, and cashtags are better understood as occasional markers of crypto- or finance-adjacent AI talk rather than a major framing device.
+@tbl-top-cashtags 展示了使用频率最高的现金标签。排名前列的现金标签依次为 $btc（4次）、$btcusd（3次）和 $v（3次），其余几乎均仅出现一次。现金标签极低的频次表明，AI相关的市场与投资话语在本语料库中占据非常小的比例，现金标签更应被理解为加密货币或金融相关AI话题的偶发标记，而非一种主要的话语框架。
 
 ```{r tbl-top-cashtags}
 #| label: tbl-top-cashtags
-# count and rank cashtag frequency; keep top 5
+# 统计并排序现金标签频次；保留前5个
 top_cashtags <- cashtag_tokens |>
   count(cashtag, sort = TRUE) |>
   slice_max(n, n = 5)
 
 knitr::kable(
-  top_cashtags |> rename(Cashtag = cashtag, Frequency = n),
+  top_cashtags |> rename(现金标签 = cashtag, 频次 = n),
   align = 'c',
-  caption = "Most Frequent Cashtags in AI-Related Tweets (2017–2021)"
+  caption = "AI相关推文中最常用现金标签（2017—2021年）"
 )
 ```
 
-## Sentiment Analysis
+## 情感分析
 
-### Comparison of Sentiment Lexicons
+### 情感词典比较
 
-Sentiment analysis was conducted using three established dictionary lexicons: AFINN, Bing, and NRC. @tbl-lexicon-coverage summarizes their coverage in the dataset. NRC achieved the broadest coverage at 90.0% of tweets scored, followed by Bing at 78.6%, and AFINN at 42.5%. @fig-lexicon-coverage displays these differences visually. Despite its lower coverage, AFINN was selected as the primary sentiment measure for three reasons. First, AFINN provides a continuous intensity scale (–5 to +5) that captures the degree of positive or negative sentiment, making it directly suitable for regression modeling. Second, among the 1,130 tweets scored by all three lexicons, AFINN correlated strongly with Bing (r = .664) and moderately with NRC (r = .510), while Bing and NRC correlated at r = .528, confirming that all three measures captured a consistent underlying signal. Third, the additional tweets scored by NRC did not justify the increased interpretive complexity of a categorical emotion framework for the purposes of this analysis.
+情感分析使用了三种已建立的词典：AFINN、Bing和NRC。@tbl-lexicon-coverage 汇总了各词典在数据集中的覆盖情况。NRC覆盖率最广，对90.0%的推文进行了评分，其次为Bing（78.6%）和AFINN（42.5%）。@fig-lexicon-coverage 直观地呈现了上述差异。尽管AFINN覆盖率较低，但基于三个原因将其选为主要情感度量指标。第一，AFINN提供连续强度量表（–5至+5），可捕捉正面或负面情感的程度，直接适用于回归建模。第二，在三种词典均评分的1,130条推文中，AFINN与Bing的相关性较强（r = .664），与NRC呈中等相关（r = .510），Bing与NRC的相关性为 r = .528，印证了三种度量指标捕捉到了一致的潜在信号。第三，NRC额外评分的推文并不足以为本分析目的而引入分类情绪框架的额外解读复杂性提供依据。
 
 ```{r sa-tokenization}
-# tokenize and remove stopwords for sentiment analysis
+# 分词并去除停用词，用于情感分析
 sa_token_data <- data |>
   unnest_tokens(word, text) |>
   anti_join(stop_words, by = "word") |>
   mutate(nchar_w = nchar(word))
 
-cat("Total tokens:", nrow(sa_token_data), "\n")
-cat("Unique tokens:", n_distinct(sa_token_data$word), "\n")
-cat("Avg tokens per tweet:",
+cat("词元总数:", nrow(sa_token_data), "\n")
+cat("唯一词元数:", n_distinct(sa_token_data$word), "\n")
+cat("每条推文平均词元数:",
     round(nrow(sa_token_data) / n_distinct(sa_token_data$tweet_index), 1), "\n")
 ```
 
 ```{r afinn-scores, cache=TRUE}
-# AFINN: numeric scores from -5 (very negative) to +5 (very positive)
+# AFINN：数值评分，范围从 -5（极度消极）到 +5（极度积极）
 afinn_scores <- sa_token_data |>
   inner_join(get_sentiments("afinn"), by = "word") |>
   group_by(tweet_index) |>
@@ -802,11 +801,11 @@ afinn_scores <- sa_token_data |>
 
 afinn_coverage     <- nrow(afinn_scores)
 afinn_coverage_pct <- round(afinn_coverage / nrow(data) * 100, 1)
-cat("AFINN coverage:", afinn_coverage, "tweets (", afinn_coverage_pct, "% )\n")
+cat("AFINN 覆盖率:", afinn_coverage, "条推文 (", afinn_coverage_pct, "% )\n")
 ```
 
 ```{r bing-scores, cache=TRUE}
-# Bing: binary positive / negative classification
+# Bing：正面/负面二元分类
 bing_scores <- sa_token_data |>
   inner_join(get_sentiments("bing"), by = "word") |>
   group_by(tweet_index) |>
@@ -820,11 +819,11 @@ bing_scores <- sa_token_data |>
 
 bing_coverage     <- nrow(bing_scores)
 bing_coverage_pct <- round(bing_coverage / nrow(data) * 100, 1)
-cat("Bing coverage:", bing_coverage, "tweets (", bing_coverage_pct, "%)\n")
+cat("Bing 覆盖率:", bing_coverage, "条推文 (", bing_coverage_pct, "%)\n")
 ```
 
 ```{r nrc-scores, cache=TRUE}
-# NRC: 8 basic emotions + positive / negative
+# NRC：8种基本情绪 + 正面/负面
 nrc_raw <- sa_token_data |>
   inner_join(get_sentiments("nrc"), by = "word")
 
@@ -836,12 +835,12 @@ nrc_scores <- nrc_raw |>
 
 nrc_coverage     <- nrow(nrc_scores)
 nrc_coverage_pct <- round(nrc_coverage / nrow(data) * 100, 1)
-cat("NRC coverage:", nrc_coverage, "tweets (", nrc_coverage_pct, "%)\n")
+cat("NRC 覆盖率:", nrc_coverage, "条推文 (", nrc_coverage_pct, "%)\n")
 ```
 
 ```{r tbl-lexicon-coverage}
 #| label: tbl-lexicon-coverage
-# assemble pre-computed coverage counts into a comparison table
+# 将预先计算的覆盖率数据汇总为对比表
 coverage_df <- data.frame(
   lexicon       = c("AFINN", "Bing", "NRC"),
   tweets_scored = c(afinn_coverage, bing_coverage, nrc_coverage),
@@ -851,29 +850,29 @@ coverage_df <- data.frame(
 knitr::kable(
   coverage_df |>
     rename(
-      Lexicon         = lexicon,
-      `Tweets Scored` = tweets_scored,
-      `Coverage (%)`  = coverage_pct
+      词典         = lexicon,
+      `已评分推文数` = tweets_scored,
+      `覆盖率 (%)`  = coverage_pct
     ),
   align = 'c',
-  caption = "Coverage of Sentiment Lexicons Across the Tweet Sample"
+  caption = "各情感词典在推文样本中的覆盖率"
 )
 ```
 
 ```{r fig-lexicon-coverage}
 #| label: fig-lexicon-coverage
 #| fig-cap: |
-#|   Sentiment Lexicon Coverage Comparison<br>
-#|   *Note.* Bars represent the percentage of the 3,000 tweets that received a sentiment score from each lexicon. NRC achieves the widest coverage; AFINN covers a smaller share but provides continuous intensity scores.
-# bar chart comparing tweet coverage (%) across the three lexicons
+#|   情感词典覆盖率比较<br>
+#|   *注.* 条形代表3,000条推文中各词典获得情感评分的比例。NRC覆盖范围最广；AFINN覆盖比例较小，但提供连续强度评分。
+# 比较三种词典推文覆盖率（%）的条形图
 ggplot(coverage_df, aes(x = lexicon, y = coverage_pct, fill = lexicon)) +
   geom_col(alpha = 0.8) +
   geom_text(aes(label = paste0(coverage_pct, "%")), vjust = -0.4, size = 4) +
   ylim(0, 100) +
   labs(
-    title = "Sentiment Lexicon Coverage Comparison",
-    x = NULL, 
-    y = "Coverage (%)"
+    title = "情感词典覆盖率比较",
+    x = NULL,
+    y = "覆盖率 (%)"
   ) +
   theme_minimal() +
   theme(
@@ -883,7 +882,7 @@ ggplot(coverage_df, aes(x = lexicon, y = coverage_pct, fill = lexicon)) +
 ```
 
 ```{r lexicon-correlations}
-# correlations among tweets scored by all three lexicons
+# 三种词典均评分的推文之间的相关性
 sentiment_cmp <- data |>
   select(tweet_index) |>
   left_join(afinn_scores |> select(tweet_index, sentiment_afinn), by = "tweet_index") |>
@@ -893,21 +892,21 @@ sentiment_cmp <- data |>
 complete_cmp <- sentiment_cmp |>
   filter(!is.na(sentiment_afinn), !is.na(sentiment_bing), !is.na(sentiment_nrc))
 
-cat("Tweets scored by all three lexicons:", nrow(complete_cmp), "\n")
-cat("AFINN vs Bing: r =",
+cat("三种词典均评分的推文数:", nrow(complete_cmp), "\n")
+cat("AFINN 与 Bing 的相关性: r =",
     round(cor(complete_cmp$sentiment_afinn, complete_cmp$sentiment_bing), 3), "\n")
-cat("AFINN vs NRC:  r =",
+cat("AFINN 与 NRC 的相关性:  r =",
     round(cor(complete_cmp$sentiment_afinn, complete_cmp$sentiment_nrc), 3), "\n")
-cat("Bing  vs NRC:  r =",
+cat("Bing  与 NRC 的相关性:  r =",
     round(cor(complete_cmp$sentiment_bing,  complete_cmp$sentiment_nrc), 3), "\n")
 ```
 
-### Temporal Trends in Sentiment
+### 情感的时间趋势
 
-Among the 1,275 tweets that received AFINN scores, overall sentiment in the corpus was slightly positive (M = 0.81, Median = 1, range: -18 to 12). @tbl-sentiment-by-year and @fig-sentiment-by-year present mean AFINN scores by year with 95% confidence intervals. A clear upward trend is visible: mean sentiment increased from 0.33 in 2017 to 0.60 in 2018, 0.80 in 2019, 1.05 in 2020, and 1.11 in 2021. The 95% confidence intervals indicate that this upward movement became increasingly stable in later years. This pattern is consistent with the growing normalization of AI as a practical and promising technology, where public discourse shifted toward greater optimism about AI's applications and societal benefits.
+在获得AFINN评分的1,275条推文中，语料库整体情感略显正面（M = 0.81，中位数 = 1，范围：-18至12）。@tbl-sentiment-by-year 和 @fig-sentiment-by-year 展示了各年平均AFINN得分及95%置信区间。趋势明显呈上升态势：平均情感得分从2017年的0.33升至2018年的0.60、2019年的0.80、2020年的1.05和2021年的1.11。95%置信区间表明这一上升趋势在后期年份愈加稳定。这一模式与AI逐渐常态化为实用且前景广阔的技术这一叙事相吻合，公众话语逐步转向对AI应用及社会效益更为乐观的预期。
 
 ```{r afinn-join}
-# attach AFINN scores to data and propagate to meta_theta_df
+# 将 AFINN 评分附加到数据中，并传播至 meta_theta_df
 data <- data |>
   left_join(afinn_scores |> select(tweet_index, sentiment_afinn), by = "tweet_index") |>
   mutate(sentiment_norm = sentiment_afinn / nwords)
@@ -916,7 +915,7 @@ meta_theta_df <- meta_theta_df |>
   left_join(afinn_scores |> select(tweet_index, sentiment_afinn), by = "tweet_index")
 
 n_scored <- sum(!is.na(data$sentiment_afinn))
-cat("Tweets with AFINN scores:", n_scored,
+cat("获得AFINN评分的推文数:", n_scored,
     paste0("(", round(n_scored / nrow(data) * 100, 1), "%)"), "\n")
 summary(data$sentiment_afinn)
 ```
@@ -924,7 +923,7 @@ summary(data$sentiment_afinn)
 ```{r tbl-sentiment-by-year}
 #| label: tbl-sentiment-by-year
 #| tbl-colwidths: [17, 15, 15, 15, 15, 15]
-# yearly mean AFINN scores with standard errors and 95% CIs
+# 各年平均AFINN得分及标准误和95%置信区间
 sentiment_by_year <- data |>
   filter(!is.na(sentiment_afinn)) |>
   mutate(year = year(date_utc)) |>
@@ -943,11 +942,11 @@ sentiment_by_year <- data |>
 knitr::kable(
   sentiment_by_year |>
     rename(
-      Year = year, `Tweets Scored` = n, `Mean Sentiment` = mean_sent,
-      SE = se_sent, `95% CI Low` = ci_low, `95% CI High` = ci_high
+      年份 = year, `已评分推文数` = n, `平均情感得分` = mean_sent,
+      标准误 = se_sent, `95%置信区间下限` = ci_low, `95%置信区间上限` = ci_high
     ),
   align = 'c',
-  caption = "Mean AFINN Sentiment Score by Year with 95% Confidence Intervals",
+  caption = "各年平均AFINN情感得分及95%置信区间",
   digits  = 3
 )
 ```
@@ -955,9 +954,9 @@ knitr::kable(
 ```{r fig-sentiment-by-year}
 #| label: fig-sentiment-by-year
 #| fig-cap: |
-#|   Mean AFINN Sentiment by Year (2017–2021)<br>
-#|   *Note.* Points and line show yearly means; the ribbon represents the 95% confidence interval. The dashed horizontal line marks a score of zero (neutral). Sentiment increased consistently from 2017 to 2021.
-# line + confidence ribbon showing mean AFINN sentiment trend from 2017 to 2021
+#|   各年平均AFINN情感得分（2017—2021年）<br>
+#|   *注.* 点和折线表示各年均值；色带代表95%置信区间。水平虚线标记零分（中性）。情感得分从2017年至2021年持续上升。
+# 折线加置信带，展示2017至2021年平均AFINN情感趋势
 ggplot(sentiment_by_year, aes(x = year, y = mean_sent)) +
   geom_ribbon(aes(ymin = ci_low, ymax = ci_high), alpha = 0.2, fill = "steelblue") +
   geom_line(color = "steelblue", linewidth = 1) +
@@ -965,9 +964,9 @@ ggplot(sentiment_by_year, aes(x = year, y = mean_sent)) +
   geom_hline(yintercept = 0, linetype = "dotted", color = "red") +
   scale_x_continuous(breaks = 2017:2021) +
   labs(
-    title = "Mean AFINN Sentiment by Year (2017–2021)",
-    x = "Year", 
-    y = "Mean AFINN Sentiment Score"
+    title = "各年平均AFINN情感得分（2017—2021年）",
+    x = "年份",
+    y = "平均AFINN情感得分"
   ) +
   theme_minimal() +
   theme(
@@ -975,12 +974,12 @@ ggplot(sentiment_by_year, aes(x = year, y = mean_sent)) +
   )
 ```
 
-### Topic–Sentiment Relationship
+### 主题与情感关系
 
-To examine whether discourse topics were associated with different emotional tones, average AFINN sentiment was computed for each topic using gamma-weighted scores, where each tweet's contribution to a topic's average sentiment was proportional to its membership probability in that topic. @fig-topic-sentiment presents these weighted averages. Sentiment scores were very similar across all five topics, ranging from 0.79 (Topic 5, AI ecosystem buzzwords) to 0.84 (Topic 4, business and innovation). A weighted linear regression model predicting sentiment from topic membership found no statistically significant differences relative to Topic 1 for any other topic (all p > .80). This result shows that in this corpus, emotional tone did not vary meaningfully across thematic clusters; rather, sentiment varied more consistently over time than across topics.
+为考察话语主题是否与不同情感倾向相关联，使用gamma加权得分计算了各主题的平均AFINN情感值，即每条推文对某主题平均情感的贡献与其在该主题中的成员概率成正比。@fig-topic-sentiment 呈现了这些加权平均值。五个主题的情感得分非常相近，范围从0.79（主题5，AI生态流行词）到0.84（主题4，商业与创新）。以主题成员概率为权重、以情感为因变量的加权线性回归模型显示，相对于主题1，其他任何主题均无统计显著差异（所有 p > .80）。这一结果表明，在本语料库中，情感倾向在主题簇之间并无实质性差异；情感随时间的变化比随主题的变化更为一致。
 
 ```{r topic-sentiment-weights}
-# compute weighted sentiment per topic
+# 计算各主题的加权情感得分
 meta_theta_df <- meta_theta_df |>
   filter(!is.na(sentiment_afinn)) |>
   mutate(
@@ -1006,16 +1005,16 @@ topic_sent_avg <- tibble(
 ) |>
   mutate(
     avg_sentiment = total_weighted / gamma_mass,
-    topic_label   = paste("Topic", topic)
+    topic_label   = paste("主题", topic)
   )
 ```
 
 ```{r fig-topic-sentiment}
 #| label: fig-topic-sentiment
 #| fig-cap: |
-#|   Weighted Average AFINN Sentiment by Topic<br>
-#|   *Note.* Bars represent the average sentiment score for each topic, weighted by gamma (topic membership probability). The dashed line marks neutral sentiment. Differences across topics are minimal and statistically non-significant.
-# horizontal bar chart of gamma-weighted average AFINN sentiment per topic
+#|   各主题加权平均AFINN情感得分<br>
+#|   *注.* 条形代表以 gamma（主题成员概率）为权重的各主题平均情感得分。虚线标记中性情感。各主题之间的差异极小且统计上不显著。
+# 各主题gamma加权平均AFINN情感得分的水平条形图
 ggplot(
   topic_sent_avg,
   aes(x = reorder(topic_label, avg_sentiment), y = avg_sentiment, fill = topic_label)
@@ -1024,19 +1023,19 @@ ggplot(
   geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
   coord_flip() +
   labs(
-    title = "Weighted Average AFINN Sentiment by Topic",
-    x = "Topic", 
-    y = "Average AFINN Sentiment"
+    title = "各主题加权平均AFINN情感得分",
+    x = "主题",
+    y = "平均AFINN情感得分"
   ) +
   theme_minimal() +
   theme(
-    legend.position = "none", 
+    legend.position = "none",
     plot.title = element_text(hjust = 0.5)
   )
 ```
 
 ```{r topic-sentiment-regression}
-# weighted regression: sentiment ~ topic (verifies non-significant differences)
+# 加权回归：情感 ~ 主题（验证差异不显著）
 sentiment_topic_long <- meta_theta_df |>
   select(tweet_index, sentiment_afinn, starts_with("topic_")) |>
   pivot_longer(
@@ -1051,17 +1050,17 @@ weighted_model <- lm(sentiment_afinn ~ topic, data = sentiment_topic_long, weigh
 summary(weighted_model)
 ```
 
-## Predictors of User Engagement
+## 用户互动的预测因素
 
-### Hashtag and Cashtag Features
+### 话题标签与现金标签特征
 
-To examine whether content packaging was associated with engagement (RQ2), mean engagement metrics were first compared by tag presence (@tbl-tag-engagement), and then three negative binomial GLMs were fitted predicting likes, replies, and retweets from hashtag presence, hashtag count, cashtag presence, and year (@tbl-tag-glm, @fig-tag-irr).
+为考察内容包装是否与互动相关（研究问题2），首先按标签存在与否比较了平均互动指标（@tbl-tag-engagement），然后拟合了三个负二项GLM，分别以话题标签存在与否、话题标签数量、现金标签存在与否和年份为预测因素，预测点赞、回复和转推数（@tbl-tag-glm、@fig-tag-irr）。
 
-Descriptively, tweets containing hashtags received slightly higher mean likes (3.11 vs. 2.89) and notably higher mean retweets (2.86 vs. 1.23), though slightly fewer replies on average (0.12 vs. 0.19). Tweets with cashtags had higher mean values on all three metrics, but the number of cashtag-containing tweets was too small (n = 22) for reliable comparison.
+描述性结果显示，包含话题标签的推文平均点赞数略高（3.11 vs. 2.89），平均转推数则明显更高（2.86 vs. 1.23），但平均回复数略低（0.12 vs. 0.19）。含现金标签的推文在三项指标上均有较高均值，但含现金标签的推文数量过少（n = 22），不足以支持可靠比较。
 
 ```{r tbl-tag-engagement}
 #| label: tbl-tag-engagement
-# compute mean engagement metrics by hashtag and cashtag presence
+# 按话题标签和现金标签的存在与否计算平均互动指标
 tag_engagement_summary <- tag_features |>
   summarise(
     likes_no_hashtag    = round(mean(likes_count[!has_hashtag]), 2),
@@ -1080,29 +1079,29 @@ tag_engagement_summary <- tag_features |>
 
 knitr::kable(
   tibble(
-    Condition       = c("No Hashtag", "Hashtag", "No Cashtag", "Cashtag"),
-    `Mean Likes`    = c(tag_engagement_summary$likes_no_hashtag,
-                        tag_engagement_summary$likes_hashtag,
-                        tag_engagement_summary$likes_no_cashtag,
-                        tag_engagement_summary$likes_cashtag),
-    `Mean Replies`  = c(tag_engagement_summary$replies_no_hashtag,
-                        tag_engagement_summary$replies_hashtag,
-                        tag_engagement_summary$replies_no_cashtag,
-                        tag_engagement_summary$replies_cashtag),
-    `Mean Retweets` = c(tag_engagement_summary$retweets_no_hashtag,
-                        tag_engagement_summary$retweets_hashtag,
-                        tag_engagement_summary$retweets_no_cashtag,
-                        tag_engagement_summary$retweets_cashtag)
+    条件           = c("无话题标签", "有话题标签", "无现金标签", "有现金标签"),
+    `平均点赞数`   = c(tag_engagement_summary$likes_no_hashtag,
+                       tag_engagement_summary$likes_hashtag,
+                       tag_engagement_summary$likes_no_cashtag,
+                       tag_engagement_summary$likes_cashtag),
+    `平均回复数`   = c(tag_engagement_summary$replies_no_hashtag,
+                       tag_engagement_summary$replies_hashtag,
+                       tag_engagement_summary$replies_no_cashtag,
+                       tag_engagement_summary$replies_cashtag),
+    `平均转推数`   = c(tag_engagement_summary$retweets_no_hashtag,
+                       tag_engagement_summary$retweets_hashtag,
+                       tag_engagement_summary$retweets_no_cashtag,
+                       tag_engagement_summary$retweets_cashtag)
   ),
   align = c('l', 'c', 'c', 'c'),
-  caption = "Mean Engagement Metrics by Tag Presence"
+  caption = "按标签存在与否划分的平均互动指标"
 )
 ```
 
-@tbl-tag-glm and @fig-tag-irr present the exponentiated regression coefficients (incident rate ratios, IRRs) from the tag-based negative binomial models. The number of hashtags per tweet was a positive predictor of all three engagement outcomes: likes (IRR = 1.08, p < .001), replies (IRR = 1.06, p = .021), and retweets (IRR = 1.13, p < .001). By contrast, simply having any hashtag at all was a negative predictor for likes (IRR = 0.60, p < .001) and replies (IRR = 0.39, p < .001) once hashtag count was included in the model, and was not significant for retweets. This pattern reflects a compositional effect: tweets with only one or two hashtags do not benefit from the discoverability that rich hashtag networks provide, whereas tweets with many hashtags tend to attract more engagement across all metrics. Cashtag presence was not significantly associated with any engagement outcome.
+@tbl-tag-glm 和 @fig-tag-irr 展示了基于标签特征的负二项模型中指数化回归系数（发生率比，IRR）。每条推文的话题标签数量对三项互动结果均为正向预测因素：点赞（IRR = 1.08，p < .001）、回复（IRR = 1.06，p = .021）和转推（IRR = 1.13，p < .001）。相比之下，在模型中加入话题标签数量后，单纯拥有话题标签对点赞（IRR = 0.60，p < .001）和回复（IRR = 0.39，p < .001）均为负向预测因素，对转推则不显著。这一模式反映了组合效应：仅含一两个话题标签的推文无法从话题标签网络提供的可发现性中获益，而含有大量话题标签的推文则往往在各项指标上吸引更多互动。现金标签的存在与任何互动结果均无显著关联。
 
 ```{r tag-glm-models}
-# fit negative binomial GLMs for each engagement metric using tag features
+# 使用标签特征为各互动指标拟合负二项GLM
 tag_glm_likes <- glm.nb(
   likes_count ~ has_hashtag + has_cashtag + n_hashtag + year,
   data = tag_features
@@ -1116,14 +1115,14 @@ tag_glm_retweets <- glm.nb(
   data = tag_features
 )
 
-tag_models <- list(Likes = tag_glm_likes, Replies = tag_glm_replies, Retweets = tag_glm_retweets)
+tag_models <- list(点赞 = tag_glm_likes, 回复 = tag_glm_replies, 转推 = tag_glm_retweets)
 
 tag_coef_all <- bind_rows(lapply(names(tag_models), function(nm) {
   tidy(tag_models[[nm]], exponentiate = TRUE) |>
     filter(term != "(Intercept)") |>
     mutate(
-      # Wald CIs on the log-rate scale (delta method)
-      # faster than profile-likelihood confint()
+      # Wald 置信区间（对数率尺度上的 delta 方法）
+      # 比 profile-likelihood confint() 更快
       conf.low  = estimate * exp(-1.96 * std.error),
       conf.high = estimate * exp( 1.96 * std.error),
       outcome   = nm
@@ -1133,24 +1132,24 @@ tag_coef_all <- bind_rows(lapply(names(tag_models), function(nm) {
 
 ```{r tbl-tag-glm}
 #| label: tbl-tag-glm
-# extract and format exponentiated coefficients (IRRs) from the tag GLMs
+# 提取并格式化标签GLM中的指数化系数（IRR）
 knitr::kable(
   tag_coef_all |>
     select(outcome, term, estimate, conf.low, conf.high, p.value) |>
     mutate(
       term = recode(term,
-        "has_hashtagTRUE" = "Has Hashtag",
-        "has_cashtagTRUE" = "Has Cashtag",
-        "n_hashtag"       = "Number of Hashtags",
-        "year"            = "Year"
+        "has_hashtagTRUE" = "有话题标签",
+        "has_cashtagTRUE" = "有现金标签",
+        "n_hashtag"       = "话题标签数量",
+        "year"            = "年份"
       ),
-      outcome = factor(outcome, levels = c("Likes", "Replies", "Retweets"))
+      outcome = factor(outcome, levels = c("点赞", "回复", "转推"))
     ) |>
     rename(
-      Outcome = outcome, Predictor = term, IRR = estimate,
-      `95% CI Low` = conf.low, `95% CI High` = conf.high, `p` = p.value
+      因变量 = outcome, 预测变量 = term, IRR = estimate,
+      `95%置信区间下限` = conf.low, `95%置信区间上限` = conf.high, `p值` = p.value
     ),
-  caption = "Negative Binomial GLMs: Tag Features Predicting User Engagement",
+  caption = "负二项GLM：标签特征对用户互动的预测（IRR）",
   align = c('l', 'l', 'c', 'c', 'c', 'c'),
   digits  = 3
 )
@@ -1159,9 +1158,9 @@ knitr::kable(
 ```{r fig-tag-irr}
 #| label: fig-tag-irr
 #| fig-cap: |
-#|   Tag-Based Predictors of Tweet Engagement (IRR Plot)<br>
-#|   *Note.* Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. IRR > 1 indicates a positive association with engagement.
-# IRR dot plot with 95% CIs for tag-based engagement predictors
+#|   基于标签特征的推文互动预测（IRR图）<br>
+#|   *注.* 点代表发生率比（IRR），水平线代表95%置信区间。IRR = 1处的垂直虚线表示无效应。IRR > 1表示与互动呈正相关。
+# 标签特征互动预测因素的IRR点图及95%置信区间
 ggplot(tag_coef_all, aes(x = estimate, y = term, color = outcome)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray60") +
   geom_point(size = 3, position = position_dodge(0.5)) +
@@ -1170,70 +1169,70 @@ ggplot(tag_coef_all, aes(x = estimate, y = term, color = outcome)) +
     height = 0.2, position = position_dodge(0.5)
   ) +
   labs(
-    title = "Tag-Based Predictors of Tweet Engagement (IRR Plot)",
-    x = "Incident Rate Ratio (IRR)", y = "Predictor", color = "Outcome"
+    title = "基于标签特征的推文互动预测（IRR图）",
+    x = "发生率比（IRR）", y = "预测变量", color = "因变量"
   ) +
   theme_minimal() +
   theme(
-    legend.position = "bottom", 
+    legend.position = "bottom",
     plot.title = element_text(hjust = 0.5)
   )
 ```
 
-### Sentiment and Topic as Predictors
+### 情感与主题作为预测因素
 
-To directly test the associations between discourse characteristics and engagement, three negative binomial GLMs were fitted predicting likes, replies, and retweets from AFINN sentiment scores, LDA topic probabilities (Topics 1–4, with Topic 5 as the implicit baseline through the compositional constraint), and year fixed effects (@tbl-sentiment-topic-glm, @fig-topic-irr).
+为直接检验话语特征与互动之间的关联，拟合了三个负二项GLM，分别以AFINN情感得分、LDA主题概率（主题1至4，主题5通过组合约束隐式作为基准）和年份固定效应为预测因素，预测点赞、回复和转推数（@tbl-sentiment-topic-glm、@fig-topic-irr）。
 
-AFINN sentiment was not a statistically significant predictor of any engagement outcome. Its IRR was 0.99 for likes (p = .676), 0.92 for replies (p = .081), and 0.98 for retweets (p = .383). This finding indicates that a more positive or more negative emotional tone alone did not reliably increase or decrease engagement once topic composition and year were taken into account.
+AFINN情感对任何互动结果均无统计显著的预测作用。点赞的IRR为0.99（p = .676），回复为0.92（p = .081），转推为0.98（p = .383）。这一发现表明，在控制了主题组合和年份后，更积极或更消极的情感倾向本身并不能可靠地增加或减少互动。
 
-By contrast, year was a consistent and substantial predictor of engagement. Relative to 2017, tweets from 2018 showed dramatically higher expected likes (IRR = 4.00) and replies (IRR = 8.23), and tweets from 2020 and 2021 also showed significantly higher likes and replies. Retweets were significantly higher in 2018 (IRR = 2.13) and 2021 (IRR = 2.12) relative to 2017. These large year effects suggest that the overall audience for AI content on Twitter grew substantially after 2017, leading to more engagement across the board regardless of the content's tone.
+相比之下，年份是互动的一致且显著预测因素。相对于2017年，2018年的推文预期点赞数（IRR = 4.00）和回复数（IRR = 8.23）大幅增加；2020年和2021年的点赞数和回复数也显著更高。相对于2017年，2018年（IRR = 2.13）和2021年（IRR = 2.12）的转推数显著更高。这些显著的年份效应表明，2017年后Twitter上AI内容的受众规模大幅增长，无论内容的情感倾向如何，整体互动量均有所提升。
 
-Topic effects were present for some outcomes but should be interpreted carefully because LDA topic probabilities are compositional—increasing one topic's probability necessarily reduces the others. Topic 2 showed a strong negative association with likes and retweets, while Topic 4 showed a strong positive association with replies. However, some estimated IRRs were extremely large or small, indicating instability likely due to near-collinearity among topic predictors. The most defensible interpretation is that business-innovation framing (Topic 4) may be associated with more conversational engagement, while certain technology-and-market content (Topic 2) may attract less passive amplification, but these conclusions require further testing with more robust specifications.
+主题效应在部分结果中存在，但需审慎解读，原因在于LDA主题概率具有组合性——增加某一主题的概率必然减少其他主题的概率，这导致主题预测因素之间存在近似多重共线性，进而产生膨胀或不稳定的系数估计。最合理的解读是：商业创新框架（主题4）可能与更多对话性回复相关，而科技市场内容（主题2）可能较少获得被动放大，但这些结论需要更稳健的模型规格才能确信表述。
 
 ```{r glm-data-prep}
-# convert year to a factor so GLMs treat it as categorical fixed effects
+# 将年份转为因子，使 GLM 将其视为分类固定效应
 glm_data <- meta_theta_df |>
   mutate(year = factor(year(date_utc)))
 ```
 
 ```{r glm-models}
-# NB GLM: AFINN sentiment + LDA topic probabilities + year predicting likes
+# 负二项GLM：AFINN情感 + LDA主题概率 + 年份预测点赞数
 glm_likes <- glm.nb(
   likes_count ~ sentiment_afinn + topic_1 + topic_2 + topic_3 + topic_4 + year,
   data = glm_data
 )
-cat("=== Model: likes_count ===\n")
+cat("=== 模型：likes_count ===\n")
 summary(glm_likes)
 ```
 
 ```{r glm-replies}
-# same model structure predicting reply counts
+# 相同模型结构预测回复数
 glm_replies <- glm.nb(
   replies_count ~ sentiment_afinn + topic_1 + topic_2 + topic_3 + topic_4 + year,
   data = glm_data
 )
-cat("=== Model: replies_count ===\n")
+cat("=== 模型：replies_count ===\n")
 summary(glm_replies)
 ```
 
 ```{r glm-retweets}
-# same model structure predicting retweet counts
+# 相同模型结构预测转推数
 glm_retweets <- glm.nb(
   retweets_count ~ sentiment_afinn + topic_1 + topic_2 + topic_3 + topic_4 + year,
   data = glm_data
 )
-cat("=== Model: retweets_count ===\n")
+cat("=== 模型：retweets_count ===\n")
 summary(glm_retweets)
 ```
 
 ```{r tbl-sentiment-topic-glm}
 #| label: tbl-sentiment-topic-glm
-models_list <- list(Likes = glm_likes, Replies = glm_replies, Retweets = glm_retweets)
+models_list <- list(点赞 = glm_likes, 回复 = glm_replies, 转推 = glm_retweets)
 
 coef_all <- bind_rows(lapply(names(models_list), function(nm) {
   tidy(models_list[[nm]], exponentiate = TRUE) |>
-    # drop intercept and year fixed effects; 
-    # table shows only content predictors
+    # 去除截距和年份固定效应；
+    # 表格仅显示内容预测因素
     filter(!grepl("Intercept|^year", term)) |>
     mutate(
       conf.low  = estimate * exp(-1.96 * std.error),
@@ -1247,17 +1246,17 @@ knitr::kable(
     select(outcome, term, estimate, conf.low, conf.high, p.value) |>
     mutate(
       term = recode(term,
-        "sentiment_afinn" = "AFINN Sentiment",
-        "topic_1" = "Topic 1", "topic_2" = "Topic 2",
-        "topic_3" = "Topic 3", "topic_4" = "Topic 4"
+        "sentiment_afinn" = "AFINN情感得分",
+        "topic_1" = "主题1", "topic_2" = "主题2",
+        "topic_3" = "主题3", "topic_4" = "主题4"
       )
     ) |>
     rename(
-      Outcome = outcome, Predictor = term, IRR = estimate,
-      `95% CI Low` = conf.low, `95% CI High` = conf.high, `p` = p.value
+      因变量 = outcome, 预测变量 = term, IRR = estimate,
+      `95%置信区间下限` = conf.low, `95%置信区间上限` = conf.high, `p值` = p.value
     ),
   align = c('l', 'l', 'c', 'c', 'c', 'c'),
-  caption = "Negative Binomial GLMs: Sentiment and Topics Predicting User Engagement (Year Fixed Effects Excluded)",
+  caption = "负二项GLM：情感与主题对用户互动的预测（IRR，年份固定效应已排除）",
   digits  = 3
 )
 ```
@@ -1265,9 +1264,9 @@ knitr::kable(
 ```{r fig-topic-irr}
 #| label: fig-topic-irr
 #| fig-cap: |
-#|   Sentiment and Topic Predictors of Tweet Engagement (IRR Plot)<br>
-#|   *Note.* Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. Year fixed effects are excluded from the plot for clarity.
-# IRR dot plot for sentiment and topic predictors (year fixed effects excluded)
+#|   情感与主题对推文互动的预测（IRR图）<br>
+#|   *注.* 点代表发生率比（IRR），水平线代表95%置信区间。IRR = 1处的垂直虚线表示无效应。为清晰起见，年份固定效应已从图中排除。
+# 情感与主题预测因素的IRR点图（年份固定效应已排除）
 ggplot(coef_all, aes(x = estimate, y = term, color = outcome)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray60") +
   geom_point(size = 3, position = position_dodge(0.5)) +
@@ -1276,65 +1275,65 @@ ggplot(coef_all, aes(x = estimate, y = term, color = outcome)) +
     height = 0.2, position = position_dodge(0.5)
   ) +
   labs(
-    title = "Sentiment and Topic Predictors of Tweet Engagement (IRR Plot)",
-    x = "Incident Rate Ratio (IRR)", y = "Predictor", color = "Outcome"
+    title = "情感与主题对推文互动的预测（IRR图）",
+    x = "发生率比（IRR）", y = "预测变量", color = "因变量"
   ) +
   theme_minimal() +
   theme(
-    legend.position = "bottom", 
+    legend.position = "bottom",
     plot.title = element_text(hjust = 0.5)
   )
 ```
 
-# Discussion & Conclusion
+# 讨论与结论
 
-## Discussion
+## 讨论
 
-Taken together, the results provide partial support for both research questions while revealing important nuances in how AI discourse evolved and how it connected to audience engagement on Twitter between 2017 and 2021.
+综合来看，研究结果对两个研究问题提供了部分支持，同时揭示了2017至2021年间Twitter上AI话语演变及其与受众互动关联的重要细节。
 
-### Thematic Stability with Gradual Specialization (RQ1)
+### 主题稳定性与逐步专业化（研究问题1）
 
-For RQ1, the LDA topic modeling results indicate that AI discourse on Twitter did not undergo a dramatic thematic transformation during the study period. Instead, the corpus showed a relatively stable thematic structure built around five recurring clusters: robotics and automation, technology and markets, data science and security, business and innovation, and applied AI ecosystem vocabulary. The near-constant average topic probabilities across all years (all close to 0.20) suggest a diverse but consistently balanced conversation that absorbed new developments without being reorganized by them.
+就研究问题1而言，LDA主题建模结果表明，研究期间Twitter上的AI话语并未经历剧烈的主题转变。相反，语料库呈现出围绕五个反复出现的主题簇所构建的相对稳定结构：机器人技术与自动化、技术与市场、数据科学与安全、商业与创新，以及AI应用生态词汇。各年主题平均概率均接近0.20，几乎保持不变，表明这是一种多元但持续均衡的对话，能够吸收新进展而不被其重组。
 
-This finding may appear surprising given that 2017 to 2021 saw substantial milestones in AI, including major advances in natural language processing, growing public debate about AI ethics, and the commercialization of generative AI tools. One explanation is that the keyword-based sampling strategy ("Artificial Intelligence") may have overrepresented promotional, institutional, and hashtag-driven content, which tends to revolve around a stable set of industry frames regardless of specific technological developments. A corpus built around event-specific terms or date-anchored keywords might reveal sharper thematic shifts.
+这一发现可能令人意外，因为2017至2021年间AI领域出现了重大里程碑，包括自然语言处理的重大突破、AI伦理问题引发的广泛公共讨论，以及生成式AI工具的商业化。一种解释是，基于关键词的抽样策略（"Artificial Intelligence"）可能过度代表了机构性、宣传性和话题标签驱动的内容，这类内容往往围绕一套稳定的行业框架展开，与具体技术发展无关。基于特定事件词汇或日期锚定关键词构建的语料库，或许能揭示更为明显的主题变化。
 
-Despite the overall thematic stability, the hashtag analysis provided a more nuanced story about discursive evolution. While #artificialintelligence and #ai dominated in every year, the lower-ranked hashtags shifted gradually toward more specialized terms such as #machinelearning, #datascience, and #deeplearning, while broader infrastructure terms like #bigdata and #iot declined in relative prominence. This pattern suggests that AI discourse on Twitter evolved less through wholesale topical replacement and more through increasing specificity, and users began categorizing their AI discussions into more precise technical subfields rather than relying solely on the broad "artificial intelligence" framing.
+尽管主题整体稳定，话题标签分析却提供了关于话语演变更为细致的图景。虽然 #artificialintelligence 和 #ai 在每一年均占主导地位，但排名靠后的话题标签随时间推移逐渐转向 #machinelearning、#datascience 和 #deeplearning 等更专业化的词汇，而 #bigdata 和 #iot 等更宽泛的基础设施词汇的相对重要性则有所下降。这一模式表明，Twitter上的AI话语演变不是通过主题的全面替换，而是通过日益增强的专业化来实现的——用户开始将AI讨论归入更精确的技术子领域，而非单纯依赖宽泛的"人工智能"框架。
 
-The sentiment trend reinforced and sharpened this picture. The steady increase in mean AFINN sentiment from 0.33 in 2017 to 1.11 in 2021 indicates that public AI discourse became progressively more positive over the five years. This is consistent with the broader narrative of AI mainstreaming, in which the technology became increasingly framed as a source of opportunity, economic value, and practical innovation rather than as an abstract, uncertain, or threatening technological force. Critically, sentiment did not differ meaningfully across topics, where the slight gap between the most positive (Topic 4: 0.84) and least positive (Topic 5: 0.79) topics was not statistically significant. This indicates that optimism about AI was a property of the time period in which a tweet was posted, not of the specific thematic cluster it belonged to.
+情感趋势强化并深化了这一图景。平均AFINN情感得分从2017年的0.33稳步上升至2021年的1.11，表明公众AI话语在这五年间变得越来越积极。这与AI主流化的宏观叙事相吻合——技术越来越多地被框架为机遇、经济价值和实际创新的来源，而非抽象、不确定或具有威胁性的技术力量。关键在于，情感在不同主题之间并无实质性差异——最积极的主题（主题4：0.84）与最不积极的主题（主题5：0.79）之间的微小差距并不具有统计显著性。这表明，对AI的乐观情绪是推文发帖时间段的属性，而非其所属主题簇的属性。
 
-### Engagement Patterns and the Role of Context (RQ2)
+### 互动模式与情境的作用（研究问题2）
 
-For RQ2, the most consistent finding was that user engagement was shaped more strongly by historical context than by the specific tone or topic of individual tweets. Year was a robust predictor across all three engagement models: tweets from 2018 showed dramatically higher expected likes (IRR = 4.00) and replies (IRR = 8.23) compared to those from 2017, and elevated engagement persisted through 2020 and 2021 for likes and replies, and through 2021 for retweets. This pattern suggests that as AI became a more mainstream cultural and economic topic in subsequent years, the Twitter audience for AI content grew larger and more active.
+就研究问题2而言，最为一致的发现是，用户互动受历史情境的影响比受单条推文的具体情感倾向或主题的影响更为显著。年份在所有三个互动模型中均是稳健的预测因素：相比2017年，2018年的推文预期点赞数（IRR = 4.00）和回复数（IRR = 8.23）大幅提升，2020年和2021年的点赞数和回复数保持较高水平，2021年的转推数也持续较高。这一模式表明，随着AI在此后数年成为更主流的文化与经济议题，Twitter上AI内容的受众规模不断扩大，整体更为活跃。
 
-Sentiment, by contrast, was not a significant predictor of engagement once year and topic composition were included in the model. The IRRs for AFINN sentiment were close to 1.00 across all three outcomes and did not reach statistical significance. For content creators and communications practitioners, this is an important finding: crafting more enthusiastic or more alarmist AI content did not appear to translate automatically into greater audience engagement, at least within the context of this corpus. Instead, engagement was tied more to the broader social and platform context in which content was posted.
+相比之下，在模型中加入年份和主题组合后，情感不再是互动的显著预测因素。AFINN情感的IRR在三项结果上均接近1.00，未达到统计显著性。对于内容创作者和传播从业者而言，这是一个重要发现：至少在本语料库的背景下，构建更热情或更危言耸听的AI内容，似乎并不能自动转化为更高的受众互动。互动更多地与内容发布的更宏观社会和平台情境相关。
 
-The hashtag analysis added a more actionable finding to the engagement story. The number of hashtags per tweet was consistently and positively associated with all three engagement metrics in the regression models, while simple hashtag presence (just having at least one hashtag) was negatively associated with likes and replies once hashtag count was controlled. This compositional pattern suggests that richly tagged tweets tend to situate content within multiple streams of existing attention, making them more discoverable and more likely to be engaged with. In contrast, a minimal or token use of hashtags does not reliably confer these discoverability benefits. This is a more specific finding than a simple "use hashtags" recommendation and suggests that the density of hashtagging matters.
+话题标签分析为互动研究提供了更具操作意义的发现。在回归模型中，每条推文的话题标签数量与三项互动指标均呈持续且显著的正相关，而在控制话题标签数量后，单纯存在话题标签（至少有一个话题标签）与点赞数和回复数呈负相关。这一组合模式表明，话题标签密集的推文往往将内容置于多个既有关注流之中，使其更易被发现，也更有可能获得互动。相比之下，仅使用最少量或象征性话题标签并不能可靠地带来这些可发现性收益。这比简单的"使用话题标签"建议更为具体，表明话题标签的密度至关重要。
 
-Topic effects on engagement were present in some models but were difficult to interpret cleanly due to the compositional nature of LDA topic probabilities, which creates near-multicollinearity among topic predictors and produces inflated or unstable coefficient estimates. The tentative pattern — with business-innovation framing (Topic 4) associated with more conversational replies, and technology-market framing (Topic 2) associated with less passive amplification — is theoretically plausible. Business- and future-oriented AI language may invite debate and personal response, while more abstract technology-market language may be shared and amplified less. However, these conclusions require more stable model specifications before they can be stated with confidence.
+部分模型中存在主题对互动的效应，但由于LDA主题概率的组合性，解读较为困难——这种组合性在主题预测因素之间产生了近似多重共线性，导致系数估计膨胀或不稳定。初步模式——商业创新框架（主题4）与更多对话性回复相关，科技市场框架（主题2）与较少被动放大相关——在理论上是合理的。面向商业和未来的AI语言可能引发辩论和个人回应，而更抽象的科技市场语言可能较少被分享和放大。然而，这些结论需要更稳健的模型规格方可自信表述。
 
-Cashtags were too rare (only 22 tweets) to support any strong engagement claims. Their near-absence confirms that financial-sector AI discussion was peripheral in this corpus, even if a small number of tweets connected AI talk to cryptocurrency or stock market speculation.
+现金标签数量过少（仅22条推文），不足以支持任何有力的互动结论。其近乎缺席印证了金融行业AI讨论在本语料库中处于边缘位置，即便有少量推文将AI话题与加密货币或股市投机相连接。
 
-## Limitations
+## 局限性
 
-Several limitations qualify these conclusions. First, the analysis used a stratified sample of 3,000 tweets from a corpus of over 893,000 observations, so subtle yearly thematic changes may have been dampened by reduced statistical power. Second, the data were collected using the keyword "Artificial Intelligence," which may overrepresent institutional, promotional, and professionally framed content while underrepresenting informal, critical, or personal AI discussions. Third, lexicon-based sentiment analysis cannot detect sarcasm, mixed sentiment, or context-dependent irony, which are common in social media writing. Fourth, the LDA topic model was sensitive to the broad shared vocabulary in the corpus, which may explain why yearly topic averages remained so similar across years.
+若干局限性对上述结论构成制约。第一，本研究使用了从逾893,000条观测的语料库中抽取的3,000条推文样本，微小的年度主题变化可能因统计效力降低而被削弱。第二，数据通过关键词"Artificial Intelligence"收集，可能过度代表机构性、宣传性和专业框架下的内容，而低估非正式、批判性或个人化的AI讨论。第三，基于词典的情感分析无法识别讽刺、混合情感或社交媒体写作中常见的语境依赖性反讽。第四，LDA主题模型对语料库中共有的宽泛词汇较为敏感，这可能解释了为何各年度平均主题如此相似。
 
-## Future Directions
+## 未来研究方向
 
-Future research could address these limitations in several ways. Structural topic modeling (STM), which explicitly models topic prevalence as a function of metadata variables such as year or engagement level, could yield more sensitive estimates of thematic change and its relationship to engagement. Using larger yearly strata or the full corpus would provide greater statistical power to detect subtle shifts in AI discourse. Integrating sentence-level or contextual sentiment models, such as transformer-based classifiers trained on social media data, could capture the nuanced and ironic tone of tweets more validly than word-level dictionaries. Finally, future work could examine specific AI milestones (such as the release of GPT-3 in 2020) as natural experiments to test whether particular events produced detectable shifts in the themes or sentiment of AI discourse on Twitter.
+未来研究可从以下几个方面弥补上述局限。结构主题模型（STM）将主题流行度显式建模为年份或互动水平等元数据变量的函数，可获得对主题变化及其与互动关系更灵敏的估计。使用更大的年度分层或完整语料库将提供更强的统计效力，以检测AI话语的细微变化。整合句子级或上下文情感模型（如在社交媒体数据上训练的基于Transformer的分类器），与词级词典相比，可更有效地捕捉推文的细微和反讽语气。最后，未来研究可将特定AI里程碑（如2020年GPT-3的发布）作为自然实验，检验特定事件是否在Twitter上AI话语的主题或情感方面引发了可检测的变化。
 
-## Conclusion
+## 结论
 
-This study finds that AI discourse on Twitter became steadily more positive and increasingly engaging between 2017 and 2021, without a fundamental reorganization of its underlying thematic structure. The evidence suggests that public AI discourse evolved through two primary mechanisms: increasing technical specialization, as users began labeling their tweets with more precise applied subfield hashtags, and growing optimism, as AI became more integrated into business and everyday technology conversation. Engagement with AI content was driven more by the growing public interest in AI over time than by the specific emotional tone or thematic focus of individual tweets. These findings contribute to a broader understanding of how transformative technologies are discursively normalized and adopted within public social media spaces.
+本研究发现，2017至2021年间，Twitter上的AI话语在未发生底层主题结构根本重组的情况下，变得日益积极，互动也持续增强。证据表明，公众AI话语通过两种主要机制演变：其一是技术专业化的不断深化，用户开始以更精确的应用子领域话题标签标注其AI讨论；其二是乐观情绪的持续增长，随着AI更深度地融入商业和日常技术对话，话语基调日益向好。AI内容的互动更多由公众对AI随时间增长的兴趣驱动，而非由单条推文的具体情感倾向或主题焦点决定。上述发现有助于深化我们对变革性技术如何在公共社交媒体空间中被话语性常态化与采纳这一过程的理解。
 
-# References {.unnumbered}
+# 参考文献 {.unnumbered}
 
 ::: {#refs}
 :::
 
-# Appendix {.unnumbered}
+# 附录 {.unnumbered}
 
-**Narrowing Process.** The original dataset was filtered to retain only English-language original tweets (excluding retweets), reducing the corpus to a smaller subset. Equal-allocation stratified random sampling by posting year (N = 600 per year × 5 years = 3,000) was then applied to ensure temporal balance while maintaining computational efficiency. See the code in the [Data > Observations](#observations) section.
+**筛选过程。** 原始数据集经过滤，保留英语原创推文（排除转推），将语料库缩减至较小子集。随后按发帖年份进行等比例分层随机抽样（每年N = 600 × 5年 = 3,000条），以在保证计算效率的同时确保时间平衡。具体代码详见[数据 > 观测值](#observations)节。
 
-**UTC Conversion Process.** The original `created_at` variable was stored as a character string with an Eastern Time suffix. It was parsed to a calendar-time object using `ymd_hms()` with `tz = "America/New_York"`, then converted to UTC using `with_tz()`, and finally coerced to a `Date` object stored as `date_utc`. See the code in the [Data > Variables](#variables) section.
+**UTC转换过程。** 原始变量`created_at`以带有东部时区后缀的字符串形式存储。使用`ymd_hms()`函数并设置`tz = "America/New_York"`将其解析为日历时间对象，再通过`with_tz()`转换为UTC，最终强制转换为`Date`对象并存储为`date_utc`。具体代码详见[数据 > 变量](#variables)节。
 
-**Separation Process.** Hashtags and cashtags in the dataset were stored as Python-style list strings (e.g., `"['ai', 'ml']"`). To obtain single tokens, bracket and quote characters were removed with `str_remove_all()`, and the resulting comma-separated strings were split into individual rows using `separate_rows()`. See the code in the [Data > Text Variables > Hashtags](#hashtags) sections.
+**拆分过程。** 数据集中的话题标签和现金标签以Python风格的列表字符串形式存储（如`"['ai', 'ml']"`）。为获取单个词元，使用`str_remove_all()`去除方括号和引号字符，再使用`separate_rows()`将逗号分隔的字符串拆分为独立行。具体代码详见[数据 > 文本变量 > 话题标签](#hashtags)节。
