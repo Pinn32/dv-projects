@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>EM747 Midterm Tips – Pinn (Aiqi) Xu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../src/img/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../../src/styles/styles.css">
+<link rel="stylesheet" href="../../../src/styles/portfolio.css">
+<link rel="stylesheet" href="../../../src/styles/projects.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo light-content">
+    <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Pinn (Aiqi) Xu</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="搜索"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../en/projects/index.html" aria-current="page"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/tutorials/index.html"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/hobbies/index.html"> 
+<span class="menu-text">Hobbies</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-translate"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
+            English
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
+            中文
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="https://github.com/Pinn32/dv-projects" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/in/aiqi-xu-71943b378/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">EM747 Midterm Tips</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/projects/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projects</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Twitter Sentiment Analysis of Catalan Referendum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Global Visa Cost Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Student Social Media Usage &amp; Addiction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Most Streamed Songs on Spotify</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/tutorials/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/data-processing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/amounts-and-distribution/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amounts and Distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/multivariate-plots/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multivariate Plots</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/sankey-and-network/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sankey &amp; Network Diagrams</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/about/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#top-tips" id="toc-top-tips" class="nav-link active" data-scroll-target="#top-tips">Top Tips</a></li>
+  <li><a href="#一.-观察数据" id="toc-一.-观察数据" class="nav-link" data-scroll-target="#一.-观察数据"><span class="header-section-number">1</span> 一. 观察数据</a>
+  <ul class="collapse">
+  <li><a href="#行数-列数" id="toc-行数-列数" class="nav-link" data-scroll-target="#行数-列数"><span class="header-section-number">1.1</span> 1. 行数 / 列数</a></li>
+  <li><a href="#有多少符合条件的-obs" id="toc-有多少符合条件的-obs" class="nav-link" data-scroll-target="#有多少符合条件的-obs"><span class="header-section-number">1.2</span> 2. 有多少符合条件的 obs</a></li>
+  <li><a href="#某列中-obs-数量最多的-category-是哪个" id="toc-某列中-obs-数量最多的-category-是哪个" class="nav-link" data-scroll-target="#某列中-obs-数量最多的-category-是哪个"><span class="header-section-number">1.3</span> 3. 某列中 obs 数量最多的 category 是哪个</a></li>
+  <li><a href="#某列的-min-max-值是多少" id="toc-某列的-min-max-值是多少" class="nav-link" data-scroll-target="#某列的-min-max-值是多少"><span class="header-section-number">1.4</span> 4. 某列的 min / max 值是多少</a></li>
+  <li><a href="#某列有多少-unique-value" id="toc-某列有多少-unique-value" class="nav-link" data-scroll-target="#某列有多少-unique-value"><span class="header-section-number">1.5</span> 5. 某列有多少 unique value</a></li>
+  </ul></li>
+  <li><a href="#二.-清理数据" id="toc-二.-清理数据" class="nav-link" data-scroll-target="#二.-清理数据"><span class="header-section-number">2</span> 二. 清理数据</a>
+  <ul class="collapse">
+  <li><a href="#求-mean-median-并-round-2-位小数" id="toc-求-mean-median-并-round-2-位小数" class="nav-link" data-scroll-target="#求-mean-median-并-round-2-位小数"><span class="header-section-number">2.1</span> 1. 求 mean / median 并 round 2 位小数</a></li>
+  <li><a href="#增加一列" id="toc-增加一列" class="nav-link" data-scroll-target="#增加一列"><span class="header-section-number">2.2</span> 2. 增加一列</a></li>
+  <li><a href="#某列最大值所在行的另一列值" id="toc-某列最大值所在行的另一列值" class="nav-link" data-scroll-target="#某列最大值所在行的另一列值"><span class="header-section-number">2.3</span> 3. 某列最大值所在行的另一列值</a></li>
+  <li><a href="#求-text-length-字符数" id="toc-求-text-length-字符数" class="nav-link" data-scroll-target="#求-text-length-字符数"><span class="header-section-number">2.4</span> 4. 求 text length (字符数)</a></li>
+  <li><a href="#求单词数量" id="toc-求单词数量" class="nav-link" data-scroll-target="#求单词数量"><span class="header-section-number">2.5</span> 5. 求单词数量</a></li>
+  </ul></li>
+  <li><a href="#三.-可视化" id="toc-三.-可视化" class="nav-link" data-scroll-target="#三.-可视化"><span class="header-section-number">3</span> 三. 可视化</a>
+  <ul class="collapse">
+  <li><a href="#bar-chart" id="toc-bar-chart" class="nav-link" data-scroll-target="#bar-chart"><span class="header-section-number">3.1</span> Bar Chart</a></li>
+  <li><a href="#histogram" id="toc-histogram" class="nav-link" data-scroll-target="#histogram"><span class="header-section-number">3.2</span> Histogram</a></li>
+  </ul></li>
+  <li><a href="#四.-文本分析" id="toc-四.-文本分析" class="nav-link" data-scroll-target="#四.-文本分析"><span class="header-section-number">4</span> 四. 文本分析</a></li>
+  <li><a href="#五.-统计" id="toc-五.-统计" class="nav-link" data-scroll-target="#五.-统计"><span class="header-section-number">5</span> 五. 统计</a>
+  <ul class="collapse">
+  <li><a href="#求统计量" id="toc-求统计量" class="nav-link" data-scroll-target="#求统计量"><span class="header-section-number">5.1</span> 1. 求统计量</a></li>
+  <li><a href="#先处理再求统计量" id="toc-先处理再求统计量" class="nav-link" data-scroll-target="#先处理再求统计量"><span class="header-section-number">5.2</span> 2. 先处理再求统计量</a></li>
+  <li><a href="#检测统计量-解读结果" id="toc-检测统计量-解读结果" class="nav-link" data-scroll-target="#检测统计量-解读结果"><span class="header-section-number">5.3</span> 3. 检测统计量 + 解读结果</a></li>
+  <li><a href="#线性回归-系数" id="toc-线性回归-系数" class="nav-link" data-scroll-target="#线性回归-系数"><span class="header-section-number">5.4</span> 4. 线性回归 + 系数</a></li>
+  </ul></li>
+  <li><a href="#附加" id="toc-附加" class="nav-link" data-scroll-target="#附加"><span class="header-section-number">6</span> 附加</a>
+  <ul class="collapse">
+  <li><a href="#常用-dplyr-函数" id="toc-常用-dplyr-函数" class="nav-link" data-scroll-target="#常用-dplyr-函数"><span class="header-section-number">6.1</span> 常用 dplyr 函数</a></li>
+  <li><a href="#filter-中的逻辑运算符" id="toc-filter-中的逻辑运算符" class="nav-link" data-scroll-target="#filter-中的逻辑运算符"><span class="header-section-number">6.2</span> filter() 中的逻辑运算符</a></li>
+  <li><a href="#select-中的辅助函数" id="toc-select-中的辅助函数" class="nav-link" data-scroll-target="#select-中的辅助函数"><span class="header-section-number">6.3</span> select() 中的辅助函数</a></li>
+  <li><a href="#regex" id="toc-regex" class="nav-link" data-scroll-target="#regex"><span class="header-section-number">6.4</span> Regex</a></li>
+  <li><a href="#stringr-函数" id="toc-stringr-函数" class="nav-link" data-scroll-target="#stringr-函数"><span class="header-section-number">6.5</span> stringr 函数</a></li>
+  <li><a href="#常用颜色名称" id="toc-常用颜色名称" class="nav-link" data-scroll-target="#常用颜色名称"><span class="header-section-number">6.6</span> 常用颜色名称</a></li>
+  <li><a href="#相对路径" id="toc-相对路径" class="nav-link" data-scroll-target="#相对路径"><span class="header-section-number">6.7</span> 相对路径</a></li>
+  <li><a href="#rstudio-snippet" id="toc-rstudio-snippet" class="nav-link" data-scroll-target="#rstudio-snippet"><span class="header-section-number">6.8</span> RStudio Snippet</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/r-tips/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">EM747 Midterm Tips</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="reading-meta"><span>        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+        </svg>
+     6 min read</span><span> · </span><span>408 EN words</span><span> · </span><span>1091 中文字</span></div>
+<section id="top-tips" class="level1 unnumbered">
+<h1 class="unnumbered">Top Tips</h1>
+<ul>
+<li><strong>确保写了姓名和 ID</strong></li>
+<li><strong>先做简单题, 遇到不会的立刻跳过</strong></li>
+<li><strong>用相对路径导入csv <a href="#相对路径">(详细介绍)</a></strong></li>
+<li><strong>所有统计量都要加上 <code>na.rm = TRUE</code></strong>
+<ul>
+<li>sum / mean / median / min / max / sd / IQR 等</li>
+</ul></li>
+<li><strong>看仔细 data unit 是什么, 以及题目问的对象</strong>
+<ul>
+<li>仔细看每一行代表了一个什么</li>
+<li>如果有一列叫 <code>type</code>, 其内容要么是 <code>post</code> 要么是 <code>comment</code>, 那么此时整个表格的行单位并非 post; 这时如果问 “score 大于 10 的 <mark>post</mark> 有几条”, 首先要筛选 <code>filter(type == "post")</code></li>
+</ul></li>
+<li><strong><code>count()</code>时如果要预先操作的话, 最好加上新列名</strong>
+<ul>
+<li>比如 <code>count(month = month(Date))</code></li>
+</ul></li>
+<li><strong>注意区分 <code>select(col)</code> 和 <code>filter(condition)</code> <a href="#filter-中的逻辑运算符">(详细介绍)</a></strong>
+<ul>
+<li><code>filter(condition)</code> 用来选择行, <code>select(col)</code> 用来选择列</li>
+</ul></li>
+<li><strong>学会用 <code>nrow()</code> 得到行数, <code>pull()</code> 得到值</strong></li>
+<li><strong>学会 stringr 和 regex</strong>
+<ul>
+<li>字符个数: <code>mutate(text_length = str_length(text))</code></li>
+<li>单词个数: <code>mutate(word_count = str_count(text, "\\S+"))</code></li>
+</ul></li>
+<li><strong>题目让你添加一列的时候要 assign, 因为添加的列后续还要用到</strong>
+<ul>
+<li><code>data &lt;- data |&gt; mutate(new_col = ...)</code></li>
+</ul></li>
+<li><strong>最终手段 (实在来不及的话)</strong>
+<ul>
+<li>省略所有空格, 比如 <code>filter(score&gt;=10)</code>, <code>mean=round(mean(score),2)</code></li>
+<li>用 <code>T/F</code> 代替 <code>TRUE/FALSE</code>, 比如 <code>na.rm=T</code> 等价于 <code>na.rm = TRUE</code></li>
+<li>给 RStudio 添加 Snippet <a href="#rstudio-snippet">(详细介绍)</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="一.-观察数据" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 一. 观察数据</h1>
+<section id="行数-列数" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="行数-列数"><span class="header-section-number">1.1</span> 1. 行数 / 列数</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(data)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(data)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="有多少符合条件的-obs" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="有多少符合条件的-obs"><span class="header-section-number">1.2</span> 2. 有多少符合条件的 obs</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> <span class="fu">filter</span>(条件) <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 已知 data 有 type 列, 其中只有 "comment" 和 "post" 两种值</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 求一共多少个 post</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法1: 用 nrow() 直接返回行数, 其他 dplyr 函数都需要最终用 pull() 来取出数值</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法2:</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(type) <span class="sc">|&gt;</span>  <span class="co"># 此处 count 和 filter 的顺序即使调换结果也一样</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(n)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法3:</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(n)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="某列中-obs-数量最多的-category-是哪个" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="某列中-obs-数量最多的-category-是哪个"><span class="header-section-number">1.3</span> 3. 某列中 obs 数量最多的 category 是哪个</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> <span class="fu">count</span>(col, <span class="at">sort=</span>T) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(col)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 已知 data 里有 date 列, 其 datatype 是 Date (yyyy-mm-dd)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 求哪一年的 post 最多</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法1:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(<span class="at">year =</span> <span class="fu">year</span>(date), <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="co"># 上一行已经指定了 sort=T, 此处直接用 head(1) 即可</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(year)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法2:</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(<span class="at">year =</span> <span class="fu">year</span>(date)) <span class="sc">|&gt;</span> <span class="co"># count 生成一个两列的 df, year 和 n</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(n, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="co"># 第一个 n 是列名, 第二个是行数, 意为选取n最大的一行</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(year)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="某列的-min-max-值是多少" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="某列的-min-max-值是多少"><span class="header-section-number">1.4</span> 4. 某列的 min / max 值是多少</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 问的是所有行的话 (e.g. "overall activity", "across the whole dataframe")</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 无需用 pipe, 如果有限制条件 (e.g. "only posts"), 先 filter</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(data<span class="sc">$</span>col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(data<span class="sc">$</span>col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="某列有多少-unique-value" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="某列有多少-unique-value"><span class="header-section-number">1.5</span> 5. 某列有多少 unique value</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(data<span class="sc">$</span>col)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="二.-清理数据" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 二. 清理数据</h1>
+<section id="求-mean-median-并-round-2-位小数" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="求-mean-median-并-round-2-位小数"><span class="header-section-number">2.1</span> 1. 求 mean / median 并 round 2 位小数</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">round</span>(<span class="fu">mean</span>(col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">|&gt;</span> <span class="fu">pull</span>(mean)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 求 2019 年 post 的 score 的平均值, 保留 2 位小数</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">round</span>(<span class="fu">mean</span>(score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(mean)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 求每年的 post median score, 保留 2 位小数, </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 按 median score 从高到低排列, 展示成一个 dataframe</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="at">year =</span> <span class="fu">year</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">median_score =</span> <span class="fu">round</span>(<span class="fu">median</span>(score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">.groups =</span> <span class="st">"drop"</span>  <span class="co"># group + summarize 必须加上 drop</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(median_score)) <span class="co"># 排序, 也可以写成 arrange(-median_score)</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="增加一列" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="增加一列"><span class="header-section-number">2.2</span> 2. 增加一列</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">new_col =</span> 对于col进行操作)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加一列 字符数</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">text_length =</span> <span class="fu">str_length</span>(text))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加一列 单词数</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">word_count =</span> <span class="fu">str_count</span>(text, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>))</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="某列最大值所在行的另一列值" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="某列最大值所在行的另一列值"><span class="header-section-number">2.3</span> 3. 某列最大值所在行的另一列值</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(col1, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(col2)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: word_count 最多的 post 的 author 是谁?</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 问的是 post, 但 data 里不都是 post, 首先要 filter </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(word_count, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(author)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="求-text-length-字符数" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="求-text-length-字符数"><span class="header-section-number">2.4</span> 4. 求 text length (字符数)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(text)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="求单词数量" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="求单词数量"><span class="header-section-number">2.5</span> 5. 求单词数量</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(text, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="三.-可视化" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 三. 可视化</h1>
+<section id="bar-chart" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="bar-chart"><span class="header-section-number">3.1</span> Bar Chart</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 画出 2019 年每月 post 数量的 bar chart</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 第一步: 获取用于绘图的数据</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>bar_data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(<span class="at">month =</span> <span class="fu">month</span>(date)) <span class="co"># 无需 sort = TRUE</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 第二步: 画图</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bar_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(month), <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># month 列是数字, 直接用的话 x 轴会变成连续的, 要用 factor(month)</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注: 由于"月份"是时间, 本身有顺序, 无需把 bar 按照大小排列;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 如果是 nominal 比如"地区", 可以用 x = reorder(area, -n) 来降序排列</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 如果地区过多或地区名称过长, 可以用 coord_flip() 来转成横向 bar chart</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注意要用 geom_col 而不是 _bar, 因为此处 y 是 n 列中的值 (预先计算好的行数),</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 而不是让 ggplot 自己去数 x 中不同 category 的行数</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span> <span class="co"># 随便指定一个喜欢的颜色</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Monthly Post Count in 2019"</span>,</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Month"</span>,</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Post Count"</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="histogram" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="histogram"><span class="header-section-number">3.2</span> Histogram</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 画出 post score 的 histogram</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data <span class="sc">|&gt;</span> <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>), <span class="fu">aes</span>(<span class="at">x =</span> score)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span> <span class="co"># 指定 bin 数</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Post Score Distribution"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Post Score"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="四.-文本分析" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 四. 文本分析</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 用一个 dataframe 展示出 post 中 top10 词频的词, 并保存到 top1 词成变量</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(stop_words) <span class="sc">|&gt;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>top1 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(stop_words) <span class="sc">|&gt;</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(word)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="五.-统计" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 五. 统计</h1>
+<section id="求统计量" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="求统计量"><span class="header-section-number">5.1</span> 1. 求统计量</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sd</span>(data<span class="sc">$</span>col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(data<span class="sc">$</span>col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="先处理再求统计量" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="先处理再求统计量"><span class="header-section-number">5.2</span> 2. 先处理再求统计量</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(条件) <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> <span class="fu">pull</span>(mean)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="检测统计量-解读结果" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="检测统计量-解读结果"><span class="header-section-number">5.3</span> 3. 检测统计量 + 解读结果</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(col1 <span class="sc">~</span> col2, <span class="at">data =</span> data)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="线性回归-系数" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="线性回归-系数"><span class="header-section-number">5.4</span> 4. 线性回归 + 系数</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(col1 <span class="sc">~</span> col2, <span class="at">data =</span> data)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(m)[[<span class="dv">1</span>]]  <span class="co"># intercept</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(m)[[<span class="dv">2</span>]]  <span class="co"># slope</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="附加" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> 附加</h1>
+<section id="常用-dplyr-函数" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="常用-dplyr-函数"><span class="header-section-number">6.1</span> 常用 dplyr 函数</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>filter(条件)</code></td>
+<td>保留满足条件的<mark>行</mark></td>
+<td><code>filter(type == "post" &amp; score &gt; 10)</code></td>
+</tr>
+<tr class="even">
+<td><code>select(列)</code></td>
+<td>根据列名选列 <mark>(考试很少用)</mark></td>
+<td><code>select(col1)</code>, <code>col1:col3</code>, <code>-col3</code></td>
+</tr>
+<tr class="odd">
+<td><code>count(列)</code></td>
+<td>这列中所有 unique value 的行数</td>
+<td><code>count(year = year(date), <span class="red">sort = TRUE</span>)</code></td>
+</tr>
+<tr class="even">
+<td><code>nrow()</code></td>
+<td>数当前有多少行</td>
+<td>没有参数, 一般配合 <code>filter()</code> 使用:<br><code>filter(score &gt; mean(score, na.rm=T)) |&gt; nrow()</code></td>
+</tr>
+<tr class="odd">
+<td><code>slice_max(列, n=行数)</code></td>
+<td>选出这列中值最大的行</td>
+<td><code>slice_max(score, <span class="red">n</span> = 10)</code></td>
+</tr>
+<tr class="even">
+<td><code>pull(列)</code></td>
+<td>返回这列的值</td>
+<td>一般先 filter / slice_max / head / summarize 到只剩一行, 然后 <code>pull(列名)</code>, 比如:<br><code>summarize(mean_age=mean(age,na.rm=T))|&gt; pull(mean_age)</code></td>
+</tr>
+<tr class="odd">
+<td><code>mutate(新列=表达式)</code></td>
+<td>在原df基础上添加/修改列</td>
+<td><code>mutate(perc = col1/col2*100)</code></td>
+</tr>
+<tr class="even">
+<td><code>group_by(分类的列)</code></td>
+<td>分组 (配合 summarize/mutate)</td>
+<td><code>group_by(age)</code></td>
+</tr>
+<tr class="odd">
+<td><code>summarize(...)</code></td>
+<td>返回总结报告</td>
+<td><code>group_by(age) |&gt;</code><br><code>summarize(<span class="red">avg</span> = mean(score, na.rm=T), <span class="red">.groups=“drop”</span>)</code></td>
+</tr>
+<tr class="even">
+<td><code>arrange(列)</code></td>
+<td>排序（默认升序）</td>
+<td><code>arrange(age, <span class="red">desc</span>(score))</code></td>
+</tr>
+<tr class="odd">
+<td><code>glimpse(df)</code></td>
+<td>查看结构（≈ <code>str()</code>）</td>
+<td><code>glimpse(data)</code></td>
+</tr>
+<tr class="even">
+<td><code>rename(新=旧)</code></td>
+<td>重命名列（不新建列）</td>
+<td><code>rename(new_col = old_col)</code></td>
+</tr>
+</tbody>
+</table>
+<p><mark>考试很少用到 select, 用 filter 更多</mark></p>
+<blockquote class="blockquote">
+<p><code>group_by</code> + <code>summarize</code>：必须加 <code>.groups="drop"</code>；保留分组列 + 汇总列，行数压缩为每组一行 <code>group_by</code> + <code>mutate</code>：保留所有列且行数不变，之后须 <code>ungroup()</code> <code>mean(condition)</code> → 满足条件的<strong>比例</strong>；<code>sum(condition)</code> → 满足条件的<strong>个数</strong></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>注意区分 <code>nrow()</code> 和 <code>n()</code> : 同样是数行数, <code>nrow()</code> 接受 dataframe 作为参数; <code>n()</code> 是 dplyr 上下文函数, 只能在 <code>summarize()</code> / <code>mutate()</code> 内部使用 (如 <code>summarize(number_of_observation = n())</code>), pipe 时只能用 <code>nrow()</code></p>
+</blockquote>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 例题: </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 已知 data 有一列 type, 只有 "post" 和 "comment" 两种值;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 另一列 word_count 是帖子或评论中的词数, 求有多少帖子词数少于10</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> word_count <span class="sc">&lt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>() <span class="co"># 直接返回数字</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> word_count <span class="sc">&lt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> <span class="co"># summarize() 仍然返回 dataframe</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(count) <span class="co"># 需要 pull 才能得到数字</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="filter-中的逻辑运算符" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="filter-中的逻辑运算符"><span class="header-section-number">6.2</span> filter() 中的逻辑运算符</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>!</code> <code>&amp;</code> <code>|</code></td>
+<td>not / and / or</td>
+</tr>
+<tr class="even">
+<td><code>==</code> <code>!=</code></td>
+<td>向量相等 / 不等</td>
+</tr>
+<tr class="odd">
+<td><code>&gt;</code> <code>&gt;=</code> <code>&lt;</code> <code>&lt;=</code></td>
+<td>大于 / 大于等于 / 小于 / 小于等于</td>
+</tr>
+<tr class="even">
+<td><code>%in%</code></td>
+<td>左元素是否存在于右向量 (非向量比较)</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><code>%in%</code> 判断元素存在性；<code>==</code> 按位置匹配（长度不等会循环）</p>
+</blockquote>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 例题: </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 已知 data 中有一列 date, 该列的 datatype 是 Date (yyyy-mm-dd);</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 已知另一列 type, 该列有 "post" 和 "comment" 两种值;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 求年份是 2019 和 2023 的 post 一共有多少个</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">2023</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>()</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 条件1 是 type 为 "post", 用 == 符号</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 条件2 是 年份 为 2019 或 2023,</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#    首先要取出 date 列中的 年份, 使用 year() 取出完整日期(yyyy-mm-dd)中的年份;</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">#    然后满足年份是 2019 或 2023, 此处可以用两种方法: </span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">#      1) (year(date) == 2019 | year(date) == 2023)</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co">#      2) year(date) %in% c(2019, 2023)</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 同时满足两个条件, 用 &amp; 符号连接</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co">#    注: 如果上一步使用了 1) 的写法, 最好在外面加上括号后再用 &amp; 连接两个条件</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 用 nrow() 数符合 filter 条件的一共有多少行</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 扩展: </span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果求年份从 2019 到 2023 的所有 post 一共有多少个, 可以用</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   year(date) %in% 2019:2023</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 因为 2019:2023 实际返回 c(2019, 2020, 2021, 2022, 2023)</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="select-中的辅助函数" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="select-中的辅助函数"><span class="header-section-number">6.3</span> select() 中的辅助函数</h2>
+<p><mark>注意: select 选择的是列, 不是行; 考试很少用到 select, 用 filter 更多</mark><br>
+如果要求 “选择以 c 开头的 post” 不可以用 <code>select(starts_with("c"))</code></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>写法</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>select(col1<span class="red">:</span>col3)</code></td>
+<td>选 col1 到 col3</td>
+</tr>
+<tr class="even">
+<td><code>select(<span class="red">-</span>col3)</code></td>
+<td>排除 col3</td>
+</tr>
+<tr class="odd">
+<td><code>select(<span class="red">contains</span>(“x”))</code></td>
+<td>列名含 “x”</td>
+</tr>
+<tr class="even">
+<td><code>select(<span class="red">starts_with</span>(“c”))</code></td>
+<td>列名以 “c” 开头</td>
+</tr>
+<tr class="odd">
+<td><code>select(<span class="red">ends_with</span>(“3”))</code></td>
+<td>列名以 “3” 结尾</td>
+</tr>
+<tr class="even">
+<td><code>select(<span class="red">everything</span>())</code></td>
+<td>全选</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="regex" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="regex"><span class="header-section-number">6.4</span> Regex</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加一列 字符数</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">text_length =</span> <span class="fu">str_length</span>(text))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加一列 单词数</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">word_count =</span> <span class="fu">str_count</span>(text, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>))</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Pattern</th>
+<th>Meaning</th>
+<th>Example</th>
+<th>Matches</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>.</code></td>
+<td>任意单个字符</td>
+<td><code>"a.c"</code></td>
+<td>“abc”, “a1c”, “a c”</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>^</code></td>
+<td>字符串开头</td>
+<td><code>"^The"</code></td>
+<td>“The dog” 但不匹配 “See The dog”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>$</code></td>
+<td>字符串结尾</td>
+<td><code>"end$"</code></td>
+<td>“the end” 但不匹配 “endless”</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>*</code></td>
+<td>前一个字符出现零次或多次</td>
+<td><code>"ab*c"</code></td>
+<td>“ac”, “abc”, “abbc”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>+</code></td>
+<td>前一个字符出现一次或多次</td>
+<td><code>"ab+c"</code></td>
+<td>“abc”, “abbc” 但不匹配 “ac”</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>?</code></td>
+<td>前一个字符出现零次或一次</td>
+<td><code>"colou?r"</code></td>
+<td>“color”, “colour”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>\\</code></td>
+<td>转义特殊字符</td>
+<td><code>"\\."</code></td>
+<td>字面意义的句点 “.”</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[abc]</code></td>
+<td>匹配 a、b 或 c</td>
+<td><code>"[aeiou]"</code> 匹配元音</td>
+</tr>
+<tr class="even">
+<td><code>[a-z]</code></td>
+<td>匹配任意小写字母</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>[A-Z]</code></td>
+<td>匹配任意大写字母</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>[0-9]</code></td>
+<td>匹配任意数字</td>
+<td>等同于 <code>\\d</code></td>
+</tr>
+<tr class="odd">
+<td><code>[^abc]</code></td>
+<td>匹配除 a、b、c 以外的任意字符</td>
+<td><code>[^0-9]</code> 匹配非数字</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Shorthand</th>
+<th>Meaning</th>
+<th>Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>\\d</code></td>
+<td>任意数字</td>
+<td><code>[0-9]</code></td>
+</tr>
+<tr class="even">
+<td><code>\\D</code></td>
+<td>任意非数字</td>
+<td><code>[^0-9]</code></td>
+</tr>
+<tr class="odd">
+<td><code>\\w</code></td>
+<td>任意单词字符</td>
+<td><code>[a-zA-Z0-9_]</code></td>
+</tr>
+<tr class="even">
+<td><code>\\W</code></td>
+<td>任意非单词字符</td>
+<td><code>[^a-zA-Z0-9_]</code></td>
+</tr>
+<tr class="odd">
+<td><code>\\s</code></td>
+<td>任意空白字符</td>
+<td>空格、制表符、换行</td>
+</tr>
+<tr class="even">
+<td><code>\\S</code></td>
+<td>任意非空白字符</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="stringr-函数" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="stringr-函数"><span class="header-section-number">6.5</span> stringr 函数</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 32%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>str_detect()</code></td>
+<td>是否存在匹配（返回 TRUE/FALSE）</td>
+<td><code>str_detect(x, "pattern")</code></td>
+</tr>
+<tr class="even">
+<td><code>str_subset()</code></td>
+<td>返回匹配的元素</td>
+<td><code>str_subset(x, "pattern")</code></td>
+</tr>
+<tr class="odd">
+<td><code>str_extract()</code></td>
+<td>提取第一个匹配</td>
+<td><code>str_extract(x, "pattern")</code></td>
+</tr>
+<tr class="even">
+<td><code>str_extract_all()</code></td>
+<td>提取所有匹配</td>
+<td><code>str_extract_all(x, "pattern")</code></td>
+</tr>
+<tr class="odd">
+<td><code>str_replace()</code></td>
+<td>替换第一个匹配</td>
+<td><code>str_replace(x, "pattern", "replacement")</code></td>
+</tr>
+<tr class="even">
+<td><code>str_replace_all()</code></td>
+<td>替换所有匹配</td>
+<td><code>str_replace_all(x, "pattern", "replacement")</code></td>
+</tr>
+<tr class="odd">
+<td><code>str_match()</code></td>
+<td>提取第一个匹配的分组</td>
+<td><code>str_match(x, "pattern")</code></td>
+</tr>
+<tr class="even">
+<td><code>str_count()</code></td>
+<td>统计匹配次数</td>
+<td><code>str_count(x, "pattern")</code></td>
+</tr>
+<tr class="odd">
+<td><code>str_split()</code></td>
+<td>按模式拆分字符串</td>
+<td><code>str_split(x, "pattern")</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="常用颜色名称" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="常用颜色名称"><span class="header-section-number">6.6</span> 常用颜色名称</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 20%">
+<col style="width: 30%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>颜色名称</th>
+<th style="text-align: center;">预览</th>
+<th>颜色名称</th>
+<th style="text-align: center;">预览</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pink</td>
+<td style="text-align: center;"><span style="color:pink">████</span></td>
+<td>beige</td>
+<td style="text-align: center;"><span style="color:beige">████</span></td>
+</tr>
+<tr class="even">
+<td>lightpink</td>
+<td style="text-align: center;"><span style="color:lightpink">████</span></td>
+<td>darkseagreen</td>
+<td style="text-align: center;"><span style="color:darkseagreen">████</span></td>
+</tr>
+<tr class="odd">
+<td>lightcoral</td>
+<td style="text-align: center;"><span style="color:lightcoral">████</span></td>
+<td>mediumseagreen</td>
+<td style="text-align: center;"><span style="color:mediumseagreen">████</span></td>
+</tr>
+<tr class="even">
+<td>palevioletred</td>
+<td style="text-align: center;"><span style="color:palevioletred">████</span></td>
+<td>forestgreen</td>
+<td style="text-align: center;"><span style="color:forestgreen">████</span></td>
+</tr>
+<tr class="odd">
+<td>rosybrown</td>
+<td style="text-align: center;"><span style="color:rosybrown">████</span></td>
+<td>green</td>
+<td style="text-align: center;"><span style="color:green">████</span></td>
+</tr>
+<tr class="even">
+<td>indianred</td>
+<td style="text-align: center;"><span style="color:indianred">████</span></td>
+<td>seagreen</td>
+<td style="text-align: center;"><span style="color:seagreen">████</span></td>
+</tr>
+<tr class="odd">
+<td>firebrick</td>
+<td style="text-align: center;"><span style="color:firebrick">████</span></td>
+<td>teal</td>
+<td style="text-align: center;"><span style="color:teal">████</span></td>
+</tr>
+<tr class="even">
+<td>tomato</td>
+<td style="text-align: center;"><span style="color:tomato">████</span></td>
+<td>lightseagreen</td>
+<td style="text-align: center;"><span style="color:lightseagreen">████</span></td>
+</tr>
+<tr class="odd">
+<td>coral</td>
+<td style="text-align: center;"><span style="color:coral">████</span></td>
+<td>mediumaquamarine</td>
+<td style="text-align: center;"><span style="color:mediumaquamarine">████</span></td>
+</tr>
+<tr class="even">
+<td>salmon</td>
+<td style="text-align: center;"><span style="color:salmon">████</span></td>
+<td>powderblue</td>
+<td style="text-align: center;"><span style="color:powderblue">████</span></td>
+</tr>
+<tr class="odd">
+<td>lightsalmon</td>
+<td style="text-align: center;"><span style="color:lightsalmon">████</span></td>
+<td>lightblue</td>
+<td style="text-align: center;"><span style="color:lightblue">████</span></td>
+</tr>
+<tr class="even">
+<td>sandybrown</td>
+<td style="text-align: center;"><span style="color:sandybrown">████</span></td>
+<td>skyblue</td>
+<td style="text-align: center;"><span style="color:skyblue">████</span></td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td style="text-align: center;"><span style="color:orange">████</span></td>
+<td>lightskyblue</td>
+<td style="text-align: center;"><span style="color:lightskyblue">████</span></td>
+</tr>
+<tr class="even">
+<td>peru</td>
+<td style="text-align: center;"><span style="color:peru">████</span></td>
+<td>lightsteelblue</td>
+<td style="text-align: center;"><span style="color:lightsteelblue">████</span></td>
+</tr>
+<tr class="odd">
+<td>tan</td>
+<td style="text-align: center;"><span style="color:tan">████</span></td>
+<td>steelblue</td>
+<td style="text-align: center;"><span style="color:steelblue">████</span></td>
+</tr>
+<tr class="even">
+<td>wheat</td>
+<td style="text-align: center;"><span style="color:wheat">████</span></td>
+<td>mediumpurple</td>
+<td style="text-align: center;"><span style="color:mediumpurple">████</span></td>
+</tr>
+<tr class="odd">
+<td>bisque</td>
+<td style="text-align: center;"><span style="color:bisque">████</span></td>
+<td>plum</td>
+<td style="text-align: center;"><span style="color:plum">████</span></td>
+</tr>
+<tr class="even">
+<td>linen</td>
+<td style="text-align: center;"><span style="color:linen">████</span></td>
+<td>thistle</td>
+<td style="text-align: center;"><span style="color:thistle">████</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="相对路径" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="相对路径"><span class="header-section-number">6.7</span> 相对路径</h2>
+<ul>
+<li><strong>相对路径</strong>
+<ul>
+<li>把 Rmd 和 csv 存在同一个文件夹内</li>
+<li>然后用 <code>data &lt;- read_csv("./exam-data.csv")</code> 导入数据</li>
+<li><code>./</code> 意为当前 (Rmd 所在的) 文件夹</li>
+<li>最好用<mark>相对路径</mark>, 可以避免由于路径中带有空格而导致的bug</li>
+</ul></li>
+<li><strong>绝对路径</strong>
+<ul>
+<li>在 Finder 中选中 csv 文件后按 <mark>⌥⌘C</mark> 可以快速复制文件绝对路径</li>
+<li>例: <code>data &lt;- read_csv("/Users/username/EM747/mid-exam/exam-data.csv")</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="rstudio-snippet" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="rstudio-snippet"><span class="header-section-number">6.8</span> RStudio Snippet</h2>
+<p>在 RStudio &gt; Tools &gt; Edit Code Snippets<br>
+<img src="../../../src/img/ttl/r-tips/rstudio-snippet-1.png" class="img-fluid" width="400" alt="RStudio Snippet: 1"></p>
+<p>R &gt; 在最下方添加新代码 &gt; 保存<br>
+<img src="../../../src/img/ttl/r-tips/rstudio-snippet-2.png" class="img-fluid" alt="RStudio Snippet: 2"></p>
+<p><strong>比如 ggplot 画图的代码:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>snippet ggplot</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="sc">$</span>{<span class="dv">1</span><span class="sc">:</span>data}, <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">$</span>{<span class="dv">2</span><span class="sc">:</span>x}, <span class="at">y =</span> <span class="sc">$</span>{<span class="dv">3</span><span class="sc">:</span>y})) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        geom_<span class="sc">$</span>{<span class="dv">4</span><span class="sc">:</span>bar}(<span class="sc">$</span>{<span class="dv">5</span><span class="sc">:</span>fill} <span class="ot">=</span> <span class="st">"${6:steelblue}"</span>) <span class="sc">+</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">title =</span> <span class="st">"${7:title}"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">x =</span> <span class="st">"${8:xlab}"</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="st">"${9:ylab}"</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>保存成功后, 在 R 代码块里输入 <code>ggplot</code>, 选择 snippet<br>
+<img src="../../../src/img/ttl/r-tips/rstudio-snippet-3.png" class="img-fluid" width="550" alt="RStudio Snippet: 3"></p>
+<p>按回车, 自动嵌入模板<br>
+<img src="../../../src/img/ttl/r-tips/rstudio-snippet-4.png" class="img-fluid" width="350" alt="RStudio Snippet: 4"></p>
+<p><a href="#">↑回到顶部</a></p>
+
+
+<!-- -->
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> 回到顶部</a></main> <!-- /main -->
+<script id="fix-code-fold" type="text/javascript">
+    const showBtn = document.getElementById('quarto-show-all-code');
+    const hideBtn = document.getElementById('quarto-hide-all-code');
+
+    if (showBtn) {
+        showBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                el.setAttribute('open', '');
+            });
+        });
+    }
+
+    if (hideBtn) {
+        hideBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                el.removeAttribute('open');
+            });
+        });
+    }
+</script>
+<script>
+    function switchLanguage(targetLang) {
+        const path = window.location.pathname;
+        // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
+        const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
+        if (match) {
+            const base = match[1];
+            const rest = match[3] || '/';
+            window.location.pathname = base + '/' + targetLang + rest;
+        } else {
+            window.location.pathname = '/' + targetLang + '/';
+        }
+    }
+
+    const NAV_TRANSLATIONS = {
+        en: { Projects: 'Projects', Tutorials: 'Tutorials', Hobbies: 'Hobbies', About: 'About' },
+        zh: { Projects: '项目',    Tutorials: '教程',       Hobbies: '爱好',    About: '关于' },
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (text === 'English') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('en');
+                });
+            } else if (text === '中文') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('zh');
+                });
+            }
+        });
+
+        // Translate navbar left-side links to match the current page language
+        const langMatch = window.location.pathname.match(/\/(en|zh)\//);
+        const lang = langMatch ? langMatch[1] : 'en';
+        const translations = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.en;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (translations[text]) {
+                el.textContent = translations[text];
+            }
+            // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
+            if (lang === 'zh' && el.href && el.href.includes('/en/')) {
+                el.href = el.href.replace('/en/', '/zh/');
+            } else if (lang === 'en' && el.href && el.href.includes('/zh/')) {
+                el.href = el.href.replace('/zh/', '/en/');
+            }
+        });
+    });
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Pinn32\.github\.io\/dv-projects\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "EM747 Midterm Tips"</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># date: 2026-03-27</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Top Tips {.unnumbered}</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**确保写了姓名和 ID**</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**先做简单题, 遇到不会的立刻跳过**</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**用相对路径导入csv [(详细介绍)](#相对路径)**</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**所有统计量都要加上 `na.rm = TRUE`**</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>sum / mean / median / min / max / sd / IQR 等</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**看仔细 data unit 是什么, 以及题目问的对象**</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>仔细看每一行代表了一个什么</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>如果有一列叫 <span class="in">`type`</span>, 其内容要么是 <span class="in">`post`</span> 要么是 <span class="in">`comment`</span>, </span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>      那么此时整个表格的行单位并非 post; 这时如果问 "score 大于 10 的 <span class="al">==post== 有几条", 首先要筛选 `filter(type ==</span> "post")`</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`count()`时如果要预先操作的话, 最好加上新列名**</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>比如 <span class="in">`count(month = month(Date))`</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**注意区分 `select(col)` 和 `filter(condition)` [(详细介绍)](#filter-中的逻辑运算符)**</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`filter(condition)`</span> 用来选择行, <span class="in">`select(col)`</span> 用来选择列</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**学会用 `nrow()` 得到行数, `pull()` 得到值**</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**学会 stringr 和 regex**</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>字符个数: <span class="in">`mutate(text_length = str_length(text))`</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>单词个数: <span class="in">`mutate(word_count = str_count(text, "\\S+"))`</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**题目让你添加一列的时候要 assign, 因为添加的列后续还要用到**</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`data &lt;- data |&gt; mutate(new_col = ...)`</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**最终手段 (实在来不及的话)**</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>省略所有空格, 比如 <span class="in">`filter(score&gt;=10)`</span>, <span class="in">`mean=round(mean(score),2)`</span></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>用 <span class="in">`T/F`</span> 代替 <span class="in">`TRUE/FALSE`</span>, 比如 <span class="in">`na.rm=T`</span> 等价于 <span class="in">`na.rm = TRUE`</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>给 RStudio 添加 Snippet <span class="co">[</span><span class="ot">(详细介绍)</span><span class="co">](#rstudio-snippet)</span></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="fu"># 一. 观察数据</span></span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. 行数 / 列数</span></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(data)</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(data)</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. 有多少符合条件的 obs</span></span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> <span class="fu">filter</span>(条件) <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 已知 data 有 type 列, 其中只有 "comment" 和 "post" 两种值</span></span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 求一共多少个 post</span></span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法1: 用 nrow() 直接返回行数, 其他 dplyr 函数都需要最终用 pull() 来取出数值</span></span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>()</span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法2:</span></span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(type) <span class="sc">|&gt;</span>  <span class="co"># 此处 count 和 filter 的顺序即使调换结果也一样</span></span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(n)</span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法3:</span></span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(n)</span>
+<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. 某列中 obs 数量最多的 category 是哪个</span></span>
+<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> <span class="fu">count</span>(col, <span class="at">sort=</span>T) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(col)</span>
+<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 已知 data 里有 date 列, 其 datatype 是 Date (yyyy-mm-dd)</span></span>
+<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a><span class="co"># 求哪一年的 post 最多</span></span>
+<span id="cb28-78"><a href="#cb28-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-79"><a href="#cb28-79" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法1:</span></span>
+<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-82"><a href="#cb28-82" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(<span class="at">year =</span> <span class="fu">year</span>(date), <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-83"><a href="#cb28-83" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="co"># 上一行已经指定了 sort=T, 此处直接用 head(1) 即可</span></span>
+<span id="cb28-84"><a href="#cb28-84" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(year)</span>
+<span id="cb28-85"><a href="#cb28-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-86"><a href="#cb28-86" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法2:</span></span>
+<span id="cb28-87"><a href="#cb28-87" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-88"><a href="#cb28-88" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-89"><a href="#cb28-89" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(<span class="at">year =</span> <span class="fu">year</span>(date)) <span class="sc">|&gt;</span> <span class="co"># count 生成一个两列的 df, year 和 n</span></span>
+<span id="cb28-90"><a href="#cb28-90" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(n, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="co"># 第一个 n 是列名, 第二个是行数, 意为选取n最大的一行</span></span>
+<span id="cb28-91"><a href="#cb28-91" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(year)</span>
+<span id="cb28-92"><a href="#cb28-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-93"><a href="#cb28-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-94"><a href="#cb28-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. 某列的 min / max 值是多少</span></span>
+<span id="cb28-95"><a href="#cb28-95" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-96"><a href="#cb28-96" aria-hidden="true" tabindex="-1"></a><span class="co"># 问的是所有行的话 (e.g. "overall activity", "across the whole dataframe")</span></span>
+<span id="cb28-97"><a href="#cb28-97" aria-hidden="true" tabindex="-1"></a><span class="co"># 无需用 pipe, 如果有限制条件 (e.g. "only posts"), 先 filter</span></span>
+<span id="cb28-98"><a href="#cb28-98" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(data<span class="sc">$</span>col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-99"><a href="#cb28-99" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(data<span class="sc">$</span>col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-100"><a href="#cb28-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-101"><a href="#cb28-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-102"><a href="#cb28-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. 某列有多少 unique value</span></span>
+<span id="cb28-103"><a href="#cb28-103" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-104"><a href="#cb28-104" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(data<span class="sc">$</span>col)</span>
+<span id="cb28-105"><a href="#cb28-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-106"><a href="#cb28-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-107"><a href="#cb28-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-108"><a href="#cb28-108" aria-hidden="true" tabindex="-1"></a><span class="fu"># 二. 清理数据</span></span>
+<span id="cb28-109"><a href="#cb28-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-110"><a href="#cb28-110" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. 求 mean / median 并 round 2 位小数</span></span>
+<span id="cb28-111"><a href="#cb28-111" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-112"><a href="#cb28-112" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">round</span>(<span class="fu">mean</span>(col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">|&gt;</span> <span class="fu">pull</span>(mean)</span>
+<span id="cb28-113"><a href="#cb28-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-114"><a href="#cb28-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-115"><a href="#cb28-115" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-116"><a href="#cb28-116" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 求 2019 年 post 的 score 的平均值, 保留 2 位小数</span></span>
+<span id="cb28-117"><a href="#cb28-117" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-118"><a href="#cb28-118" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-119"><a href="#cb28-119" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">round</span>(<span class="fu">mean</span>(score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb28-120"><a href="#cb28-120" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(mean)</span>
+<span id="cb28-121"><a href="#cb28-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-122"><a href="#cb28-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-123"><a href="#cb28-123" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-124"><a href="#cb28-124" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 求每年的 post median score, 保留 2 位小数, </span></span>
+<span id="cb28-125"><a href="#cb28-125" aria-hidden="true" tabindex="-1"></a><span class="co"># 按 median score 从高到低排列, 展示成一个 dataframe</span></span>
+<span id="cb28-126"><a href="#cb28-126" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-127"><a href="#cb28-127" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-128"><a href="#cb28-128" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(<span class="at">year =</span> <span class="fu">year</span>(date)) <span class="sc">|&gt;</span></span>
+<span id="cb28-129"><a href="#cb28-129" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb28-130"><a href="#cb28-130" aria-hidden="true" tabindex="-1"></a>        <span class="at">median_score =</span> <span class="fu">round</span>(<span class="fu">median</span>(score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>),</span>
+<span id="cb28-131"><a href="#cb28-131" aria-hidden="true" tabindex="-1"></a>        <span class="at">.groups =</span> <span class="st">"drop"</span>  <span class="co"># group + summarize 必须加上 drop</span></span>
+<span id="cb28-132"><a href="#cb28-132" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb28-133"><a href="#cb28-133" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(median_score)) <span class="co"># 排序, 也可以写成 arrange(-median_score)</span></span>
+<span id="cb28-134"><a href="#cb28-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-135"><a href="#cb28-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-136"><a href="#cb28-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. 增加一列</span></span>
+<span id="cb28-137"><a href="#cb28-137" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-138"><a href="#cb28-138" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">new_col =</span> 对于col进行操作)</span>
+<span id="cb28-139"><a href="#cb28-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-140"><a href="#cb28-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-141"><a href="#cb28-141" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-142"><a href="#cb28-142" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加一列 字符数</span></span>
+<span id="cb28-143"><a href="#cb28-143" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb28-144"><a href="#cb28-144" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">text_length =</span> <span class="fu">str_length</span>(text))</span>
+<span id="cb28-145"><a href="#cb28-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-146"><a href="#cb28-146" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加一列 单词数</span></span>
+<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb28-148"><a href="#cb28-148" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">word_count =</span> <span class="fu">str_count</span>(text, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>))</span>
+<span id="cb28-149"><a href="#cb28-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-150"><a href="#cb28-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-151"><a href="#cb28-151" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. 某列最大值所在行的另一列值</span></span>
+<span id="cb28-152"><a href="#cb28-152" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-153"><a href="#cb28-153" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb28-154"><a href="#cb28-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(col1, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-155"><a href="#cb28-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(col2)</span>
+<span id="cb28-156"><a href="#cb28-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-157"><a href="#cb28-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-158"><a href="#cb28-158" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-159"><a href="#cb28-159" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: word_count 最多的 post 的 author 是谁?</span></span>
+<span id="cb28-160"><a href="#cb28-160" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-161"><a href="#cb28-161" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 问的是 post, 但 data 里不都是 post, 首先要 filter </span></span>
+<span id="cb28-162"><a href="#cb28-162" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-163"><a href="#cb28-163" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(word_count, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(author)</span>
+<span id="cb28-165"><a href="#cb28-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-166"><a href="#cb28-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-167"><a href="#cb28-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. 求 text length (字符数)</span></span>
+<span id="cb28-168"><a href="#cb28-168" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-169"><a href="#cb28-169" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(text)</span>
+<span id="cb28-170"><a href="#cb28-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-171"><a href="#cb28-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-172"><a href="#cb28-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. 求单词数量</span></span>
+<span id="cb28-173"><a href="#cb28-173" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-174"><a href="#cb28-174" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(text, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>)</span>
+<span id="cb28-175"><a href="#cb28-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-176"><a href="#cb28-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-177"><a href="#cb28-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-178"><a href="#cb28-178" aria-hidden="true" tabindex="-1"></a><span class="fu"># 三. 可视化</span></span>
+<span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bar Chart</span></span>
+<span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 画出 2019 年每月 post 数量的 bar chart</span></span>
+<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a><span class="co"># 第一步: 获取用于绘图的数据</span></span>
+<span id="cb28-184"><a href="#cb28-184" aria-hidden="true" tabindex="-1"></a>bar_data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb28-185"><a href="#cb28-185" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">==</span> <span class="dv">2019</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(<span class="at">month =</span> <span class="fu">month</span>(date)) <span class="co"># 无需 sort = TRUE</span></span>
+<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a><span class="co"># 第二步: 画图</span></span>
+<span id="cb28-189"><a href="#cb28-189" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bar_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(month), <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb28-190"><a href="#cb28-190" aria-hidden="true" tabindex="-1"></a>    <span class="co"># month 列是数字, 直接用的话 x 轴会变成连续的, 要用 factor(month)</span></span>
+<span id="cb28-191"><a href="#cb28-191" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注: 由于"月份"是时间, 本身有顺序, 无需把 bar 按照大小排列;</span></span>
+<span id="cb28-192"><a href="#cb28-192" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 如果是 nominal 比如"地区", 可以用 x = reorder(area, -n) 来降序排列</span></span>
+<span id="cb28-193"><a href="#cb28-193" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 如果地区过多或地区名称过长, 可以用 coord_flip() 来转成横向 bar chart</span></span>
+<span id="cb28-194"><a href="#cb28-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-195"><a href="#cb28-195" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 注意要用 geom_col 而不是 _bar, 因为此处 y 是 n 列中的值 (预先计算好的行数),</span></span>
+<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 而不是让 ggplot 自己去数 x 中不同 category 的行数</span></span>
+<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span> <span class="co"># 随便指定一个喜欢的颜色</span></span>
+<span id="cb28-198"><a href="#cb28-198" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-199"><a href="#cb28-199" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb28-200"><a href="#cb28-200" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Monthly Post Count in 2019"</span>,</span>
+<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Month"</span>,</span>
+<span id="cb28-202"><a href="#cb28-202" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Post Count"</span></span>
+<span id="cb28-203"><a href="#cb28-203" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-204"><a href="#cb28-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-205"><a href="#cb28-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a><span class="fu">## Histogram</span></span>
+<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a><span class="co"># 画出 post score 的 histogram</span></span>
+<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data <span class="sc">|&gt;</span> <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>), <span class="fu">aes</span>(<span class="at">x =</span> score)) <span class="sc">+</span></span>
+<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span> <span class="co"># 指定 bin 数</span></span>
+<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Post Score Distribution"</span>,</span>
+<span id="cb28-213"><a href="#cb28-213" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Post Score"</span>,</span>
+<span id="cb28-214"><a href="#cb28-214" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Frequency"</span></span>
+<span id="cb28-215"><a href="#cb28-215" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-216"><a href="#cb28-216" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a><span class="fu"># 四. 文本分析</span></span>
+<span id="cb28-219"><a href="#cb28-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-220"><a href="#cb28-220" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a><span class="co"># 例: 用一个 dataframe 展示出 post 中 top10 词频的词, 并保存到 top1 词成变量</span></span>
+<span id="cb28-222"><a href="#cb28-222" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-223"><a href="#cb28-223" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(stop_words) <span class="sc">|&gt;</span></span>
+<span id="cb28-226"><a href="#cb28-226" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb28-228"><a href="#cb28-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-229"><a href="#cb28-229" aria-hidden="true" tabindex="-1"></a>top1 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-231"><a href="#cb28-231" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb28-232"><a href="#cb28-232" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(stop_words) <span class="sc">|&gt;</span></span>
+<span id="cb28-233"><a href="#cb28-233" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-234"><a href="#cb28-234" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(word)</span>
+<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-238"><a href="#cb28-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a><span class="fu"># 五. 统计</span></span>
+<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-241"><a href="#cb28-241" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. 求统计量</span></span>
+<span id="cb28-242"><a href="#cb28-242" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-243"><a href="#cb28-243" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">sd</span>(data<span class="sc">$</span>col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)</span>
+<span id="cb28-244"><a href="#cb28-244" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(data<span class="sc">$</span>col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-245"><a href="#cb28-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-246"><a href="#cb28-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-247"><a href="#cb28-247" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. 先处理再求统计量</span></span>
+<span id="cb28-248"><a href="#cb28-248" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(条件) <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(col, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> <span class="fu">pull</span>(mean)</span>
+<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-251"><a href="#cb28-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-252"><a href="#cb28-252" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. 检测统计量 + 解读结果</span></span>
+<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(col1 <span class="sc">~</span> col2, <span class="at">data =</span> data)</span>
+<span id="cb28-255"><a href="#cb28-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. 线性回归 + 系数</span></span>
+<span id="cb28-258"><a href="#cb28-258" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(col1 <span class="sc">~</span> col2, <span class="at">data =</span> data)</span>
+<span id="cb28-260"><a href="#cb28-260" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(m)[[<span class="dv">1</span>]]  <span class="co"># intercept</span></span>
+<span id="cb28-261"><a href="#cb28-261" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(m)[[<span class="dv">2</span>]]  <span class="co"># slope</span></span>
+<span id="cb28-262"><a href="#cb28-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-265"><a href="#cb28-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a><span class="fu"># 附加</span></span>
+<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-268"><a href="#cb28-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## 常用 dplyr 函数</span></span>
+<span id="cb28-269"><a href="#cb28-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-270"><a href="#cb28-270" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 函数 <span class="pp">|</span> 作用 <span class="pp">|</span> 示例 <span class="pp">|</span></span>
+<span id="cb28-271"><a href="#cb28-271" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------|------|</span></span>
+<span id="cb28-272"><a href="#cb28-272" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`filter(条件)`</span> <span class="pp">|</span> 保留满足条件的<span class="al">==行== | `filter(type ==</span> "post" &amp; score &gt; 10)` <span class="pp">|</span></span>
+<span id="cb28-273"><a href="#cb28-273" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`select(列)`</span> <span class="pp">|</span> 根据列名选列 <span class="al">==(考试很少用)==</span> <span class="pp">|</span> <span class="in">`select(col1)`</span>, <span class="in">`col1:col3`</span>, <span class="in">`-col3`</span> <span class="pp">|</span></span>
+<span id="cb28-274"><a href="#cb28-274" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`count(列)`</span> <span class="pp">|</span> 这列中所有 unique value 的行数 <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>count(year = year(date), <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>sort = TRUE<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>)<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-275"><a href="#cb28-275" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`nrow()`</span> <span class="pp">|</span> 数当前有多少行 <span class="pp">|</span> 没有参数, 一般配合 <span class="in">`filter()`</span> 使用:<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>filter(score &gt; mean(score, na.rm=T)) <span class="sc">\|</span>&gt; nrow()<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-276"><a href="#cb28-276" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`slice_max(列, n=行数)`</span> <span class="pp">|</span> 选出这列中值最大的行 <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>slice_max(score, <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>n<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> = 10)<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-277"><a href="#cb28-277" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`pull(列)`</span> <span class="pp">|</span> 返回这列的值 <span class="pp">|</span> 一般先 filter / slice_max / head / summarize 到只剩一行, 然后 <span class="in">`pull(列名)`</span>, 比如:<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>summarize(mean_age=mean(age,na.rm=T))<span class="sc">\|</span>&gt; pull(mean_age)<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-278"><a href="#cb28-278" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`mutate(新列=表达式)`</span> <span class="pp">|</span> 在原df基础上添加/修改列 <span class="pp">|</span> <span class="in">`mutate(perc = col1/col2*100)`</span> <span class="pp">|</span></span>
+<span id="cb28-279"><a href="#cb28-279" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_by(分类的列)`</span> <span class="pp">|</span> 分组 (配合 summarize/mutate) <span class="pp">|</span> <span class="in">`group_by(age)`</span> <span class="pp">|</span></span>
+<span id="cb28-280"><a href="#cb28-280" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`summarize(...)`</span> <span class="pp">|</span> 返回总结报告 <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>group_by(age) <span class="sc">\|</span>&gt;<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;&lt;</span><span class="kw">br</span><span class="dt">&gt;&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>summarize(<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>avg<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> = mean(score, na.rm=T), <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>.groups="drop"<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>)<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-281"><a href="#cb28-281" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`arrange(列)`</span> <span class="pp">|</span> 排序（默认升序） <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>arrange(age, <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>desc<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>(score))<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-282"><a href="#cb28-282" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`glimpse(df)`</span> <span class="pp">|</span> 查看结构（≈ <span class="in">`str()`</span>） <span class="pp">|</span> <span class="in">`glimpse(data)`</span> <span class="pp">|</span></span>
+<span id="cb28-283"><a href="#cb28-283" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`rename(新=旧)`</span> <span class="pp">|</span> 重命名列（不新建列） <span class="pp">|</span> <span class="in">`rename(new_col = old_col)`</span> <span class="pp">|</span></span>
+<span id="cb28-284"><a href="#cb28-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-285"><a href="#cb28-285" aria-hidden="true" tabindex="-1"></a><span class="al">==考试很少用到 select, 用 filter 更多==</span></span>
+<span id="cb28-286"><a href="#cb28-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-287"><a href="#cb28-287" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`group_by`</span><span class="at"> + </span><span class="in">`summarize`</span><span class="at">：必须加 </span><span class="in">`.groups="drop"`</span><span class="at">；保留分组列 + 汇总列，行数压缩为每组一行</span></span>
+<span id="cb28-288"><a href="#cb28-288" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`group_by`</span><span class="at"> + </span><span class="in">`mutate`</span><span class="at">：保留所有列且行数不变，之后须 </span><span class="in">`ungroup()`</span></span>
+<span id="cb28-289"><a href="#cb28-289" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`mean(condition)`</span><span class="at"> → 满足条件的**比例**；`sum(condition)` → 满足条件的**个数**</span></span>
+<span id="cb28-290"><a href="#cb28-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-291"><a href="#cb28-291" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 注意区分 </span><span class="in">`nrow()`</span><span class="at"> 和 </span><span class="in">`n()`</span><span class="at"> : 同样是数行数, </span><span class="in">`nrow()`</span><span class="at"> 接受 dataframe 作为参数; </span><span class="in">`n()`</span><span class="at"> 是 dplyr 上下文函数, 只能在 </span><span class="in">`summarize()`</span><span class="at"> / </span><span class="in">`mutate()`</span><span class="at"> 内部使用 (如 </span><span class="in">`summarize(number_of_observation = n())`</span><span class="at">), pipe 时只能用 </span><span class="in">`nrow()`</span></span>
+<span id="cb28-292"><a href="#cb28-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-293"><a href="#cb28-293" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-294"><a href="#cb28-294" aria-hidden="true" tabindex="-1"></a><span class="co"># 例题: </span></span>
+<span id="cb28-295"><a href="#cb28-295" aria-hidden="true" tabindex="-1"></a><span class="co"># 已知 data 有一列 type, 只有 "post" 和 "comment" 两种值;</span></span>
+<span id="cb28-296"><a href="#cb28-296" aria-hidden="true" tabindex="-1"></a><span class="co"># 另一列 word_count 是帖子或评论中的词数, 求有多少帖子词数少于10</span></span>
+<span id="cb28-297"><a href="#cb28-297" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb28-298"><a href="#cb28-298" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> word_count <span class="sc">&lt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-299"><a href="#cb28-299" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>() <span class="co"># 直接返回数字</span></span>
+<span id="cb28-300"><a href="#cb28-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-301"><a href="#cb28-301" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-302"><a href="#cb28-302" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> word_count <span class="sc">&lt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-303"><a href="#cb28-303" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> <span class="co"># summarize() 仍然返回 dataframe</span></span>
+<span id="cb28-304"><a href="#cb28-304" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(count) <span class="co"># 需要 pull 才能得到数字</span></span>
+<span id="cb28-305"><a href="#cb28-305" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-306"><a href="#cb28-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-307"><a href="#cb28-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-308"><a href="#cb28-308" aria-hidden="true" tabindex="-1"></a><span class="fu">## filter() 中的逻辑运算符</span></span>
+<span id="cb28-309"><a href="#cb28-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-310"><a href="#cb28-310" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Operator <span class="pp">|</span> 说明 <span class="pp">|</span></span>
+<span id="cb28-311"><a href="#cb28-311" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------|------|</span></span>
+<span id="cb28-312"><a href="#cb28-312" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`!`</span> <span class="in">`&amp;`</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span><span class="sc">\|</span><span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span> not / and / or <span class="pp">|</span></span>
+<span id="cb28-313"><a href="#cb28-313" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`==`</span> <span class="in">`!=`</span> <span class="pp">|</span> 向量相等 / 不等 <span class="pp">|</span></span>
+<span id="cb28-314"><a href="#cb28-314" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`&gt;`</span> <span class="in">`&gt;=`</span> <span class="in">`&lt;`</span> <span class="in">`&lt;=`</span> <span class="pp">|</span> 大于 / 大于等于 / 小于 / 小于等于 <span class="pp">|</span></span>
+<span id="cb28-315"><a href="#cb28-315" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`%in%`</span> <span class="pp">|</span> 左元素是否存在于右向量 (非向量比较) <span class="pp">|</span></span>
+<span id="cb28-316"><a href="#cb28-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-317"><a href="#cb28-317" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`%in%`</span><span class="at"> 判断元素存在性；</span><span class="in">`==`</span><span class="at"> 按位置匹配（长度不等会循环）</span></span>
+<span id="cb28-318"><a href="#cb28-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-319"><a href="#cb28-319" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-320"><a href="#cb28-320" aria-hidden="true" tabindex="-1"></a><span class="co"># 例题: </span></span>
+<span id="cb28-321"><a href="#cb28-321" aria-hidden="true" tabindex="-1"></a><span class="co"># 已知 data 中有一列 date, 该列的 datatype 是 Date (yyyy-mm-dd);</span></span>
+<span id="cb28-322"><a href="#cb28-322" aria-hidden="true" tabindex="-1"></a><span class="co"># 已知另一列 type, 该列有 "post" 和 "comment" 两种值;</span></span>
+<span id="cb28-323"><a href="#cb28-323" aria-hidden="true" tabindex="-1"></a><span class="co"># 求年份是 2019 和 2023 的 post 一共有多少个</span></span>
+<span id="cb28-324"><a href="#cb28-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-325"><a href="#cb28-325" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb28-326"><a href="#cb28-326" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"post"</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2019</span>, <span class="dv">2023</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb28-327"><a href="#cb28-327" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>()</span>
+<span id="cb28-328"><a href="#cb28-328" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-329"><a href="#cb28-329" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 条件1 是 type 为 "post", 用 == 符号</span></span>
+<span id="cb28-330"><a href="#cb28-330" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 条件2 是 年份 为 2019 或 2023,</span></span>
+<span id="cb28-331"><a href="#cb28-331" aria-hidden="true" tabindex="-1"></a><span class="co">#    首先要取出 date 列中的 年份, 使用 year() 取出完整日期(yyyy-mm-dd)中的年份;</span></span>
+<span id="cb28-332"><a href="#cb28-332" aria-hidden="true" tabindex="-1"></a><span class="co">#    然后满足年份是 2019 或 2023, 此处可以用两种方法: </span></span>
+<span id="cb28-333"><a href="#cb28-333" aria-hidden="true" tabindex="-1"></a><span class="co">#      1) (year(date) == 2019 | year(date) == 2023)</span></span>
+<span id="cb28-334"><a href="#cb28-334" aria-hidden="true" tabindex="-1"></a><span class="co">#      2) year(date) %in% c(2019, 2023)</span></span>
+<span id="cb28-335"><a href="#cb28-335" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 同时满足两个条件, 用 &amp; 符号连接</span></span>
+<span id="cb28-336"><a href="#cb28-336" aria-hidden="true" tabindex="-1"></a><span class="co">#    注: 如果上一步使用了 1) 的写法, 最好在外面加上括号后再用 &amp; 连接两个条件</span></span>
+<span id="cb28-337"><a href="#cb28-337" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 用 nrow() 数符合 filter 条件的一共有多少行</span></span>
+<span id="cb28-338"><a href="#cb28-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-339"><a href="#cb28-339" aria-hidden="true" tabindex="-1"></a><span class="co"># 扩展: </span></span>
+<span id="cb28-340"><a href="#cb28-340" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果求年份从 2019 到 2023 的所有 post 一共有多少个, 可以用</span></span>
+<span id="cb28-341"><a href="#cb28-341" aria-hidden="true" tabindex="-1"></a><span class="co">#   year(date) %in% 2019:2023</span></span>
+<span id="cb28-342"><a href="#cb28-342" aria-hidden="true" tabindex="-1"></a><span class="co"># 因为 2019:2023 实际返回 c(2019, 2020, 2021, 2022, 2023)</span></span>
+<span id="cb28-343"><a href="#cb28-343" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-344"><a href="#cb28-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-345"><a href="#cb28-345" aria-hidden="true" tabindex="-1"></a><span class="fu">## select() 中的辅助函数</span></span>
+<span id="cb28-346"><a href="#cb28-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-347"><a href="#cb28-347" aria-hidden="true" tabindex="-1"></a><span class="al">==注意: select 选择的是列, 不是行; 考试很少用到 select, 用 filter 更多==</span>  </span>
+<span id="cb28-348"><a href="#cb28-348" aria-hidden="true" tabindex="-1"></a>如果要求 "选择以 c 开头的 post" 不可以用 <span class="in">`select(starts_with("c"))`</span></span>
+<span id="cb28-349"><a href="#cb28-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-350"><a href="#cb28-350" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 写法 <span class="pp">|</span> 效果 <span class="pp">|</span></span>
+<span id="cb28-351"><a href="#cb28-351" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------|</span></span>
+<span id="cb28-352"><a href="#cb28-352" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>select(col1<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>:<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>col3)<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span> 选 col1 到 col3 <span class="pp">|</span></span>
+<span id="cb28-353"><a href="#cb28-353" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>select(<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>-<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>col3)<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span> 排除 col3 <span class="pp">|</span></span>
+<span id="cb28-354"><a href="#cb28-354" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>select(<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>contains<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>("x"))<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span> 列名含 "x" <span class="pp">|</span></span>
+<span id="cb28-355"><a href="#cb28-355" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>select(<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>starts_with<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>("c"))<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span> 列名以 "c" 开头 <span class="pp">|</span></span>
+<span id="cb28-356"><a href="#cb28-356" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>select(<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>ends_with<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>("3"))<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span> 列名以 "3" 结尾 <span class="pp">|</span></span>
+<span id="cb28-357"><a href="#cb28-357" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>select(<span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"red"</span><span class="dt">&gt;</span>everything<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>())<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span> <span class="pp">|</span> 全选 <span class="pp">|</span></span>
+<span id="cb28-358"><a href="#cb28-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-359"><a href="#cb28-359" aria-hidden="true" tabindex="-1"></a><span class="fu">## Regex</span></span>
+<span id="cb28-360"><a href="#cb28-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-361"><a href="#cb28-361" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-362"><a href="#cb28-362" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加一列 字符数</span></span>
+<span id="cb28-363"><a href="#cb28-363" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb28-364"><a href="#cb28-364" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">text_length =</span> <span class="fu">str_length</span>(text))</span>
+<span id="cb28-365"><a href="#cb28-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-366"><a href="#cb28-366" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加一列 单词数</span></span>
+<span id="cb28-367"><a href="#cb28-367" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb28-368"><a href="#cb28-368" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">word_count =</span> <span class="fu">str_count</span>(text, <span class="st">"</span><span class="sc">\\</span><span class="st">S+"</span>))</span>
+<span id="cb28-369"><a href="#cb28-369" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-370"><a href="#cb28-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-371"><a href="#cb28-371" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pattern <span class="pp">|</span> Meaning <span class="pp">|</span> Example <span class="pp">|</span> Matches <span class="pp">|</span></span>
+<span id="cb28-372"><a href="#cb28-372" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---------:|---------|---------|---------|</span></span>
+<span id="cb28-373"><a href="#cb28-373" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`.`</span> <span class="pp">|</span> 任意单个字符 <span class="pp">|</span> <span class="in">`"a.c"`</span> <span class="pp">|</span> "abc", "a1c", "a c" <span class="pp">|</span></span>
+<span id="cb28-374"><a href="#cb28-374" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`^`</span> <span class="pp">|</span> 字符串开头 <span class="pp">|</span> <span class="in">`"^The"`</span> <span class="pp">|</span> "The dog" 但不匹配 "See The dog" <span class="pp">|</span></span>
+<span id="cb28-375"><a href="#cb28-375" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`$`</span> <span class="pp">|</span> 字符串结尾 <span class="pp">|</span> <span class="in">`"end$"`</span> <span class="pp">|</span> "the end" 但不匹配 "endless" <span class="pp">|</span></span>
+<span id="cb28-376"><a href="#cb28-376" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`*`</span> <span class="pp">|</span> 前一个字符出现零次或多次 <span class="pp">|</span> <span class="in">`"ab*c"`</span> <span class="pp">|</span> "ac", "abc", "abbc" <span class="pp">|</span></span>
+<span id="cb28-377"><a href="#cb28-377" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`+`</span> <span class="pp">|</span> 前一个字符出现一次或多次 <span class="pp">|</span> <span class="in">`"ab+c"`</span> <span class="pp">|</span> "abc", "abbc" 但不匹配 "ac" <span class="pp">|</span></span>
+<span id="cb28-378"><a href="#cb28-378" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`?`</span> <span class="pp">|</span> 前一个字符出现零次或一次 <span class="pp">|</span> <span class="in">`"colou?r"`</span> <span class="pp">|</span> "color", "colour" <span class="pp">|</span></span>
+<span id="cb28-379"><a href="#cb28-379" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`\\`</span> <span class="pp">|</span> 转义特殊字符 <span class="pp">|</span> <span class="in">`"\\."`</span> <span class="pp">|</span> 字面意义的句点 "." <span class="pp">|</span></span>
+<span id="cb28-380"><a href="#cb28-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-381"><a href="#cb28-381" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pattern <span class="pp">|</span> Meaning <span class="pp">|</span> Example <span class="pp">|</span></span>
+<span id="cb28-382"><a href="#cb28-382" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|---------|---------|</span></span>
+<span id="cb28-383"><a href="#cb28-383" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`[abc]`</span> <span class="pp">|</span> 匹配 a、b 或 c <span class="pp">|</span> <span class="in">`"[aeiou]"`</span> 匹配元音 <span class="pp">|</span></span>
+<span id="cb28-384"><a href="#cb28-384" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`[a-z]`</span> <span class="pp">|</span> 匹配任意小写字母 <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb28-385"><a href="#cb28-385" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`[A-Z]`</span> <span class="pp">|</span> 匹配任意大写字母 <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb28-386"><a href="#cb28-386" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`[0-9]`</span> <span class="pp">|</span> 匹配任意数字 <span class="pp">|</span> 等同于 <span class="in">`\\d`</span> <span class="pp">|</span></span>
+<span id="cb28-387"><a href="#cb28-387" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`[^abc]`</span> <span class="pp">|</span> 匹配除 a、b、c 以外的任意字符 <span class="pp">|</span> <span class="in">`[^0-9]`</span> 匹配非数字 <span class="pp">|</span></span>
+<span id="cb28-388"><a href="#cb28-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-389"><a href="#cb28-389" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Shorthand <span class="pp">|</span> Meaning <span class="pp">|</span> Equivalent <span class="pp">|</span></span>
+<span id="cb28-390"><a href="#cb28-390" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|---------|------------|</span></span>
+<span id="cb28-391"><a href="#cb28-391" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`\\d`</span> <span class="pp">|</span> 任意数字 <span class="pp">|</span> <span class="in">`[0-9]`</span> <span class="pp">|</span></span>
+<span id="cb28-392"><a href="#cb28-392" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`\\D`</span> <span class="pp">|</span> 任意非数字 <span class="pp">|</span> <span class="in">`[^0-9]`</span> <span class="pp">|</span></span>
+<span id="cb28-393"><a href="#cb28-393" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`\\w`</span> <span class="pp">|</span> 任意单词字符 <span class="pp">|</span> <span class="in">`[a-zA-Z0-9_]`</span> <span class="pp">|</span></span>
+<span id="cb28-394"><a href="#cb28-394" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`\\W`</span> <span class="pp">|</span> 任意非单词字符 <span class="pp">|</span> <span class="in">`[^a-zA-Z0-9_]`</span> <span class="pp">|</span></span>
+<span id="cb28-395"><a href="#cb28-395" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`\\s`</span> <span class="pp">|</span> 任意空白字符 <span class="pp">|</span> 空格、制表符、换行 <span class="pp">|</span></span>
+<span id="cb28-396"><a href="#cb28-396" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`\\S`</span> <span class="pp">|</span> 任意非空白字符 <span class="pp">|</span> <span class="pp">|</span></span>
+<span id="cb28-397"><a href="#cb28-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-398"><a href="#cb28-398" aria-hidden="true" tabindex="-1"></a><span class="fu">## stringr 函数</span></span>
+<span id="cb28-399"><a href="#cb28-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-400"><a href="#cb28-400" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Function <span class="pp">|</span> Purpose <span class="pp">|</span> Example <span class="pp">|</span></span>
+<span id="cb28-401"><a href="#cb28-401" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------|---------|---------|</span></span>
+<span id="cb28-402"><a href="#cb28-402" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`str_detect()`</span> <span class="pp">|</span> 是否存在匹配（返回 TRUE/FALSE） <span class="pp">|</span> <span class="in">`str_detect(x, "pattern")`</span> <span class="pp">|</span></span>
+<span id="cb28-403"><a href="#cb28-403" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`str_subset()`</span> <span class="pp">|</span> 返回匹配的元素 <span class="pp">|</span> <span class="in">`str_subset(x, "pattern")`</span> <span class="pp">|</span></span>
+<span id="cb28-404"><a href="#cb28-404" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`str_extract()`</span> <span class="pp">|</span> 提取第一个匹配 <span class="pp">|</span> <span class="in">`str_extract(x, "pattern")`</span> <span class="pp">|</span></span>
+<span id="cb28-405"><a href="#cb28-405" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`str_extract_all()`</span> <span class="pp">|</span> 提取所有匹配 <span class="pp">|</span> <span class="in">`str_extract_all(x, "pattern")`</span> <span class="pp">|</span></span>
+<span id="cb28-406"><a href="#cb28-406" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`str_replace()`</span> <span class="pp">|</span> 替换第一个匹配 <span class="pp">|</span> <span class="in">`str_replace(x, "pattern", "replacement")`</span> <span class="pp">|</span></span>
+<span id="cb28-407"><a href="#cb28-407" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`str_replace_all()`</span> <span class="pp">|</span> 替换所有匹配 <span class="pp">|</span> <span class="in">`str_replace_all(x, "pattern", "replacement")`</span> <span class="pp">|</span></span>
+<span id="cb28-408"><a href="#cb28-408" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`str_match()`</span> <span class="pp">|</span> 提取第一个匹配的分组 <span class="pp">|</span> <span class="in">`str_match(x, "pattern")`</span> <span class="pp">|</span></span>
+<span id="cb28-409"><a href="#cb28-409" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`str_count()`</span> <span class="pp">|</span> 统计匹配次数 <span class="pp">|</span> <span class="in">`str_count(x, "pattern")`</span> <span class="pp">|</span></span>
+<span id="cb28-410"><a href="#cb28-410" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`str_split()`</span> <span class="pp">|</span> 按模式拆分字符串 <span class="pp">|</span> <span class="in">`str_split(x, "pattern")`</span> <span class="pp">|</span></span>
+<span id="cb28-411"><a href="#cb28-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-412"><a href="#cb28-412" aria-hidden="true" tabindex="-1"></a><span class="fu">## 常用颜色名称</span></span>
+<span id="cb28-413"><a href="#cb28-413" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 颜色名称 <span class="pp">|</span> 预览 <span class="pp">|</span> 颜色名称 <span class="pp">|</span> 预览 <span class="pp">|</span></span>
+<span id="cb28-414"><a href="#cb28-414" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|:----:|---------|:----:|</span></span>
+<span id="cb28-415"><a href="#cb28-415" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> pink <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:pink"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> beige <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:beige"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-416"><a href="#cb28-416" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> lightpink <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:lightpink"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> darkseagreen <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:darkseagreen"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-417"><a href="#cb28-417" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> lightcoral <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:lightcoral"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> mediumseagreen <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:mediumseagreen"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-418"><a href="#cb28-418" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> palevioletred <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:palevioletred"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> forestgreen <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:forestgreen"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-419"><a href="#cb28-419" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> rosybrown <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:rosybrown"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> green <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:green"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-420"><a href="#cb28-420" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> indianred <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:indianred"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> seagreen <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:seagreen"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-421"><a href="#cb28-421" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> firebrick <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:firebrick"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> teal <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:teal"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-422"><a href="#cb28-422" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> tomato <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:tomato"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> lightseagreen <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:lightseagreen"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-423"><a href="#cb28-423" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> coral <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:coral"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> mediumaquamarine <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:mediumaquamarine"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-424"><a href="#cb28-424" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> salmon <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:salmon"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> powderblue <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:powderblue"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-425"><a href="#cb28-425" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> lightsalmon <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:lightsalmon"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> lightblue <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:lightblue"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-426"><a href="#cb28-426" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> sandybrown <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:sandybrown"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> skyblue <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:skyblue"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-427"><a href="#cb28-427" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> orange <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:orange"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> lightskyblue <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:lightskyblue"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-428"><a href="#cb28-428" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> peru <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:peru"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> lightsteelblue <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:lightsteelblue"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-429"><a href="#cb28-429" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> tan <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:tan"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> steelblue <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:steelblue"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-430"><a href="#cb28-430" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> wheat <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:wheat"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> mediumpurple <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:mediumpurple"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-431"><a href="#cb28-431" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> bisque <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:bisque"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> plum <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:plum"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-432"><a href="#cb28-432" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> linen <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:linen"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span> thistle <span class="pp">|</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:thistle"</span><span class="dt">&gt;</span>████<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="pp">|</span></span>
+<span id="cb28-433"><a href="#cb28-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-434"><a href="#cb28-434" aria-hidden="true" tabindex="-1"></a><span class="fu">## 相对路径</span></span>
+<span id="cb28-435"><a href="#cb28-435" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**相对路径**</span>
+<span id="cb28-436"><a href="#cb28-436" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>把 Rmd 和 csv 存在同一个文件夹内</span>
+<span id="cb28-437"><a href="#cb28-437" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>然后用 <span class="in">`data &lt;- read_csv("./exam-data.csv")`</span> 导入数据</span>
+<span id="cb28-438"><a href="#cb28-438" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`./`</span> 意为当前 (Rmd 所在的) 文件夹</span>
+<span id="cb28-439"><a href="#cb28-439" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>最好用<span class="al">==相对路径==</span>, 可以避免由于路径中带有空格而导致的bug</span>
+<span id="cb28-440"><a href="#cb28-440" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**绝对路径**</span>
+<span id="cb28-441"><a href="#cb28-441" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>在 Finder 中选中 csv 文件后按 <span class="al">==⌥⌘C==</span> 可以快速复制文件绝对路径</span>
+<span id="cb28-442"><a href="#cb28-442" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>例: <span class="in">`data &lt;- read_csv("/Users/username/EM747/mid-exam/exam-data.csv")`</span></span>
+<span id="cb28-443"><a href="#cb28-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-444"><a href="#cb28-444" aria-hidden="true" tabindex="-1"></a><span class="fu">## RStudio Snippet</span></span>
+<span id="cb28-445"><a href="#cb28-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-446"><a href="#cb28-446" aria-hidden="true" tabindex="-1"></a>在 RStudio &gt; Tools &gt; Edit Code Snippets  </span>
+<span id="cb28-447"><a href="#cb28-447" aria-hidden="true" tabindex="-1"></a><span class="al">![RStudio Snippet: 1](../../../src/img/ttl/r-tips/rstudio-snippet-1.png)</span>{width="400px"}</span>
+<span id="cb28-448"><a href="#cb28-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-449"><a href="#cb28-449" aria-hidden="true" tabindex="-1"></a>R &gt; 在最下方添加新代码 &gt; 保存  </span>
+<span id="cb28-450"><a href="#cb28-450" aria-hidden="true" tabindex="-1"></a><span class="al">![RStudio Snippet: 2](../../../src/img/ttl/r-tips/rstudio-snippet-2.png)</span></span>
+<span id="cb28-451"><a href="#cb28-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-452"><a href="#cb28-452" aria-hidden="true" tabindex="-1"></a>**比如 ggplot 画图的代码:**</span>
+<span id="cb28-453"><a href="#cb28-453" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb28-454"><a href="#cb28-454" aria-hidden="true" tabindex="-1"></a>snippet ggplot</span>
+<span id="cb28-455"><a href="#cb28-455" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="sc">$</span>{<span class="dv">1</span><span class="sc">:</span>data}, <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">$</span>{<span class="dv">2</span><span class="sc">:</span>x}, <span class="at">y =</span> <span class="sc">$</span>{<span class="dv">3</span><span class="sc">:</span>y})) <span class="sc">+</span></span>
+<span id="cb28-456"><a href="#cb28-456" aria-hidden="true" tabindex="-1"></a>        geom_<span class="sc">$</span>{<span class="dv">4</span><span class="sc">:</span>bar}(<span class="sc">$</span>{<span class="dv">5</span><span class="sc">:</span>fill} <span class="ot">=</span> <span class="st">"${6:steelblue}"</span>) <span class="sc">+</span> </span>
+<span id="cb28-457"><a href="#cb28-457" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(</span>
+<span id="cb28-458"><a href="#cb28-458" aria-hidden="true" tabindex="-1"></a>            <span class="at">title =</span> <span class="st">"${7:title}"</span>,</span>
+<span id="cb28-459"><a href="#cb28-459" aria-hidden="true" tabindex="-1"></a>            <span class="at">x =</span> <span class="st">"${8:xlab}"</span>,</span>
+<span id="cb28-460"><a href="#cb28-460" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="st">"${9:ylab}"</span></span>
+<span id="cb28-461"><a href="#cb28-461" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb28-462"><a href="#cb28-462" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-463"><a href="#cb28-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-464"><a href="#cb28-464" aria-hidden="true" tabindex="-1"></a>保存成功后, 在 R 代码块里输入 <span class="in">`ggplot`</span>, 选择 snippet  </span>
+<span id="cb28-465"><a href="#cb28-465" aria-hidden="true" tabindex="-1"></a><span class="al">![RStudio Snippet: 3](../../../src/img/ttl/r-tips/rstudio-snippet-3.png)</span>{width="550px"} </span>
+<span id="cb28-466"><a href="#cb28-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-467"><a href="#cb28-467" aria-hidden="true" tabindex="-1"></a>按回车, 自动嵌入模板  </span>
+<span id="cb28-468"><a href="#cb28-468" aria-hidden="true" tabindex="-1"></a><span class="al">![RStudio Snippet: 4](../../../src/img/ttl/r-tips/rstudio-snippet-4.png)</span>{width="350px"}</span>
+<span id="cb28-469"><a href="#cb28-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-470"><a href="#cb28-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-471"><a href="#cb28-471" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">↑回到顶部</span><span class="co">](#)</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/r-tips/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

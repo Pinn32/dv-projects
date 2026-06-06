@@ -342,12 +342,9 @@ window.Quarto = {
   <div class="quarto-categories">
     <div class="quarto-category">Python</div>
     <div class="quarto-category">Visualization</div>
-    <div class="quarto-category">Multivariate Plots</div>
+    <div class="quarto-category">Multivariate</div>
     <div class="quarto-category">FacetGrid</div>
-    <div class="quarto-category">Scatter Plot</div>
-    <div class="quarto-category">Line Plot</div>
     <div class="quarto-category">Heatmap</div>
-    <div class="quarto-category">2D Histogram</div>
     <div class="quarto-category">Joint Plot</div>
     <div class="quarto-category">Pair Plot</div>
   </div>
@@ -388,19 +385,19 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     20 min read</span><span> · </span><span>3879 EN words</span><span> · </span><span>0 中文字</span></div>
+     20 min read</span><span> · </span><span>3838 EN words</span><span> · </span><span>0 中文字</span></div>
 <section id="multivariate-data" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Multivariate Data</h1>
 <p><strong>“Tidy/flat” tabular data:</strong> Each row is one <strong>observation</strong> (also called instance or record), and each column is one <strong>variable</strong> (also called attribute, feature, or parameter).</p>
 <p>Typically, <strong>multivariate</strong> refers to data with more than two variables — a multivariate plot generally uses three or more columns from the original DataFrame.</p>
 <p>When creating a bar chart, in addition to the x and y variables, you can also set the <code>hue</code> parameter to include a third variable. For example, <a href="#fig-bar-variables" class="quarto-xref">Figure&nbsp;1</a> includes three variables: <code>'island'</code>, <code>'body_mass_g'</code>, and <code>'sex'</code>.</p>
-<div id="35b41a17" class="cell" data-execution_count="1">
+<div id="b2d70ad9" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="c7229735" class="cell" data-execution_count="2">
+<div id="2ed1e0b1" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load example dataset from Seaborn</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -553,7 +550,7 @@ Figure&nbsp;6: Improved version: consistent axis ranges (Wilke, 2019, p.&nbsp;25
 <div id="fig-pointplot-category-amount" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pointplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pointplot-category-amount-output-1.png" width="585" height="431" class="figure-img">
+<img src="index_files/figure-html/fig-pointplot-category-amount-output-1.png" width="585" height="429" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pointplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: Point plot: penguin species vs.&nbsp;bill length (black lines are error bars)
@@ -1865,48 +1862,60 @@ Figure&nbsp;41: Pair plot: histogram form
         });
     }
 </script>
-<!-- <script>
-(function () {
-    const path = window.location.pathname;
-
-    const isZh = path.includes("/zh/");
-
-    const target = isZh
-        ? path.replace("/zh/", "/")
-        : "/zh" + path;
-
-    document.querySelectorAll(".navbar .lang-switch").forEach(el => {
-        el.href = target;
-    });
-})();
-</script> -->
-
-
 <script>
-function switchLanguage(targetLang) {
-    const path = window.location.pathname;
-    const match = path.match(/^\/(en|zh)(\/.*)?$/);
-    const rest = match ? (match[2] || '/') : '/';
-    window.location.pathname = '/' + targetLang + rest;
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  // 遍历所有 navbar 下拉菜单链接，按文字匹配
-    document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
-        const text = el.textContent.trim();
-        if (text === 'English') {
-            el.addEventListener('click', function (e) {
-            e.preventDefault();
-            switchLanguage('en');
-            });
-        } else if (text === '中文') {
-            el.addEventListener('click', function (e) {
-            e.preventDefault();
-            switchLanguage('zh');
-            });
+    function switchLanguage(targetLang) {
+        const path = window.location.pathname;
+        // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
+        const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
+        if (match) {
+            const base = match[1];
+            const rest = match[3] || '/';
+            window.location.pathname = base + '/' + targetLang + rest;
+        } else {
+            window.location.pathname = '/' + targetLang + '/';
         }
+    }
+
+    const NAV_TRANSLATIONS = {
+        en: { Projects: 'Projects', Tutorials: 'Tutorials', Hobbies: 'Hobbies', About: 'About' },
+        zh: { Projects: '项目',    Tutorials: '教程',       Hobbies: '爱好',    About: '关于' },
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (text === 'English') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('en');
+                });
+            } else if (text === '中文') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('zh');
+                });
+            }
+        });
+
+        // Translate navbar left-side links to match the current page language
+        const langMatch = window.location.pathname.match(/\/(en|zh)\//);
+        const lang = langMatch ? langMatch[1] : 'en';
+        const translations = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.en;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (translations[text]) {
+                el.textContent = translations[text];
+            }
+            // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
+            if (lang === 'zh' && el.href && el.href.includes('/en/')) {
+                el.href = el.href.replace('/en/', '/zh/');
+            } else if (lang === 'en' && el.href && el.href.includes('/zh/')) {
+                el.href = el.href.replace('/zh/', '/en/');
+            }
+        });
     });
-});
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2363,7 +2372,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> 'Multivariate Plots'</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> '2024-10-27'</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> ["Python", "Visualization", "Multivariate Plots", "FacetGrid", "Scatter Plot", "Line Plot", "Heatmap", "2D Histogram", "Joint Plot", "Pair Plot"]</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> ["Python", "Visualization", "Multivariate", "FacetGrid", "Heatmap", "Joint Plot", "Pair Plot"]</span></span>
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> 'This tutorial introduces how to use the Seaborn library to create common multivariate visualizations, including scatter plots, line plots, heatmaps, 2D histograms, joint plots, and pair plots, and how to adjust parameters for clearer data communication.'</span></span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> false</span></span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> true</span></span>

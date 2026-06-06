@@ -116,8 +116,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../src/styles/styles.css">
 <link rel="stylesheet" href="../src/styles/portfolio.css">
 <link rel="stylesheet" href="../src/styles/projects.css">
-<link rel="stylesheet" href="./src/styles/projects.css">
-<link rel="stylesheet" href="./src/styles/portfolio.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -207,7 +205,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>哎呀！您访问的页面不存在或已被移动。</p>
 <p><strong>浏览网站的其他内容：</strong></p>
 <blockquote class="blockquote">
-<p><a href="../zh/projects/">数据项目</a> <a href="../zh/tutorials/">数据可视化教程</a> <a href="../zh/">返回首页</a></p>
+<p><a href="../zh/projects/">数据项目</a><br>
+<a href="../zh/tutorials/">数据可视化教程</a><br>
+<a href="../zh/">返回首页</a></p>
 </blockquote>
 
 
@@ -237,48 +237,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         });
     }
 </script>
-<!-- <script>
-(function () {
-    const path = window.location.pathname;
-
-    const isZh = path.includes("/zh/");
-
-    const target = isZh
-        ? path.replace("/zh/", "/")
-        : "/zh" + path;
-
-    document.querySelectorAll(".navbar .lang-switch").forEach(el => {
-        el.href = target;
-    });
-})();
-</script> -->
-
-
 <script>
-function switchLanguage(targetLang) {
-    const path = window.location.pathname;
-    const match = path.match(/^\/(en|zh)(\/.*)?$/);
-    const rest = match ? (match[2] || '/') : '/';
-    window.location.pathname = '/' + targetLang + rest;
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  // 遍历所有 navbar 下拉菜单链接，按文字匹配
-    document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
-        const text = el.textContent.trim();
-        if (text === 'English') {
-            el.addEventListener('click', function (e) {
-            e.preventDefault();
-            switchLanguage('en');
-            });
-        } else if (text === '中文') {
-            el.addEventListener('click', function (e) {
-            e.preventDefault();
-            switchLanguage('zh');
-            });
+    function switchLanguage(targetLang) {
+        const path = window.location.pathname;
+        // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
+        const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
+        if (match) {
+            const base = match[1];
+            const rest = match[3] || '/';
+            window.location.pathname = base + '/' + targetLang + rest;
+        } else {
+            window.location.pathname = '/' + targetLang + '/';
         }
+    }
+
+    const NAV_TRANSLATIONS = {
+        en: { Projects: 'Projects', Tutorials: 'Tutorials', Hobbies: 'Hobbies', About: 'About' },
+        zh: { Projects: '项目',    Tutorials: '教程',       Hobbies: '爱好',    About: '关于' },
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (text === 'English') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('en');
+                });
+            } else if (text === '中文') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('zh');
+                });
+            }
+        });
+
+        // Translate navbar left-side links to match the current page language
+        const langMatch = window.location.pathname.match(/\/(en|zh)\//);
+        const lang = langMatch ? langMatch[1] : 'en';
+        const translations = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.en;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (translations[text]) {
+                el.textContent = translations[text];
+            }
+            // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
+            if (lang === 'zh' && el.href && el.href.includes('/en/')) {
+                el.href = el.href.replace('/en/', '/zh/');
+            } else if (lang === 'en' && el.href && el.href.includes('/zh/')) {
+                el.href = el.href.replace('/zh/', '/en/');
+            }
+        });
     });
-});
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -735,18 +747,18 @@ document.addEventListener('DOMContentLoaded', function () {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> '404 页面未找到'</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">css:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - './src/styles/projects.css'</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - './src/styles/portfolio.css'</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># css:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     - '../src/styles/projects.css'</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     - '../src/styles/portfolio.css'</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>哎呀！您访问的页面不存在或已被移动。</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>**浏览网站的其他内容：**</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">数据项目</span><span class="co">](/zh/projects/)</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">数据可视化教程</span><span class="co">](/zh/tutorials/)</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">返回首页</span><span class="co">](/zh/)</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">数据项目</span><span class="co">](/zh/projects/)</span>  </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">数据可视化教程</span><span class="co">](/zh/tutorials/)</span>  </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">返回首页</span><span class="co">](/zh/)</span>  </span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

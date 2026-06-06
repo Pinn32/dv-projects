@@ -340,15 +340,10 @@ window.Quarto = {
 <div class="quarto-title-block"><div><h1 class="title">多变量图表</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
   <div class="quarto-categories">
     <div class="quarto-category">Python</div>
-    <div class="quarto-category">Visualization</div>
-    <div class="quarto-category">Multivariate Plots</div>
-    <div class="quarto-category">FacetGrid</div>
-    <div class="quarto-category">Scatter Plot</div>
-    <div class="quarto-category">Line Plot</div>
-    <div class="quarto-category">Heatmap</div>
-    <div class="quarto-category">2D Histogram</div>
-    <div class="quarto-category">Joint Plot</div>
-    <div class="quarto-category">Pair Plot</div>
+    <div class="quarto-category">Seaborn</div>
+    <div class="quarto-category">可视化</div>
+    <div class="quarto-category">多变量</div>
+    <div class="quarto-category">热图</div>
   </div>
   </div>
 
@@ -387,19 +382,19 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     48 min read</span><span> · </span><span>6170 EN words</span><span> · </span><span>5044 中文字</span></div>
+     21 min read</span><span> · </span><span>704 EN words</span><span> · </span><span>5052 中文字</span></div>
 <section id="多变量数据" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 多变量数据</h1>
 <p><strong>“tidy/flat” 的表格数据:</strong> 每行为一个 <strong>observation</strong> (或 instance、record) ，每列为一个 <strong>variable</strong> (变量，也称 attribute、feature、parameter) 。</p>
 <p>通常，<strong>multivariate</strong> (多变量) 用于描述变量超过两个的数据，即，multivariate plot 通常使用了原 DataFrame 中三个或三个以上的列作为数据。</p>
 <p>绘制柱状图时，除了 x、y 两个变量之外，还可以设置 <code>hue</code> 参数，从而绘制包含三个变量的柱状图。比如 <a href="#fig-bar-variables" class="quarto-xref">图&nbsp;1</a> 中包含了 <code>'island'</code>、<code>'body_mass_g'</code>、<code>'sex'</code> 三个变量。</p>
-<div id="e957eca6" class="cell" data-execution_count="1">
+<div id="d89ef4c4" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入库</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a32dd464" class="cell" data-execution_count="2">
+<div id="cbb3ba65" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 Seaborn 加载示例数据集</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1857,48 +1852,60 @@ window.Quarto = {
         });
     }
 </script>
-<!-- <script>
-(function () {
-    const path = window.location.pathname;
-
-    const isZh = path.includes("/zh/");
-
-    const target = isZh
-        ? path.replace("/zh/", "/")
-        : "/zh" + path;
-
-    document.querySelectorAll(".navbar .lang-switch").forEach(el => {
-        el.href = target;
-    });
-})();
-</script> -->
-
-
 <script>
-function switchLanguage(targetLang) {
-    const path = window.location.pathname;
-    const match = path.match(/^\/(en|zh)(\/.*)?$/);
-    const rest = match ? (match[2] || '/') : '/';
-    window.location.pathname = '/' + targetLang + rest;
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  // 遍历所有 navbar 下拉菜单链接，按文字匹配
-    document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
-        const text = el.textContent.trim();
-        if (text === 'English') {
-            el.addEventListener('click', function (e) {
-            e.preventDefault();
-            switchLanguage('en');
-            });
-        } else if (text === '中文') {
-            el.addEventListener('click', function (e) {
-            e.preventDefault();
-            switchLanguage('zh');
-            });
+    function switchLanguage(targetLang) {
+        const path = window.location.pathname;
+        // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
+        const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
+        if (match) {
+            const base = match[1];
+            const rest = match[3] || '/';
+            window.location.pathname = base + '/' + targetLang + rest;
+        } else {
+            window.location.pathname = '/' + targetLang + '/';
         }
+    }
+
+    const NAV_TRANSLATIONS = {
+        en: { Projects: 'Projects', Tutorials: 'Tutorials', Hobbies: 'Hobbies', About: 'About' },
+        zh: { Projects: '项目',    Tutorials: '教程',       Hobbies: '爱好',    About: '关于' },
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (text === 'English') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('en');
+                });
+            } else if (text === '中文') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('zh');
+                });
+            }
+        });
+
+        // Translate navbar left-side links to match the current page language
+        const langMatch = window.location.pathname.match(/\/(en|zh)\//);
+        const lang = langMatch ? langMatch[1] : 'en';
+        const translations = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.en;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (translations[text]) {
+                el.textContent = translations[text];
+            }
+            // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
+            if (lang === 'zh' && el.href && el.href.includes('/en/')) {
+                el.href = el.href.replace('/en/', '/zh/');
+            } else if (lang === 'en' && el.href && el.href.includes('/zh/')) {
+                el.href = el.href.replace('/zh/', '/en/');
+            }
+        });
     });
-});
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2355,7 +2362,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> '多变量图表'</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> '2024-10-27'</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> ["Python", "Visualization", "Multivariate Plots", "FacetGrid", "Scatter Plot", "Line Plot", "Heatmap", "2D Histogram", "Joint Plot", "Pair Plot"]</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> ["Python", "Seaborn", "可视化", "多变量", "热图"]</span></span>
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> '本教程介绍如何使用 Seaborn 库绘制散点图、折线图、热力图、二维直方图、双变量图和配对图等常见的多变量可视化图表，并通过调整参数实现更清晰的信息传达。'</span></span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> false</span></span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> true</span></span>

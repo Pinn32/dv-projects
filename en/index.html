@@ -210,22 +210,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="featured-projects">Featured Projects</h2>
 <div class="grid">
 <div class="g-col-12 g-col-md-6 featured-card">
-<p><a href="projects/catalan-referendum/"><strong>Twitter Sentiment Analysis of Catalan Referendum</strong></a><br>
+<p><a href="projects/catalan-referendum/" class="stretched-link"><strong>Twitter Sentiment Analysis of Catalan Referendum</strong></a><br>
 Sentiment mining on tweets surrounding the 2017 Catalan independence referendum.<br>
 <code>Python</code> <code>NLP</code> <code>Social Media</code></p>
 </div>
 <div class="g-col-12 g-col-md-6 featured-card">
-<p><a href="projects/global-visa-cost/"><strong>Global Visa Cost Analysis</strong></a><br>
+<p><a href="projects/global-visa-cost/" class="stretched-link"><strong>Global Visa Cost Analysis</strong></a><br>
 A comparative study of visa costs across countries, exploring affordability and geographic patterns.<br>
 <code>Python</code> <code>EDA</code> <code>Visualization</code></p>
 </div>
 <div class="g-col-12 g-col-md-6 featured-card">
-<p><a href="projects/most-streamed-songs/"><strong>Most Streamed Songs on Spotify 2023</strong></a><br>
+<p><a href="projects/most-streamed-songs/" class="stretched-link"><strong>Most Streamed Songs on Spotify 2023</strong></a><br>
 Exploratory analysis of the most-streamed tracks on Spotify, uncovering trends in music popularity.<br>
 <code>R</code> <code>EDA</code> <code>Visualization</code></p>
 </div>
 <div class="g-col-12 g-col-md-6 featured-card">
-<p><a href="projects/student-media-usage/"><strong>Student Social Media Usage &amp; Addiction</strong></a><br>
+<p><a href="projects/student-media-usage/" class="stretched-link"><strong>Student Social Media Usage &amp; Addiction</strong></a><br>
 Analysis of social media habits and addiction patterns among students.<br>
 <code>R</code> <code>EDA</code> <code>Social Media</code></p>
 </div>
@@ -261,48 +261,60 @@ Analysis of social media habits and addiction patterns among students.<br>
         });
     }
 </script>
-<!-- <script>
-(function () {
-    const path = window.location.pathname;
-
-    const isZh = path.includes("/zh/");
-
-    const target = isZh
-        ? path.replace("/zh/", "/")
-        : "/zh" + path;
-
-    document.querySelectorAll(".navbar .lang-switch").forEach(el => {
-        el.href = target;
-    });
-})();
-</script> -->
-
-
 <script>
-function switchLanguage(targetLang) {
-    const path = window.location.pathname;
-    const match = path.match(/^\/(en|zh)(\/.*)?$/);
-    const rest = match ? (match[2] || '/') : '/';
-    window.location.pathname = '/' + targetLang + rest;
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  // 遍历所有 navbar 下拉菜单链接，按文字匹配
-    document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
-        const text = el.textContent.trim();
-        if (text === 'English') {
-            el.addEventListener('click', function (e) {
-            e.preventDefault();
-            switchLanguage('en');
-            });
-        } else if (text === '中文') {
-            el.addEventListener('click', function (e) {
-            e.preventDefault();
-            switchLanguage('zh');
-            });
+    function switchLanguage(targetLang) {
+        const path = window.location.pathname;
+        // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
+        const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
+        if (match) {
+            const base = match[1];
+            const rest = match[3] || '/';
+            window.location.pathname = base + '/' + targetLang + rest;
+        } else {
+            window.location.pathname = '/' + targetLang + '/';
         }
+    }
+
+    const NAV_TRANSLATIONS = {
+        en: { Projects: 'Projects', Tutorials: 'Tutorials', Hobbies: 'Hobbies', About: 'About' },
+        zh: { Projects: '项目',    Tutorials: '教程',       Hobbies: '爱好',    About: '关于' },
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (text === 'English') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('en');
+                });
+            } else if (text === '中文') {
+                el.addEventListener('click', function (e) {
+                e.preventDefault();
+                switchLanguage('zh');
+                });
+            }
+        });
+
+        // Translate navbar left-side links to match the current page language
+        const langMatch = window.location.pathname.match(/\/(en|zh)\//);
+        const lang = langMatch ? langMatch[1] : 'en';
+        const translations = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.en;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(function (el) {
+            const text = el.textContent.trim();
+            if (translations[text]) {
+                el.textContent = translations[text];
+            }
+            // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
+            if (lang === 'zh' && el.href && el.href.includes('/en/')) {
+                el.href = el.href.replace('/en/', '/zh/');
+            } else if (lang === 'en' && el.href && el.href.includes('/zh/')) {
+                el.href = el.href.replace('/zh/', '/en/');
+            }
+        });
     });
-});
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -772,25 +784,25 @@ document.addEventListener('DOMContentLoaded', function () {
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>::::::: grid</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>::: {.g-col-12 .g-col-md-6 .featured-card}</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**Twitter Sentiment Analysis of Catalan Referendum**</span><span class="co">](projects/catalan-referendum/)</span>\</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**Twitter Sentiment Analysis of Catalan Referendum**</span><span class="co">](projects/catalan-referendum/)</span>{.stretched-link}\</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Sentiment mining on tweets surrounding the 2017 Catalan independence referendum.\</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="in">`Python`</span> <span class="in">`NLP`</span> <span class="in">`Social Media`</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>::: {.g-col-12 .g-col-md-6 .featured-card}</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**Global Visa Cost Analysis**</span><span class="co">](projects/global-visa-cost/)</span>\</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**Global Visa Cost Analysis**</span><span class="co">](projects/global-visa-cost/)</span>{.stretched-link}\</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>A comparative study of visa costs across countries, exploring affordability and geographic patterns.\</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="in">`Python`</span> <span class="in">`EDA`</span> <span class="in">`Visualization`</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>::: {.g-col-12 .g-col-md-6 .featured-card}</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**Most Streamed Songs on Spotify 2023**</span><span class="co">](projects/most-streamed-songs/)</span>\</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**Most Streamed Songs on Spotify 2023**</span><span class="co">](projects/most-streamed-songs/)</span>{.stretched-link}\</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>Exploratory analysis of the most-streamed tracks on Spotify, uncovering trends in music popularity.\</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="in">`R`</span> <span class="in">`EDA`</span> <span class="in">`Visualization`</span></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>::: {.g-col-12 .g-col-md-6 .featured-card}</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**Student Social Media Usage &amp; Addiction**</span><span class="co">](projects/student-media-usage/)</span>\</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**Student Social Media Usage &amp; Addiction**</span><span class="co">](projects/student-media-usage/)</span>{.stretched-link}\</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>Analysis of social media habits and addiction patterns among students.\</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="in">`R`</span> <span class="in">`EDA`</span> <span class="in">`Social Media`</span></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>:::</span>

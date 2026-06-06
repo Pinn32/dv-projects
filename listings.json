@@ -9,12 +9,13 @@
     ]
   },
   {
-    "listing": "/en/projects/index.html",
+    "listing": "/zh/projects/index.html",
     "items": [
-      "/en/projects/catalan-referendum/index.html",
-      "/en/projects/global-visa-cost/index.html",
-      "/en/projects/most-streamed-songs/index.html",
-      "/en/projects/student-media-usage/index.html"
+      "/zh/projects/ai-tweets/index.html",
+      "/zh/projects/catalan-referendum/index.html",
+      "/zh/projects/global-visa-cost/index.html",
+      "/zh/projects/most-streamed-songs/index.html",
+      "/zh/projects/student-media-usage/index.html"
     ]
   },
   {
@@ -27,12 +28,13 @@
     ]
   },
   {
-    "listing": "/zh/projects/index.html",
+    "listing": "/en/projects/index.html",
     "items": [
-      "/zh/projects/catalan-referendum/index.html",
-      "/zh/projects/global-visa-cost/index.html",
-      "/zh/projects/most-streamed-songs/index.html",
-      "/zh/projects/student-media-usage/index.html"
+      "/en/projects/ai-tweets/index.html",
+      "/en/projects/catalan-referendum/index.html",
+      "/en/projects/global-visa-cost/index.html",
+      "/en/projects/most-streamed-songs/index.html",
+      "/en/projects/student-media-usage/index.html"
     ]
   }
 ]
