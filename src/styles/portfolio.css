@@ -542,6 +542,13 @@ h2#featured-projects::before,
     transition: color 0.15s;
 }
 
+/* Section header title: shrink to content width so the rest of the row
+   is genuinely empty and can toggle the section on click.
+   Leaf (child) items keep full-width so their whole row stays a nav target. */
+.sidebar-item-section > .sidebar-item-container > .sidebar-item-text {
+    width: auto;
+}
+
 .sidebar-item-container .sidebar-link:hover .sidebar-item-text {
     color: var(--pf-primary);
 }

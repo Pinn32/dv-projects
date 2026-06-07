@@ -68,37 +68,70 @@ website:
 
   #############################################################################
   sidebar:
-    logo: false
-    style: 'docked'
-    # background: light
-    # search: true
-    collapse-level: 1
-    # contents: auto
-    contents: 
-      - section: "Projects"
-        href: en/projects/index.qmd
-        contents:
-          - text: "Twitter Sentiment Analysis of Catalan Referendum"
-            href: en/projects/catalan-referendum/index.qmd
-          - text: "Global Visa Cost Analysis"
-            href: en/projects/global-visa-cost/index.qmd
-          - text: "Student Social Media Usage & Addiction"
-            href: en/projects/student-media-usage/index.qmd
-          - text: "Most Streamed Songs on Spotify"
-            href: en/projects/most-streamed-songs/index.qmd
-      - section: "Tutorials"
-        href: en/tutorials/index.qmd
-        contents:
-          - text: "Data Processing"
-            href: en/tutorials/data-processing/index.qmd
-          - text: "Amounts and Distribution"
-            href: en/tutorials/amounts-and-distribution/index.qmd
-          - text: "Multivariate Plots"
-            href: en/tutorials/multivariate-plots/index.qmd
-          - text: "Sankey & Network Diagrams"
-            href: en/tutorials/sankey-and-network/index.qmd
-      - text: "About"
-        href: en/about/index.qmd
+    - id: en-sidebar
+      logo: false
+      style: 'docked'
+      collapse-level: 1
+      contents:
+        - section: "Projects"
+          href: en/projects/index.qmd
+          contents:
+            - text: "Evolution of Online AI Discourse"
+              href: en/projects/ai-tweets/index.qmd
+            - text: "Twitter Sentiment Analysis of Catalan Referendum"
+              href: en/projects/catalan-referendum/index.qmd
+            - text: "Global Visa Cost Analysis"
+              href: en/projects/global-visa-cost/index.qmd
+            - text: "Student Social Media Usage & Addiction"
+              href: en/projects/student-media-usage/index.qmd
+            - text: "Most Streamed Songs on Spotify"
+              href: en/projects/most-streamed-songs/index.qmd
+        - section: "Tutorials"
+          href: en/tutorials/index.qmd
+          contents:
+            - text: "Data Processing"
+              href: en/tutorials/data-processing/index.qmd
+            - text: "Amounts and Distribution"
+              href: en/tutorials/amounts-and-distribution/index.qmd
+            - text: "Multivariate Plots"
+              href: en/tutorials/multivariate-plots/index.qmd
+            - text: "Sankey & Network Diagrams"
+              href: en/tutorials/sankey-and-network/index.qmd
+        - text: "About"
+          href: en/about/index.qmd
+    - id: zh-sidebar
+      logo: false
+      style: 'docked'
+      collapse-level: 1
+      contents:
+        - section: "项目"
+          href: zh/projects/index.qmd
+          contents:
+            - text: "网络AI话语的演变"
+              href: zh/projects/ai-tweets/index.qmd
+            - text: "Twitter 加泰罗尼亚公投情感分析"
+              href: zh/projects/catalan-referendum/index.qmd
+            - text: "全球签证费用分析与交互式可视化"
+              href: zh/projects/global-visa-cost/index.qmd
+            - text: "学生社交媒体使用与幸福感分析"
+              href: zh/projects/student-media-usage/index.qmd
+            - text: "Spotify 最高播放量歌曲: 音乐特征与受众趋势分析"
+              href: zh/projects/most-streamed-songs/index.qmd
+        - section: "教程"
+          href: zh/tutorials/index.qmd
+          contents:
+            - text: "数据清理"
+              href: zh/tutorials/data-processing/index.qmd
+            - text: "数量与分布可视化"
+              href: zh/tutorials/amounts-and-distribution/index.qmd
+            - text: "多变量图表"
+              href: zh/tutorials/multivariate-plots/index.qmd
+            - text: "桑基图与网络图"
+              href: zh/tutorials/sankey-and-network/index.qmd
+            - text: "EM747 Midterm Tips"
+              href: zh/tutorials/r-tips/index.qmd
+        - text: "关于"
+          href: zh/about/index.qmd
 
 
 ###############################################################################
@@ -115,9 +148,10 @@ format:
       - ./src/styles/projects.css
     
     ###### JS Scripts ######
-    include-after-body: 
+    include-after-body:
       - ./src/scripts/fix-code-fold.html
       - ./src/scripts/lang-switch.html
+      - ./src/scripts/fix-sidebar-toggle.html
       # - ./src/scripts/fix-navbar-active.html
     
     toc: true

@@ -1,0 +1,23 @@
+---
+sidebar: false
+toc: false
+---
+
+<script>
+(function () {
+    var path = window.location.pathname;
+    // detect /en/ or /zh/ in the path to pick the right 404
+    var m = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
+    if (m) {
+        window.location.replace(m[1] + '/' + m[2] + '/404.html');
+    } else {
+        // not under en/ or zh/ – default to en
+        var base = path.split('/').slice(0, -1).join('/');
+        window.location.replace((base || '') + '/en/404.html');
+    }
+})();
+</script>
+
+<noscript>
+Page not found. Visit the <a href="en/">English site</a> or <a href="zh/">Chinese site</a>.
+</noscript>
