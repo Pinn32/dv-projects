@@ -1,23 +1,35 @@
 ---
+title: '404 Page Not Found'
 sidebar: false
 toc: false
 ---
 
+<div id="msg-en">
+<p>Oops! The page you're looking for doesn't exist or has been moved.</p>
+<p><strong>Check out other sections of the site:</strong></p>
+<blockquote>
+<a href="/en/projects/">Data Projects</a><br>
+<a href="/en/tutorials/">Data Visualization Tutorials</a><br>
+<a href="/">Go to Home</a>
+</blockquote>
+</div>
+
+<div id="msg-zh" style="display:none">
+<p>哎呀！您访问的页面不存在或已被移动。</p>
+<p><strong>浏览网站的其他内容：</strong></p>
+<blockquote>
+<a href="/zh/projects/">数据项目</a><br>
+<a href="/zh/tutorials/">数据可视化教程</a><br>
+<a href="/zh/">返回首页</a>
+</blockquote>
+</div>
+
 <script>
 (function () {
-    var path = window.location.pathname;
-    // detect /en/ or /zh/ in the path to pick the right 404
-    var m = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
-    if (m) {
-        window.location.replace(m[1] + '/' + m[2] + '/404.html');
-    } else {
-        // not under en/ or zh/ – default to en
-        var base = path.split('/').slice(0, -1).join('/');
-        window.location.replace((base || '') + '/en/404.html');
+    if (/\/(zh)(\/|$)/.test(window.location.pathname)) {
+        document.getElementById('msg-en').style.display = 'none';
+        document.getElementById('msg-zh').style.display = '';
+        document.title = '404 页面未找到';
     }
 })();
 </script>
-
-<noscript>
-Page not found. Visit the <a href="en/">English site</a> or <a href="zh/">Chinese site</a>.
-</noscript>
