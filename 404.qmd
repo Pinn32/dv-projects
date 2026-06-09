@@ -4,25 +4,37 @@ sidebar: false
 toc: false
 ---
 
-<div id="msg-en">
-<p>Oops! The page you're looking for doesn't exist or has been moved.</p>
-<p><strong>Check out other sections of the site:</strong></p>
-<blockquote>
-<a href="/en/projects/">Data Projects</a><br>
-<a href="/en/tutorials/">Data Visualization Tutorials</a><br>
-<a href="/">Go to Home</a>
-</blockquote>
-</div>
+::: {id="msg-en"}
 
-<div id="msg-zh" style="display:none">
-<p>哎呀！您访问的页面不存在或已被移动。</p>
-<p><strong>浏览网站的其他内容：</strong></p>
-<blockquote>
-<a href="/zh/projects/">数据项目</a><br>
-<a href="/zh/tutorials/">数据可视化教程</a><br>
-<a href="/zh/">返回首页</a>
-</blockquote>
-</div>
+## Oops!
+
+The page you're looking for doesn't exist or has been moved.
+
+**Check out other sections of the site:**
+
+> [Data Projects](/en/projects/)  
+> [Data Visualization Tutorials](/en/tutorials/)  
+> [Go to Home](/)
+
+:::
+
+
+
+::: {#msg-zh style="display:none"}
+
+## 哎呀！
+
+您访问的页面不存在或已被移动。
+
+**浏览网站的其他内容：**
+
+> [数据项目](/zh/projects/)  
+> [数据可视化教程](/zh/tutorials/)  
+> [返回首页](/zh/)
+
+:::
+
+
 
 <script>
 (function () {
@@ -30,6 +42,8 @@ toc: false
         document.getElementById('msg-en').style.display = 'none';
         document.getElementById('msg-zh').style.display = '';
         document.title = '404 页面未找到';
+        const h1 = document.querySelector('h1.title');
+        if (h1) h1.textContent = '404 页面未找到';
     }
 })();
 </script>
