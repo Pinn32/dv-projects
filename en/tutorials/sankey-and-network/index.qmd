@@ -7,6 +7,18 @@ description: 'This chapter introduces methods for creating Sankey diagrams and n
 order: 4
 ---
 
+```{python}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Environment and Versions"
+python==3.12
+pandas==2.2.2
+plotly==5.24.1
+matplotlib==3.9.x
+pyvis==0.3.2
+networkx==3.3
+```
+
 # Sankey Diagrams
 
 ## What is a Sankey Diagram

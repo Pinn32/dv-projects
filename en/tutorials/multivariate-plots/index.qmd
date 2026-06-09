@@ -9,6 +9,16 @@ number-sections: true
 order: 3
 ---
 
+```{python}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Environment and Versions"
+python==3.12
+pandas==2.2.2
+matplotlib==3.9.x
+seaborn==0.13.2
+```
+
 # Multivariate Data
 
 **"Tidy/flat" tabular data:** Each row is one **observation** (also called instance or record), and each column is one **variable** (also called attribute, feature, or parameter).

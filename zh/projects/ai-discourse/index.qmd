@@ -23,6 +23,19 @@ knitr::opts_chunk$set(
 theme_minimal <- function(...) ggplot2::theme_minimal(base_family = "Heiti SC", ...)
 ```
 
+```{r eval=FALSE}
+#| code-summary: '环境与版本'
+R==4.5.2
+MASS==7.3.65
+tidyverse==2.0.0
+tidytext==0.4.3
+textdata==0.4.5
+topicmodels==0.2.17
+scales==1.4.0
+broom==1.0.12
+textutils==0.4.3
+knitr==1.51
+```
 
 # 引言
 
@@ -1342,3 +1355,16 @@ ggplot(coef_all, aes(x = estimate, y = term, color = outcome)) +
 **UTC转换过程。** 原始变量`created_at`以带有东部时区后缀的字符串形式存储。使用`ymd_hms()`函数并设置`tz = "America/New_York"`将其解析为日历时间对象，再通过`with_tz()`转换为UTC，最终强制转换为`Date`对象并存储为`date_utc`。具体代码详见[数据 > 变量](#variables)节。
 
 **拆分过程。** 数据集中的话题标签和现金标签以Python风格的列表字符串形式存储（如`"['ai', 'ml']"`）。为获取单个词元，使用`str_remove_all()`去除方括号和引号字符，再使用`separate_rows()`将逗号分隔的字符串拆分为独立行。具体代码详见[数据 > 文本变量 > 话题标签](#hashtags)节。
+
+# 环境与版本 {.unnumbered}
+
+```{r env-version}
+cat("R version:", R.version.string, "\n\n")
+pkgs <- c("MASS", "tidyverse", "tidytext", "textdata", "topicmodels",
+          "scales", "broom", "textutils", "knitr")
+pkg_versions <- data.frame(
+  Package = pkgs,
+  Version = sapply(pkgs, function(p) as.character(packageVersion(p)))
+)
+knitr::kable(pkg_versions, row.names = FALSE)
+```

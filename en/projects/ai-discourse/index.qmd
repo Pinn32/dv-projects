@@ -20,6 +20,19 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r eval=FALSE}
+#| code-summary: 'Environment & Versions'
+R==4.5.2
+MASS==7.3.65
+tidyverse==2.0.0
+tidytext==0.4.3
+textdata==0.4.5
+topicmodels==0.2.17
+scales==1.4.0
+broom==1.0.12
+textutils==0.4.3
+knitr==1.51
+```
 
 # Introduction
 
@@ -1338,3 +1351,16 @@ This study finds that AI discourse on Twitter became steadily more positive and 
 **UTC Conversion Process.** The original `created_at` variable was stored as a character string with an Eastern Time suffix. It was parsed to a calendar-time object using `ymd_hms()` with `tz = "America/New_York"`, then converted to UTC using `with_tz()`, and finally coerced to a `Date` object stored as `date_utc`. See the code in the [Data > Variables](#variables) section.
 
 **Separation Process.** Hashtags and cashtags in the dataset were stored as Python-style list strings (e.g., `"['ai', 'ml']"`). To obtain single tokens, bracket and quote characters were removed with `str_remove_all()`, and the resulting comma-separated strings were split into individual rows using `separate_rows()`. See the code in the [Data > Text Variables > Hashtags](#hashtags) sections.
+
+# Environment & Version {.unnumbered}
+
+```{r env-version}
+cat("R version:", R.version.string, "\n\n")
+pkgs <- c("MASS", "tidyverse", "tidytext", "textdata", "topicmodels",
+          "scales", "broom", "textutils", "knitr")
+pkg_versions <- data.frame(
+  Package = pkgs,
+  Version = sapply(pkgs, function(p) as.character(packageVersion(p)))
+)
+knitr::kable(pkg_versions, row.names = FALSE)
+```

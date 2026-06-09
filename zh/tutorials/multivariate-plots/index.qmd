@@ -9,6 +9,16 @@ number-sections: true
 order: 3
 ---
 
+```{python}
+#| eval: false
+#| code-fold: true
+#| code-summary: "环境与版本"
+python==3.12
+pandas==2.2.2
+matplotlib==3.9.x
+seaborn==0.13.2
+```
+
 # 多变量数据
 
 **"tidy/flat" 的表格数据:** 每行为一个 **observation** (或 instance、record) ，每列为一个 **variable** (变量，也称 attribute、feature、parameter) 。

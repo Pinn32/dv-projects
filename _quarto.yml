@@ -77,7 +77,7 @@ website:
           href: en/projects/index.qmd
           contents:
             - text: "Evolution of Online AI Discourse"
-              href: en/projects/ai-tweets/index.qmd
+              href: en/projects/ai-discourse/index.qmd
             - text: "Twitter Sentiment Analysis of Catalan Referendum"
               href: en/projects/catalan-referendum/index.qmd
             - text: "Global Visa Cost Analysis"
@@ -108,7 +108,7 @@ website:
           href: zh/projects/index.qmd
           contents:
             - text: "网络AI话语的演变"
-              href: zh/projects/ai-tweets/index.qmd
+              href: zh/projects/ai-discourse/index.qmd
             - text: "Twitter 加泰罗尼亚公投情感分析"
               href: zh/projects/catalan-referendum/index.qmd
             - text: "全球签证费用分析与交互式可视化"
