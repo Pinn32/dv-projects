@@ -6,6 +6,8 @@ categories: [Python, EDA, Sankey Diagram, Choropleth Map, Visualization]
 description: 'A comparative study of visa costs across countries, exploring affordability and geographic patterns.'
 bibliography: references.bib
 csl: ../../../src/apa.csl
+number-depth: 2
+
 # css: 'jupyter-page.css'
 # jupyter: dv-env
 ---
@@ -202,7 +204,8 @@ for subregion in source_subregion_labels:
 ### Assigning Colors
 
 ```{python}
-source_region_labels # Checking regions in df0
+print("Source Regions:")
+print(source_region_labels) # Checking regions in df0
 ```
 
 ```{python}
@@ -275,9 +278,11 @@ for source, target in zip(sources, targets):
 
 ##############################################################################
 # Check if the number of node colors matches the number of nodes
+print('Number of node colors matches nodes?')
 print(len(node_colors) == len(nodes))
 
 # Check if the number of link colors matches the number of links
+print('Number of link colors matches links?')
 print(len(link_colors) == len(sources) == len(targets) == len(values))
 ```
 
@@ -526,16 +531,16 @@ There is still space for improvement in this project. For instance, it only disc
 
 In conclusion, this project visualizes and analyses data about global tourist visa costs in different areas, revealing the paradoxical situation that the richer a country, the less tourist fee nationals in it need to pay to go abroad.
 
-# References
+# References {.unnumbered}
 
 ::: {#refs}
 :::
 
-# Appendix: Dataset Information {#appendix}
+# Appendix: Dataset Information {#appendix .unnumbered}
 
 **This appendix contains additional information about the dataset used in this project (the Global Visa Cost Dataset v1.1), including introduction of the dataset and detailed description of variables.**
 
-## Global Visa Cost Dataset
+## Global Visa Cost Dataset {.unnumbered}
 
 The Global Visa Cost Dataset, created by researchers from the European University Institute's Migration Policy Centre, provides comprehensive data on visa costs for seven categories between country pairs in 2019. The dataset was developed through manual data collection primarily from official government websites and consulates.
 
@@ -545,9 +550,9 @@ For countries where information was not available in English, French, Spanish, A
 
 Several countries, including Palestine and the Syrian Arab Republic, are not coded due to a lack of information about travel access to their territory. Some countries needed a second round of visa cost checks due to difficulties in finding the information about their visa policy and visa requirements. In the case of many country pairs, there is visa policy information but there is no indication of the actual visa costs. For instance, Nauru in Oceania required a particularly engaging search to retrieve an official document on Immigration Regulations of January 2014, where the actual visa categories and costs are mentioned. This information is not indicated in any other official online source. For country pairs where information is not available in the dataset, missing values are introduced.
 
-## Variable Description
+## Variable Description {.unnumbered}
 
-### Variables: Countries and Regions
+### Variables: Countries and Regions {.unnumbered}
 
 These variables represent the countries and regions of origin and destination, where 'region' refers to the continent a country is located in, and 'subregion' refers to sub-regions within continents.
 
@@ -563,7 +568,7 @@ These variables represent the countries and regions of origin and destination, w
 
 *Note: Regions and sub-regions are based on the UN M.49 GeoScheme.*
 
-### Variables: Visa Costs to the Target Countries
+### Variables: Visa Costs to the Target Countries {.unnumbered}
 
 These variables are visa costs to the target countries from the source countries based on the official visa policies and visa requirements of the target countries in 2019, measured in US dollars.
 
@@ -575,7 +580,7 @@ These variables are visa costs to the target countries from the source countries
 > **transit_visa:** Transit visa costs (in USD)\
 > **other_motives_visa:** Other motives visa costs (in USD)
 
-### Variables: Average Working Days to Pay Visa Costs
+### Variables: Average Working Days to Pay Visa Costs {.unnumbered}
 
 These variables estimates how many days people in the source countries have to work on average to be able to afford a visa to the target countries, measured in days.
 
@@ -589,7 +594,7 @@ These variables estimates how many days people in the source countries have to w
 
 *Note: The authors used the GNI per capita as an approximation of the mean income of the average person in a country to calculate what the real costs of visas may be like. Information about GNI per capita are from World Bank (2019), which is available at: https://data.worldbank.org/indicator/NY.GNP.PCAP.CD .*
 
-### Variable: Updates Compared to the Previous Version
+### Variable: Updates Compared to the Previous Version {.unnumbered}
 
 This variable indicates updates to the previous version of the dataset.
 

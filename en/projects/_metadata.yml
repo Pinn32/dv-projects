@@ -3,3 +3,4 @@ code-fold: true
 jupyter: dv-env
 sidebar: true
 reading-meta-enabled: true
+number-sections: true

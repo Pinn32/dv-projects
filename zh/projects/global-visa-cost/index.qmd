@@ -6,6 +6,7 @@ categories: [Python, EDA, 桑基图, 地图可视化, 可视化]
 description: '跨国签证费用的比较研究，探索可负担性与地理分布规律。'
 bibliography: references.bib
 csl: ../../../src/apa.csl
+number-depth: 2
 # css: 'jupyter-page.css'
 # jupyter: dv-env
 ---
@@ -192,7 +193,8 @@ for subregion in source_subregion_labels:
 ### 配色方案
 
 ```{python}
-source_region_labels # 检查 df0 中的地区
+print("地区:")
+print(source_region_labels) # 检查 df0 中的地区
 ```
 
 ```{python}
@@ -265,9 +267,11 @@ for source, target in zip(sources, targets):
 
 ##############################################################################
 # 检查节点颜色数量是否与节点数量一致
+print('节点颜色数量 == 节点数量?')
 print(len(node_colors) == len(nodes))
 
 # 检查链接颜色数量是否与链接数量一致
+print('链接颜色数量 == 链接数量?')
 print(len(link_colors) == len(sources) == len(targets) == len(values))
 ```
 
@@ -512,16 +516,16 @@ fig4.show(config = {"responsive": True}) # 显示图形
 
 综上所述，本项目对全球不同地区的旅游签证费用数据进行了可视化与分析，揭示了一个悖论性的全球现象：一个国家越富裕，其公民出境所需支付的签证费用反而越低。
 
-# 参考文献
+# 参考文献 {.unnumbered}
 
 ::: {#refs}
 :::
 
-# 附录：数据集信息 {#appendix}
+# 附录：数据集信息 {#appendix .unnumbered}
 
 **本附录包含本项目所用数据集（全球签证费用数据集 v1.1）的补充信息，包括数据集介绍及各变量的详细说明。**
 
-## 全球签证费用数据集
+## 全球签证费用数据集 {.unnumbered}
 
 全球签证费用数据集由欧洲大学学院移民政策中心的研究人员创建，提供了 2019 年各国家对之间七类签证费用的全面数据，主要通过手动从官方政府网站和领事馆收集。
 
@@ -531,9 +535,9 @@ fig4.show(config = {"responsive": True}) # 显示图形
 
 由于缺乏进入其领土的旅行信息，巴勒斯坦和阿拉伯叙利亚共和国等国家未被编入数据集。部分国家因其签证政策和签证要求信息难以获取，需进行第二轮核查。对于许多国家对，虽有签证政策信息，但无实际签证费用说明。例如，大洋洲的瑙鲁需要特别费力地搜索才能找到一份 2014 年 1 月的官方移民法规文件，其中列出了签证类别和费用，而该信息在任何其他官方在线渠道上均未出现。对于数据集中无法获取信息的国家对，引入缺失值。
 
-## 变量说明
+## 变量说明 {.unnumbered}
 
-### 变量：国家与地区
+### 变量：国家与地区 {.unnumbered}
 
 这些变量表示来源国和目的国的国家与地区，其中"地区"指国家所在的大洲，"子地区"指大洲内的次级区域。
 
@@ -549,7 +553,7 @@ fig4.show(config = {"responsive": True}) # 显示图形
 
 *注：地区与子地区基于联合国 M.49 地理方案。*
 
-### 变量：前往目的国的签证费用
+### 变量：前往目的国的签证费用 {.unnumbered}
 
 这些变量为目的国基于其官方签证政策与要求向来源国收取的 2019 年签证费用，以美元计。
 
@@ -561,7 +565,7 @@ fig4.show(config = {"responsive": True}) # 显示图形
 > **transit_visa：** 过境签证费用（美元）\
 > **other_motives_visa：** 其他目的签证费用（美元）
 
-### 变量：负担签证费用所需平均工作天数
+### 变量：负担签证费用所需平均工作天数 {.unnumbered}
 
 这些变量估算来源国居民平均需要工作多少天才能负担前往目的国的签证费用，以天为单位。
 
@@ -575,7 +579,7 @@ fig4.show(config = {"responsive": True}) # 显示图形
 
 *注：作者使用人均国民总收入（GNI per capita）作为各国居民平均收入的近似值，以计算签证的实际成本水平。人均 GNI 数据来自世界银行（2019），可在以下链接获取：https://data.worldbank.org/indicator/NY.GNP.PCAP.CD 。*
 
-### 变量：与前一版本相比的更新情况
+### 变量：与前一版本相比的更新情况 {.unnumbered}
 
 该变量记录与上一版本数据集相比的更新内容。
 
