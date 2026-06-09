@@ -7,30 +7,25 @@ descriptions: ''
 order: 5
 ---
 
-# Top Tips (考试要点) {.unnumbered}
-- **确保写了姓名和 ID**
-- **先做简单题, 遇到不会的立刻跳过**
-- **用相对路径导入csv [(详细介绍)](#相对路径)**
+# 常用要点 {.unnumbered}
+- **用相对路径导入 csv [(详细介绍)](#相对路径)**
 - **所有统计量都要加上 `na.rm = TRUE`**
     - sum / mean / median / min / max / sd / IQR 等
-- **看仔细 data unit 是什么, 以及题目问的对象**
-    - 仔细看每一行代表了一个什么
-    - 如果有一列叫 `type`, 其内容要么是 `post` 要么是 `comment`, 
-      那么此时整个表格的行单位并非 post; 这时如果问 "score 大于 10 的 ==post== 有几条", 首先要筛选 `filter(type == "post")`
-- **`count()`时如果要预先操作的话, 最好加上新列名**
+- **明确数据的观测单位**
+    - 仔细确认每一行代表什么
+    - 如果有一列叫 `type`, 其内容要么是 `post` 要么是 `comment`,
+      那么整个表格的行单位并非单一类型; 若只关心 post, 需要先用 `filter(type == "post")` 筛选
+- **`count()` 时如果要预先操作的话, 最好加上新列名**
     - 比如 `count(month = month(Date))`
 - **注意区分 `select(col)` 和 `filter(condition)` [(详细介绍)](#filter-中的逻辑运算符)**
     - `filter(condition)` 用来选择行, `select(col)` 用来选择列
-- **学会用 `nrow()` 得到行数, `pull()` 得到值**
-- **学会 stringr 和 regex**
+- **用 `nrow()` 得到行数, `pull()` 从 dataframe 中取出单个值**
+- **善用 stringr 和 regex 处理文本**
     - 字符个数: `mutate(text_length = str_length(text))`
     - 单词个数: `mutate(word_count = str_count(text, "\\S+"))`
-- **题目让你添加一列的时候要 assign, 因为添加的列后续还要用到**
+- **添加新列后记得 assign 回原变量, 以便后续继续使用**
     - `data <- data |> mutate(new_col = ...)`
-- **最终手段 (实在来不及的话)**
-    - 省略所有空格, 比如 `filter(score>=10)`, `mean=round(mean(score),2)`
-    - 用 `T/F` 代替 `TRUE/FALSE`, 比如 `na.rm=T` 等价于 `na.rm = TRUE`
-    - 给 RStudio 添加 Snippet [(详细介绍)](#rstudio-snippet)
+- **利用 RStudio Snippet 提高效率 [(详细介绍)](#rstudio-snippet)**
 
 
 
@@ -49,7 +44,7 @@ data |> filter(条件) |> nrow()
 ```
 
 ```r
-# 例: 已知 data 有 type 列, 其中只有 "comment" 和 "post" 两种值
+# 示例: 已知 data 有 type 列, 其中只有 "comment" 和 "post" 两种值
 # 求一共多少个 post
 
 # 方法1: 用 nrow() 直接返回行数, 其他 dplyr 函数都需要最终用 pull() 来取出数值
@@ -77,7 +72,7 @@ data |> count(col, sort=T) |> head(1) |> pull(col)
 ```
 
 ```r
-# 例: 已知 data 里有 date 列, 其 datatype 是 Date (yyyy-mm-dd)
+# 示例: 已知 data 里有 date 列, 其 datatype 是 Date (yyyy-mm-dd)
 # 求哪一年的 post 最多
 
 # 方法1:
@@ -117,7 +112,7 @@ summarize(mean = round(mean(col, na.rm = TRUE), 2)) |> pull(mean)
 ```
 
 ```r
-# 例: 求 2019 年 post 的 score 的平均值, 保留 2 位小数
+# 示例: 求 2019 年 post 的 score 的平均值, 保留 2 位小数
 data |>
     filter(type == "post" & year(date) == 2019) |>
     summarize(mean = round(mean(score, na.rm = TRUE), 2)) |>
@@ -125,7 +120,7 @@ data |>
 ```
 
 ```r
-# 例: 求每年的 post median score, 保留 2 位小数, 
+# 示例: 求每年的 post median score, 保留 2 位小数,
 # 按 median score 从高到低排列, 展示成一个 dataframe
 data |>
     filter(type == "post") |>
@@ -160,7 +155,7 @@ data |>
 ```
 
 ```r
-# 例: word_count 最多的 post 的 author 是谁?
+# 示例: word_count 最多的 post 的 author 是谁?
 data |>
     # 问的是 post, 但 data 里不都是 post, 首先要 filter 
     filter(type == "post") |>
@@ -182,7 +177,7 @@ str_count(text, "\\S+")
 # 可视化
 ## Bar Chart
 ```r
-# 例: 画出 2019 年每月 post 数量的 bar chart
+# 示例: 画出 2019 年每月 post 数量的 bar chart
 
 # 第一步: 获取用于绘图的数据
 bar_data <- data |>
@@ -222,7 +217,7 @@ ggplot(data |> filter(type == "post"), aes(x = score)) +
 # 文本分析
 
 ```r
-# 例: 用一个 dataframe 展示出 post 中 top10 词频的词, 并保存到 top1 词成变量
+# 示例: 用一个 dataframe 展示出 post 中 top10 词频的词, 并保存到 top1 词成变量
 data |>
     filter(type == "post") |>
     unnest_tokens(word, text) |>
@@ -274,7 +269,7 @@ coef(m)[[2]]  # slope
 | 函数 | 作用 | 示例 |
 |------|------|------|
 | `filter(条件)` | 保留满足条件的==行== | `filter(type == "post" & score > 10)` |
-| `select(列)` | 根据列名选列 ==(考试很少用)== | `select(col1)`, `col1:col3`, `-col3` |
+| `select(列)` | 根据列名选列 | `select(col1)`, `col1:col3`, `-col3` |
 | `count(列)` | 这列中所有 unique value 的行数 | <code>count(year = year(date), <span class="red">sort = TRUE</span>)</code> |
 | `nrow()` | 数当前有多少行 | 没有参数, 一般配合 `filter()` 使用:<br><code>filter(score > mean(score, na.rm=T)) \|> nrow()</code> |
 | `slice_max(列, n=行数)` | 选出这列中值最大的行 | <code>slice_max(score, <span class="red">n</span> = 10)</code> |
@@ -286,8 +281,6 @@ coef(m)[[2]]  # slope
 | `glimpse(df)` | 查看结构（≈ `str()`） | `glimpse(data)` |
 | `rename(新=旧)` | 重命名列（不新建列） | `rename(new_col = old_col)` |
 
-==考试很少用到 select, 用 filter 更多==
-
 > `group_by` + `summarize`：必须加 `.groups="drop"`；保留分组列 + 汇总列，行数压缩为每组一行
 > `group_by` + `mutate`：保留所有列且行数不变，之后须 `ungroup()`
 > `mean(condition)` → 满足条件的**比例**；`sum(condition)` → 满足条件的**个数**
@@ -295,9 +288,9 @@ coef(m)[[2]]  # slope
 > 注意区分 `nrow()` 和 `n()` : 同样是数行数, `nrow()` 接受 dataframe 作为参数; `n()` 是 dplyr 上下文函数, 只能在 `summarize()` / `mutate()` 内部使用 (如 `summarize(number_of_observation = n())`), pipe 时只能用 `nrow()`
 
 ```r
-# 例题: 
+# 示例:
 # 已知 data 有一列 type, 只有 "post" 和 "comment" 两种值;
-# 另一列 word_count 是帖子或评论中的词数, 求有多少帖子词数少于10
+# 另一列 word_count 是帖子或评论中的词数, 求有多少帖子词数少于 10
 data |> 
     filter(type == "post" & word_count < 10) |>
     nrow() # 直接返回数字
@@ -321,7 +314,7 @@ data |>
 > `%in%` 判断元素存在性；`==` 按位置匹配（长度不等会循环）
 
 ```r
-# 例题: 
+# 示例:
 # 已知 data 中有一列 date, 该列的 datatype 是 Date (yyyy-mm-dd);
 # 已知另一列 type, 该列有 "post" 和 "comment" 两种值;
 # 求年份是 2019 和 2023 的 post 一共有多少个
@@ -348,8 +341,7 @@ data |>
 
 ## select() 中的辅助函数
 
-==注意: select 选择的是列, 不是行; 考试很少用到 select, 用 filter 更多==  
-如果要求 "选择以 c 开头的 post" 不可以用 `select(starts_with("c"))`
+注意: `select()` 选择的是**列**, `filter()` 选择的是**行**; 两者功能不同, 不可混用
 
 | 写法 | 效果 |
 |------|------|
@@ -373,7 +365,7 @@ data <- data |>
 ```
 
 | Pattern | Meaning | Example | Matches |
-|:---------:|---------|---------|---------|
+|:---:|-------|:---:|------------|
 | `.` | 任意单个字符 | `"a.c"` | "abc", "a1c", "a c" |
 | `^` | 字符串开头 | `"^The"` | "The dog" 但不匹配 "See The dog" |
 | `$` | 字符串结尾 | `"end$"` | "the end" 但不匹配 "endless" |
@@ -383,15 +375,17 @@ data <- data |>
 | `\\` | 转义特殊字符 | `"\\."` | 字面意义的句点 "." |
 
 | Pattern | Meaning | Example |
-|---------|---------|---------|
+|:--------:|:-------|:--------|
 | `[abc]` | 匹配 a、b 或 c | `"[aeiou]"` 匹配元音 |
 | `[a-z]` | 匹配任意小写字母 | |
 | `[A-Z]` | 匹配任意大写字母 | |
 | `[0-9]` | 匹配任意数字 | 等同于 `\\d` |
 | `[^abc]` | 匹配除 a、b、c 以外的任意字符 | `[^0-9]` 匹配非数字 |
 
+: {tbl-colwidths=[30,30,40]}
+
 | Shorthand | Meaning | Equivalent |
-|-----------|---------|------------|
+|:---:|---------|------------|
 | `\\d` | 任意数字 | `[0-9]` |
 | `\\D` | 任意非数字 | `[^0-9]` |
 | `\\w` | 任意单词字符 | `[a-zA-Z0-9_]` |
@@ -399,11 +393,13 @@ data <- data |>
 | `\\s` | 任意空白字符 | 空格、制表符、换行 |
 | `\\S` | 任意非空白字符 | |
 
+: {tbl-colwidths=[30,30,40]}
+
 ## stringr 函数
 
 | Function | Purpose | Example |
-|----------|---------|---------|
-| `str_detect()` | 是否存在匹配（返回 TRUE/FALSE） | `str_detect(x, "pattern")` |
+|-------|:------------:|---------|
+| `str_detect()` | 是否存在匹配 (TRUE/FALSE) | `str_detect(x, "pattern")` |
 | `str_subset()` | 返回匹配的元素 | `str_subset(x, "pattern")` |
 | `str_extract()` | 提取第一个匹配 | `str_extract(x, "pattern")` |
 | `str_extract_all()` | 提取所有匹配 | `str_extract_all(x, "pattern")` |

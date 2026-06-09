@@ -5,6 +5,8 @@ subtitle: 'Data analysis & visualization projects using R/Python.'
 include-after-body: '../../src/scripts/responsive-tag-bar.html'
 toc: false
 sidebar: false
+back-to-top-navigation: false
+
 listing:
   id: projects-listing
   contents: "*/index.qmd"
