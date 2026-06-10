@@ -97,6 +97,8 @@ website:
               href: en/tutorials/multivariate-plots/index.qmd
             - text: "Sankey & Network Diagrams"
               href: en/tutorials/sankey-and-network/index.qmd
+            - text: "R Tips"
+              href: en/tutorials/r-tips/index.qmd
         - text: "About"
           href: en/about/index.qmd
     - id: zh-sidebar
@@ -128,7 +130,7 @@ website:
               href: zh/tutorials/multivariate-plots/index.qmd
             - text: "桑基图与网络图"
               href: zh/tutorials/sankey-and-network/index.qmd
-            - text: "EM747 Midterm Tips"
+            - text: "R语言技巧"
               href: zh/tutorials/r-tips/index.qmd
         - text: "关于"
           href: zh/about/index.qmd

@@ -1,6 +1,6 @@
 ---
 title: 'Tutorials'
-subtitle: 'Detailed Python data analysis and visualization tutorials.'
+subtitle: 'Data analysis and visualization tutorials and tips.'
 # css: '../../src/styles/projects.css'
 include-after-body: '../../src/scripts/responsive-tag-bar.html'
 toc: false
@@ -14,9 +14,9 @@ listing:
   type: grid
   categories: true
   sort: "order asc"
-  fields: [title, description, categories]
-  grid-columns: 2
+  fields: [title, description, categories, author, date]
+  grid-columns: 1
   image-height: "0px"
-  filter-ui: false
+  filter-ui: true
   page-size: 20
 ---

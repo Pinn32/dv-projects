@@ -1,31 +1,27 @@
 ---
-title: 'R Tips'
+title: 'R 语言技巧'
 author: 'Pinn Xu'
 date: '2026-03-27'
-categories: ['R', 'dplyr', 'stringr', 'Regex', 'CSS Color', 'Text Analysis', 'Visualization', 'Snippets']
-descriptions: ''
+categories: ['R', 'dplyr', 'stringr', '正则表达式', 'CSS颜色', '文本分析', '数据可视化', '代码片段']
+description: '常用 R 语言技巧与代码片段，涵盖 dplyr 数据处理、stringr 文本操作、正则表达式及 CSS 颜色等实用要点。'
+eval: FALSE
 order: 5
 ---
 
 # 常用要点 {.unnumbered}
-- **用相对路径导入 csv [(详细介绍)](#相对路径)**
-- **所有统计量都要加上 `na.rm = TRUE`**
-    - sum / mean / median / min / max / sd / IQR 等
-- **明确数据的观测单位**
-    - 仔细确认每一行代表什么
-    - 如果有一列叫 `type`, 其内容要么是 `post` 要么是 `comment`,
-      那么整个表格的行单位并非单一类型; 若只关心 post, 需要先用 `filter(type == "post")` 筛选
-- **`count()` 时如果要预先操作的话, 最好加上新列名**
-    - 比如 `count(month = month(Date))`
-- **注意区分 `select(col)` 和 `filter(condition)` [(详细介绍)](#filter-中的逻辑运算符)**
-    - `filter(condition)` 用来选择行, `select(col)` 用来选择列
-- **用 `nrow()` 得到行数, `pull()` 从 dataframe 中取出单个值**
-- **善用 stringr 和 regex 处理文本**
-    - 字符个数: `mutate(text_length = str_length(text))`
-    - 单词个数: `mutate(word_count = str_count(text, "\\S+"))`
-- **添加新列后记得 assign 回原变量, 以便后续继续使用**
-    - `data <- data |> mutate(new_col = ...)`
-- **利用 RStudio Snippet 提高效率 [(详细介绍)](#rstudio-snippet)**
+
+| 要点 | 说明 |
+|------|------|
+| [相对路径](#相对路径) | 数据与代码放同一文件夹，用相对路径读取，避免路径含空格报错 |
+| 统计量加 `na.rm = TRUE` | `sum`、`mean`、`sd`、`IQR` 等均需加，否则有缺失值时结果为 NA |
+| 明确观测单位 | 确认每行代表什么；<br>混合类型（如 post/comment）应先 `filter(type == "post")` |
+| `count()` 内计算时命名 | 如 <code>count(<span style="color:#d04255">month</span> = month(date))</code> |
+| 区分 `filter()` 和 `select()` | `filter(condition)` 选行; `select(col)` 选列 [(filter逻辑运算符)](#filter-中的逻辑运算符) |
+| 取值用 `nrow()` / `pull()` | `nrow()` 返回行数；`pull()` 从数据框取出单个值 |
+| 文本处理用 stringr + Regex | `str_length()` 数字符；`str_count(text, "\\S+")` 数单词 |
+| 新增列后赋值回原变量 | <code>data <span style="color:#d04255"><-</span> data \|> mutate(...)</code> |
+| `TRUE` / `FALSE` 别名 | 等价于 `T` / `F` |
+| 善用 [RStudio Snippet](#rstudio-snippet) | 用代码模板减少重复输入 |
 
 
 
@@ -33,17 +29,17 @@ order: 5
 # 观察数据
 
 ## 行数 / 列数
-```r
+```{r}
 nrow(data)
 ncol(data)
 ```
 
 ## 有多少符合条件的 Observation
-```r
+```{r eval=FALSE}
 data |> filter(条件) |> nrow()
 ```
 
-```r
+```{r eval=FALSE}
 # 示例: 已知 data 有 type 列, 其中只有 "comment" 和 "post" 两种值
 # 求一共多少个 post
 
@@ -67,11 +63,11 @@ data |>
 
 
 ## 某列中 Observation 数量最多的 类 是哪个
-```r
+```{r eval=FALSE}
 data |> count(col, sort=T) |> head(1) |> pull(col)
 ```
 
-```r
+```{r eval=FALSE}
 # 示例: 已知 data 里有 date 列, 其 datatype 是 Date (yyyy-mm-dd)
 # 求哪一年的 post 最多
 
@@ -91,7 +87,7 @@ data |>
 ```
 
 ## 某列的 min / max 值是多少
-```r
+```{r eval=FALSE}
 # 问的是所有行的话 (e.g. "overall activity", "across the whole dataframe")
 # 无需用 pipe, 如果有限制条件 (e.g. "only posts"), 先 filter
 min(data$col, na.rm = TRUE)
@@ -99,7 +95,7 @@ max(data$col, na.rm = TRUE)
 ```
 
 ## 某列有多少 unique value
-```r
+```{r eval=FALSE}
 n_distinct(data$col)
 ```
 
@@ -107,11 +103,11 @@ n_distinct(data$col)
 # 清理数据
 
 ## 求 mean / median 并保留 2 位小数
-```r
+```{r eval=FALSE}
 summarize(mean = round(mean(col, na.rm = TRUE), 2)) |> pull(mean)
 ```
 
-```r
+```{r eval=FALSE}
 # 示例: 求 2019 年 post 的 score 的平均值, 保留 2 位小数
 data |>
     filter(type == "post" & year(date) == 2019) |>
@@ -119,7 +115,7 @@ data |>
     pull(mean)
 ```
 
-```r
+```{r eval=FALSE}
 # 示例: 求每年的 post median score, 保留 2 位小数,
 # 按 median score 从高到低排列, 展示成一个 dataframe
 data |>
@@ -133,11 +129,11 @@ data |>
 ```
 
 ## 增加一列
-```r
+```{r eval=FALSE}
 data <- data |> mutate(new_col = 对于col进行操作)
 ```
 
-```r
+```{r eval=FALSE}
 # 添加一列 字符数
 data <- data |>
     mutate(text_length = str_length(text))
@@ -148,13 +144,13 @@ data <- data |>
 ```
 
 ## 某列最大值所在行的另一列值
-```r
+```{r eval=FALSE}
 data |> 
     slice_max(col1, n = 1) |> 
     pull(col2)
 ```
 
-```r
+```{r eval=FALSE}
 # 示例: word_count 最多的 post 的 author 是谁?
 data |>
     # 问的是 post, 但 data 里不都是 post, 首先要 filter 
@@ -164,19 +160,19 @@ data |>
 ```
 
 ## 求 text length (字符数)
-```r
+```{r eval=FALSE}
 str_length(text)
 ```
 
 ## 求单词数量
-```r
+```{r eval=FALSE}
 str_count(text, "\\S+")
 ```
 
 
 # 可视化
 ## Bar Chart
-```r
+```{r eval=FALSE}
 # 示例: 画出 2019 年每月 post 数量的 bar chart
 
 # 第一步: 获取用于绘图的数据
@@ -203,7 +199,7 @@ ggplot(bar_data, aes(x = factor(month), y = n)) +
 ```
 
 ## Histogram
-```r
+```{r eval=FALSE}
 # 画出 post score 的 histogram
 ggplot(data |> filter(type == "post"), aes(x = score)) +
     geom_histogram(fill = "steelblue", bins = 30) + # 指定 bin 数
@@ -216,7 +212,7 @@ ggplot(data |> filter(type == "post"), aes(x = score)) +
 
 # 文本分析
 
-```r
+```{r eval=FALSE}
 # 示例: 用一个 dataframe 展示出 post 中 top10 词频的词, 并保存到 top1 词成变量
 data |>
     filter(type == "post") |>
@@ -238,23 +234,23 @@ top1 <- data |>
 # 统计
 
 ## 求统计量
-```r
+```{r eval=FALSE}
 round(sd(data$col, na.rm = TRUE), 2)
 IQR(data$col, na.rm = TRUE)
 ```
 
 ## 先处理再求统计量
-```r
+```{r eval=FALSE}
 filter(条件) |> summarize(mean = mean(col, na.rm = TRUE)) |> pull(mean)
 ```
 
 ## 检测统计量 + 解读结果
-```r
+```{r eval=FALSE}
 t.test(col1 ~ col2, data = data)
 ```
 
 ## 线性回归 + 系数
-```r
+```{r eval=FALSE}
 m <- lm(col1 ~ col2, data = data)
 coef(m)[[1]]  # intercept
 coef(m)[[2]]  # slope
@@ -268,16 +264,16 @@ coef(m)[[2]]  # slope
 
 | 函数 | 作用 | 示例 |
 |------|------|------|
-| `filter(条件)` | 保留满足条件的==行== | `filter(type == "post" & score > 10)` |
+| `filter(条件)` | 保留满足条件的行 | `filter(type == "post" & score > 10)` |
 | `select(列)` | 根据列名选列 | `select(col1)`, `col1:col3`, `-col3` |
-| `count(列)` | 这列中所有 unique value 的行数 | <code>count(year = year(date), <span class="red">sort = TRUE</span>)</code> |
+| `count(列)` | 这列中所有 unique value 的行数 | <code>count(year = year(date), <span style="color:#d04255">sort = TRUE</span>)</code> |
 | `nrow()` | 数当前有多少行 | 没有参数, 一般配合 `filter()` 使用:<br><code>filter(score > mean(score, na.rm=T)) \|> nrow()</code> |
-| `slice_max(列, n=行数)` | 选出这列中值最大的行 | <code>slice_max(score, <span class="red">n</span> = 10)</code> |
+| `slice_max(列, n=行数)` | 选出这列中值最大的行 | <code>slice_max(score, <span style="color:#d04255">n</span> = 10)</code> |
 | `pull(列)` | 返回这列的值 | 一般先 filter / slice_max / head / summarize 到只剩一行, 然后 `pull(列名)`, 比如:<br><code>summarize(mean_age=mean(age,na.rm=T))\|> pull(mean_age)</code> |
 | `mutate(新列=表达式)` | 在原df基础上添加/修改列 | `mutate(perc = col1/col2*100)` |
 | `group_by(分类的列)` | 分组 (配合 summarize/mutate) | `group_by(age)` |
-| `summarize(...)` | 返回总结报告 | <code>group_by(age) \|></code><br><code>summarize(<span class="red">avg</span> = mean(score, na.rm=T), <span class="red">.groups="drop"</span>)</code> |
-| `arrange(列)` | 排序（默认升序） | <code>arrange(age, <span class="red">desc</span>(score))</code> |
+| `summarize(...)` | 返回总结报告 | <code>group_by(age) \|></code><br><code>summarize(<span style="color:#d04255">avg</span> = mean(score, na.rm=T), <span style="color:#d04255">.groups="drop"</span>)</code> |
+| `arrange(列)` | 排序（默认升序） | <code>arrange(age, <span style="color:#d04255">desc</span>(score))</code> |
 | `glimpse(df)` | 查看结构（≈ `str()`） | `glimpse(data)` |
 | `rename(新=旧)` | 重命名列（不新建列） | `rename(new_col = old_col)` |
 
@@ -287,7 +283,7 @@ coef(m)[[2]]  # slope
 
 > 注意区分 `nrow()` 和 `n()` : 同样是数行数, `nrow()` 接受 dataframe 作为参数; `n()` 是 dplyr 上下文函数, 只能在 `summarize()` / `mutate()` 内部使用 (如 `summarize(number_of_observation = n())`), pipe 时只能用 `nrow()`
 
-```r
+```{r eval=FALSE}
 # 示例:
 # 已知 data 有一列 type, 只有 "post" 和 "comment" 两种值;
 # 另一列 word_count 是帖子或评论中的词数, 求有多少帖子词数少于 10
@@ -313,7 +309,7 @@ data |>
 
 > `%in%` 判断元素存在性；`==` 按位置匹配（长度不等会循环）
 
-```r
+```{r eval=FALSE}
 # 示例:
 # 已知 data 中有一列 date, 该列的 datatype 是 Date (yyyy-mm-dd);
 # 已知另一列 type, 该列有 "post" 和 "comment" 两种值;
@@ -345,16 +341,16 @@ data |>
 
 | 写法 | 效果 |
 |------|------|
-| <code>select(col1<span class="red">:</span>col3)</code> | 选 col1 到 col3 |
-| <code>select(<span class="red">-</span>col3)</code> | 排除 col3 |
-| <code>select(<span class="red">contains</span>("x"))</code> | 列名含 "x" |
-| <code>select(<span class="red">starts_with</span>("c"))</code> | 列名以 "c" 开头 |
-| <code>select(<span class="red">ends_with</span>("3"))</code> | 列名以 "3" 结尾 |
-| <code>select(<span class="red">everything</span>())</code> | 全选 |
+| <code>select(col1<span style="color:#d04255">:</span>col3)</code> | 选 col1 到 col3 |
+| <code>select(<span style="color:#d04255">-</span>col3)</code> | 排除 col3 |
+| <code>select(<span style="color:#d04255">contains</span>("x"))</code> | 列名含 "x" |
+| <code>select(<span style="color:#d04255">starts_with</span>("c"))</code> | 列名以 "c" 开头 |
+| <code>select(<span style="color:#d04255">ends_with</span>("3"))</code> | 列名以 "3" 结尾 |
+| <code>select(<span style="color:#d04255">everything</span>())</code> | 全选 |
 
 ## Regex
 
-```r
+```{r eval=FALSE}
 # 添加一列 字符数
 data <- data |>
     mutate(text_length = str_length(text))
@@ -398,7 +394,7 @@ data <- data |>
 ## stringr 函数
 
 | Function | Purpose | Example |
-|-------|:------------:|---------|
+|------|:----------:|------------|
 | `str_detect()` | 是否存在匹配 (TRUE/FALSE) | `str_detect(x, "pattern")` |
 | `str_subset()` | 返回匹配的元素 | `str_subset(x, "pattern")` |
 | `str_extract()` | 提取第一个匹配 | `str_extract(x, "pattern")` |
@@ -434,25 +430,23 @@ data <- data |>
 : {tbl-colwidths=[15,35,15,35]}
 
 ## 相对路径
-- **相对路径**
-    - 把 Rmd 和 csv 存在同一个文件夹内
-    - 然后用 `data <- read_csv("./exam-data.csv")` 导入数据
-    - `./` 意为当前 (Rmd 所在的) 文件夹
-    - 最好用 ==相对路径== , 可以避免由于路径中带有空格而导致的bug
-- **绝对路径**
-    - 在 Finder 中选中 csv 文件后按 ==⌥⌘C== 可以快速复制文件绝对路径
-    - 例: `data <- read_csv("/Users/username/EM747/mid-exam/exam-data.csv")`
+
+**相对路径。** 将 Rmd 文件与 csv 放在同一文件夹, 用 `read_csv("./exam-data.csv")` 读取; `./` 指当前文件夹。推荐使用相对路径, 可避免路径含空格导致的报错。
+
+**绝对路径。** 在 Finder 中选中文件后按 `⌥⌘C` 可复制绝对路径, 如 `data <- read_csv("/Users/username/EM747/mid-exam/exam-data.csv")`。
 
 ## RStudio Snippet
 
 在 RStudio > Tools > Edit Code Snippets  
-![RStudio Snippet: 1](../../../src/img/ttl/r-tips/rstudio-snippet-1.png){width="400px"}
+
+![](../../../src/img/ttl/r-tips/rstudio-snippet-1.png){width="400px" fig-alt="编辑代码片段"}
 
 R > 在最下方添加新代码 > 保存  
-![RStudio Snippet: 2](../../../src/img/ttl/r-tips/rstudio-snippet-2.png)
 
-**比如 ggplot 画图的代码:**
-```r
+![](../../../src/img/ttl/r-tips/rstudio-snippet-2.png){fig-alt="RStudio里创建代码片段的流程"}
+
+例如 ggplot 画图的模板:
+```{r eval=FALSE}
 snippet ggplot
     ggplot(${1:data}, aes(x = ${2:x}, y = ${3:y})) +
         geom_${4:bar}(${5:fill} = "${6:steelblue}") + 
@@ -463,11 +457,13 @@ snippet ggplot
         )
 ```
 
-保存成功后, 在 R 代码块里输入 `ggplot`, 选择 snippet  
-![RStudio Snippet: 3](../../../src/img/ttl/r-tips/rstudio-snippet-3.png){width="550px"} 
+保存成功后, 在 R 代码块里输入 `ggplot`, 选择 snippet:  
 
-按回车, 自动嵌入模板  
-![RStudio Snippet: 4](../../../src/img/ttl/r-tips/rstudio-snippet-4.png){width="350px"}
+![](../../../src/img/ttl/r-tips/rstudio-snippet-3.png){width="550px" fig-alt="在代码块里输入代码片段别名"} 
+
+按回车, 自动嵌入模板:  
+
+![](../../../src/img/ttl/r-tips/rstudio-snippet-4.png){width="350px" fig-alt="插入后的模板"}
 
 
 [↑回到顶部](#)
