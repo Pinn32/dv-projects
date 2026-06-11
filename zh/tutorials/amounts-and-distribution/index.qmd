@@ -3,7 +3,7 @@ title: "数量与分布可视化"
 author: "Pinn Xu"
 date: "2024-10-01"
 categories: ["Python", "Seaborn", "可视化", "数据分布", "直方图"]
-description: "本章介绍如何使用 Seaborn 库绘制柱状图、点线图、直方图、箱线图等常见的数量与分布可视化图表，并通过调整参数实现更清晰的信息传达。"
+description: "使用 Seaborn 绘制数量与分布可视化图表：柱状图、点线图、直方图、箱线图等。"
 code-fold: false
 order: 2
 ---

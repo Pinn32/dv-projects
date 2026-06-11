@@ -4,6 +4,9 @@ author: 'Pinn Xu'
 date: '2026-02-23'
 categories: [R, EDA, 社交媒体, 心理健康, 可视化]
 description: '分析学生的社交媒体使用习惯与成瘾模式，探究行为与学业相关洞察。'
+image: ../../../src/img/proj/stu-media/cover.png
+
+order: 2
 
 ## 以下内容用于 Rmd
 # output:

@@ -7,6 +7,8 @@ categories: [R, AI, NLP, Text Analysis, Sentiment Analysis, Topic Modeling, Soci
 bibliography: references.bib
 csl: ../../../src/apa.csl
 number-sections: true
+
+order: 1
 ---
 
 ```{r setup, include=FALSE}

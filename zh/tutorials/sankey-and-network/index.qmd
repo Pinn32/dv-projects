@@ -3,7 +3,7 @@ title: '桑基图与网络图'
 author: 'Pinn Xu'
 date: '2024-12-05'
 categories: ["Python", "Plotly", "可视化", "桑基图", "网络图"]
-description: '本章介绍桑基图与网络图的绘制方法，包括数据准备、图表创建和样式调整等。'
+description: '使用 Plotly、Pyvis 与 NetworkX 绘制桑基图与网络图。'
 order: 4
 ---
 

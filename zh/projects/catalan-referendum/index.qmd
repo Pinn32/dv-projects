@@ -6,6 +6,9 @@ categories: [Python, NLP, 社交媒体, 可视化]
 description: '使用 NLP 技术对 2017 年加泰罗尼亚独立公投相关推文进行情感挖掘。'
 bibliography: references.bib
 csl: ../../../src/apa.csl
+image: ../../../src/img/proj/catalan/cover.png
+
+order: 3
 
 # code-tools: true
 # jupyter: dv-env  # 使用 jupyter 渲染

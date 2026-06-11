@@ -4,6 +4,9 @@ author: 'Pinn Xu'
 date: '2026-02-23'
 categories: [R, EDA, Social Media, Mental Health, Visualization]
 description: 'Analysis of social media habits and addiction patterns among students, with behavioral and academic insights.'
+image: ../../../src/img/proj/stu-media/cover.png
+
+order: 2
 
 ## All below for Rmd
 # output:

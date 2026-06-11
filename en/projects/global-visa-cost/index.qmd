@@ -8,6 +8,8 @@ bibliography: references.bib
 csl: ../../../src/apa.csl
 number-depth: 2
 
+order: 4
+
 # css: 'jupyter-page.css'
 # jupyter: dv-env
 ---

@@ -13,10 +13,12 @@ listing:
   contents: "*/index.qmd"
   type: grid
   categories: true
-  sort: "order asc"
-  fields: [title, description, categories]
+  fields: [image, title, description, author, date]
   grid-columns: 2
-  image-height: "0px"
-  filter-ui: false
+  image-height: "200px"
+  image-align: left
+  sort: "order asc"
+  sort-ui: [title, date]
+  filter-ui: true
   page-size: 20
 ---

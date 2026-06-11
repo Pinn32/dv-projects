@@ -3,7 +3,7 @@ title: "数据清理"
 author: "Pinn Xu"
 date: "2024-10-10"
 categories: ["Python", "数据处理", "Pandas", "DataFrame"]
-description: "本教程介绍 Pandas 中常用的数据处理流程，包括缺失值处理、列管理、重复值、数据重塑、表连接和分组聚合。"
+description: "Pandas 数据处理与清洗流程：缺失值、重复值、数据重塑、表连接、分组聚合、透视表等。"
 code-fold: false
 order: 1
 ---

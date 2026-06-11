@@ -6,6 +6,9 @@ categories: [Python, NLP, Social Media, Visualization]
 description: 'Sentiment mining on tweets surrounding the 2017 Catalan independence referendum using NLP techniques.'
 bibliography: references.bib
 csl: ../../../src/apa.csl
+image: ../../../src/img/proj/catalan/cover.png
+
+order: 3
 
 # code-tools: true
 # jupyter: dv-env  # use jupyter to render

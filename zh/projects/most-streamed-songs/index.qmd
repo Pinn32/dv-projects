@@ -4,6 +4,9 @@ author: 'Pinn Xu'
 date: '2026-02-25'
 categories: [R, EDA, 音乐, 可视化, 抽样]
 description: '对 2023 年 Spotify 最高播放量歌曲进行探索性分析，揭示音乐流行趋势。'
+image: ../../../src/img/proj/songs/cover.png
+
+order: 5
 
 ## All below for Rmd
 # output:

@@ -3,8 +3,9 @@ title: 'Data Processing'
 author: 'Pinn Xu'
 date: '2024-10-10'
 categories: ["Python", "Data Processing", "Pandas", "DataFrame"]
-description: 'This tutorial covers essential data processing workflows in Pandas, including missing values, column management, duplicates, reshaping, joins, and aggregation.'
+description: 'Data processing/cleaning workflows in Pandas: missing values, duplicates, reshaping, joins, aggregations, pivoting, etc.'
 code-fold: false
+
 order: 1
 ---
 

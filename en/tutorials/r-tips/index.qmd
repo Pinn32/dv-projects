@@ -3,7 +3,7 @@ title: 'R Tips'
 author: 'Pinn Xu'
 date: '2026-03-27'
 categories: ['R', 'dplyr', 'stringr', 'Regex', 'CSS Color', 'Text Analysis', 'Visualization', 'Snippets']
-description: 'Common R tips and code snippets covering dplyr data manipulation, stringr text operations, regular expressions, CSS colors, and more.'
+description: "Common R tips & code snippets: dplyr data manipulation, stringr text operations, CSS color names, code cheatsheets, etc."
 order: 5
 eval: FALSE
 ---

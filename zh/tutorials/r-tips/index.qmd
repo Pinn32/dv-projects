@@ -3,7 +3,7 @@ title: 'R 语言技巧'
 author: 'Pinn Xu'
 date: '2026-03-27'
 categories: ['R', 'dplyr', 'stringr', '正则表达式', 'CSS颜色', '文本分析', '数据可视化', '代码片段']
-description: '常用 R 语言技巧与代码片段，涵盖 dplyr 数据处理、stringr 文本操作、正则表达式及 CSS 颜色等实用要点。'
+description: '常用 R 技巧与代码片段：dplyr 数据处理、stringr 文本操作、CSS 颜色名称、代码速查表等。'
 eval: FALSE
 order: 5
 ---
