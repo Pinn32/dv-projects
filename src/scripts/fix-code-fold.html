@@ -1,22 +1,15 @@
-<script id="fix-code-fold" type="text/javascript">
-    const showBtn = document.getElementById('quarto-show-all-code');
-    const hideBtn = document.getElementById('quarto-hide-all-code');
-
-    if (showBtn) {
-        showBtn.addEventListener('click', function(e) {
+<script id="fix-code-fold">
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
             e.preventDefault();
             document.querySelectorAll('details.code-fold').forEach(el => {
-                el.setAttribute('open', '');
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
             });
         });
-    }
+    };
 
-    if (hideBtn) {
-        hideBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelectorAll('details.code-fold').forEach(el => {
-                el.removeAttribute('open');
-            });
-        });
-    }
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
 </script>

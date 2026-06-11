@@ -154,7 +154,7 @@ format:
       - ./src/scripts/fix-code-fold.html
       - ./src/scripts/lang-switch.html
       - ./src/scripts/fix-sidebar-toggle.html
-      # - ./src/scripts/fix-navbar-active.html
+      - ./src/scripts/fix-navbar-active.html
     
     toc: true
     code-tools: true

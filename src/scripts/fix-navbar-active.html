@@ -1,34 +1,31 @@
-<script id="fix-navbar-active" type="text/javascript">
+<script id="fix-navbar-active">
     // Fix Quarto's incorrect navbar active state when a global sidebar is present.
-    // Quarto marks the first sidebar-linked navbar item as active for all sidebar pages,
-    // ignoring which page is actually open. This corrects it at runtime via URL matching.
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // lang-switch.html to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
 
-    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
 
-        // get current path
-        // `/someRegex/` is regex literal
-        let path = window.location.pathname.replace(/\/index\.html$/, '/');
-
-        document.querySelectorAll('.navbar-nav .nav-link').forEach((link) => {
-
-            // get hrefs from navbar a tags
-            let href = link.getAttribute('href');
-
-            try { 
-                href = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/'); 
-            } catch (e) {
-                console.log(e);
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
             }
 
-            // check if href === current path
-            let isActive = (path === href) || (href !== '/' && path.startsWith(href));
-
-            // if match, add .active class to navbar item
+            const isActive = pageSection !== null && pageSection === linkSection;
             link.classList.toggle('active', isActive);
-
-            // if match, add aria-current="page" to navbar item for accessibility
             if (isActive) link.setAttribute('aria-current', 'page');
             else link.removeAttribute('aria-current');
         });
-    });
+    })();
 </script>
