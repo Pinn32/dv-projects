@@ -1,20 +1,41 @@
 ---
 title: "Pinn (Aiqi) Xu"
-subtitle: "Data Science & Visualization Portfolio"
+subtitle: "Data Analysis & Visualization Portfolio"
+# subtitle: "Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, storytelling, and code. "
 sidebar: false
 toc: false
+listing:
+    id: projects
+    contents: 'projects/*/index.qmd'
+    type: grid
+    grid-columns: 2
+    sort: 'order asc'
+    max-items: 4
+    fields: [image, title, author, date]
+    image-height: '200px'
+    image-align: left
 ---
 
-Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, storytelling, and code.
+<!-- Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, storytelling, and code.  -->
 
 This site collects my data projects: exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with [Quarto](https://quarto.org/).
 
-[Browse all projects →](projects/){.btn .btn-primary}
+[Browse all projects →](projects/){.btn .btn-primary style="margin-right:12px"}
+[Data Viz Tutorials](tutorials/){.btn .btn-outline-primary}
 
 ## Featured Projects
 
+::: {#projects}
+:::
+
+
+
+
+<!-- 
+
 ::::::: grid
 ::: {.g-col-12 .g-col-md-6 .featured-card}
+![Catalan Referendum Sentiment Analysis](../src/img/proj/catalan/cover.png)
 [**Twitter Sentiment Analysis of Catalan Referendum**](projects/catalan-referendum/){.stretched-link}\
 Sentiment mining on tweets surrounding the 2017 Catalan independence referendum.\
 `Python` `NLP` `Social Media`
@@ -37,7 +58,12 @@ Exploratory analysis of the most-streamed tracks on Spotify, uncovering trends i
 Analysis of social media habits and addiction patterns among students.\
 `R` `EDA` `Social Media`
 :::
-:::::::
+::::::: 
+
+-->
+
+
+
 
 ------------------------------------------------------------------------
 
