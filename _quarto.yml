@@ -56,6 +56,8 @@ website:
         href: en/tutorials/index.qmd
       - text: Hobbies
         href: en/hobbies/index.qmd
+      - text: Blogs
+        href: en/blogs/index.qmd
       # - text: About
       #   href: about/index.qmd
     

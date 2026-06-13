@@ -1,0 +1,26 @@
+---
+title: '博客'
+subtitle: '副标题占位符'
+sidebar: false
+toc: false
+back-to-top-navigation: false
+reading-meta-enabled: false
+
+# listing:
+#     id: blogs-listing
+#     contents: "*/index.qmd"
+#     type: grid
+#     categories: true
+#     fields: [image, title, reading-time, word-count, categories, author, date]
+#     grid-columns: 2
+#     image-height: "200px"
+#     image-align: left
+#     sort: "date desc"
+#     sort-ui: true
+#     filter-ui: true
+#     page-size: 20
+---
+
+# 博客
+
+Placeholder
