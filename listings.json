@@ -5,17 +5,18 @@
       "/en/tutorials/data-processing/index.html",
       "/en/tutorials/amounts-and-distribution/index.html",
       "/en/tutorials/multivariate-plots/index.html",
-      "/en/tutorials/sankey-and-network/index.html"
+      "/en/tutorials/sankey-and-network/index.html",
+      "/en/tutorials/r-tips/index.html"
     ]
   },
   {
-    "listing": "/zh/projects/index.html",
+    "listing": "/en/index.html",
     "items": [
-      "/zh/projects/ai-tweets/index.html",
-      "/zh/projects/catalan-referendum/index.html",
-      "/zh/projects/global-visa-cost/index.html",
-      "/zh/projects/most-streamed-songs/index.html",
-      "/zh/projects/student-media-usage/index.html"
+      "/en/projects/ai-discourse/index.html",
+      "/en/projects/student-media-usage/index.html",
+      "/en/projects/catalan-referendum/index.html",
+      "/en/projects/global-visa-cost/index.html",
+      "/en/projects/most-streamed-songs/index.html"
     ]
   },
   {
@@ -24,17 +25,28 @@
       "/zh/tutorials/data-processing/index.html",
       "/zh/tutorials/amounts-and-distribution/index.html",
       "/zh/tutorials/multivariate-plots/index.html",
-      "/zh/tutorials/sankey-and-network/index.html"
+      "/zh/tutorials/sankey-and-network/index.html",
+      "/zh/tutorials/r-tips/index.html"
+    ]
+  },
+  {
+    "listing": "/zh/projects/index.html",
+    "items": [
+      "/zh/projects/ai-discourse/index.html",
+      "/zh/projects/student-media-usage/index.html",
+      "/zh/projects/catalan-referendum/index.html",
+      "/zh/projects/global-visa-cost/index.html",
+      "/zh/projects/most-streamed-songs/index.html"
     ]
   },
   {
     "listing": "/en/projects/index.html",
     "items": [
-      "/en/projects/ai-tweets/index.html",
+      "/en/projects/ai-discourse/index.html",
+      "/en/projects/student-media-usage/index.html",
       "/en/projects/catalan-referendum/index.html",
       "/en/projects/global-visa-cost/index.html",
-      "/en/projects/most-streamed-songs/index.html",
-      "/en/projects/student-media-usage/index.html"
+      "/en/projects/most-streamed-songs/index.html"
     ]
   }
 ]

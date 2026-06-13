@@ -8,7 +8,7 @@
 
 <meta name="author" content="Pinn Xu">
 <meta name="dcterms.date" content="2024-10-10">
-<meta name="description" content="This tutorial covers essential data processing workflows in Pandas, including missing values, column management, duplicates, reshaping, joins, and aggregation.">
+<meta name="description" content="Data processing/cleaning workflows in Pandas: missing values, duplicates, reshaping, joins, aggregations, pivoting, etc.">
 
 <title>Data Processing – Pinn (Aiqi) Xu</title>
 <style>
@@ -71,7 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../src/img/favicon.ico" rel="icon">
+<link href="../../../src/img/favicon/spark.ico" rel="icon">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -157,6 +157,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../../en/hobbies/index.html"> 
 <span class="menu-text">Hobbies</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/blogs/index.html"> 
+<span class="menu-text">Blogs</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools tools-wide">
@@ -206,6 +210,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/ai-discourse/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evolution of Online AI Discourse</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link">
@@ -263,6 +273,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../../en/tutorials/sankey-and-network/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sankey &amp; Network Diagrams</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Tips</span></a>
   </div>
 </li>
       </ul>
@@ -326,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    This tutorial covers essential data processing workflows in Pandas, including missing values, column management, duplicates, reshaping, joins, and aggregation.
+    Data processing/cleaning workflows in Pandas: missing values, duplicates, reshaping, joins, aggregations, pivoting, etc.
   </div>
 </div>
 
@@ -359,8 +375,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     8 min read</span><span> · </span><span>1538 EN words</span><span> · </span><span>0 中文字</span></div>
-<div id="58931c37" class="cell" data-execution_count="1">
+     8 min read</span><span> · </span><span>1535 EN words</span><span> · </span><span>0 中文字</span></div>
+<div id="44c0eb1a" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Environment &amp; Versions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -375,7 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>Ensure path separators use forward slashes <code>/</code> (or escaped backslashes <code>\\</code> for Win).</li>
 </ul>
-<div id="234f2275" class="cell" data-execution_count="2">
+<div id="8f6f956a" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"../../../src/data/beer-and-curry.csv"</span></span>
@@ -449,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="dropping-missing-values" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="dropping-missing-values"><span class="header-section-number">1.1</span> Dropping Missing Values</h2>
 <p>Use <code>dropna()</code> to remove rows with missing values in the columns required for analysis.</p>
-<div id="feb2e2b0" class="cell" data-execution_count="3">
+<div id="cf79b798" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows where 'text' or 'retweet_count' is missing (value is NA or NaN)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"text"</span>, <span class="st">"retweet_count"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -466,13 +482,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>Note:</strong> For data preprocessing, selectively drop rows with missing values only in columns relevant to your analysis to maintain data accuracy.</p>
 </blockquote>
-<div id="c378987d" class="cell" data-execution_count="4">
+<div id="1c7cc4c5" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.shape <span class="co"># view original shape (num of rows, num of cols)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>(430, 14)</code></pre>
 </div>
 </div>
-<div id="e458e888" class="cell" data-execution_count="5">
+<div id="d9d25a2b" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_clean.shape <span class="co"># shape after dropping rows with missing values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>(429, 14)</code></pre>
@@ -482,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="filling-missing-values" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="filling-missing-values"><span class="header-section-number">1.2</span> Filling Missing Values</h2>
 <p>Use <code>fillna()</code> when a missing value should be replaced rather than removed.</p>
-<div id="ce36c4df" class="cell" data-execution_count="6">
+<div id="54a90806" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fill missing values in 'mentions' with a placeholder string</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].fillna(<span class="st">"No Mentioned User"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -505,7 +521,7 @@ Name: mentions, dtype: object</code></pre>
 <section id="replacing-specific-values" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="replacing-specific-values"><span class="header-section-number">1.3</span> Replacing Specific Values</h2>
 <p>Use <code>replace()</code> to convert placeholder values into a more useful representation.</p>
-<div id="061fbc54" class="cell" data-execution_count="7">
+<div id="f2eb3949" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># replace the placeholder string with 0</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].replace(<span class="st">"No Mentioned User"</span>, <span class="dv">0</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -531,7 +547,7 @@ Name: mentions, dtype: object</code></pre>
 <section id="renaming-columns" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="renaming-columns"><span class="header-section-number">2.1</span> Renaming Columns</h2>
 <p>Use <code>rename()</code> to make column names shorter and more descriptive.</p>
-<div id="35c050a6" class="cell" data-execution_count="8">
+<div id="70ad9fd7" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rename 'text' to 'content' and 'created_at' to 'date'</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"text"</span>: <span class="st">"content"</span>, <span class="st">"created_at"</span>: <span class="st">"date"</span>})</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -614,7 +630,7 @@ Name: mentions, dtype: object</code></pre>
 <section id="creating-new-columns" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="creating-new-columns"><span class="header-section-number">2.2</span> Creating New Columns</h2>
 <p>Drop rows with missing follower counts before creating derived metrics.</p>
-<div id="17e8b21a" class="cell" data-execution_count="9">
+<div id="f1841985" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify specific column(s) to drop rows with missing values</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"user.followers_count"</span>])</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -692,7 +708,7 @@ Name: mentions, dtype: object</code></pre>
 <section id="applying-basic-column-operations" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="applying-basic-column-operations"><span class="header-section-number">2.2.1</span> Applying Basic Column Operations</h3>
 <p>Create a new column by applying a vectorized calculation to an existing column.</p>
-<div id="ce707184" class="cell" data-execution_count="10">
+<div id="7e50b7a3" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new column 'followers_k' by dividing 'user.followers_count' by 1000</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"followers_k"</span>] <span class="op">=</span> df[<span class="st">"user.followers_count"</span>] <span class="op">/</span> <span class="dv">1000</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -740,12 +756,12 @@ Name: mentions, dtype: object</code></pre>
 <section id="applying-a-custom-function" class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="applying-a-custom-function"><span class="header-section-number">2.2.2</span> Applying a Custom Function</h3>
 <p>Define a reusable function when the transformation is clearer as named logic.</p>
-<div id="32c311dd" class="cell" data-execution_count="11">
+<div id="d2c446b2" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function to calculate engagement rate (ER) as a percentage</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_er(engagement_count, follower_count):</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (engagement_count <span class="op">/</span> follower_count) <span class="op">*</span> <span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="058acf46" class="cell" data-execution_count="12">
+<div id="d297ebd8" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># apply and assign the calculated engagement rate to a new column 'er_rt_fo'</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"er_rt_fo"</span>] <span class="op">=</span> calc_er(</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"retweet_count"</span>],</span>
@@ -792,7 +808,7 @@ Name: mentions, dtype: object</code></pre>
 </div>
 </div>
 </div>
-<div id="a3accd0f" class="cell" data-execution_count="13">
+<div id="863021e6" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the relationship between engagement rate &amp; two other metrics</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df[[<span class="st">"er_rt_fo"</span>, <span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>]].plot(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    subplots<span class="op">=</span><span class="va">True</span>,</span>
@@ -822,7 +838,7 @@ Name: mentions, dtype: object</code></pre>
 <section id="finding-duplicates" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Finding Duplicates</h1>
 <p>Remove fully duplicated rows with <code>duplicated()</code>.</p>
-<div id="08f7ea3f" class="cell" data-execution_count="14">
+<div id="269fbc65" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop fully duplicated rows (keep the first occurrence)</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ~ is the negation operator</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[<span class="op">~</span>df.duplicated()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -838,7 +854,7 @@ Name: mentions, dtype: object</code></pre>
 <li>Use <code>keep=False</code> to mark all duplicates.</li>
 </ul>
 <p>Find users who posted multiple times on the same date by specifying a subset of columns.</p>
-<div id="96000ee0" class="cell" data-execution_count="15">
+<div id="499ced36" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find duplicated rows based on 'user' and 'date' columns (keep all occurrences)</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df[df.duplicated(subset<span class="op">=</span>[<span class="st">"user"</span>, <span class="st">"date"</span>], keep<span class="op">=</span><span class="va">False</span>)].head(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
@@ -916,7 +932,7 @@ Name: mentions, dtype: object</code></pre>
 <section id="reordering-and-reshaping-data" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Reordering and Reshaping Data</h1>
 <p>Sort rows by multiple columns with <code>sort_values()</code>.</p>
-<div id="4429fbf4" class="cell" data-execution_count="16">
+<div id="93f6d61a" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort by 'retweet_count' and then by 'user.followers_count' descending</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df.sort_values(</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    by<span class="op">=</span>[<span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>],</span>
@@ -1000,7 +1016,7 @@ Name: mentions, dtype: object</code></pre>
 <li>Use <code>df.transpose()</code> to swap rows and columns.</li>
 </ul>
 <p>Transpose the DataFrame when you need to switch rows and columns for inspection.</p>
-<div id="8e34fbe7" class="cell" data-execution_count="17">
+<div id="d1103c44" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df.transpose().head(<span class="dv">3</span>) <span class="co"># view the DataFrame with rows and columns swapped</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <div>
@@ -1117,7 +1133,7 @@ Name: mentions, dtype: object</code></pre>
 <section id="joining-data" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Joining Data</h1>
 <p>Load a second dataset and combine it with <code>concat()</code>.</p>
-<div id="1bff6ccc" class="cell" data-execution_count="18">
+<div id="2eefe295" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>path2 <span class="op">=</span> <span class="st">"../../../src/data/keto-and-vegan.csv"</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> pd.read_csv(path2, encoding<span class="op">=</span><span class="st">"latin-1"</span>) <span class="co"># load df</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df2.head(<span class="dv">2</span>) <span class="co"># view first 2 rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1187,7 +1203,7 @@ Name: mentions, dtype: object</code></pre>
 </div>
 </div>
 <p>Append matching tables vertically:</p>
-<div id="071215e1" class="cell" data-execution_count="19">
+<div id="2658363d" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># concatenate df and df2 vertically (stack rows)</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).iloc[<span class="dv">428</span>:<span class="dv">432</span>,] <span class="co"># view row 428 to 431</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
@@ -1318,7 +1334,7 @@ Name: mentions, dtype: object</code></pre>
 <li>Reset the index with <code>.reset_index(drop=True)</code> to create a continuous index.</li>
 </ul>
 <p>Reset the index after concatenation when you want a continuous row index.</p>
-<div id="fac8bdf5" class="cell" data-execution_count="20">
+<div id="765f160c" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># concatenate df and df2, then reset the index</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).reset_index(drop<span class="op">=</span><span class="va">True</span>).iloc[<span class="dv">428</span>:<span class="dv">432</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
@@ -1444,7 +1460,7 @@ Name: mentions, dtype: object</code></pre>
 <section id="grouping-and-aggregation" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Grouping and Aggregation</h1>
 <p>Use <code>groupby()</code> with <code>agg()</code> to compute summary statistics by group. The example below calculates total retweets and average follower count for each user.</p>
-<div id="d1352ee7" class="cell" data-execution_count="21">
+<div id="cb593036" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group by 'user', then aggregate 'retweet_count' with sum </span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and 'user.followers_count' with mean</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>df_agg <span class="op">=</span> df.groupby(<span class="st">"user"</span>).agg(</span>
@@ -1499,14 +1515,14 @@ Name: mentions, dtype: object</code></pre>
 <li>Verify the number of groups using <code>df[~df.duplicated(subset='column')].shape</code> or <code>df['column'].nunique()</code>.</li>
 </ul>
 <p>You can compare the grouped result with the number of unique users:</p>
-<div id="4e5da2f7" class="cell" data-execution_count="22">
+<div id="90f40a5c" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># count unique users by dropping duplicates based on 'user' column</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df[<span class="op">~</span>df.duplicated(subset<span class="op">=</span><span class="st">"user"</span>)].shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>(390, 16)</code></pre>
 </div>
 </div>
-<div id="b1adec84" class="cell" data-execution_count="23">
+<div id="fb1b7322" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or simply count the number of unique users with nunique()</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"user"</span>].nunique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
@@ -1520,7 +1536,7 @@ Name: mentions, dtype: object</code></pre>
 <h2 data-number="7.1" class="anchored" data-anchor-id="melting-data"><span class="header-section-number">7.1</span> Melting Data</h2>
 <p><strong>Melting: wide → long</strong></p>
 <p>Use <code>melt()</code> to convert wide data into long format for analysis and plotting.</p>
-<div id="b448f686" class="cell" data-execution_count="24">
+<div id="b9c158c0" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sample wide-format DataFrame with pet types and counts</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df_wide <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
@@ -1571,7 +1587,7 @@ Name: mentions, dtype: object</code></pre>
 </div>
 </div>
 <p>Without arguments, <code>melt()</code> collapses all columns into variable-value pairs.</p>
-<div id="61565068" class="cell" data-execution_count="25">
+<div id="d519b6dc" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_wide.melt() <span class="co"># melt all cols into variable-value pairs (pivot longer)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <div>
@@ -1638,7 +1654,7 @@ Name: mentions, dtype: object</code></pre>
 </div>
 </div>
 <p>Specify identifier and value columns for a structured long-format result.</p>
-<div id="1bf7ab4a" class="cell" data-execution_count="26">
+<div id="e481ca91" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>melted_df <span class="op">=</span> pd.melt(</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    df_wide,</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"pet"</span>], <span class="co"># keep 'pet' as identifier column</span></span>
@@ -1652,7 +1668,7 @@ Name: mentions, dtype: object</code></pre>
 <h2 data-number="7.2" class="anchored" data-anchor-id="pivoting-data"><span class="header-section-number">7.2</span> Pivoting Data</h2>
 <p><strong>Pivot: long → wide</strong></p>
 <p>Pivot the long data back to wide format:</p>
-<div id="8b4ee2fc" class="cell" data-execution_count="27">
+<div id="410c88c5" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="op">=</span> melted_df.pivot(</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"pet"</span>, <span class="co"># identifier column becomes index</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"sex"</span>, <span class="co"># categories in variable column becomes new columns</span></span>
@@ -1702,7 +1718,7 @@ Name: mentions, dtype: object</code></pre>
 </div>
 <p>Use <code>pivot_table()</code> instead of <code>pivot()</code> when there are duplicate index/column combinations, and specify an aggregation function like <code>aggfunc='mean'</code> to summarize duplicates.</p>
 <p>For example, if we have duplicate pet entries:</p>
-<div id="e5e517a6" class="cell" data-execution_count="28">
+<div id="1cff4d26" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sample DataFrame with duplicate pet entries</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
@@ -1773,7 +1789,7 @@ Name: mentions, dtype: object</code></pre>
 </div>
 </div>
 <p>To pivot this long data back to wide format, we can use <code>pivot_table()</code> to handle duplicates:</p>
-<div id="93b0509a" class="cell" data-execution_count="29">
+<div id="1f705d74" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a pivot table that averages counts for duplicate entries</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>(df_long</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>.pivot_table(</span>
@@ -1827,60 +1843,65 @@ Name: mentions, dtype: object</code></pre>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
-<script id="fix-code-fold" type="text/javascript">
-    const showBtn = document.getElementById('quarto-show-all-code');
-    const hideBtn = document.getElementById('quarto-hide-all-code');
-
-    if (showBtn) {
-        showBtn.addEventListener('click', function(e) {
+<script id="fix-code-fold">
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
             e.preventDefault();
             document.querySelectorAll('details.code-fold').forEach(el => {
-                el.setAttribute('open', '');
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
             });
         });
-    }
+    };
 
-    if (hideBtn) {
-        hideBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelectorAll('details.code-fold').forEach(el => {
-                el.removeAttribute('open');
-            });
-        });
-    }
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
 </script>
 <script>
-    function switchLanguage(targetLang) {
+    const switchLanguage = targetLang => {
         const path = window.location.pathname;
         // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
         const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
         if (match) {
             const base = match[1];
             const rest = match[3] || '/';
-            window.location.pathname = base + '/' + targetLang + rest;
+            window.location.pathname = `${base}/${targetLang}${rest}`;
         } else {
-            window.location.pathname = '/' + targetLang + '/';
+            window.location.pathname = `/${targetLang}/`;
         }
-    }
-
-    const NAV_TRANSLATIONS = {
-        en: { Projects: 'Projects', Tutorials: 'Tutorials', Hobbies: 'Hobbies', About: 'About' },
-        zh: { Projects: '项目',    Tutorials: '教程',       Hobbies: '爱好',    About: '关于' },
     };
 
-    document.addEventListener('DOMContentLoaded', function () {
-    // 遍历所有 navbar 下拉菜单链接，按文字匹配
-        document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+    const NAV_TRANSLATIONS = {
+        en: { 
+            Projects: 'Projects', 
+            Tutorials: 'Tutorials', 
+            Hobbies: 'Hobbies', 
+            Blogs: 'Blogs',
+            About: 'About' 
+        },
+        zh: { 
+            Projects: '项目',    
+            Tutorials: '教程',       
+            Hobbies: '爱好',    
+            Blogs: '博客',
+            About: '关于' 
+        },
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(el => {
             const text = el.textContent.trim();
             if (text === 'English') {
-                el.addEventListener('click', function (e) {
-                e.preventDefault();
-                switchLanguage('en');
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('en');
                 });
             } else if (text === '中文') {
-                el.addEventListener('click', function (e) {
-                e.preventDefault();
-                switchLanguage('zh');
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('zh');
                 });
             }
         });
@@ -1888,21 +1909,67 @@ Name: mentions, dtype: object</code></pre>
         // Translate navbar left-side links to match the current page language
         const langMatch = window.location.pathname.match(/\/(en|zh)\//);
         const lang = langMatch ? langMatch[1] : 'en';
-        const translations = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.en;
+        const translations = NAV_TRANSLATIONS[lang] ?? NAV_TRANSLATIONS.en;
 
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(function (el) {
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(el => {
             const text = el.textContent.trim();
             if (translations[text]) {
                 el.textContent = translations[text];
             }
             // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
-            if (lang === 'zh' && el.href && el.href.includes('/en/')) {
+            if (lang === 'zh' && el.href?.includes('/en/')) {
                 el.href = el.href.replace('/en/', '/zh/');
-            } else if (lang === 'en' && el.href && el.href.includes('/zh/')) {
+            } else if (lang === 'en' && el.href?.includes('/zh/')) {
                 el.href = el.href.replace('/zh/', '/en/');
             }
         });
     });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.sidebar-item-section > .sidebar-item-container').forEach(row => {
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', e => {
+                // title text -> let the link navigate normally
+                if (e.target.closest('.sidebar-item-text')) return;
+                // chevron -> Bootstrap handles it natively; don't double-toggle
+                if (e.target.closest('.sidebar-item-toggle')) return;
+                // empty area of the row -> trigger the toggle once
+                row.querySelector('.sidebar-item-toggle')?.click();
+            });
+        });
+    });
+</script>
+<script id="fix-navbar-active">
+    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // lang-switch.html to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
+            }
+
+            const isActive = pageSection !== null && pageSection === linkSection;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2360,385 +2427,386 @@ Name: mentions, dtype: object</code></pre>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> '2024-10-10'</span></span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> ["Python", "Data Processing", "Pandas", "DataFrame"]</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> 'This tutorial covers essential data processing workflows in Pandas, including missing values, column management, duplicates, reshaping, joins, and aggregation.'</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> 'Data processing/cleaning workflows in Pandas: missing values, duplicates, reshaping, joins, aggregations, pivoting, etc.'</span></span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> false</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="an">order:</span><span class="co"> 1</span></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Environment &amp; Versions"</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>pandas<span class="op">==</span><span class="fl">2.2.2</span></span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="an">order:</span><span class="co"> 1</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Environment &amp; Versions"</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>pandas<span class="op">==</span><span class="fl">2.2.2</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># Handling Missing Values</span></span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>**Reading CSV Files:**  </span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`pd.read_csv(path)`</span> to load a CSV file into a Pandas DataFrame.  </span>
-<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ensure path separators use forward slashes <span class="in">`/`</span> (or escaped backslashes <span class="in">`\\`</span> for Win).</span>
-<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a><span class="co"># import data</span></span>
-<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"../../../src/data/beer-and-curry.csv"</span></span>
-<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(path) <span class="co"># read csv file into a DataFrame</span></span>
-<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>) <span class="co"># view first 2 rows</span></span>
-<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dropping Missing Values</span></span>
-<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`dropna()`</span> to remove rows with missing values in the columns required for analysis.</span>
-<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows where 'text' or 'retweet_count' is missing (value is NA or NaN)</span></span>
-<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"text"</span>, <span class="st">"retweet_count"</span>])</span>
-<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a>**Dropping Missing Values:**  </span>
-<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.dropna()`</span> to remove rows containing missing values (NA or NaN).  </span>
-<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>By default, it removes any row with at least one missing value.  </span>
-<span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Specify <span class="in">`subset`</span> as a list of column names to only consider missing values in those columns for removal.  </span>
-<span id="cb36-55"><a href="#cb36-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use parentheses <span class="in">`()`</span> or square brackets <span class="in">`[]`</span> for the subset list.  </span>
-<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Note:** For data preprocessing, selectively drop rows with missing values only in columns relevant to your analysis to maintain data accuracy.</span>  </span>
-<span id="cb36-58"><a href="#cb36-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-61"><a href="#cb36-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-62"><a href="#cb36-62" aria-hidden="true" tabindex="-1"></a>df.shape <span class="co"># view original shape (num of rows, num of cols)</span></span>
-<span id="cb36-63"><a href="#cb36-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-64"><a href="#cb36-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-67"><a href="#cb36-67" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-68"><a href="#cb36-68" aria-hidden="true" tabindex="-1"></a>df_clean.shape <span class="co"># shape after dropping rows with missing values</span></span>
-<span id="cb36-69"><a href="#cb36-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-70"><a href="#cb36-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-71"><a href="#cb36-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Filling Missing Values</span></span>
-<span id="cb36-72"><a href="#cb36-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-73"><a href="#cb36-73" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`fillna()`</span> when a missing value should be replaced rather than removed.</span>
-<span id="cb36-74"><a href="#cb36-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-77"><a href="#cb36-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-78"><a href="#cb36-78" aria-hidden="true" tabindex="-1"></a><span class="co"># fill missing values in 'mentions' with a placeholder string</span></span>
-<span id="cb36-79"><a href="#cb36-79" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].fillna(<span class="st">"No Mentioned User"</span>)</span>
-<span id="cb36-80"><a href="#cb36-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-81"><a href="#cb36-81" aria-hidden="true" tabindex="-1"></a><span class="co"># view replaced values in 'mentions' column</span></span>
-<span id="cb36-82"><a href="#cb36-82" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[<span class="st">"mentions"</span>]</span>
-<span id="cb36-83"><a href="#cb36-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-84"><a href="#cb36-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-85"><a href="#cb36-85" aria-hidden="true" tabindex="-1"></a>**Filling Missing Values:**  </span>
-<span id="cb36-86"><a href="#cb36-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-87"><a href="#cb36-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.fillna(value)`</span> to replace missing values in a specific column with a placeholder, such as a string.  </span>
-<span id="cb36-88"><a href="#cb36-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Assign the result back to the column to update the DataFrame.  </span>
-<span id="cb36-89"><a href="#cb36-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-90"><a href="#cb36-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## Replacing Specific Values</span></span>
-<span id="cb36-91"><a href="#cb36-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-92"><a href="#cb36-92" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`replace()`</span> to convert placeholder values into a more useful representation.</span>
-<span id="cb36-93"><a href="#cb36-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-96"><a href="#cb36-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-97"><a href="#cb36-97" aria-hidden="true" tabindex="-1"></a><span class="co"># replace the placeholder string with 0</span></span>
-<span id="cb36-98"><a href="#cb36-98" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].replace(<span class="st">"No Mentioned User"</span>, <span class="dv">0</span>)</span>
-<span id="cb36-99"><a href="#cb36-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-100"><a href="#cb36-100" aria-hidden="true" tabindex="-1"></a><span class="co"># view replaced values in 'mentions' column</span></span>
-<span id="cb36-101"><a href="#cb36-101" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[<span class="st">"mentions"</span>]</span>
-<span id="cb36-102"><a href="#cb36-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-103"><a href="#cb36-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-104"><a href="#cb36-104" aria-hidden="true" tabindex="-1"></a>**Replacing Specific Values:**  </span>
-<span id="cb36-105"><a href="#cb36-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-106"><a href="#cb36-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.replace(old_value, new_value)`</span> to substitute specific values in a column.  </span>
-<span id="cb36-107"><a href="#cb36-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>This is useful for converting placeholders into more appropriate representations, like numbers.  </span>
-<span id="cb36-108"><a href="#cb36-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-109"><a href="#cb36-109" aria-hidden="true" tabindex="-1"></a><span class="fu"># Renaming and Creating Columns</span></span>
-<span id="cb36-110"><a href="#cb36-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-111"><a href="#cb36-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Renaming Columns</span></span>
-<span id="cb36-112"><a href="#cb36-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-113"><a href="#cb36-113" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`rename()`</span> to make column names shorter and more descriptive.</span>
-<span id="cb36-114"><a href="#cb36-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-117"><a href="#cb36-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-118"><a href="#cb36-118" aria-hidden="true" tabindex="-1"></a><span class="co"># rename 'text' to 'content' and 'created_at' to 'date'</span></span>
-<span id="cb36-119"><a href="#cb36-119" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"text"</span>: <span class="st">"content"</span>, <span class="st">"created_at"</span>: <span class="st">"date"</span>})</span>
-<span id="cb36-120"><a href="#cb36-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-121"><a href="#cb36-121" aria-hidden="true" tabindex="-1"></a><span class="co"># view renamed columns</span></span>
-<span id="cb36-122"><a href="#cb36-122" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span>
-<span id="cb36-123"><a href="#cb36-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-124"><a href="#cb36-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-125"><a href="#cb36-125" aria-hidden="true" tabindex="-1"></a>**Renaming Columns:**  </span>
-<span id="cb36-126"><a href="#cb36-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-127"><a href="#cb36-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.rename(columns={'old_name': 'new_name'})`</span> to rename columns using a dictionary.  </span>
-<span id="cb36-128"><a href="#cb36-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>This improves readability and descriptiveness.  </span>
-<span id="cb36-129"><a href="#cb36-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Similarly, use <span class="in">`index`</span> parameter for renaming indices.  </span>
-<span id="cb36-130"><a href="#cb36-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-131"><a href="#cb36-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Creating New Columns</span></span>
-<span id="cb36-132"><a href="#cb36-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-133"><a href="#cb36-133" aria-hidden="true" tabindex="-1"></a>Drop rows with missing follower counts before creating derived metrics.</span>
-<span id="cb36-134"><a href="#cb36-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-137"><a href="#cb36-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-138"><a href="#cb36-138" aria-hidden="true" tabindex="-1"></a><span class="co"># specify specific column(s) to drop rows with missing values</span></span>
-<span id="cb36-139"><a href="#cb36-139" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"user.followers_count"</span>])</span>
-<span id="cb36-140"><a href="#cb36-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-141"><a href="#cb36-141" aria-hidden="true" tabindex="-1"></a><span class="co"># view cleaned data with no missing follower counts</span></span>
-<span id="cb36-142"><a href="#cb36-142" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span>
-<span id="cb36-143"><a href="#cb36-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-144"><a href="#cb36-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-145"><a href="#cb36-145" aria-hidden="true" tabindex="-1"></a>**Creating New Columns:**  </span>
-<span id="cb36-146"><a href="#cb36-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-147"><a href="#cb36-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>First, clean the data by dropping rows with missing values in relevant columns using <span class="in">`df.dropna(subset=['column'])`</span>.  </span>
-<span id="cb36-148"><a href="#cb36-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-149"><a href="#cb36-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### Applying Basic Column Operations</span></span>
-<span id="cb36-150"><a href="#cb36-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-151"><a href="#cb36-151" aria-hidden="true" tabindex="-1"></a>Create a new column by applying a vectorized calculation to an existing column.</span>
-<span id="cb36-152"><a href="#cb36-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-155"><a href="#cb36-155" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-156"><a href="#cb36-156" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new column 'followers_k' by dividing 'user.followers_count' by 1000</span></span>
-<span id="cb36-157"><a href="#cb36-157" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"followers_k"</span>] <span class="op">=</span> df[<span class="st">"user.followers_count"</span>] <span class="op">/</span> <span class="dv">1000</span></span>
-<span id="cb36-158"><a href="#cb36-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-159"><a href="#cb36-159" aria-hidden="true" tabindex="-1"></a><span class="co"># view the new column alongside the original follower count</span></span>
-<span id="cb36-160"><a href="#cb36-160" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[[<span class="st">"followers_k"</span>, <span class="st">"user.followers_count"</span>]]</span>
-<span id="cb36-161"><a href="#cb36-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-162"><a href="#cb36-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-163"><a href="#cb36-163" aria-hidden="true" tabindex="-1"></a>**Creating New Columns:**  </span>
-<span id="cb36-164"><a href="#cb36-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-165"><a href="#cb36-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Create new columns by performing vectorized operations on existing columns, e.g., <span class="in">`df['new_col'] = df['existing_col'] / 1000`</span>.  </span>
-<span id="cb36-166"><a href="#cb36-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-167"><a href="#cb36-167" aria-hidden="true" tabindex="-1"></a><span class="fu">### Applying a Custom Function</span></span>
-<span id="cb36-168"><a href="#cb36-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-169"><a href="#cb36-169" aria-hidden="true" tabindex="-1"></a>Define a reusable function when the transformation is clearer as named logic.</span>
-<span id="cb36-170"><a href="#cb36-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-173"><a href="#cb36-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-174"><a href="#cb36-174" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function to calculate engagement rate (ER) as a percentage</span></span>
-<span id="cb36-175"><a href="#cb36-175" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_er(engagement_count, follower_count):</span>
-<span id="cb36-176"><a href="#cb36-176" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (engagement_count <span class="op">/</span> follower_count) <span class="op">*</span> <span class="dv">100</span></span>
-<span id="cb36-177"><a href="#cb36-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-178"><a href="#cb36-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-181"><a href="#cb36-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-182"><a href="#cb36-182" aria-hidden="true" tabindex="-1"></a><span class="co"># apply and assign the calculated engagement rate to a new column 'er_rt_fo'</span></span>
-<span id="cb36-183"><a href="#cb36-183" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"er_rt_fo"</span>] <span class="op">=</span> calc_er(</span>
-<span id="cb36-184"><a href="#cb36-184" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"retweet_count"</span>],</span>
-<span id="cb36-185"><a href="#cb36-185" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"user.followers_count"</span>],</span>
-<span id="cb36-186"><a href="#cb36-186" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-187"><a href="#cb36-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-188"><a href="#cb36-188" aria-hidden="true" tabindex="-1"></a><span class="co"># view the new engagement rate column alongside the original metrics</span></span>
-<span id="cb36-189"><a href="#cb36-189" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[[<span class="st">"er_rt_fo"</span>, <span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>]]</span>
-<span id="cb36-190"><a href="#cb36-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-191"><a href="#cb36-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-194"><a href="#cb36-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-195"><a href="#cb36-195" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the relationship between engagement rate &amp; two other metrics</span></span>
-<span id="cb36-196"><a href="#cb36-196" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df[[<span class="st">"er_rt_fo"</span>, <span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>]].plot(</span>
-<span id="cb36-197"><a href="#cb36-197" aria-hidden="true" tabindex="-1"></a>    subplots<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb36-198"><a href="#cb36-198" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Engagement Rate vs Retweets and Followers"</span>,</span>
-<span id="cb36-199"><a href="#cb36-199" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-200"><a href="#cb36-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-201"><a href="#cb36-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-202"><a href="#cb36-202" aria-hidden="true" tabindex="-1"></a>**Creating New Columns:**  </span>
-<span id="cb36-203"><a href="#cb36-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-204"><a href="#cb36-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Define a function for complex calculations, such as efficiency ratio: ER = (effective cost / full cost) *  100.  </span>
-<span id="cb36-205"><a href="#cb36-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Apply the function to DataFrame columns to generate new metrics.  </span>
-<span id="cb36-206"><a href="#cb36-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.values`</span> if needed to extract array from Series.  </span>
-<span id="cb36-207"><a href="#cb36-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Visualize relationships using <span class="in">`df.plot()`</span> with <span class="in">`subplots=True`</span> for separate plots, <span class="in">`figsize`</span> for dimensions, and <span class="in">`kind`</span> for plot types (default 'line', options include 'bar', 'hist', 'scatter', 'pie').  </span>
-<span id="cb36-208"><a href="#cb36-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-209"><a href="#cb36-209" aria-hidden="true" tabindex="-1"></a><span class="fu"># Finding Duplicates</span></span>
-<span id="cb36-210"><a href="#cb36-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-211"><a href="#cb36-211" aria-hidden="true" tabindex="-1"></a>Remove fully duplicated rows with <span class="in">`duplicated()`</span>.</span>
-<span id="cb36-212"><a href="#cb36-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-215"><a href="#cb36-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-216"><a href="#cb36-216" aria-hidden="true" tabindex="-1"></a><span class="co"># drop fully duplicated rows (keep the first occurrence)</span></span>
-<span id="cb36-217"><a href="#cb36-217" aria-hidden="true" tabindex="-1"></a><span class="co"># ~ is the negation operator</span></span>
-<span id="cb36-218"><a href="#cb36-218" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[<span class="op">~</span>df.duplicated()]</span>
-<span id="cb36-219"><a href="#cb36-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-220"><a href="#cb36-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-221"><a href="#cb36-221" aria-hidden="true" tabindex="-1"></a>**Finding Duplicates:**  </span>
-<span id="cb36-222"><a href="#cb36-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-223"><a href="#cb36-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.duplicated()`</span> to identify duplicate rows; it returns a boolean Series.  </span>
-<span id="cb36-224"><a href="#cb36-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`~df.duplicated()`</span> to keep only unique rows.  </span>
-<span id="cb36-225"><a href="#cb36-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Specify <span class="in">`subset`</span> as a list of columns to check for duplicates based on those columns only.  </span>
-<span id="cb36-226"><a href="#cb36-226" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`keep=False`</span> to mark all duplicates.  </span>
-<span id="cb36-227"><a href="#cb36-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-228"><a href="#cb36-228" aria-hidden="true" tabindex="-1"></a>Find users who posted multiple times on the same date by specifying a subset of columns.</span>
-<span id="cb36-229"><a href="#cb36-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-232"><a href="#cb36-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-233"><a href="#cb36-233" aria-hidden="true" tabindex="-1"></a><span class="co"># find duplicated rows based on 'user' and 'date' columns (keep all occurrences)</span></span>
-<span id="cb36-234"><a href="#cb36-234" aria-hidden="true" tabindex="-1"></a>df[df.duplicated(subset<span class="op">=</span>[<span class="st">"user"</span>, <span class="st">"date"</span>], keep<span class="op">=</span><span class="va">False</span>)].head(<span class="dv">2</span>)</span>
-<span id="cb36-235"><a href="#cb36-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-236"><a href="#cb36-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-237"><a href="#cb36-237" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reordering and Reshaping Data</span></span>
-<span id="cb36-238"><a href="#cb36-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-239"><a href="#cb36-239" aria-hidden="true" tabindex="-1"></a>Sort rows by multiple columns with <span class="in">`sort_values()`</span>.</span>
-<span id="cb36-240"><a href="#cb36-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-243"><a href="#cb36-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-244"><a href="#cb36-244" aria-hidden="true" tabindex="-1"></a><span class="co"># sort by 'retweet_count' and then by 'user.followers_count' descending</span></span>
-<span id="cb36-245"><a href="#cb36-245" aria-hidden="true" tabindex="-1"></a>df.sort_values(</span>
-<span id="cb36-246"><a href="#cb36-246" aria-hidden="true" tabindex="-1"></a>    by<span class="op">=</span>[<span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>],</span>
-<span id="cb36-247"><a href="#cb36-247" aria-hidden="true" tabindex="-1"></a>    ascending<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb36-248"><a href="#cb36-248" aria-hidden="true" tabindex="-1"></a>).head(<span class="dv">2</span>)</span>
-<span id="cb36-249"><a href="#cb36-249" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-250"><a href="#cb36-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-251"><a href="#cb36-251" aria-hidden="true" tabindex="-1"></a>**Reordering and Reshaping:**  </span>
-<span id="cb36-252"><a href="#cb36-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-253"><a href="#cb36-253" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.sort_values(by=['col1', 'col2'], ascending=False)`</span> to sort rows by multiple columns in descending order.  </span>
-<span id="cb36-254"><a href="#cb36-254" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.transpose()`</span> to swap rows and columns.  </span>
-<span id="cb36-255"><a href="#cb36-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-256"><a href="#cb36-256" aria-hidden="true" tabindex="-1"></a>Transpose the DataFrame when you need to switch rows and columns for inspection.</span>
-<span id="cb36-257"><a href="#cb36-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-260"><a href="#cb36-260" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-261"><a href="#cb36-261" aria-hidden="true" tabindex="-1"></a>df.transpose().head(<span class="dv">3</span>) <span class="co"># view the DataFrame with rows and columns swapped</span></span>
-<span id="cb36-262"><a href="#cb36-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-263"><a href="#cb36-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-264"><a href="#cb36-264" aria-hidden="true" tabindex="-1"></a><span class="fu"># Joining Data</span></span>
-<span id="cb36-265"><a href="#cb36-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-266"><a href="#cb36-266" aria-hidden="true" tabindex="-1"></a>Load a second dataset and combine it with <span class="in">`concat()`</span>.</span>
-<span id="cb36-267"><a href="#cb36-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-270"><a href="#cb36-270" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-271"><a href="#cb36-271" aria-hidden="true" tabindex="-1"></a>path2 <span class="op">=</span> <span class="st">"../../../src/data/keto-and-vegan.csv"</span></span>
-<span id="cb36-272"><a href="#cb36-272" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> pd.read_csv(path2, encoding<span class="op">=</span><span class="st">"latin-1"</span>) <span class="co"># load df</span></span>
-<span id="cb36-273"><a href="#cb36-273" aria-hidden="true" tabindex="-1"></a>df2.head(<span class="dv">2</span>) <span class="co"># view first 2 rows</span></span>
-<span id="cb36-274"><a href="#cb36-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-275"><a href="#cb36-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-276"><a href="#cb36-276" aria-hidden="true" tabindex="-1"></a>Append matching tables vertically:</span>
-<span id="cb36-277"><a href="#cb36-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-280"><a href="#cb36-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-281"><a href="#cb36-281" aria-hidden="true" tabindex="-1"></a><span class="co"># concatenate df and df2 vertically (stack rows)</span></span>
-<span id="cb36-282"><a href="#cb36-282" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).iloc[<span class="dv">428</span>:<span class="dv">432</span>,] <span class="co"># view row 428 to 431</span></span>
-<span id="cb36-283"><a href="#cb36-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-284"><a href="#cb36-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-285"><a href="#cb36-285" aria-hidden="true" tabindex="-1"></a>**Joining Data:**  </span>
-<span id="cb36-286"><a href="#cb36-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-287"><a href="#cb36-287" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Load additional datasets with <span class="in">`pd.read_csv()`</span> and specify <span class="in">`encoding`</span> if necessary.  </span>
-<span id="cb36-288"><a href="#cb36-288" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`pd.concat([df1, df2])`</span> to vertically concatenate DataFrames with matching columns.  </span>
-<span id="cb36-289"><a href="#cb36-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reset the index with <span class="in">`.reset_index(drop=True)`</span> to create a continuous index.  </span>
-<span id="cb36-290"><a href="#cb36-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-291"><a href="#cb36-291" aria-hidden="true" tabindex="-1"></a>Reset the index after concatenation when you want a continuous row index.</span>
-<span id="cb36-292"><a href="#cb36-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-295"><a href="#cb36-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-296"><a href="#cb36-296" aria-hidden="true" tabindex="-1"></a><span class="co"># concatenate df and df2, then reset the index</span></span>
-<span id="cb36-297"><a href="#cb36-297" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).reset_index(drop<span class="op">=</span><span class="va">True</span>).iloc[<span class="dv">428</span>:<span class="dv">432</span>,]</span>
-<span id="cb36-298"><a href="#cb36-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-299"><a href="#cb36-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-300"><a href="#cb36-300" aria-hidden="true" tabindex="-1"></a><span class="fu"># Grouping and Aggregation</span></span>
-<span id="cb36-301"><a href="#cb36-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-302"><a href="#cb36-302" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`groupby()`</span> with <span class="in">`agg()`</span> to compute summary statistics by group. The example below calculates total retweets and average follower count for each user.</span>
-<span id="cb36-303"><a href="#cb36-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-306"><a href="#cb36-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-307"><a href="#cb36-307" aria-hidden="true" tabindex="-1"></a><span class="co"># group by 'user', then aggregate 'retweet_count' with sum </span></span>
-<span id="cb36-308"><a href="#cb36-308" aria-hidden="true" tabindex="-1"></a><span class="co"># and 'user.followers_count' with mean</span></span>
-<span id="cb36-309"><a href="#cb36-309" aria-hidden="true" tabindex="-1"></a>df_agg <span class="op">=</span> df.groupby(<span class="st">"user"</span>).agg(</span>
-<span id="cb36-310"><a href="#cb36-310" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"retweet_count"</span>: <span class="st">"sum"</span>, <span class="st">"user.followers_count"</span>: <span class="st">"mean"</span>,}</span>
-<span id="cb36-311"><a href="#cb36-311" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-312"><a href="#cb36-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-313"><a href="#cb36-313" aria-hidden="true" tabindex="-1"></a><span class="co"># view the aggregated result</span></span>
-<span id="cb36-314"><a href="#cb36-314" aria-hidden="true" tabindex="-1"></a>df_agg.head(<span class="dv">3</span>)</span>
-<span id="cb36-315"><a href="#cb36-315" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-316"><a href="#cb36-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-317"><a href="#cb36-317" aria-hidden="true" tabindex="-1"></a>**Grouping and Aggregation:**  </span>
-<span id="cb36-318"><a href="#cb36-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-319"><a href="#cb36-319" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.groupby('column').agg({'col1': 'sum', 'col2': 'mean'})`</span> to group by a column and compute aggregate statistics.  </span>
-<span id="cb36-320"><a href="#cb36-320" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Verify the number of groups using <span class="in">`df[~df.duplicated(subset='column')].shape`</span> or <span class="in">`df['column'].nunique()`</span>.  </span>
-<span id="cb36-321"><a href="#cb36-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-322"><a href="#cb36-322" aria-hidden="true" tabindex="-1"></a>You can compare the grouped result with the number of unique users:</span>
-<span id="cb36-323"><a href="#cb36-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-326"><a href="#cb36-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-327"><a href="#cb36-327" aria-hidden="true" tabindex="-1"></a><span class="co"># count unique users by dropping duplicates based on 'user' column</span></span>
-<span id="cb36-328"><a href="#cb36-328" aria-hidden="true" tabindex="-1"></a>df[<span class="op">~</span>df.duplicated(subset<span class="op">=</span><span class="st">"user"</span>)].shape</span>
-<span id="cb36-329"><a href="#cb36-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-330"><a href="#cb36-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-333"><a href="#cb36-333" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-334"><a href="#cb36-334" aria-hidden="true" tabindex="-1"></a><span class="co"># or simply count the number of unique users with nunique()</span></span>
-<span id="cb36-335"><a href="#cb36-335" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"user"</span>].nunique()</span>
-<span id="cb36-336"><a href="#cb36-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-337"><a href="#cb36-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-338"><a href="#cb36-338" aria-hidden="true" tabindex="-1"></a><span class="fu"># Melting and Pivoting</span></span>
-<span id="cb36-339"><a href="#cb36-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-340"><a href="#cb36-340" aria-hidden="true" tabindex="-1"></a><span class="fu">## Melting Data</span></span>
-<span id="cb36-341"><a href="#cb36-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-342"><a href="#cb36-342" aria-hidden="true" tabindex="-1"></a>**Melting: wide → long**  </span>
-<span id="cb36-343"><a href="#cb36-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-344"><a href="#cb36-344" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`melt()`</span> to convert wide data into long format for analysis and plotting.</span>
-<span id="cb36-345"><a href="#cb36-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-348"><a href="#cb36-348" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-349"><a href="#cb36-349" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sample wide-format DataFrame with pet types and counts</span></span>
-<span id="cb36-350"><a href="#cb36-350" aria-hidden="true" tabindex="-1"></a>df_wide <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb36-351"><a href="#cb36-351" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
-<span id="cb36-352"><a href="#cb36-352" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="dv">4</span>, <span class="dv">5</span>],</span>
-<span id="cb36-353"><a href="#cb36-353" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="dv">7</span>, <span class="dv">4</span>],</span>
-<span id="cb36-354"><a href="#cb36-354" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
-<span id="cb36-355"><a href="#cb36-355" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb36-356"><a href="#cb36-356" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"pet"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>],</span>
-<span id="cb36-357"><a href="#cb36-357" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-358"><a href="#cb36-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-359"><a href="#cb36-359" aria-hidden="true" tabindex="-1"></a>df_wide <span class="co"># view it</span></span>
-<span id="cb36-360"><a href="#cb36-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-361"><a href="#cb36-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-362"><a href="#cb36-362" aria-hidden="true" tabindex="-1"></a>Without arguments, <span class="in">`melt()`</span> collapses all columns into variable-value pairs.</span>
-<span id="cb36-363"><a href="#cb36-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-366"><a href="#cb36-366" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-367"><a href="#cb36-367" aria-hidden="true" tabindex="-1"></a>df_wide.melt() <span class="co"># melt all cols into variable-value pairs (pivot longer)</span></span>
-<span id="cb36-368"><a href="#cb36-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-369"><a href="#cb36-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-370"><a href="#cb36-370" aria-hidden="true" tabindex="-1"></a>Specify identifier and value columns for a structured long-format result.</span>
-<span id="cb36-371"><a href="#cb36-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-374"><a href="#cb36-374" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-375"><a href="#cb36-375" aria-hidden="true" tabindex="-1"></a>melted_df <span class="op">=</span> pd.melt(</span>
-<span id="cb36-376"><a href="#cb36-376" aria-hidden="true" tabindex="-1"></a>    df_wide,</span>
-<span id="cb36-377"><a href="#cb36-377" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"pet"</span>], <span class="co"># keep 'pet' as identifier column</span></span>
-<span id="cb36-378"><a href="#cb36-378" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">"male"</span>, <span class="st">"female"</span>], <span class="co"># value columns</span></span>
-<span id="cb36-379"><a href="#cb36-379" aria-hidden="true" tabindex="-1"></a>    var_name<span class="op">=</span><span class="st">"sex"</span>, <span class="co"># name for the new variable column</span></span>
-<span id="cb36-380"><a href="#cb36-380" aria-hidden="true" tabindex="-1"></a>    value_name<span class="op">=</span><span class="st">"count"</span>, <span class="co"># name for the new value column</span></span>
-<span id="cb36-381"><a href="#cb36-381" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-382"><a href="#cb36-382" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-383"><a href="#cb36-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-384"><a href="#cb36-384" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pivoting Data</span></span>
-<span id="cb36-385"><a href="#cb36-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-386"><a href="#cb36-386" aria-hidden="true" tabindex="-1"></a>**Pivot: long → wide**  </span>
-<span id="cb36-387"><a href="#cb36-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-388"><a href="#cb36-388" aria-hidden="true" tabindex="-1"></a>Pivot the long data back to wide format:</span>
-<span id="cb36-389"><a href="#cb36-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-392"><a href="#cb36-392" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-393"><a href="#cb36-393" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="op">=</span> melted_df.pivot(</span>
-<span id="cb36-394"><a href="#cb36-394" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"pet"</span>, <span class="co"># identifier column becomes index</span></span>
-<span id="cb36-395"><a href="#cb36-395" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"sex"</span>, <span class="co"># categories in variable column becomes new columns</span></span>
-<span id="cb36-396"><a href="#cb36-396" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"count"</span>, <span class="co"># value column becomes new values</span></span>
-<span id="cb36-397"><a href="#cb36-397" aria-hidden="true" tabindex="-1"></a>).reset_index() <span class="co"># reset index to turn 'pet' back into a column</span></span>
-<span id="cb36-398"><a href="#cb36-398" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-399"><a href="#cb36-399" aria-hidden="true" tabindex="-1"></a>df_pivot.columns.name <span class="op">=</span> <span class="va">None</span> <span class="co"># remove the name of the columns index</span></span>
-<span id="cb36-400"><a href="#cb36-400" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-401"><a href="#cb36-401" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="co"># view the pivoted DataFrame</span></span>
-<span id="cb36-402"><a href="#cb36-402" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-403"><a href="#cb36-403" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-404"><a href="#cb36-404" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`pivot_table()`</span> instead of <span class="in">`pivot()`</span> when there are duplicate index/column combinations, and specify an aggregation function like <span class="in">`aggfunc='mean'`</span> to summarize duplicates.</span>
-<span id="cb36-405"><a href="#cb36-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-406"><a href="#cb36-406" aria-hidden="true" tabindex="-1"></a>For example, if we have duplicate pet entries:</span>
-<span id="cb36-409"><a href="#cb36-409" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-410"><a href="#cb36-410" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sample DataFrame with duplicate pet entries</span></span>
-<span id="cb36-411"><a href="#cb36-411" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb36-412"><a href="#cb36-412" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
-<span id="cb36-413"><a href="#cb36-413" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="st">"male"</span>, <span class="dv">4</span>],</span>
-<span id="cb36-414"><a href="#cb36-414" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="st">"female"</span>, <span class="dv">5</span>],</span>
-<span id="cb36-415"><a href="#cb36-415" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="st">"female"</span>, <span class="dv">7</span>],</span>
-<span id="cb36-416"><a href="#cb36-416" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="st">"male"</span>, <span class="dv">4</span>],</span>
-<span id="cb36-417"><a href="#cb36-417" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="st">"male"</span>, <span class="dv">2</span>],</span>
-<span id="cb36-418"><a href="#cb36-418" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="st">"female"</span>, <span class="dv">3</span>],</span>
-<span id="cb36-419"><a href="#cb36-419" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb36-420"><a href="#cb36-420" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"pet"</span>, <span class="st">"sex"</span>, <span class="st">"count"</span>],</span>
-<span id="cb36-421"><a href="#cb36-421" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-422"><a href="#cb36-422" aria-hidden="true" tabindex="-1"></a>df_long <span class="co"># view the long-format DataFrame with duplicates</span></span>
-<span id="cb36-423"><a href="#cb36-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-424"><a href="#cb36-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-425"><a href="#cb36-425" aria-hidden="true" tabindex="-1"></a>To pivot this long data back to wide format, we can use <span class="in">`pivot_table()`</span> to handle duplicates:</span>
-<span id="cb36-426"><a href="#cb36-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-429"><a href="#cb36-429" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb36-430"><a href="#cb36-430" aria-hidden="true" tabindex="-1"></a><span class="co"># create a pivot table that averages counts for duplicate entries</span></span>
-<span id="cb36-431"><a href="#cb36-431" aria-hidden="true" tabindex="-1"></a>(df_long</span>
-<span id="cb36-432"><a href="#cb36-432" aria-hidden="true" tabindex="-1"></a>.pivot_table(</span>
-<span id="cb36-433"><a href="#cb36-433" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"pet"</span>,</span>
-<span id="cb36-434"><a href="#cb36-434" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"sex"</span>,</span>
-<span id="cb36-435"><a href="#cb36-435" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"count"</span>,</span>
-<span id="cb36-436"><a href="#cb36-436" aria-hidden="true" tabindex="-1"></a>    aggfunc<span class="op">=</span><span class="st">"mean"</span>, <span class="co"># average counts for duplicate entries</span></span>
-<span id="cb36-437"><a href="#cb36-437" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-438"><a href="#cb36-438" aria-hidden="true" tabindex="-1"></a>.rename_axis(<span class="va">None</span>, axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># remove the name of the columns headers</span></span>
-<span id="cb36-439"><a href="#cb36-439" aria-hidden="true" tabindex="-1"></a>.rename_axis(<span class="va">None</span>) <span class="co"># remove the name of the index</span></span>
-<span id="cb36-440"><a href="#cb36-440" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-441"><a href="#cb36-441" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-442"><a href="#cb36-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># Handling Missing Values</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>**Reading CSV Files:**  </span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`pd.read_csv(path)`</span> to load a CSV file into a Pandas DataFrame.  </span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ensure path separators use forward slashes <span class="in">`/`</span> (or escaped backslashes <span class="in">`\\`</span> for Win).</span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a><span class="co"># import data</span></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"../../../src/data/beer-and-curry.csv"</span></span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(path) <span class="co"># read csv file into a DataFrame</span></span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>) <span class="co"># view first 2 rows</span></span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dropping Missing Values</span></span>
+<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`dropna()`</span> to remove rows with missing values in the columns required for analysis.</span>
+<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows where 'text' or 'retweet_count' is missing (value is NA or NaN)</span></span>
+<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"text"</span>, <span class="st">"retweet_count"</span>])</span>
+<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a>**Dropping Missing Values:**  </span>
+<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.dropna()`</span> to remove rows containing missing values (NA or NaN).  </span>
+<span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>By default, it removes any row with at least one missing value.  </span>
+<span id="cb36-55"><a href="#cb36-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Specify <span class="in">`subset`</span> as a list of column names to only consider missing values in those columns for removal.  </span>
+<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use parentheses <span class="in">`()`</span> or square brackets <span class="in">`[]`</span> for the subset list.  </span>
+<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-58"><a href="#cb36-58" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Note:** For data preprocessing, selectively drop rows with missing values only in columns relevant to your analysis to maintain data accuracy.</span>  </span>
+<span id="cb36-59"><a href="#cb36-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-62"><a href="#cb36-62" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-63"><a href="#cb36-63" aria-hidden="true" tabindex="-1"></a>df.shape <span class="co"># view original shape (num of rows, num of cols)</span></span>
+<span id="cb36-64"><a href="#cb36-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-65"><a href="#cb36-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-68"><a href="#cb36-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-69"><a href="#cb36-69" aria-hidden="true" tabindex="-1"></a>df_clean.shape <span class="co"># shape after dropping rows with missing values</span></span>
+<span id="cb36-70"><a href="#cb36-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-71"><a href="#cb36-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-72"><a href="#cb36-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Filling Missing Values</span></span>
+<span id="cb36-73"><a href="#cb36-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-74"><a href="#cb36-74" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`fillna()`</span> when a missing value should be replaced rather than removed.</span>
+<span id="cb36-75"><a href="#cb36-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-78"><a href="#cb36-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-79"><a href="#cb36-79" aria-hidden="true" tabindex="-1"></a><span class="co"># fill missing values in 'mentions' with a placeholder string</span></span>
+<span id="cb36-80"><a href="#cb36-80" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].fillna(<span class="st">"No Mentioned User"</span>)</span>
+<span id="cb36-81"><a href="#cb36-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-82"><a href="#cb36-82" aria-hidden="true" tabindex="-1"></a><span class="co"># view replaced values in 'mentions' column</span></span>
+<span id="cb36-83"><a href="#cb36-83" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[<span class="st">"mentions"</span>]</span>
+<span id="cb36-84"><a href="#cb36-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-85"><a href="#cb36-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-86"><a href="#cb36-86" aria-hidden="true" tabindex="-1"></a>**Filling Missing Values:**  </span>
+<span id="cb36-87"><a href="#cb36-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-88"><a href="#cb36-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.fillna(value)`</span> to replace missing values in a specific column with a placeholder, such as a string.  </span>
+<span id="cb36-89"><a href="#cb36-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Assign the result back to the column to update the DataFrame.  </span>
+<span id="cb36-90"><a href="#cb36-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-91"><a href="#cb36-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Replacing Specific Values</span></span>
+<span id="cb36-92"><a href="#cb36-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-93"><a href="#cb36-93" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`replace()`</span> to convert placeholder values into a more useful representation.</span>
+<span id="cb36-94"><a href="#cb36-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-97"><a href="#cb36-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-98"><a href="#cb36-98" aria-hidden="true" tabindex="-1"></a><span class="co"># replace the placeholder string with 0</span></span>
+<span id="cb36-99"><a href="#cb36-99" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"mentions"</span>] <span class="op">=</span> df[<span class="st">"mentions"</span>].replace(<span class="st">"No Mentioned User"</span>, <span class="dv">0</span>)</span>
+<span id="cb36-100"><a href="#cb36-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-101"><a href="#cb36-101" aria-hidden="true" tabindex="-1"></a><span class="co"># view replaced values in 'mentions' column</span></span>
+<span id="cb36-102"><a href="#cb36-102" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[<span class="st">"mentions"</span>]</span>
+<span id="cb36-103"><a href="#cb36-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-104"><a href="#cb36-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-105"><a href="#cb36-105" aria-hidden="true" tabindex="-1"></a>**Replacing Specific Values:**  </span>
+<span id="cb36-106"><a href="#cb36-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-107"><a href="#cb36-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.replace(old_value, new_value)`</span> to substitute specific values in a column.  </span>
+<span id="cb36-108"><a href="#cb36-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>This is useful for converting placeholders into more appropriate representations, like numbers.  </span>
+<span id="cb36-109"><a href="#cb36-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-110"><a href="#cb36-110" aria-hidden="true" tabindex="-1"></a><span class="fu"># Renaming and Creating Columns</span></span>
+<span id="cb36-111"><a href="#cb36-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-112"><a href="#cb36-112" aria-hidden="true" tabindex="-1"></a><span class="fu">## Renaming Columns</span></span>
+<span id="cb36-113"><a href="#cb36-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-114"><a href="#cb36-114" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`rename()`</span> to make column names shorter and more descriptive.</span>
+<span id="cb36-115"><a href="#cb36-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-118"><a href="#cb36-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-119"><a href="#cb36-119" aria-hidden="true" tabindex="-1"></a><span class="co"># rename 'text' to 'content' and 'created_at' to 'date'</span></span>
+<span id="cb36-120"><a href="#cb36-120" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"text"</span>: <span class="st">"content"</span>, <span class="st">"created_at"</span>: <span class="st">"date"</span>})</span>
+<span id="cb36-121"><a href="#cb36-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-122"><a href="#cb36-122" aria-hidden="true" tabindex="-1"></a><span class="co"># view renamed columns</span></span>
+<span id="cb36-123"><a href="#cb36-123" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span>
+<span id="cb36-124"><a href="#cb36-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-125"><a href="#cb36-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-126"><a href="#cb36-126" aria-hidden="true" tabindex="-1"></a>**Renaming Columns:**  </span>
+<span id="cb36-127"><a href="#cb36-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-128"><a href="#cb36-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.rename(columns={'old_name': 'new_name'})`</span> to rename columns using a dictionary.  </span>
+<span id="cb36-129"><a href="#cb36-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>This improves readability and descriptiveness.  </span>
+<span id="cb36-130"><a href="#cb36-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Similarly, use <span class="in">`index`</span> parameter for renaming indices.  </span>
+<span id="cb36-131"><a href="#cb36-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-132"><a href="#cb36-132" aria-hidden="true" tabindex="-1"></a><span class="fu">## Creating New Columns</span></span>
+<span id="cb36-133"><a href="#cb36-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-134"><a href="#cb36-134" aria-hidden="true" tabindex="-1"></a>Drop rows with missing follower counts before creating derived metrics.</span>
+<span id="cb36-135"><a href="#cb36-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-138"><a href="#cb36-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-139"><a href="#cb36-139" aria-hidden="true" tabindex="-1"></a><span class="co"># specify specific column(s) to drop rows with missing values</span></span>
+<span id="cb36-140"><a href="#cb36-140" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"user.followers_count"</span>])</span>
+<span id="cb36-141"><a href="#cb36-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-142"><a href="#cb36-142" aria-hidden="true" tabindex="-1"></a><span class="co"># view cleaned data with no missing follower counts</span></span>
+<span id="cb36-143"><a href="#cb36-143" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span>
+<span id="cb36-144"><a href="#cb36-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-145"><a href="#cb36-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-146"><a href="#cb36-146" aria-hidden="true" tabindex="-1"></a>**Creating New Columns:**  </span>
+<span id="cb36-147"><a href="#cb36-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-148"><a href="#cb36-148" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>First, clean the data by dropping rows with missing values in relevant columns using <span class="in">`df.dropna(subset=['column'])`</span>.  </span>
+<span id="cb36-149"><a href="#cb36-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-150"><a href="#cb36-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Applying Basic Column Operations</span></span>
+<span id="cb36-151"><a href="#cb36-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-152"><a href="#cb36-152" aria-hidden="true" tabindex="-1"></a>Create a new column by applying a vectorized calculation to an existing column.</span>
+<span id="cb36-153"><a href="#cb36-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-156"><a href="#cb36-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-157"><a href="#cb36-157" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new column 'followers_k' by dividing 'user.followers_count' by 1000</span></span>
+<span id="cb36-158"><a href="#cb36-158" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"followers_k"</span>] <span class="op">=</span> df[<span class="st">"user.followers_count"</span>] <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb36-159"><a href="#cb36-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-160"><a href="#cb36-160" aria-hidden="true" tabindex="-1"></a><span class="co"># view the new column alongside the original follower count</span></span>
+<span id="cb36-161"><a href="#cb36-161" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[[<span class="st">"followers_k"</span>, <span class="st">"user.followers_count"</span>]]</span>
+<span id="cb36-162"><a href="#cb36-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-163"><a href="#cb36-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-164"><a href="#cb36-164" aria-hidden="true" tabindex="-1"></a>**Creating New Columns:**  </span>
+<span id="cb36-165"><a href="#cb36-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-166"><a href="#cb36-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Create new columns by performing vectorized operations on existing columns, e.g., <span class="in">`df['new_col'] = df['existing_col'] / 1000`</span>.  </span>
+<span id="cb36-167"><a href="#cb36-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-168"><a href="#cb36-168" aria-hidden="true" tabindex="-1"></a><span class="fu">### Applying a Custom Function</span></span>
+<span id="cb36-169"><a href="#cb36-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-170"><a href="#cb36-170" aria-hidden="true" tabindex="-1"></a>Define a reusable function when the transformation is clearer as named logic.</span>
+<span id="cb36-171"><a href="#cb36-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-174"><a href="#cb36-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-175"><a href="#cb36-175" aria-hidden="true" tabindex="-1"></a><span class="co"># define a function to calculate engagement rate (ER) as a percentage</span></span>
+<span id="cb36-176"><a href="#cb36-176" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_er(engagement_count, follower_count):</span>
+<span id="cb36-177"><a href="#cb36-177" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (engagement_count <span class="op">/</span> follower_count) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb36-178"><a href="#cb36-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-179"><a href="#cb36-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-182"><a href="#cb36-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-183"><a href="#cb36-183" aria-hidden="true" tabindex="-1"></a><span class="co"># apply and assign the calculated engagement rate to a new column 'er_rt_fo'</span></span>
+<span id="cb36-184"><a href="#cb36-184" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"er_rt_fo"</span>] <span class="op">=</span> calc_er(</span>
+<span id="cb36-185"><a href="#cb36-185" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"retweet_count"</span>],</span>
+<span id="cb36-186"><a href="#cb36-186" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"user.followers_count"</span>],</span>
+<span id="cb36-187"><a href="#cb36-187" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-188"><a href="#cb36-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-189"><a href="#cb36-189" aria-hidden="true" tabindex="-1"></a><span class="co"># view the new engagement rate column alongside the original metrics</span></span>
+<span id="cb36-190"><a href="#cb36-190" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[[<span class="st">"er_rt_fo"</span>, <span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>]]</span>
+<span id="cb36-191"><a href="#cb36-191" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-192"><a href="#cb36-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-195"><a href="#cb36-195" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-196"><a href="#cb36-196" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize the relationship between engagement rate &amp; two other metrics</span></span>
+<span id="cb36-197"><a href="#cb36-197" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df[[<span class="st">"er_rt_fo"</span>, <span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>]].plot(</span>
+<span id="cb36-198"><a href="#cb36-198" aria-hidden="true" tabindex="-1"></a>    subplots<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb36-199"><a href="#cb36-199" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Engagement Rate vs Retweets and Followers"</span>,</span>
+<span id="cb36-200"><a href="#cb36-200" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-201"><a href="#cb36-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-202"><a href="#cb36-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-203"><a href="#cb36-203" aria-hidden="true" tabindex="-1"></a>**Creating New Columns:**  </span>
+<span id="cb36-204"><a href="#cb36-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-205"><a href="#cb36-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Define a function for complex calculations, such as efficiency ratio: ER = (effective cost / full cost) *  100.  </span>
+<span id="cb36-206"><a href="#cb36-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Apply the function to DataFrame columns to generate new metrics.  </span>
+<span id="cb36-207"><a href="#cb36-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`.values`</span> if needed to extract array from Series.  </span>
+<span id="cb36-208"><a href="#cb36-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Visualize relationships using <span class="in">`df.plot()`</span> with <span class="in">`subplots=True`</span> for separate plots, <span class="in">`figsize`</span> for dimensions, and <span class="in">`kind`</span> for plot types (default 'line', options include 'bar', 'hist', 'scatter', 'pie').  </span>
+<span id="cb36-209"><a href="#cb36-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-210"><a href="#cb36-210" aria-hidden="true" tabindex="-1"></a><span class="fu"># Finding Duplicates</span></span>
+<span id="cb36-211"><a href="#cb36-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-212"><a href="#cb36-212" aria-hidden="true" tabindex="-1"></a>Remove fully duplicated rows with <span class="in">`duplicated()`</span>.</span>
+<span id="cb36-213"><a href="#cb36-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-216"><a href="#cb36-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-217"><a href="#cb36-217" aria-hidden="true" tabindex="-1"></a><span class="co"># drop fully duplicated rows (keep the first occurrence)</span></span>
+<span id="cb36-218"><a href="#cb36-218" aria-hidden="true" tabindex="-1"></a><span class="co"># ~ is the negation operator</span></span>
+<span id="cb36-219"><a href="#cb36-219" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[<span class="op">~</span>df.duplicated()]</span>
+<span id="cb36-220"><a href="#cb36-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-221"><a href="#cb36-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-222"><a href="#cb36-222" aria-hidden="true" tabindex="-1"></a>**Finding Duplicates:**  </span>
+<span id="cb36-223"><a href="#cb36-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-224"><a href="#cb36-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.duplicated()`</span> to identify duplicate rows; it returns a boolean Series.  </span>
+<span id="cb36-225"><a href="#cb36-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`~df.duplicated()`</span> to keep only unique rows.  </span>
+<span id="cb36-226"><a href="#cb36-226" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Specify <span class="in">`subset`</span> as a list of columns to check for duplicates based on those columns only.  </span>
+<span id="cb36-227"><a href="#cb36-227" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`keep=False`</span> to mark all duplicates.  </span>
+<span id="cb36-228"><a href="#cb36-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-229"><a href="#cb36-229" aria-hidden="true" tabindex="-1"></a>Find users who posted multiple times on the same date by specifying a subset of columns.</span>
+<span id="cb36-230"><a href="#cb36-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-233"><a href="#cb36-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-234"><a href="#cb36-234" aria-hidden="true" tabindex="-1"></a><span class="co"># find duplicated rows based on 'user' and 'date' columns (keep all occurrences)</span></span>
+<span id="cb36-235"><a href="#cb36-235" aria-hidden="true" tabindex="-1"></a>df[df.duplicated(subset<span class="op">=</span>[<span class="st">"user"</span>, <span class="st">"date"</span>], keep<span class="op">=</span><span class="va">False</span>)].head(<span class="dv">2</span>)</span>
+<span id="cb36-236"><a href="#cb36-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-237"><a href="#cb36-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-238"><a href="#cb36-238" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reordering and Reshaping Data</span></span>
+<span id="cb36-239"><a href="#cb36-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-240"><a href="#cb36-240" aria-hidden="true" tabindex="-1"></a>Sort rows by multiple columns with <span class="in">`sort_values()`</span>.</span>
+<span id="cb36-241"><a href="#cb36-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-244"><a href="#cb36-244" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-245"><a href="#cb36-245" aria-hidden="true" tabindex="-1"></a><span class="co"># sort by 'retweet_count' and then by 'user.followers_count' descending</span></span>
+<span id="cb36-246"><a href="#cb36-246" aria-hidden="true" tabindex="-1"></a>df.sort_values(</span>
+<span id="cb36-247"><a href="#cb36-247" aria-hidden="true" tabindex="-1"></a>    by<span class="op">=</span>[<span class="st">"retweet_count"</span>, <span class="st">"user.followers_count"</span>],</span>
+<span id="cb36-248"><a href="#cb36-248" aria-hidden="true" tabindex="-1"></a>    ascending<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb36-249"><a href="#cb36-249" aria-hidden="true" tabindex="-1"></a>).head(<span class="dv">2</span>)</span>
+<span id="cb36-250"><a href="#cb36-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-251"><a href="#cb36-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-252"><a href="#cb36-252" aria-hidden="true" tabindex="-1"></a>**Reordering and Reshaping:**  </span>
+<span id="cb36-253"><a href="#cb36-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-254"><a href="#cb36-254" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.sort_values(by=['col1', 'col2'], ascending=False)`</span> to sort rows by multiple columns in descending order.  </span>
+<span id="cb36-255"><a href="#cb36-255" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.transpose()`</span> to swap rows and columns.  </span>
+<span id="cb36-256"><a href="#cb36-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-257"><a href="#cb36-257" aria-hidden="true" tabindex="-1"></a>Transpose the DataFrame when you need to switch rows and columns for inspection.</span>
+<span id="cb36-258"><a href="#cb36-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-261"><a href="#cb36-261" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-262"><a href="#cb36-262" aria-hidden="true" tabindex="-1"></a>df.transpose().head(<span class="dv">3</span>) <span class="co"># view the DataFrame with rows and columns swapped</span></span>
+<span id="cb36-263"><a href="#cb36-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-264"><a href="#cb36-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-265"><a href="#cb36-265" aria-hidden="true" tabindex="-1"></a><span class="fu"># Joining Data</span></span>
+<span id="cb36-266"><a href="#cb36-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-267"><a href="#cb36-267" aria-hidden="true" tabindex="-1"></a>Load a second dataset and combine it with <span class="in">`concat()`</span>.</span>
+<span id="cb36-268"><a href="#cb36-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-271"><a href="#cb36-271" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-272"><a href="#cb36-272" aria-hidden="true" tabindex="-1"></a>path2 <span class="op">=</span> <span class="st">"../../../src/data/keto-and-vegan.csv"</span></span>
+<span id="cb36-273"><a href="#cb36-273" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> pd.read_csv(path2, encoding<span class="op">=</span><span class="st">"latin-1"</span>) <span class="co"># load df</span></span>
+<span id="cb36-274"><a href="#cb36-274" aria-hidden="true" tabindex="-1"></a>df2.head(<span class="dv">2</span>) <span class="co"># view first 2 rows</span></span>
+<span id="cb36-275"><a href="#cb36-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-276"><a href="#cb36-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-277"><a href="#cb36-277" aria-hidden="true" tabindex="-1"></a>Append matching tables vertically:</span>
+<span id="cb36-278"><a href="#cb36-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-281"><a href="#cb36-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-282"><a href="#cb36-282" aria-hidden="true" tabindex="-1"></a><span class="co"># concatenate df and df2 vertically (stack rows)</span></span>
+<span id="cb36-283"><a href="#cb36-283" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).iloc[<span class="dv">428</span>:<span class="dv">432</span>,] <span class="co"># view row 428 to 431</span></span>
+<span id="cb36-284"><a href="#cb36-284" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-285"><a href="#cb36-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-286"><a href="#cb36-286" aria-hidden="true" tabindex="-1"></a>**Joining Data:**  </span>
+<span id="cb36-287"><a href="#cb36-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-288"><a href="#cb36-288" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Load additional datasets with <span class="in">`pd.read_csv()`</span> and specify <span class="in">`encoding`</span> if necessary.  </span>
+<span id="cb36-289"><a href="#cb36-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`pd.concat([df1, df2])`</span> to vertically concatenate DataFrames with matching columns.  </span>
+<span id="cb36-290"><a href="#cb36-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reset the index with <span class="in">`.reset_index(drop=True)`</span> to create a continuous index.  </span>
+<span id="cb36-291"><a href="#cb36-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-292"><a href="#cb36-292" aria-hidden="true" tabindex="-1"></a>Reset the index after concatenation when you want a continuous row index.</span>
+<span id="cb36-293"><a href="#cb36-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-296"><a href="#cb36-296" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-297"><a href="#cb36-297" aria-hidden="true" tabindex="-1"></a><span class="co"># concatenate df and df2, then reset the index</span></span>
+<span id="cb36-298"><a href="#cb36-298" aria-hidden="true" tabindex="-1"></a>pd.concat([df, df2]).reset_index(drop<span class="op">=</span><span class="va">True</span>).iloc[<span class="dv">428</span>:<span class="dv">432</span>,]</span>
+<span id="cb36-299"><a href="#cb36-299" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-300"><a href="#cb36-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-301"><a href="#cb36-301" aria-hidden="true" tabindex="-1"></a><span class="fu"># Grouping and Aggregation</span></span>
+<span id="cb36-302"><a href="#cb36-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-303"><a href="#cb36-303" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`groupby()`</span> with <span class="in">`agg()`</span> to compute summary statistics by group. The example below calculates total retweets and average follower count for each user.</span>
+<span id="cb36-304"><a href="#cb36-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-307"><a href="#cb36-307" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-308"><a href="#cb36-308" aria-hidden="true" tabindex="-1"></a><span class="co"># group by 'user', then aggregate 'retweet_count' with sum </span></span>
+<span id="cb36-309"><a href="#cb36-309" aria-hidden="true" tabindex="-1"></a><span class="co"># and 'user.followers_count' with mean</span></span>
+<span id="cb36-310"><a href="#cb36-310" aria-hidden="true" tabindex="-1"></a>df_agg <span class="op">=</span> df.groupby(<span class="st">"user"</span>).agg(</span>
+<span id="cb36-311"><a href="#cb36-311" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"retweet_count"</span>: <span class="st">"sum"</span>, <span class="st">"user.followers_count"</span>: <span class="st">"mean"</span>,}</span>
+<span id="cb36-312"><a href="#cb36-312" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-313"><a href="#cb36-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-314"><a href="#cb36-314" aria-hidden="true" tabindex="-1"></a><span class="co"># view the aggregated result</span></span>
+<span id="cb36-315"><a href="#cb36-315" aria-hidden="true" tabindex="-1"></a>df_agg.head(<span class="dv">3</span>)</span>
+<span id="cb36-316"><a href="#cb36-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-317"><a href="#cb36-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-318"><a href="#cb36-318" aria-hidden="true" tabindex="-1"></a>**Grouping and Aggregation:**  </span>
+<span id="cb36-319"><a href="#cb36-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-320"><a href="#cb36-320" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use <span class="in">`df.groupby('column').agg({'col1': 'sum', 'col2': 'mean'})`</span> to group by a column and compute aggregate statistics.  </span>
+<span id="cb36-321"><a href="#cb36-321" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Verify the number of groups using <span class="in">`df[~df.duplicated(subset='column')].shape`</span> or <span class="in">`df['column'].nunique()`</span>.  </span>
+<span id="cb36-322"><a href="#cb36-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-323"><a href="#cb36-323" aria-hidden="true" tabindex="-1"></a>You can compare the grouped result with the number of unique users:</span>
+<span id="cb36-324"><a href="#cb36-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-327"><a href="#cb36-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-328"><a href="#cb36-328" aria-hidden="true" tabindex="-1"></a><span class="co"># count unique users by dropping duplicates based on 'user' column</span></span>
+<span id="cb36-329"><a href="#cb36-329" aria-hidden="true" tabindex="-1"></a>df[<span class="op">~</span>df.duplicated(subset<span class="op">=</span><span class="st">"user"</span>)].shape</span>
+<span id="cb36-330"><a href="#cb36-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-331"><a href="#cb36-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-334"><a href="#cb36-334" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-335"><a href="#cb36-335" aria-hidden="true" tabindex="-1"></a><span class="co"># or simply count the number of unique users with nunique()</span></span>
+<span id="cb36-336"><a href="#cb36-336" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"user"</span>].nunique()</span>
+<span id="cb36-337"><a href="#cb36-337" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-338"><a href="#cb36-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-339"><a href="#cb36-339" aria-hidden="true" tabindex="-1"></a><span class="fu"># Melting and Pivoting</span></span>
+<span id="cb36-340"><a href="#cb36-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-341"><a href="#cb36-341" aria-hidden="true" tabindex="-1"></a><span class="fu">## Melting Data</span></span>
+<span id="cb36-342"><a href="#cb36-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-343"><a href="#cb36-343" aria-hidden="true" tabindex="-1"></a>**Melting: wide → long**  </span>
+<span id="cb36-344"><a href="#cb36-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-345"><a href="#cb36-345" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`melt()`</span> to convert wide data into long format for analysis and plotting.</span>
+<span id="cb36-346"><a href="#cb36-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-349"><a href="#cb36-349" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-350"><a href="#cb36-350" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sample wide-format DataFrame with pet types and counts</span></span>
+<span id="cb36-351"><a href="#cb36-351" aria-hidden="true" tabindex="-1"></a>df_wide <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb36-352"><a href="#cb36-352" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
+<span id="cb36-353"><a href="#cb36-353" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="dv">4</span>, <span class="dv">5</span>],</span>
+<span id="cb36-354"><a href="#cb36-354" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="dv">7</span>, <span class="dv">4</span>],</span>
+<span id="cb36-355"><a href="#cb36-355" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb36-356"><a href="#cb36-356" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb36-357"><a href="#cb36-357" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"pet"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>],</span>
+<span id="cb36-358"><a href="#cb36-358" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-359"><a href="#cb36-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-360"><a href="#cb36-360" aria-hidden="true" tabindex="-1"></a>df_wide <span class="co"># view it</span></span>
+<span id="cb36-361"><a href="#cb36-361" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-362"><a href="#cb36-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-363"><a href="#cb36-363" aria-hidden="true" tabindex="-1"></a>Without arguments, <span class="in">`melt()`</span> collapses all columns into variable-value pairs.</span>
+<span id="cb36-364"><a href="#cb36-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-367"><a href="#cb36-367" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-368"><a href="#cb36-368" aria-hidden="true" tabindex="-1"></a>df_wide.melt() <span class="co"># melt all cols into variable-value pairs (pivot longer)</span></span>
+<span id="cb36-369"><a href="#cb36-369" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-370"><a href="#cb36-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-371"><a href="#cb36-371" aria-hidden="true" tabindex="-1"></a>Specify identifier and value columns for a structured long-format result.</span>
+<span id="cb36-372"><a href="#cb36-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-375"><a href="#cb36-375" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-376"><a href="#cb36-376" aria-hidden="true" tabindex="-1"></a>melted_df <span class="op">=</span> pd.melt(</span>
+<span id="cb36-377"><a href="#cb36-377" aria-hidden="true" tabindex="-1"></a>    df_wide,</span>
+<span id="cb36-378"><a href="#cb36-378" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"pet"</span>], <span class="co"># keep 'pet' as identifier column</span></span>
+<span id="cb36-379"><a href="#cb36-379" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">"male"</span>, <span class="st">"female"</span>], <span class="co"># value columns</span></span>
+<span id="cb36-380"><a href="#cb36-380" aria-hidden="true" tabindex="-1"></a>    var_name<span class="op">=</span><span class="st">"sex"</span>, <span class="co"># name for the new variable column</span></span>
+<span id="cb36-381"><a href="#cb36-381" aria-hidden="true" tabindex="-1"></a>    value_name<span class="op">=</span><span class="st">"count"</span>, <span class="co"># name for the new value column</span></span>
+<span id="cb36-382"><a href="#cb36-382" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-383"><a href="#cb36-383" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-384"><a href="#cb36-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-385"><a href="#cb36-385" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pivoting Data</span></span>
+<span id="cb36-386"><a href="#cb36-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-387"><a href="#cb36-387" aria-hidden="true" tabindex="-1"></a>**Pivot: long → wide**  </span>
+<span id="cb36-388"><a href="#cb36-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-389"><a href="#cb36-389" aria-hidden="true" tabindex="-1"></a>Pivot the long data back to wide format:</span>
+<span id="cb36-390"><a href="#cb36-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-393"><a href="#cb36-393" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-394"><a href="#cb36-394" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="op">=</span> melted_df.pivot(</span>
+<span id="cb36-395"><a href="#cb36-395" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"pet"</span>, <span class="co"># identifier column becomes index</span></span>
+<span id="cb36-396"><a href="#cb36-396" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"sex"</span>, <span class="co"># categories in variable column becomes new columns</span></span>
+<span id="cb36-397"><a href="#cb36-397" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"count"</span>, <span class="co"># value column becomes new values</span></span>
+<span id="cb36-398"><a href="#cb36-398" aria-hidden="true" tabindex="-1"></a>).reset_index() <span class="co"># reset index to turn 'pet' back into a column</span></span>
+<span id="cb36-399"><a href="#cb36-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-400"><a href="#cb36-400" aria-hidden="true" tabindex="-1"></a>df_pivot.columns.name <span class="op">=</span> <span class="va">None</span> <span class="co"># remove the name of the columns index</span></span>
+<span id="cb36-401"><a href="#cb36-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-402"><a href="#cb36-402" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="co"># view the pivoted DataFrame</span></span>
+<span id="cb36-403"><a href="#cb36-403" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-404"><a href="#cb36-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-405"><a href="#cb36-405" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`pivot_table()`</span> instead of <span class="in">`pivot()`</span> when there are duplicate index/column combinations, and specify an aggregation function like <span class="in">`aggfunc='mean'`</span> to summarize duplicates.</span>
+<span id="cb36-406"><a href="#cb36-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-407"><a href="#cb36-407" aria-hidden="true" tabindex="-1"></a>For example, if we have duplicate pet entries:</span>
+<span id="cb36-410"><a href="#cb36-410" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-411"><a href="#cb36-411" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sample DataFrame with duplicate pet entries</span></span>
+<span id="cb36-412"><a href="#cb36-412" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb36-413"><a href="#cb36-413" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[</span>
+<span id="cb36-414"><a href="#cb36-414" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="st">"male"</span>, <span class="dv">4</span>],</span>
+<span id="cb36-415"><a href="#cb36-415" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"cat"</span>, <span class="st">"female"</span>, <span class="dv">5</span>],</span>
+<span id="cb36-416"><a href="#cb36-416" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="st">"female"</span>, <span class="dv">7</span>],</span>
+<span id="cb36-417"><a href="#cb36-417" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"dog"</span>, <span class="st">"male"</span>, <span class="dv">4</span>],</span>
+<span id="cb36-418"><a href="#cb36-418" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="st">"male"</span>, <span class="dv">2</span>],</span>
+<span id="cb36-419"><a href="#cb36-419" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"rabbit"</span>, <span class="st">"female"</span>, <span class="dv">3</span>],</span>
+<span id="cb36-420"><a href="#cb36-420" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb36-421"><a href="#cb36-421" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"pet"</span>, <span class="st">"sex"</span>, <span class="st">"count"</span>],</span>
+<span id="cb36-422"><a href="#cb36-422" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-423"><a href="#cb36-423" aria-hidden="true" tabindex="-1"></a>df_long <span class="co"># view the long-format DataFrame with duplicates</span></span>
+<span id="cb36-424"><a href="#cb36-424" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-425"><a href="#cb36-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-426"><a href="#cb36-426" aria-hidden="true" tabindex="-1"></a>To pivot this long data back to wide format, we can use <span class="in">`pivot_table()`</span> to handle duplicates:</span>
+<span id="cb36-427"><a href="#cb36-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-430"><a href="#cb36-430" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb36-431"><a href="#cb36-431" aria-hidden="true" tabindex="-1"></a><span class="co"># create a pivot table that averages counts for duplicate entries</span></span>
+<span id="cb36-432"><a href="#cb36-432" aria-hidden="true" tabindex="-1"></a>(df_long</span>
+<span id="cb36-433"><a href="#cb36-433" aria-hidden="true" tabindex="-1"></a>.pivot_table(</span>
+<span id="cb36-434"><a href="#cb36-434" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"pet"</span>,</span>
+<span id="cb36-435"><a href="#cb36-435" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb36-436"><a href="#cb36-436" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"count"</span>,</span>
+<span id="cb36-437"><a href="#cb36-437" aria-hidden="true" tabindex="-1"></a>    aggfunc<span class="op">=</span><span class="st">"mean"</span>, <span class="co"># average counts for duplicate entries</span></span>
+<span id="cb36-438"><a href="#cb36-438" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-439"><a href="#cb36-439" aria-hidden="true" tabindex="-1"></a>.rename_axis(<span class="va">None</span>, axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># remove the name of the columns headers</span></span>
+<span id="cb36-440"><a href="#cb36-440" aria-hidden="true" tabindex="-1"></a>.rename_axis(<span class="va">None</span>) <span class="co"># remove the name of the index</span></span>
+<span id="cb36-441"><a href="#cb36-441" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-442"><a href="#cb36-442" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb36-443"><a href="#cb36-443" aria-hidden="true" tabindex="-1"></a></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

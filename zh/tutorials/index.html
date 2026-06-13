@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../src/img/favicon.ico" rel="icon">
+<link href="../../src/img/favicon/spark.ico" rel="icon">
 <script src="../../site_libs/quarto-listing/list.min.js"></script>
 <script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
 
     const options = {
-      valueNames: ['listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-title','listing-description','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
@@ -211,6 +211,10 @@ window.Quarto = {
     <a class="nav-link" href="../../en/hobbies/index.html"> 
 <span class="menu-text">Hobbies</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../en/blogs/index.html"> 
+<span class="menu-text">Blogs</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools tools-wide">
@@ -240,14 +244,14 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">分类</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">全部 <span class="quarto-category-count">(4)</span></div><div class="category" data-category="RGF0YUZyYW1l">DataFrame <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGFuZGFz">Pandas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGxvdGx5">Plotly <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(4)</span></div><div class="category" data-category="U2VhYm9ybg==">Seaborn <span class="quarto-category-count">(2)</span></div><div class="category" data-category="JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">可视化 <span class="quarto-category-count">(3)</span></div><div class="category" data-category="JUU1JUE0JTlBJUU1JThGJTk4JUU5JTg3JThG">多变量 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JTg4JTg2JUU1JUI4JTgz">数据分布 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JUE0JTg0JUU3JTkwJTg2">数据处理 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJF">桑基图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTgzJUFEJUU1JTlCJUJF">热图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTlCJUI0JUU2JTk2JUI5JUU1JTlCJUJF">直方图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JUJEJTkxJUU3JUJCJTlDJUU1JTlCJUJF">网络图 <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">分类</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">全部 <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Q1NTJUU5JUEyJTlDJUU4JTg5JUIy">CSS颜色 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YUZyYW1l">DataFrame <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZHBseXI=">dplyr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGFuZGFz">Pandas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGxvdGx5">Plotly <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2VhYm9ybg==">Seaborn <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c3RyaW5ncg==">stringr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU0JUJCJUEzJUU3JUEwJTgxJUU3JTg5JTg3JUU2JUFFJUI1">代码片段 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">可视化 <span class="quarto-category-count">(3)</span></div><div class="category" data-category="JUU1JUE0JTlBJUU1JThGJTk4JUU5JTg3JThG">多变量 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JTg4JTg2JUU1JUI4JTgz">数据分布 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">数据可视化 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JUE0JTg0JUU3JTkwJTg2">数据处理 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkw">文本分析 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJF">桑基图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JUFEJUEzJUU1JTg4JTk5JUU4JUExJUE4JUU4JUJFJUJFJUU1JUJDJThG">正则表达式 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTgzJUFEJUU1JTlCJUJF">热图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTlCJUI0JUU2JTk2JUI5JUU1JTlCJUJF">直方图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JUJEJTkxJUU3JUJCJTlDJUU1JTlCJUJF">网络图 <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">数据可视化教程</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
-<p class="subtitle lead">Python 数据分析与可视化教程。</p>
+<p class="subtitle lead">数据分析、可视化教程与技巧。</p>
 </div>
 
 
@@ -271,105 +275,137 @@ window.Quarto = {
 
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-tutorials-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+    <select id="listing-tutorials-listing-sort" class="form-select" aria-label="排序方式" onchange="window['quarto-listings']['listing-tutorials-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+      <option value="" disabled="" selected="" hidden="">排序方式</option>
+      <option value="index" data-direction="asc">默认</option>
+      <option value="listing-title" data-direction="asc">
+        标题
+      </option>
+      <option value="listing-date-sort" data-direction="asc">
+        日期 - 日期升序
+      </option>
+      <option value="listing-date-sort" data-direction="desc">
+        日期 - 日期降序
+      </option>
+    </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="筛选">
+    </div>
+</div>
 <div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="UHl0aG9uJTJDJUU2JTk1JUIwJUU2JThEJUFFJUU1JUE0JTg0JUU3JTkwJTg2JTJDUGFuZGFzJTJDRGF0YUZyYW1l" data-listing-date-sort="1728532800000" data-listing-file-modified-sort="1780612920064" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="708">
+<div class="g-col-1" data-index="0" data-categories="UHl0aG9uJTJDJUU2JTk1JUIwJUU2JThEJUFFJUU1JUE0JTg0JUU3JTkwJTg2JTJDUGFuZGFzJTJDRGF0YUZyYW1l" data-listing-date-sort="1728532800000" data-listing-file-modified-sort="1781159046966" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="708">
 <a href="../../zh/tutorials/data-processing/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="data-processing/index_files/figure-html/cell-14-output-1.png" style="height: 200px;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 数据清理
 </h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU2JTk1JUIwJUU2JThEJUFFJUU1JUE0JTg0JUU3JTkwJTg2'); return false;">数据处理</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UGFuZGFz'); return false;">Pandas</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YUZyYW1l'); return false;">DataFrame</div>
-
-</div>
 <div class="card-text listing-description delink">
-<p>本教程介绍 Pandas 中常用的数据处理流程，包括缺失值处理、列管理、重复值、数据重塑、表连接和分组聚合。</p>
+<p>Pandas 数据处理与清洗流程：缺失值、重复值、数据重塑、表连接、分组聚合、透视表等。</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2024年10月10日
+</div>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNiU5NSVCMCVFNiU4RCVBRSVFNSU4OCU4NiVFNSVCOCU4MyUyQyVFNyU5QiVCNCVFNiU5NiVCOSVFNSU5QiVCRQ==" data-listing-date-sort="1727755200000" data-listing-file-modified-sort="1780612921392" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1335">
+<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNiU5NSVCMCVFNiU4RCVBRSVFNSU4OCU4NiVFNSVCOCU4MyUyQyVFNyU5QiVCNCVFNiU5NiVCOSVFNSU5QiVCRQ==" data-listing-date-sort="1727755200000" data-listing-file-modified-sort="1781159043003" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1335">
 <a href="../../zh/tutorials/amounts-and-distribution/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="amounts-and-distribution/index_files/figure-html/cell-13-output-1.png" style="height: 200px;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 数量与分布可视化
 </h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U2VhYm9ybg=='); return false;">Seaborn</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU2JTk1JUIwJUU2JThEJUFFJUU1JTg4JTg2JUU1JUI4JTgz'); return false;">数据分布</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU3JTlCJUI0JUU2JTk2JUI5JUU1JTlCJUJF'); return false;">直方图</div>
-
-</div>
 <div class="card-text listing-description delink">
-<p>本章介绍如何使用 Seaborn 库绘制柱状图、点线图、直方图、箱线图等常见的数量与分布可视化图表，并通过调整参数实现更清晰的信息传达。</p>
+<p>使用 Seaborn 绘制数量与分布可视化图表：柱状图、点线图、直方图、箱线图等。</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2024年10月1日
+</div>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNSVBNCU5QSVFNSU4RiU5OCVFOSU4NyU4RiUyQyVFNyU4MyVBRCVFNSU5QiVCRQ==" data-listing-date-sort="1730001600000" data-listing-file-modified-sort="1780612923151" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1517">
+<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNSVBNCU5QSVFNSU4RiU5OCVFOSU4NyU4RiUyQyVFNyU4MyVBRCVFNSU5QiVCRQ==" data-listing-date-sort="1730001600000" data-listing-file-modified-sort="1781159048676" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1523">
 <a href="../../zh/tutorials/multivariate-plots/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../src/img/ttl/multi/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+</p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 多变量图表
 </h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U2VhYm9ybg=='); return false;">Seaborn</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU1JUE0JTlBJUU1JThGJTk4JUU5JTg3JThG'); return false;">多变量</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU3JTgzJUFEJUU1JTlCJUJF'); return false;">热图</div>
-
-</div>
 <div class="card-text listing-description delink">
-<p>本教程介绍如何使用 Seaborn 库绘制散点图、折线图、热力图、二维直方图、双变量图和配对图等常见的多变量可视化图表，并通过调整参数实现更清晰的信息传达。</p>
+<p>使用 Seaborn 绘制多变量可视化图表：散点图、折线图、热力图、双变量图、分面网格图等。</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2024年10月27日
+</div>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDUGxvdGx5JTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2JTJDJUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJFJTJDJUU3JUJEJTkxJUU3JUJCJTlDJUU1JTlCJUJF" data-listing-date-sort="1733374800000" data-listing-file-modified-sort="1780612924081" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1464">
+<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDUGxvdGx5JTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2JTJDJUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJFJTJDJUU3JUJEJTkxJUU3JUJCJTlDJUU1JTlCJUJF" data-listing-date-sort="1733374800000" data-listing-file-modified-sort="1781159050376" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1470">
 <a href="../../zh/tutorials/sankey-and-network/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="../../src/img/ttl/sankey/fig1-worker-month-expense.gif" style="height: 200px;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 桑基图与网络图
 </h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UGxvdGx5'); return false;">Plotly</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJF'); return false;">桑基图</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU3JUJEJTkxJUU3JUJCJTlDJUU1JTlCJUJF'); return false;">网络图</div>
-
-</div>
 <div class="card-text listing-description delink">
-<p>本章介绍桑基图与网络图的绘制方法，包括数据准备、图表创建和样式调整等。</p>
+<p>使用 Plotly、Pyvis 与 NetworkX 绘制桑基图与网络图。</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2024年12月5日
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="4" data-categories="UiUyQ2RwbHlyJTJDc3RyaW5nciUyQyVFNiVBRCVBMyVFNSU4OCU5OSVFOCVBMSVBOCVFOCVCRSVCRSVFNSVCQyU4RiUyQ0NTUyVFOSVBMiU5QyVFOCU4OSVCMiUyQyVFNiU5NiU4NyVFNiU5QyVBQyVFNSU4OCU4NiVFNiU5RSU5MCUyQyVFNiU5NSVCMCVFNiU4RCVBRSVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNCVCQiVBMyVFNyVBMCU4MSVFNyU4OSU4NyVFNiVBRSVCNQ==" data-listing-date-sort="1774584000000" data-listing-file-modified-sort="1781159045125" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2008">
+<a href="../../zh/tutorials/r-tips/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="../../src/img/ttl/r-tips/rstudio-snippet-1.png" alt="编辑代码片段" style="height: 200px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+R 语言技巧
+</h5>
+<div class="card-text listing-description delink">
+<p>常用 R 技巧与代码片段：dplyr 数据处理、stringr 文本操作、CSS 颜色名称、代码速查表等。</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2026年3月27日
+</div>
 </div>
 </div>
 </div></a>
@@ -377,60 +413,65 @@ window.Quarto = {
 </div>
 <div class="listing-no-matching d-none">无匹配项</div>
 </div></main> <!-- /main -->
-<script id="fix-code-fold" type="text/javascript">
-    const showBtn = document.getElementById('quarto-show-all-code');
-    const hideBtn = document.getElementById('quarto-hide-all-code');
-
-    if (showBtn) {
-        showBtn.addEventListener('click', function(e) {
+<script id="fix-code-fold">
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
             e.preventDefault();
             document.querySelectorAll('details.code-fold').forEach(el => {
-                el.setAttribute('open', '');
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
             });
         });
-    }
+    };
 
-    if (hideBtn) {
-        hideBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelectorAll('details.code-fold').forEach(el => {
-                el.removeAttribute('open');
-            });
-        });
-    }
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
 </script>
 <script>
-    function switchLanguage(targetLang) {
+    const switchLanguage = targetLang => {
         const path = window.location.pathname;
         // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
         const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
         if (match) {
             const base = match[1];
             const rest = match[3] || '/';
-            window.location.pathname = base + '/' + targetLang + rest;
+            window.location.pathname = `${base}/${targetLang}${rest}`;
         } else {
-            window.location.pathname = '/' + targetLang + '/';
+            window.location.pathname = `/${targetLang}/`;
         }
-    }
-
-    const NAV_TRANSLATIONS = {
-        en: { Projects: 'Projects', Tutorials: 'Tutorials', Hobbies: 'Hobbies', About: 'About' },
-        zh: { Projects: '项目',    Tutorials: '教程',       Hobbies: '爱好',    About: '关于' },
     };
 
-    document.addEventListener('DOMContentLoaded', function () {
-    // 遍历所有 navbar 下拉菜单链接，按文字匹配
-        document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+    const NAV_TRANSLATIONS = {
+        en: { 
+            Projects: 'Projects', 
+            Tutorials: 'Tutorials', 
+            Hobbies: 'Hobbies', 
+            Blogs: 'Blogs',
+            About: 'About' 
+        },
+        zh: { 
+            Projects: '项目',    
+            Tutorials: '教程',       
+            Hobbies: '爱好',    
+            Blogs: '博客',
+            About: '关于' 
+        },
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(el => {
             const text = el.textContent.trim();
             if (text === 'English') {
-                el.addEventListener('click', function (e) {
-                e.preventDefault();
-                switchLanguage('en');
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('en');
                 });
             } else if (text === '中文') {
-                el.addEventListener('click', function (e) {
-                e.preventDefault();
-                switchLanguage('zh');
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('zh');
                 });
             }
         });
@@ -438,55 +479,110 @@ window.Quarto = {
         // Translate navbar left-side links to match the current page language
         const langMatch = window.location.pathname.match(/\/(en|zh)\//);
         const lang = langMatch ? langMatch[1] : 'en';
-        const translations = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.en;
+        const translations = NAV_TRANSLATIONS[lang] ?? NAV_TRANSLATIONS.en;
 
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(function (el) {
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(el => {
             const text = el.textContent.trim();
             if (translations[text]) {
                 el.textContent = translations[text];
             }
             // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
-            if (lang === 'zh' && el.href && el.href.includes('/en/')) {
+            if (lang === 'zh' && el.href?.includes('/en/')) {
                 el.href = el.href.replace('/en/', '/zh/');
-            } else if (lang === 'en' && el.href && el.href.includes('/zh/')) {
+            } else if (lang === 'en' && el.href?.includes('/zh/')) {
                 el.href = el.href.replace('/zh/', '/en/');
             }
         });
     });
 </script>
 <script>
-    (function () {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.sidebar-item-section > .sidebar-item-container').forEach(row => {
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', e => {
+                // title text -> let the link navigate normally
+                if (e.target.closest('.sidebar-item-text')) return;
+                // chevron -> Bootstrap handles it natively; don't double-toggle
+                if (e.target.closest('.sidebar-item-toggle')) return;
+                // empty area of the row -> trigger the toggle once
+                row.querySelector('.sidebar-item-toggle')?.click();
+            });
+        });
+    });
+</script>
+<script id="fix-navbar-active">
+    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // lang-switch.html to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
+            }
+
+            const isActive = pageSection !== null && pageSection === linkSection;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    })();
+</script>
+<script>
+    (() => {
         const BREAKPOINT = 991;
         let sidebar, titleBlock, mainEl, quartoContent;
+        let rafId = null;
 
-        function init() {
-            sidebar = document.getElementById('quarto-margin-sidebar');
-            titleBlock = document.getElementById('title-block-header');
-            mainEl = document.querySelector('#quarto-content > main.content');
+        const init = () => {
+            sidebar      = document.getElementById('quarto-margin-sidebar');
+            titleBlock   = document.getElementById('title-block-header');
+            mainEl       = document.querySelector('#quarto-content > main.content');
             quartoContent = document.getElementById('quarto-content');
-        }
+        };
 
-        function relocate() {
+        const relocate = () => {
             if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
 
             if (window.innerWidth <= BREAKPOINT) {
-            // Place sidebar after the title block, inside main
-            if (sidebar.parentNode !== mainEl) {
-                titleBlock.insertAdjacentElement('afterend', sidebar);
-            }
+                // Place sidebar after the title block, inside main
+                if (sidebar.parentNode !== mainEl) {
+                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                }
             } else {
-            // Restore sidebar as first child of #quarto-content (before main)
-            if (sidebar.parentNode !== quartoContent) {
-                quartoContent.insertBefore(sidebar, mainEl);
+                // Restore sidebar as first child of #quarto-content (before main)
+                if (sidebar.parentNode !== quartoContent) {
+                    quartoContent.insertBefore(sidebar, mainEl);
+                }
             }
-            }
-        }
+        };
 
-        document.addEventListener('DOMContentLoaded', function () {
+        const onResize = () => {
+            if (rafId !== null) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = null;
+                relocate();
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
             init();
             relocate();
         });
-        window.addEventListener('resize', relocate);
+        window.addEventListener('resize', onResize);
     })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -942,26 +1038,29 @@ window.Quarto = {
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> '数据可视化教程'</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> 'Python 数据分析与可视化教程。'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> '数据分析、可视化教程与技巧。'</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># css: '../../src/styles/projects.css'</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">include-after-body:</span><span class="co"> '../../src/scripts/responsive-tag-bar.html'</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> false</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">back-to-top-navigation:</span><span class="co"> false</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  id: tutorials-listing</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.qmd"</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: "order asc"</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [title, description, categories]</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">reading-meta-enabled:</span><span class="co"> false</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  id: tutorials-listing</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.qmd"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, description, author, date]</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "0px"</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: false</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 20</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "200px"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: "order asc"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: [title, date]</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 20</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

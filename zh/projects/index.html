@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../src/img/favicon.ico" rel="icon">
+<link href="../../src/img/favicon/spark.ico" rel="icon">
 <script src="../../site_libs/quarto-listing/list.min.js"></script>
 <script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
 
     const options = {
-      valueNames: ['listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-title','listing-categories','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
@@ -211,6 +211,10 @@ window.Quarto = {
     <a class="nav-link" href="../../en/hobbies/index.html"> 
 <span class="menu-text">Hobbies</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../en/blogs/index.html"> 
+<span class="menu-text">Blogs</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools tools-wide">
@@ -271,10 +275,36 @@ window.Quarto = {
 
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-projects-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+    <select id="listing-projects-listing-sort" class="form-select" aria-label="排序方式" onchange="window['quarto-listings']['listing-projects-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+      <option value="" disabled="" selected="" hidden="">排序方式</option>
+      <option value="index" data-direction="asc">默认</option>
+      <option value="listing-title" data-direction="asc">
+        标题
+      </option>
+      <option value="listing-date-sort" data-direction="asc">
+        日期 - 日期升序
+      </option>
+      <option value="listing-date-sort" data-direction="desc">
+        日期 - 日期降序
+      </option>
+      <option value="listing-author" data-direction="asc">
+        作者
+      </option>
+    </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="筛选">
+    </div>
+</div>
 <div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="UiUyQ0FJJTJDTkxQJTJDJUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU0JUI4JUJCJUU5JUEyJTk4JUU1JUJCJUJBJUU2JUE4JUExJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz" data-listing-date-sort="1777608000000" data-listing-file-modified-sort="1780708998349" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="25" data-listing-word-count-sort="4935">
-<a href="../../zh/projects/ai-tweets/index.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="0" data-categories="UiUyQ0FJJTJDTkxQJTJDJUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU0JUI4JUJCJUU5JUEyJTk4JUU1JUJCJUJBJUU2JUE4JUExJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz" data-listing-date-sort="1777608000000" data-listing-file-modified-sort="1781062233103" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="25" data-listing-word-count-sort="4978">
+<a href="../../zh/projects/ai-discourse/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="ai-discourse/index_files/figure-html/fig-lexicon-coverage-1.png" style="height: 200px;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 网络AI话语的演变
@@ -296,91 +326,23 @@ window.Quarto = {
 <div class="listing-category" onclick="window.quartoListingCategory('JUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz'); return false;">社交媒体</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>2017至2021年Twitter人工智能相关推文公众情感与主题趋势的纵向分析</p>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
 </div>
+<div class="listing-date">
+2026年5月1日
 </div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDTkxQJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkzJTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1730433600000" data-listing-file-modified-sort="1780612914751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="760">
-<a href="../../zh/projects/catalan-referendum/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Twitter 加泰罗尼亚公投情感分析
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('TkxQ'); return false;">NLP</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz'); return false;">社交媒体</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>使用 NLP 技术对 2017 年加泰罗尼亚独立公投相关推文进行情感挖掘。</p>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDRURBJTJDJUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJFJTJDJUU1JTlDJUIwJUU1JTlCJUJFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2JTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1733979600000" data-listing-file-modified-sort="1780612916066" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1812">
-<a href="../../zh/projects/global-visa-cost/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-全球签证费用分析与交互式可视化
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RURB'); return false;">EDA</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJF'); return false;">桑基图</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU1JTlDJUIwJUU1JTlCJUJFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">地图可视化</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>跨国签证费用的比较研究，探索可负担性与地理分布规律。</p>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="UiUyQ0VEQSUyQyVFOSU5RiVCMyVFNCVCOSU5MCUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNiU4QSVCRCVFNiVBMCVCNw==" data-listing-date-sort="1771995600000" data-listing-file-modified-sort="1780612917399" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1180">
-<a href="../../zh/projects/most-streamed-songs/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Spotify 最高播放量歌曲——音乐特征与受众趋势分析
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('RURB'); return false;">EDA</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU5JTlGJUIzJUU0JUI5JTkw'); return false;">音乐</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU2JThBJUJEJUU2JUEwJUI3'); return false;">抽样</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>对 2023 年 Spotify 最高播放量歌曲进行探索性分析，揭示音乐流行趋势。</p>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="UiUyQ0VEQSUyQyVFNyVBNCVCRSVFNCVCQSVBNCVFNSVBQSU5MiVFNCVCRCU5MyUyQyVFNSVCRiU4MyVFNyU5MCU4NiVFNSU4MSVBNSVFNSVCQSVCNyUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5Ng==" data-listing-date-sort="1771822800000" data-listing-file-modified-sort="1780612918737" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="38" data-listing-word-count-sort="7495">
+<div class="g-col-1" data-index="1" data-categories="UiUyQ0VEQSUyQyVFNyVBNCVCRSVFNCVCQSVBNCVFNSVBQSU5MiVFNCVCRCU5MyUyQyVFNSVCRiU4MyVFNyU5MCU4NiVFNSU4MSVBNSVFNSVCQSVCNyUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5Ng==" data-listing-date-sort="1771822800000" data-listing-file-modified-sort="1781067778886" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="38" data-listing-word-count-sort="7495">
 <a href="../../zh/projects/student-media-usage/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../src/img/proj/stu-media/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+</p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 学生社交媒体使用与幸福感分析
@@ -398,8 +360,111 @@ Spotify 最高播放量歌曲——音乐特征与受众趋势分析
 <div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>分析学生的社交媒体使用习惯与成瘾模式，探究行为与学业相关洞察。</p>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2026年2月23日
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDTkxQJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkzJTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1730433600000" data-listing-file-modified-sort="1781067775395" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="767">
+<a href="../../zh/projects/catalan-referendum/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../src/img/proj/catalan/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Twitter 加泰罗尼亚公投情感分析
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TkxQ'); return false;">NLP</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz'); return false;">社交媒体</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
+
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2024年11月1日
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDRURBJTJDJUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJFJTJDJUU1JTlDJUIwJUU1JTlCJUJFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2JTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1733979600000" data-listing-file-modified-sort="1781062295653" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1824">
+<a href="../../zh/projects/global-visa-cost/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="../../src/img/proj/visa/fig2-sankey-sorted.png" alt="各地区平均旅游签证费用桑基图（已排序）" style="height: 200px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+全球签证费用分析与交互式可视化
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RURB'); return false;">EDA</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJF'); return false;">桑基图</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU1JTlDJUIwJUU1JTlCJUJFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">地图可视化</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
+
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2024年12月12日
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="4" data-categories="UiUyQ0VEQSUyQyVFOSU5RiVCMyVFNCVCOSU5MCUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNiU4QSVCRCVFNiVBMCVCNw==" data-listing-date-sort="1771995600000" data-listing-file-modified-sort="1781067777455" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1180">
+<a href="../../zh/projects/most-streamed-songs/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../src/img/proj/songs/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Spotify 最高播放量歌曲——音乐特征与受众趋势分析
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RURB'); return false;">EDA</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU5JTlGJUIzJUU0JUI5JTkw'); return false;">音乐</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU2JThBJUJEJUU2JUEwJUI3'); return false;">抽样</div>
+
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2026年2月25日
+</div>
 </div>
 </div>
 </div></a>
@@ -407,60 +472,65 @@ Spotify 最高播放量歌曲——音乐特征与受众趋势分析
 </div>
 <div class="listing-no-matching d-none">无匹配项</div>
 </div></main> <!-- /main -->
-<script id="fix-code-fold" type="text/javascript">
-    const showBtn = document.getElementById('quarto-show-all-code');
-    const hideBtn = document.getElementById('quarto-hide-all-code');
-
-    if (showBtn) {
-        showBtn.addEventListener('click', function(e) {
+<script id="fix-code-fold">
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
             e.preventDefault();
             document.querySelectorAll('details.code-fold').forEach(el => {
-                el.setAttribute('open', '');
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
             });
         });
-    }
+    };
 
-    if (hideBtn) {
-        hideBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelectorAll('details.code-fold').forEach(el => {
-                el.removeAttribute('open');
-            });
-        });
-    }
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
 </script>
 <script>
-    function switchLanguage(targetLang) {
+    const switchLanguage = targetLang => {
         const path = window.location.pathname;
         // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
         const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
         if (match) {
             const base = match[1];
             const rest = match[3] || '/';
-            window.location.pathname = base + '/' + targetLang + rest;
+            window.location.pathname = `${base}/${targetLang}${rest}`;
         } else {
-            window.location.pathname = '/' + targetLang + '/';
+            window.location.pathname = `/${targetLang}/`;
         }
-    }
-
-    const NAV_TRANSLATIONS = {
-        en: { Projects: 'Projects', Tutorials: 'Tutorials', Hobbies: 'Hobbies', About: 'About' },
-        zh: { Projects: '项目',    Tutorials: '教程',       Hobbies: '爱好',    About: '关于' },
     };
 
-    document.addEventListener('DOMContentLoaded', function () {
-    // 遍历所有 navbar 下拉菜单链接，按文字匹配
-        document.querySelectorAll('.navbar .dropdown-item').forEach(function (el) {
+    const NAV_TRANSLATIONS = {
+        en: { 
+            Projects: 'Projects', 
+            Tutorials: 'Tutorials', 
+            Hobbies: 'Hobbies', 
+            Blogs: 'Blogs',
+            About: 'About' 
+        },
+        zh: { 
+            Projects: '项目',    
+            Tutorials: '教程',       
+            Hobbies: '爱好',    
+            Blogs: '博客',
+            About: '关于' 
+        },
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(el => {
             const text = el.textContent.trim();
             if (text === 'English') {
-                el.addEventListener('click', function (e) {
-                e.preventDefault();
-                switchLanguage('en');
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('en');
                 });
             } else if (text === '中文') {
-                el.addEventListener('click', function (e) {
-                e.preventDefault();
-                switchLanguage('zh');
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('zh');
                 });
             }
         });
@@ -468,55 +538,110 @@ Spotify 最高播放量歌曲——音乐特征与受众趋势分析
         // Translate navbar left-side links to match the current page language
         const langMatch = window.location.pathname.match(/\/(en|zh)\//);
         const lang = langMatch ? langMatch[1] : 'en';
-        const translations = NAV_TRANSLATIONS[lang] || NAV_TRANSLATIONS.en;
+        const translations = NAV_TRANSLATIONS[lang] ?? NAV_TRANSLATIONS.en;
 
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(function (el) {
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(el => {
             const text = el.textContent.trim();
             if (translations[text]) {
                 el.textContent = translations[text];
             }
             // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
-            if (lang === 'zh' && el.href && el.href.includes('/en/')) {
+            if (lang === 'zh' && el.href?.includes('/en/')) {
                 el.href = el.href.replace('/en/', '/zh/');
-            } else if (lang === 'en' && el.href && el.href.includes('/zh/')) {
+            } else if (lang === 'en' && el.href?.includes('/zh/')) {
                 el.href = el.href.replace('/zh/', '/en/');
             }
         });
     });
 </script>
 <script>
-    (function () {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.sidebar-item-section > .sidebar-item-container').forEach(row => {
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', e => {
+                // title text -> let the link navigate normally
+                if (e.target.closest('.sidebar-item-text')) return;
+                // chevron -> Bootstrap handles it natively; don't double-toggle
+                if (e.target.closest('.sidebar-item-toggle')) return;
+                // empty area of the row -> trigger the toggle once
+                row.querySelector('.sidebar-item-toggle')?.click();
+            });
+        });
+    });
+</script>
+<script id="fix-navbar-active">
+    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // lang-switch.html to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
+            }
+
+            const isActive = pageSection !== null && pageSection === linkSection;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    })();
+</script>
+<script>
+    (() => {
         const BREAKPOINT = 991;
         let sidebar, titleBlock, mainEl, quartoContent;
+        let rafId = null;
 
-        function init() {
-            sidebar = document.getElementById('quarto-margin-sidebar');
-            titleBlock = document.getElementById('title-block-header');
-            mainEl = document.querySelector('#quarto-content > main.content');
+        const init = () => {
+            sidebar      = document.getElementById('quarto-margin-sidebar');
+            titleBlock   = document.getElementById('title-block-header');
+            mainEl       = document.querySelector('#quarto-content > main.content');
             quartoContent = document.getElementById('quarto-content');
-        }
+        };
 
-        function relocate() {
+        const relocate = () => {
             if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
 
             if (window.innerWidth <= BREAKPOINT) {
-            // Place sidebar after the title block, inside main
-            if (sidebar.parentNode !== mainEl) {
-                titleBlock.insertAdjacentElement('afterend', sidebar);
-            }
+                // Place sidebar after the title block, inside main
+                if (sidebar.parentNode !== mainEl) {
+                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                }
             } else {
-            // Restore sidebar as first child of #quarto-content (before main)
-            if (sidebar.parentNode !== quartoContent) {
-                quartoContent.insertBefore(sidebar, mainEl);
+                // Restore sidebar as first child of #quarto-content (before main)
+                if (sidebar.parentNode !== quartoContent) {
+                    quartoContent.insertBefore(sidebar, mainEl);
+                }
             }
-            }
-        }
+        };
 
-        document.addEventListener('DOMContentLoaded', function () {
+        const onResize = () => {
+            if (rafId !== null) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = null;
+                relocate();
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
             init();
             relocate();
         });
-        window.addEventListener('resize', relocate);
+        window.addEventListener('resize', onResize);
     })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -977,18 +1102,23 @@ Spotify 最高播放量歌曲——音乐特征与受众趋势分析
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">include-after-body:</span><span class="co"> '../../src/scripts/responsive-tag-bar.html'</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  id: projects-listing</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.qmd"</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: "order asc"</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [title, description, categories]</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "0px"</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: false</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 20</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">back-to-top-navigation:</span><span class="co"> false</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">reading-meta-enabled:</span><span class="co"> false</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  id: projects-listing</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.qmd"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, author, date]</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "200px"</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: "order asc"</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: true</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 20</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
