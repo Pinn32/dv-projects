@@ -11,7 +11,7 @@ reading-meta-enabled: false
 
 listing:
   id: tutorials-listing
-  contents: "*/index.qmd"
+  contents: "*/index.*md"
   type: grid
   categories: true
   fields: [image, title, description, author, date]

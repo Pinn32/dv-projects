@@ -8,7 +8,7 @@ reading-meta-enabled: false
 
 # listing:
 #     id: blogs-listing
-#     contents: "*/index.qmd"
+#     contents: "*/index.*md"
 #     type: grid
 #     categories: true
 #     fields: [image, title, reading-time, word-count, categories, author, date]

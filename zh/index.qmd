@@ -3,41 +3,29 @@ title: "Pinn (Aiqi) Xu"
 subtitle: "数据科学与可视化作品集"
 sidebar: false
 toc: false
+listing:
+    id: projects
+    contents: 'projects/*/index.*md'
+    type: grid
+    grid-columns: 2
+    sort: 'order asc'
+    max-items: 4
+    fields: [image, title, author, date]
+    image-height: '200px'
+    image-align: left
 ---
 
-你好，我是 **Pinn** —— 热衷于数据分析、数据叙事与编程的数据爱好者。
+<!-- 你好，我是 **Pinn** —— 热衷于数据分析、数据叙事与编程的数据爱好者。 -->
 
 本站收录了我的数据项目：探索性分析、NLP 实验，以及用 **R** 和 **Python** 构建的交互式可视化，通过 [Quarto](https://quarto.org/) 发布。
 
-[浏览所有项目 →](projects/){.btn .btn-primary}
+[浏览所有项目 →](projects/){.btn .btn-primary style="margin-right:12px"}
+[数据可视化教程](tutorials/){.btn .btn-outline-primary}
 
-## 精选项目
+## 精选项目 {#featured-projects}
 
-::::::: grid
-::: {.g-col-12 .g-col-md-6 .featured-card}
-[**加泰罗尼亚公投 Twitter 情感分析**](projects/catalan-referendum/){.stretched-link}\
-对 2017 年加泰罗尼亚独立公投期间相关推文的情感挖掘。\
-`Python` `NLP` `Social Media`
+::: {#projects}
 :::
-
-::: {.g-col-12 .g-col-md-6 .featured-card}
-[**全球签证费用分析**](projects/global-visa-cost/){.stretched-link}\
-跨国签证费用的比较研究，探索可负担性与地理分布规律。\
-`Python` `EDA` `Visualization`
-:::
-
-::: {.g-col-12 .g-col-md-6 .featured-card}
-[**Spotify 2023 最高播放量歌曲**](projects/most-streamed-songs/){.stretched-link}\
-对 Spotify 最高播放量曲目的探索性分析，揭示音乐流行趋势。\
-`R` `EDA` `Visualization`
-:::
-
-::: {.g-col-12 .g-col-md-6 .featured-card}
-[**学生社交媒体使用与成瘾**](projects/student-media-usage/){.stretched-link}\
-分析学生的社交媒体使用习惯与成瘾模式。\
-`R` `EDA` `Social Media`
-:::
-:::::::
 
 ------------------------------------------------------------------------
 

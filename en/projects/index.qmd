@@ -10,7 +10,7 @@ reading-meta-enabled: false
 
 listing:
   id: projects-listing
-  contents: "*/index.qmd"
+  contents: "*/index.*md"
   type: grid
   categories: true
   fields: [image, title, categories, author, date]

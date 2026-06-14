@@ -6,7 +6,7 @@ sidebar: false
 toc: false
 listing:
     id: projects
-    contents: 'projects/*/index.qmd'
+    contents: 'projects/*/index.*md'
     type: grid
     grid-columns: 2
     sort: 'order asc'
@@ -23,7 +23,7 @@ This site collects my data projects: exploratory analyses, NLP experiments, and 
 [Browse all projects →](projects/){.btn .btn-primary style="margin-right:12px"}
 [Data Viz Tutorials](tutorials/){.btn .btn-outline-primary}
 
-## Featured Projects
+## Featured Projects {#featured-projects}
 
 ::: {#projects}
 :::
