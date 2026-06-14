@@ -1,11 +1,28 @@
 /* customized css styles (for minty theme) ================================= */
 
+/* search cancel button =================================================== */
+/* fix search cancel button line feed */
+
+button.aa-DetachedCancelButton {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+
+
+/* references ============================================================== */
+/* citation/bibliography/apa/indentation */
+/* fix ref entries hanging indentation */
+
 div#refs.hanging-indent {
     margin-left: 0;
     & .csl-entry {
         margin-bottom: 0.5rem;
     }
 }
+
+
+
 
 /* reading time =============================================================*/
 /* these styles are for src/includes/reading-meta.html */
