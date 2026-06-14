@@ -4,7 +4,7 @@ subtitle: "数据科学与可视化作品集"
 sidebar: false
 toc: false
 listing:
-    id: projects
+    id: projects-listing
     contents: 'projects/*/index.*md'
     type: grid
     grid-columns: 2
@@ -24,7 +24,7 @@ listing:
 
 ## 精选项目 {#featured-projects}
 
-::: {#projects}
+::: {#projects-listing}
 :::
 
 ------------------------------------------------------------------------

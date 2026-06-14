@@ -6,21 +6,19 @@ toc: false
 back-to-top-navigation: false
 reading-meta-enabled: false
 
-# listing:
-#     id: blogs-listing
-#     contents: "*/index.qmd"
-#     type: grid
-#     categories: true
-#     fields: [image, title, reading-time, word-count, categories, author, date]
-#     grid-columns: 2
-#     image-height: "200px"
-#     image-align: left
-#     sort: "date desc"
-#     sort-ui: true
-#     filter-ui: true
-#     page-size: 20
+listing:
+    id: blogs-listing
+    contents: "*/index.*md"
+    type: grid
+    categories: true
+    fields: [image, title, categories, author, date]
+    grid-columns: 2
+    image-height: "200px"
+    image-align: left
+    # image-placeholder: 'https://placeholderimage.io/api/800/600/people/679977/333333/85d2d1/FFFFFF/png'  # img-plchd: many people
+    image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Blog.png'
+    sort: "date desc"
+    sort-ui: true
+    filter-ui: true
+    page-size: 20
 ---
-
-# 博客
-
-Placeholder
