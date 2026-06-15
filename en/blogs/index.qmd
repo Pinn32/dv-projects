@@ -11,7 +11,7 @@ listing:
     contents: "*/index.*md"
     type: grid
     categories: true
-    fields: [image, title, reading-time, word-count, categories, author, date]
+    fields: [image, title, categories, author, date]
     grid-columns: 2
     image-height: "200px"
     image-align: left

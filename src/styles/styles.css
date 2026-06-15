@@ -16,9 +16,10 @@ button.aa-DetachedCancelButton {
 
 div#refs.hanging-indent {
     margin-left: 0;
-    & .csl-entry {
-        margin-bottom: 0.5rem;
-    }
+}
+
+div#refs.hanging-indent .csl-entry {
+    margin-bottom: 0.5rem;
 }
 
 
@@ -139,10 +140,20 @@ mark {
     /* color: #378e74; */
     color: #2b3c53;
     background-color: #f6f6f6 !important;
+    white-space: break-spaces;
+    padding: .2rem .35rem !important;
     /* background-color: #d85353 !important; */
 }
 
-/* input code cells ======================================================= */
+
+
+
+
+/* input code cells (source code) ========================================== */
+/* 1. for non-executable code cells (with specified lang) */
+/* 2. for executable code cells */
+
+div:has(> .sourceCode.code-with-copy),
 .sourceCode.cell-code {
     background-color: #f5f7f7;
     border-radius: 6px;
@@ -152,6 +163,7 @@ mark {
 }
 
 /* when pre's longer than container, padding will be in scroll width */
+div:has(> .sourceCode.code-with-copy) pre,
 .sourceCode.cell-code pre {
     margin: 0;
     padding: 0 1rem;              /* left-right paddings */
