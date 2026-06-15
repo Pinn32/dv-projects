@@ -56,6 +56,15 @@ figcaption,
     font-size: 0.9em;
 }
 
+
+/* Figure outer div width ================================================== */
+/* 1. to enable "style=width:Xrem" in figures */
+/* 2. to fix align-center after setting rem as unit for fig-width */
+
+.quarto-float.quarto-figure.quarto-figure-center.anchored {
+    width: 100% !important;
+}
+
 /* sidebar nav: active & show ============================================== */
 
 /* local-host class*/
