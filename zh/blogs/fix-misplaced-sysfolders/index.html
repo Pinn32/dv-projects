@@ -826,10 +826,10 @@ figcaption {
 </div>
 <p>但是用 Visual Studio 只能查看资源目录，不能看具体的编号。况且 <code>shell32.dll</code> 文件内资源非常丰富，恐怕我徒手翻看也不能轻易找到 “保存的游戏” 的中文显示名称。</p>
 <p>最后我想到直接查看别人电脑里的没改动过的文件信息。对照着直接进行更改。原来是 “-21814” ，这么近，我刚才如果再试几次可能就试出来了。（捂脸）</p>
-<div id="fig-after-change" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
+<div id="fig-after-change" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-after-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png" class="lightbox" data-gallery="quarto-lightbox-gallery-35" title="图&nbsp;33: 对照别人电脑更改后"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png" class="img-fluid figure-img" style="width:30rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png" class="lightbox" data-gallery="quarto-lightbox-gallery-35" title="图&nbsp;33: 对照别人电脑更改后"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png" class="img-fluid figure-img" style="width:25rem;"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-after-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;33: 对照别人电脑更改后
@@ -848,10 +848,10 @@ figcaption {
 </figure>
 </div>
 <p>现在 “保存的游戏” 文件夹的默认图标已经变成游戏图标了。</p>
-<div id="fig-default-icon" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
+<div id="fig-default-icon" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-default-icon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png" class="lightbox" data-gallery="quarto-lightbox-gallery-37" title="图&nbsp;35: 默认图标恢复"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png" class="img-fluid figure-img" style="width:30rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png" class="lightbox" data-gallery="quarto-lightbox-gallery-37" title="图&nbsp;35: 默认图标恢复"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png" class="img-fluid figure-img" style="width:25rem;"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-default-icon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;35: 默认图标恢复
@@ -859,10 +859,10 @@ figcaption {
 </figure>
 </div>
 <p>教训：以后再移动盘，只更改盘符，其他不动</p>
-<div id="fig-move-system-folder" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
+<div id="fig-move-system-folder" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-move-system-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png" class="lightbox" data-gallery="quarto-lightbox-gallery-38" title="图&nbsp;36: 移动系统文件：只修改盘符"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png" class="img-fluid figure-img" style="width:30rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png" class="lightbox" data-gallery="quarto-lightbox-gallery-38" title="图&nbsp;36: 移动系统文件：只修改盘符"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png" class="img-fluid figure-img" style="width:25rem;"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-move-system-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;36: 移动系统文件：只修改盘符
@@ -1192,7 +1192,7 @@ figcaption {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Pinn32\.github\.io\/dv-projects\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1751,7 +1751,7 @@ figcaption {
 <span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a>最后我想到直接查看别人电脑里的没改动过的文件信息。对照着直接进行更改。原来是 “-21814” ，这么近，我刚才如果再试几次可能就试出来了。（捂脸）</span>
 <span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a><span class="al">![对照别人电脑更改后](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png)</span>{#fig-after-change style="width:30rem;"}</span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a><span class="al">![对照别人电脑更改后](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png)</span>{#fig-after-change style="width:25rem;"}</span>
 <span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a>**"保存的游戏" —— 堂堂复活！**</span>
 <span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a></span>
@@ -1760,11 +1760,11 @@ figcaption {
 <span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a>现在 “保存的游戏” 文件夹的默认图标已经变成游戏图标了。</span>
 <span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a><span class="al">![默认图标恢复](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png)</span>{#fig-default-icon style="width:30rem;"}</span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a><span class="al">![默认图标恢复](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png)</span>{#fig-default-icon style="width:25rem;"}</span>
 <span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a>教训：以后再移动盘，只更改盘符，其他不动</span>
 <span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a><span class="al">![移动系统文件：只修改盘符](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png)</span>{#fig-move-system-folder style="width:30rem;"}</span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a><span class="al">![移动系统文件：只修改盘符](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png)</span>{#fig-move-system-folder style="width:25rem;"}</span>
 <span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a></span>
