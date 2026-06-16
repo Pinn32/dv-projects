@@ -230,7 +230,7 @@ figcaption {
 
 最后我想到直接查看别人电脑里的没改动过的文件信息。对照着直接进行更改。原来是 “-21814” ，这么近，我刚才如果再试几次可能就试出来了。（捂脸）
 
-![对照别人电脑更改后](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png){#fig-after-change style="width:30rem;"}
+![对照别人电脑更改后](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png){#fig-after-change style="width:25rem;"}
 
 **"保存的游戏" —— 堂堂复活！**
 
@@ -239,11 +239,11 @@ figcaption {
 
 现在 “保存的游戏” 文件夹的默认图标已经变成游戏图标了。
 
-![默认图标恢复](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png){#fig-default-icon style="width:30rem;"}
+![默认图标恢复](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png){#fig-default-icon style="width:25rem;"}
 
 教训：以后再移动盘，只更改盘符，其他不动
 
-![移动系统文件：只修改盘符](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png){#fig-move-system-folder style="width:30rem;"}
+![移动系统文件：只修改盘符](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png){#fig-move-system-folder style="width:25rem;"}
 
 
 
