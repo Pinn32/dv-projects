@@ -134,8 +134,8 @@
     font-weight: 500 !important;
     background: var(--pf-primary-light) !important;
     color: var(--pf-primary-hover) !important;
-    border-radius: 8px !important;
-    padding: 0.1rem 0.5rem !important;
+    border-radius: 5px !important;
+    padding: 0.02rem 0.35rem !important;
     border: 1px solid rgba(13,148,136,0.15) !important;
     transition: background 0.15s, color 0.15s;
     cursor: pointer;
@@ -172,9 +172,9 @@
 .quarto-listing-category .category {
     display: inline-flex;
     align-items: center;
-    padding: 0.2rem 0.7rem !important;
+    padding: 0.1rem 0.5rem !important;
     border: 1.5px solid var(--pf-primary) !important;
-    border-radius: 999px !important;
+    border-radius: 8px !important;
     background: transparent !important;
     color: var(--pf-primary) !important;
     cursor: pointer;
