@@ -542,6 +542,24 @@ Pinn Xu
     })();
 </script>
 <script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
+</script>
+<script>
     (() => {
         const BREAKPOINT = 991;
         let sidebar, titleBlock, mainEl, quartoContent;
@@ -1049,7 +1067,7 @@ Pinn Xu
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  id: tutorials-listing</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.qmd"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.*md"</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, description, author, date]</span></span>

@@ -86,6 +86,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -221,6 +224,9 @@ window.Quarto = {
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../en/tutorials/index.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../../en/tutorials/multivariate-plots/index.html">Multivariate Plots</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
@@ -228,6 +234,11 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
@@ -247,6 +258,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Student Social Media Usage and Well-being Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../en/projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Twitter Sentiment Analysis of Catalan Referendum</span></a>
   </div>
@@ -254,19 +271,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Global Visa Cost Analysis</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Student Social Media Usage &amp; Addiction</span></a>
+ <span class="menu-text">Global Visa Cost Analysis and Interactive Visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Most Streamed Songs on Spotify</span></a>
+ <span class="menu-text">Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis</span></a>
   </div>
 </li>
       </ul>
@@ -301,13 +312,36 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/tutorials/sankey-and-network/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sankey &amp; Network Diagrams</span></a>
+ <span class="menu-text">Sankey Diagrams and Network Graphs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R Tips</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/blogs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Blogs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto 图片居中样式</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/fix-misplaced-sysfolders/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">误移系统文件夹恢复</span></a>
   </div>
 </li>
       </ul>
@@ -401,8 +435,8 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     19 min read</span><span> · </span><span>3796 EN words</span><span> · </span><span>0 中文字</span></div>
-<div id="9537ee0e" class="cell" data-execution_count="1">
+     20 min read</span><span> · </span><span>3812 EN words</span><span> · </span><span>15 中文字</span></div>
+<div id="7b69b1b0" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Environment and Versions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -416,13 +450,13 @@ window.Quarto = {
 <p><strong>“Tidy/flat” tabular data:</strong> Each row is one <strong>observation</strong> (also called instance or record), and each column is one <strong>variable</strong> (also called attribute, feature, or parameter).</p>
 <p>Typically, <strong>multivariate</strong> refers to data with more than two variables — a multivariate plot generally uses three or more columns from the original DataFrame.</p>
 <p>When creating a bar chart, in addition to the x and y variables, you can also set the <code>hue</code> parameter to include a third variable. For example, <a href="#fig-bar-variables" class="quarto-xref">Figure&nbsp;1</a> includes three variables: <code>'island'</code>, <code>'body_mass_g'</code>, and <code>'sex'</code>.</p>
-<div id="e1352000" class="cell" data-execution_count="2">
+<div id="0bacad95" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import libraries</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="392f2ec7" class="cell" data-execution_count="3">
+<div id="2743f5d1" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load example dataset from Seaborn</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -433,7 +467,7 @@ window.Quarto = {
 <div id="fig-bar-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bar-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-bar-variables-output-1.png" width="602" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-bar-variables-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Bar chart with three variables"><img src="index_files/figure-html/fig-bar-variables-output-1.png" width="602" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bar-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Bar chart with three variables
@@ -450,7 +484,7 @@ Figure&nbsp;1: Bar chart with three variables
 <div id="fig-histogram-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-histogram-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-histogram-variables-output-1.png" width="585" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-histogram-variables-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Histogram with two variables"><img src="index_files/figure-html/fig-histogram-variables-output-1.png" width="585" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-histogram-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Histogram with two variables
@@ -476,7 +510,7 @@ Figure&nbsp;2: Histogram with two variables
 <div id="fig-empty-facetgrid" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-empty-facetgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-empty-facetgrid-output-1.png" width="566" height="852" class="figure-img">
+<a href="index_files/figure-html/fig-empty-facetgrid-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Empty 3×2 facet grid"><img src="index_files/figure-html/fig-empty-facetgrid-output-1.png" width="566" height="852" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-empty-facetgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Empty 3×2 facet grid
@@ -518,7 +552,7 @@ Figure&nbsp;3: Empty 3×2 facet grid
 <div id="fig-filled-facetgrid" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-filled-facetgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-filled-facetgrid-output-1.png" width="559" height="917" class="figure-img">
+<a href="index_files/figure-html/fig-filled-facetgrid-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Filled facet grid"><img src="index_files/figure-html/fig-filled-facetgrid-output-1.png" width="559" height="917" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-filled-facetgrid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4: Filled facet grid
@@ -538,7 +572,7 @@ Figure&nbsp;4: Filled facet grid
 <div id="fig-ba-degrees-variable-y-lims" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Bad multi-panel axis ranges (Wilke, 2019, p. 258)">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ba-degrees-variable-y-lims-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/multi-panel-figures.html#fig:BA-degrees-variable-y-lims"><img src="https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-variable-y-lims-1.png" class="img-fluid figure-img" alt="Bad multi-panel axis ranges (Wilke, 2019, p. 258)"></a>
+<a href="https://clauswilke.com/dataviz/multi-panel-figures.html#fig:BA-degrees-variable-y-lims"><span class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-variable-y-lims-1.png" class="img-fluid figure-img" alt="Bad multi-panel axis ranges (Wilke, 2019, p. 258)"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ba-degrees-variable-y-lims-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5: Counter-example: inconsistent axis ranges (Wilke, 2019, p.&nbsp;258)
@@ -548,7 +582,7 @@ Figure&nbsp;5: Counter-example: inconsistent axis ranges (Wilke, 2019, p.&nbsp;2
 <div id="fig-ba-degrees-fixed-y-lims" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Improved multi-panel axis ranges (Wilke, 2019, p. 259)">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ba-degrees-fixed-y-lims-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/multi-panel-figures.html#fig:BA-degrees-fixed-y-lims"><img src="https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-fixed-y-lims-1.png" class="img-fluid figure-img" alt="Improved multi-panel axis ranges (Wilke, 2019, p. 259)"></a>
+<a href="https://clauswilke.com/dataviz/multi-panel-figures.html#fig:BA-degrees-fixed-y-lims"><span class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="https://clauswilke.com/dataviz/multi-panel_figures_files/figure-html/BA-degrees-fixed-y-lims-1.png" class="img-fluid figure-img" alt="Improved multi-panel axis ranges (Wilke, 2019, p. 259)"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ba-degrees-fixed-y-lims-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6: Improved version: consistent axis ranges (Wilke, 2019, p.&nbsp;259)
@@ -575,7 +609,7 @@ Figure&nbsp;6: Improved version: consistent axis ranges (Wilke, 2019, p.&nbsp;25
 <div id="fig-pointplot-category-amount" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pointplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pointplot-category-amount-output-1.png" width="585" height="431" class="figure-img">
+<a href="index_files/figure-html/fig-pointplot-category-amount-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Point plot: penguin species vs.&nbsp;bill length (black lines are error bars)"><img src="index_files/figure-html/fig-pointplot-category-amount-output-1.png" width="585" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pointplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: Point plot: penguin species vs.&nbsp;bill length (black lines are error bars)
@@ -591,7 +625,7 @@ Figure&nbsp;7: Point plot: penguin species vs.&nbsp;bill length (black lines are
 <div id="fig-barplot-category-amount" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-barplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-barplot-category-amount-output-1.png" width="585" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-barplot-category-amount-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;8: Bar chart: penguin species vs.&nbsp;bill length (black lines are error bars)"><img src="index_files/figure-html/fig-barplot-category-amount-output-1.png" width="585" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-barplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;8: Bar chart: penguin species vs.&nbsp;bill length (black lines are error bars)
@@ -609,7 +643,7 @@ Figure&nbsp;8: Bar chart: penguin species vs.&nbsp;bill length (black lines are 
 <div id="fig-scatterplot-category-amount" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatterplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-scatterplot-category-amount-output-1.png" width="585" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-scatterplot-category-amount-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;9: Scatter plot: category-amount (shows all data points, not averages)"><img src="index_files/figure-html/fig-scatterplot-category-amount-output-1.png" width="585" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatterplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9: Scatter plot: category-amount (shows all data points, not averages)
@@ -630,7 +664,7 @@ Figure&nbsp;9: Scatter plot: category-amount (shows all data points, not average
 <div id="fig-scatterplot-ratio-ratio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatterplot-ratio-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-scatterplot-ratio-ratio-output-1.png" width="585" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-scatterplot-ratio-ratio-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Scatter plot: penguin bill length vs.&nbsp;bill depth (ratio-ratio)"><img src="index_files/figure-html/fig-scatterplot-ratio-ratio-output-1.png" width="585" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatterplot-ratio-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;10: Scatter plot: penguin bill length vs.&nbsp;bill depth (ratio-ratio)
@@ -653,7 +687,7 @@ Figure&nbsp;10: Scatter plot: penguin bill length vs.&nbsp;bill depth (ratio-rat
 <div id="fig-pointplot-ratio-ratio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pointplot-ratio-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pointplot-ratio-ratio-output-1.png" width="598" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-pointplot-ratio-ratio-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: Point plot: ratio variable on x-axis"><img src="index_files/figure-html/fig-pointplot-ratio-ratio-output-1.png" width="598" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pointplot-ratio-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11: Point plot: ratio variable on x-axis
@@ -676,7 +710,7 @@ Figure&nbsp;11: Point plot: ratio variable on x-axis
 <div id="fig-pointplot-interval-ratio" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pointplot-interval-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pointplot-interval-ratio-output-1.png" width="593" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-pointplot-interval-ratio-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;12: Point plot: year vs.&nbsp;passenger count (interval-ratio)"><img src="index_files/figure-html/fig-pointplot-interval-ratio-output-1.png" width="593" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pointplot-interval-ratio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12: Point plot: year vs.&nbsp;passenger count (interval-ratio)
@@ -703,7 +737,7 @@ Figure&nbsp;12: Point plot: year vs.&nbsp;passenger count (interval-ratio)
 <div id="fig-scatter-discrete-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatter-discrete-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-scatter-discrete-variables-output-1.png" width="705" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-scatter-discrete-variables-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;13: Adding three discrete variables: hue &amp; size &amp; style"><img src="index_files/figure-html/fig-scatter-discrete-variables-output-1.png" width="705" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-discrete-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;13: Adding three discrete variables: hue &amp; size &amp; style
@@ -725,7 +759,7 @@ Figure&nbsp;13: Adding three discrete variables: hue &amp; size &amp; style
 <div id="fig-scatter-continuous-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatter-continuous-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-scatter-continuous-variables-output-1.png" width="764" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-scatter-continuous-variables-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Adding two continuous variables: hue &amp; size (gradient color used, avoid transparency)"><img src="index_files/figure-html/fig-scatter-continuous-variables-output-1.png" width="764" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-continuous-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;14: Adding two continuous variables: hue &amp; size (gradient color used, avoid transparency)
@@ -801,7 +835,7 @@ Table&nbsp;1: Comparison of multivariate scatter plots and facet grids
 <div id="fig-scatter-hue-style-island" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatter-hue-style-island-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-scatter-hue-style-island-output-1.png" width="705" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-scatter-hue-style-island-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Figure&nbsp;15: hue+style both control the same variable (island)"><img src="index_files/figure-html/fig-scatter-hue-style-island-output-1.png" width="705" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-hue-style-island-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;15: hue+style both control the same variable (island)
@@ -824,7 +858,7 @@ Figure&nbsp;15: hue+style both control the same variable (island)
 <div id="fig-scatter-size-flipper" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatter-size-flipper-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-scatter-size-flipper-output-1.png" width="764" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-scatter-size-flipper-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Figure&nbsp;16: hue+style control island, size controls flipper length separately"><img src="index_files/figure-html/fig-scatter-size-flipper-output-1.png" width="764" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-size-flipper-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;16: hue+style control island, size controls flipper length separately
@@ -844,10 +878,10 @@ Figure&nbsp;16: hue+style control island, size controls flipper length separatel
 <h2 data-number="3.3" class="anchored" data-anchor-id="logarithmic-scale"><span class="header-section-number">3.3</span> Logarithmic Scale</h2>
 <p><strong>A logarithmic scale</strong> is a nonlinear measurement scale used for data with a wide range of values, such as the Richter scale, acoustic volume, optical intensity, and solution pH. When plotting such data, the axis can be set to a logarithmic scale (the default is a linear scale — for example, the x-axis tick marks 35, 40, 45, 50 in <a href="#fig-scatterplot-ratio-ratio" class="quarto-xref">Figure&nbsp;10</a> increase linearly), making otherwise crowded data points more evenly distributed and easier to observe (<a href="https://en.wikipedia.org/wiki/Logarithmic_scale">Wikipedia - Logarithmic scale</a>).</p>
 <p><a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#nonlinear-axes">Wilke (2019, p.17)</a> uses <span class="math inline">\((1, 3.16, 10, 31.6, 100)\)</span> as an example to illustrate four number lines (<a href="#fig-linear-log-scales" class="quarto-xref">Figure&nbsp;17</a>), where <span class="math inline">\(10^{0.5} = \sqrt{10} \approx 3.16\)</span> and <span class="math inline">\(10^{1.5} \approx 31.6\)</span>.</p>
-<div id="fig-linear-log-scales" class="quarto-float quarto-figure quarto-figure-center anchored" width="80%" alt="Four number lines (Wilke, 2019, p.17)">
+<div id="fig-linear-log-scales" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four number lines (Wilke, 2019, p.17)" width="80%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-linear-log-scales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:linear-log-scales"><img src="https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/linear-log-scales-1.png" class="img-fluid figure-img" style="width:80.0%" alt="Four number lines (Wilke, 2019, p.17)"></a>
+<a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:linear-log-scales"><span class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/linear-log-scales-1.png" class="img-fluid figure-img" style="width:80.0%" alt="Four number lines (Wilke, 2019, p.17)"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linear-log-scales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;17: Four number lines (Wilke, 2019, p.17)
@@ -893,7 +927,7 @@ Figure&nbsp;17: Four number lines (Wilke, 2019, p.17)
 <div id="fig-planets-linear-scale" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-planets-linear-scale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-planets-linear-scale-output-1.png" width="585" height="449" class="figure-img">
+<a href="index_files/figure-html/fig-planets-linear-scale-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Figure&nbsp;18: Scatter plot: planetary distance vs.&nbsp;mass, linear scale"><img src="index_files/figure-html/fig-planets-linear-scale-output-1.png" width="585" height="449" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-planets-linear-scale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;18: Scatter plot: planetary distance vs.&nbsp;mass, linear scale
@@ -912,7 +946,7 @@ Figure&nbsp;18: Scatter plot: planetary distance vs.&nbsp;mass, linear scale
 <div id="fig-planets-log-scale" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-planets-log-scale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-planets-log-scale-output-1.png" width="599" height="431" class="figure-img">
+<a href="index_files/figure-html/fig-planets-log-scale-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Figure&nbsp;19: Scatter plot: planetary distance vs.&nbsp;mass, logarithmic scale"><img src="index_files/figure-html/fig-planets-log-scale-output-1.png" width="599" height="431" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-planets-log-scale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;19: Scatter plot: planetary distance vs.&nbsp;mass, logarithmic scale
@@ -928,7 +962,7 @@ Figure&nbsp;19: Scatter plot: planetary distance vs.&nbsp;mass, logarithmic scal
 <div id="fig-texas-counties-pop-ratio-log" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Texas county population distribution — logarithmic scale">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-texas-counties-pop-ratio-log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-log"><img src="https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/texas-counties-pop-ratio-log-1.png" class="img-fluid figure-img" alt="Texas county population distribution — logarithmic scale"></a>
+<a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-log"><span class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/texas-counties-pop-ratio-log-1.png" class="img-fluid figure-img" alt="Texas county population distribution — logarithmic scale"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-texas-counties-pop-ratio-log-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;20: Texas county population distribution — logarithmic scale
@@ -939,7 +973,7 @@ Figure&nbsp;20: Texas county population distribution — logarithmic scale
 <div id="fig-texas-counties-pop-ratio-lin" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Texas county population distribution — linear scale">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-texas-counties-pop-ratio-lin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-lin"><img src="https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/texas-counties-pop-ratio-lin-1.png" class="img-fluid figure-img" alt="Texas county population distribution — linear scale"></a>
+<a href="https://clauswilke.com/dataviz/coordinate-systems-axes.html#fig:texas-counties-pop-ratio-lin"><span class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="https://clauswilke.com/dataviz/coordinate_systems_axes_files/figure-html/texas-counties-pop-ratio-lin-1.png" class="img-fluid figure-img" alt="Texas county population distribution — linear scale"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-texas-counties-pop-ratio-lin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;21: Texas county population distribution — linear scale
@@ -957,7 +991,7 @@ Figure&nbsp;21: Texas county population distribution — linear scale
 <div id="fig-regression-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-regression-plot-output-1.png" width="561" height="468" class="figure-img">
+<a href="index_files/figure-html/fig-regression-plot-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22" title="Figure&nbsp;22: Linear regression plot"><img src="index_files/figure-html/fig-regression-plot-output-1.png" width="561" height="468" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;22: Linear regression plot
@@ -987,7 +1021,7 @@ Figure&nbsp;22: Linear regression plot
 <div id="fig-lineplot-hue" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lineplot-hue-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-lineplot-hue-output-1.png" width="593" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-lineplot-hue-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23" title="Figure&nbsp;23: Line plot with colors distinguishing months"><img src="index_files/figure-html/fig-lineplot-hue-output-1.png" width="593" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lineplot-hue-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;23: Line plot with colors distinguishing months
@@ -1009,7 +1043,7 @@ Figure&nbsp;23: Line plot with colors distinguishing months
 <div id="fig-lineplot-hue-style" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lineplot-hue-style-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-lineplot-hue-style-output-1.png" width="593" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-lineplot-hue-style-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24" title="Figure&nbsp;24: Line plot with colors and marker shapes distinguishing months"><img src="index_files/figure-html/fig-lineplot-hue-style-output-1.png" width="593" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lineplot-hue-style-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;24: Line plot with colors and marker shapes distinguishing months
@@ -1029,7 +1063,7 @@ Figure&nbsp;24: Line plot with colors and marker shapes distinguishing months
 <div id="fig-pointplot-passenger-trend" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pointplot-passenger-trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pointplot-passenger-trend-output-1.png" width="593" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-pointplot-passenger-trend-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25" title="Figure&nbsp;25: Point plot: passenger count trend over time"><img src="index_files/figure-html/fig-pointplot-passenger-trend-output-1.png" width="593" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pointplot-passenger-trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;25: Point plot: passenger count trend over time
@@ -1046,7 +1080,7 @@ Figure&nbsp;25: Point plot: passenger count trend over time
 <div id="fig-lineplot-without-hue-style" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lineplot-without-hue-style-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-lineplot-without-hue-style-output-1.png" width="593" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-lineplot-without-hue-style-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26" title="Figure&nbsp;26: Without hue, a mean line is generated (upper/lower edges indicate peak and off-peak seasons)"><img src="index_files/figure-html/fig-lineplot-without-hue-style-output-1.png" width="593" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lineplot-without-hue-style-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;26: Without hue, a mean line is generated (upper/lower edges indicate peak and off-peak seasons)
@@ -1061,10 +1095,10 @@ Figure&nbsp;26: Without hue, a mean line is generated (upper/lower edges indicat
 <li><strong>Choose colors that are accessible to color-vision-impaired readers.</strong></li>
 </ul>
 <p>In <a href="#fig-tech-stocks-bad-legend" class="quarto-xref">Figure&nbsp;27</a>, the legend and line color orders are inconsistent, which increases reading difficulty. <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend">Wilke (2019, p.248)</a> provides a counter-example:</p>
-<div id="fig-tech-stocks-bad-legend" class="quarto-float quarto-figure quarto-figure-center anchored" width="85%" alt="Counter-example: legend and line color order do not match">
+<div id="fig-tech-stocks-bad-legend" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Counter-example: legend and line color order do not match" width="85%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-bad-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-bad-legend-1.png" class="img-fluid figure-img" style="width:85.0%" alt="Counter-example: legend and line color order do not match"></a>
+<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-bad-legend"><span class="lightbox" data-gallery="quarto-lightbox-gallery-27"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-bad-legend-1.png" class="img-fluid figure-img" style="width:85.0%" alt="Counter-example: legend and line color order do not match"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tech-stocks-bad-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;27: Counter-example: legend and line color order do not match
@@ -1072,10 +1106,10 @@ Figure&nbsp;27: Counter-example: legend and line color order do not match
 </figure>
 </div>
 <p>In contrast, <a href="#fig-tech-stocks-good-legend" class="quarto-xref">Figure&nbsp;28</a> has matching legend and line color orders. <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend">Wilke (2019, p.249)</a> provides the improved chart:</p>
-<div id="fig-tech-stocks-good-legend" class="quarto-float quarto-figure quarto-figure-center anchored" width="85%" alt="Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)">
+<div id="fig-tech-stocks-good-legend" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)" width="85%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-good-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-1.png" class="img-fluid figure-img" style="width:85.0%" alt="Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)"></a>
+<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend"><span class="lightbox" data-gallery="quarto-lightbox-gallery-28"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-1.png" class="img-fluid figure-img" style="width:85.0%" alt="Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tech-stocks-good-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;28: Improved version: legend and line color order match (and colors are accessible to color-vision-impaired readers)
@@ -1086,7 +1120,7 @@ Figure&nbsp;28: Improved version: legend and line color order match (and colors 
 <div id="fig-tech-stocks-good-legend-cvd" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Chart under color vision deficiency simulations and desaturation">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-good-legend-cvd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend-cvd"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-cvd-1.png" class="img-fluid figure-img" alt="Chart under color vision deficiency simulations and desaturation"></a>
+<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-legend-cvd"><span class="lightbox" data-gallery="quarto-lightbox-gallery-29"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-legend-cvd-1.png" class="img-fluid figure-img" alt="Chart under color vision deficiency simulations and desaturation"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tech-stocks-good-legend-cvd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;29: Color vision deficiency simulations &amp; desaturation (deuteranopia, protanopia, tritanopia, and desaturated)
@@ -1095,10 +1129,10 @@ Figure&nbsp;29: Color vision deficiency simulations &amp; desaturation (deuteran
 </div>
 <p>From <a href="#fig-tech-stocks-good-legend-cvd" class="quarto-xref">Figure&nbsp;29</a>, the color scheme in <a href="#fig-tech-stocks-good-legend" class="quarto-xref">Figure&nbsp;28</a> is distinguishable for all three types of color vision deficiencies, and remains distinguishable by lightness after desaturation. This is why matching legend and line color order is especially important.</p>
 <p>Additionally, <a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend">Wilke (2019, p.251)</a> recommends <strong>removing the legend and labeling each line directly</strong> (<a href="#fig-tech-stocks-good-no-legend" class="quarto-xref">Figure&nbsp;30</a>), which saves readers the effort of consulting a legend and makes the chart easier to read. However, this is difficult to implement in Seaborn, so in this course it is sufficient to use a legend with colors in the correct order as in <a href="#fig-tech-stocks-good-legend" class="quarto-xref">Figure&nbsp;28</a>.</p>
-<div id="fig-tech-stocks-good-no-legend" class="quarto-float quarto-figure quarto-figure-center anchored" width="90%" alt="Remove legend and label each line directly">
+<div id="fig-tech-stocks-good-no-legend" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Remove legend and label each line directly" width="90%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tech-stocks-good-no-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-no-legend-1.png" class="img-fluid figure-img" style="width:90.0%" alt="Remove legend and label each line directly"></a>
+<a href="https://clauswilke.com/dataviz/redundant-coding.html#fig:tech-stocks-good-no-legend"><span class="lightbox" data-gallery="quarto-lightbox-gallery-30"><img src="https://clauswilke.com/dataviz/redundant_coding_files/figure-html/tech-stocks-good-no-legend-1.png" class="img-fluid figure-img" style="width:90.0%" alt="Remove legend and label each line directly"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tech-stocks-good-no-legend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;30: Remove legend and label lines directly
@@ -1582,7 +1616,7 @@ Table&nbsp;5: Pivot table: penguin species &amp; island vs.&nbsp;bill length
 <div id="fig-heatmap-flights" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-heatmap-flights-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-heatmap-flights-output-1.png" width="574" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-heatmap-flights-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-31" title="Figure&nbsp;31: Basic heatmap: flights"><img src="index_files/figure-html/fig-heatmap-flights-output-1.png" width="574" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmap-flights-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;31: Basic heatmap: flights
@@ -1606,7 +1640,7 @@ Figure&nbsp;31: Basic heatmap: flights
 <div id="fig-heatmap-flights-arguments" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-heatmap-flights-arguments-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-heatmap-flights-arguments-output-1.png" width="574" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-heatmap-flights-arguments-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-32" title="Figure&nbsp;32: Heatmap with additional parameters"><img src="index_files/figure-html/fig-heatmap-flights-arguments-output-1.png" width="574" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmap-flights-arguments-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;32: Heatmap with additional parameters
@@ -1629,7 +1663,7 @@ Figure&nbsp;32: Heatmap with additional parameters
 <div id="fig-heatmap-penguins" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-heatmap-penguins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-heatmap-penguins-output-1.png" width="566" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-heatmap-penguins-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-33" title="Figure&nbsp;33: Penguin data heatmap"><img src="index_files/figure-html/fig-heatmap-penguins-output-1.png" width="566" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmap-penguins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;33: Penguin data heatmap
@@ -1643,10 +1677,10 @@ Figure&nbsp;33: Penguin data heatmap
 <section id="d-histogram" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> 2D Histogram</h1>
 <p>According to <a href="https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points">Wilke (2019, pp.&nbsp;222-225)</a>, scatter plots with semi-transparent points can show the distribution of data across two variables, but when data points are too numerous and dense, a scatter plot struggles to convey the overall distribution (see <a href="#fig-nycflights-points" class="quarto-xref">Figure&nbsp;34</a>: high-density areas appear as uniform dark blotches while low-density areas are nearly invisible).</p>
-<div id="fig-nycflights-points" class="quarto-float quarto-figure quarto-figure-center anchored" width="80%" alt="Scatter plot with too many dense data points (Wilke, 2019, p. 223)">
+<div id="fig-nycflights-points" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Scatter plot with too many dense data points (Wilke, 2019, p. 223)" width="80%">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-nycflights-points-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points"><img src="https://clauswilke.com/dataviz/overlapping_points_files/figure-html/nycflights-points-1.png" class="img-fluid figure-img" style="width:80.0%" alt="Scatter plot with too many dense data points (Wilke, 2019, p. 223)"></a>
+<a href="https://clauswilke.com/dataviz/overlapping-points.html#fig:nycflights-points"><span class="lightbox" data-gallery="quarto-lightbox-gallery-34"><img src="https://clauswilke.com/dataviz/overlapping_points_files/figure-html/nycflights-points-1.png" class="img-fluid figure-img" style="width:80.0%" alt="Scatter plot with too many dense data points (Wilke, 2019, p. 223)"></span></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nycflights-points-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;34: Scatter plot with too many dense data points (Wilke, 2019, p.&nbsp;223)
@@ -1665,7 +1699,7 @@ Figure&nbsp;34: Scatter plot with too many dense data points (Wilke, 2019, p.&nb
 <div id="fig-2d-histogram" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-2d-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-2d-histogram-output-1.png" width="570" height="429" class="figure-img">
+<a href="index_files/figure-html/fig-2d-histogram-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-35" title="Figure&nbsp;35: 2D histogram"><img src="index_files/figure-html/fig-2d-histogram-output-1.png" width="570" height="429" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2d-histogram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;35: 2D histogram
@@ -1745,7 +1779,7 @@ Table&nbsp;6: Differences between heatmaps and 2D histograms
 <div id="fig-jointplot-histograms" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-jointplot-histograms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-jointplot-histograms-output-1.png" width="561" height="564" class="figure-img">
+<a href="index_files/figure-html/fig-jointplot-histograms-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-36" title="Figure&nbsp;36: Joint plot: histogram form"><img src="index_files/figure-html/fig-jointplot-histograms-output-1.png" width="561" height="564" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jointplot-histograms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;36: Joint plot: histogram form
@@ -1765,7 +1799,7 @@ Figure&nbsp;36: Joint plot: histogram form
 <div id="fig-jointplot-hexagonal" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-jointplot-hexagonal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-jointplot-hexagonal-output-1.png" width="561" height="564" class="figure-img">
+<a href="index_files/figure-html/fig-jointplot-hexagonal-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-37" title="Figure&nbsp;37: Joint plot: hexagonal bin form"><img src="index_files/figure-html/fig-jointplot-hexagonal-output-1.png" width="561" height="564" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jointplot-hexagonal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;37: Joint plot: hexagonal bin form
@@ -1785,7 +1819,7 @@ Figure&nbsp;37: Joint plot: hexagonal bin form
 <div id="fig-jointplot-hue" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-jointplot-hue-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-jointplot-hue-output-1.png" width="561" height="564" class="figure-img">
+<a href="index_files/figure-html/fig-jointplot-hue-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-38" title="Figure&nbsp;38: Joint plot: using hue (marginal plots automatically become density plots)"><img src="index_files/figure-html/fig-jointplot-hue-output-1.png" width="561" height="564" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jointplot-hue-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;38: Joint plot: using hue (marginal plots automatically become density plots)
@@ -1805,7 +1839,7 @@ Figure&nbsp;38: Joint plot: using hue (marginal plots automatically become densi
 <div id="fig-jointplot-kde" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-jointplot-kde-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-jointplot-kde-output-1.png" width="561" height="564" class="figure-img">
+<a href="index_files/figure-html/fig-jointplot-kde-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-39" title="Figure&nbsp;39: Joint plot: KDE smoothing (not recommended)"><img src="index_files/figure-html/fig-jointplot-kde-output-1.png" width="561" height="564" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jointplot-kde-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;39: Joint plot: KDE smoothing (not recommended)
@@ -1825,7 +1859,7 @@ Figure&nbsp;39: Joint plot: KDE smoothing (not recommended)
 <div id="fig-pairplot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pairplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pairplot-output-1.png" width="762" height="643" class="figure-img">
+<a href="index_files/figure-html/fig-pairplot-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-40" title="Figure&nbsp;40: Pair plot (height adjusts the figure height)"><img src="index_files/figure-html/fig-pairplot-output-1.png" width="762" height="643" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pairplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;40: Pair plot (height adjusts the figure height)
@@ -1849,7 +1883,7 @@ Figure&nbsp;40: Pair plot (height adjusts the figure height)
 <div id="fig-pairplot-histograms" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pairplot-histograms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pairplot-histograms-output-1.png" width="762" height="643" class="figure-img">
+<a href="index_files/figure-html/fig-pairplot-histograms-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-41" title="Figure&nbsp;41: Pair plot: histogram form"><img src="index_files/figure-html/fig-pairplot-histograms-output-1.png" width="762" height="643" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pairplot-histograms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;41: Pair plot: histogram form
@@ -1992,6 +2026,24 @@ Figure&nbsp;41: Pair plot: histogram form
             else link.removeAttribute('aria-current');
         });
     })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -3130,6 +3182,38 @@ Figure&nbsp;41: Pair plot: histogram form
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

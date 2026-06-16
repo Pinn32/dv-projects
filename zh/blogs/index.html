@@ -69,6 +69,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../src/img/favicon/spark.ico" rel="icon">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -110,15 +112,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "搜索"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-blogs-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-title','listing-categories','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-blogs-listing'] = new List('listing-blogs-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../src/styles/styles.css">
 <link rel="stylesheet" href="../../src/styles/portfolio.css">
 <link rel="stylesheet" href="../../src/styles/projects.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -183,7 +243,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <h5 class="quarto-listing-category-title">分类</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">全部 <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Q1NT">CSS <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UG93ZXJzaGVsbA==">Powershell <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UXVhcnRv">Quarto <span class="quarto-category-count">(1)</span></div><div class="category" data-category="V2luZG93cw==">Windows <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTk0JUI1JUU4JTg0JTkxJUU2JThBJTgwJUU1JUI3JUE3">电脑技巧 <span class="quarto-category-count">(2)</span></div><div class="category" data-category="JUU4JUE3JUEzJUU1JTg2JUIzJUU2JTk2JUI5JUU2JUExJTg4">解决方案 <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -207,16 +268,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="博客" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> 博客</h1>
-<p>Placeholder</p>
+
 
 
 <!-- -->
 
-</section>
 
-</main> <!-- /main -->
+<div class="quarto-listing quarto-listing-container-grid" id="listing-blogs-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+    <select id="listing-blogs-listing-sort" class="form-select" aria-label="排序方式" onchange="window['quarto-listings']['listing-blogs-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+      <option value="" disabled="" selected="" hidden="">排序方式</option>
+      <option value="index" data-direction="asc">默认</option>
+      <option value="listing-title" data-direction="asc">
+        标题
+      </option>
+      <option value="listing-date-sort" data-direction="asc">
+        日期 - 日期升序
+      </option>
+      <option value="listing-date-sort" data-direction="desc">
+        日期 - 日期降序
+      </option>
+      <option value="listing-author" data-direction="asc">
+        作者
+      </option>
+    </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="筛选">
+    </div>
+</div>
+<div class="list grid quarto-listing-cols-2">
+<div class="g-col-1" data-index="0" data-categories="UXVhcnRvJTJDQ1NTJTJDJUU3JTk0JUI1JUU4JTg0JTkxJUU2JThBJTgwJUU1JUI3JUE3JTJDJUU4JUE3JUEzJUU1JTg2JUIzJUU2JTk2JUI5JUU2JUExJTg4" data-listing-date-sort="1781496000000" data-listing-file-modified-sort="1781585931747" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="138">
+<a href="../../zh/blogs/quarto-img-styles/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png" class="thumbnail-image card-img" style="height: 200px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Quarto 图片居中样式
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q1NT'); return false;">CSS</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU3JTk0JUI1JUU4JTg0JTkxJUU2JThBJTgwJUU1JUI3JUE3'); return false;">电脑技巧</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU4JUE3JUEzJUU1JTg2JUIzJUU2JTk2JUI5JUU2JUExJTg4'); return false;">解决方案</div>
+
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2026年6月15日
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="V2luZG93cyUyQ1Bvd2Vyc2hlbGwlMkMlRTclOTQlQjUlRTglODQlOTElRTYlOEElODAlRTUlQjclQTclMkMlRTglQTclQTMlRTUlODYlQjMlRTYlOTYlQjklRTYlQTElODg=" data-listing-date-sort="1713758400000" data-listing-file-modified-sort="1781585179762" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="433">
+<a href="../../zh/blogs/fix-misplaced-sysfolders/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png" class="thumbnail-image card-img" style="height: 200px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+误移系统文件夹恢复
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('V2luZG93cw=='); return false;">Windows</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UG93ZXJzaGVsbA=='); return false;">Powershell</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU3JTk0JUI1JUU4JTg0JTkxJUU2JThBJTgwJUU1JUI3JUE3'); return false;">电脑技巧</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU4JUE3JUEzJUU1JTg2JUIzJUU2JTk2JUI5JUU2JUExJTg4'); return false;">解决方案</div>
+
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2024年4月22日
+</div>
+</div>
+</div>
+</div></a>
+</div>
+</div>
+<div class="listing-no-matching d-none">无匹配项</div>
+</div></main> <!-- /main -->
 <script id="fix-code-fold">
     const bindToggle = (id, open) => {
         const btn = document.getElementById(id);
@@ -344,6 +495,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             else link.removeAttribute('aria-current');
         });
     })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -804,24 +973,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">back-to-top-navigation:</span><span class="co"> false</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">reading-meta-enabled:</span><span class="co"> false</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># listing:</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     id: blogs-listing</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     contents: "*/index.qmd"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     type: grid</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     categories: true</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     fields: [image, title, reading-time, word-count, categories, author, date]</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     grid-columns: 2</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     image-height: "200px"</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     image-align: left</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     sort: "date desc"</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#     sort-ui: true</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     filter-ui: true</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     page-size: 20</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu"># 博客</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>Placeholder</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    id: blogs-listing</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    contents: "*/index.*md"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    type: grid</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">    categories: true</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">    fields: [image, title, categories, author, date]</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">    grid-columns: 2</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">    image-height: "200px"</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">    image-align: left</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">    # image-placeholder: 'https://placeholderimage.io/api/800/600/people/679977/333333/85d2d1/FFFFFF/png'  # img-plchd: many people</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">    image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Blog.png'</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">    sort: "date desc"</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">    sort-ui: true</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">    filter-ui: true</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">    page-size: 20</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

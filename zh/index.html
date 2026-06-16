@@ -69,6 +69,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../src/img/favicon/spark.ico" rel="icon">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -110,8 +112,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "搜索"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-projects-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-title','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-projects-listing'] = new List('listing-projects-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../src/styles/styles.css">
 <link rel="stylesheet" href="../src/styles/portfolio.css">
@@ -207,35 +267,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>你好，我是 <strong>Pinn</strong> —— 热衷于数据分析、数据叙事与编程的数据爱好者。</p>
+<!-- 你好，我是 **Pinn** —— 热衷于数据分析、数据叙事与编程的数据爱好者。 -->
 <p>本站收录了我的数据项目：探索性分析、NLP 实验，以及用 <strong>R</strong> 和 <strong>Python</strong> 构建的交互式可视化，通过 <a href="https://quarto.org/">Quarto</a> 发布。</p>
-<p><a href="projects/" class="btn btn-primary">浏览所有项目 →</a></p>
-<section id="精选项目" class="level2">
-<h2 class="anchored" data-anchor-id="精选项目">精选项目</h2>
-<div class="grid">
-<div class="g-col-12 g-col-md-6 featured-card">
-<p><a href="projects/catalan-referendum/" class="stretched-link"><strong>加泰罗尼亚公投 Twitter 情感分析</strong></a><br>
-对 2017 年加泰罗尼亚独立公投期间相关推文的情感挖掘。<br>
-<code>Python</code> <code>NLP</code> <code>Social Media</code></p>
+<p><a href="projects/" class="btn btn-primary" style="margin-right:12px">浏览所有项目 →</a> <a href="tutorials/" class="btn btn-outline-primary">数据可视化教程</a></p>
+<section id="featured-projects" class="level2">
+<h2 class="anchored" data-anchor-id="featured-projects">精选项目</h2>
+<div id="listing-projects-listing" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-2">
+<div class="g-col-1" data-index="0" data-categories="UiUyQ0FJJTJDTkxQJTJDJUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU0JUI4JUJCJUU5JUEyJTk4JUU1JUJCJUJBJUU2JUE4JUExJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz" data-listing-date-sort="1777608000000" data-listing-file-modified-sort="1781062233103" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="25" data-listing-word-count-sort="4978">
+<a href="../zh/projects/ai-discourse/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="projects/ai-discourse/index_files/figure-html/fig-lexicon-coverage-1.png" style="height: 200px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+网络AI话语的演变
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
 </div>
-<div class="g-col-12 g-col-md-6 featured-card">
-<p><a href="projects/global-visa-cost/" class="stretched-link"><strong>全球签证费用分析</strong></a><br>
-跨国签证费用的比较研究，探索可负担性与地理分布规律。<br>
-<code>Python</code> <code>EDA</code> <code>Visualization</code></p>
+<div class="listing-date">
+2026年5月1日
 </div>
-<div class="g-col-12 g-col-md-6 featured-card">
-<p><a href="projects/most-streamed-songs/" class="stretched-link"><strong>Spotify 2023 最高播放量歌曲</strong></a><br>
-对 Spotify 最高播放量曲目的探索性分析，揭示音乐流行趋势。<br>
-<code>R</code> <code>EDA</code> <code>Visualization</code></p>
 </div>
-<div class="g-col-12 g-col-md-6 featured-card">
-<p><a href="projects/student-media-usage/" class="stretched-link"><strong>学生社交媒体使用与成瘾</strong></a><br>
-分析学生的社交媒体使用习惯与成瘾模式。<br>
-<code>R</code> <code>EDA</code> <code>Social Media</code></p>
 </div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="UiUyQ0VEQSUyQyVFNyVBNCVCRSVFNCVCQSVBNCVFNSVBQSU5MiVFNCVCRCU5MyUyQyVFNSVCRiU4MyVFNyU5MCU4NiVFNSU4MSVBNSVFNSVCQSVCNyUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5Ng==" data-listing-date-sort="1771822800000" data-listing-file-modified-sort="1781067778886" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="38" data-listing-word-count-sort="7495">
+<a href="../zh/projects/student-media-usage/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../src/img/proj/stu-media/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+学生社交媒体使用与幸福感分析
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2026年2月23日
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDTkxQJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkzJTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1730433600000" data-listing-file-modified-sort="1781467142709" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="767">
+<a href="../zh/projects/catalan-referendum/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../src/img/proj/catalan/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Twitter 加泰罗尼亚公投情感分析
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2024年11月1日
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDRURBJTJDJUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJFJTJDJUU1JTlDJUIwJUU1JTlCJUJFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2JTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1733979600000" data-listing-file-modified-sort="1781062295653" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1824">
+<a href="../zh/projects/global-visa-cost/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="../src/img/proj/visa/fig2-sankey-sorted.png" alt="各地区平均旅游签证费用桑基图（已排序）" style="height: 200px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+全球签证费用分析与交互式可视化
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+2024年12月12日
+</div>
+</div>
+</div>
+</div></a>
+</div>
+</div>
+<div class="listing-no-matching d-none">无匹配项</div>
 </div>
 <hr>
 <p><a href="about/" class="btn btn-outline-primary">关于本站 →</a></p>
+
 
 
 <!-- -->
@@ -370,6 +494,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             else link.removeAttribute('aria-current');
         });
     })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -827,45 +969,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "数据科学与可视化作品集"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>你好，我是 **Pinn** —— 热衷于数据分析、数据叙事与编程的数据爱好者。</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>本站收录了我的数据项目：探索性分析、NLP 实验，以及用 **R** 和 **Python** 构建的交互式可视化，通过 <span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org/)</span> 发布。</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">浏览所有项目 →</span><span class="co">](projects/)</span>{.btn .btn-primary}</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## 精选项目</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>::::::: grid</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>::: {.g-col-12 .g-col-md-6 .featured-card}</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**加泰罗尼亚公投 Twitter 情感分析**</span><span class="co">](projects/catalan-referendum/)</span>{.stretched-link}\</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>对 2017 年加泰罗尼亚独立公投期间相关推文的情感挖掘。\</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="in">`Python`</span> <span class="in">`NLP`</span> <span class="in">`Social Media`</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>::: {.g-col-12 .g-col-md-6 .featured-card}</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**全球签证费用分析**</span><span class="co">](projects/global-visa-cost/)</span>{.stretched-link}\</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>跨国签证费用的比较研究，探索可负担性与地理分布规律。\</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="in">`Python`</span> <span class="in">`EDA`</span> <span class="in">`Visualization`</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>::: {.g-col-12 .g-col-md-6 .featured-card}</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**Spotify 2023 最高播放量歌曲**</span><span class="co">](projects/most-streamed-songs/)</span>{.stretched-link}\</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>对 Spotify 最高播放量曲目的探索性分析，揭示音乐流行趋势。\</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="in">`R`</span> <span class="in">`EDA`</span> <span class="in">`Visualization`</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>::: {.g-col-12 .g-col-md-6 .featured-card}</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**学生社交媒体使用与成瘾**</span><span class="co">](projects/student-media-usage/)</span>{.stretched-link}\</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>分析学生的社交媒体使用习惯与成瘾模式。\</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="in">`R`</span> <span class="in">`EDA`</span> <span class="in">`Social Media`</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>:::::::</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">关于本站 →</span><span class="co">](about/)</span>{.btn .btn-outline-primary}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    id: projects-listing</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    contents: 'projects/*/index.*md'</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    type: grid</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    grid-columns: 2</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    sort: 'order asc'</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    max-items: 4</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">    fields: [image, title, author, date]</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">    image-height: '200px'</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">    image-align: left</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- 你好，我是 **Pinn** —— 热衷于数据分析、数据叙事与编程的数据爱好者。 --&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>本站收录了我的数据项目：探索性分析、NLP 实验，以及用 **R** 和 **Python** 构建的交互式可视化，通过 <span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org/)</span> 发布。</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">浏览所有项目 →</span><span class="co">](projects/)</span>{.btn .btn-primary style="margin-right:12px"}</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">数据可视化教程</span><span class="co">](tutorials/)</span>{.btn .btn-outline-primary}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## 精选项目 {#featured-projects}</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>::: {#projects-listing}</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">关于本站 →</span><span class="co">](about/)</span>{.btn .btn-outline-primary}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

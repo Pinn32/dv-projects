@@ -371,7 +371,7 @@ Feb 23, 2026
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDTkxQJTJDU29jaWFsJTIwTWVkaWElMkNWaXN1YWxpemF0aW9u" data-listing-date-sort="1730433600000" data-listing-file-modified-sort="1781066979745" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1842">
+<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDTkxQJTJDU29jaWFsJTIwTWVkaWElMkNWaXN1YWxpemF0aW9u" data-listing-date-sort="1730433600000" data-listing-file-modified-sort="1781467411727" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1842">
 <a href="../../en/projects/catalan-referendum/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -599,6 +599,24 @@ Feb 25, 2026
             else link.removeAttribute('aria-current');
         });
     })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
 </script>
 <script>
     (() => {
@@ -1107,7 +1125,7 @@ Feb 25, 2026
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  id: projects-listing</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.qmd"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.*md"</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, author, date]</span></span>

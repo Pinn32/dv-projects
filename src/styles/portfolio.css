@@ -560,6 +560,37 @@ a.sidebar-item-text.sidebar-link.active > .menu-text {
 }
 
 
+/* Sidebar search trigger (replaces non-functional duplicate #quarto-search) */
+.sidebar-search-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid var(--pf-border);
+    border-radius: var(--pf-radius-sm);
+    background: var(--bs-body-bg, #fff);
+    color: var(--pf-text-muted);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+.sidebar-search-trigger span { flex: 1; text-align: left; }
+.sidebar-search-trigger kbd {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.35rem;
+    border: 1px solid var(--pf-border);
+    border-radius: 3px;
+    background: var(--pf-surface);
+    color: var(--pf-text-muted);
+    line-height: 1.4;
+}
+.sidebar-search-trigger:hover {
+    border-color: var(--pf-primary);
+    color: var(--pf-text);
+}
+
 /* 10. About / Tables ===================================================== */
 
 .quarto-document-content table:not(.dataframe),
@@ -630,15 +661,23 @@ hr {
     min-width: 0;
 }
 
-.dropdown-item {
+.navbar .dropdown-item {
     display: block;
     width: 100%;
     white-space: nowrap;
+    text-align: center;
+    padding: .4rem .6rem;
 }
 
-.dropdown-item:hover {
+.navbar .dropdown-item:hover {
     background-color: #5ab5ad;
 }
+
+.navbar .dropdown-menu[data-bs-popper] {
+    left: -50%;
+}
+
+
 
 /* ─── Fix Search Button Color ───────────────────────────────────────── */
 .navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon {

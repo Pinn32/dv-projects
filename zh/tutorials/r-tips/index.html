@@ -85,6 +85,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -185,9 +188,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/tutorials/index.html">教程</a></li><li class="breadcrumb-item"><a href="../../../zh/tutorials/r-tips/index.html">R语言技巧</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/tutorials/index.html">数据分析教程</a></li><li class="breadcrumb-item"><a href="../../../zh/tutorials/r-tips/index.html">R 语言技巧</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
@@ -195,12 +201,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../zh/projects/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">项目</span></a>
+ <span class="menu-text">可视化项目</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -210,6 +221,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../../zh/projects/ai-discourse/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">网络AI话语的演变</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">学生社交媒体使用与幸福感分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -226,14 +243,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../zh/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">学生社交媒体使用与幸福感分析</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../../zh/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spotify 最高播放量歌曲: 音乐特征与受众趋势分析</span></a>
+ <span class="menu-text">Spotify 最高播放量歌曲——音乐特征与受众趋势分析</span></a>
   </div>
 </li>
       </ul>
@@ -241,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../zh/tutorials/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">教程</span></a>
+ <span class="menu-text">数据分析教程</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -274,7 +285,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../zh/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">R语言技巧</span></a>
+ <span class="menu-text">R 语言技巧</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../zh/blogs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">经验博客</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto 图片居中样式</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/blogs/fix-misplaced-sysfolders/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">误移系统文件夹恢复</span></a>
   </div>
 </li>
       </ul>
@@ -342,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/tutorials/index.html">教程</a></li><li class="breadcrumb-item"><a href="../../../zh/tutorials/r-tips/index.html">R语言技巧</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/tutorials/index.html">数据分析教程</a></li><li class="breadcrumb-item"><a href="../../../zh/tutorials/r-tips/index.html">R 语言技巧</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">R 语言技巧</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
   <div class="quarto-categories">
@@ -392,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     6 min read</span><span> · </span><span>331 EN words</span><span> · </span><span>1201 中文字</span></div>
+     6 min read</span><span> · </span><span>332 EN words</span><span> · </span><span>1233 中文字</span></div>
 <section id="常用要点" class="level1 unnumbered">
 <h1 class="unnumbered">常用要点</h1>
 <table class="caption-top table">
@@ -1246,9 +1280,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="rstudio-snippet" class="level2" data-number="6.8">
 <h2 data-number="6.8" class="anchored" data-anchor-id="rstudio-snippet"><span class="header-section-number">6.8</span> RStudio Snippet</h2>
 <p>在 RStudio &gt; Tools &gt; Edit Code Snippets</p>
-<p><img src="../../../src/img/ttl/r-tips/rstudio-snippet-1.png" class="img-fluid" alt="编辑代码片段" width="400"></p>
+<p><a href="../../../src/img/ttl/r-tips/rstudio-snippet-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../../../src/img/ttl/r-tips/rstudio-snippet-1.png" class="img-fluid" alt="编辑代码片段" width="400"></a></p>
 <p>R &gt; 在最下方添加新代码 &gt; 保存</p>
-<p><img src="../../../src/img/ttl/r-tips/rstudio-snippet-2.png" class="img-fluid" alt="RStudio里创建代码片段的流程"></p>
+<p><a href="../../../src/img/ttl/r-tips/rstudio-snippet-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../../../src/img/ttl/r-tips/rstudio-snippet-2.png" class="img-fluid" alt="RStudio里创建代码片段的流程"></a></p>
 <p>例如 ggplot 画图的模板:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>snippet ggplot</span>
@@ -1261,9 +1295,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>保存成功后, 在 R 代码块里输入 <code>ggplot</code>, 选择 snippet:</p>
-<p><img src="../../../src/img/ttl/r-tips/rstudio-snippet-3.png" class="img-fluid" alt="在代码块里输入代码片段别名" width="550"></p>
+<p><a href="../../../src/img/ttl/r-tips/rstudio-snippet-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../../../src/img/ttl/r-tips/rstudio-snippet-3.png" class="img-fluid" alt="在代码块里输入代码片段别名" width="550"></a></p>
 <p>按回车, 自动嵌入模板:</p>
-<p><img src="../../../src/img/ttl/r-tips/rstudio-snippet-4.png" class="img-fluid" alt="插入后的模板" width="350"></p>
+<p><a href="../../../src/img/ttl/r-tips/rstudio-snippet-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../../../src/img/ttl/r-tips/rstudio-snippet-4.png" class="img-fluid" alt="插入后的模板" width="350"></a></p>
 <p><a href="#">↑回到顶部</a></p>
 
 
@@ -1400,6 +1434,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             else link.removeAttribute('aria-current');
         });
     })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2337,6 +2389,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

@@ -106,6 +106,9 @@ div.csl-indent {
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -209,6 +212,9 @@ div.csl-indent {
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../en/projects/index.html">Projects</a></li><li class="breadcrumb-item"><a href="../../../en/projects/ai-discourse/index.html">Evolution of Online AI Discourse</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
@@ -216,6 +222,11 @@ div.csl-indent {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
@@ -235,6 +246,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Student Social Media Usage and Well-being Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../en/projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Twitter Sentiment Analysis of Catalan Referendum</span></a>
   </div>
@@ -242,19 +259,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Global Visa Cost Analysis</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Student Social Media Usage &amp; Addiction</span></a>
+ <span class="menu-text">Global Visa Cost Analysis and Interactive Visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Most Streamed Songs on Spotify</span></a>
+ <span class="menu-text">Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis</span></a>
   </div>
 </li>
       </ul>
@@ -289,13 +300,36 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/tutorials/sankey-and-network/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sankey &amp; Network Diagrams</span></a>
+ <span class="menu-text">Sankey Diagrams and Network Graphs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R Tips</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/blogs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Blogs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto 图片居中样式</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/fix-misplaced-sysfolders/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">误移系统文件夹恢复</span></a>
   </div>
 </li>
       </ul>
@@ -422,7 +456,7 @@ div.csl-indent {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     28 min read</span><span> · </span><span>5502 EN words</span><span> · </span><span>0 中文字</span></div>
+     28 min read</span><span> · </span><span>5517 EN words</span><span> · </span><span>15 中文字</span></div>
 <div class="cell">
 <details class="code-fold">
 <summary>Environment &amp; Versions</summary>
@@ -972,7 +1006,7 @@ Time difference of 1634 days</code></pre>
 <div id="fig-daily-dist" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-daily-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-daily-dist-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-daily-dist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Daily Distribution of AI-Related Tweets (2017–2021)"><img src="index_files/figure-html/fig-daily-dist-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-daily-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Daily Distribution of AI-Related Tweets (2017–2021)
@@ -1322,7 +1356,7 @@ DTM: 2961 documents x 1799 terms</code></pre>
 <div id="fig-lda-words" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lda-words-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-lda-words-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-lda-words-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Top 10 Words per LDA Topic (K = 5)  Note. Bars represent word probability (beta) within each topic. Topics are labeled by their dominant semantic cluster."><img src="index_files/figure-html/fig-lda-words-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lda-words-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Top 10 Words per LDA Topic (K = 5)<br> <em>Note.</em> Bars represent word probability (beta) within each topic. Topics are labeled by their dominant semantic cluster.
@@ -1461,7 +1495,7 @@ Table&nbsp;4: Distribution of Dominant LDA Topics Across Tweets
 <div id="fig-topic-over-time" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-topic-over-time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-topic-over-time-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-topic-over-time-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Topic Prevalence Over Time (2017–2021)  Note. Lines represent mean gamma (topic membership probability) across all tweets in each year. All five topics remain close to 0.20 throughout the period, indicating thematic stability."><img src="index_files/figure-html/fig-topic-over-time-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-topic-over-time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Topic Prevalence Over Time (2017–2021)<br> <em>Note.</em> Lines represent mean gamma (topic membership probability) across all tweets in each year. All five topics remain close to 0.20 throughout the period, indicating thematic stability.
@@ -1666,7 +1700,7 @@ Table&nbsp;6: Most Frequent Hashtags in AI-Related Tweets (2017–2021)
 <div id="fig-top-hashtags" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-top-hashtags-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-top-hashtags-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-top-hashtags-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Top 15 Hashtags in AI-Related Tweets  Note. Bars show overall frequency across the 2017–2021 sample. Broad AI labels (#artificialintelligence, #ai) dominate, followed by applied technical subfield terms."><img src="index_files/figure-html/fig-top-hashtags-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-top-hashtags-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4: Top 15 Hashtags in AI-Related Tweets<br> <em>Note.</em> Bars show overall frequency across the 2017–2021 sample. Broad AI labels (#artificialintelligence, #ai) dominate, followed by applied technical subfield terms.
@@ -1884,7 +1918,7 @@ Table&nbsp;7: Top Five Hashtags by Year (2017–2021)
 <div id="fig-hashtag-trends" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hashtag-trends-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-hashtag-trends-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-hashtag-trends-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Top Hashtag Shares by Year  Note. Lines show each hashtag’s share among the eight most common hashtags in each year. General AI labels maintain dominance while technical subfield terms gradually increase."><img src="index_files/figure-html/fig-hashtag-trends-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hashtag-trends-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5: Top Hashtag Shares by Year<br> <em>Note.</em> Lines show each hashtag’s share among the eight most common hashtags in each year. General AI labels maintain dominance while technical subfield terms gradually increase.
@@ -2196,7 +2230,7 @@ Table&nbsp;9: Coverage of Sentiment Lexicons Across the Tweet Sample
 <div id="fig-lexicon-coverage" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lexicon-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-lexicon-coverage-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-lexicon-coverage-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Sentiment Lexicon Coverage Comparison  Note. Bars represent the percentage of the 3,000 tweets that received a sentiment score from each lexicon. NRC achieves the widest coverage; AFINN covers a smaller share but provides continuous intensity scores."><img src="index_files/figure-html/fig-lexicon-coverage-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lexicon-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6: Sentiment Lexicon Coverage Comparison<br> <em>Note.</em> Bars represent the percentage of the 3,000 tweets that received a sentiment score from each lexicon. NRC achieves the widest coverage; AFINN covers a smaller share but provides continuous intensity scores.
@@ -2387,7 +2421,7 @@ Table&nbsp;10: Mean AFINN Sentiment Score by Year with 95% Confidence Intervals
 <div id="fig-sentiment-by-year" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sentiment-by-year-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-sentiment-by-year-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-sentiment-by-year-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Mean AFINN Sentiment by Year (2017–2021)  Note. Points and line show yearly means; the ribbon represents the 95% confidence interval. The dashed horizontal line marks a score of zero (neutral). Sentiment increased consistently from 2017 to 2021."><img src="index_files/figure-html/fig-sentiment-by-year-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sentiment-by-year-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: Mean AFINN Sentiment by Year (2017–2021)<br> <em>Note.</em> Points and line show yearly means; the ribbon represents the 95% confidence interval. The dashed horizontal line marks a score of zero (neutral). Sentiment increased consistently from 2017 to 2021.
@@ -2459,7 +2493,7 @@ Figure&nbsp;7: Mean AFINN Sentiment by Year (2017–2021)<br> <em>Note.</em> Poi
 <div id="fig-topic-sentiment" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-topic-sentiment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-topic-sentiment-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-topic-sentiment-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;8: Weighted Average AFINN Sentiment by Topic  Note. Bars represent the average sentiment score for each topic, weighted by gamma (topic membership probability). The dashed line marks neutral sentiment. Differences across topics are minimal and statistically non-significant."><img src="index_files/figure-html/fig-topic-sentiment-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-topic-sentiment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;8: Weighted Average AFINN Sentiment by Topic<br> <em>Note.</em> Bars represent the average sentiment score for each topic, weighted by gamma (topic membership probability). The dashed line marks neutral sentiment. Differences across topics are minimal and statistically non-significant.
@@ -2819,7 +2853,7 @@ Table&nbsp;12: Negative Binomial GLMs: Tag Features Predicting User Engagement
 <div id="fig-tag-irr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tag-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-tag-irr-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-tag-irr-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;9: Tag-Based Predictors of Tweet Engagement (IRR Plot)  Note. Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. IRR > 1 indicates a positive association with engagement."><img src="index_files/figure-html/fig-tag-irr-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tag-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9: Tag-Based Predictors of Tweet Engagement (IRR Plot)<br> <em>Note.</em> Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. IRR &gt; 1 indicates a positive association with engagement.
@@ -3203,7 +3237,7 @@ Table&nbsp;13: Negative Binomial GLMs: Sentiment and Topics Predicting User Enga
 <div id="fig-topic-irr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-topic-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-topic-irr-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-topic-irr-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Sentiment and Topic Predictors of Tweet Engagement (IRR Plot)  Note. Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. Year fixed effects are excluded from the plot for clarity."><img src="index_files/figure-html/fig-topic-irr-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-topic-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;10: Sentiment and Topic Predictors of Tweet Engagement (IRR Plot)<br> <em>Note.</em> Points represent incident rate ratios (IRRs) and horizontal bars represent 95% confidence intervals. The dashed vertical line at IRR = 1 indicates no effect. Year fixed effects are excluded from the plot for clarity.
@@ -3472,6 +3506,24 @@ Stone, P., Brooks, R., Brynjolfsson, E., Calo, R., Etzioni, O., Hager, G., Hirsc
             else link.removeAttribute('aria-current');
         });
     })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -5307,6 +5359,38 @@ Stone, P., Brooks, R., Brynjolfsson, E., Calo, R., Etzioni, O., Hager, G., Hirsc
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

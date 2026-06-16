@@ -105,6 +105,9 @@ div.csl-indent {
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -234,9 +237,12 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/projects/index.html">项目</a></li><li class="breadcrumb-item"><a href="../../../zh/projects/ai-discourse/index.html">网络AI话语的演变</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/projects/index.html">可视化项目</a></li><li class="breadcrumb-item"><a href="../../../zh/projects/ai-discourse/index.html">网络AI话语的演变</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
@@ -244,12 +250,17 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../zh/projects/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">项目</span></a>
+ <span class="menu-text">可视化项目</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -259,6 +270,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../../../zh/projects/ai-discourse/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">网络AI话语的演变</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">学生社交媒体使用与幸福感分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -275,14 +292,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../zh/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">学生社交媒体使用与幸福感分析</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../../zh/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spotify 最高播放量歌曲: 音乐特征与受众趋势分析</span></a>
+ <span class="menu-text">Spotify 最高播放量歌曲——音乐特征与受众趋势分析</span></a>
   </div>
 </li>
       </ul>
@@ -290,7 +301,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../zh/tutorials/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">教程</span></a>
+ <span class="menu-text">数据分析教程</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -323,7 +334,30 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../zh/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R语言技巧</span></a>
+ <span class="menu-text">R 语言技巧</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../zh/blogs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">经验博客</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto 图片居中样式</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/blogs/fix-misplaced-sysfolders/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">误移系统文件夹恢复</span></a>
   </div>
 </li>
       </ul>
@@ -401,7 +435,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/projects/index.html">项目</a></li><li class="breadcrumb-item"><a href="../../../zh/projects/ai-discourse/index.html">网络AI话语的演变</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/projects/index.html">可视化项目</a></li><li class="breadcrumb-item"><a href="../../../zh/projects/ai-discourse/index.html">网络AI话语的演变</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">网络AI话语的演变</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 代码</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">显示所有代码</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">隐藏所有代码</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">查看源代码</a></li></ul></div></div>
   <div class="quarto-categories">
@@ -450,7 +484,7 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     34 min read</span><span> · </span><span>980 EN words</span><span> · </span><span>8524 中文字</span></div>
+     34 min read</span><span> · </span><span>980 EN words</span><span> · </span><span>8559 中文字</span></div>
 <div class="cell">
 <details class="code-fold">
 <summary>环境与版本</summary>
@@ -994,7 +1028,7 @@ Time difference of 1634 days</code></pre>
 <div id="fig-daily-dist" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-daily-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-daily-dist-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-daily-dist-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="图&nbsp;1: AI相关推文日分布（2017—2021年）"><img src="index_files/figure-html/fig-daily-dist-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-daily-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;1: AI相关推文日分布（2017—2021年）
@@ -1343,7 +1377,7 @@ DTM: 2961 篇文档 x 1799 个词项</code></pre>
 <div id="fig-lda-words" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lda-words-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-lda-words-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-lda-words-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="图&nbsp;2: 各LDA主题前10高频词（K = 5）  注. 条形代表各主题内的词汇概率（beta值）。主题按其主导语义簇命名。"><img src="index_files/figure-html/fig-lda-words-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lda-words-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;2: 各LDA主题前10高频词（K = 5）<br> <em>注.</em> 条形代表各主题内的词汇概率（beta值）。主题按其主导语义簇命名。
@@ -1482,7 +1516,7 @@ DTM: 2961 篇文档 x 1799 个词项</code></pre>
 <div id="fig-topic-over-time" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-topic-over-time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-topic-over-time-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-topic-over-time-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="图&nbsp;3: 主题流行度随时间变化（2017—2021年）  注. 折线代表各年所有推文的平均 gamma 值（主题成员概率）。五个主题在整个研究期间均接近0.20，表明主题结构稳定。"><img src="index_files/figure-html/fig-topic-over-time-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-topic-over-time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;3: 主题流行度随时间变化（2017—2021年）<br> <em>注.</em> 折线代表各年所有推文的平均 gamma 值（主题成员概率）。五个主题在整个研究期间均接近0.20，表明主题结构稳定。
@@ -1687,7 +1721,7 @@ DTM: 2961 篇文档 x 1799 个词项</code></pre>
 <div id="fig-top-hashtags" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-top-hashtags-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-top-hashtags-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-top-hashtags-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="图&nbsp;4: AI相关推文中前15个话题标签  注. 条形代表2017—2021年样本中的总体频次。广义AI标签（#artificialintelligence、#ai）占主导，其后为应用技术子领域词汇。"><img src="index_files/figure-html/fig-top-hashtags-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-top-hashtags-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;4: AI相关推文中前15个话题标签<br> <em>注.</em> 条形代表2017—2021年样本中的总体频次。广义AI标签（#artificialintelligence、#ai）占主导，其后为应用技术子领域词汇。
@@ -1905,7 +1939,7 @@ DTM: 2961 篇文档 x 1799 个词项</code></pre>
 <div id="fig-hashtag-trends" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hashtag-trends-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-hashtag-trends-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-hashtag-trends-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="图&nbsp;5: 各年前8话题标签份额趋势  注. 折线代表每年八个最常用话题标签中各标签的份额。广义AI标签持续占主导，技术子领域词汇逐渐增加。"><img src="index_files/figure-html/fig-hashtag-trends-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hashtag-trends-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;5: 各年前8话题标签份额趋势<br> <em>注.</em> 折线代表每年八个最常用话题标签中各标签的份额。广义AI标签持续占主导，技术子领域词汇逐渐增加。
@@ -2217,7 +2251,7 @@ DTM: 2961 篇文档 x 1799 个词项</code></pre>
 <div id="fig-lexicon-coverage" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lexicon-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-lexicon-coverage-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-lexicon-coverage-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="图&nbsp;6: 情感词典覆盖率比较  注. 条形代表3,000条推文中各词典获得情感评分的比例。NRC覆盖范围最广；AFINN覆盖比例较小，但提供连续强度评分。"><img src="index_files/figure-html/fig-lexicon-coverage-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lexicon-coverage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;6: 情感词典覆盖率比较<br> <em>注.</em> 条形代表3,000条推文中各词典获得情感评分的比例。NRC覆盖范围最广；AFINN覆盖比例较小，但提供连续强度评分。
@@ -2408,7 +2442,7 @@ Bing  与 NRC 的相关性:  r = 0.529 </code></pre>
 <div id="fig-sentiment-by-year" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sentiment-by-year-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-sentiment-by-year-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-sentiment-by-year-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="图&nbsp;7: 各年平均AFINN情感得分（2017—2021年）  注. 点和折线表示各年均值；色带代表95%置信区间。水平虚线标记零分（中性）。情感得分从2017年至2021年持续上升。"><img src="index_files/figure-html/fig-sentiment-by-year-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sentiment-by-year-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;7: 各年平均AFINN情感得分（2017—2021年）<br> <em>注.</em> 点和折线表示各年均值；色带代表95%置信区间。水平虚线标记零分（中性）。情感得分从2017年至2021年持续上升。
@@ -2480,7 +2514,7 @@ Bing  与 NRC 的相关性:  r = 0.529 </code></pre>
 <div id="fig-topic-sentiment" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-topic-sentiment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-topic-sentiment-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-topic-sentiment-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="图&nbsp;8: 各主题加权平均AFINN情感得分  注. 条形代表以 gamma（主题成员概率）为权重的各主题平均情感得分。虚线标记中性情感。各主题之间的差异极小且统计上不显著。"><img src="index_files/figure-html/fig-topic-sentiment-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-topic-sentiment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;8: 各主题加权平均AFINN情感得分<br> <em>注.</em> 条形代表以 gamma（主题成员概率）为权重的各主题平均情感得分。虚线标记中性情感。各主题之间的差异极小且统计上不显著。
@@ -2840,7 +2874,7 @@ F-statistic: 0.1503 on 4 and 6350 DF,  p-value: 0.9629</code></pre>
 <div id="fig-tag-irr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tag-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-tag-irr-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-tag-irr-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="图&nbsp;9: 基于标签特征的推文互动预测（IRR图）  注. 点代表发生率比（IRR），水平线代表95%置信区间。IRR = 1处的垂直虚线表示无效应。IRR > 1表示与互动呈正相关。"><img src="index_files/figure-html/fig-tag-irr-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tag-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;9: 基于标签特征的推文互动预测（IRR图）<br> <em>注.</em> 点代表发生率比（IRR），水平线代表95%置信区间。IRR = 1处的垂直虚线表示无效应。IRR &gt; 1表示与互动呈正相关。
@@ -3224,7 +3258,7 @@ Number of Fisher Scoring iterations: 1
 <div id="fig-topic-irr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-topic-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-topic-irr-1.png" class="img-fluid figure-img" width="768">
+<a href="index_files/figure-html/fig-topic-irr-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="图&nbsp;10: 情感与主题对推文互动的预测（IRR图）  注. 点代表发生率比（IRR），水平线代表95%置信区间。IRR = 1处的垂直虚线表示无效应。为清晰起见，年份固定效应已从图中排除。"><img src="index_files/figure-html/fig-topic-irr-1.png" class="img-fluid figure-img" width="768"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-topic-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;10: 情感与主题对推文互动的预测（IRR图）<br> <em>注.</em> 点代表发生率比（IRR），水平线代表95%置信区间。IRR = 1处的垂直虚线表示无效应。为清晰起见，年份固定效应已从图中排除。
@@ -3493,6 +3527,24 @@ Stone, P., Brooks, R., Brynjolfsson, E., Calo, R., Etzioni, O., Hager, G., Hirsc
             else link.removeAttribute('aria-current');
         });
     })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -5332,6 +5384,38 @@ Stone, P., Brooks, R., Brynjolfsson, E., Calo, R., Etzioni, O., Hager, G., Hirsc
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

@@ -105,6 +105,9 @@ div.csl-indent {
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -237,9 +240,12 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/projects/index.html">项目</a></li><li class="breadcrumb-item"><a href="../../../zh/projects/catalan-referendum/index.html">Twitter 加泰罗尼亚公投情感分析</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/projects/index.html">可视化项目</a></li><li class="breadcrumb-item"><a href="../../../zh/projects/catalan-referendum/index.html">Twitter 加泰罗尼亚公投情感分析</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
@@ -247,12 +253,17 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../zh/projects/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">项目</span></a>
+ <span class="menu-text">可视化项目</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -262,6 +273,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../../../zh/projects/ai-discourse/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">网络AI话语的演变</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">学生社交媒体使用与幸福感分析</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -278,14 +295,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../zh/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">学生社交媒体使用与幸福感分析</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../../zh/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spotify 最高播放量歌曲: 音乐特征与受众趋势分析</span></a>
+ <span class="menu-text">Spotify 最高播放量歌曲——音乐特征与受众趋势分析</span></a>
   </div>
 </li>
       </ul>
@@ -293,7 +304,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../zh/tutorials/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">教程</span></a>
+ <span class="menu-text">数据分析教程</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -326,7 +337,30 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../zh/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R语言技巧</span></a>
+ <span class="menu-text">R 语言技巧</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../zh/blogs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">经验博客</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto 图片居中样式</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/blogs/fix-misplaced-sysfolders/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">误移系统文件夹恢复</span></a>
   </div>
 </li>
       </ul>
@@ -375,7 +409,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/projects/index.html">项目</a></li><li class="breadcrumb-item"><a href="../../../zh/projects/catalan-referendum/index.html">Twitter 加泰罗尼亚公投情感分析</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/projects/index.html">可视化项目</a></li><li class="breadcrumb-item"><a href="../../../zh/projects/catalan-referendum/index.html">Twitter 加泰罗尼亚公投情感分析</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Twitter 加泰罗尼亚公投情感分析</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 代码</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">显示所有代码</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">隐藏所有代码</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">查看源代码</a></li></ul></div></div>
   <div class="quarto-categories">
@@ -421,8 +455,8 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     8 min read</span><span> · </span><span>308 EN words</span><span> · </span><span>1911 中文字</span></div>
-<div id="92a4dc1d" class="cell" data-execution_count="1">
+     9 min read</span><span> · </span><span>308 EN words</span><span> · </span><span>1947 中文字</span></div>
+<div id="c23d834c" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>环境与版本</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -434,7 +468,7 @@ window.Quarto = {
 <section id="简介" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 简介</h1>
 <p>本项目使用一份关于西班牙加泰罗尼亚公投的 Twitter 推文数据集，属性包括每条推文的基本信息及由不同词典检测到的情感词计数 <span class="citation" data-cites="jimenezZafra2021">(<a href="#ref-jimenezZafra2021" role="doc-biblioref"><span class="nocase">Jiménez-Zafra 等</span>, 2021</a>)</span>（属性详细说明见<a href="#appendix-attributes">附录一</a>）。本文通过条形图展示各词典在推文情感检测上的表现差异，并以直方图按情感类别呈现所有推文的作者受欢迎度分布。</p>
-<div id="3ec074da" class="cell" data-execution_count="2">
+<div id="4d95b413" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入库</span></span>
@@ -607,7 +641,7 @@ window.Quarto = {
 </section>
 <section id="数据处理" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> 数据处理</h1>
-<div id="5f461947" class="cell" data-execution_count="3">
+<div id="e61d007a" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 删除缺失值（见附录二）</span></span>
@@ -630,7 +664,7 @@ window.Quarto = {
 </div>
 <section id="计数属性设置" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="计数属性设置"><span class="header-section-number">2.1</span> 计数属性设置</h2>
-<div id="7a1e0fd4" class="cell" data-execution_count="4">
+<div id="3d9425c3" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查属性数据类型</span></span>
@@ -669,14 +703,14 @@ memory usage: 156.4+ KB</code></pre>
 <div id="fig-datatypes-attributes" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Datatypes and Attributes">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-datatypes-attributes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig1-datatypes-attributes.png" class="img-fluid figure-img" alt="Datatypes and Attributes">
+<a href="../../../src/img/proj/catalan/fig1-datatypes-attributes.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="图&nbsp;1: 数据类型与属性"><img src="../../../src/img/proj/catalan/fig1-datatypes-attributes.png" class="img-fluid figure-img" alt="Datatypes and Attributes"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-datatypes-attributes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;1: 数据类型与属性
 </figcaption>
 </figure>
 </div>
-<div id="48abaa95" class="cell" data-results="hold" data-execution_count="5">
+<div id="d9681613" class="cell" data-results="hold" data-execution_count="5">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 检查 3 个 object 类型计数属性的数据类型</span></span>
@@ -715,7 +749,7 @@ True True True</code></pre>
 </section>
 <section id="布尔属性设置" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="布尔属性设置"><span class="header-section-number">2.2</span> 布尔属性设置</h2>
-<div id="7677608b" class="cell" data-results="hold" data-execution_count="6">
+<div id="9c0a917b" class="cell" data-results="hold" data-execution_count="6">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 确认布尔列只包含 'True'/'False' 字符串</span></span>
@@ -737,7 +771,7 @@ True True True</code></pre>
 <h1 data-number="3"><span class="header-section-number">3</span> 数据可视化</h1>
 <section id="情感分布" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="情感分布"><span class="header-section-number">3.1</span> 情感分布</h2>
-<div id="4203a9ba" class="cell" data-execution_count="7">
+<div id="fd04a137" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 将情感词计数列转换为长格式，便于可视化</span></span>
@@ -856,7 +890,7 @@ True True True</code></pre>
 <div id="fig-sentiment-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sentiment-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-sentiment-bar-output-1.png" width="600" height="463" class="figure-img">
+<a href="index_files/figure-html/fig-sentiment-bar-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="图&nbsp;2: 加泰罗尼亚公投的网络情感"><img src="index_files/figure-html/fig-sentiment-bar-output-1.png" width="600" height="463" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sentiment-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;2: 加泰罗尼亚公投的网络情感
@@ -923,7 +957,7 @@ True True True</code></pre>
 <div id="fig-popularity-hist" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-popularity-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-popularity-hist-output-1.png" width="605" height="463" class="figure-img">
+<a href="index_files/figure-html/fig-popularity-hist-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="图&nbsp;3: 作者受欢迎度分布直方图"><img src="index_files/figure-html/fig-popularity-hist-output-1.png" width="605" height="463" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-popularity-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;3: 作者受欢迎度分布直方图
@@ -1107,7 +1141,7 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
 <div id="fig-drop-na" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dropping NAs from certain columns only">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-drop-na-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig4-drop-na-from-col.png" class="img-fluid figure-img" alt="Dropping NAs from certain columns only">
+<a href="../../../src/img/proj/catalan/fig4-drop-na-from-col.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="图&nbsp;4: 仅删除特定列中的缺失值"><img src="../../../src/img/proj/catalan/fig4-drop-na-from-col.png" class="img-fluid figure-img" alt="Dropping NAs from certain columns only"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-drop-na-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;4: 仅删除特定列中的缺失值
@@ -1118,7 +1152,7 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
 <div id="fig-astype-error" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Error when using .astype(int)">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-astype-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig5-error-astype-int.png" class="img-fluid figure-img" alt="Error when using .astype(int)">
+<a href="../../../src/img/proj/catalan/fig5-error-astype-int.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="图&nbsp;5: 使用 .astype(int) 时的报错"><img src="../../../src/img/proj/catalan/fig5-error-astype-int.png" class="img-fluid figure-img" alt="Error when using .astype(int)"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-astype-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;5: 使用 <code>.astype(int)</code> 时的报错
@@ -1129,7 +1163,7 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
 <div id="fig-non-num-str" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Check non-numerical strings">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-non-num-str-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig6-check-non-num-str.png" class="img-fluid figure-img" alt="Check non-numerical strings">
+<a href="../../../src/img/proj/catalan/fig6-check-non-num-str.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="图&nbsp;6: 检查非数值字符串"><img src="../../../src/img/proj/catalan/fig6-check-non-num-str.png" class="img-fluid figure-img" alt="Check non-numerical strings"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-num-str-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;6: 检查非数值字符串
@@ -1144,7 +1178,7 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
 <div id="fig-first-attempt" class="quarto-float quarto-figure quarto-figure-center anchored" alt="First Attempt">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-first-attempt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig7-first-attempt.png" class="img-fluid figure-img" alt="First Attempt">
+<a href="../../../src/img/proj/catalan/fig7-first-attempt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="图&nbsp;7: 初次尝试"><img src="../../../src/img/proj/catalan/fig7-first-attempt.png" class="img-fluid figure-img" alt="First Attempt"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-first-attempt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;7: 初次尝试
@@ -1286,6 +1320,24 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
             else link.removeAttribute('aria-current');
         });
     })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2087,6 +2139,38 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

@@ -106,6 +106,9 @@ div.csl-indent {
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -241,6 +244,9 @@ window.Quarto = {
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../en/projects/index.html">Projects</a></li><li class="breadcrumb-item"><a href="../../../en/projects/catalan-referendum/index.html">Twitter Sentiment Analysis of Catalan Referendum</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
@@ -248,6 +254,11 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
@@ -267,6 +278,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Student Social Media Usage and Well-being Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../en/projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Twitter Sentiment Analysis of Catalan Referendum</span></a>
   </div>
@@ -274,19 +291,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Global Visa Cost Analysis</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Student Social Media Usage &amp; Addiction</span></a>
+ <span class="menu-text">Global Visa Cost Analysis and Interactive Visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Most Streamed Songs on Spotify</span></a>
+ <span class="menu-text">Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis</span></a>
   </div>
 </li>
       </ul>
@@ -321,13 +332,36 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/tutorials/sankey-and-network/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sankey &amp; Network Diagrams</span></a>
+ <span class="menu-text">Sankey Diagrams and Network Graphs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R Tips</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/blogs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Blogs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto 图片居中样式</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/fix-misplaced-sysfolders/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">误移系统文件夹恢复</span></a>
   </div>
 </li>
       </ul>
@@ -422,8 +456,8 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     8 min read</span><span> · </span><span>1444 EN words</span><span> · </span><span>0 中文字</span></div>
-<div id="9592bcbc" class="cell" data-execution_count="1">
+     8 min read</span><span> · </span><span>1463 EN words</span><span> · </span><span>15 中文字</span></div>
+<div id="a9255bf1" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Environment &amp; Versions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -435,7 +469,7 @@ window.Quarto = {
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>This project uses a data set consisting of tweets about the Catalan referendum in Spain on Twitter, with attributes including basic information and emotional word counts of each tweet detected by different lexicons <span class="citation" data-cites="jimenezZafra2021">(<a href="#ref-jimenezZafra2021" role="doc-biblioref"><span class="nocase">Jiménez-Zafra et al.</span>, 2021</a>)</span> (see <a href="#appendix-attributes">Appendix I</a> for further description of attributes). A bar plot addresses performance differences between lexicons in detecting sentiment among tweets. In addition, the distribution of the author’s popularity among all tweets is illustrated by a histogram, distinguished by sentiments.</p>
-<div id="11633f47" class="cell" data-execution_count="2">
+<div id="6abdc0fc" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
@@ -608,7 +642,7 @@ window.Quarto = {
 </section>
 <section id="data-processing" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Data Processing</h1>
-<div id="7d8fe68f" class="cell" data-execution_count="3">
+<div id="c489d825" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Drop missing values (see Appendix II)</span></span>
@@ -631,7 +665,7 @@ window.Quarto = {
 </div>
 <section id="setting-count-attributes" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="setting-count-attributes"><span class="header-section-number">2.1</span> Setting Count Attributes</h2>
-<div id="85a65304" class="cell" data-execution_count="4">
+<div id="2bf5f1eb" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect attribute datatypes</span></span>
@@ -670,14 +704,14 @@ memory usage: 156.4+ KB</code></pre>
 <div id="fig-datatypes-attributes" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Datatypes and Attributes">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-datatypes-attributes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig1-datatypes-attributes.png" class="img-fluid figure-img" alt="Datatypes and Attributes">
+<a href="../../../src/img/proj/catalan/fig1-datatypes-attributes.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Datatypes and Attributes"><img src="../../../src/img/proj/catalan/fig1-datatypes-attributes.png" class="img-fluid figure-img" alt="Datatypes and Attributes"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-datatypes-attributes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Datatypes and Attributes
 </figcaption>
 </figure>
 </div>
-<div id="443ccd6a" class="cell" data-results="hold" data-execution_count="5">
+<div id="edb53885" class="cell" data-results="hold" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Check dtypes of 3 object-type count attributes</span></span>
@@ -716,7 +750,7 @@ True True True</code></pre>
 </section>
 <section id="setting-boolean-attributes" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="setting-boolean-attributes"><span class="header-section-number">2.2</span> Setting Boolean Attributes</h2>
-<div id="255addb5" class="cell" data-results="hold" data-execution_count="6">
+<div id="5f90545c" class="cell" data-results="hold" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm bool columns only contain 'True'/'False' strings</span></span>
@@ -738,7 +772,7 @@ True True True</code></pre>
 <h1 data-number="3"><span class="header-section-number">3</span> Data Visualisation</h1>
 <section id="sentiment-distribution" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sentiment-distribution"><span class="header-section-number">3.1</span> Sentiment Distribution</h2>
-<div id="4c6f76c7" class="cell" data-execution_count="7">
+<div id="9341e382" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Melt sentiment word count columns to long format for visualisation</span></span>
@@ -848,7 +882,7 @@ True True True</code></pre>
 <div id="fig-sentiment-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sentiment-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-sentiment-bar-output-1.png" width="599" height="462" class="figure-img">
+<a href="index_files/figure-html/fig-sentiment-bar-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Online Sentiment towards the Catalan Referendum"><img src="index_files/figure-html/fig-sentiment-bar-output-1.png" width="599" height="462" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sentiment-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Online Sentiment towards the Catalan Referendum
@@ -915,7 +949,7 @@ Figure&nbsp;2: Online Sentiment towards the Catalan Referendum
 <div id="fig-popularity-hist" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-popularity-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-popularity-hist-output-1.png" width="604" height="462" class="figure-img">
+<a href="index_files/figure-html/fig-popularity-hist-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Author Popularity Distribution Histogram"><img src="index_files/figure-html/fig-popularity-hist-output-1.png" width="604" height="462" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-popularity-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Author Popularity Distribution Histogram
@@ -1099,7 +1133,7 @@ Wilke, C. O. (2019). <em>Fundamentals of data visualization: <span>A</span> prim
 <div id="fig-drop-na" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dropping NAs from certain columns only">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-drop-na-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig4-drop-na-from-col.png" class="img-fluid figure-img" alt="Dropping NAs from certain columns only">
+<a href="../../../src/img/proj/catalan/fig4-drop-na-from-col.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Dropping NAs from certain columns only"><img src="../../../src/img/proj/catalan/fig4-drop-na-from-col.png" class="img-fluid figure-img" alt="Dropping NAs from certain columns only"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-drop-na-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4: Dropping NAs from certain columns only
@@ -1110,7 +1144,7 @@ Figure&nbsp;4: Dropping NAs from certain columns only
 <div id="fig-astype-error" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Error when using .astype(int)">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-astype-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig5-error-astype-int.png" class="img-fluid figure-img" alt="Error when using .astype(int)">
+<a href="../../../src/img/proj/catalan/fig5-error-astype-int.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Error when using .astype(int)"><img src="../../../src/img/proj/catalan/fig5-error-astype-int.png" class="img-fluid figure-img" alt="Error when using .astype(int)"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-astype-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5: Error when using <code>.astype(int)</code>
@@ -1121,7 +1155,7 @@ Figure&nbsp;5: Error when using <code>.astype(int)</code>
 <div id="fig-non-num-str" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Check non-numerical strings">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-non-num-str-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig6-check-non-num-str.png" class="img-fluid figure-img" alt="Check non-numerical strings">
+<a href="../../../src/img/proj/catalan/fig6-check-non-num-str.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Check non-numerical strings"><img src="../../../src/img/proj/catalan/fig6-check-non-num-str.png" class="img-fluid figure-img" alt="Check non-numerical strings"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-num-str-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6: Check non-numerical strings
@@ -1136,7 +1170,7 @@ Figure&nbsp;6: Check non-numerical strings
 <div id="fig-first-attempt" class="quarto-float quarto-figure quarto-figure-center anchored" alt="First Attempt">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-first-attempt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../../../src/img/proj/catalan/fig7-first-attempt.png" class="img-fluid figure-img" alt="First Attempt">
+<a href="../../../src/img/proj/catalan/fig7-first-attempt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: First Attempt"><img src="../../../src/img/proj/catalan/fig7-first-attempt.png" class="img-fluid figure-img" alt="First Attempt"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-first-attempt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: First Attempt
@@ -1278,6 +1312,24 @@ Figure&nbsp;7: First Attempt
             else link.removeAttribute('aria-current');
         });
     })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2070,6 +2122,38 @@ Figure&nbsp;7: First Attempt
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

@@ -20,6 +20,13 @@
     ]
   },
   {
+    "listing": "/en/blogs/index.html",
+    "items": [
+      "/en/blogs/quarto-img-styles/index.html",
+      "/en/blogs/fix-misplaced-sysfolders/index.html"
+    ]
+  },
+  {
     "listing": "/zh/tutorials/index.html",
     "items": [
       "/zh/tutorials/data-processing/index.html",
@@ -27,6 +34,23 @@
       "/zh/tutorials/multivariate-plots/index.html",
       "/zh/tutorials/sankey-and-network/index.html",
       "/zh/tutorials/r-tips/index.html"
+    ]
+  },
+  {
+    "listing": "/zh/index.html",
+    "items": [
+      "/zh/projects/ai-discourse/index.html",
+      "/zh/projects/student-media-usage/index.html",
+      "/zh/projects/catalan-referendum/index.html",
+      "/zh/projects/global-visa-cost/index.html",
+      "/zh/projects/most-streamed-songs/index.html"
+    ]
+  },
+  {
+    "listing": "/zh/blogs/index.html",
+    "items": [
+      "/zh/blogs/quarto-img-styles/index.html",
+      "/zh/blogs/fix-misplaced-sysfolders/index.html"
     ]
   },
   {
