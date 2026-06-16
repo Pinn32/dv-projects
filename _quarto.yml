@@ -104,6 +104,7 @@ website:
 format:
   html:
     # self-contained: false
+    lightbox: true
     smooth-scroll: true
     theme: minty
     from: markdown+mark

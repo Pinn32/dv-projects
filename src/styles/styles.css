@@ -1,5 +1,14 @@
 /* customized css styles (for minty theme) ================================= */
 
+/* break line <hr> ======================================================== */
+/* line-break */
+
+hr {
+    border-top: 1.5px solid #c1c9d1 !important;
+}
+
+
+
 /* search cancel button =================================================== */
 /* fix search cancel button line feed */
 
