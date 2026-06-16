@@ -1,5 +1,5 @@
 ---
-title: "EN误移系统文件夹恢复"
+title: "误移系统文件夹恢复"
 author: 'Pinn Xu'
 date: 2024-04-22
 description: "恢复错误移动到根目录的Windows系统文件夹, 如 `文档`, `视频`, `图片`等。"

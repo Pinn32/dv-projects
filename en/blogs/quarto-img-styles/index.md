@@ -1,5 +1,5 @@
 ---
-title: 'EN Quarto 图片居中样式'
+title: 'Quarto 图片居中样式'
 author: 'Pinn Xu'
 date: 2026-06-15
 description: 'Quarto Website 图片居中样式探索与悬浮预览异常解决。'
@@ -8,10 +8,64 @@ image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190
 ---
 
 <style>
-figcaption {
-    text-align: center;
-}
+	figcaption {
+		text-align: center;
+	}
 </style>
+
+# 总结
+
+若希望在 Quarto Website 中实现：
+
+- 使用 rem 控制图片宽度
+- 交叉引用悬浮预览正常显示
+- 图片居中
+- 图片标题居中
+
+可采用以下方案。
+
+
+## 第一步：外部 CSS
+
+```css
+.quarto-float.quarto-figure.quarto-figure-center.anchored {
+    width: 100% !important;
+}
+```
+
+并在 `_quarto.yml` 中挂载：
+
+```yaml
+format:
+  html:
+	css:
+	  - path/to/style.css
+```
+
+## 第二步：页面级 Internal CSS
+
+在页面最上方 (yaml块的下方) 添加 `<style>` 标签：
+
+```markdown
+<style>
+	figcaption {
+		text-align: center;
+	}
+</style>
+```
+
+## 第三步：图片行内样式
+
+```markdown
+![图a](URL){#fig-a style="width:20rem;"}
+![图b](URL){#fig-b style="width:15rem;"}
+```
+
+> 本文即采用上述方案实现，点击页面右上角 `</> 代码` 可查看完整源代码。
+
+---
+
+下面是具体实现过程：
 
 # 图片大小控制
 
@@ -151,9 +205,9 @@ figcaption {
 
 ```markdown
 <style>
-figcaption {
+	figcaption {
 		text-align: center;
-}
+	}
 </style>
 ```
 
@@ -162,56 +216,3 @@ figcaption {
 ```markdown
 ![图片标题](<图片URL>){#fig-title style="width:7rem;"}
 ```
-
-# 总结
-
-若希望在 Quarto Website 中实现：
-
-- 使用 rem 控制图片宽度
-- 交叉引用悬浮预览正常显示
-- 图片居中
-- 图片标题居中
-
-可采用以下方案。
-
-
-## 第一步：外部 CSS
-
-```css
-.quarto-float.quarto-figure.quarto-figure-center.anchored {
-    width: 100% !important;
-}
-```
-
-并在 _quarto.yml 中挂载：
-
-```yaml
-format:
-	html:
-		css:
-			- path/to/style.css
-```
-
-## 第二步：页面级 Internal CSS
-
-在页面最上方 (yaml块的下方) 添加 `<style>` 标签：
-
-```markdown
-<style>
-figcaption {
-		text-align: center;
-}
-</style>
-```
-
-## 第三步：图片行内样式
-
-```markdown
-![图a](URL){#fig-a style="width:20rem;"}
-![图b](URL){#fig-b style="width:15rem;"}
-```
-
----
-
-本文即采用上述方案实现，点击页面右上角 `</> 代码` 可查看完整源代码。
-
