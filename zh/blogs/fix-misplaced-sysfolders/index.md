@@ -3,7 +3,7 @@ title: "误移系统文件夹恢复"
 author: 'Pinn Xu'
 date: 2024-04-22
 description: "恢复意外移到磁盘根目录的 Windows 系统文件夹, 如 `文档`, `视频`, `图片`等。"
-categories: [Windows, Powershell, 电脑技巧, 解决方案]
+categories: [Windows, desktop.ini, Powershell, 电脑技巧, 解决方案]
 image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png"
 ---
 
