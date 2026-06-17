@@ -169,27 +169,56 @@ figcaption {
 
 
 
-按指引添加 `LocalizedResourceName=保存的游戏`（@fig-modify-display-name），保存后文件名出现乱码（@fig-display-name-encode-error）。英文正常显示，中文乱码，说明编码格式不对。
+按照教程，在 `desktop.ini` 文件中新增如下内容（@fig-modify-display-name）：
+
+```ini
+LocalizedResourceName=保存的游戏
+```
+ 
+结果保存后文件名出现乱码（@fig-display-name-encode-error）——填写英文正常显示，但中文变成乱码，说明文件编码格式不对。
 
 ![修改文件显示名](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png){#fig-modify-display-name style="width:22rem;"}
 
 ![显示名变成乱码](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png){#fig-display-name-encode-error style="width:10rem;"}
 
 
+## 方法1：修改编码方式^[2026年06月16日 新增内容] {#方法1}
 
-查看未受影响的 `视频` 文件夹的 `desktop.ini`，发现其显示名称通过引用 `shell32.dll` 中的资源索引实现（格式为 `@%SystemRoot%\system32\shell32.dll,-XXXXX`），并非直接写入中文字符串。
+在记事本的右下角可见当前默认编码方式是 `UTF-8` ，经查证， `desktop.ini` 的编码应当为 `UTF-16 LE` 。
+
+![记事本默认编码](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png){#fig-default-encoding style="width:25rem;"}
+
+为了让中文不变成乱码，在填写中文名称后，点击 `文件 > 另存为` 。
+
+![另存为](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134348580.png){#fig-save-as style="width:30rem;"}
+
+选择 `保存类型 > 所有文件(*.*)` ，选择 `编码 > UTF-16 LE` ，然后保存，替换原文件。
+
+![修改编码](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134443109.png){#fig-modify-encoding style="width:35rem;"}
+
+等待一段时间后，文件名称恢复。
+
+![`保存的游戏` 复活](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png){#fig-rebirth-0 style="width:12rem;"}
+
+
+
+## 方法2：填写资源索引
+
+除了修改编码方式外，还可以填写资源索引。
+
+查看未受影响的 `视频` 文件夹的 `desktop.ini` 文件后，发现其显示名称通过引用 `shell32.dll` 中的资源索引实现（格式为 `@%SystemRoot%\system32\shell32.dll,-XXXXX`），并非直接写入中文字符串。
 
 !["视频"显示名信息来源](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png){#fig-name-info-source style="width:22rem;"}
 
 
 
-于是搜索 `shell32.dll` 中的名称资源编号。
+于是我搜索 `shell32.dll` 中的名称资源编号。
 
 ![搜索 `shell.32` 名称资源](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig28.png){#fig-search-name-resource style="width:25rem;"}
 
 
 
-搜索结果仅涉及图标资源，未找到名称编号。
+但搜索结果仅涉及图标资源，未找到名称编号。
 
 ![搜索结果: 对图标资源的讨论](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig29.png){#fig-search-result-icon-resource style="width:35rem;"}
 
@@ -208,7 +237,7 @@ figcaption {
 
 ![询问如何查看 `shell32.dll` 内容](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615213053253.png){#fig-ask-visual-studio style="width:35rem;"}
 
-编程零基础的我，手滑下载成了 Visual Studio **Code**。这一误打误撞，让我第一次接触到了 IDE。后来课上老师发现我用 VSCode 写作业而非 Jupyter，追问原因，我掏出了这篇文章。
+编程零基础的我，手滑下载成了 Visual Studio **Code**。这一误打误撞，让我第一次接触到了 IDE。后来课上老师发现我用 VSCode 写作业而非 Jupyter，追问原因，我掏出了这篇文章 <i class="bi bi-emoji-wink" style="color:var(--pf-primary)"></i>。
 
 ![VSCode 和 Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png){#fig-vscode-and-visual-studio style="width:20rem;"}
 
@@ -221,9 +250,24 @@ figcaption {
 
 但 Visual Studio 只能显示资源目录结构，无法直接确认条目编号，加之 `shell32.dll` 内容庞大，逐条查找并不现实。
 
-最后想到一个办法：直接对照另一台未修改过的电脑上的 `desktop.ini` 内容。结果正确编号是 `-21814`，与之前试过的 `-21810` 仅差 4，再多试几次可能就找到了。
+最后我只好直接对照另一台未修改过的电脑上的 `desktop.ini` 内容。结果正确编号是 `-21814`，与之前试过的 `-21810` 仅差 4，再多试几次可能就找到了。
+
+在 `保存的游戏` 文件夹的 `desktop.ini` 文件中新增如下内容：
+
+```ini
+LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21814
+```
 
 ![对照别人电脑更改后](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png){#fig-after-change style="width:25rem;"}
+
+除了 `保存的游戏` ，其他系统文件夹显示名称资源对应的编号可在 @tbl-name-resource 中查找。
+
+
+
+
+
+
+
 
 **"保存的游戏" —— 堂堂复活！**
 
@@ -234,7 +278,7 @@ figcaption {
 
 ![默认图标恢复](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png){#fig-default-icon style="width:25rem;"}
 
-教训：迁移系统文件夹时，只修改路径中的盘符，不要将根目录直接设为目标路径。
+**教训：迁移系统文件夹时，只修改路径中的盘符，不要将根目录直接设为目标路径。**
 
 ![移动系统文件：只修改盘符](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png){#fig-move-system-folder style="width:25rem;"}
 
@@ -248,12 +292,12 @@ Win10 系统文件夹（Shell Folders，如 `桌面`、`文档`、`图片`）被
 
 ## 解决方法
 
-1. **新建目标文件夹**（如 `E:\Users\UserName\Desktop\`）
+1. **新建目标文件夹**（如 `E:\Users\UserName\Videos\`）
 2. **修改注册表**
    - 按 `Win + R` 输入 `regedit`
    - 导航至 `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`
    - 找到数据值为磁盘根目录（如 `E:\`）的条目
-   - 将其改为新建文件夹的路径（如 `E:\Users\UserName\Desktop\`）
+   - 将其改为新建文件夹的路径（如 `E:\Users\UserName\Videos\`）
    - 保存后重启电脑
 3. **显示系统隐藏文件**
    - 打开目标文件夹
@@ -262,23 +306,38 @@ Win10 系统文件夹（Shell Folders，如 `桌面`、`文档`、`图片`）被
    - 取消勾选 `◻ 隐藏受保护的操作系统文件`
 4. **修改 `desktop.ini`**
    - 用记事本打开 `desktop.ini`
-   - 填写 `IconResource` 和 `LocalizedResourceName` 项
+   - 填写 `IconResource` 和 `LocalizedResourceName` 项，编号可在 @tbl-name-resource 查询
+   - 对于文件夹显示名称，若不想填写资源索引，也可直接填写中文，按照 [方法1](#方法1) 修改编码方式。
 
-```ini
-[.ShellClassInfo]
-LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,<显示名称对应编号>
-IconResource=%SystemRoot%\system32\imageres.dll,<图标对应编号>
-<其他项...>
-```
+   ```ini
+   [.ShellClassInfo]
+   LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,<显示名称资源编号>
+   IconResource=%SystemRoot%\system32\imageres.dll,<图标资源编号>
+   <其他项...>
+   ```
 
-> 注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。
-
-
-(未完)
+   > 注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。
 
 ## 系统文件夹对应资源表格
 
-表1：图标对应资源  
-表2：显示名称对应资源
+| 文件夹 | 显示名称资源编号^[除特殊标记外，其余名称资源均来自: `@%SystemRoot%\system32\shell32.dll,<编号>`] | 图标资源编号^[图标资源均来自 `%SystemRoot%\system32\imageres.dll,<编号>`] |
+| :----: | :------: | :------: |
+| 桌面 | -21769 | -183 |
+| 文档 | -21770 | -112 |
+| 图片 | -21779 | -113 |
+| 音乐 | -21790 | -108 |
+| 视频 | -21791 | -189 |
+| 下载 | -21798 | -184 |
+| 搜索 | -9031 | -18 |
+| 链接 | -21810 | -185 |
+| 收藏夹 | -21796 | -115 |
+| 保存的游戏 | -21814 | -177 |
+| 联系人 | wab32res.dll,-10100^[`联系人` 的名称资源来自: `@%CommonProgramFiles%\system\wab32res.dll,-10100`] | -181 |
+| 3D对象 | windows.storage.dll,-21825^[`3D对象` 的名称资源来自: `@%SystemRoot%\system32\windows.storage.dll,-21825`] | -198 |
+
+: 系统文件夹对应资源编号表 {#tbl-name-resource tbl-colwidths=[25,40,35]}
+
+
+
 
 > 注：也可以使用 `UTF-16 LE` 编码将中文字符直接写入 `LocalizedResourceName=` 字段（需先确认 `desktop.ini` 的实际编码格式），比查找 DLL 资源编号更便捷；若已有编号列表，直接复制使用亦可。
