@@ -470,7 +470,7 @@ h2#featured-projects::before,
     font-size: 0.7rem;
 }
 
-/* category pills */
+/* title block category pills */
 .quarto-title .quarto-categories {
     display: flex;
     flex-wrap: wrap;
@@ -483,13 +483,19 @@ h2#featured-projects::before,
     font-weight: 500;
     background: var(--pf-primary-light);
     color: var(--pf-primary-hover) !important;
-    border-radius: var(--pf-radius-pill);
-    padding: 0.2rem 0.65rem;
+    /* border-radius: var(--pf-radius-pill); */
+    border-radius: 8px;
+    /* padding: 0.2rem 0.65rem; */
+    padding: 0;
     border: 1px solid rgba(13,148,136,0.2);
     transition: background 0.15s;
+    display: flex;
 }
 .quarto-title .quarto-categories .quarto-category:hover {
     background: rgba(11, 146, 135, 0.2);
+}
+.quarto-title .quarto-categories .quarto-category a {
+    padding: 0.2rem 0.65rem;
 }
 
 /* article section headings — teal bar accent */
