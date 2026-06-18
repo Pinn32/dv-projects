@@ -124,6 +124,8 @@ format:
       - ./src/scripts/responsive-tag-bar.html
     
     toc: true
+    # toc-expand: true
+    # toc-depth: 3
     code-tools: true
       # toggle: true
       # source: true

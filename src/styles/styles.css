@@ -56,6 +56,13 @@ div.description {
 }
 
 /* figure / output caption ================================================= */
+
+/* figure caption center alignment */
+figcaption {
+    text-align: center;
+}
+
+/* 原生 figcaption tag, 和额外添加的 .caption */
 figcaption, 
 .caption {
     margin-top: 0;

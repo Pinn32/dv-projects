@@ -654,6 +654,7 @@ hr {
 /* 12. Code blocks — coder identity ====================================== */
 
 /* ── Code Tools / Menu / Dropdown Item ────────────────────────────────── */
+
 .navbar .dropdown-menu.show {
     display: inline-flex;
     flex-direction: column;
@@ -669,7 +670,9 @@ hr {
     padding: .4rem .6rem;
 }
 
-.navbar .dropdown-item:hover {
+/* nav (lang-switch) & code dropdown items hover */
+
+.dropdown-item:hover {
     background-color: #5ab5ad;
 }
 
@@ -749,12 +752,12 @@ code:not(.sourceCode) {
 #TOC .nav-link:hover,
 #TOC .nav-link.active {
     color: var(--pf-primary);
-    padding-left: 0.2rem;
+    /* padding-left: 0.2rem; */
 }
 #TOC .nav-link.active {
     font-weight: 500;
     border-left: 2px solid var(--pf-primary);
-    padding-left: 0.4rem;
+    /* padding-left: 0.4rem; */
 }
 
 

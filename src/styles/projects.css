@@ -195,8 +195,10 @@
 }
 
 /* hide the "(N)" count badge that Quarto appends */
+/* show counts & margin-left */
 .quarto-listing-category .category .quarto-category-count {
-    display: none;
+    /* display: none; */
+    margin-left: 0.2rem;
 }
 
 /* ── Quarto listing "no results" message ─────────────────────────── */
