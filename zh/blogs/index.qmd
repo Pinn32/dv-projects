@@ -1,6 +1,6 @@
 ---
 title: '博客'
-subtitle: '副标题占位符'
+subtitle: '所思、所学、所得。'
 sidebar: false
 toc: false
 back-to-top-navigation: false

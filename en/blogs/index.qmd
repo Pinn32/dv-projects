@@ -1,6 +1,6 @@
 ---
 title: 'Blogs'
-subtitle: 'Foo'
+subtitle: 'Thoughts, Notes, and Solutions'
 sidebar: false
 toc: false
 back-to-top-navigation: false
