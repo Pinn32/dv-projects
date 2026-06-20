@@ -56,6 +56,13 @@ div.description {
 }
 
 /* figure / output caption ================================================= */
+
+/* figure caption center alignment */
+figcaption {
+    text-align: center;
+}
+
+/* 原生 figcaption tag, 和额外添加的 .caption */
 figcaption, 
 .caption {
     margin-top: 0;
@@ -127,6 +134,11 @@ nav .quarto-page-breadcrumbs .breadcrumb-item::before {
     nav .breadcrumb, 
     nav .quarto-page-breadcrumbs {
         padding: 0.5rem 0;
+    }
+
+    /* 修复 991.98px 下时页面正文顶部的 margin */
+    #quarto-content > * {
+        margin-top: 0.5rem;
     }
 }
 

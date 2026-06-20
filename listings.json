@@ -23,7 +23,7 @@
     "listing": "/en/blogs/index.html",
     "items": [
       "/en/blogs/quarto-img-styles/index.html",
-      "/en/blogs/fix-misplaced-sysfolders/index.html"
+      "/en/blogs/recover-shellfolder/index.html"
     ]
   },
   {
@@ -50,7 +50,7 @@
     "listing": "/zh/blogs/index.html",
     "items": [
       "/zh/blogs/quarto-img-styles/index.html",
-      "/zh/blogs/fix-misplaced-sysfolders/index.html"
+      "/zh/blogs/recover-shellfolder/index.html"
     ]
   },
   {

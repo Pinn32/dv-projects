@@ -1,0 +1,2133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Pinn Xu">
+<meta name="description" content="恢复意外移到磁盘根目录的 Windows 系统文件夹, 如 文档, 视频, 图片等。">
+
+<title>误移系统文件夹恢复 – Pinn (Aiqi) Xu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../src/img/favicon/spark.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../../src/styles/styles.css">
+<link rel="stylesheet" href="../../../src/styles/portfolio.css">
+<link rel="stylesheet" href="../../../src/styles/projects.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo light-content">
+    <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Pinn (Aiqi) Xu</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="搜索"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/tutorials/index.html"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/blogs/index.html"> 
+<span class="menu-text">Blogs</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-translate"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
+            English
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
+            中文
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="https://github.com/Pinn32/dv-projects" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/in/aiqi-xu-71943b378/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/blogs/index.html">经验博客</a></li><li class="breadcrumb-item"><a href="../../../zh/blogs/recover-shellfolder/index.html">误移系统文件夹恢复</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../zh/projects/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">可视化项目</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/projects/ai-discourse/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">网络AI话语的演变</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">学生社交媒体使用与幸福感分析</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Twitter 加泰罗尼亚公投情感分析</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">全球签证费用地区分析</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spotify 最高播放量歌曲——音乐特征与受众趋势分析</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../zh/tutorials/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">数据分析教程</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tutorials/data-processing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">数据清理</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tutorials/amounts-and-distribution/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">数量与分布可视化</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tutorials/multivariate-plots/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">多变量图表</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tutorials/sankey-and-network/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">桑基图与网络图</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R 语言技巧</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../zh/blogs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">经验博客</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto 图片居中样式</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/blogs/recover-shellfolder/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">误移系统文件夹恢复</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/about/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">关于</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言"><span class="header-section-number">1</span> 前言</a></li>
+  <li><a href="#总结" id="toc-总结" class="nav-link" data-scroll-target="#总结"><span class="header-section-number">2</span> 总结</a>
+  <ul class="collapse">
+  <li><a href="#问题" id="toc-问题" class="nav-link" data-scroll-target="#问题"><span class="header-section-number">2.1</span> 问题</a></li>
+  <li><a href="#解决方法" id="toc-解决方法" class="nav-link" data-scroll-target="#解决方法"><span class="header-section-number">2.2</span> 解决方法</a></li>
+  </ul></li>
+  <li><a href="#问题-误移系统文件夹" id="toc-问题-误移系统文件夹" class="nav-link" data-scroll-target="#问题-误移系统文件夹"><span class="header-section-number">3</span> 问题: 误移系统文件夹</a></li>
+  <li><a href="#解决-修改注册表" id="toc-解决-修改注册表" class="nav-link" data-scroll-target="#解决-修改注册表"><span class="header-section-number">4</span> 解决: 修改注册表</a>
+  <ul class="collapse">
+  <li><a href="#恢复图标" id="toc-恢复图标" class="nav-link" data-scroll-target="#恢复图标"><span class="header-section-number">4.1</span> 恢复图标</a></li>
+  <li><a href="#恢复文件名" id="toc-恢复文件名" class="nav-link" data-scroll-target="#恢复文件名"><span class="header-section-number">4.2</span> 恢复文件名</a>
+  <ul class="collapse">
+  <li><a href="#方法1" id="toc-方法1" class="nav-link" data-scroll-target="#方法1">方法1：修改编码方式</a></li>
+  <li><a href="#方法2填写资源索引" id="toc-方法2填写资源索引" class="nav-link" data-scroll-target="#方法2填写资源索引">方法2：填写资源索引</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#附录系统文件夹对应资源" id="toc-附录系统文件夹对应资源" class="nav-link" data-scroll-target="#附录系统文件夹对应资源">附录：系统文件夹对应资源</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../zh/blogs/index.html">经验博客</a></li><li class="breadcrumb-item"><a href="../../../zh/blogs/recover-shellfolder/index.html">误移系统文件夹恢复</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">误移系统文件夹恢复</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Windows</div>
+    <div class="quarto-category">desktop.ini</div>
+    <div class="quarto-category">Powershell</div>
+    <div class="quarto-category">电脑技巧</div>
+    <div class="quarto-category">解决方案</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    恢复意外移到磁盘根目录的 Windows 系统文件夹, 如 <code>文档</code>, <code>视频</code>, <code>图片</code>等。
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pinn Xu </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">发布于</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2024年4月22日</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="reading-meta"><span>        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+        </svg>
+     8 min read</span><span> · </span><span>200 EN words</span><span> · </span><span>2087 中文字</span></div>
+<style>
+figcaption {
+   text-align: center;
+}
+</style>
+<section id="前言" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 前言</h1>
+<p>这是我在 Notion 写下的第一篇较长的问题解决记录，也是我养成”记录解决过程”这一习惯的起点，既为分享，也留作日后自查。</p>
+<p>写完之后，我用 Notion 记录的频率明显提高。此外，深究这个问题让我第一次接触到 VSCode，从此初识 IDE，也由此燃起了对编程的兴趣。</p>
+<p><a href="#总结">总结</a> 部分里提炼了核心结论与最简解决方案；正文中则详细记录了问题的发现与探索过程。</p>
+</section>
+<section id="总结" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 总结</h1>
+<section id="问题" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="问题"><span class="header-section-number">2.1</span> 问题</h2>
+<p>Win10 系统文件夹（Shell Folders，如 <code>桌面</code>、<code>文档</code>、<code>图片</code>）被意外移动至磁盘根目录（如 <code>D:\</code>、<code>E:\</code>），如何恢复？</p>
+</section>
+<section id="解决方法" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="解决方法"><span class="header-section-number">2.2</span> 解决方法</h2>
+<ol type="1">
+<li><strong>新建目标文件夹</strong>（如 <code>E:\Users\UserName\Videos\</code>）</li>
+<li><strong>修改注册表</strong>
+<ul>
+<li>按 <code>Win + R</code> 输入 <code>regedit</code></li>
+<li>导航至 <code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</code></li>
+<li>找到数据值为磁盘根目录（如 <code>E:\</code>）的条目</li>
+<li>将其改为新建文件夹的路径（如 <code>E:\Users\UserName\Videos\</code>）</li>
+<li>保存后重启电脑</li>
+</ul></li>
+<li><strong>显示系统隐藏文件</strong>
+<ul>
+<li>打开目标文件夹</li>
+<li>进入 <code>文件 &gt; 选项 &gt; 查看</code></li>
+<li>勾选 <code>⏺ 显示隐藏的文件、文件夹或驱动器</code></li>
+<li>取消勾选 <code>◻ 隐藏受保护的操作系统文件</code></li>
+</ul></li>
+<li><strong>修改 <code>desktop.ini</code></strong>
+<ul>
+<li>用记事本打开 <code>desktop.ini</code></li>
+<li>填写 <code>IconResource</code> 和 <code>LocalizedResourceName</code> 项，编号可在 <a href="#tbl-shellfolder-resource" class="quarto-xref">表&nbsp;1</a> 查询</li>
+<li>显示名称若不想引用资源索引，也可直接填写中文显示名 <code>LocalizedResourceName=&lt;中文显示名&gt;</code>，再按 <a href="#方法1">方法1</a> 修改编码方式并保存</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[.ShellClassInfo]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,&lt;显示名称资源编号&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">IconResource</span><span class="ot">=</span><span class="st">%SystemRoot%\system32\imageres.dll,&lt;图标资源编号&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;其他项...&gt;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。</p>
+</blockquote></li>
+</ol>
+</section>
+</section>
+<section id="问题-误移系统文件夹" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 问题: 误移系统文件夹</h1>
+<p>某天整理 C 盘，发现 <code>C:\Users\&lt;用户名&gt;</code> 下还有一批系统文件夹未迁移至 E 盘，便打算一并处理。</p>
+<div id="fig-sysfolders" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:8rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sysfolders-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="图&nbsp;1: 系统文件夹"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig1.png" class="img-fluid figure-img" style="width:8rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sysfolders-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;1: 系统文件夹
+</figcaption>
+</figure>
+</div>
+<p>我打开 <code>保存的游戏</code> 的 <code>属性 &gt; 位置</code>，把路径 <code>C:\Users\Lenovo\Saved Games</code> 直接改成 <code>E:\</code>，再点击 <code>移动</code>。</p>
+<div id="fig-relocate-folder" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:24rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-relocate-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="图&nbsp;2: 更改文件夹位置"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig2.png" class="img-fluid figure-img" style="width:24rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-relocate-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2: 更改文件夹位置
+</figcaption>
+</figure>
+</div>
+<p>结果 <code>保存的游戏</code> 就此消失——我这才意识到，自己把 E 盘根目录本身设成了目标路径。我开始搜索解决方案，但结果与预期不符。</p>
+<div id="fig-search-sol" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-search-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="图&nbsp;3: 搜寻解决办法"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig3.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-search-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3: 搜寻解决办法
+</figcaption>
+</figure>
+</div>
+<p>于是我改用其他系统文件夹作为关键词：<code>视频</code>（名字太常见，结果嘈杂）、<code>3D 对象</code>（名字独特，但知名度低）、<code>桌面</code>（情况特殊，方案未必通用）等。</p>
+<div id="fig-search-other-sysfolders" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-search-other-sysfolders-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="图&nbsp;4: 搜寻类似系统文件夹"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig4.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-search-other-sysfolders-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;4: 搜寻类似系统文件夹
+</figcaption>
+</figure>
+</div>
+<p>几经尝试，最终锁定了解决方案：修改注册表。</p>
+<div id="fig-sol-modify-reg" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sol-modify-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="图&nbsp;5: 解决办法: 修改注册表"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig5.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sol-modify-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;5: 解决办法: 修改注册表
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="解决-修改注册表" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 解决: 修改注册表</h1>
+<p>按照以下步骤执行：</p>
+<ol type="1">
+<li><p><strong>在 E 盘新建目标文件夹 <code>E:\Saved Games</code>，用于存放 <code>保存的游戏</code>。</strong></p></li>
+<li><p><strong>按 <code>Win + R</code> 打开运行窗口，输入 <code>regedit</code> 打开注册表编辑器。</strong></p></li>
+</ol>
+<div id="fig-open-reg" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-open-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="图&nbsp;6: 打开注册表"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig6.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-open-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;6: 打开注册表
+</figcaption>
+</figure>
+</div>
+<ol start="3" type="1">
+<li><p><strong>定位并修改路径</strong><br>
+导航至以下路径：<br>
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</code><br>
+（注意：是 <strong>User Shell Folders</strong>，不是 Shell Folders）</p>
+<p>找到数据值为 <code>E:\</code> 的条目，将其改为 <code>E:\Saved Games</code>。<br>
+（务必先建好文件夹，再改注册表）</p></li>
+</ol>
+<div id="fig-modify-reg" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modify-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="图&nbsp;7: 修改注册表"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png" class="img-fluid figure-img" style="width:40rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modify-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;7: 修改注册表
+</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li><strong>重启电脑，验证结果</strong><br>
+重启后按 <code>Win + R</code> 输入 <code>shell:SavedGames</code>，若能跳转到 <code>E:\Saved Games</code>，则恢复成功。</li>
+</ol>
+<div id="fig-test-reg" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-test-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="图&nbsp;8: 验证注册表修改成功"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;8: 验证注册表修改成功
+</figcaption>
+</figure>
+</div>
+<div id="fig-jump-saved-games" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-jump-saved-games-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="图&nbsp;9: 成功跳转 Saved Games"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jump-saved-games-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;9: 成功跳转 Saved Games
+</figcaption>
+</figure>
+</div>
+<p><strong>此时功能已恢复，但文件夹仍是默认图标，中文名称 <code>保存的游戏</code> 也未显示（见 <a href="#fig-sysfolders" class="quarto-xref">图&nbsp;1</a>）。以下步骤用于恢复其外观。</strong></p>
+<section id="恢复图标" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="恢复图标"><span class="header-section-number">4.1</span> 恢复图标</h2>
+<p>我首先尝试手动更改文件夹图标。</p>
+<div id="fig-search-fodler-icon" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-search-fodler-icon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="图&nbsp;10: 直接搜索图标"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig13.png" class="img-fluid figure-img" style="width:40rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-search-fodler-icon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;10: 直接搜索图标
+</figcaption>
+</figure>
+</div>
+<p>找到<a href="https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?" target="_blank">一篇文章</a>，介绍了 Windows 系统图标的存储位置。</p>
+<div id="fig-win-icon-loc" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-win-icon-loc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="图&nbsp;11: 文章: Win图标存储位置"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-win-icon-loc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;11: 文章: Win图标存储位置
+</figcaption>
+</figure>
+</div>
+<p>通过 <code>属性 &gt; 自定义 &gt; 更改图标</code> 发现，当前图标来自 <code>SHELL32.dll</code>，但其中并没有 <code>保存的游戏</code> 对应的图标，由此推断，系统还有其他存放图标的 DLL 文件。</p>
+<div id="fig-current-icon-loc" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-current-icon-loc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="属性 > 自定义 > 更改图标"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-1.png" class="img-fluid figure-img" style="width:85.0%"></a></p>
+<figcaption>属性 &gt; 自定义 &gt; 更改图标</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="当前图标位置"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png" class="img-fluid figure-img" style="width:85.0%"></a></p>
+<figcaption>当前图标位置</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-current-icon-loc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;12: 当前图标文件 - SHELL32.dll
+</figcaption>
+</figure>
+</div>
+<p>参照<a href="https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?">文章</a>列出的多个 DLL 逐一排查后，最终在 <code>imageres.dll</code> 中找到了 <code>保存的游戏</code> 的图标，以及 <code>桌面</code>、<code>视频</code> 等图标。</p>
+<div id="fig-icon-dll" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:20rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-icon-dll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="图&nbsp;13: 其他包含图标的系统文件"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png" class="img-fluid figure-img" style="width:20rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-icon-dll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;13: 其他包含图标的系统文件
+</figcaption>
+</figure>
+</div>
+<div id="fig-imageres" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imageres-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="图&nbsp;14: 找到图标 - imageres.dll"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imageres-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;14: 找到图标 - imageres.dll
+</figcaption>
+</figure>
+</div>
+<p>将图标指向正确的资源后，图标恢复正常。但文件夹的显示名称仍未还原为 <code>保存的游戏</code>。</p>
+<div id="fig-icon-recovered" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:10rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-icon-recovered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="图&nbsp;15: 成功恢复图标"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png" class="img-fluid figure-img" style="width:10rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-icon-recovered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;15: 成功恢复图标
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="恢复文件名" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="恢复文件名"><span class="header-section-number">4.2</span> 恢复文件名</h2>
+<p>搜索”如何让文件名与显示名不同”，找到了如下方案：</p>
+<div id="fig-search-results" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-search-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="搜索结果"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-1.png" class="img-fluid figure-img" style="width:60.0%"></a></p>
+<figcaption>搜索结果</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="搜索结果: 具体内容"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-2.png" class="img-fluid figure-img" style="width:60.0%"></a></p>
+<figcaption>搜索结果: 具体内容</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-search-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;16: 搜索结果 - 让文件名和显示名不一样
+</figcaption>
+</figure>
+</div>
+<p><strong>操作步骤：</strong></p>
+<ol type="1">
+<li><strong>勾选”显示隐藏的项目”</strong>，点击 <strong>选项</strong>。</li>
+<li><strong>点击”查看”</strong> 标签页。</li>
+<li><strong>取消勾选”隐藏受保护的操作系统文件”</strong>，点击 <strong>是</strong>。</li>
+</ol>
+<div id="fig-show-hidden" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:45rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-show-hidden-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig20.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="图&nbsp;17: 显示隐藏的项目"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig20.png" class="img-fluid figure-img" style="width:45rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-show-hidden-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;17: 显示隐藏的项目
+</figcaption>
+</figure>
+</div>
+<div id="fig-show-hidden-sysfiles" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-show-hidden-sysfiles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig21.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="图&nbsp;18: 取消隐藏受保护的操作系统文件"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig21.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-show-hidden-sysfiles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;18: 取消隐藏受保护的操作系统文件
+</figcaption>
+</figure>
+</div>
+<div id="fig-confirm" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-confirm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig22.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="图&nbsp;19: 确定显示"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig22.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confirm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;19: 确定显示
+</figcaption>
+</figure>
+</div>
+<p>此时 <code>Saved Games</code> 文件夹内出现 <code>desktop.ini</code> 文件。</p>
+<div id="fig-desktop-ini" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-desktop-ini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22" title="图&nbsp;20: desktop.ini 文件"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-desktop-ini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;20: desktop.ini 文件
+</figcaption>
+</figure>
+</div>
+<p>用记事本打开，可见其中 <code>IconResource</code> 条目已指向 <code>imageres.dll</code>，正是上一步恢复的图标。</p>
+<div id="fig-desktop-ini-content" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:22rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-desktop-ini-content-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig24.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23" title="图&nbsp;21: desktop.ini 文件具体内容"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig24.png" class="img-fluid figure-img" style="width:22rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-desktop-ini-content-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;21: desktop.ini 文件具体内容
+</figcaption>
+</figure>
+</div>
+<p>按照教程，在 <code>desktop.ini</code> 文件中新增如下内容（<a href="#fig-modify-display-name" class="quarto-xref">图&nbsp;22</a>）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">保存的游戏</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>但保存后文件名出现乱码（<a href="#fig-display-name-encode-error" class="quarto-xref">图&nbsp;23</a>）：英文能正常显示，中文却变成乱码，说明文件编码格式不对。</p>
+<div id="fig-modify-display-name" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:22rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modify-display-name-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24" title="图&nbsp;22: 修改文件显示名"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png" class="img-fluid figure-img" style="width:22rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modify-display-name-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;22: 修改文件显示名
+</figcaption>
+</figure>
+</div>
+<div id="fig-display-name-encode-error" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:10rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-display-name-encode-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25" title="图&nbsp;23: 显示名变成乱码"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png" class="img-fluid figure-img" style="width:10rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-display-name-encode-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;23: 显示名变成乱码
+</figcaption>
+</figure>
+</div>
+<section id="方法1" class="level3">
+<h3 class="anchored" data-anchor-id="方法1">方法1：修改编码方式<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></h3>
+<p>记事本右下角显示当前编码为 <code>UTF-8</code>，而经查证，<code>desktop.ini</code> 的编码应为 <code>UTF-16 LE</code>。</p>
+<div id="fig-default-encoding" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-default-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26" title="图&nbsp;24: 记事本默认编码"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-default-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;24: 记事本默认编码
+</figcaption>
+</figure>
+</div>
+<p>为避免中文乱码，在填好中文名称后，点击 <code>文件 &gt; 另存为</code>。</p>
+<div id="fig-save-as" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-save-as-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134348580.png" class="lightbox" data-gallery="quarto-lightbox-gallery-27" title="图&nbsp;25: 另存为"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134348580.png" class="img-fluid figure-img" style="width:30rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-save-as-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;25: 另存为
+</figcaption>
+</figure>
+</div>
+<p>将 <code>保存类型</code> 设为 <code>所有文件(*.*)</code>，<code>编码</code> 设为 <code>UTF-16 LE</code>，保存并替换原文件。</p>
+<div id="fig-modify-encoding" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modify-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134443109.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28" title="图&nbsp;26: 修改编码"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134443109.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modify-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;26: 修改编码
+</figcaption>
+</figure>
+</div>
+<p>稍等片刻，文件名称即恢复。</p>
+<div id="fig-rebirth-0" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:12rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rebirth-0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29" title="图&nbsp;27: 保存的游戏 复活"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png" class="img-fluid figure-img" style="width:12rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rebirth-0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;27: <code>保存的游戏</code> 复活
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="方法2填写资源索引" class="level3">
+<h3 class="anchored" data-anchor-id="方法2填写资源索引">方法2：填写资源索引</h3>
+<p>除了修改编码，还可以引用资源索引。</p>
+<p>查看未受影响的 <code>视频</code> 文件夹的 <code>desktop.ini</code>，发现其显示名称并非直接写入中文字符串，而是引用 <code>shell32.dll</code> 中的资源索引（格式为 <code>@%SystemRoot%\system32\shell32.dll,-XXXXX</code>）。</p>
+<div id="fig-name-info-source" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:22rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-name-info-source-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30" title="图&nbsp;28: “视频”显示名信息来源"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png" class="img-fluid figure-img" style="width:22rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-name-info-source-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;28: “视频”显示名信息来源
+</figcaption>
+</figure>
+</div>
+<p>于是我着手搜索 <code>shell32.dll</code> 中的名称资源编号。</p>
+<div id="fig-search-name-resource" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-search-name-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig28.png" class="lightbox" data-gallery="quarto-lightbox-gallery-31" title="图&nbsp;29: 搜索 shell.32 名称资源"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig28.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-search-name-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;29: 搜索 <code>shell.32</code> 名称资源
+</figcaption>
+</figure>
+</div>
+<p>但搜索结果只涉及图标资源，没有名称编号。</p>
+<div id="fig-search-result-icon-resource" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-search-result-icon-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig29.png" class="lightbox" data-gallery="quarto-lightbox-gallery-32" title="图&nbsp;30: 搜索结果: 对图标资源的讨论"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig29.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-search-result-icon-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;30: 搜索结果: 对图标资源的讨论
+</figcaption>
+</figure>
+</div>
+<p>转而向 AI 求助：</p>
+<div id="fig-ask-ai" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ask-ai-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212707012.png" class="lightbox" data-gallery="quarto-lightbox-gallery-33" title="图&nbsp;31: 求助AI"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212707012.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ask-ai-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;31: 求助AI
+</figcaption>
+</figure>
+</div>
+<p>但 ChatGPT 给出的编号是虚构的。</p>
+<div id="fig-fake-answer" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fake-answer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212844148.png" class="lightbox" data-gallery="quarto-lightbox-gallery-34" title="图&nbsp;32: 虚构答案"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212844148.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fake-answer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;32: 虚构答案
+</figcaption>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p>注：-21810 对应的是”链接”，并非”保存的游戏”。</p>
+</blockquote>
+<p>我又追问如何查看 <code>shell32.dll</code> 的内容，ChatGPT 推荐使用 Visual Studio。</p>
+<div id="fig-ask-visual-studio" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ask-visual-studio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615213053253.png" class="lightbox" data-gallery="quarto-lightbox-gallery-35" title="图&nbsp;33: 询问如何查看 shell32.dll 内容"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615213053253.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ask-visual-studio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;33: 询问如何查看 <code>shell32.dll</code> 内容
+</figcaption>
+</figure>
+</div>
+<p>编程零基础的我，手滑下载成了 Visual Studio <strong>Code</strong>。正是这一误打误撞，让我首次接触到 IDE。后来课上老师发现我用 VSCode 而非 Jupyter 写作业，追问缘由，我便掏出了这篇文章 <i class="bi bi-emoji-wink" style="color:var(--pf-primary)"></i>。</p>
+<div id="fig-vscode-and-visual-studio" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:15rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-vscode-and-visual-studio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png" class="lightbox" data-gallery="quarto-lightbox-gallery-36" title="图&nbsp;34: VSCode 和 Visual Studio"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png" class="img-fluid figure-img" style="width:15rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vscode-and-visual-studio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;34: VSCode 和 Visual Studio
+</figcaption>
+</figure>
+</div>
+<p>按 ChatGPT 指示，在 Visual Studio 中新建解决方案，加载 <code>C:\Windows\System32\shell32.dll</code> 查看资源目录。</p>
+<div id="fig-ai-suggest" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ai-suggest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215723081.png" class="lightbox" data-gallery="quarto-lightbox-gallery-37" title="图&nbsp;35: AI 指示"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215723081.png" class="img-fluid figure-img" style="width:40rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ai-suggest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;35: AI 指示
+</figcaption>
+</figure>
+</div>
+<div id="fig-vs-interface" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:45rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-vs-interface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png" class="lightbox" data-gallery="quarto-lightbox-gallery-38" title="图&nbsp;36: Visual Studio 界面"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png" class="img-fluid figure-img" style="width:45rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vs-interface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;36: Visual Studio 界面
+</figcaption>
+</figure>
+</div>
+<p>然而 Visual Studio 只能显示资源目录结构，无法直接确认条目编号；加之 <code>shell32.dll</code> 内容庞大，逐条查找并不现实。</p>
+<p>最后我只好直接对照另一台未修改过的电脑上的 <code>desktop.ini</code>。正确编号原来是 <code>-21814</code>，与之前试过的 <code>-21810</code> 仅差 4，再多试几次或许就碰对了。</p>
+<p>在 <code>保存的游戏</code> 文件夹的 <code>desktop.ini</code> 文件中新增如下内容：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,-21814</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-after-change" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-after-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png" class="lightbox" data-gallery="quarto-lightbox-gallery-39" title="图&nbsp;37: 对照别人电脑更改后"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-after-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;37: 对照别人电脑更改后
+</figcaption>
+</figure>
+</div>
+<p>除 <code>保存的游戏</code> 外，其他系统文件夹的显示名称资源编号可在 <a href="#tbl-shellfolder-resource" class="quarto-xref">表&nbsp;1</a> 中查询。</p>
+<p><strong>“保存的游戏” —— 堂堂复活！</strong></p>
+<div id="fig-rebirth" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:12rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rebirth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png" class="lightbox" data-gallery="quarto-lightbox-gallery-40" title="图&nbsp;38: 保存的游戏 复活"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png" class="img-fluid figure-img" style="width:12rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rebirth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;38: <code>保存的游戏</code> 复活
+</figcaption>
+</figure>
+</div>
+<p>至此，图标与显示名称均已恢复默认。</p>
+<div id="fig-default-icon" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-default-icon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png" class="lightbox" data-gallery="quarto-lightbox-gallery-41" title="图&nbsp;39: 默认图标恢复"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-default-icon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;39: 默认图标恢复
+</figcaption>
+</figure>
+</div>
+<p><strong>教训：迁移系统文件夹时，只修改路径中的盘符，不要将根目录直接设为目标路径。</strong></p>
+<div id="fig-move-system-folder" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-move-system-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png" class="lightbox" data-gallery="quarto-lightbox-gallery-42" title="图&nbsp;40: 移动系统文件：只修改盘符"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-move-system-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;40: 移动系统文件：只修改盘符
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="附录系统文件夹对应资源" class="level1 unnumbered">
+<h1 class="unnumbered">附录：系统文件夹对应资源</h1>
+<p>将下表 (<a href="#tbl-shellfolder-resource" class="quarto-xref">表&nbsp;1</a>) 中的名称资源编号和图片资源编号填入以下代码中：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,&lt;显示名称资源编号&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">IconResource</span><span class="ot">=</span><span class="st">%SystemRoot%\system32\imageres.dll,&lt;图标资源编号&gt;</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>以 <code>图片</code> 文件夹为例：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,-21779</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">IconResource</span><span class="ot">=</span><span class="st">%SystemRoot%\system32\imageres.dll,-113</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>注：<code>联系人</code> 和 <code>3D对象</code> 的显示名称资源并来自其他 DLL 文件 (见 <a href="#脚注">脚注</a>)。</p>
+</blockquote>
+<div id="tbl-shellfolder-resource" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[25,40,35]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-shellfolder-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+表&nbsp;1: 系统文件夹对应资源编号表
+</figcaption>
+<div aria-describedby="tbl-shellfolder-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 40%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">文件夹</th>
+<th style="text-align: center;">显示名称资源编号<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></th>
+<th style="text-align: center;">图标资源编号<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">桌面</td>
+<td style="text-align: center;">-21769</td>
+<td style="text-align: center;">-183</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">文档</td>
+<td style="text-align: center;">-21770</td>
+<td style="text-align: center;">-112</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">图片</td>
+<td style="text-align: center;">-21779</td>
+<td style="text-align: center;">-113</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">音乐</td>
+<td style="text-align: center;">-21790</td>
+<td style="text-align: center;">-108</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">视频</td>
+<td style="text-align: center;">-21791</td>
+<td style="text-align: center;">-189</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">下载</td>
+<td style="text-align: center;">-21798</td>
+<td style="text-align: center;">-184</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">搜索</td>
+<td style="text-align: center;">-9031</td>
+<td style="text-align: center;">-18</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">链接</td>
+<td style="text-align: center;">-21810</td>
+<td style="text-align: center;">-185</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">收藏夹</td>
+<td style="text-align: center;">-21796</td>
+<td style="text-align: center;">-115</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">保存的游戏</td>
+<td style="text-align: center;">-21814</td>
+<td style="text-align: center;">-177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">联系人</td>
+<td style="text-align: center;">wab32res.dll,-10100<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></td>
+<td style="text-align: center;">-181</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3D对象</td>
+<td style="text-align: center;">windows.storage.dll,-21825<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></td>
+<td style="text-align: center;">-198</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="https://superuser.com/a/1172777" target="_blank">&gt;&gt; 查看更多 desktop.ini 原始内容</a></p>
+
+
+<!-- -->
+
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> 回到顶部</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">脚注</h2>
+
+<ol>
+<li id="fn1"><p>2026年06月16日 新增内容<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>除特殊标记外，其余名称资源均来自: <code>@%SystemRoot%\system32\shell32.dll,&lt;编号&gt;</code><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>图标资源均来自 <code>%SystemRoot%\system32\imageres.dll,&lt;编号&gt;</code><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><code>联系人</code> 的名称资源来自: <code>@%CommonProgramFiles%\system\wab32res.dll,-10100</code><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><code>3D对象</code> 的名称资源来自: <code>@%SystemRoot%\system32\windows.storage.dll,-21825</code><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="fix-code-fold">
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
+            });
+        });
+    };
+
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
+</script>
+<script>
+    const switchLanguage = targetLang => {
+        const path = window.location.pathname;
+        // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
+        const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
+        if (match) {
+            const base = match[1];
+            const rest = match[3] || '/';
+            window.location.pathname = `${base}/${targetLang}${rest}`;
+        } else {
+            window.location.pathname = `/${targetLang}/`;
+        }
+    };
+
+    const NAV_TRANSLATIONS = {
+        en: { 
+            Projects: 'Projects', 
+            Tutorials: 'Tutorials', 
+            Hobbies: 'Hobbies', 
+            Blogs: 'Blogs',
+            About: 'About' 
+        },
+        zh: { 
+            Projects: '项目',    
+            Tutorials: '教程',       
+            Hobbies: '爱好',    
+            Blogs: '博客',
+            About: '关于' 
+        },
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(el => {
+            const text = el.textContent.trim();
+            if (text === 'English') {
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('en');
+                });
+            } else if (text === '中文') {
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('zh');
+                });
+            }
+        });
+
+        // Translate navbar left-side links to match the current page language
+        const langMatch = window.location.pathname.match(/\/(en|zh)\//);
+        const lang = langMatch ? langMatch[1] : 'en';
+        const translations = NAV_TRANSLATIONS[lang] ?? NAV_TRANSLATIONS.en;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(el => {
+            const text = el.textContent.trim();
+            if (translations[text]) {
+                el.textContent = translations[text];
+            }
+            // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
+            if (lang === 'zh' && el.href?.includes('/en/')) {
+                el.href = el.href.replace('/en/', '/zh/');
+            } else if (lang === 'en' && el.href?.includes('/zh/')) {
+                el.href = el.href.replace('/zh/', '/en/');
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.sidebar-item-section > .sidebar-item-container').forEach(row => {
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', e => {
+                // title text -> let the link navigate normally
+                if (e.target.closest('.sidebar-item-text')) return;
+                // chevron -> Bootstrap handles it natively; don't double-toggle
+                if (e.target.closest('.sidebar-item-toggle')) return;
+                // empty area of the row -> trigger the toggle once
+                row.querySelector('.sidebar-item-toggle')?.click();
+            });
+        });
+    });
+</script>
+<script id="fix-navbar-active">
+    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // lang-switch.html to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
+            }
+
+            const isActive = pageSection !== null && pageSection === linkSection;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
+</script>
+<script>
+    (() => {
+        const BREAKPOINT = 768;
+        let sidebar, titleBlock, mainEl, quartoContent;
+        let rafId = null;
+
+        const init = () => {
+            sidebar      = document.getElementById('quarto-margin-sidebar');
+            titleBlock   = document.getElementById('title-block-header');
+            mainEl       = document.querySelector('#quarto-content > main.content');
+            quartoContent = document.getElementById('quarto-content');
+        };
+
+        const relocate = () => {
+            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
+
+            if (window.innerWidth <= BREAKPOINT) {
+                // Place sidebar after the title block, inside main
+                if (sidebar.parentNode !== mainEl) {
+                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                }
+            } else {
+                // Restore sidebar as first child of #quarto-content (before main)
+                if (sidebar.parentNode !== quartoContent) {
+                    quartoContent.insertBefore(sidebar, mainEl);
+                }
+            }
+        };
+
+        const onResize = () => {
+            if (rafId !== null) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = null;
+                relocate();
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            relocate();
+        });
+        window.addEventListener('resize', onResize);
+    })();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Pinn32\.github\.io\/dv-projects\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "误移系统文件夹恢复"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2024-04-22</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "恢复意外移到磁盘根目录的 Windows 系统文件夹, 如 `文档`, `视频`, `图片`等。"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Windows, desktop.ini, Powershell, 电脑技巧, 解决方案]</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png"</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="an">toc-expand:</span><span class="co"> true</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="an">toc-expand-level:</span><span class="co"> 2</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="an">number-depth:</span><span class="co"> 2</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>figcaption {</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>   <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># 前言</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>这是我在 Notion 写下的第一篇较长的问题解决记录，也是我养成"记录解决过程"这一习惯的起点，既为分享，也留作日后自查。</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>写完之后，我用 Notion 记录的频率明显提高。此外，深究这个问题让我第一次接触到 VSCode，从此初识 IDE，也由此燃起了对编程的兴趣。</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">总结</span><span class="co">](#总结)</span> 部分里提炼了核心结论与最简解决方案；正文中则详细记录了问题的发现与探索过程。</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="fu"># 总结 {#总结}</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## 问题</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>Win10 系统文件夹（Shell Folders，如 <span class="in">`桌面`</span>、<span class="in">`文档`</span>、<span class="in">`图片`</span>）被意外移动至磁盘根目录（如 <span class="in">`D:\`</span>、<span class="in">`E:\`</span>），如何恢复？</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## 解决方法</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**新建目标文件夹**（如 <span class="in">`E:\Users\UserName\Videos\`</span>）</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**修改注册表**</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>按 <span class="in">`Win + R`</span> 输入 <span class="in">`regedit`</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>导航至 <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>找到数据值为磁盘根目录（如 <span class="in">`E:\`</span>）的条目</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>将其改为新建文件夹的路径（如 <span class="in">`E:\Users\UserName\Videos\`</span>）</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>保存后重启电脑</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**显示系统隐藏文件**</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>打开目标文件夹</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>进入 <span class="in">`文件 &gt; 选项 &gt; 查看`</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>勾选 <span class="in">`⏺ 显示隐藏的文件、文件夹或驱动器`</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>取消勾选 <span class="in">`◻ 隐藏受保护的操作系统文件`</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**修改 `desktop.ini`**</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>用记事本打开 <span class="in">`desktop.ini`</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>填写 <span class="in">`IconResource`</span> 和 <span class="in">`LocalizedResourceName`</span> 项，编号可在 @tbl-shellfolder-resource 查询</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>显示名称若不想引用资源索引，也可直接填写中文显示名 <span class="in">`LocalizedResourceName=&lt;中文显示名&gt;`</span>，再按 <span class="co">[</span><span class="ot">方法1</span><span class="co">](#方法1)</span> 修改编码方式并保存</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>   <span class="in">```ini</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="in">   [.ShellClassInfo]</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="in">   LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;显示名称资源编号&gt;</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="in">   IconResource=%SystemRoot%\system32\imageres.dll,&lt;图标资源编号&gt;</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="in">   &lt;其他项...&gt;</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>   <span class="at">&gt; 注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="fu"># 问题: 误移系统文件夹</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>某天整理 C 盘，发现 <span class="in">`C:\Users\&lt;用户名&gt;`</span> 下还有一批系统文件夹未迁移至 E 盘，便打算一并处理。</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="al">![系统文件夹](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig1.png)</span>{#fig-sysfolders style="width:8rem;"}</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>我打开 <span class="in">`保存的游戏`</span> 的 <span class="in">`属性 &gt; 位置`</span>，把路径 <span class="in">`C:\Users\Lenovo\Saved Games`</span> 直接改成 <span class="in">`E:\`</span>，再点击 <span class="in">`移动`</span>。</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="al">![更改文件夹位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig2.png)</span>{#fig-relocate-folder style="width:24rem;"}</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>结果 <span class="in">`保存的游戏`</span> 就此消失——我这才意识到，自己把 E 盘根目录本身设成了目标路径。我开始搜索解决方案，但结果与预期不符。</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="al">![搜寻解决办法](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig3.png)</span>{#fig-search-sol style="width:35rem;"}</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>于是我改用其他系统文件夹作为关键词：<span class="in">`视频`</span>（名字太常见，结果嘈杂）、<span class="in">`3D 对象`</span>（名字独特，但知名度低）、<span class="in">`桌面`</span>（情况特殊，方案未必通用）等。</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="al">![搜寻类似系统文件夹](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig4.png)</span>{#fig-search-other-sysfolders style="width:35rem;"} </span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>几经尝试，最终锁定了解决方案：修改注册表。</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a><span class="al">![解决办法: 修改注册表](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig5.png)</span>{#fig-sol-modify-reg style="width:35rem;"}</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="fu"># 解决: 修改注册表</span></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>按照以下步骤执行：</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**在 E 盘新建目标文件夹 `E:\Saved Games`，用于存放 `保存的游戏`。**</span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**按 `Win + R` 打开运行窗口，输入 `regedit` 打开注册表编辑器。**</span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="al">![打开注册表](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig6.png)</span>{#fig-open-reg style="width:25rem;"}</span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**定位并修改路径**  </span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>   导航至以下路径：  </span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>   <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span>  </span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>   （注意：是 **User Shell Folders**，不是 Shell Folders）  </span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>   找到数据值为 <span class="in">`E:\`</span> 的条目，将其改为 <span class="in">`E:\Saved Games`</span>。  </span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>   （务必先建好文件夹，再改注册表）</span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a><span class="al">![修改注册表](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png)</span>{#fig-modify-reg style="width:40rem;"}</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**重启电脑，验证结果**  </span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a>   重启后按 <span class="in">`Win + R`</span> 输入 <span class="in">`shell:SavedGames`</span>，若能跳转到 <span class="in">`E:\Saved Games`</span>，则恢复成功。</span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="al">![验证注册表修改成功](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png)</span>{#fig-test-reg style="width:25rem;"}</span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a><span class="al">![成功跳转 Saved Games](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png)</span>{#fig-jump-saved-games style="width:35rem;"}</span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>**此时功能已恢复，但文件夹仍是默认图标，中文名称 `保存的游戏` 也未显示（见 @fig-sysfolders）。以下步骤用于恢复其外观。**</span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a><span class="fu">## 恢复图标</span></span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>我首先尝试手动更改文件夹图标。</span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a><span class="al">![直接搜索图标](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig13.png)</span>{#fig-search-fodler-icon style="width:40rem;"}</span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>找到<span class="co">[</span><span class="ot">一篇文章</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span>{target="_blank"}，介绍了 Windows 系统图标的存储位置。</span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a><span class="al">![文章: Win图标存储位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png)</span>{#fig-win-icon-loc style="width:35rem;"}</span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>通过 <span class="in">`属性 &gt; 自定义 &gt; 更改图标`</span> 发现，当前图标来自 <span class="in">`SHELL32.dll`</span>，但其中并没有 <span class="in">`保存的游戏`</span> 对应的图标，由此推断，系统还有其他存放图标的 DLL 文件。</span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a>:::{#fig-current-icon-loc layout-ncol=2}</span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a><span class="al">![属性 &gt; 自定义 &gt; 更改图标](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-1.png)</span>{width="85%"}  </span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a><span class="al">![当前图标位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png)</span>{width="85%"}</span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>当前图标文件 - SHELL32.dll</span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>参照<span class="co">[</span><span class="ot">文章</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span>列出的多个 DLL 逐一排查后，最终在 <span class="in">`imageres.dll`</span> 中找到了 <span class="in">`保存的游戏`</span> 的图标，以及 <span class="in">`桌面`</span>、<span class="in">`视频`</span> 等图标。</span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a><span class="al">![其他包含图标的系统文件](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png)</span>{#fig-icon-dll style="width:20rem;"}</span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a><span class="al">![找到图标 - imageres.dll](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png)</span>{#fig-imageres style="width:25rem;"}</span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a>将图标指向正确的资源后，图标恢复正常。但文件夹的显示名称仍未还原为 <span class="in">`保存的游戏`</span>。</span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a><span class="al">![成功恢复图标](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png)</span>{#fig-icon-recovered style="width:10rem;"}</span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## 恢复文件名</span></span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>搜索"如何让文件名与显示名不同"，找到了如下方案：</span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>:::{#fig-search-results layout-nrow=2}</span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索结果](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-1.png)</span>{width="60%"}</span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索结果: 具体内容](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-2.png)</span>{width="60%"}</span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>搜索结果 - 让文件名和显示名不一样</span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>**操作步骤：**</span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**勾选"显示隐藏的项目"**，点击 **选项**。</span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**点击"查看"** 标签页。</span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**取消勾选"隐藏受保护的操作系统文件"**，点击 **是**。</span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="al">![显示隐藏的项目](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig20.png)</span>{#fig-show-hidden style="width:45rem;"}</span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a><span class="al">![取消隐藏受保护的操作系统文件](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig21.png)</span>{#fig-show-hidden-sysfiles style="width:25rem;"}</span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a><span class="al">![确定显示](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig22.png)</span>{#fig-confirm style="width:35rem;"}</span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>此时 <span class="in">`Saved Games`</span> 文件夹内出现 <span class="in">`desktop.ini`</span> 文件。</span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a><span class="al">![desktop.ini 文件](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png)</span>{#fig-desktop-ini style="width:35rem;"}</span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a>用记事本打开，可见其中 <span class="in">`IconResource`</span> 条目已指向 <span class="in">`imageres.dll`</span>，正是上一步恢复的图标。</span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a><span class="al">![desktop.ini 文件具体内容](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig24.png)</span>{#fig-desktop-ini-content style="width:22rem;"}</span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a>按照教程，在 <span class="in">`desktop.ini`</span> 文件中新增如下内容（@fig-modify-display-name）：</span>
+<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=保存的游戏</span></span>
+<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a>但保存后文件名出现乱码（@fig-display-name-encode-error）：英文能正常显示，中文却变成乱码，说明文件编码格式不对。</span>
+<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a><span class="al">![修改文件显示名](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png)</span>{#fig-modify-display-name style="width:22rem;"}</span>
+<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a><span class="al">![显示名变成乱码](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png)</span>{#fig-display-name-encode-error style="width:10rem;"}</span>
+<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a><span class="fu">### 方法1：修改编码方式^[2026年06月16日 新增内容] {#方法1}</span></span>
+<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a>记事本右下角显示当前编码为 <span class="in">`UTF-8`</span>，而经查证，<span class="in">`desktop.ini`</span> 的编码应为 <span class="in">`UTF-16 LE`</span>。</span>
+<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a><span class="al">![记事本默认编码](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png)</span>{#fig-default-encoding style="width:25rem;"}</span>
+<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a>为避免中文乱码，在填好中文名称后，点击 <span class="in">`文件 &gt; 另存为`</span>。</span>
+<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a><span class="al">![另存为](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134348580.png)</span>{#fig-save-as style="width:30rem;"}</span>
+<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a>将 <span class="in">`保存类型`</span> 设为 <span class="in">`所有文件(*.*)`</span>，<span class="in">`编码`</span> 设为 <span class="in">`UTF-16 LE`</span>，保存并替换原文件。</span>
+<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a><span class="al">![修改编码](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134443109.png)</span>{#fig-modify-encoding style="width:35rem;"}</span>
+<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>稍等片刻，文件名称即恢复。</span>
+<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a><span class="al">![`保存的游戏` 复活](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png)</span>{#fig-rebirth-0 style="width:12rem;"}</span>
+<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a><span class="fu">### 方法2：填写资源索引</span></span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>除了修改编码，还可以引用资源索引。</span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>查看未受影响的 <span class="in">`视频`</span> 文件夹的 <span class="in">`desktop.ini`</span>，发现其显示名称并非直接写入中文字符串，而是引用 <span class="in">`shell32.dll`</span> 中的资源索引（格式为 <span class="in">`@%SystemRoot%\system32\shell32.dll,-XXXXX`</span>）。</span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a><span class="al">!["视频"显示名信息来源](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png)</span>{#fig-name-info-source style="width:22rem;"}</span>
+<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a>于是我着手搜索 <span class="in">`shell32.dll`</span> 中的名称资源编号。</span>
+<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索 `shell.32` 名称资源](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig28.png)</span>{#fig-search-name-resource style="width:25rem;"}</span>
+<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a>但搜索结果只涉及图标资源，没有名称编号。</span>
+<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索结果: 对图标资源的讨论](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig29.png)</span>{#fig-search-result-icon-resource style="width:35rem;"}</span>
+<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a>转而向 AI 求助：</span>
+<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a><span class="al">![求助AI](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212707012.png)</span>{#fig-ask-ai style="width:35rem;"}</span>
+<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a>但 ChatGPT 给出的编号是虚构的。</span>
+<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a><span class="al">![虚构答案](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212844148.png)</span>{#fig-fake-answer style="width:35rem;"}</span>
+<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 注：-21810 对应的是"链接"，并非"保存的游戏"。</span></span>
+<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a>我又追问如何查看 <span class="in">`shell32.dll`</span> 的内容，ChatGPT 推荐使用 Visual Studio。</span>
+<span id="cb6-278"><a href="#cb6-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-279"><a href="#cb6-279" aria-hidden="true" tabindex="-1"></a><span class="al">![询问如何查看 `shell32.dll` 内容](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615213053253.png)</span>{#fig-ask-visual-studio style="width:35rem;"}</span>
+<span id="cb6-280"><a href="#cb6-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-281"><a href="#cb6-281" aria-hidden="true" tabindex="-1"></a>编程零基础的我，手滑下载成了 Visual Studio **Code**。正是这一误打误撞，让我首次接触到 IDE。后来课上老师发现我用 VSCode 而非 Jupyter 写作业，追问缘由，我便掏出了这篇文章 <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-wink"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>。</span>
+<span id="cb6-282"><a href="#cb6-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-283"><a href="#cb6-283" aria-hidden="true" tabindex="-1"></a><span class="al">![VSCode 和 Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png)</span>{#fig-vscode-and-visual-studio style="width:15rem;"}</span>
+<span id="cb6-284"><a href="#cb6-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-285"><a href="#cb6-285" aria-hidden="true" tabindex="-1"></a>按 ChatGPT 指示，在 Visual Studio 中新建解决方案，加载 <span class="in">`C:\Windows\System32\shell32.dll`</span> 查看资源目录。</span>
+<span id="cb6-286"><a href="#cb6-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-287"><a href="#cb6-287" aria-hidden="true" tabindex="-1"></a><span class="al">![AI 指示](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215723081.png)</span>{#fig-ai-suggest style="width:40rem;"}</span>
+<span id="cb6-288"><a href="#cb6-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-289"><a href="#cb6-289" aria-hidden="true" tabindex="-1"></a><span class="al">![Visual Studio 界面](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png)</span>{#fig-vs-interface style="width:45rem;"}</span>
+<span id="cb6-290"><a href="#cb6-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-291"><a href="#cb6-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-292"><a href="#cb6-292" aria-hidden="true" tabindex="-1"></a>然而 Visual Studio 只能显示资源目录结构，无法直接确认条目编号；加之 <span class="in">`shell32.dll`</span> 内容庞大，逐条查找并不现实。</span>
+<span id="cb6-293"><a href="#cb6-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-294"><a href="#cb6-294" aria-hidden="true" tabindex="-1"></a>最后我只好直接对照另一台未修改过的电脑上的 <span class="in">`desktop.ini`</span>。正确编号原来是 <span class="in">`-21814`</span>，与之前试过的 <span class="in">`-21810`</span> 仅差 4，再多试几次或许就碰对了。</span>
+<span id="cb6-295"><a href="#cb6-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-296"><a href="#cb6-296" aria-hidden="true" tabindex="-1"></a>在 <span class="in">`保存的游戏`</span> 文件夹的 <span class="in">`desktop.ini`</span> 文件中新增如下内容：</span>
+<span id="cb6-297"><a href="#cb6-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-298"><a href="#cb6-298" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb6-299"><a href="#cb6-299" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21814</span></span>
+<span id="cb6-300"><a href="#cb6-300" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-301"><a href="#cb6-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-302"><a href="#cb6-302" aria-hidden="true" tabindex="-1"></a><span class="al">![对照别人电脑更改后](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png)</span>{#fig-after-change style="width:25rem;"}</span>
+<span id="cb6-303"><a href="#cb6-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-304"><a href="#cb6-304" aria-hidden="true" tabindex="-1"></a>除 <span class="in">`保存的游戏`</span> 外，其他系统文件夹的显示名称资源编号可在 @tbl-shellfolder-resource 中查询。</span>
+<span id="cb6-305"><a href="#cb6-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-306"><a href="#cb6-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-307"><a href="#cb6-307" aria-hidden="true" tabindex="-1"></a>**"保存的游戏" —— 堂堂复活！**</span>
+<span id="cb6-308"><a href="#cb6-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-309"><a href="#cb6-309" aria-hidden="true" tabindex="-1"></a><span class="al">![`保存的游戏` 复活](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png)</span>{#fig-rebirth style="width:12rem;"}</span>
+<span id="cb6-310"><a href="#cb6-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-311"><a href="#cb6-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-312"><a href="#cb6-312" aria-hidden="true" tabindex="-1"></a>至此，图标与显示名称均已恢复默认。</span>
+<span id="cb6-313"><a href="#cb6-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-314"><a href="#cb6-314" aria-hidden="true" tabindex="-1"></a><span class="al">![默认图标恢复](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png)</span>{#fig-default-icon style="width:25rem;"}</span>
+<span id="cb6-315"><a href="#cb6-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-316"><a href="#cb6-316" aria-hidden="true" tabindex="-1"></a>**教训：迁移系统文件夹时，只修改路径中的盘符，不要将根目录直接设为目标路径。**</span>
+<span id="cb6-317"><a href="#cb6-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-318"><a href="#cb6-318" aria-hidden="true" tabindex="-1"></a><span class="al">![移动系统文件：只修改盘符](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png)</span>{#fig-move-system-folder style="width:25rem;"}</span>
+<span id="cb6-319"><a href="#cb6-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-320"><a href="#cb6-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-321"><a href="#cb6-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-322"><a href="#cb6-322" aria-hidden="true" tabindex="-1"></a><span class="fu"># 附录：系统文件夹对应资源 {.unnumbered}</span></span>
+<span id="cb6-323"><a href="#cb6-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-324"><a href="#cb6-324" aria-hidden="true" tabindex="-1"></a>将下表 (@tbl-shellfolder-resource) 中的名称资源编号和图片资源编号填入以下代码中：</span>
+<span id="cb6-325"><a href="#cb6-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-326"><a href="#cb6-326" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb6-327"><a href="#cb6-327" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;显示名称资源编号&gt;</span></span>
+<span id="cb6-328"><a href="#cb6-328" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,&lt;图标资源编号&gt;</span></span>
+<span id="cb6-329"><a href="#cb6-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-330"><a href="#cb6-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-331"><a href="#cb6-331" aria-hidden="true" tabindex="-1"></a>以 <span class="in">`图片`</span> 文件夹为例：</span>
+<span id="cb6-332"><a href="#cb6-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-333"><a href="#cb6-333" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb6-334"><a href="#cb6-334" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21779</span></span>
+<span id="cb6-335"><a href="#cb6-335" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,-113</span></span>
+<span id="cb6-336"><a href="#cb6-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-337"><a href="#cb6-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-338"><a href="#cb6-338" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 注：</span><span class="in">`联系人`</span><span class="at"> 和 </span><span class="in">`3D对象`</span><span class="at"> 的显示名称资源并来自其他 DLL 文件 (见 </span><span class="co">[</span><span class="ot">脚注</span><span class="co">](#脚注)</span><span class="at">)。</span></span>
+<span id="cb6-339"><a href="#cb6-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-340"><a href="#cb6-340" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文件夹 <span class="pp">|</span> 显示名称资源编号^<span class="co">[</span><span class="ot">除特殊标记外，其余名称资源均来自: `@%SystemRoot%\system32\shell32.dll,&lt;编号&gt;`</span><span class="co">]</span> <span class="pp">|</span> 图标资源编号^<span class="co">[</span><span class="ot">图标资源均来自 `%SystemRoot%\system32\imageres.dll,&lt;编号&gt;`</span><span class="co">]</span> <span class="pp">|</span></span>
+<span id="cb6-341"><a href="#cb6-341" aria-hidden="true" tabindex="-1"></a><span class="pp">| :----:</span> <span class="pp">| :------:</span> <span class="pp">| :------:</span> <span class="pp">|</span></span>
+<span id="cb6-342"><a href="#cb6-342" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 桌面 <span class="pp">|</span> -21769 <span class="pp">|</span> -183 <span class="pp">|</span></span>
+<span id="cb6-343"><a href="#cb6-343" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文档 <span class="pp">|</span> -21770 <span class="pp">|</span> -112 <span class="pp">|</span></span>
+<span id="cb6-344"><a href="#cb6-344" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 图片 <span class="pp">|</span> -21779 <span class="pp">|</span> -113 <span class="pp">|</span></span>
+<span id="cb6-345"><a href="#cb6-345" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 音乐 <span class="pp">|</span> -21790 <span class="pp">|</span> -108 <span class="pp">|</span></span>
+<span id="cb6-346"><a href="#cb6-346" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 视频 <span class="pp">|</span> -21791 <span class="pp">|</span> -189 <span class="pp">|</span></span>
+<span id="cb6-347"><a href="#cb6-347" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 下载 <span class="pp">|</span> -21798 <span class="pp">|</span> -184 <span class="pp">|</span></span>
+<span id="cb6-348"><a href="#cb6-348" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 搜索 <span class="pp">|</span> -9031 <span class="pp">|</span> -18 <span class="pp">|</span></span>
+<span id="cb6-349"><a href="#cb6-349" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 链接 <span class="pp">|</span> -21810 <span class="pp">|</span> -185 <span class="pp">|</span></span>
+<span id="cb6-350"><a href="#cb6-350" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 收藏夹 <span class="pp">|</span> -21796 <span class="pp">|</span> -115 <span class="pp">|</span></span>
+<span id="cb6-351"><a href="#cb6-351" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 保存的游戏 <span class="pp">|</span> -21814 <span class="pp">|</span> -177 <span class="pp">|</span></span>
+<span id="cb6-352"><a href="#cb6-352" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 联系人 <span class="pp">|</span> wab32res.dll,-10100^<span class="co">[</span><span class="ot">`联系人` 的名称资源来自: `@%CommonProgramFiles%\system\wab32res.dll,-10100`</span><span class="co">]</span> <span class="pp">|</span> -181 <span class="pp">|</span></span>
+<span id="cb6-353"><a href="#cb6-353" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3D对象 <span class="pp">|</span> windows.storage.dll,-21825^<span class="co">[</span><span class="ot">`3D对象` 的名称资源来自: `@%SystemRoot%\system32\windows.storage.dll,-21825`</span><span class="co">]</span> <span class="pp">|</span> -198 <span class="pp">|</span></span>
+<span id="cb6-354"><a href="#cb6-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-355"><a href="#cb6-355" aria-hidden="true" tabindex="-1"></a>: 系统文件夹对应资源编号表 {#tbl-shellfolder-resource tbl-colwidths=<span class="co">[</span><span class="ot">25,40,35</span><span class="co">]</span>}</span>
+<span id="cb6-356"><a href="#cb6-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-357"><a href="#cb6-357" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; 查看更多 desktop.ini 原始内容</span><span class="co">](https://superuser.com/a/1172777)</span>{target="_blank"}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

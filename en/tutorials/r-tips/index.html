@@ -154,10 +154,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../en/hobbies/index.html"> 
-<span class="menu-text">Hobbies</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../../../en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
@@ -239,13 +235,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Global Visa Cost Analysis and Interactive Visualization</span></a>
+ <span class="menu-text">Global Visa Cost Geographical Analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis</span></a>
+ <span class="menu-text">Spotify Most Streamed Songs</span></a>
   </div>
 </li>
       </ul>
@@ -303,13 +299,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quarto 图片居中样式</span></a>
+ <span class="menu-text">Quarto Image Centering Styles</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../en/blogs/fix-misplaced-sysfolders/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">误移系统文件夹恢复</span></a>
+  <a href="../../../en/blogs/recover-shellfolder/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recovering Misplaced Windows Shell Folders</span></a>
   </div>
 </li>
       </ul>
@@ -427,7 +423,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     5 min read</span><span> · </span><span>896 EN words</span><span> · </span><span>15 中文字</span></div>
+     5 min read</span><span> · </span><span>891 EN words</span><span> · </span><span>0 中文字</span></div>
 <section id="top-tips" class="level1 unnumbered">
 <h1 class="unnumbered">Top Tips</h1>
 <table class="caption-top table">
@@ -1469,6 +1465,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         sidebarSearchWrapper.replaceChildren(btn);
     });
+</script>
+<script>
+    (() => {
+        const BREAKPOINT = 768;
+        let sidebar, titleBlock, mainEl, quartoContent;
+        let rafId = null;
+
+        const init = () => {
+            sidebar      = document.getElementById('quarto-margin-sidebar');
+            titleBlock   = document.getElementById('title-block-header');
+            mainEl       = document.querySelector('#quarto-content > main.content');
+            quartoContent = document.getElementById('quarto-content');
+        };
+
+        const relocate = () => {
+            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
+
+            if (window.innerWidth <= BREAKPOINT) {
+                // Place sidebar after the title block, inside main
+                if (sidebar.parentNode !== mainEl) {
+                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                }
+            } else {
+                // Restore sidebar as first child of #quarto-content (before main)
+                if (sidebar.parentNode !== quartoContent) {
+                    quartoContent.insertBefore(sidebar, mainEl);
+                }
+            }
+        };
+
+        const onResize = () => {
+            if (rafId !== null) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = null;
+                relocate();
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            relocate();
+        });
+        window.addEventListener('resize', onResize);
+    })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

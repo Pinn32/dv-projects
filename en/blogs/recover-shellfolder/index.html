@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Pinn Xu">
+<meta name="dcterms.date" content="2024-04-22">
+<meta name="description" content="Recovering Windows shell folders such as Documents, Videos, and Pictures after they were accidentally moved to the root of a drive.">
+
+<title>Recovering Misplaced Windows Shell Folders – Pinn (Aiqi) Xu</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../src/img/favicon/spark.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../../../src/styles/styles.css">
+<link rel="stylesheet" href="../../../src/styles/portfolio.css">
+<link rel="stylesheet" href="../../../src/styles/projects.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo light-content">
+    <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Pinn (Aiqi) Xu</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../en/projects/index.html" aria-current="page"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/tutorials/index.html"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../en/blogs/index.html"> 
+<span class="menu-text">Blogs</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-translate"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
+            English
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
+            中文
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="https://github.com/Pinn32/dv-projects" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/in/aiqi-xu-71943b378/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../en/blogs/index.html">Blogs</a></li><li class="breadcrumb-item"><a href="../../../en/blogs/recover-shellfolder/index.html">Recovering Misplaced Windows Shell Folders</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/projects/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projects</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/ai-discourse/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evolution of Online AI Discourse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Student Social Media Usage and Well-being Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Twitter Sentiment Analysis of Catalan Referendum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Global Visa Cost Geographical Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spotify Most Streamed Songs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/tutorials/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/data-processing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/amounts-and-distribution/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amounts and Distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/multivariate-plots/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multivariate Plots</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/sankey-and-network/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sankey Diagrams and Network Graphs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Tips</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/blogs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Blogs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto Image Centering Styles</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/recover-shellfolder/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Recovering Misplaced Windows Shell Folders</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/about/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface"><span class="header-section-number">1</span> Preface</a></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways"><span class="header-section-number">2</span> Takeaways</a>
+  <ul class="collapse">
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link" data-scroll-target="#the-problem"><span class="header-section-number">2.1</span> The Problem</a></li>
+  <li><a href="#the-fix" id="toc-the-fix" class="nav-link" data-scroll-target="#the-fix"><span class="header-section-number">2.2</span> The Fix</a></li>
+  </ul></li>
+  <li><a href="#the-problem-moving-a-shell-folder-by-mistake" id="toc-the-problem-moving-a-shell-folder-by-mistake" class="nav-link" data-scroll-target="#the-problem-moving-a-shell-folder-by-mistake"><span class="header-section-number">3</span> The Problem: Moving a Shell Folder by Mistake</a></li>
+  <li><a href="#the-fix-editing-the-registry" id="toc-the-fix-editing-the-registry" class="nav-link" data-scroll-target="#the-fix-editing-the-registry"><span class="header-section-number">4</span> The Fix: Editing the Registry</a>
+  <ul class="collapse">
+  <li><a href="#restoring-the-icon" id="toc-restoring-the-icon" class="nav-link" data-scroll-target="#restoring-the-icon"><span class="header-section-number">4.1</span> Restoring the Icon</a></li>
+  <li><a href="#localized-name" id="toc-localized-name" class="nav-link" data-scroll-target="#localized-name"><span class="header-section-number">4.2</span> Restoring a Localized Display Name</a>
+  <ul class="collapse">
+  <li><a href="#method-1" id="toc-method-1" class="nav-link" data-scroll-target="#method-1">Method 1: Change the File Encoding</a></li>
+  <li><a href="#method-2-reference-a-resource-index" id="toc-method-2-reference-a-resource-index" class="nav-link" data-scroll-target="#method-2-reference-a-resource-index">Method 2: Reference a Resource Index</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#appendix-resource-indices-for-shell-folders" id="toc-appendix-resource-indices-for-shell-folders" class="nav-link" data-scroll-target="#appendix-resource-indices-for-shell-folders">Appendix: Resource Indices for Shell Folders</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../en/blogs/index.html">Blogs</a></li><li class="breadcrumb-item"><a href="../../../en/blogs/recover-shellfolder/index.html">Recovering Misplaced Windows Shell Folders</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Recovering Misplaced Windows Shell Folders</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Windows</div>
+    <div class="quarto-category">desktop.ini</div>
+    <div class="quarto-category">Shell Folders</div>
+    <div class="quarto-category">Computer Tips</div>
+    <div class="quarto-category">Knowhow</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Recovering Windows shell folders such as Documents, Videos, and Pictures after they were accidentally moved to the root of a drive.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pinn Xu </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 22, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="reading-meta"><span>        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+        </svg>
+     9 min read</span><span> · </span><span>1586 EN words</span><span> · </span><span>29 中文字</span></div>
+<style>
+figcaption {
+   text-align: center;
+}
+</style>
+<section id="preface" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Preface</h1>
+<p>This was the first extended troubleshooting write-up I kept in Notion, and it marked the start of my habit of documenting how I solve problems, both to share and to reference later.</p>
+<p>The write-up prompted me to adopt Notion much more often as a regular tool. Investigating this particular problem also introduced me to VSCode, my first encounter with an IDE, and it is where my interest in programming began.</p>
+<p>The <a href="#takeaways">Takeaways</a> section presents the summary of the problem and the shortest path to a fix. The remainder of the article documents how I diagnosed the problem and worked through it.</p>
+</section>
+<section id="takeaways" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Takeaways</h1>
+<section id="the-problem" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="the-problem"><span class="header-section-number">2.1</span> The Problem</h2>
+<p>A Windows 10 shell folder (e.g., <code>Desktop</code>, <code>Documents</code>, <code>Pictures</code> ) was accidentally moved to the root of a drive (e.g., <code>D:\</code>, <code>E:\</code>). How can it be recovered?</p>
+</section>
+<section id="the-fix" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="the-fix"><span class="header-section-number">2.2</span> The Fix</h2>
+<ol type="1">
+<li><strong>Create the target folder</strong> (e.g., <code>E:\Users\UserName\Videos\</code>).</li>
+<li><strong>Edit the registry.</strong>
+<ul>
+<li>Press <code>Win + R</code> and type <code>regedit</code>.</li>
+<li>Go to <code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</code>.</li>
+<li>Find the entry whose value is the drive root (e.g., <code>E:\</code>).</li>
+<li>Change it to the path of the folder you just created (e.g., <code>E:\Users\UserName\Videos\</code>).</li>
+<li>Save and restart the computer.</li>
+</ul></li>
+<li><strong>Show hidden system files.</strong>
+<ul>
+<li>Open the target folder.</li>
+<li>Go to <code>File &gt; Options &gt; View</code>.</li>
+<li>Check <code>⏺ Show hidden files, folders, and drives</code>.</li>
+<li>Uncheck <code>◻ Hide protected operating system files</code>.</li>
+</ul></li>
+<li><strong>Restore icon &amp; display name.</strong>
+<ul>
+<li>Find <code>desktop.ini</code> in the target folder, open it in Notepad.</li>
+<li>Set the <code>IconResource</code> and <code>LocalizedResourceName</code> entries to the right resource index (listed in <a href="#tbl-shellfolder-resource" class="quarto-xref">Table&nbsp;1</a>).</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[.ShellClassInfo]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">IconResource</span><span class="ot">=</span><span class="st">%SystemRoot%\system32\imageres.dll,&lt;IconResource index&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;OtherEntries...&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>Once finished, remember to re-hide the system files revealed in step 3.</p>
+</blockquote></li>
+</ol>
+</section>
+</section>
+<section id="the-problem-moving-a-shell-folder-by-mistake" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> The Problem: Moving a Shell Folder by Mistake</h1>
+<p>While cleaning up my C drive one day, I noticed that a batch of shell folders under <code>C:\Users\&lt;username&gt;</code> had not yet been moved to the E drive, so I decided to relocate them all at once.</p>
+<div id="fig-sysfolders" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:12rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sysfolders-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618163644834.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: System Folders"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618163644834.png" class="img-fluid figure-img" style="width:12rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sysfolders-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: System Folders
+</figcaption>
+</figure>
+</div>
+<p>Taking the <em>Saved Games</em> file as an example, I opened its <code>Properties</code> , and clicked <code>Location</code> tab. Then I changed its path from <code>C:\Users\Lenovo\Saved Games</code> to <code>E:\</code>, and clicked <code>Move</code>.</p>
+<div id="fig-relocate-folder" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:24rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-relocate-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618164612644.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Changing the Folder Location"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618164612644.png" class="img-fluid figure-img" style="width:24rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-relocate-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Changing the Folder Location
+</figcaption>
+</figure>
+</div>
+<p>However, the Saved Games folder suddenly vanished. At that point I realized I had set the root of the E drive itself as the destination. I thus began searching for a fix, but the results were not what I expected — people are talking about games rather than Windows shell folders.</p>
+<p>I then tried other shell folders as search terms: <em>Videos</em> (too common a word, yielding noisy results), <em>3D Objects</em> (a distinctive name, but obscure), <em>Desktop</em> (a special case whose fixes might not generalize), etc.</p>
+<p>After a few attempts, I settled on a solution: editing the registry.</p>
+<div id="fig-sol-modify-reg" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sol-modify-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619150258176.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: The Fix: Editing the Registry"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619150258176.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sol-modify-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: The Fix: Editing the Registry
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-fix-editing-the-registry" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> The Fix: Editing the Registry</h1>
+<p>The steps are as follows:</p>
+<ol type="1">
+<li><p><strong>Create the target folder <code>E:\Saved Games\</code> to hold the Saved Games folder where you want to move.</strong></p></li>
+<li><p><strong>Press <code>Win + R</code> to open the Run dialog, type <code>regedit</code>, and open the Registry Editor.</strong></p></li>
+</ol>
+<div id="fig-open-reg" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-open-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618165301964.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Opening the Registry Editor"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618165301964.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-open-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Opening the Registry Editor
+</figcaption>
+</figure>
+</div>
+<ol start="3" type="1">
+<li><p><strong>Locate and change the path.</strong><br>
+Go to:<br>
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders</code></p>
+<p>Find the entry whose value is <code>E:\</code> and change it to <code>E:\Saved Games</code>.<br>
+(Be sure to create the folder before editing the registry.)</p></li>
+</ol>
+<div id="fig-modify-reg" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modify-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Editing the Registry"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png" class="img-fluid figure-img" style="width:40rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modify-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Editing the Registry
+</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li><strong>Restart and verify.</strong><br>
+After restarting your computer, press <code>Win + R</code> and type <code>shell:SavedGames</code>. If it opens <code>E:\Saved Games</code>, the recovery succeeded.</li>
+</ol>
+<div id="fig-test-reg" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-test-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Verifying the Registry Change"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-test-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Verifying the Registry Change
+</figcaption>
+</figure>
+</div>
+<div id="fig-jump-saved-games" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-jump-saved-games-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Jumping to Saved Games"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jump-saved-games-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Jumping to Saved Games
+</figcaption>
+</figure>
+</div>
+<p><strong>At this point the folder works again, but it still shows the default folder icon.</strong></p>
+<section id="restoring-the-icon" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="restoring-the-icon"><span class="header-section-number">4.1</span> Restoring the Icon</h2>
+<p><a href="https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?" target="_blank">An article</a> was found explaining where Windows stores its system icons.</p>
+<div id="fig-win-icon-loc" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-win-icon-loc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;8: Article: Where Windows Stores Icons"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-win-icon-loc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Article: Where Windows Stores Icons
+</figcaption>
+</figure>
+</div>
+<p>Through <code>Properties &gt; Customize &gt; Change Icon</code>, I found that the current icon source was <code>SHELL32.dll</code> . However, the <em>Saved Games</em> icon was not included there, suggesting that shell folder icons are stored across multiple DLL files.</p>
+<div id="fig-current-icon-loc" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-current-icon-loc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618175423568.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Properties > Customize > Change Icon"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618175423568.png" class="img-fluid figure-img" style="width:90.0%"></a></p>
+<figcaption>Properties &gt; Customize &gt; Change Icon</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Current Icon Location"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png" class="img-fluid figure-img" style="width:90.0%"></a></p>
+<figcaption>Current Icon Location</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-current-icon-loc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Current icon file: SHELL32.dll
+</figcaption>
+</figure>
+</div>
+<p>I went through the DLL files listed in <a href="https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?">the article</a> and eventually found the <em>Saved Games</em> icon in <code>imageres.dll</code>, along with the icons for <em>Desktop</em>, <em>Videos</em>, and others.</p>
+<div id="fig-icon-dll" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:20rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-icon-dll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;10: Other System Files Containing Icons"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png" class="img-fluid figure-img" style="width:20rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-icon-dll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Other System Files Containing Icons
+</figcaption>
+</figure>
+</div>
+<div id="fig-imageres" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-imageres-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;11: Icon found in imageres.dll"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-imageres-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Icon found in imageres.dll
+</figcaption>
+</figure>
+</div>
+<p>Once the icon was linked to the correct resource, it’s icon was restored.</p>
+<div id="fig-icon-recovered" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:10rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-icon-recovered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;12: Icon Restored"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png" class="img-fluid figure-img" style="width:10rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-icon-recovered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Icon Restored
+</figcaption>
+</figure>
+</div>
+<p>On an English-language system, this completes the recovery. On other systems, the folder’s localized display name may still need to be restored. For example, on Simplified Chinese systems, the folder should display <code>保存的游戏</code> while keeping the actual folder name <code>Saved Games</code>.</p>
+</section>
+<section id="localized-name" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="localized-name"><span class="header-section-number">4.2</span> Restoring a Localized Display Name</h2>
+<p>Searching for how to make a folder’s display name differ from its actual folder name, I found the following solution:</p>
+<div id="fig-search-results" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-search-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619151015705.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;13: Search Results"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619151015705.png" class="img-fluid figure-img" style="width:30rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-search-results-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Search Results
+</figcaption>
+</figure>
+</div>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Open the target folder in <strong>File Explorer</strong>.</li>
+<li>Click the <strong>View</strong> tab on the toolbar of the File Explorer window.</li>
+<li>Check the <strong>Hidden items</strong> box, then click <strong>Options</strong>.</li>
+<li>Click the <strong>View</strong> tab.</li>
+<li><strong>Uncheck “Hide protected operating system files”</strong>, then click <strong>Yes</strong> and <strong>OK</strong> to confirm change.</li>
+</ol>
+<div id="fig-show-hidden" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:45rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-show-hidden-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618160908267.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Figure&nbsp;14: Show Hidden Items"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618160908267.png" class="img-fluid figure-img" style="width:45rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-show-hidden-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Show Hidden Items
+</figcaption>
+</figure>
+</div>
+<div id="fig-show-hidden-sysfiles" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-show-hidden-sysfiles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618161338780.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Figure&nbsp;15: Unhide Protected Operating System Files"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618161338780.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-show-hidden-sysfiles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Unhide Protected Operating System Files
+</figcaption>
+</figure>
+</div>
+<p>A <code>desktop.ini</code> file now appears inside the <code>Saved Games</code> folder.</p>
+<div id="fig-desktop-ini" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-desktop-ini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Figure&nbsp;16: The desktop.ini File"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-desktop-ini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: The desktop.ini File
+</figcaption>
+</figure>
+</div>
+<p><strong>Step 6: Open it in Notepad.</strong><br>
+We can see the <code>IconResource</code> entry is pointing to <code>imageres.dll</code>, which is the icon we restored previously.</p>
+<div id="fig-desktop-ini-content" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:22rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-desktop-ini-content-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618162811351.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Figure&nbsp;17: Content of desktop.ini"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618162811351.png" class="img-fluid figure-img" style="width:22rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-desktop-ini-content-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17: Content of desktop.ini
+</figcaption>
+</figure>
+</div>
+<p>Following the guide, I added the following line to <code>desktop.ini</code> (<a href="#fig-modify-display-name" class="quarto-xref">Figure&nbsp;18</a>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">保存的游戏</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-modify-display-name" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:22rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modify-display-name-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Figure&nbsp;18: Editing the Display Name"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png" class="img-fluid figure-img" style="width:22rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modify-display-name-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;18: Editing the Display Name
+</figcaption>
+</figure>
+</div>
+<p>After saving, however, the name appeared as garbled text (<a href="#fig-display-name-encode-error" class="quarto-xref">Figure&nbsp;19</a>). English displayed correctly while the Chinese characters turned into mojibake, indicating that the file encoding was wrong.</p>
+<div id="fig-display-name-encode-error" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:10rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-display-name-encode-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Figure&nbsp;19: Display Name Turned into Mojibake"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png" class="img-fluid figure-img" style="width:10rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-display-name-encode-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;19: Display Name Turned into Mojibake
+</figcaption>
+</figure>
+</div>
+<section id="method-1" class="level3">
+<h3 class="anchored" data-anchor-id="method-1">Method 1: Change the File Encoding<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></h3>
+<p>The bottom-right corner of Notepad showed the current encoding as <code>UTF-8</code>, but <code>desktop.ini</code> should be saved as <code>UTF-16 LE</code>.</p>
+<div id="fig-default-encoding" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-default-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21" title="Figure&nbsp;20: Notepad’s Default Encoding Method"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-default-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;20: Notepad’s Default Encoding Method
+</figcaption>
+</figure>
+</div>
+<p>To avoid garbling the Chinese name, enter it and then click <code>File &gt; Save As</code>.</p>
+<div id="fig-save-as" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-save-as-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194335092.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22" title="Figure&nbsp;21: Save As"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194335092.png" class="img-fluid figure-img" style="width:30rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-save-as-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;21: Save As
+</figcaption>
+</figure>
+</div>
+<p>Set <code>Save as type</code> to <code>All Files (*.*)</code> and <code>Encoding</code> to <code>UTF-16 LE</code>, then save and overwrite the original file.</p>
+<div id="fig-modify-encoding" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modify-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194954213.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23" title="Figure&nbsp;22: Changing the Encoding Method"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194954213.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modify-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;22: Changing the Encoding Method
+</figcaption>
+</figure>
+</div>
+<p>A moment later, the display name was restored.</p>
+<div id="fig-rebirth-0" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:12rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rebirth-0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618195203026.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24" title="Figure&nbsp;23: Saved Games Restored"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618195203026.png" class="img-fluid figure-img" style="width:12rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rebirth-0-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;23: Saved Games Restored
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="method-2-reference-a-resource-index" class="level3">
+<h3 class="anchored" data-anchor-id="method-2-reference-a-resource-index">Method 2: Reference a Resource Index</h3>
+<p>Instead of changing the encoding, you can also reference a resource index. The index points to a localized string inside <code>shell32.dll</code> file, which resolves to the display name according to your Windows display language.</p>
+<p>For example, <a href="#fig-name-info-source" class="quarto-xref">Figure&nbsp;24</a> shows the <code>LocalizedResourceName</code> entry in the original <code>desktop.ini</code> file of the <em>Videos</em> folder is pointing to the resource in <code>shell32.dll</code> with the index <code>-21791</code>.</p>
+<div id="fig-name-info-source" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:22rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-name-info-source-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25" title="Figure&nbsp;24: Where the Videos Display Name Comes From"><img src="https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png" class="img-fluid figure-img" style="width:22rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-name-info-source-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;24: Where the Videos Display Name Comes From
+</figcaption>
+</figure>
+</div>
+<p>I thus started to looking for name resource indices inside <code>shell32.dll</code> , but the results covered mainly icon resources instead of name resources.</p>
+<p>Then, I turned to AI for help, but ChatGPT gave me fabricated answers <i class="bi bi-emoji-frown" style="color:var(--pf-primary)"></i>.</p>
+<p>When I asked how to inspect the contents of <code>shell32.dll</code>, ChatGPT recommended <strong>Visual Studio</strong>.</p>
+<div id="fig-ask-visual-studio" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ask-visual-studio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619001643834.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26" title="Figure&nbsp;25: Asking How to Inspect shell32.dll"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619001643834.png" class="img-fluid figure-img" style="width:35rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ask-visual-studio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;25: Asking How to Inspect shell32.dll
+</figcaption>
+</figure>
+</div>
+<p>With no programming background, I mistakenly downloaded Visual Studio <strong>Code</strong> instead. It became my first encounter with an IDE. Later, when my professor noticed I was doing assignments in VSCode rather than Jupyter and asked why, I just pulled up this article <i class="bi bi-emoji-wink" style="color:var(--pf-primary)"></i>.</p>
+<div id="fig-vscode-and-visual-studio" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:15rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-vscode-and-visual-studio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png" class="lightbox" data-gallery="quarto-lightbox-gallery-27" title="Figure&nbsp;26: VSCode and Visual Studio"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png" class="img-fluid figure-img" style="width:15rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vscode-and-visual-studio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;26: VSCode and Visual Studio
+</figcaption>
+</figure>
+</div>
+<p>Following ChatGPT’s instructions, I created a new solution in Visual Studio and loaded <code>C:\Windows\System32\shell32.dll</code> to view its resource directory.</p>
+<div id="fig-ai-suggest" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ai-suggest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619221622134.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28" title="Figure&nbsp;27: AI’s Instructions"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619221622134.png" class="img-fluid figure-img" style="width:40rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ai-suggest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;27: AI’s Instructions
+</figcaption>
+</figure>
+</div>
+<div id="fig-vs-interface" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:45rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-vs-interface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29" title="Figure&nbsp;28: Interface of Visual Studio"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png" class="img-fluid figure-img" style="width:45rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vs-interface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;28: Interface of Visual Studio
+</figcaption>
+</figure>
+</div>
+<p>Visual Studio showed only the structure of the resource directory, not the actual entry indices. Since <code>shell32.dll</code> is very large, checking every entry by hand was not realistic.</p>
+<p>In the end, I compared the <code>desktop.ini</code> file with one from another computer that hadn’t be modified. The correct resource index turned out to be <code>-21814</code> — just four numbers away from the <code>-21810</code> I had tried earlier. I might have found it with a few more guesses <i class="bi bi-emoji-grin" style="color:var(--pf-primary)"></i>.</p>
+<p>I added the following line to the <code>desktop.ini</code> in the <em>Saved Games</em> folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,-21814</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-after-change" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-after-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619222135645.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30" title="Figure&nbsp;29: After the Change"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619222135645.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-after-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;29: After the Change
+</figcaption>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p>More resource indices of display names and icons for common shell folders are listed in <a href="#tbl-shellfolder-resource" class="quarto-xref">Table&nbsp;1</a>.</p>
+</blockquote>
+<p><strong>Saved Games shell folder is finally fully restored!</strong></p>
+<div id="fig-rebirth" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:12rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rebirth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224046895.png" class="lightbox" data-gallery="quarto-lightbox-gallery-31" title="Figure&nbsp;30: Saved Games Restored"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224046895.png" class="img-fluid figure-img" style="width:12rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rebirth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;30: Saved Games Restored
+</figcaption>
+</figure>
+</div>
+<p>So far, both the icon and the display name were restored to their defaults.</p>
+<div id="fig-default-icon" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-default-icon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224305642.png" class="lightbox" data-gallery="quarto-lightbox-gallery-32" title="Figure&nbsp;31: Default Icon Restored"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224305642.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-default-icon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;31: Default Icon Restored
+</figcaption>
+</figure>
+</div>
+<p><strong>Lesson Learned: When moving a shell folder, change only the drive letter in the path. Do not set the bare root directory as the destination.</strong></p>
+<div id="fig-move-system-folder" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:25rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-move-system-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224636448.png" class="lightbox" data-gallery="quarto-lightbox-gallery-33" title="Figure&nbsp;32: Moving a Shell Folder: Change Only the Drive Letter"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224636448.png" class="img-fluid figure-img" style="width:25rem;"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-move-system-folder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;32: Moving a Shell Folder: Change Only the Drive Letter
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="appendix-resource-indices-for-shell-folders" class="level1 unnumbered">
+<h1 class="unnumbered">Appendix: Resource Indices for Shell Folders</h1>
+<p>Use the <strong>icon</strong> resource index to restore a folder’s icon (needed on every system):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">IconResource</span><span class="ot">=</span><span class="st">%SystemRoot%\system32\imageres.dll,&lt;IconResource index&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If your Windows display language gives the folder a localized name (see <a href="#localized-name">Restoring a Localized Display Name</a>), also set the <strong>name</strong> resource index. It points to a localized string in <code>shell32.dll</code>, so the same number resolves to whatever your system language is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For example, for the <em>Pictures</em> folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,-21779</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">IconResource</span><span class="ot">=</span><span class="st">%SystemRoot%\system32\imageres.dll,-113</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>Note: the display-name resources for <em>Contacts</em> and <em>3D Objects</em> come from other DLL files, not <code>shell32.dll</code> (see <a href="#footnotes">Footnotes</a>).</p>
+</blockquote>
+<div id="tbl-shellfolder-resource" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[35,35,30]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-shellfolder-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Resource indices for shell folders
+</figcaption>
+<div aria-describedby="tbl-shellfolder-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 35%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Folder</th>
+<th style="text-align: center;">Name Resource Indices<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></th>
+<th style="text-align: center;">Icon Resource Indices<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">桌面 (Desktop)</td>
+<td style="text-align: center;">-21769</td>
+<td style="text-align: center;">-183</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">文档 (Documents)</td>
+<td style="text-align: center;">-21770</td>
+<td style="text-align: center;">-112</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">图片 (Pictures)</td>
+<td style="text-align: center;">-21779</td>
+<td style="text-align: center;">-113</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">音乐 (Music)</td>
+<td style="text-align: center;">-21790</td>
+<td style="text-align: center;">-108</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">视频 (Videos)</td>
+<td style="text-align: center;">-21791</td>
+<td style="text-align: center;">-189</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">下载 (Downloads)</td>
+<td style="text-align: center;">-21798</td>
+<td style="text-align: center;">-184</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">搜索 (Searches)</td>
+<td style="text-align: center;">-9031</td>
+<td style="text-align: center;">-18</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">链接 (Links)</td>
+<td style="text-align: center;">-21810</td>
+<td style="text-align: center;">-185</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">收藏夹 (Favorites)</td>
+<td style="text-align: center;">-21796</td>
+<td style="text-align: center;">-115</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">保存的游戏 (Saved Games)</td>
+<td style="text-align: center;">-21814</td>
+<td style="text-align: center;">-177</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">联系人 (Contacts)</td>
+<td style="text-align: center;">wab32res.dll,-10100<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></td>
+<td style="text-align: center;">-181</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3D对象 (3D Objects)</td>
+<td style="text-align: center;">windows.storage.dll,-21825<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></td>
+<td style="text-align: center;">-198</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="https://superuser.com/a/1172777" target="_blank">&gt;&gt; View More Original desktop.ini Contents</a></p>
+
+
+<!-- -->
+
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Added June 16, 2026<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Unless marked otherwise, name resources come from <code>@%SystemRoot%\system32\shell32.dll,&lt;index&gt;</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Icon resources come from <code>%SystemRoot%\system32\imageres.dll,&lt;index&gt;</code>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The <em>Contacts</em> name resource comes from <code>@%CommonProgramFiles%\system\wab32res.dll,-10100</code>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>The <em>3D Objects</em> name resource comes from <code>@%SystemRoot%\system32\windows.storage.dll,-21825</code>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="fix-code-fold">
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
+            });
+        });
+    };
+
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
+</script>
+<script>
+    const switchLanguage = targetLang => {
+        const path = window.location.pathname;
+        // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
+        const match = path.match(/^(.*?)\/(en|zh)(\/.*)?$/);
+        if (match) {
+            const base = match[1];
+            const rest = match[3] || '/';
+            window.location.pathname = `${base}/${targetLang}${rest}`;
+        } else {
+            window.location.pathname = `/${targetLang}/`;
+        }
+    };
+
+    const NAV_TRANSLATIONS = {
+        en: { 
+            Projects: 'Projects', 
+            Tutorials: 'Tutorials', 
+            Hobbies: 'Hobbies', 
+            Blogs: 'Blogs',
+            About: 'About' 
+        },
+        zh: { 
+            Projects: '项目',    
+            Tutorials: '教程',       
+            Hobbies: '爱好',    
+            Blogs: '博客',
+            About: '关于' 
+        },
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 遍历所有 navbar 下拉菜单链接，按文字匹配
+        document.querySelectorAll('.navbar .dropdown-item').forEach(el => {
+            const text = el.textContent.trim();
+            if (text === 'English') {
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('en');
+                });
+            } else if (text === '中文') {
+                el.addEventListener('click', e => {
+                    e.preventDefault();
+                    switchLanguage('zh');
+                });
+            }
+        });
+
+        // Translate navbar left-side links to match the current page language
+        const langMatch = window.location.pathname.match(/\/(en|zh)\//);
+        const lang = langMatch ? langMatch[1] : 'en';
+        const translations = NAV_TRANSLATIONS[lang] ?? NAV_TRANSLATIONS.en;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(el => {
+            const text = el.textContent.trim();
+            if (translations[text]) {
+                el.textContent = translations[text];
+            }
+            // Reroute hrefs from /en/ to /zh/ (or vice-versa) to match current lang
+            if (lang === 'zh' && el.href?.includes('/en/')) {
+                el.href = el.href.replace('/en/', '/zh/');
+            } else if (lang === 'en' && el.href?.includes('/zh/')) {
+                el.href = el.href.replace('/zh/', '/en/');
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.sidebar-item-section > .sidebar-item-container').forEach(row => {
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', e => {
+                // title text -> let the link navigate normally
+                if (e.target.closest('.sidebar-item-text')) return;
+                // chevron -> Bootstrap handles it natively; don't double-toggle
+                if (e.target.closest('.sidebar-item-toggle')) return;
+                // empty area of the row -> trigger the toggle once
+                row.querySelector('.sidebar-item-toggle')?.click();
+            });
+        });
+    });
+</script>
+<script id="fix-navbar-active">
+    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // lang-switch.html to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
+            }
+
+            const isActive = pageSection !== null && pageSection === linkSection;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    })();
+</script>
+<script>
+    // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
+    // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
+    // that opens the real search overlay via window.quartoOpenSearch().
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
+        if (!sidebarSearchWrapper) return;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sidebar-search-trigger';
+        btn.setAttribute('aria-label', 'Search');
+        btn.innerHTML = '<i class="bi bi-search"></i><span>Search</span><kbd>F</kbd>';
+        btn.addEventListener('click', () => window.quartoOpenSearch?.());
+
+        sidebarSearchWrapper.replaceChildren(btn);
+    });
+</script>
+<script>
+    (() => {
+        const BREAKPOINT = 768;
+        let sidebar, titleBlock, mainEl, quartoContent;
+        let rafId = null;
+
+        const init = () => {
+            sidebar      = document.getElementById('quarto-margin-sidebar');
+            titleBlock   = document.getElementById('title-block-header');
+            mainEl       = document.querySelector('#quarto-content > main.content');
+            quartoContent = document.getElementById('quarto-content');
+        };
+
+        const relocate = () => {
+            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
+
+            if (window.innerWidth <= BREAKPOINT) {
+                // Place sidebar after the title block, inside main
+                if (sidebar.parentNode !== mainEl) {
+                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                }
+            } else {
+                // Restore sidebar as first child of #quarto-content (before main)
+                if (sidebar.parentNode !== quartoContent) {
+                    quartoContent.insertBefore(sidebar, mainEl);
+                }
+            }
+        };
+
+        const onResize = () => {
+            if (rafId !== null) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = null;
+                relocate();
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            relocate();
+        });
+        window.addEventListener('resize', onResize);
+    })();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Pinn32\.github\.io\/dv-projects\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Recovering Misplaced Windows Shell Folders"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2024-04-22</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Recovering Windows shell folders such as Documents, Videos, and Pictures after they were accidentally moved to the root of a drive."</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Windows, desktop.ini, Shell Folders, Computer Tips, Knowhow]</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># toc-expand: true</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># toc-expand-level: 2</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="an">number-depth:</span><span class="co"> 2</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>figcaption {</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>   <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># Preface</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>This was the first extended troubleshooting write-up I kept in Notion, and it marked the start of my habit of documenting how I solve problems, both to share and to reference later.</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>The write-up prompted me to adopt Notion much more often as a regular tool. Investigating this particular problem also introduced me to VSCode, my first encounter with an IDE, and it is where my interest in programming began.</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">Takeaways</span><span class="co">](#takeaways)</span> section presents the summary of the problem and the shortest path to a fix. The remainder of the article documents how I diagnosed the problem and worked through it.</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="fu"># Takeaways {#takeaways}</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Problem</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>A Windows 10 shell folder (e.g., <span class="in">`Desktop`</span>, <span class="in">`Documents`</span>, <span class="in">`Pictures`</span> ) was accidentally moved to the root of a drive (e.g., <span class="in">`D:\`</span>, <span class="in">`E:\`</span>). How can it be recovered?</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Fix</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Create the target folder** (e.g., <span class="in">`E:\Users\UserName\Videos\`</span>).</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Edit the registry.**</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Press <span class="in">`Win + R`</span> and type <span class="in">`regedit`</span>.</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Go to <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span>.</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Find the entry whose value is the drive root (e.g., <span class="in">`E:\`</span>).</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Change it to the path of the folder you just created (e.g., <span class="in">`E:\Users\UserName\Videos\`</span>).</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Save and restart the computer.</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Show hidden system files.**</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Open the target folder.</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Go to <span class="in">`File &gt; Options &gt; View`</span>.</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Check <span class="in">`⏺ Show hidden files, folders, and drives`</span>.</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Uncheck <span class="in">`◻ Hide protected operating system files`</span>.</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Restore icon &amp; display name.**</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Find <span class="in">`desktop.ini`</span> in the target folder, open it in Notepad.</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Set the <span class="in">`IconResource`</span> and <span class="in">`LocalizedResourceName`</span> entries to the right resource index (listed in @tbl-shellfolder-resource).</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>   <span class="in">```ini</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="in">   [.ShellClassInfo]</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="in">   LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="in">   IconResource=%SystemRoot%\system32\imageres.dll,&lt;IconResource index&gt;</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="in">   &lt;OtherEntries...&gt;</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>   <span class="at">&gt; Once finished, remember to re-hide the system files revealed in step 3.</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="fu"># The Problem: Moving a Shell Folder by Mistake</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>While cleaning up my C drive one day, I noticed that a batch of shell folders under <span class="in">`C:\Users\&lt;username&gt;`</span> had not yet been moved to the E drive, so I decided to relocate them all at once.</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="al">![System Folders](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618163644834.png)</span>{#fig-sysfolders style="width:12rem;"}</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>Taking the *Saved Games* file as an example, I opened its <span class="in">`Properties`</span> , and clicked <span class="in">`Location`</span> tab. Then I changed its path from <span class="in">`C:\Users\Lenovo\Saved Games`</span> to <span class="in">`E:\`</span>, and clicked <span class="in">`Move`</span>.</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="al">![Changing the Folder Location](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618164612644.png)</span>{#fig-relocate-folder style="width:24rem;"}</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>However, the Saved Games folder suddenly vanished. At that point I realized I had set the root of the E drive itself as the destination. I thus began searching for a fix, but the results were not what I expected — people are talking about games rather than Windows shell folders.</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>I then tried other shell folders as search terms: *Videos* (too common a word, yielding noisy results), *3D Objects* (a distinctive name, but obscure), *Desktop* (a special case whose fixes might not generalize), etc.</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>After a few attempts, I settled on a solution: editing the registry.</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="al">![The Fix: Editing the Registry](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619150258176.png)</span>{#fig-sol-modify-reg style="width:35rem;"}</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="fu"># The Fix: Editing the Registry</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>The steps are as follows:</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Create the target folder `E:\Saved Games\` to hold the Saved Games folder where you want to move.**</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Press `Win + R` to open the Run dialog, type `regedit`, and open the Registry Editor.**</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="al">![Opening the Registry Editor](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618165301964.png)</span>{#fig-open-reg style="width:25rem;"}</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Locate and change the path.**  </span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>   Go to:  </span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>   <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>   Find the entry whose value is <span class="in">`E:\`</span> and change it to <span class="in">`E:\Saved Games`</span>.  </span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>   (Be sure to create the folder before editing the registry.)</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="al">![Editing the Registry](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png)</span>{#fig-modify-reg style="width:40rem;"}</span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Restart and verify.**  </span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>   After restarting your computer, press <span class="in">`Win + R`</span> and type <span class="in">`shell:SavedGames`</span>. If it opens <span class="in">`E:\Saved Games`</span>, the recovery succeeded.</span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="al">![Verifying the Registry Change](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png)</span>{#fig-test-reg style="width:25rem;"}</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="al">![Jumping to Saved Games](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png)</span>{#fig-jump-saved-games style="width:35rem;"}</span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>**At this point the folder works again, but it still shows the default folder icon.**</span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## Restoring the Icon</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">An article</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span>{target="_blank"} was found explaining where Windows stores its system icons.</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="al">![Article: Where Windows Stores Icons](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png)</span>{#fig-win-icon-loc style="width:35rem;"}</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>Through <span class="in">`Properties &gt; Customize &gt; Change Icon`</span>, I found that the current icon source was <span class="in">`SHELL32.dll`</span> . However, the *Saved Games* icon was not included there, suggesting that shell folder icons are stored across multiple DLL files.</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>:::{#fig-current-icon-loc layout-ncol=2}</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a><span class="al">![Properties &gt; Customize &gt; Change Icon](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618175423568.png)</span>{width="90%"}  </span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a><span class="al">![Current Icon Location](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png)</span>{width="90%"}</span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>Current icon file: SHELL32.dll</span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>I went through the DLL files listed in <span class="co">[</span><span class="ot">the article</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span> and eventually found the *Saved Games* icon in `imageres.dll`, along with the icons for *Desktop*, *Videos*, and others.</span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="al">![Other System Files Containing Icons](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png)</span>{#fig-icon-dll style="width:20rem;"}</span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="al">![Icon found in imageres.dll](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png)</span>{#fig-imageres style="width:25rem;"}</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>Once the icon was linked to the correct resource, it's icon was restored. </span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="al">![Icon Restored](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png)</span>{#fig-icon-recovered style="width:10rem;"}</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>On an English-language system, this completes the recovery. On other systems, the folder's localized display name may still need to be restored. For example, on Simplified Chinese systems, the folder should display <span class="in">`保存的游戏`</span> while keeping the actual folder name <span class="in">`Saved Games`</span>.</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## Restoring a Localized Display Name {#localized-name}</span></span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>Searching for how to make a folder's display name differ from its actual folder name, I found the following solution:</span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a><span class="al">![Search Results](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619151015705.png)</span>{#fig-search-results style="width:30rem;"}</span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>**Steps:**</span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open the target folder in **File Explorer**.</span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Click the **View** tab on the toolbar of the File Explorer window.</span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Check the **Hidden items** box, then click **Options**.</span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Click the **View** tab.</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Uncheck "Hide protected operating system files"**, then click **Yes** and **OK** to confirm change.</span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a><span class="al">![Show Hidden Items](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618160908267.png)</span>{#fig-show-hidden style="width:45rem;"}</span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a><span class="al">![Unhide Protected Operating System Files](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618161338780.png)</span>{#fig-show-hidden-sysfiles style="width:25rem;"}</span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a>A <span class="in">`desktop.ini`</span> file now appears inside the <span class="in">`Saved Games`</span> folder.</span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a><span class="al">![The desktop.ini File](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png)</span>{#fig-desktop-ini style="width:35rem;"}</span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a>**Step 6: Open it in Notepad.**  </span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>We can see the <span class="in">`IconResource`</span> entry is pointing to <span class="in">`imageres.dll`</span>, which is the icon we restored previously.</span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a><span class="al">![Content of desktop.ini](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618162811351.png)</span>{#fig-desktop-ini-content style="width:22rem;"}</span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a>Following the guide, I added the following line to <span class="in">`desktop.ini`</span> (@fig-modify-display-name):</span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=保存的游戏</span></span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a><span class="al">![Editing the Display Name](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png)</span>{#fig-modify-display-name style="width:22rem;"}</span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a>After saving, however, the name appeared as garbled text (@fig-display-name-encode-error). English displayed correctly while the Chinese characters turned into mojibake, indicating that the file encoding was wrong.</span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a><span class="al">![Display Name Turned into Mojibake](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png)</span>{#fig-display-name-encode-error style="width:10rem;"}</span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a><span class="fu">### Method 1: Change the File Encoding^[Added June 16, 2026] {#method-1}</span></span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a>The bottom-right corner of Notepad showed the current encoding as <span class="in">`UTF-8`</span>, but <span class="in">`desktop.ini`</span> should be saved as <span class="in">`UTF-16 LE`</span>.</span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a><span class="al">![Notepad's Default Encoding Method](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png)</span>{#fig-default-encoding style="width:25rem;"}</span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a>To avoid garbling the Chinese name, enter it and then click <span class="in">`File &gt; Save As`</span>.</span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a><span class="al">![Save As](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194335092.png)</span>{#fig-save-as style="width:30rem;"}</span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a>Set <span class="in">`Save as type`</span> to <span class="in">`All Files (*.*)`</span> and <span class="in">`Encoding`</span> to <span class="in">`UTF-16 LE`</span>, then save and overwrite the original file.</span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a><span class="al">![Changing the Encoding Method](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194954213.png)</span>{#fig-modify-encoding style="width:35rem;"}</span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a>A moment later, the display name was restored.</span>
+<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a><span class="al">![Saved Games Restored](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618195203026.png)</span>{#fig-rebirth-0 style="width:12rem;"}</span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a><span class="fu">### Method 2: Reference a Resource Index</span></span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a>Instead of changing the encoding, you can also reference a resource index. The index points to a localized string inside <span class="in">`shell32.dll`</span> file, which resolves to the display name according to your Windows display language.</span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a>For example, @fig-name-info-source shows the <span class="in">`LocalizedResourceName`</span> entry in the original <span class="in">`desktop.ini`</span> file of the *Videos* folder is pointing to the resource in <span class="in">`shell32.dll`</span> with the index <span class="in">`-21791`</span>.</span>
+<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a><span class="al">![Where the Videos Display Name Comes From](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png)</span>{#fig-name-info-source style="width:22rem;"}</span>
+<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a>I thus started to looking for name resource indices inside <span class="in">`shell32.dll`</span> , but the results covered mainly icon resources instead of name resources.</span>
+<span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-228"><a href="#cb7-228" aria-hidden="true" tabindex="-1"></a>Then, I turned to AI for help, but ChatGPT gave me fabricated answers <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-frown"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>.</span>
+<span id="cb7-229"><a href="#cb7-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-230"><a href="#cb7-230" aria-hidden="true" tabindex="-1"></a>When I asked how to inspect the contents of <span class="in">`shell32.dll`</span>, ChatGPT recommended **Visual Studio**.</span>
+<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-232"><a href="#cb7-232" aria-hidden="true" tabindex="-1"></a><span class="al">![Asking How to Inspect shell32.dll](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619001643834.png)</span>{#fig-ask-visual-studio style="width:35rem;"}</span>
+<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a>With no programming background, I mistakenly downloaded Visual Studio **Code** instead. It became my first encounter with an IDE. Later, when my professor noticed I was doing assignments in VSCode rather than Jupyter and asked why, I just pulled up this article <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-wink"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>.</span>
+<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a><span class="al">![VSCode and Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png)</span>{#fig-vscode-and-visual-studio style="width:15rem;"}</span>
+<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a>Following ChatGPT's instructions, I created a new solution in Visual Studio and loaded <span class="in">`C:\Windows\System32\shell32.dll`</span> to view its resource directory.</span>
+<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a><span class="al">![AI's Instructions](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619221622134.png)</span>{#fig-ai-suggest style="width:40rem;"}</span>
+<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a><span class="al">![Interface of Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png)</span>{#fig-vs-interface style="width:45rem;"}</span>
+<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a>Visual Studio showed only the structure of the resource directory, not the actual entry indices. Since <span class="in">`shell32.dll`</span> is very large, checking every entry by hand was not realistic.</span>
+<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a>In the end, I compared the <span class="in">`desktop.ini`</span> file with one from another computer that hadn't be modified. The correct resource index turned out to be <span class="in">`-21814`</span> — just four numbers away from the <span class="in">`-21810`</span> I had tried earlier. I might have found it with a few more guesses <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-grin"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>.</span>
+<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a>I added the following line to the <span class="in">`desktop.ini`</span> in the *Saved Games* folder:</span>
+<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-252"><a href="#cb7-252" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21814</span></span>
+<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a><span class="al">![After the Change](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619222135645.png)</span>{#fig-after-change style="width:25rem;"}</span>
+<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; More resource indices of display names and icons for common shell folders are listed in @tbl-shellfolder-resource.</span></span>
+<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a>**Saved Games shell folder is finally fully restored!**</span>
+<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a><span class="al">![Saved Games Restored](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224046895.png)</span>{#fig-rebirth style="width:12rem;"}</span>
+<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a>So far, both the icon and the display name were restored to their defaults.</span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-267"><a href="#cb7-267" aria-hidden="true" tabindex="-1"></a><span class="al">![Default Icon Restored](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224305642.png)</span>{#fig-default-icon style="width:25rem;"}</span>
+<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-269"><a href="#cb7-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a>**Lesson Learned: When moving a shell folder, change only the drive letter in the path. Do not set the bare root directory as the destination.**</span>
+<span id="cb7-272"><a href="#cb7-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-273"><a href="#cb7-273" aria-hidden="true" tabindex="-1"></a><span class="al">![Moving a Shell Folder: Change Only the Drive Letter](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224636448.png)</span>{#fig-move-system-folder style="width:25rem;"}</span>
+<span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-275"><a href="#cb7-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-276"><a href="#cb7-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-277"><a href="#cb7-277" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix: Resource Indices for Shell Folders {.unnumbered}</span></span>
+<span id="cb7-278"><a href="#cb7-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-279"><a href="#cb7-279" aria-hidden="true" tabindex="-1"></a>Use the **icon** resource index to restore a folder's icon (needed on every system):</span>
+<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-281"><a href="#cb7-281" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb7-282"><a href="#cb7-282" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,&lt;IconResource index&gt;</span></span>
+<span id="cb7-283"><a href="#cb7-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-284"><a href="#cb7-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-285"><a href="#cb7-285" aria-hidden="true" tabindex="-1"></a>If your Windows display language gives the folder a localized name (see <span class="co">[</span><span class="ot">Restoring a Localized Display Name</span><span class="co">](#localized-name)</span>), also set the **name** resource index. It points to a localized string in <span class="in">`shell32.dll`</span>, so the same number resolves to whatever your system language is:</span>
+<span id="cb7-286"><a href="#cb7-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-287"><a href="#cb7-287" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span>
+<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a>For example, for the *Pictures* folder:</span>
+<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-293"><a href="#cb7-293" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21779</span></span>
+<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,-113</span></span>
+<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Note: the display-name resources for *Contacts* and *3D Objects* come from other DLL files, not </span><span class="in">`shell32.dll`</span><span class="at"> (see </span><span class="co">[</span><span class="ot">Footnotes</span><span class="co">](#footnotes)</span><span class="at">).</span></span>
+<span id="cb7-299"><a href="#cb7-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-300"><a href="#cb7-300" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Folder <span class="pp">|</span> Name Resource Indices^<span class="co">[</span><span class="ot">Unless marked otherwise, name resources come from `@%SystemRoot%\system32\shell32.dll,&lt;index&gt;`.</span><span class="co">]</span> <span class="pp">|</span> Icon Resource Indices^<span class="co">[</span><span class="ot">Icon resources come from `%SystemRoot%\system32\imageres.dll,&lt;index&gt;`.</span><span class="co">]</span> <span class="pp">|</span></span>
+<span id="cb7-301"><a href="#cb7-301" aria-hidden="true" tabindex="-1"></a><span class="pp">| :----:</span> <span class="pp">| :------:</span> <span class="pp">| :------:</span> <span class="pp">|</span></span>
+<span id="cb7-302"><a href="#cb7-302" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 桌面 (Desktop) <span class="pp">|</span> -21769 <span class="pp">|</span> -183 <span class="pp">|</span></span>
+<span id="cb7-303"><a href="#cb7-303" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文档 (Documents) <span class="pp">|</span> -21770 <span class="pp">|</span> -112 <span class="pp">|</span></span>
+<span id="cb7-304"><a href="#cb7-304" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 图片 (Pictures) <span class="pp">|</span> -21779 <span class="pp">|</span> -113 <span class="pp">|</span></span>
+<span id="cb7-305"><a href="#cb7-305" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 音乐 (Music) <span class="pp">|</span> -21790 <span class="pp">|</span> -108 <span class="pp">|</span></span>
+<span id="cb7-306"><a href="#cb7-306" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 视频 (Videos) <span class="pp">|</span> -21791 <span class="pp">|</span> -189 <span class="pp">|</span></span>
+<span id="cb7-307"><a href="#cb7-307" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 下载 (Downloads) <span class="pp">|</span> -21798 <span class="pp">|</span> -184 <span class="pp">|</span></span>
+<span id="cb7-308"><a href="#cb7-308" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 搜索 (Searches) <span class="pp">|</span> -9031 <span class="pp">|</span> -18 <span class="pp">|</span></span>
+<span id="cb7-309"><a href="#cb7-309" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 链接 (Links) <span class="pp">|</span> -21810 <span class="pp">|</span> -185 <span class="pp">|</span></span>
+<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 收藏夹 (Favorites) <span class="pp">|</span> -21796 <span class="pp">|</span> -115 <span class="pp">|</span></span>
+<span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 保存的游戏 (Saved Games) <span class="pp">|</span> -21814 <span class="pp">|</span> -177 <span class="pp">|</span></span>
+<span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 联系人 (Contacts) <span class="pp">|</span> wab32res.dll,-10100^<span class="co">[</span><span class="ot">The *Contacts* name resource comes from `@%CommonProgramFiles%\system\wab32res.dll,-10100`.</span><span class="co">]</span> <span class="pp">|</span> -181 <span class="pp">|</span></span>
+<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3D对象 (3D Objects) <span class="pp">|</span> windows.storage.dll,-21825^<span class="co">[</span><span class="ot">The *3D Objects* name resource comes from `@%SystemRoot%\system32\windows.storage.dll,-21825`.</span><span class="co">]</span> <span class="pp">|</span> -198 <span class="pp">|</span></span>
+<span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a>: Resource indices for shell folders {#tbl-shellfolder-resource tbl-colwidths=<span class="co">[</span><span class="ot">35,35,30</span><span class="co">]</span>}</span>
+<span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-317"><a href="#cb7-317" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View More Original desktop.ini Contents</span><span class="co">](https://superuser.com/a/1172777)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

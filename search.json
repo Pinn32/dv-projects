@@ -4,7 +4,7 @@
     "href": "en/tutorials/amounts-and-distribution/index.html",
     "title": "Amounts and Distribution",
     "section": "",
-    "text": "9 min read · 1598 EN words · 15 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "8 min read · 1593 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -171,7 +171,7 @@
     "href": "en/tutorials/r-tips/index.html",
     "title": "R Tips",
     "section": "",
-    "text": "5 min read · 896 EN words · 15 中文字",
+    "text": "5 min read · 891 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -478,14 +478,14 @@
     "href": "en/index.html#featured-projects",
     "title": "Pinn (Aiqi) Xu",
     "section": "Featured Projects",
-    "text": "Featured Projects\n\n\n\n\n\n\n\n\nEvolution of Online AI Discourse\n\n\n\nPinn Xu\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nStudent Social Media Usage and Well-being Analysis\n\n\n\nPinn Xu\n\n\nFeb 23, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nTwitter Sentiment Analysis of Catalan Referendum\n\n\n\nPinn Xu\n\n\nNov 1, 2024\n\n\n\n\n\n\n\n\n\n\n\nGlobal Visa Cost Analysis and Interactive Visualization\n\n\n\nPinn Xu\n\n\nDec 12, 2024\n\n\n\n\n\n\nNo matching items\n\n\n\nAbout this site →"
+    "text": "Featured Projects\n\n\n\n\n\n\n\n\nEvolution of Online AI Discourse\n\n\n\nPinn Xu\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nStudent Social Media Usage and Well-being Analysis\n\n\n\nPinn Xu\n\n\nFeb 23, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nTwitter Sentiment Analysis of Catalan Referendum\n\n\n\nPinn Xu\n\n\nNov 1, 2024\n\n\n\n\n\n\n\n\n\n\n\nGlobal Visa Cost Geographical Analysis\n\n\n\nPinn Xu\n\n\nDec 12, 2024\n\n\n\n\n\n\nNo matching items\n\n\n\nAbout this site →"
   },
   {
     "objectID": "en/projects/student-media-usage/index.html",
     "href": "en/projects/student-media-usage/index.html",
     "title": "Student Social Media Usage and Well-being Analysis",
     "section": "",
-    "text": "16 min read · 3178 EN words · 15 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "16 min read · 3173 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "Projects",
       "Student Social Media Usage and Well-being Analysis"
@@ -714,122 +714,122 @@
   {
     "objectID": "en/projects/most-streamed-songs/index.html",
     "href": "en/projects/most-streamed-songs/index.html",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "",
-    "text": "8 min read · 1564 EN words · 15 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "8 min read · 1533 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#streams",
     "href": "en/projects/most-streamed-songs/index.html#streams",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "3.1 Streams",
     "text": "3.1 Streams\nAs shown below, the data type of the streams variable is character, whereas stream counts should be numbers instead of strings, it therefore requires transformation.\n\n\nCode\n# view structure\nstr(df[\"streams\"])\n\n\ntibble [953 × 1] (S3: tbl_df/tbl/data.frame)\n $ streams: chr [1:953] \"141381703\" \"133716286\" \"140003974\" \"800840817\" ...\n\n\nBefore coercing data type to numeric, we firstly check if there are any invalid values which are not numeric-like strings, using data wrangling strategies with regular expressions to specify what is numeric-like in this case. As shown in the output below, there is one observation with invalid streams.\n\n\nCode\n# view invalid values\ncat(\"Invalid Streams: \\n\\n\")\ndf |&gt;\n  select(streams) |&gt; \n  filter(!str_detect(streams, \"^(0|[1-9][0-9]*)$\"))\n\n\nInvalid Streams: \n\n# A tibble: 1 × 1\n  streams                                                                       \n  &lt;chr&gt;                                                                         \n1 BPM110KeyAModeMajorDanceability53Valence75Energy69Acousticness7Instrumentalne…\n\n\nNext, df is redefined keeping only observations with valid streams, and then coerced into numeric data type. Below shows the results of missing data and variable structure after coercion.\n\n\nCode\n# keep only valid values\ndf &lt;- df |&gt;\n  filter(str_detect(streams, \"^[1-9][0-9]*\"))\n\n# coerce datatype to numeric\ndf &lt;- df |&gt; \n  mutate(streams = as.numeric(streams))\n\n# check if there are NA in streams after coercion\ncat(\"Whether there is NA in streams:\", anyNA(df$streams), \"\\n\\n\")\n\n# new structure\nstr(df[\"streams\"])\n\n\nWhether there is NA in streams: FALSE \n\ntibble [952 × 1] (S3: tbl_df/tbl/data.frame)\n $ streams: num [1:952] 1.41e+08 1.34e+08 1.40e+08 8.01e+08 3.03e+08 ...",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#presence-in-deezer-playlists",
     "href": "en/projects/most-streamed-songs/index.html#presence-in-deezer-playlists",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "3.2 Presence in Deezer Playlists",
     "text": "3.2 Presence in Deezer Playlists\nLikewise, the variable of presence counts in Deezer playlists also appears to be character type originally. We therefore use str_detect() again to check whether there are invalid format of numbers. As shown in the two outputs below, there are several comma-separated format of numbers, and no more invalid numbers in any other format, we therefore need to do further manipulation before coercing.\n\n\nCode\n# view values that are not 0 or pure numbers\ncat(\"Non-Number Values:\\n\\n\")\ndf |&gt; \n  select(in_deezer_playlists) |&gt; \n  filter(!str_detect(in_deezer_playlists, \"^(0|[1-9][0-9]*)$\"))\n\n\nNon-Number Values:\n\n# A tibble: 79 × 1\n   in_deezer_playlists\n   &lt;chr&gt;              \n 1 2,445              \n 2 3,394              \n 3 3,421              \n 4 4,053              \n 5 1,056              \n 6 4,095              \n 7 1,003              \n 8 1,800              \n 9 2,703              \n10 1,632              \n# ℹ 69 more rows\n\n\n\n\nCode\n# appnly new pattern: comma-separated number\ncat(\"Neither Pure Number Nor Comma-Separated:\\n\\n\")\ndf |&gt; \n  select(in_deezer_playlists) |&gt; \n  filter(!str_detect(\n    in_deezer_playlists, \"^(0|[1-9][0-9]*|[1-9][0-9]*,[0-9]*)$\")\n  )\n\n\nNeither Pure Number Nor Comma-Separated:\n\n# A tibble: 0 × 1\n# ℹ 1 variable: in_deezer_playlists &lt;chr&gt;\n\n\nAfter replacing all commas with empty strings, we coerced the variable into numeric type, and check whether there are NA data after coercion. The result below shows that no NA appears.\n\n\nCode\n# replace comma with empty string\ndf &lt;- df |&gt; \n  mutate(in_deezer_playlists = str_replace_all(in_deezer_playlists, \",\", \"\"))\n\n# coerce datatype to numeric\ndf &lt;- df |&gt; \n  mutate(in_deezer_playlists = as.numeric(in_deezer_playlists))\n\n# check if there are NA after coersion in streams\ncat(\"Whether there is NA in in_deezer_playlists:\", \n    anyNA(df$in_deezer_playlists), \"\\n\"\n    )\n\n\nWhether there is NA in in_deezer_playlists: FALSE",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#key",
     "href": "en/projects/most-streamed-songs/index.html#key",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "3.3 Key",
     "text": "3.3 Key\nIn terms of the key variable, we first check all categories of keys. The result shows that there are empty strings with no key information. Thus, we removes those songs without key information. After removal, the categories are checked again to ensure the validity.\n\n\nCode\n# check categories of the key variable\ncat(\"Categories of Key:\\n\")\nunique(df$key)\n\n# remove rows with empty key\ndf &lt;- df[df$key != \"\", ]\n\n# check again after removal\ncat(\"\\nCategories After Removal:\\n\")\nunique(df$key)\n\n\nCategories of Key:\n [1] \"B\"  \"C#\" \"F\"  \"A\"  \"D\"  \"F#\" \"\"   \"G#\" \"G\"  \"E\"  \"A#\" \"D#\"\n\nCategories After Removal:\n [1] \"B\"  \"C#\" \"F\"  \"A\"  \"D\"  \"F#\" \"G#\" \"G\"  \"E\"  \"A#\" \"D#\"",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#mode-distribution",
     "href": "en/projects/most-streamed-songs/index.html#mode-distribution",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "4.1 Mode Distribution",
     "text": "4.1 Mode Distribution\nAs shown by the pie chart below, there is a relatively balanced split between the two categories of music mode in this dataset. Specifically, the major mode accounts for 55.3% of the distribution, while the minor mode follows closely at 44.7%. This 10.6% gap suggests that while the major mode songs, which are often associated with brighter emotional qualities, are more prevalent, minor mode songs remain a significant portion.\n\n\nCode\n# pie chart\nplot_ly(\n  as.data.frame(table(df[\"mode\"])), \n  labels = ~mode, values = ~Freq, type = \"pie\",\n  textinfo = \"label+percent\", \n  marker = list(\n    colors = c(\"khaki\", \"paleturquoise\"),\n    line = list(width = 2))\n) |&gt; \n  layout(\n    title = list(y = 0.9, text = \"Distribution of Music Mode\"),\n    showlegend = FALSE,\n    margin = list(t = 80, l = 60, r = 60)\n  )",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#bpm-distribution",
     "href": "en/projects/most-streamed-songs/index.html#bpm-distribution",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "4.2 BPM Distribution",
     "text": "4.2 BPM Distribution\nIn terms of BPM, its distribution shown in the histogram below peaks around 110-130 BPM. Most songs are between 90 and 150 BPM, indicating a preference of moderate pace for most people.\n\n\nCode\n# BPM distribution\nplot_ly(\n  df, x = ~bpm, type = \"histogram\",\n  marker = list(\n    color = \"pink\", line = list(width = 1.5, color = \"white\")\n  )\n) |&gt; \n  layout(\n    margin = list(t = 80),\n    title = list(y = 0.9, text = \"BPM Distribution\"),\n    xaxis = list(\n      title = \"Beats Per Minute (BPM)\",\n      linewidth = 2,\n      dtick = 20,\n      ticks = \"outside\",\n      ticklen = 5,\n      tickwidth = 1\n    ),\n    yaxis = list(title = \"Frequency\")\n  )",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#top-5-keys-by-streams",
     "href": "en/projects/most-streamed-songs/index.html#top-5-keys-by-streams",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "5.1 Top 5 Keys by Streams",
     "text": "5.1 Top 5 Keys by Streams\nThe bar plot below shows the top 5 keys with respect to the streams, where C# appears to be the most popular key, with the highest mean streams (around 600M). E ranks second, followed by D# and A# with similar averages. D has the lowest among the top five. Overall, differences are moderate, suggesting relatively balanced popularity across these keys.\n\n\nCode\n# find keys with top 5 mean stream\ntop5_key &lt;- df |&gt; \n  group_by(key) |&gt; \n  summarize(mean_streams = mean(streams), .groups = \"drop\") |&gt; \n  arrange(desc(mean_streams)) |&gt; \n  head(5) |&gt; \n  mutate(key = reorder(key, -mean_streams))  # make key factor\n\n\n\n\nCode\n# barplot\nplot_ly(\n  top5_key, x = ~key, y = ~mean_streams, type = \"bar\", \n  marker = list(color = \"mediumaquamarine\")\n) |&gt; \n  layout(\n    title = list(y = 0.9, text = \"Top 5 Popular Keys\"),\n    xaxis = list(title = \"Key\", linewidth = 2, range = c(-0.8, 4.8)),\n    yaxis = list(title = list(text = \"Mean Streams\", standoff = 10)),\n    margin = list(t = 80, l = 80, r = 20)\n  )",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#valence-distribution-by-mode",
     "href": "en/projects/most-streamed-songs/index.html#valence-distribution-by-mode",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "5.2 Valence Distribution by Mode",
     "text": "5.2 Valence Distribution by Mode\nThe boxplot shows the distribution of valence by categories of mode, where minor-mode songs have a slightly higher median valence (54) than major-mode songs (48). Both modes display wide ranges and similar variability, with overlapping interquartile range. While minor appears marginally more positive on average, the substantial overlap suggests mode alone does not strongly determine valence.\n\n\nCode\n# boxplot\nplot_ly(\n  df, x = ~mode, y = ~valence_., type = \"box\",\n  fillcolor = \"thistle\",\n  line = list(width = 2, color = \"darkslateblue\")\n) |&gt; \n  \n  layout(\n    margin = list(t = 80),\n    title = list(y = 0.9, text = \"Valence Distribution by Mode\"),\n    xaxis = list(title = \"Music Mode\"),\n    yaxis = list(title = \"Valence\")\n  )",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#presence-in-spotify-and-deezer-playlists",
     "href": "en/projects/most-streamed-songs/index.html#presence-in-spotify-and-deezer-playlists",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "5.3 Presence in Spotify and Deezer Playlists",
     "text": "5.3 Presence in Spotify and Deezer Playlists\nThe scatter plot below shows the relationship between the count of presence of songs in Spotify and Deezer playlists. It reveals a positive correlation between the two variables. As songs gain streams in one platform, they appear more frequently played on the other. Overall, the data is most concentrated under 10 thousand Spotify / 2 thousand Deezer counts, with a few high-performing outliers reaching over 50 / 12 thousand.\n\n\nCode\n# scatter plot\nplot_ly(df, x = ~in_spotify_playlists) |&gt; \n  add_markers(\n    y = ~in_deezer_playlists, \n    marker = list(color = \"salmon\", opacity = 0.6)\n  ) |&gt; \n  layout(\n    margin = list(t = 80),\n    title = list(\n      y = 0.9,\n      text = \"Relationship Between Presence in Spotify and Deezer Playlists\"\n    ),\n    xaxis = list(title = \"Presence Counts in Spotify Playlists\"),\n    yaxis = list(title = \"Presence Counts in Deezer Playlists\")\n  )",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#sampling",
     "href": "en/projects/most-streamed-songs/index.html#sampling",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "7.1 Sampling",
     "text": "7.1 Sampling\nThree sampling methods are used and compared in this section — simple random sampling with replacement, systematic sampling with unequal probability (by bpm), and stratified sampling (by mode) without replacement. The sample size is set as 100, and functions from the sampling package are used to obtain samples.\n\n\nCode\n# simple random sampling with replacement\nn &lt;- 100\nset.seed(123)\ns &lt;- srswr(n, nrow(df))\nrows &lt;- (1:nrow(df))[s!=0]\nrows &lt;- rep(rows, s[s!=0])\nsample1 &lt;- df[rows, ]\n\n\n# systematic sampling with unequal probability\nset.seed(123)\npik &lt;- inclusionprobabilities(df$bpm, n) # prob by bpm\ns &lt;- UPsystematic(pik)\nsample2 &lt;- df[s!= 0, ]\n\n\n# stratified sampling without replacement\n# set stratums by mode\norder_index &lt;- order(df$mode)\ndata &lt;- df[order_index, ]\nprop_table &lt;- table(data$mode) / nrow(data)\nsizes &lt;- round(prop_table * n)\n# sampling\nset.seed(32)\nst &lt;- sampling::strata(\n  data, stratanames = \"mode\", size = sizes, method = \"srswor\"\n)\nsample3 &lt;- sampling::getdata(data, st)",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
     "objectID": "en/projects/most-streamed-songs/index.html#comparison",
     "href": "en/projects/most-streamed-songs/index.html#comparison",
-    "title": "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis",
+    "title": "Spotify Most Streamed Songs",
     "section": "7.2 Comparison",
     "text": "7.2 Comparison\nBelow shows the proportions of mode categories calculated from each sample and the population. As shown, the stratified sampling method performs the best in predicting the proportion of modes of the population, because it sets stratums based on the categories of mode before selecting data. In contrast, the simple random sampling method performs the worst, which is probably because its random and unstable nature of drawing samples without specific patterns like stratums in stratified sampling. In addition, the systematic sampling method has a moderate performance of prediction, which is better than simple random sampling whereas not as accurate as stratified sampling. This might stems from that the systematic sampling draws samples by intervals, and the samples are relatively evenly distributed in the dataset, which might allow a higher accuracy regarding proportions of categorical attributes. Meanwhile, it uses unequal probability gained from bpm, which could potentially influence the pattern of mode proportions.\n\n\nCode\n# proportions of modes\ncat(\"Proportion of Modes in Population:\")\n(pct0 &lt;- round(table(df$mode) / nrow(df), 2)); cat(\"\\n\")\n\ncat(\"Proportion of Modes in Sample 1 (Simple Random):\")\n(pct1 &lt;- table(sample1$mode) / nrow(sample1)); cat(\"\\n\")\ncat(\"Proportion of Modes in Sample 2 (Systematic):\")\n(pct2 &lt;- table(sample2$mode) / nrow(sample2)); cat(\"\\n\")\ncat(\"Proportion of Modes in Sample 3 (Stratified):\")\n(pct3 &lt;- table(sample3$mode) / nrow(sample3))\n\n\nProportion of Modes in Population:\nMajor Minor \n 0.55  0.45 \n\nProportion of Modes in Sample 1 (Simple Random):\nMajor Minor \n 0.63  0.37 \n\nProportion of Modes in Sample 2 (Systematic):\nMajor Minor \n 0.46  0.54 \n\nProportion of Modes in Sample 3 (Stratified):\nMajor Minor \n 0.55  0.45",
     "crumbs": [
       "Projects",
-      "Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis"
+      "Spotify Most Streamed Songs"
     ]
   },
   {
@@ -837,7 +837,7 @@
     "href": "en/projects/catalan-referendum/index.html",
     "title": "Twitter Sentiment Analysis of Catalan Referendum",
     "section": "",
-    "text": "8 min read · 1463 EN words · 15 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "8 min read · 1456 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "Projects",
       "Twitter Sentiment Analysis of Catalan Referendum"
@@ -939,7 +939,7 @@
     "href": "en/blogs/index.html",
     "title": "Blogs",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nQuarto 图片居中样式\n\n\n\nQuarto\n\nCSS\n\n电脑技巧\n\n解决方案\n\n\n\n\nPinn Xu\n\n\nJun 15, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n误移系统文件夹恢复\n\n\n\nWindows\n\nPowershell\n\n电脑技巧\n\n解决方案\n\n\n\n\nPinn Xu\n\n\nApr 22, 2024\n\n\n\n\n\n\nNo matching items",
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nQuarto Image Centering Styles\n\n\n\nQuarto\n\nCSS\n\nWeb Dev\n\nComputer Tips\n\nKnowhow\n\n\n\n\nPinn Xu\n\n\nJun 15, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nRecovering Misplaced Windows Shell Folders\n\n\n\nWindows\n\ndesktop.ini\n\nShell Folders\n\nComputer Tips\n\nKnowhow\n\n\n\n\nPinn Xu\n\n\nApr 22, 2024\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Projects",
       "Blogs"
@@ -950,7 +950,7 @@
     "href": "zh/tutorials/amounts-and-distribution/index.html",
     "title": "数量与分布可视化",
     "section": "",
-    "text": "10 min read · 407 EN words · 2156 中文字\n环境和版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "10 min read · 402 EN words · 2151 中文字\n环境和版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "数据分析教程",
       "数量与分布可视化"
@@ -1103,7 +1103,7 @@
     "href": "zh/tutorials/r-tips/index.html",
     "title": "R 语言技巧",
     "section": "",
-    "text": "6 min read · 332 EN words · 1233 中文字",
+    "text": "6 min read · 327 EN words · 1228 中文字",
     "crumbs": [
       "数据分析教程",
       "R 语言技巧"
@@ -1385,14 +1385,14 @@
     "href": "zh/index.html#featured-projects",
     "title": "Pinn (Aiqi) Xu",
     "section": "精选项目",
-    "text": "精选项目\n\n\n\n\n\n\n\n\n网络AI话语的演变\n\n\n\nPinn Xu\n\n\n2026年5月1日\n\n\n\n\n\n\n\n\n\n\n\n\n\n学生社交媒体使用与幸福感分析\n\n\n\nPinn Xu\n\n\n2026年2月23日\n\n\n\n\n\n\n\n\n\n\n\n\n\nTwitter 加泰罗尼亚公投情感分析\n\n\n\nPinn Xu\n\n\n2024年11月1日\n\n\n\n\n\n\n\n\n\n\n\n全球签证费用分析与交互式可视化\n\n\n\nPinn Xu\n\n\n2024年12月12日\n\n\n\n\n\n\n无匹配项\n\n\n关于本站 →"
+    "text": "精选项目\n\n\n\n\n\n\n\n\n网络AI话语的演变\n\n\n\nPinn Xu\n\n\n2026年5月1日\n\n\n\n\n\n\n\n\n\n\n\n\n\n学生社交媒体使用与幸福感分析\n\n\n\nPinn Xu\n\n\n2026年2月23日\n\n\n\n\n\n\n\n\n\n\n\n\n\nTwitter 加泰罗尼亚公投情感分析\n\n\n\nPinn Xu\n\n\n2024年11月1日\n\n\n\n\n\n\n\n\n\n\n\n全球签证费用地区分析\n\n\n\nPinn Xu\n\n\n2024年12月12日\n\n\n\n\n\n\n无匹配项\n\n\n关于本站 →"
   },
   {
     "objectID": "zh/projects/student-media-usage/index.html",
     "href": "zh/projects/student-media-usage/index.html",
     "title": "学生社交媒体使用与幸福感分析",
     "section": "",
-    "text": "18 min read · 337 EN words · 4682 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "18 min read · 332 EN words · 4677 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "可视化项目",
       "学生社交媒体使用与幸福感分析"
@@ -1623,7 +1623,7 @@
     "href": "zh/projects/most-streamed-songs/index.html",
     "title": "Spotify 最高播放量歌曲——音乐特征与受众趋势分析",
     "section": "",
-    "text": "9 min read · 224 EN words · 2214 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "9 min read · 219 EN words · 2204 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "可视化项目",
       "Spotify 最高播放量歌曲——音乐特征与受众趋势分析"
@@ -1744,7 +1744,7 @@
     "href": "zh/projects/catalan-referendum/index.html",
     "title": "Twitter 加泰罗尼亚公投情感分析",
     "section": "",
-    "text": "9 min read · 308 EN words · 1947 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "8 min read · 303 EN words · 1937 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "可视化项目",
       "Twitter 加泰罗尼亚公投情感分析"
@@ -1846,7 +1846,7 @@
     "href": "zh/blogs/index.html",
     "title": "博客",
     "section": "",
-    "text": "排序方式\n      默认\n      \n        标题\n      \n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        作者\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nQuarto 图片居中样式\n\n\n\nQuarto\n\nCSS\n\n电脑技巧\n\n解决方案\n\n\n\n\nPinn Xu\n\n\n2026年6月15日\n\n\n\n\n\n\n\n\n\n\n\n\n\n误移系统文件夹恢复\n\n\n\nWindows\n\nPowershell\n\n电脑技巧\n\n解决方案\n\n\n\n\nPinn Xu\n\n\n2024年4月22日\n\n\n\n\n\n\n无匹配项",
+    "text": "排序方式\n      默认\n      \n        标题\n      \n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        作者\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nQuarto 图片居中样式\n\n\n\nQuarto\n\nCSS\n\n电脑技巧\n\n解决方案\n\n\n\n\nPinn Xu\n\n\n2026年6月15日\n\n\n\n\n\n\n\n\n\n\n\n\n\n误移系统文件夹恢复\n\n\n\nWindows\n\ndesktop.ini\n\nPowershell\n\n电脑技巧\n\n解决方案\n\n\n\n\nPinn Xu\n\n\n2024年4月22日\n\n\n\n\n\n\n无匹配项",
     "crumbs": [
       "经验博客"
     ]
@@ -1863,7 +1863,7 @@
     "href": "zh/blogs/quarto-img-styles/index.html",
     "title": "Quarto 图片居中样式",
     "section": "",
-    "text": "4 min read · 150 EN words · 933 中文字",
+    "text": "4 min read · 145 EN words · 928 中文字",
     "crumbs": [
       "经验博客",
       "Quarto 图片居中样式"
@@ -1936,44 +1936,66 @@
     ]
   },
   {
-    "objectID": "zh/blogs/fix-misplaced-sysfolders/index.html",
-    "href": "zh/blogs/fix-misplaced-sysfolders/index.html",
+    "objectID": "zh/blogs/recover-shellfolder/index.html",
+    "href": "zh/blogs/recover-shellfolder/index.html",
     "title": "误移系统文件夹恢复",
     "section": "",
-    "text": "9 min read · 181 EN words · 2148 中文字",
+    "text": "8 min read · 200 EN words · 2087 中文字",
     "crumbs": [
       "经验博客",
       "误移系统文件夹恢复"
     ]
   },
   {
-    "objectID": "zh/blogs/fix-misplaced-sysfolders/index.html#问题",
-    "href": "zh/blogs/fix-misplaced-sysfolders/index.html#问题",
+    "objectID": "zh/blogs/recover-shellfolder/index.html#问题",
+    "href": "zh/blogs/recover-shellfolder/index.html#问题",
     "title": "误移系统文件夹恢复",
-    "section": "6.1 问题",
-    "text": "6.1 问题\nWin10 系统文件夹 (Sell Files, 如 桌面, 文档, 图片 ) 不小心移动到磁盘根目录 (如 D:\\, E:\\ ), 如何恢复文件夹?",
+    "section": "2.1 问题",
+    "text": "2.1 问题\nWin10 系统文件夹（Shell Folders，如 桌面、文档、图片）被意外移动至磁盘根目录（如 D:\\、E:\\），如何恢复？",
     "crumbs": [
       "经验博客",
       "误移系统文件夹恢复"
     ]
   },
   {
-    "objectID": "zh/blogs/fix-misplaced-sysfolders/index.html#解决方法",
-    "href": "zh/blogs/fix-misplaced-sysfolders/index.html#解决方法",
+    "objectID": "zh/blogs/recover-shellfolder/index.html#解决方法",
+    "href": "zh/blogs/recover-shellfolder/index.html#解决方法",
     "title": "误移系统文件夹恢复",
-    "section": "6.2 解决方法",
-    "text": "6.2 解决方法\n\n新建文件夹, 用于储存系统文件夹 (如 E:\\User\\UserName\\Desktop\\)\n修改注册表, 将文件夹路径改为新建文件夹的路径\n\n按 WIN + R 打开 运行 窗口, 输入 regedit 打开注册表\n找到 HKEY_CURRENT_USER\\HKEY_CURRENT_USER\\Software\\ Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\n找到 数据 为磁盘根目录的条目 (如 E:\\)\n修改 数据 为新建文件夹的路径 (如 E:\\User\\UserName\\Desktop\\)\n保存后重启电脑\n\n显示隐藏的系统文件\n\n打开新建的文件夹 (如 E:\\User\\UserName\\Desktop)\n打开 文件 &gt; 选项 &gt; 查看\n勾选 ⏺ 显示隐藏的文件、文件夹或驱动器\n取消勾选 ◻ 隐藏受保护的操作系统文件\n\n修改 desktop.ini 文件\n\n用记事本打开 desktop.ini 文件\n填写 IconResource 和 LocalizedResourceName 项\n\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;文件名对应数值&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;文件图标对应数值&gt;\n&lt;其他项...&gt;\n\n注：设置完后记得重新隐藏第三步中显示的文件\n\n(未完)",
+    "section": "2.2 解决方法",
+    "text": "2.2 解决方法\n\n新建目标文件夹（如 E:\\Users\\UserName\\Videos\\）\n修改注册表\n\n按 Win + R 输入 regedit\n导航至 HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\n找到数据值为磁盘根目录（如 E:\\）的条目\n将其改为新建文件夹的路径（如 E:\\Users\\UserName\\Videos\\）\n保存后重启电脑\n\n显示系统隐藏文件\n\n打开目标文件夹\n进入 文件 &gt; 选项 &gt; 查看\n勾选 ⏺ 显示隐藏的文件、文件夹或驱动器\n取消勾选 ◻ 隐藏受保护的操作系统文件\n\n修改 desktop.ini\n\n用记事本打开 desktop.ini\n填写 IconResource 和 LocalizedResourceName 项，编号可在 表 1 查询\n显示名称若不想引用资源索引，也可直接填写中文显示名 LocalizedResourceName=&lt;中文显示名&gt;，再按 方法1 修改编码方式并保存\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;显示名称资源编号&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;图标资源编号&gt;\n&lt;其他项...&gt;\n\n注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。",
     "crumbs": [
       "经验博客",
       "误移系统文件夹恢复"
     ]
   },
   {
-    "objectID": "zh/blogs/fix-misplaced-sysfolders/index.html#系统文件夹对应资源表格",
-    "href": "zh/blogs/fix-misplaced-sysfolders/index.html#系统文件夹对应资源表格",
+    "objectID": "zh/blogs/recover-shellfolder/index.html#恢复图标",
+    "href": "zh/blogs/recover-shellfolder/index.html#恢复图标",
     "title": "误移系统文件夹恢复",
-    "section": "6.3 系统文件夹对应资源表格",
-    "text": "6.3 系统文件夹对应资源表格\n表1：图标对应资源 表2：显示名称对应资源\n注注注: 也可以用 UTF-16 LE 编码 (先搞清楚 desktop.ini 用的到底是什么编码), 在 LocalizedResourceName=&lt;这里&gt; 里填入编码后的中文字符, 比找资源 (dll) 里的数值更方便, 不过如果已经有数值列表, 也可以直接拷贝.",
+    "section": "4.1 恢复图标",
+    "text": "4.1 恢复图标\n我首先尝试手动更改文件夹图标。\n\n\n\n\n\n\n图 10: 直接搜索图标\n\n\n\n找到一篇文章，介绍了 Windows 系统图标的存储位置。\n\n\n\n\n\n\n图 11: 文章: Win图标存储位置\n\n\n\n通过 属性 &gt; 自定义 &gt; 更改图标 发现，当前图标来自 SHELL32.dll，但其中并没有 保存的游戏 对应的图标，由此推断，系统还有其他存放图标的 DLL 文件。\n\n\n\n\n\n\n\n\n属性 &gt; 自定义 &gt; 更改图标\n\n\n\n\n\n\n\n当前图标位置\n\n\n\n\n\n\n图 12: 当前图标文件 - SHELL32.dll\n\n\n\n参照文章列出的多个 DLL 逐一排查后，最终在 imageres.dll 中找到了 保存的游戏 的图标，以及 桌面、视频 等图标。\n\n\n\n\n\n\n图 13: 其他包含图标的系统文件\n\n\n\n\n\n\n\n\n\n图 14: 找到图标 - imageres.dll\n\n\n\n将图标指向正确的资源后，图标恢复正常。但文件夹的显示名称仍未还原为 保存的游戏。\n\n\n\n\n\n\n图 15: 成功恢复图标",
+    "crumbs": [
+      "经验博客",
+      "误移系统文件夹恢复"
+    ]
+  },
+  {
+    "objectID": "zh/blogs/recover-shellfolder/index.html#恢复文件名",
+    "href": "zh/blogs/recover-shellfolder/index.html#恢复文件名",
+    "title": "误移系统文件夹恢复",
+    "section": "4.2 恢复文件名",
+    "text": "4.2 恢复文件名\n搜索”如何让文件名与显示名不同”，找到了如下方案：\n\n\n\n\n\n\n\n\n搜索结果\n\n\n\n\n\n\n\n\n\n搜索结果: 具体内容\n\n\n\n\n\n\n图 16: 搜索结果 - 让文件名和显示名不一样\n\n\n\n操作步骤：\n\n勾选”显示隐藏的项目”，点击 选项。\n点击”查看” 标签页。\n取消勾选”隐藏受保护的操作系统文件”，点击 是。\n\n\n\n\n\n\n\n图 17: 显示隐藏的项目\n\n\n\n\n\n\n\n\n\n图 18: 取消隐藏受保护的操作系统文件\n\n\n\n\n\n\n\n\n\n图 19: 确定显示\n\n\n\n此时 Saved Games 文件夹内出现 desktop.ini 文件。\n\n\n\n\n\n\n图 20: desktop.ini 文件\n\n\n\n用记事本打开，可见其中 IconResource 条目已指向 imageres.dll，正是上一步恢复的图标。\n\n\n\n\n\n\n图 21: desktop.ini 文件具体内容\n\n\n\n按照教程，在 desktop.ini 文件中新增如下内容（图 22）：\nLocalizedResourceName=保存的游戏\n但保存后文件名出现乱码（图 23）：英文能正常显示，中文却变成乱码，说明文件编码格式不对。\n\n\n\n\n\n\n图 22: 修改文件显示名\n\n\n\n\n\n\n\n\n\n图 23: 显示名变成乱码\n\n\n\n\n方法1：修改编码方式1\n记事本右下角显示当前编码为 UTF-8，而经查证，desktop.ini 的编码应为 UTF-16 LE。\n\n\n\n\n\n\n图 24: 记事本默认编码\n\n\n\n为避免中文乱码，在填好中文名称后，点击 文件 &gt; 另存为。\n\n\n\n\n\n\n图 25: 另存为\n\n\n\n将 保存类型 设为 所有文件(*.*)，编码 设为 UTF-16 LE，保存并替换原文件。\n\n\n\n\n\n\n图 26: 修改编码\n\n\n\n稍等片刻，文件名称即恢复。\n\n\n\n\n\n\n图 27: 保存的游戏 复活\n\n\n\n\n\n方法2：填写资源索引\n除了修改编码，还可以引用资源索引。\n查看未受影响的 视频 文件夹的 desktop.ini，发现其显示名称并非直接写入中文字符串，而是引用 shell32.dll 中的资源索引（格式为 @%SystemRoot%\\system32\\shell32.dll,-XXXXX）。\n\n\n\n\n\n\n图 28: “视频”显示名信息来源\n\n\n\n于是我着手搜索 shell32.dll 中的名称资源编号。\n\n\n\n\n\n\n图 29: 搜索 shell.32 名称资源\n\n\n\n但搜索结果只涉及图标资源，没有名称编号。\n\n\n\n\n\n\n图 30: 搜索结果: 对图标资源的讨论\n\n\n\n转而向 AI 求助：\n\n\n\n\n\n\n图 31: 求助AI\n\n\n\n但 ChatGPT 给出的编号是虚构的。\n\n\n\n\n\n\n图 32: 虚构答案\n\n\n\n\n注：-21810 对应的是”链接”，并非”保存的游戏”。\n\n我又追问如何查看 shell32.dll 的内容，ChatGPT 推荐使用 Visual Studio。\n\n\n\n\n\n\n图 33: 询问如何查看 shell32.dll 内容\n\n\n\n编程零基础的我，手滑下载成了 Visual Studio Code。正是这一误打误撞，让我首次接触到 IDE。后来课上老师发现我用 VSCode 而非 Jupyter 写作业，追问缘由，我便掏出了这篇文章 。\n\n\n\n\n\n\n图 34: VSCode 和 Visual Studio\n\n\n\n按 ChatGPT 指示，在 Visual Studio 中新建解决方案，加载 C:\\Windows\\System32\\shell32.dll 查看资源目录。\n\n\n\n\n\n\n图 35: AI 指示\n\n\n\n\n\n\n\n\n\n图 36: Visual Studio 界面\n\n\n\n然而 Visual Studio 只能显示资源目录结构，无法直接确认条目编号；加之 shell32.dll 内容庞大，逐条查找并不现实。\n最后我只好直接对照另一台未修改过的电脑上的 desktop.ini。正确编号原来是 -21814，与之前试过的 -21810 仅差 4，再多试几次或许就碰对了。\n在 保存的游戏 文件夹的 desktop.ini 文件中新增如下内容：\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,-21814\n\n\n\n\n\n\n图 37: 对照别人电脑更改后\n\n\n\n除 保存的游戏 外，其他系统文件夹的显示名称资源编号可在 表 1 中查询。\n“保存的游戏” —— 堂堂复活！\n\n\n\n\n\n\n图 38: 保存的游戏 复活\n\n\n\n至此，图标与显示名称均已恢复默认。\n\n\n\n\n\n\n图 39: 默认图标恢复\n\n\n\n教训：迁移系统文件夹时，只修改路径中的盘符，不要将根目录直接设为目标路径。\n\n\n\n\n\n\n图 40: 移动系统文件：只修改盘符",
+    "crumbs": [
+      "经验博客",
+      "误移系统文件夹恢复"
+    ]
+  },
+  {
+    "objectID": "zh/blogs/recover-shellfolder/index.html#footnotes",
+    "href": "zh/blogs/recover-shellfolder/index.html#footnotes",
+    "title": "误移系统文件夹恢复",
+    "section": "脚注",
+    "text": "脚注\n\n\n2026年06月16日 新增内容↩︎\n除特殊标记外，其余名称资源均来自: @%SystemRoot%\\system32\\shell32.dll,&lt;编号&gt;↩︎\n图标资源均来自 %SystemRoot%\\system32\\imageres.dll,&lt;编号&gt;↩︎\n联系人 的名称资源来自: @%CommonProgramFiles%\\system\\wab32res.dll,-10100↩︎\n3D对象 的名称资源来自: @%SystemRoot%\\system32\\windows.storage.dll,-21825↩︎",
     "crumbs": [
       "经验博客",
       "误移系统文件夹恢复"
@@ -1984,7 +2006,7 @@
     "href": "zh/projects/ai-discourse/index.html",
     "title": "网络AI话语的演变",
     "section": "",
-    "text": "34 min read · 980 EN words · 8559 中文字\n环境与版本\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
+    "text": "34 min read · 975 EN words · 8554 中文字\n环境与版本\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
     "crumbs": [
       "可视化项目",
       "网络AI话语的演变"
@@ -2182,7 +2204,7 @@
     "href": "zh/projects/index.html",
     "title": "项目",
     "section": "",
-    "text": "排序方式\n      默认\n      \n        标题\n      \n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        作者\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n网络AI话语的演变\n\n\n\nR\n\nAI\n\nNLP\n\n文本分析\n\n情感分析\n\n主题建模\n\n社交媒体\n\n\n\n\nPinn Xu\n\n\n2026年5月1日\n\n\n\n\n\n\n\n\n\n\n\n\n\n学生社交媒体使用与幸福感分析\n\n\n\nR\n\nEDA\n\n社交媒体\n\n心理健康\n\n可视化\n\n\n\n\nPinn Xu\n\n\n2026年2月23日\n\n\n\n\n\n\n\n\n\n\n\n\n\nTwitter 加泰罗尼亚公投情感分析\n\n\n\nPython\n\nNLP\n\n社交媒体\n\n可视化\n\n\n\n\nPinn Xu\n\n\n2024年11月1日\n\n\n\n\n\n\n\n\n\n\n\n全球签证费用分析与交互式可视化\n\n\n\nPython\n\nEDA\n\n桑基图\n\n地图可视化\n\n可视化\n\n\n\n\nPinn Xu\n\n\n2024年12月12日\n\n\n\n\n\n\n\n\n\n\n\n\n\nSpotify 最高播放量歌曲——音乐特征与受众趋势分析\n\n\n\nR\n\nEDA\n\n音乐\n\n可视化\n\n抽样\n\n\n\n\nPinn Xu\n\n\n2026年2月25日\n\n\n\n\n\n\n无匹配项",
+    "text": "排序方式\n      默认\n      \n        标题\n      \n      \n        日期 - 日期升序\n      \n      \n        日期 - 日期降序\n      \n      \n        作者\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n网络AI话语的演变\n\n\n\nR\n\nAI\n\nNLP\n\n文本分析\n\n情感分析\n\n主题建模\n\n社交媒体\n\n\n\n\nPinn Xu\n\n\n2026年5月1日\n\n\n\n\n\n\n\n\n\n\n\n\n\n学生社交媒体使用与幸福感分析\n\n\n\nR\n\nEDA\n\n社交媒体\n\n心理健康\n\n可视化\n\n\n\n\nPinn Xu\n\n\n2026年2月23日\n\n\n\n\n\n\n\n\n\n\n\n\n\nTwitter 加泰罗尼亚公投情感分析\n\n\n\nPython\n\nNLP\n\n社交媒体\n\n可视化\n\n\n\n\nPinn Xu\n\n\n2024年11月1日\n\n\n\n\n\n\n\n\n\n\n\n全球签证费用地区分析\n\n\n\nPython\n\nEDA\n\n桑基图\n\n地图可视化\n\n可视化\n\n\n\n\nPinn Xu\n\n\n2024年12月12日\n\n\n\n\n\n\n\n\n\n\n\n\n\nSpotify 最高播放量歌曲——音乐特征与受众趋势分析\n\n\n\nR\n\nEDA\n\n音乐\n\n可视化\n\n抽样\n\n\n\n\nPinn Xu\n\n\n2026年2月25日\n\n\n\n\n\n\n无匹配项",
     "crumbs": [
       "可视化项目"
     ]
@@ -2190,67 +2212,67 @@
   {
     "objectID": "zh/projects/global-visa-cost/index.html",
     "href": "zh/projects/global-visa-cost/index.html",
-    "title": "全球签证费用分析与交互式可视化",
+    "title": "全球签证费用地区分析",
     "section": "",
-    "text": "10 min read · 230 EN words · 2501 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
+    "text": "10 min read · 225 EN words · 2471 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
     "crumbs": [
       "可视化项目",
-      "全球签证费用分析与交互式可视化"
+      "全球签证费用地区分析"
     ]
   },
   {
     "objectID": "zh/projects/global-visa-cost/index.html#桑基图",
     "href": "zh/projects/global-visa-cost/index.html#桑基图",
-    "title": "全球签证费用分析与交互式可视化",
+    "title": "全球签证费用地区分析",
     "section": "2.1 桑基图",
-    "text": "2.1 桑基图\n\n数据清洗\n\n\n代码\n## 定义新变量 df0，用于存储指定列中不含缺失值的 DataFrame，\n# 从而确保桑基图只包含有效节点。\n\ndf0 = df.dropna(\n    subset=[\n        'tourist_visa',\n        'source',\n        'source_region',\n        'source_subregion',\n    ]\n)\n\n#【.dropna()】\n# 该方法会删除包含任意缺失值的行（Pandas, 2024b）。\n\n#【subset】\n# 该参数指定删除缺失值时需要考虑哪些列。在本例中，\n# 这些列将用于创建桑基图。\n\n# 为了简化分析，本项目仅使用最常见的旅游签证数据\n# (Recchi et al., 2021, p. 7)。\n\n\n\n\n定义节点\n\n\n代码\n##############################################################################\n## 定义列表，用于存储节点标签\nsource_region_labels = list(df0['source_region'].unique())\nsource_subregion_labels = list(df0['source_subregion'].unique())\n\n#【.unique()】\n# 该方法会从 Series 对象中返回一个包含唯一值列表的 Array 对象\n# (Pandas, 2024f)。在本例中，DataFrame df0 中的\n# 'source_region' 和 'source_subregion' 列作为 Series 对象，\n# 且缺失值已通过 .dropna() 方法删除。随后使用 .unique() 方法\n# 从各列返回包含唯一值列表的 Array 对象。这些值将用于创建节点标签。\n\n#【list()】\n# 该 Python 内置函数（也是类）会将输入转换为列表（Python, 2024a）。\n# 在本例中，它用于将上述 Array 对象转换为 Python 列表对象。\n\n##############################################################################\n## 合并列表，定义一个包含全部节点标签的完整列表\nnode_labels = ['World'] + source_region_labels + source_subregion_labels\n\n#【+】\n# 该运算符会将两个或多个序列（如列表）拼接成一个序列\n# (Python, 2024b)。在本例中，它用于将多个节点标签列表合并为一个列表。\n\n#【'World'】\n# 'World' 被添加到列表开头，作为根节点标签。\n\n##############################################################################\n## 定义可迭代的 range 对象，用于存储各节点的索引\nnode_ids = range(len(node_labels))\n\n#【len()】\n# 该 Python 内置函数会返回对象中的项目数量（即对象长度），\n# 对象可以是序列（如列表）或集合（如字典）（Python, 2024a）。\n# 在本例中，它用于返回存储全部节点标签的 node_labels 列表长度，\n# 该长度等于 23。\n\n#【range()】\n# 该 Python 内置函数（也是类）会返回一个数字序列，\n# 默认从 0 开始（Python, 2024a）。在本例中，\n# range(23) 表示从 0 到 22，正好对应 node_labels 列表中各项的索引。\n\n##############################################################################\n## 定义字典，用于存储各节点的标签与索引\nnodes = dict(zip(node_labels, node_ids))\n\n#【zip()】\n# 该 Python 内置函数会并行迭代多个可迭代对象，\n# 并生成由各对象对应元素组成的元组（Python, 2024a）。\n\n#【dict()】\n# 该 Python 内置函数（也是类）会从两个或多个序列创建字典\n# (Python, 2024a)。在本例中，它用于创建一个字典，\n# 其中键为节点标签，值为节点标签对应的索引。\n\n\n\n\n定义链接\n\n\n代码\n##############################################################################\n## 创建聚合后的 DataFrame，用于存储相关数据，\n# 并计算指向各子地区链接的数值。\nto_subregion_value = df0.groupby('source_subregion').agg(\n    {\n    'source_region':'first', # 各子地区所属地区\n    'tourist_visa':'mean', # 各子地区的旅游签证费用均值\n    }\n)\n\n#【.groupby()】\n# 该方法用于根据 'source_region' 列对 df0 中的行进行分组。\n\n#【.agg()】\n# 该方法用于计算各分组内数值的聚合结果。\n\n#【'first'】\n# 该聚合函数会返回 DataFrameGroupBy 对象中各分组内每列的第一个值\n# (Pandas, 2024a)。在本例中，它用于选择各子地区分组中遇到的第一个地区\n# （即该子地区所属地区）。\n\n##############################################################################\n## 创建聚合后的 DataFrame，用于存储指向各地区链接的数值。\nto_region_value = (\n    to_subregion_value\n    .groupby('source_region')\n    .agg({'tourist_visa':'sum'})\n)\n\n##############################################################################\n## 创建空列表，用于存储每条链接的来源、目标和值\nsources = [] # 用于填入来源节点在节点标签中的索引\ntargets = [] # 用于填入目标节点在节点标签中的索引\nvalues = [] # 用于填入每条链接的数值（tourist_visa）\n\n## 从 'World' 到各地区\nfor region in source_region_labels:\n\n    # 将 'World' 作为来源节点加入列表\n    sources.append(nodes['World'])\n\n    # 将各地区作为目标节点加入列表\n    targets.append(nodes[region])\n\n    # 将 df0_agg1 中各地区的数值作为对应链接的值加入列表\n    values.append(to_region_value.loc[region,'tourist_visa'])\n\n## 从各地区到各子地区\nfor subregion in source_subregion_labels:\n\n    # 将对应地区作为来源节点加入列表\n    # 获取对应地区\n    region = to_subregion_value.loc[subregion,'source_region']\n    sources.append(nodes[region])\n\n    # 将各子地区作为目标节点加入列表\n    targets.append(nodes[subregion])\n\n    # 将 df0_agg2 中各子地区的数值作为对应链接的值加入列表\n    values.append(to_subregion_value.loc[subregion,'tourist_visa'])\n\n\n\n\n配色方案\n\n\n代码\nprint(\"地区:\")\nprint(source_region_labels) # 检查 df0 中的地区\n\n\n地区:\n['Asia', 'Africa', 'Europe', 'Americas', 'Oceania']\n\n\n\n\n代码\n##############################################################################\n## 定义字典，用于存储地区颜色\n\nregion_colors = {\n    'Africa': '#6B3A09',  # 棕色\n    'Asia': '#7FA709',  # 绿色\n    'Americas': '#EC6C92', # 粉色\n    'Oceania': '#F5DA29',  # 黄色\n    'Europe': '#85D6D5',  # 蓝色\n}\n\n# 这些十六进制颜色由 Nichols（无日期）的配色生成器生成，\n# 以便提高色盲人群的可见性。\n\n##############################################################################\n## 根据地区定义节点颜色\n\nnode_colors = []  # 创建空列表，用于存储节点颜色\n\n# 使用 for 循环将节点颜色加入列表\nfor label in node_labels:\n    if label in source_region_labels:\n        node_colors.append(region_colors[label])\n\n    elif label in source_subregion_labels:\n        # 获取对应地区\n        region = to_subregion_value.loc[label,'source_region']\n        node_colors.append(region_colors[region])\n\n    else: # 如果标签为 'World'\n        node_colors.append('silver')\n\n##############################################################################\n## 定义带透明度的链接颜色\nimport matplotlib.colors as c  # 用于创建 RGBA 格式的浅色\n\n## 定义字符串，用于存储 RGBA 格式的浅色链接颜色\nfaint_Africa = 'rgba'+str(c.to_rgba(region_colors['Africa'], 0.5))\nfaint_Asia = 'rgba'+str(c.to_rgba(region_colors['Asia'], 0.5))\nfaint_Americas = 'rgba'+str(c.to_rgba(region_colors['Americas'], 0.5))\nfaint_Oceania = 'rgba'+str(c.to_rgba(region_colors['Oceania'], 0.5))\nfaint_Europe = 'rgba'+str(c.to_rgba(region_colors['Europe'], 0.5))\n\n# 0.5: alpha=0.5，表示颜色透明度为 50%\n\n##############################################################################\n## 定义字典，用于按地区存储浅色链接颜色\nfaint_region_colors = {\n    'Africa': faint_Africa,  # 浅棕色\n    'Asia': faint_Asia,  # 浅绿色\n    'Americas': faint_Americas,  # 浅粉色\n    'Oceania': faint_Oceania,  # 浅黄色\n    'Europe': faint_Europe,  # 浅蓝色\n}\n\n##############################################################################\n## 根据地区定义链接颜色\nlink_colors = []  # 创建空列表，用于存储链接颜色\n\n# 使用 for 循环将链接颜色加入列表\nfor source, target in zip(sources, targets):\n    if node_labels[source] in source_region_labels:\n        link_colors.append(faint_region_colors[node_labels[source]])\n\n    elif node_labels[target] in source_region_labels:\n        link_colors.append(faint_region_colors[node_labels[target]])\n\n##############################################################################\n# 检查节点颜色数量是否与节点数量一致\nprint('节点颜色数量 == 节点数量?')\nprint(len(node_colors) == len(nodes))\n\n# 检查链接颜色数量是否与链接数量一致\nprint('链接颜色数量 == 链接数量?')\nprint(len(link_colors) == len(sources) == len(targets) == len(values))\n\n\n节点颜色数量 == 节点数量?\nTrue\n链接颜色数量 == 链接数量?\nTrue\n\n\n\n\n绘制桑基图\n\n\n代码\n##############################################################################\nimport plotly.graph_objects as go  # 用于创建桑基图\n\n## 通过 go.Sankey() 函数创建 Sankey 对象，用于存储桑基图数据\n\nsankey_data = go.Sankey(   # 定义变量，用于存储桑基图数据\n    # 定义节点\n    node = dict(\n        label = node_labels,  # 节点标签\n        color = node_colors,  # 节点颜色\n        pad = 30,  # 节点之间的水平距离\n        thickness = 20,  # 节点厚度\n        line = {'color':'black','width':0.5},  # 节点轮廓样式\n    ),\n\n    # 定义链接\n    link = dict(\n        source = sources,  # 来源节点在 node_labels 中的索引\n        target = targets,  # 目标节点在 node_labels 中的索引\n        value = values,  # 链接数值\n        color = link_colors, # 链接颜色\n    )\n)\n\n##############################################################################\n# 通过 go.Figure() 函数创建 Figure 对象，用于存储桑基图数据\nfig1 = go.Figure(sankey_data)\n\n# 更新图形布局\nfig1.update_layout(\n    # width = 800, height = 600,\n    margin = dict(t = 60, b = 10),  # 上下边距\n    title_text = '''\n        各地区平均旅游签证费用桑基图\n    ''',\n    title_x = 0.5, title_y = 0.95,  # 标题位置\n    font = {'style':'italic'},      # 图形字体样式\n)\n    #【.update_layout()】\n    # 该方法用于更新图形布局，\n    # 包括尺寸、标题、字体等（Plotly, 2024b）。\n\nfig1.show(config = {\"responsive\": True})      # 显示桑基图\n\n    #【renderer】\n    # 该参数用于指定渲染图形时使用的渲染器（Plotly, 2024b），\n    # 其中 'notebook' 指 Jupyter notebook。\n\n    # 本项目使用带 Jupyter 扩展的 Visual Studio Code 编辑并导出为 HTML 文件。\n    # 在这种情况下，renderer='notebook' 对 Visual Studio Code 中的图形显示\n    # 和导出的 HTML 文件有效。不过，该参数在 Jupyter 的输出单元格中\n    # 似乎无法正常显示图形（但对导出的 HTML 文件有效）。\n\n\n\n\n                                                \n\n\n图 1: 各地区平均旅游签证费用桑基图\n\n\n\n\n如上所示，图 1 展示了全球各地区（如亚洲、欧洲、非洲）到其对应子地区（如东亚、北欧）的平均旅游签证费用流向。从各地区到子地区的链接宽度代表每个子地区（作为签证申请来源地）各国的平均旅游签证费用，而左侧从”世界”节点到各地区节点的链接宽度则为其对应子地区链接的总和。总体而言，该桑基图（图 1）展示了全球旅游签证费用的流向分布。\n\n\n\n\n\n\n图 2: 各地区平均旅游签证费用桑基图（已排序）\n\n\n\n此外，图 2 提供了经手动按链接值（平均旅游签证费用）对子地区节点排序后的同一桑基图，以便更直观地解读各地区签证费用之间的差距。如 图 2 所示，属于亚洲和非洲的子地区呈现出显著更大的流量，反映出其较高的平均旅游签证费用。相比之下，欧洲、澳大利亚与新西兰以及北美洲的流量较小，说明这些地区的平均旅游签证费用较低。在亚洲内部，南亚地区费用最高，而东亚最低；类似地，西欧在欧洲各子地区中费用最低。\n总体而言，图 1 和 图 2 揭示了不同地区国家在出境能力方面的潜在不平等。这一差距将在下一节的条形图（图 3 和 图 4）中进一步呈现。",
+    "text": "2.1 桑基图\n\n数据清洗\n\n\n代码\n## 定义新变量 df0，用于存储指定列中不含缺失值的 DataFrame，\n# 从而确保桑基图只包含有效节点。\n\ndf0 = df.dropna(\n    subset=[\n        'tourist_visa',\n        'source',\n        'source_region',\n        'source_subregion',\n    ]\n)\n\n#【.dropna()】\n# 该方法会删除包含任意缺失值的行（Pandas, 2024b）。\n\n#【subset】\n# 该参数指定删除缺失值时需要考虑哪些列。在本例中，\n# 这些列将用于创建桑基图。\n\n# 为了简化分析，本项目仅使用最常见的旅游签证数据\n# (Recchi et al., 2021, p. 7)。\n\n\n\n\n定义节点\n\n\n代码\n##############################################################################\n## 定义列表，用于存储节点标签\nsource_region_labels = list(df0['source_region'].unique())\nsource_subregion_labels = list(df0['source_subregion'].unique())\n\n#【.unique()】\n# 该方法会从 Series 对象中返回一个包含唯一值列表的 Array 对象\n# (Pandas, 2024f)。在本例中，DataFrame df0 中的\n# 'source_region' 和 'source_subregion' 列作为 Series 对象，\n# 且缺失值已通过 .dropna() 方法删除。随后使用 .unique() 方法\n# 从各列返回包含唯一值列表的 Array 对象。这些值将用于创建节点标签。\n\n#【list()】\n# 该 Python 内置函数（也是类）会将输入转换为列表（Python, 2024a）。\n# 在本例中，它用于将上述 Array 对象转换为 Python 列表对象。\n\n##############################################################################\n## 合并列表，定义一个包含全部节点标签的完整列表\nnode_labels = ['World'] + source_region_labels + source_subregion_labels\n\n#【+】\n# 该运算符会将两个或多个序列（如列表）拼接成一个序列\n# (Python, 2024b)。在本例中，它用于将多个节点标签列表合并为一个列表。\n\n#【'World'】\n# 'World' 被添加到列表开头，作为根节点标签。\n\n##############################################################################\n## 定义可迭代的 range 对象，用于存储各节点的索引\nnode_ids = range(len(node_labels))\n\n#【len()】\n# 该 Python 内置函数会返回对象中的项目数量（即对象长度），\n# 对象可以是序列（如列表）或集合（如字典）（Python, 2024a）。\n# 在本例中，它用于返回存储全部节点标签的 node_labels 列表长度，\n# 该长度等于 23。\n\n#【range()】\n# 该 Python 内置函数（也是类）会返回一个数字序列，\n# 默认从 0 开始（Python, 2024a）。在本例中，\n# range(23) 表示从 0 到 22，正好对应 node_labels 列表中各项的索引。\n\n##############################################################################\n## 定义字典，用于存储各节点的标签与索引\nnodes = dict(zip(node_labels, node_ids))\n\n#【zip()】\n# 该 Python 内置函数会并行迭代多个可迭代对象，\n# 并生成由各对象对应元素组成的元组（Python, 2024a）。\n\n#【dict()】\n# 该 Python 内置函数（也是类）会从两个或多个序列创建字典\n# (Python, 2024a)。在本例中，它用于创建一个字典，\n# 其中键为节点标签，值为节点标签对应的索引。\n\n\n\n\n定义链接\n\n\n代码\n##############################################################################\n## 创建聚合后的 DataFrame，用于存储相关数据，\n# 并计算指向各子地区链接的数值。\nto_subregion_value = df0.groupby('source_subregion').agg(\n    {\n    'source_region':'first', # 各子地区所属地区\n    'tourist_visa':'mean', # 各子地区的旅游签证费用均值\n    }\n)\n\n#【.groupby()】\n# 该方法用于根据 'source_region' 列对 df0 中的行进行分组。\n\n#【.agg()】\n# 该方法用于计算各分组内数值的聚合结果。\n\n#【'first'】\n# 该聚合函数会返回 DataFrameGroupBy 对象中各分组内每列的第一个值\n# (Pandas, 2024a)。在本例中，它用于选择各子地区分组中遇到的第一个地区\n# （即该子地区所属地区）。\n\n##############################################################################\n## 创建聚合后的 DataFrame，用于存储指向各地区链接的数值。\nto_region_value = (\n    to_subregion_value\n    .groupby('source_region')\n    .agg({'tourist_visa':'sum'})\n)\n\n##############################################################################\n## 创建空列表，用于存储每条链接的来源、目标和值\nsources = [] # 用于填入来源节点在节点标签中的索引\ntargets = [] # 用于填入目标节点在节点标签中的索引\nvalues = [] # 用于填入每条链接的数值（tourist_visa）\n\n## 从 'World' 到各地区\nfor region in source_region_labels:\n\n    # 将 'World' 作为来源节点加入列表\n    sources.append(nodes['World'])\n\n    # 将各地区作为目标节点加入列表\n    targets.append(nodes[region])\n\n    # 将 df0_agg1 中各地区的数值作为对应链接的值加入列表\n    values.append(to_region_value.loc[region,'tourist_visa'])\n\n## 从各地区到各子地区\nfor subregion in source_subregion_labels:\n\n    # 将对应地区作为来源节点加入列表\n    # 获取对应地区\n    region = to_subregion_value.loc[subregion,'source_region']\n    sources.append(nodes[region])\n\n    # 将各子地区作为目标节点加入列表\n    targets.append(nodes[subregion])\n\n    # 将 df0_agg2 中各子地区的数值作为对应链接的值加入列表\n    values.append(to_subregion_value.loc[subregion,'tourist_visa'])\n\n\n\n\n配色方案\n\n\n代码\nprint(\"地区:\")\nprint(source_region_labels) # 检查 df0 中的地区\n\n\n地区:\n['Asia', 'Africa', 'Europe', 'Americas', 'Oceania']\n\n\n\n\n代码\n##############################################################################\n## 定义字典，用于存储地区颜色\n\nregion_colors = {\n    'Africa': '#6B3A09',  # 棕色\n    'Asia': '#7FA709',  # 绿色\n    'Americas': '#EC6C92', # 粉色\n    'Oceania': '#F5DA29',  # 黄色\n    'Europe': '#85D6D5',  # 蓝色\n}\n\n# 这些十六进制颜色由 Nichols（无日期）的配色生成器生成，\n# 以便提高色盲人群的可见性。\n\n##############################################################################\n## 根据地区定义节点颜色\n\nnode_colors = []  # 创建空列表，用于存储节点颜色\n\n# 使用 for 循环将节点颜色加入列表\nfor label in node_labels:\n    if label in source_region_labels:\n        node_colors.append(region_colors[label])\n\n    elif label in source_subregion_labels:\n        # 获取对应地区\n        region = to_subregion_value.loc[label,'source_region']\n        node_colors.append(region_colors[region])\n\n    else: # 如果标签为 'World'\n        node_colors.append('silver')\n\n##############################################################################\n## 定义带透明度的链接颜色\nimport matplotlib.colors as c  # 用于创建 RGBA 格式的浅色\n\n## 定义字符串，用于存储 RGBA 格式的浅色链接颜色\nfaint_Africa = 'rgba'+str(c.to_rgba(region_colors['Africa'], 0.5))\nfaint_Asia = 'rgba'+str(c.to_rgba(region_colors['Asia'], 0.5))\nfaint_Americas = 'rgba'+str(c.to_rgba(region_colors['Americas'], 0.5))\nfaint_Oceania = 'rgba'+str(c.to_rgba(region_colors['Oceania'], 0.5))\nfaint_Europe = 'rgba'+str(c.to_rgba(region_colors['Europe'], 0.5))\n\n# 0.5: alpha=0.5，表示颜色透明度为 50%\n\n##############################################################################\n## 定义字典，用于按地区存储浅色链接颜色\nfaint_region_colors = {\n    'Africa': faint_Africa,  # 浅棕色\n    'Asia': faint_Asia,  # 浅绿色\n    'Americas': faint_Americas,  # 浅粉色\n    'Oceania': faint_Oceania,  # 浅黄色\n    'Europe': faint_Europe,  # 浅蓝色\n}\n\n##############################################################################\n## 根据地区定义链接颜色\nlink_colors = []  # 创建空列表，用于存储链接颜色\n\n# 使用 for 循环将链接颜色加入列表\nfor source, target in zip(sources, targets):\n    if node_labels[source] in source_region_labels:\n        link_colors.append(faint_region_colors[node_labels[source]])\n\n    elif node_labels[target] in source_region_labels:\n        link_colors.append(faint_region_colors[node_labels[target]])\n\n##############################################################################\n# 检查节点颜色数量是否与节点数量一致\nprint('节点颜色数量 == 节点数量?')\nprint(len(node_colors) == len(nodes))\n\n# 检查链接颜色数量是否与链接数量一致\nprint('链接颜色数量 == 链接数量?')\nprint(len(link_colors) == len(sources) == len(targets) == len(values))\n\n\n节点颜色数量 == 节点数量?\nTrue\n链接颜色数量 == 链接数量?\nTrue\n\n\n\n\n绘制桑基图\n\n\n代码\n##############################################################################\nimport plotly.graph_objects as go  # 用于创建桑基图\n\n## 通过 go.Sankey() 函数创建 Sankey 对象，用于存储桑基图数据\n\nsankey_data = go.Sankey(   # 定义变量，用于存储桑基图数据\n    # 定义节点\n    node = dict(\n        label = node_labels,  # 节点标签\n        color = node_colors,  # 节点颜色\n        pad = 30,  # 节点之间的水平距离\n        thickness = 20,  # 节点厚度\n        line = {'color':'black','width':0.5},  # 节点轮廓样式\n    ),\n\n    # 定义链接\n    link = dict(\n        source = sources,  # 来源节点在 node_labels 中的索引\n        target = targets,  # 目标节点在 node_labels 中的索引\n        value = values,  # 链接数值\n        color = link_colors, # 链接颜色\n    )\n)\n\n##############################################################################\n# 通过 go.Figure() 函数创建 Figure 对象，用于存储桑基图数据\nfig1 = go.Figure(sankey_data)\n\n# 更新图形布局\nfig1.update_layout(\n    # width = 800, height = 600,\n    margin = dict(t = 60, b = 10),  # 上下边距\n    title_text = '''\n        各地区平均旅游签证费用桑基图\n    ''',\n    title_x = 0.5, title_y = 0.95,  # 标题位置\n    font = {'style':'italic'},      # 图形字体样式\n)\n    #【.update_layout()】\n    # 该方法用于更新图形布局，\n    # 包括尺寸、标题、字体等（Plotly, 2024b）。\n\n# fig1.show(config = {\"responsive\": True})      # 显示桑基图\nfig1.show()      # 显示桑基图\n\n    #【renderer】\n    # 该参数用于指定渲染图形时使用的渲染器（Plotly, 2024b），\n    # 其中 'notebook' 指 Jupyter notebook。\n\n    # 本项目使用带 Jupyter 扩展的 Visual Studio Code 编辑并导出为 HTML 文件。\n    # 在这种情况下，renderer='notebook' 对 Visual Studio Code 中的图形显示\n    # 和导出的 HTML 文件有效。不过，该参数在 Jupyter 的输出单元格中\n    # 似乎无法正常显示图形（但对导出的 HTML 文件有效）。\n\n\n\n\n                                                \n\n\n图 1: 各地区平均旅游签证费用桑基图\n\n\n\n\n如上所示，图 1 展示了全球各地区（如亚洲、欧洲、非洲）到其对应子地区（如东亚、北欧）的平均旅游签证费用流向。从各地区到子地区的链接宽度代表每个子地区（作为签证申请来源地）各国的平均旅游签证费用，而左侧从”世界”节点到各地区节点的链接宽度则为其对应子地区链接的总和。总体而言，该桑基图（图 1）展示了全球旅游签证费用的流向分布。\n\n\n\n\n\n\n图 2: 各地区平均旅游签证费用桑基图（已排序）\n\n\n\n此外，图 2 提供了经手动按链接值（平均旅游签证费用）对子地区节点排序后的同一桑基图，以便更直观地解读各地区签证费用之间的差距。如 图 2 所示，属于亚洲和非洲的子地区呈现出显著更大的流量，反映出其较高的平均旅游签证费用。相比之下，欧洲、澳大利亚与新西兰以及北美洲的流量较小，说明这些地区的平均旅游签证费用较低。在亚洲内部，南亚地区费用最高，而东亚最低；类似地，西欧在欧洲各子地区中费用最低。\n总体而言，图 1 和 图 2 揭示了不同地区国家在出境能力方面的潜在不平等。这一差距将在下一节的条形图（图 3 和 图 4）中进一步呈现。",
     "crumbs": [
       "可视化项目",
-      "全球签证费用分析与交互式可视化"
+      "全球签证费用地区分析"
     ]
   },
   {
     "objectID": "zh/projects/global-visa-cost/index.html#条形图",
     "href": "zh/projects/global-visa-cost/index.html#条形图",
-    "title": "全球签证费用分析与交互式可视化",
+    "title": "全球签证费用地区分析",
     "section": "2.2 条形图",
-    "text": "2.2 条形图\n\n数据聚合\n\n\n代码\nimport plotly.express as px  # 用于创建 Plotly 交互式图表\n\n# 聚合数据，用于绘制条形图\nbar_agg = df.groupby('source_subregion').agg(\n    {\n    'source_region':'first', # 各子地区所属地区\n    'tourist_visa':'mean',   # 平均旅游签证费用\n    'tourist_perdailyincome':'mean', # 按日收入折算的平均旅游签证费用\n    }\n).reset_index()  # 重置索引，使 'source_subregion' 成为普通列\n\n#【.reset_index()】\n# 该方法用于重置聚合后 DataFrame 的索引，\n# 将所有列放回单层索引结构中（Pandas, 2024c）。\n# 也就是说，将自动生成的索引（'source_subregion'）转换为普通列。\n\n\n\n\n绘制条形图\n\n\n代码\n# 创建条形图，展示各子地区的平均旅游签证费用\n\nfig2 = px.bar(\n    bar_agg, x = 'tourist_visa', y = 'source_subregion',\n    labels = {  # 指定 x 轴和 y 轴标签\n        'tourist_visa':'平均旅游签证费用（美元）',\n        'source_subregion':'子地区',\n    },\n    color = 'source_region',  # 按地区分组，并使用不同颜色显示条形\n    color_discrete_map = region_colors  # 指定颜色（前文已定义）\n)\n\n# 更新图形布局属性\nfig2.update_layout(\n    # width=800, height=480,\n    margin = dict(t = 90, b = 10),    # 上下边距\n    title_text='各子地区平均旅游签证费用',\n    title_x = 0.5, title_y = 0.95,    # 标题位置\n    titlefont = {'style': 'italic'},  # 标题字体样式\n    yaxis = {'categoryorder': 'total ascending'}, # 按数值升序排序\n    legend = {\n        'title':'地区',\n        'orientation': 'h',  # 水平图例\n        'xanchor': 'right',\n        'yanchor': 'bottom',\n        'x': 1, 'y': 1,\n    },\n)\n\nfig2.show(config = {\"responsive\": True}) # 显示图形\n\n\n\n\n                                                \n\n\n图 3: 各子地区平均旅游签证费用条形图\n\n\n\n\n图 3 与 图 1 和 图 2 呈现了相同的数据，即各地区（在 图 3 中仅显示子地区）按大洲分色的平均旅游签证费用。相比于桑基图，条形图能更清晰地展示数值差异，因为条形长度比链接宽度更易于区分，这也与 Wilke (Wilke, 2019, chap. 6) 的建议一致——条形图更适合呈现数值量的变化。由 图 1、图 2 和 图 3 可以推断：来自欧洲等发达地区的公民出境所需支付的签证费用较少，而来自南亚、北非等欠发达地区的公民则需支付更高的签证费用。然而，为了反映签证费用的真实负担，另一变量 ‘tourist_perdailyincome’（详见附录）被引入，以各国平均日收入为基准衡量签证的实际可负担性 (Recchi 等, 2021, p. 4)。\n\n\n代码\n# 创建条形图，展示各子地区按日收入折算的平均旅游签证费用，\n# 即各子地区国家居民负担旅游签证所需的平均工作天数。\n\nfig3 = px.bar(\n    bar_agg, x = 'tourist_perdailyincome', y = 'source_subregion',\n    labels = dict( # 指定 x 轴和 y 轴标签\n        tourist_perdailyincome = '''\n            负担旅游签证所需平均工作天数（天）\n        ''',\n        source_subregion = '子地区',\n    ),\n    color = 'source_region', # 按地区分组，并使用不同颜色显示\n    color_discrete_map = region_colors # 指定颜色（前文已定义）\n)\n\n# 更新图形布局属性\nfig3.update_layout(\n    # width=800, height=480,\n    margin = dict(t = 90, b = 10),    # 上下边距\n    title_text='''\n        各子地区负担旅游签证所需平均工作天数\n    ''',\n    title_x = 0.5, title_y = 0.95,    # 标题位置\n    titlefont = {'style': 'italic'},  # 标题字体样式\n    yaxis = {'categoryorder': 'total ascending'}, # 按数值升序排序\n    legend = {\n        'title':'地区',\n        'orientation': 'h',  # 水平图例\n        'xanchor': 'right',\n        'yanchor': 'bottom',\n        'x': 1, 'y': 1,\n    },\n)\n\nfig3.show(config = {\"responsive\": True}) # 显示图形\n\n\n\n\n                                                \n\n\n图 4: 各子地区负担旅游签证所需平均工作天数\n\n\n\n\n如 图 4 所示，以日收入为基准的平均旅游签证费用（即负担旅游签证所需的平均工作天数）在各地区之间的差距更为悬殊，揭示了一个全球性的悖论：越贫穷的国家，其公民出境所需支付的签证费用反而越高。",
+    "text": "2.2 条形图\n\n数据聚合\n\n\n代码\nimport plotly.express as px  # 用于创建 Plotly 交互式图表\n\n# 聚合数据，用于绘制条形图\nbar_agg = df.groupby('source_subregion').agg(\n    {\n    'source_region':'first', # 各子地区所属地区\n    'tourist_visa':'mean',   # 平均旅游签证费用\n    'tourist_perdailyincome':'mean', # 按日收入折算的平均旅游签证费用\n    }\n).reset_index()  # 重置索引，使 'source_subregion' 成为普通列\n\n#【.reset_index()】\n# 该方法用于重置聚合后 DataFrame 的索引，\n# 将所有列放回单层索引结构中（Pandas, 2024c）。\n# 也就是说，将自动生成的索引（'source_subregion'）转换为普通列。\n\n\n\n\n绘制条形图\n\n\n代码\n# 创建条形图，展示各子地区的平均旅游签证费用\n\nfig2 = px.bar(\n    bar_agg, x = 'tourist_visa', y = 'source_subregion',\n    labels = {  # 指定 x 轴和 y 轴标签\n        'tourist_visa':'平均旅游签证费用（美元）',\n        'source_subregion':'子地区',\n    },\n    color = 'source_region',  # 按地区分组，并使用不同颜色显示条形\n    color_discrete_map = region_colors  # 指定颜色（前文已定义）\n)\n\n# 更新图形布局属性\nfig2.update_layout(\n    # width=800, height=480,\n    margin = dict(t = 90, b = 10),    # 上下边距\n    title_text='各子地区平均旅游签证费用',\n    title_x = 0.5, title_y = 0.95,    # 标题位置\n    titlefont = {'style': 'italic'},  # 标题字体样式\n    yaxis = {'categoryorder': 'total ascending'}, # 按数值升序排序\n    legend = {\n        'title':'地区',\n        'orientation': 'h',  # 水平图例\n        'xanchor': 'right',\n        'yanchor': 'bottom',\n        'x': 1, 'y': 1,\n    },\n)\n\n# fig2.show(config = {\"responsive\": True}) # 显示图形\nfig2.show() # 显示图形\n\n\n\n\n                                                \n\n\n图 3: 各子地区平均旅游签证费用条形图\n\n\n\n\n图 3 与 图 1 和 图 2 呈现了相同的数据，即各地区（在 图 3 中仅显示子地区）按大洲分色的平均旅游签证费用。相比于桑基图，条形图能更清晰地展示数值差异，因为条形长度比链接宽度更易于区分，这也与 Wilke (Wilke, 2019, chap. 6) 的建议一致——条形图更适合呈现数值量的变化。由 图 1、图 2 和 图 3 可以推断：来自欧洲等发达地区的公民出境所需支付的签证费用较少，而来自南亚、北非等欠发达地区的公民则需支付更高的签证费用。然而，为了反映签证费用的真实负担，另一变量 ‘tourist_perdailyincome’（详见附录）被引入，以各国平均日收入为基准衡量签证的实际可负担性 (Recchi 等, 2021, p. 4)。\n\n\n代码\n# 创建条形图，展示各子地区按日收入折算的平均旅游签证费用，\n# 即各子地区国家居民负担旅游签证所需的平均工作天数。\n\nfig3 = px.bar(\n    bar_agg, x = 'tourist_perdailyincome', y = 'source_subregion',\n    labels = dict( # 指定 x 轴和 y 轴标签\n        tourist_perdailyincome = '''\n            负担旅游签证所需平均工作天数（天）\n        ''',\n        source_subregion = '子地区',\n    ),\n    color = 'source_region', # 按地区分组，并使用不同颜色显示\n    color_discrete_map = region_colors # 指定颜色（前文已定义）\n)\n\n# 更新图形布局属性\nfig3.update_layout(\n    # width=800, height=480,\n    margin = dict(t = 90, b = 10),    # 上下边距\n    title_text='''\n        各子地区负担旅游签证所需平均工作天数\n    ''',\n    title_x = 0.5, title_y = 0.95,    # 标题位置\n    titlefont = {'style': 'italic'},  # 标题字体样式\n    yaxis = {'categoryorder': 'total ascending'}, # 按数值升序排序\n    legend = {\n        'title':'地区',\n        'orientation': 'h',  # 水平图例\n        'xanchor': 'right',\n        'yanchor': 'bottom',\n        'x': 1, 'y': 1,\n    },\n)\n\n# fig3.show(config = {\"responsive\": True}) # 显示图形\nfig3.show() # 显示图形\n\n\n\n\n                                                \n\n\n图 4: 各子地区负担旅游签证所需平均工作天数\n\n\n\n\n如 图 4 所示，以日收入为基准的平均旅游签证费用（即负担旅游签证所需的平均工作天数）在各地区之间的差距更为悬殊，揭示了一个全球性的悖论：越贫穷的国家，其公民出境所需支付的签证费用反而越高。",
     "crumbs": [
       "可视化项目",
-      "全球签证费用分析与交互式可视化"
+      "全球签证费用地区分析"
     ]
   },
   {
     "objectID": "zh/projects/global-visa-cost/index.html#等值线地图",
     "href": "zh/projects/global-visa-cost/index.html#等值线地图",
-    "title": "全球签证费用分析与交互式可视化",
+    "title": "全球签证费用地区分析",
     "section": "2.3 等值线地图",
-    "text": "2.3 等值线地图\n\n数据聚合\n\n\n代码\n# 聚合数据，用于绘制等值线地图\nchoro_agg = (\n    df.groupby('source')\n    .agg({\n        'source_iso3': 'first',\n        'tourist_visa': 'mean',\n    })\n    .sort_values('tourist_visa', ascending=False)\n    .reset_index()\n)\n\n#【.sort_values()】\n# 该方法用于按 'tourist_visa' 列对聚合后的 DataFrame 进行排序，\n# 此处为降序排序（ascending=False）（Pandas, 2024d）。\n\n#【.reset_index()】\n# 重置索引，使 'source_iso3' 成为普通列\n\n\n\n\n绘制等值线地图\n\n\n代码\n# 创建等值线地图，展示各国平均旅游签证费用\nfig4 = px.choropleth(\n    choro_agg,\n    locations = 'source_iso3', # 地理位置标识符\n    locationmode = 'ISO-3', # 国家代码\n    color = 'tourist_visa', # 按旅游签证费用设置地图颜色\n    hover_name = 'source', # 悬停显示：地区名称\n    hover_data = 'tourist_visa', # 悬停显示：数据\n    color_continuous_scale = 'aggrnyl', # 等值线地图色标\n)\n\n# 更新图形布局属性\nfig4.update_layout(\n    # width = 800, height = 500,\n    title = '各国平均旅游签证费用等值线地图',\n    margin = dict(t = 50, b = 0),\n    title_x = 0.5, title_y = 0.95,  # 标题位置\n    title_font = {'style':'italic'},  # 标题字体样式\n    coloraxis = dict(\n        colorbar = dict(  # 指定色条属性\n            orientation = 'h',  # 色条方向：水平\n            title = '平均旅游签证费用（美元）', # 色条标题\n            xanchor = 'right', x = 1,\n            yanchor = 'top', y = 1,\n            len = 0.8, thickness = 16,  # 色条长度和厚度\n        ),\n    ),\n)\n\nfig4.show(config = {\"responsive\": True}) # 显示图形\n\n\n\n\n                                                \n\n\n图 5: 各国平均旅游签证费用等值线地图\n\n\n\n\n进一步地，将分析粒度从子地区细化到国家层面可以获得更多洞见。图 5 通过连续色标直观呈现了全球各国平均旅游签证费用的分布情况。根据 Wilke (2019, p. 173) 的观点，在等值线地图中，深色背景区域通常比浅色背景区域在网页上具有更好的可视性，因此 图 5 采用了深色背景的配色方案，颜色随数值增大而逐渐变浅 (Plotly, 2024)。",
+    "text": "2.3 等值线地图\n\n数据聚合\n\n\n代码\n# 聚合数据，用于绘制等值线地图\nchoro_agg = (\n    df.groupby('source')\n    .agg({\n        'source_iso3': 'first',\n        'tourist_visa': 'mean',\n    })\n    .sort_values('tourist_visa', ascending=False)\n    .reset_index()\n)\n\n#【.sort_values()】\n# 该方法用于按 'tourist_visa' 列对聚合后的 DataFrame 进行排序，\n# 此处为降序排序（ascending=False）（Pandas, 2024d）。\n\n#【.reset_index()】\n# 重置索引，使 'source_iso3' 成为普通列\n\n\n\n\n绘制等值线地图\n\n\n代码\n# 创建等值线地图，展示各国平均旅游签证费用\nfig4 = px.choropleth(\n    choro_agg,\n    locations = 'source_iso3', # 地理位置标识符\n    locationmode = 'ISO-3', # 国家代码\n    color = 'tourist_visa', # 按旅游签证费用设置地图颜色\n    hover_name = 'source', # 悬停显示：地区名称\n    hover_data = 'tourist_visa', # 悬停显示：数据\n    color_continuous_scale = 'aggrnyl', # 等值线地图色标\n)\n\n# 更新图形布局属性\nfig4.update_layout(\n    # width = 800, height = 500,\n    title = '各国平均旅游签证费用等值线地图',\n    margin = dict(t = 50, b = 0),\n    title_x = 0.5, title_y = 0.95,  # 标题位置\n    title_font = {'style':'italic'},  # 标题字体样式\n    coloraxis = dict(\n        colorbar = dict(  # 指定色条属性\n            orientation = 'h',  # 色条方向：水平\n            title = '平均旅游签证费用（美元）', # 色条标题\n            xanchor = 'right', x = 1,\n            yanchor = 'top', y = 1,\n            len = 0.8, thickness = 16,  # 色条长度和厚度\n        ),\n    ),\n)\n\n# fig4.show(config = {\"responsive\": True}) # 显示图形\nfig4.show() # 显示图形\n\n\n\n\n                                                \n\n\n图 5: 各国平均旅游签证费用等值线地图\n\n\n\n\n进一步地，将分析粒度从子地区细化到国家层面可以获得更多洞见。图 5 通过连续色标直观呈现了全球各国平均旅游签证费用的分布情况。根据 Wilke (2019, p. 173) 的观点，在等值线地图中，深色背景区域通常比浅色背景区域在网页上具有更好的可视性，因此 图 5 采用了深色背景的配色方案，颜色随数值增大而逐渐变浅 (Plotly, 2024)。",
     "crumbs": [
       "可视化项目",
-      "全球签证费用分析与交互式可视化"
+      "全球签证费用地区分析"
     ]
   },
   {
     "objectID": "zh/projects/global-visa-cost/index.html#全球签证费用数据集",
     "href": "zh/projects/global-visa-cost/index.html#全球签证费用数据集",
-    "title": "全球签证费用分析与交互式可视化",
+    "title": "全球签证费用地区分析",
     "section": "全球签证费用数据集",
     "text": "全球签证费用数据集\n全球签证费用数据集由欧洲大学学院移民政策中心的研究人员创建，提供了 2019 年各国家对之间七类签证费用的全面数据，主要通过手动从官方政府网站和领事馆收集。\n签证费用按以下类别编码（单位：美元）：旅游、学生、商务、工作、家庭团聚、过境及其他目的。\n对于无法通过英语、法语、西班牙语、阿拉伯语、意大利语或俄语获取信息的国家，使用了翻译网站从该国主要语言中获取相关信息。\n由于缺乏进入其领土的旅行信息，巴勒斯坦和阿拉伯叙利亚共和国等国家未被编入数据集。部分国家因其签证政策和签证要求信息难以获取，需进行第二轮核查。对于许多国家对，虽有签证政策信息，但无实际签证费用说明。例如，大洋洲的瑙鲁需要特别费力地搜索才能找到一份 2014 年 1 月的官方移民法规文件，其中列出了签证类别和费用，而该信息在任何其他官方在线渠道上均未出现。对于数据集中无法获取信息的国家对，引入缺失值。",
     "crumbs": [
       "可视化项目",
-      "全球签证费用分析与交互式可视化"
+      "全球签证费用地区分析"
     ]
   },
   {
     "objectID": "zh/projects/global-visa-cost/index.html#变量说明",
     "href": "zh/projects/global-visa-cost/index.html#变量说明",
-    "title": "全球签证费用分析与交互式可视化",
+    "title": "全球签证费用地区分析",
     "section": "变量说明",
     "text": "变量说明\n\n变量：国家与地区\n这些变量表示来源国和目的国的国家与地区，其中”地区”指国家所在的大洲，“子地区”指大洲内的次级区域。\n\nsource： 来源国\ntarget： 目的国\nsource_iso3： 来源国 ISO3 代码\ntarget_iso3： 目的国 ISO3 代码\n\n\nsource_region： 来源国所在的世界地区\ntarget_region： 目的国所在的世界地区\nsource_subregion： 来源国所在的世界子地区\ntarget_subregion： 目的国所在的世界子地区\n\n注：地区与子地区基于联合国 M.49 地理方案。\n\n\n变量：前往目的国的签证费用\n这些变量为目的国基于其官方签证政策与要求向来源国收取的 2019 年签证费用，以美元计。\n\ntourist_visa： 旅游签证费用（美元）\nstudent_visa： 学生签证费用（美元）\nbusiness_visa： 商务签证费用（美元）\nwork_visa： 工作签证费用（美元）\nfamily_reunification_visa： 家庭团聚签证费用（美元）\ntransit_visa： 过境签证费用（美元）\nother_motives_visa： 其他目的签证费用（美元）\n\n\n\n变量：负担签证费用所需平均工作天数\n这些变量估算来源国居民平均需要工作多少天才能负担前往目的国的签证费用，以天为单位。\n\ntourist_perdailyincome： 旅游签证费用（以平均日收入为单位）\nstudent_perdailyincome： 学生签证费用（以平均日收入为单位）\nbusiness_perdailyincome： 商务签证费用（以平均日收入为单位）\nwork_perdailyincome： 工作签证费用（以平均日收入为单位）\nfamily_perdailyincome： 家庭团聚签证费用（以平均日收入为单位）\ntransit_perdailyincome： 过境签证费用（以平均日收入为单位）\nother_perdailyincome： 其他目的签证费用（以平均日收入为单位）\n\n注：作者使用人均国民总收入（GNI per capita）作为各国居民平均收入的近似值，以计算签证的实际成本水平。人均 GNI 数据来自世界银行（2019），可在以下链接获取：https://data.worldbank.org/indicator/NY.GNP.PCAP.CD 。\n\n\n变量：与前一版本相比的更新情况\n该变量记录与上一版本数据集相比的更新内容。\n\nupdated： 若该值在 2020 年 11 月从 1.0 版更新至 1.1 版时被添加或修改，则标记为 1。\n\n注：1.1 版相比 1.0 版的更新包括数据修正、多国补充数据以及新增 ‘updated’ 变量以追踪变更。本项目仅使用更新版本（1.1 版）的数据集。",
     "crumbs": [
       "可视化项目",
-      "全球签证费用分析与交互式可视化"
+      "全球签证费用地区分析"
     ]
   },
   {
@@ -2308,7 +2330,7 @@
     "href": "zh/tutorials/sankey-and-network/index.html",
     "title": "桑基图与网络图",
     "section": "",
-    "text": "8 min read · 230 EN words · 1926 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
+    "text": "8 min read · 225 EN words · 1921 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
     "crumbs": [
       "数据分析教程",
       "桑基图与网络图"
@@ -2407,7 +2429,7 @@
     "href": "zh/tutorials/data-processing/index.html",
     "title": "数据清理",
     "section": "",
-    "text": "10 min read · 840 EN words · 1450 中文字\n环境与版本\npython==3.12\npandas==2.2.2",
+    "text": "9 min read · 835 EN words · 1445 中文字\n环境与版本\npython==3.12\npandas==2.2.2",
     "crumbs": [
       "数据分析教程",
       "数据清理"
@@ -2495,7 +2517,7 @@
     "href": "zh/tutorials/multivariate-plots/index.html",
     "title": "多变量图表",
     "section": "",
-    "text": "21 min read · 687 EN words · 5107 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "21 min read · 682 EN words · 5102 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "数据分析教程",
       "多变量图表"
@@ -2570,133 +2592,157 @@
   {
     "objectID": "en/blogs/quarto-img-styles/index.html",
     "href": "en/blogs/quarto-img-styles/index.html",
-    "title": "Quarto 图片居中样式",
+    "title": "Quarto Image Centering Styles",
     "section": "",
-    "text": "4 min read · 202 EN words · 786 中文字",
+    "text": "4 min read · 629 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Blogs",
-      "Quarto 图片居中样式"
+      "Quarto Image Centering Styles"
     ]
   },
   {
-    "objectID": "en/blogs/quarto-img-styles/index.html#第一步外部-css",
-    "href": "en/blogs/quarto-img-styles/index.html#第一步外部-css",
-    "title": "Quarto 图片居中样式",
-    "section": "1.1 第一步：外部 CSS",
-    "text": "1.1 第一步：外部 CSS\n.quarto-float.quarto-figure.quarto-figure-center.anchored {\n    width: 100% !important;\n}\n并在 _quarto.yml 中挂载：\nformat:\n  html:\n    css:\n      - path/to/style.css",
+    "objectID": "en/blogs/quarto-img-styles/index.html#step-1-external-css",
+    "href": "en/blogs/quarto-img-styles/index.html#step-1-external-css",
+    "title": "Quarto Image Centering Styles",
+    "section": "1.1 Step 1: External CSS",
+    "text": "1.1 Step 1: External CSS\n.quarto-float.quarto-figure.quarto-figure-center.anchored {\n    width: 100% !important;\n}\nRegister it in _quarto.yml:\nformat:\n  html:\n    css:\n      - path/to/style.css",
     "crumbs": [
       "Projects",
       "Blogs",
-      "Quarto 图片居中样式"
+      "Quarto Image Centering Styles"
     ]
   },
   {
-    "objectID": "en/blogs/quarto-img-styles/index.html#第二步页面级-internal-css",
-    "href": "en/blogs/quarto-img-styles/index.html#第二步页面级-internal-css",
-    "title": "Quarto 图片居中样式",
-    "section": "1.2 第二步：页面级 Internal CSS",
-    "text": "1.2 第二步：页面级 Internal CSS\n在页面最上方 (yaml块的下方) 添加 &lt;style&gt; 标签：\n&lt;style&gt;\n    figcaption {\n        text-align: center;\n    }\n&lt;/style&gt;",
+    "objectID": "en/blogs/quarto-img-styles/index.html#step-2-page-level-internal-css",
+    "href": "en/blogs/quarto-img-styles/index.html#step-2-page-level-internal-css",
+    "title": "Quarto Image Centering Styles",
+    "section": "1.2 Step 2: Page-level Internal CSS",
+    "text": "1.2 Step 2: Page-level Internal CSS\nAdd a &lt;style&gt; tag at the top of the page (below the YAML block):\n&lt;style&gt;\n    figcaption {\n        text-align: center;\n    }\n&lt;/style&gt;",
     "crumbs": [
       "Projects",
       "Blogs",
-      "Quarto 图片居中样式"
+      "Quarto Image Centering Styles"
     ]
   },
   {
-    "objectID": "en/blogs/quarto-img-styles/index.html#第三步图片行内样式",
-    "href": "en/blogs/quarto-img-styles/index.html#第三步图片行内样式",
-    "title": "Quarto 图片居中样式",
-    "section": "1.3 第三步：图片行内样式",
-    "text": "1.3 第三步：图片行内样式\n![图a](URL){#fig-a style=\"width:20rem;\"}\n![图b](URL){#fig-b style=\"width:15rem;\"}\n\n本文即采用上述方案实现，点击页面右上角 &lt;/&gt; 代码 可查看完整源代码。\n\n\n下面是具体实现过程：",
+    "objectID": "en/blogs/quarto-img-styles/index.html#step-3-image-inline-styles",
+    "href": "en/blogs/quarto-img-styles/index.html#step-3-image-inline-styles",
+    "title": "Quarto Image Centering Styles",
+    "section": "1.3 Step 3: Image Inline Styles",
+    "text": "1.3 Step 3: Image Inline Styles\n![Caption a](URL){#fig-a style=\"width:20rem;\"}\n![Caption b](URL){#fig-b style=\"width:15rem;\"}\n\nThis post is implemented using the approach above. Click &lt;/&gt; Code in the top-right corner of the page to view the full source.\n\n\nHere is the full walkthrough:",
     "crumbs": [
       "Projects",
       "Blogs",
-      "Quarto 图片居中样式"
+      "Quarto Image Centering Styles"
     ]
   },
   {
-    "objectID": "en/blogs/quarto-img-styles/index.html#传统方法",
-    "href": "en/blogs/quarto-img-styles/index.html#传统方法",
-    "title": "Quarto 图片居中样式",
-    "section": "2.1 传统方法",
-    "text": "2.1 传统方法\n在 Quarto Website 撰写过程中，最初，我通过 Quarto 内置的 width 属性控制图片大小：\n![图片标题](图片URL){#fig-title width=\"15%\"}\n这种方式简洁直观，无需额外编写 style=\"width:15%\" 等行内样式，显示效果也较为理想。\n\n\n\n\n\n\nFigure 1: 通过 width 百分比控制图片效果预览",
+    "objectID": "en/blogs/quarto-img-styles/index.html#the-traditional-approach",
+    "href": "en/blogs/quarto-img-styles/index.html#the-traditional-approach",
+    "title": "Quarto Image Centering Styles",
+    "section": "2.1 The Traditional Approach",
+    "text": "2.1 The Traditional Approach\nWhen writing my Quarto Website, I initially controlled image size using Quarto’s built-in width attribute:\n![Caption](image URL){#fig-title width=\"15%\"}\nThis approach is clean and intuitive — no need to write inline styles like style=\"width:15%\" — and the results looked good.\n\n\n\n\n\n\nFigure 1: Preview of image width controlled by percentage",
     "crumbs": [
       "Projects",
       "Blogs",
-      "Quarto 图片居中样式"
+      "Quarto Image Centering Styles"
     ]
   },
   {
-    "objectID": "en/blogs/quarto-img-styles/index.html#问题1引用悬浮预览异常",
-    "href": "en/blogs/quarto-img-styles/index.html#问题1引用悬浮预览异常",
-    "title": "Quarto 图片居中样式",
-    "section": "2.2 问题1：引用悬浮预览异常",
-    "text": "2.2 问题1：引用悬浮预览异常\n在正文中使用交叉引用（如 @fig-title）后，我发现图片悬浮预览会继承 width 百分比设置，导致预览显示异常。\n\n\n\n\n\n\nFigure 2: 问题1 - 悬浮预览异常\n\n\n\n为了解决这个问题，我尝试改用 rem 作为图片宽度单位，以兼顾页面缩放和悬浮预览。\n首先尝试：\n![图片标题](图片URL){#fig-title width=\"7rem\"}\n但并未生效，因为 Quarto 的 width 属性不支持 rem 单位（支持 px、百分比等）。\n随后改为：\n![图片标题](图片URL){#fig-title style=\"width:7rem;\"}",
+    "objectID": "en/blogs/quarto-img-styles/index.html#issue-1-hover-preview-breaks",
+    "href": "en/blogs/quarto-img-styles/index.html#issue-1-hover-preview-breaks",
+    "title": "Quarto Image Centering Styles",
+    "section": "2.2 Issue 1: Hover Preview Breaks",
+    "text": "2.2 Issue 1: Hover Preview Breaks\nAfter using cross-references (e.g. @fig-title) in the body text, I noticed the hover preview inherited the width percentage, causing it to display incorrectly.\n\n\n\n\n\n\nFigure 2: Issue 1 — Hover preview broken\n\n\n\nTo fix this, I tried switching to rem as the width unit, which behaves consistently regardless of page scaling and hover context.\nI first tried:\n![Caption](image URL){#fig-title width=\"7rem\"}\nThis had no effect — Quarto’s width attribute does not support rem (it accepts px, percentages, etc.).\nI then switched to:\n![Caption](image URL){#fig-title style=\"width:7rem;\"}",
     "crumbs": [
       "Projects",
       "Blogs",
-      "Quarto 图片居中样式"
+      "Quarto Image Centering Styles"
     ]
   },
   {
-    "objectID": "en/blogs/quarto-img-styles/index.html#问题2图片无法居中",
-    "href": "en/blogs/quarto-img-styles/index.html#问题2图片无法居中",
-    "title": "Quarto 图片居中样式",
-    "section": "2.3 问题2：图片无法居中",
-    "text": "2.3 问题2：图片无法居中\n新的问题随之出现：图片不再居中，即使设置 {fig-align=\"center\"} 也无效。\n\n\n\n\n\n\nFigure 3: 问题2：图片不再居中显示\n\n\n\n使用浏览器 DevTools 排查后发现，设置 style=\"width:7rem\" 时，Quarto 会同步将父容器宽度限制为 7rem。\n\n\n\n\n\n\nFigure 4: 父容器宽度限制\n\n\n\n移除父容器宽度限制后，图片即可重新居中。\n\n\n\n\n\n\nFigure 5: 去除父容器宽度限制后：恢复居中\n\n\n\n期间我还尝试过多种方案，例如：\n# 尝试1\n:::{#fig-title width=\"100%\"}\n![](图片URL){style=\"width:7rem;\"}\n图片标题\n:::\n\n# 尝试2\n:::{#fig-title style=\"width:100% !important;\"}\n![图片标题](图片URL){style=\"width:7rem;\"}\n:::\n\n# 尝试3\n:::{#fig-title style=\"text-align:center; width:100% !important;\"}\n![](图片URL){style=\"width:7rem;\"}\n图片标题\n:::\n\n# ...\n但都未达到理想效果。\n最终，我决定直接修改 css 样式，在 style.css 里添加了针对父容器的设置：\n.quarto-float.quarto-figure.quarto-figure-center.anchored {\n    width: 100% !important;\n}\n再配合图片设置：\n![图片标题](图片URL){#fig-title style=\"width:7rem;\"}\n成功实现图片居中的同时，引用悬浮预览正常：\n\n\n\n\n\n\nFigure 6: 实现居中\n\n\n\n\n\n\n\n\n\nFigure 7: 实现悬浮正常",
+    "objectID": "en/blogs/quarto-img-styles/index.html#issue-2-image-no-longer-centers",
+    "href": "en/blogs/quarto-img-styles/index.html#issue-2-image-no-longer-centers",
+    "title": "Quarto Image Centering Styles",
+    "section": "2.3 Issue 2: Image No Longer Centers",
+    "text": "2.3 Issue 2: Image No Longer Centers\nA new problem appeared: the image was no longer centered, and setting {fig-align=\"center\"} had no effect.\n\n\n\n\n\n\nFigure 3: Issue 2: Image no longer centered\n\n\n\nInspecting with browser DevTools revealed that when style=\"width:7rem\" is set, Quarto also constrains the parent container’s width to 7rem.\n\n\n\n\n\n\nFigure 4: Parent container width constraint\n\n\n\nRemoving the parent container’s width constraint restored image centering.\n\n\n\n\n\n\nFigure 5: After removing the parent container width constraint: centering restored\n\n\n\nI also tried several other approaches, such as:\n# Attempt 1\n:::{#fig-title width=\"100%\"}\n![](image URL){style=\"width:7rem;\"}\nCaption\n:::\n\n# Attempt 2\n:::{#fig-title style=\"width:100% !important;\"}\n![Caption](image URL){style=\"width:7rem;\"}\n:::\n\n# Attempt 3\n:::{#fig-title style=\"text-align:center; width:100% !important;\"}\n![](image URL){style=\"width:7rem;\"}\nCaption\n:::\n\n# ...\nNone of them achieved the desired result.\nIn the end, I decided to target the parent container directly via CSS, adding this rule to style.css:\n.quarto-float.quarto-figure.quarto-figure-center.anchored {\n    width: 100% !important;\n}\nCombined with the image syntax:\n![Caption](image URL){#fig-title style=\"width:7rem;\"}\nThis successfully centered the image while keeping the hover preview intact:\n\n\n\n\n\n\nFigure 6: Centering achieved\n\n\n\n\n\n\n\n\n\nFigure 7: Hover preview working",
     "crumbs": [
       "Projects",
       "Blogs",
-      "Quarto 图片居中样式"
+      "Quarto Image Centering Styles"
     ]
   },
   {
-    "objectID": "en/blogs/fix-misplaced-sysfolders/index.html",
-    "href": "en/blogs/fix-misplaced-sysfolders/index.html",
-    "title": "误移系统文件夹恢复",
+    "objectID": "en/blogs/recover-shellfolder/index.html",
+    "href": "en/blogs/recover-shellfolder/index.html",
+    "title": "Recovering Misplaced Windows Shell Folders",
     "section": "",
-    "text": "8 min read · 233 EN words · 2003 中文字",
+    "text": "9 min read · 1586 EN words · 29 中文字",
     "crumbs": [
       "Projects",
       "Blogs",
-      "误移系统文件夹恢复"
+      "Recovering Misplaced Windows Shell Folders"
     ]
   },
   {
-    "objectID": "en/blogs/fix-misplaced-sysfolders/index.html#问题",
-    "href": "en/blogs/fix-misplaced-sysfolders/index.html#问题",
-    "title": "误移系统文件夹恢复",
-    "section": "6.1 问题",
-    "text": "6.1 问题\nWin10 系统文件夹 (Sell Files, 如 桌面, 文档, 图片 ) 不小心移动到磁盘根目录 (如 D:\\, E:\\ ), 如何恢复文件夹?",
+    "objectID": "en/blogs/recover-shellfolder/index.html#the-problem",
+    "href": "en/blogs/recover-shellfolder/index.html#the-problem",
+    "title": "Recovering Misplaced Windows Shell Folders",
+    "section": "2.1 The Problem",
+    "text": "2.1 The Problem\nA Windows 10 shell folder (e.g., Desktop, Documents, Pictures ) was accidentally moved to the root of a drive (e.g., D:\\, E:\\). How can it be recovered?",
     "crumbs": [
       "Projects",
       "Blogs",
-      "误移系统文件夹恢复"
+      "Recovering Misplaced Windows Shell Folders"
     ]
   },
   {
-    "objectID": "en/blogs/fix-misplaced-sysfolders/index.html#解决方法",
-    "href": "en/blogs/fix-misplaced-sysfolders/index.html#解决方法",
-    "title": "误移系统文件夹恢复",
-    "section": "6.2 解决方法",
-    "text": "6.2 解决方法\n\n新建文件夹, 用于储存系统文件夹 (如 E:\\User\\UserName\\Desktop\\)\n修改注册表, 将文件夹路径改为新建文件夹的路径\n\n按 WIN + R 打开 运行 窗口, 输入 regedit 打开注册表\n找到 HKEY_CURRENT_USER\\HKEY_CURRENT_USER\\Software\\ Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\n找到 数据 为磁盘根目录的条目 (如 E:\\)\n修改 数据 为新建文件夹的路径 (如 E:\\User\\UserName\\Desktop\\)\n保存后重启电脑\n\n显示隐藏的系统文件\n\n打开新建的文件夹 (如 E:\\User\\UserName\\Desktop)\n打开 文件 &gt; 选项 &gt; 查看\n勾选 ⏺ 显示隐藏的文件、文件夹或驱动器\n取消勾选 ◻ 隐藏受保护的操作系统文件\n\n修改 desktop.ini 文件\n\n用记事本打开 desktop.ini 文件\n填写 IconResource 和 LocalizedResourceName 项\n\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;文件名对应数值&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;文件图标对应数值&gt;\n&lt;其他项...&gt;\n\n注：设置完后记得重新隐藏第三步中显示的文件\n\n(未完)",
+    "objectID": "en/blogs/recover-shellfolder/index.html#the-fix",
+    "href": "en/blogs/recover-shellfolder/index.html#the-fix",
+    "title": "Recovering Misplaced Windows Shell Folders",
+    "section": "2.2 The Fix",
+    "text": "2.2 The Fix\n\nCreate the target folder (e.g., E:\\Users\\UserName\\Videos\\).\nEdit the registry.\n\nPress Win + R and type regedit.\nGo to HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders.\nFind the entry whose value is the drive root (e.g., E:\\).\nChange it to the path of the folder you just created (e.g., E:\\Users\\UserName\\Videos\\).\nSave and restart the computer.\n\nShow hidden system files.\n\nOpen the target folder.\nGo to File &gt; Options &gt; View.\nCheck ⏺ Show hidden files, folders, and drives.\nUncheck ◻ Hide protected operating system files.\n\nRestore icon & display name.\n\nFind desktop.ini in the target folder, open it in Notepad.\nSet the IconResource and LocalizedResourceName entries to the right resource index (listed in Table 1).\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;NameResource index&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;IconResource index&gt;\n&lt;OtherEntries...&gt;\n\nOnce finished, remember to re-hide the system files revealed in step 3.",
     "crumbs": [
       "Projects",
       "Blogs",
-      "误移系统文件夹恢复"
+      "Recovering Misplaced Windows Shell Folders"
     ]
   },
   {
-    "objectID": "en/blogs/fix-misplaced-sysfolders/index.html#系统文件夹对应资源表格",
-    "href": "en/blogs/fix-misplaced-sysfolders/index.html#系统文件夹对应资源表格",
-    "title": "误移系统文件夹恢复",
-    "section": "6.3 系统文件夹对应资源表格",
-    "text": "6.3 系统文件夹对应资源表格\n表1：图标对应资源 表2：显示名称对应资源\n注注注: 也可以用 UTF-16 LE 编码 (先搞清楚 desktop.ini 用的到底是什么编码), 在 LocalizedResourceName=&lt;这里&gt; 里填入编码后的中文字符, 比找资源 (dll) 里的数值更方便, 不过如果已经有数值列表, 也可以直接拷贝.",
+    "objectID": "en/blogs/recover-shellfolder/index.html#restoring-the-icon",
+    "href": "en/blogs/recover-shellfolder/index.html#restoring-the-icon",
+    "title": "Recovering Misplaced Windows Shell Folders",
+    "section": "4.1 Restoring the Icon",
+    "text": "4.1 Restoring the Icon\nAn article was found explaining where Windows stores its system icons.\n\n\n\n\n\n\nFigure 8: Article: Where Windows Stores Icons\n\n\n\nThrough Properties &gt; Customize &gt; Change Icon, I found that the current icon source was SHELL32.dll . However, the Saved Games icon was not included there, suggesting that shell folder icons are stored across multiple DLL files.\n\n\n\n\n\n\n\n\nProperties &gt; Customize &gt; Change Icon\n\n\n\n\n\n\n\nCurrent Icon Location\n\n\n\n\n\n\nFigure 9: Current icon file: SHELL32.dll\n\n\n\nI went through the DLL files listed in the article and eventually found the Saved Games icon in imageres.dll, along with the icons for Desktop, Videos, and others.\n\n\n\n\n\n\nFigure 10: Other System Files Containing Icons\n\n\n\n\n\n\n\n\n\nFigure 11: Icon found in imageres.dll\n\n\n\nOnce the icon was linked to the correct resource, it’s icon was restored.\n\n\n\n\n\n\nFigure 12: Icon Restored\n\n\n\nOn an English-language system, this completes the recovery. On other systems, the folder’s localized display name may still need to be restored. For example, on Simplified Chinese systems, the folder should display 保存的游戏 while keeping the actual folder name Saved Games.",
     "crumbs": [
       "Projects",
       "Blogs",
-      "误移系统文件夹恢复"
+      "Recovering Misplaced Windows Shell Folders"
+    ]
+  },
+  {
+    "objectID": "en/blogs/recover-shellfolder/index.html#localized-name",
+    "href": "en/blogs/recover-shellfolder/index.html#localized-name",
+    "title": "Recovering Misplaced Windows Shell Folders",
+    "section": "4.2 Restoring a Localized Display Name",
+    "text": "4.2 Restoring a Localized Display Name\nSearching for how to make a folder’s display name differ from its actual folder name, I found the following solution:\n\n\n\n\n\n\nFigure 13: Search Results\n\n\n\nSteps:\n\nOpen the target folder in File Explorer.\nClick the View tab on the toolbar of the File Explorer window.\nCheck the Hidden items box, then click Options.\nClick the View tab.\nUncheck “Hide protected operating system files”, then click Yes and OK to confirm change.\n\n\n\n\n\n\n\nFigure 14: Show Hidden Items\n\n\n\n\n\n\n\n\n\nFigure 15: Unhide Protected Operating System Files\n\n\n\nA desktop.ini file now appears inside the Saved Games folder.\n\n\n\n\n\n\nFigure 16: The desktop.ini File\n\n\n\nStep 6: Open it in Notepad.\nWe can see the IconResource entry is pointing to imageres.dll, which is the icon we restored previously.\n\n\n\n\n\n\nFigure 17: Content of desktop.ini\n\n\n\nFollowing the guide, I added the following line to desktop.ini (Figure 18):\nLocalizedResourceName=保存的游戏\n\n\n\n\n\n\nFigure 18: Editing the Display Name\n\n\n\nAfter saving, however, the name appeared as garbled text (Figure 19). English displayed correctly while the Chinese characters turned into mojibake, indicating that the file encoding was wrong.\n\n\n\n\n\n\nFigure 19: Display Name Turned into Mojibake\n\n\n\n\nMethod 1: Change the File Encoding1\nThe bottom-right corner of Notepad showed the current encoding as UTF-8, but desktop.ini should be saved as UTF-16 LE.\n\n\n\n\n\n\nFigure 20: Notepad’s Default Encoding Method\n\n\n\nTo avoid garbling the Chinese name, enter it and then click File &gt; Save As.\n\n\n\n\n\n\nFigure 21: Save As\n\n\n\nSet Save as type to All Files (*.*) and Encoding to UTF-16 LE, then save and overwrite the original file.\n\n\n\n\n\n\nFigure 22: Changing the Encoding Method\n\n\n\nA moment later, the display name was restored.\n\n\n\n\n\n\nFigure 23: Saved Games Restored\n\n\n\n\n\nMethod 2: Reference a Resource Index\nInstead of changing the encoding, you can also reference a resource index. The index points to a localized string inside shell32.dll file, which resolves to the display name according to your Windows display language.\nFor example, Figure 24 shows the LocalizedResourceName entry in the original desktop.ini file of the Videos folder is pointing to the resource in shell32.dll with the index -21791.\n\n\n\n\n\n\nFigure 24: Where the Videos Display Name Comes From\n\n\n\nI thus started to looking for name resource indices inside shell32.dll , but the results covered mainly icon resources instead of name resources.\nThen, I turned to AI for help, but ChatGPT gave me fabricated answers .\nWhen I asked how to inspect the contents of shell32.dll, ChatGPT recommended Visual Studio.\n\n\n\n\n\n\nFigure 25: Asking How to Inspect shell32.dll\n\n\n\nWith no programming background, I mistakenly downloaded Visual Studio Code instead. It became my first encounter with an IDE. Later, when my professor noticed I was doing assignments in VSCode rather than Jupyter and asked why, I just pulled up this article .\n\n\n\n\n\n\nFigure 26: VSCode and Visual Studio\n\n\n\nFollowing ChatGPT’s instructions, I created a new solution in Visual Studio and loaded C:\\Windows\\System32\\shell32.dll to view its resource directory.\n\n\n\n\n\n\nFigure 27: AI’s Instructions\n\n\n\n\n\n\n\n\n\nFigure 28: Interface of Visual Studio\n\n\n\nVisual Studio showed only the structure of the resource directory, not the actual entry indices. Since shell32.dll is very large, checking every entry by hand was not realistic.\nIn the end, I compared the desktop.ini file with one from another computer that hadn’t be modified. The correct resource index turned out to be -21814 — just four numbers away from the -21810 I had tried earlier. I might have found it with a few more guesses .\nI added the following line to the desktop.ini in the Saved Games folder:\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,-21814\n\n\n\n\n\n\nFigure 29: After the Change\n\n\n\n\nMore resource indices of display names and icons for common shell folders are listed in Table 1.\n\nSaved Games shell folder is finally fully restored!\n\n\n\n\n\n\nFigure 30: Saved Games Restored\n\n\n\nSo far, both the icon and the display name were restored to their defaults.\n\n\n\n\n\n\nFigure 31: Default Icon Restored\n\n\n\nLesson Learned: When moving a shell folder, change only the drive letter in the path. Do not set the bare root directory as the destination.\n\n\n\n\n\n\nFigure 32: Moving a Shell Folder: Change Only the Drive Letter",
+    "crumbs": [
+      "Projects",
+      "Blogs",
+      "Recovering Misplaced Windows Shell Folders"
+    ]
+  },
+  {
+    "objectID": "en/blogs/recover-shellfolder/index.html#footnotes",
+    "href": "en/blogs/recover-shellfolder/index.html#footnotes",
+    "title": "Recovering Misplaced Windows Shell Folders",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nAdded June 16, 2026↩︎\nUnless marked otherwise, name resources come from @%SystemRoot%\\system32\\shell32.dll,&lt;index&gt;.↩︎\nIcon resources come from %SystemRoot%\\system32\\imageres.dll,&lt;index&gt;.↩︎\nThe Contacts name resource comes from @%CommonProgramFiles%\\system\\wab32res.dll,-10100.↩︎\nThe 3D Objects name resource comes from @%SystemRoot%\\system32\\windows.storage.dll,-21825.↩︎",
+    "crumbs": [
+      "Projects",
+      "Blogs",
+      "Recovering Misplaced Windows Shell Folders"
     ]
   },
   {
@@ -2704,7 +2750,7 @@
     "href": "en/projects/ai-discourse/index.html",
     "title": "Evolution of Online AI Discourse",
     "section": "",
-    "text": "28 min read · 5517 EN words · 15 中文字\nEnvironment & Versions\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
+    "text": "28 min read · 5512 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
     "crumbs": [
       "Projects",
       "Evolution of Online AI Discourse"
@@ -2902,7 +2948,7 @@
     "href": "en/projects/index.html",
     "title": "Projects",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nEvolution of Online AI Discourse\n\n\n\nR\n\nAI\n\nNLP\n\nText Analysis\n\nSentiment Analysis\n\nTopic Modeling\n\nSocial Media\n\n\n\n\nPinn Xu\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nStudent Social Media Usage and Well-being Analysis\n\n\n\nR\n\nEDA\n\nSocial Media\n\nMental Health\n\nVisualization\n\n\n\n\nPinn Xu\n\n\nFeb 23, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nTwitter Sentiment Analysis of Catalan Referendum\n\n\n\nPython\n\nNLP\n\nSocial Media\n\nVisualization\n\n\n\n\nPinn Xu\n\n\nNov 1, 2024\n\n\n\n\n\n\n\n\n\n\n\nGlobal Visa Cost Analysis and Interactive Visualization\n\n\n\nPython\n\nEDA\n\nSankey Diagram\n\nChoropleth Map\n\nVisualization\n\n\n\n\nPinn Xu\n\n\nDec 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\nSpotify Most Streamed Songs — Music Feature and Audience Trend Analysis\n\n\n\nR\n\nEDA\n\nMusic\n\nVisualization\n\nSampling\n\n\n\n\nPinn Xu\n\n\nFeb 25, 2026\n\n\n\n\n\n\nNo matching items",
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\nEvolution of Online AI Discourse\n\n\n\nR\n\nAI\n\nNLP\n\nText Analysis\n\nSentiment Analysis\n\nTopic Modeling\n\nSocial Media\n\n\n\n\nPinn Xu\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nStudent Social Media Usage and Well-being Analysis\n\n\n\nR\n\nEDA\n\nSocial Media\n\nMental Health\n\nVisualization\n\n\n\n\nPinn Xu\n\n\nFeb 23, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nTwitter Sentiment Analysis of Catalan Referendum\n\n\n\nPython\n\nNLP\n\nSocial Media\n\nVisualization\n\n\n\n\nPinn Xu\n\n\nNov 1, 2024\n\n\n\n\n\n\n\n\n\n\n\nGlobal Visa Cost Geographical Analysis\n\n\n\nPython\n\nEDA\n\nSankey Diagram\n\nChoropleth Map\n\nVisualization\n\n\n\n\nPinn Xu\n\n\nDec 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\nSpotify Most Streamed Songs\n\n\n\nR\n\nEDA\n\nMusic\n\nVisualization\n\nSampling\n\n\n\n\nPinn Xu\n\n\nFeb 25, 2026\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Projects"
     ]
@@ -2910,67 +2956,67 @@
   {
     "objectID": "en/projects/global-visa-cost/index.html",
     "href": "en/projects/global-visa-cost/index.html",
-    "title": "Global Visa Cost Analysis and Interactive Visualization",
+    "title": "Global Visa Cost Geographical Analysis",
     "section": "",
-    "text": "9 min read · 1737 EN words · 15 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
+    "text": "9 min read · 1716 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
     "crumbs": [
       "Projects",
-      "Global Visa Cost Analysis and Interactive Visualization"
+      "Global Visa Cost Geographical Analysis"
     ]
   },
   {
     "objectID": "en/projects/global-visa-cost/index.html#sankey-diagram",
     "href": "en/projects/global-visa-cost/index.html#sankey-diagram",
-    "title": "Global Visa Cost Analysis and Interactive Visualization",
+    "title": "Global Visa Cost Geographical Analysis",
     "section": "2.1 Sankey Diagram",
-    "text": "2.1 Sankey Diagram\n\nCleaning DataFrame\n\n\nCode\n## Defining a new variable df0 to store DataFrame without missing data \n# in the specified columns, to ensure that the sankey diagram will \n# only contain valid nodes.\n\ndf0 = df.dropna(\n    subset=[\n        'tourist_visa',\n        'source',\n        'source_region',\n        'source_subregion',\n    ]\n)\n\n#【.dropna()】\n# This method drops rows with any missing values (Pandas, 2024b).\n\n#【subset】\n# This parameter specifies which columns to consider when removing rows with \n# missing values. In this case, these are the columns to be used for \n# creating sankey diagram.\n\n# For convenience, this project will only use data about tourist visa, \n# as the most common type of visa (Recchi et al., 2021, p. 7).\n\n\n\n\nDefining Nodes\n\n\nCode\n##############################################################################\n## Defining lists to store labels for nodes\nsource_region_labels = list(df0['source_region'].unique())\nsource_subregion_labels = list(df0['source_subregion'].unique())\n\n#【.unique()】\n# This method returns an Array object containing a list of unique values \n# from a Series object (Pandas, 2024f). In this case, the columns \n# 'source_region' and 'source_subregion' in the DataFrame df0 serve as \n# the Series objects, where missing values are already dropped via \n# .dropna() method. Subsequently, .unique() method is used to return \n# Array objects containing lists of unique values from each column. \n# These values will be used to create node labels. \n\n#【list()】\n# This built-in Python function (also class) converts the input to \n# a list (Python, 2024a). In this case, it is used to convert the \n# Array objects mentioned above into Python list objects.\n\n##############################################################################\n## Combining lists to define an entire list storing all node labels\nnode_labels = ['World'] + source_region_labels + source_subregion_labels\n\n#【+】\n# This operator concatenates two or more sequences (e.g., lists) \n# into a single sequence (Python, 2024b). In this case, it is used \n# to combine lists of node labels into a single list.\n\n#【'World'】\n# 'World' is added to the start of the list, serving as the root node label.\n\n##############################################################################\n## Defining an an iterable range object to store the index for each node\nnode_ids = range(len(node_labels))\n\n#【len()】\n# This built-in Python function returns the number of items in an object \n# (i.e., the length of an object), which can be a sequence (e.g., list) \n# or a collection (e.g., dictionary) (Python, 2024a). In this case, \n# it is used to return the length of the list node_labels storing \n# all node labels, which equals to 23.\n\n#【range()】\n# This built-in Python function (also class) returns a sequence of numbers, \n# starting from zero by default (Python, 2024a). In this case, \n# range(23) starts from 0 to 22, which equal to the indices of items \n# in the list node_labels.\n\n##############################################################################\n## Defining a dictionary to store the label and index for each node\nnodes = dict(zip(node_labels, node_ids))\n\n#【zip()】\n# This built-in Python function iterate over several iterables in parallel, \n# producing tuples with an item from each one (Python, 2024a).\n\n#【dict()】\n# This built-in Python function (also class) creates a dictionary from \n# two or more sequences (Python, 2024a). In this case, it is used \n# to create a dictionary where the keys are node labels \n# and values are the indices of node labels.\n\n\n\n\nDefining Links\n\n\nCode\n##############################################################################\n## Creating an aggregated DataFrame to store relevant data, which will be used \n# to calculate the value of link towards each subregion.\nto_subregion_value = df0.groupby('source_subregion').agg(\n    {\n    'source_region':'first', # the region of each subregion \n    'tourist_visa':'mean', # mean of tourist visa cost in each subregion\n    }\n)\n\n#【.groupby()】\n# This method is used to group rows of df0 based on the column 'source_region'.\n\n#【.agg()】\n# This method is used to calculate the aggregation of values in each group.\n\n#【'first'】\n# This aggregation function returns the first entry of each column within \n# each group in the DataFrameGroupBy object (Pandas, 2024a). \n# In this case, it is used to select the first region encountered \n# in each group of subregions (i.e., the region for each subregion).\n\n##############################################################################\n## Creating an aggregated DataFrame to store values of link towards each region.\nto_region_value = (\n    to_subregion_value\n    .groupby('source_region')\n    .agg({'tourist_visa':'sum'})\n)\n\n##############################################################################\n## Creating empty lists to store the source, source, and value for each link\nsources = [] # to be filled with the indices of node labels of source nodes\ntargets = [] # to be filled with the indices of node labels of target nodes\nvalues = [] # to be filled with the values for each link (tourist_visa)\n\n## From 'World' to regions\nfor region in source_region_labels:\n\n    # Append 'World' as the source nodes\n    sources.append(nodes['World'])\n\n    # Append each region as the target nodes\n    targets.append(nodes[region])\n\n    # Append values in df0_agg1 for each region as the value for each link\n    values.append(to_region_value.loc[region,'tourist_visa'])\n\n## From regions to subregions\nfor subregion in source_subregion_labels:\n\n    # Append each corresponding region as the source nodes\n    # get the corresponding region\n    region = to_subregion_value.loc[subregion,'source_region']\n    sources.append(nodes[region])\n\n    # Append each subregion as the target nodes\n    targets.append(nodes[subregion]) \n    \n    # Append values in df0_agg2 for each subregion as the value for each link\n    values.append(to_subregion_value.loc[subregion,'tourist_visa'])\n\n\n\n\nAssigning Colors\n\n\nCode\nprint(\"Source Regions:\")\nprint(source_region_labels) # Checking regions in df0\n\n\nSource Regions:\n['Asia', 'Africa', 'Europe', 'Americas', 'Oceania']\n\n\n\n\nCode\n##############################################################################\n## Defining a dictionary to store region colors\n\nregion_colors = {\n    'Africa': '#6B3A09',  # Brown\n    'Asia': '#7FA709',  # Green\n    'Americas': '#EC6C92', # Pink\n    'Oceania': '#F5DA29',  # Yellow\n    'Europe': '#85D6D5',  # Blue\n}\n\n# These colors are generated (in hex) via Nichols's (no date) \n# color palette generator for better visibility to color blind people.\n\n##############################################################################\n## Defining node colors based on regions\n\nnode_colors = []  # Creating an empty list to store node colors\n\n# Using for loop to append node colors to the list\nfor label in node_labels:\n    if label in source_region_labels:\n        node_colors.append(region_colors[label])\n    \n    elif label in source_subregion_labels:\n        # get the corresponding region\n        region = to_subregion_value.loc[label,'source_region']\n        node_colors.append(region_colors[region])\n\n    else: # if label is 'World'  \n        node_colors.append('silver') \n\n##############################################################################\n## Define link colors with transparency\nimport matplotlib.colors as c  # to create faint colors in RGBA format\n\n## Defining strings to store faint colors for links in RGBA format\nfaint_Africa = 'rgba'+str(c.to_rgba(region_colors['Africa'], 0.5)) \nfaint_Asia = 'rgba'+str(c.to_rgba(region_colors['Asia'], 0.5)) \nfaint_Americas = 'rgba'+str(c.to_rgba(region_colors['Americas'], 0.5)) \nfaint_Oceania = 'rgba'+str(c.to_rgba(region_colors['Oceania'], 0.5)) \nfaint_Europe = 'rgba'+str(c.to_rgba(region_colors['Europe'], 0.5))\n\n# 0.5: alpha=0.5, means 50% transparency of colors\n\n##############################################################################\n## Defining a dictionary to store faint link colors based on regions\nfaint_region_colors = {\n    'Africa': faint_Africa,  # faint brown\n    'Asia': faint_Asia,  # faint green\n    'Americas': faint_Americas,  # faint pink\n    'Oceania': faint_Oceania,  # faint yellow\n    'Europe': faint_Europe,  # faint blue\n}\n\n##############################################################################\n## Defining link colors based on regions\nlink_colors = []  # Creating an empty list to store link colors\n\n# Using for loop to append link colors to the list\nfor source, target in zip(sources, targets):\n    if node_labels[source] in source_region_labels:\n        link_colors.append(faint_region_colors[node_labels[source]])\n    \n    elif node_labels[target] in source_region_labels:\n        link_colors.append(faint_region_colors[node_labels[target]])\n\n##############################################################################\n# Check if the number of node colors matches the number of nodes\nprint('Number of node colors matches nodes?')\nprint(len(node_colors) == len(nodes))\n\n# Check if the number of link colors matches the number of links\nprint('Number of link colors matches links?')\nprint(len(link_colors) == len(sources) == len(targets) == len(values))\n\n\nNumber of node colors matches nodes?\nTrue\nNumber of link colors matches links?\nTrue\n\n\n\n\nCreating Sankey Diagram\n\n\nCode\n##############################################################################\nimport plotly.graph_objects as go  # to create sankey diagram\n\n## Creating a Sankey object to store sankey data via go.Sankey() function\n\nsankey_data = go.Sankey(   # defining a variable to store sankey data\n    # defining nodes\n    node = dict(\n        label = node_labels,  # labels for nodes\n        color = node_colors,  # colors for nodes\n        pad = 30,  # the horizontal distance between nodes\n        thickness = 20,  # thickness of nodes\n        line = {'color':'black','width':0.5},  # style for node outlines\n    ),\n\n    # defining links\n    link = dict(\n        source = sources,  # indices of source nodes in node_labels\n        target = targets,  # indices of target nodes in node_labels\n        value = values,  # values for links\n        color = link_colors, # colors for links\n    )\n)\n\n##############################################################################\n# Creating a Figure object to store sankey data via go.Figure() function\nfig1 = go.Figure(sankey_data)\n\n# Updating layout of the figure\nfig1.update_layout(\n    # width = 800, height = 600,\n    margin = dict(t = 60, b = 10),  # margin top & bottom\n    title_text = '''\n        Sankey diagram of average tourist visa costs from each area\n    ''',\n    title_x = 0.5, title_y = 0.95,  # location of the title\n    font = {'style':'italic'},      # font style of the figure\n) \n    #【.update_layout()】\n    # This method is used to update the layout of the figure, \n    # including the size, title, font, etc. (Plotly, 2024b).\n\nfig1.show(config = {\"responsive\": True})      # display the sankey diagram\n\n    #【renderer】\n    # This parameter is used to specify the renderer used to render\n    # the figure (Plotly, 2024b), and 'notebook' refers to Jupyter notebook.\n\n    # This project is edited and exported to HTML file using\n    # Visual Studio Code with Jupyter extensions, in which case\n    # renderer='notebook' is effective for diagram display within\n    # Visual Studio Code and the exported HTML file. However,\n    # this argument seems not working for diagram display within output\n    # cells using Jupyter (but working for exported HTML file).\n\n\n\n\n                                                \n\n\nFigure 1: Sankey diagram of average tourist visa costs from each area\n\n\n\n\nAs shown above, Figure 1 illustrates the distribution of average tourist visa costs from global regions (e.g., Asia, Europe, Africa) to their corresponding subregions (e.g., Eastern Asia, Northern Europe). The width of the links from regions to subregions represents the average tourist visa cost per country (as countries of origin) in each subregion, while the widths of the links on the left-hand side (from the ‘World’ node to each region node) are the sum of their corresponding links towards the subregions. Overall, this Sankey diagram (Figure 1) shows the flow of global tourist visa costs.\n\n\n\n\n\n\nFigure 2: Sankey diagram of average tourist visa costs from each area (sorted)\n\n\n\nMoreover, Figure 2 provides the same Sankey diagram with manually sorted subregion nodes by their links’ values (average tourist visa costs), which could be of better interpretation for gaps between areas in tourist visa costs. As shown in Figure 2, subregions belonging to Asia and Africa exhibit significantly larger flows, indicating their higher overall tourist visa cost. In contrast, smaller flows can be seen in Europe, Australia and New Zealand, and Northern America, reflecting their lower average tourist visa costs. Meanwhile, within Asia, the Southern Asia area has the highest figure whereas Eastern Asia has the lowest. Likewise, Western Europe has the lowest figure among all European areas.\nIn general, Figure 1 and Figure 2 reveal potential inequality between countries in different areas regarding the ability to leave their country. This gap will be further demonstrated in the following sections on the bar chart (Figure 3 and Figure 4).",
+    "text": "2.1 Sankey Diagram\n\nCleaning DataFrame\n\n\nCode\n## Defining a new variable df0 to store DataFrame without missing data \n# in the specified columns, to ensure that the sankey diagram will \n# only contain valid nodes.\n\ndf0 = df.dropna(\n    subset=[\n        'tourist_visa',\n        'source',\n        'source_region',\n        'source_subregion',\n    ]\n)\n\n#【.dropna()】\n# This method drops rows with any missing values (Pandas, 2024b).\n\n#【subset】\n# This parameter specifies which columns to consider when removing rows with \n# missing values. In this case, these are the columns to be used for \n# creating sankey diagram.\n\n# For convenience, this project will only use data about tourist visa, \n# as the most common type of visa (Recchi et al., 2021, p. 7).\n\n\n\n\nDefining Nodes\n\n\nCode\n##############################################################################\n## Defining lists to store labels for nodes\nsource_region_labels = list(df0['source_region'].unique())\nsource_subregion_labels = list(df0['source_subregion'].unique())\n\n#【.unique()】\n# This method returns an Array object containing a list of unique values \n# from a Series object (Pandas, 2024f). In this case, the columns \n# 'source_region' and 'source_subregion' in the DataFrame df0 serve as \n# the Series objects, where missing values are already dropped via \n# .dropna() method. Subsequently, .unique() method is used to return \n# Array objects containing lists of unique values from each column. \n# These values will be used to create node labels. \n\n#【list()】\n# This built-in Python function (also class) converts the input to \n# a list (Python, 2024a). In this case, it is used to convert the \n# Array objects mentioned above into Python list objects.\n\n##############################################################################\n## Combining lists to define an entire list storing all node labels\nnode_labels = ['World'] + source_region_labels + source_subregion_labels\n\n#【+】\n# This operator concatenates two or more sequences (e.g., lists) \n# into a single sequence (Python, 2024b). In this case, it is used \n# to combine lists of node labels into a single list.\n\n#【'World'】\n# 'World' is added to the start of the list, serving as the root node label.\n\n##############################################################################\n## Defining an an iterable range object to store the index for each node\nnode_ids = range(len(node_labels))\n\n#【len()】\n# This built-in Python function returns the number of items in an object \n# (i.e., the length of an object), which can be a sequence (e.g., list) \n# or a collection (e.g., dictionary) (Python, 2024a). In this case, \n# it is used to return the length of the list node_labels storing \n# all node labels, which equals to 23.\n\n#【range()】\n# This built-in Python function (also class) returns a sequence of numbers, \n# starting from zero by default (Python, 2024a). In this case, \n# range(23) starts from 0 to 22, which equal to the indices of items \n# in the list node_labels.\n\n##############################################################################\n## Defining a dictionary to store the label and index for each node\nnodes = dict(zip(node_labels, node_ids))\n\n#【zip()】\n# This built-in Python function iterate over several iterables in parallel, \n# producing tuples with an item from each one (Python, 2024a).\n\n#【dict()】\n# This built-in Python function (also class) creates a dictionary from \n# two or more sequences (Python, 2024a). In this case, it is used \n# to create a dictionary where the keys are node labels \n# and values are the indices of node labels.\n\n\n\n\nDefining Links\n\n\nCode\n##############################################################################\n## Creating an aggregated DataFrame to store relevant data, which will be used \n# to calculate the value of link towards each subregion.\nto_subregion_value = df0.groupby('source_subregion').agg(\n    {\n    'source_region':'first', # the region of each subregion \n    'tourist_visa':'mean', # mean of tourist visa cost in each subregion\n    }\n)\n\n#【.groupby()】\n# This method is used to group rows of df0 based on the column 'source_region'.\n\n#【.agg()】\n# This method is used to calculate the aggregation of values in each group.\n\n#【'first'】\n# This aggregation function returns the first entry of each column within \n# each group in the DataFrameGroupBy object (Pandas, 2024a). \n# In this case, it is used to select the first region encountered \n# in each group of subregions (i.e., the region for each subregion).\n\n##############################################################################\n## Creating an aggregated DataFrame to store values of link towards each region.\nto_region_value = (\n    to_subregion_value\n    .groupby('source_region')\n    .agg({'tourist_visa':'sum'})\n)\n\n##############################################################################\n## Creating empty lists to store the source, source, and value for each link\nsources = [] # to be filled with the indices of node labels of source nodes\ntargets = [] # to be filled with the indices of node labels of target nodes\nvalues = [] # to be filled with the values for each link (tourist_visa)\n\n## From 'World' to regions\nfor region in source_region_labels:\n\n    # Append 'World' as the source nodes\n    sources.append(nodes['World'])\n\n    # Append each region as the target nodes\n    targets.append(nodes[region])\n\n    # Append values in df0_agg1 for each region as the value for each link\n    values.append(to_region_value.loc[region,'tourist_visa'])\n\n## From regions to subregions\nfor subregion in source_subregion_labels:\n\n    # Append each corresponding region as the source nodes\n    # get the corresponding region\n    region = to_subregion_value.loc[subregion,'source_region']\n    sources.append(nodes[region])\n\n    # Append each subregion as the target nodes\n    targets.append(nodes[subregion]) \n    \n    # Append values in df0_agg2 for each subregion as the value for each link\n    values.append(to_subregion_value.loc[subregion,'tourist_visa'])\n\n\n\n\nAssigning Colors\n\n\nCode\nprint(\"Source Regions:\")\nprint(source_region_labels) # Checking regions in df0\n\n\nSource Regions:\n['Asia', 'Africa', 'Europe', 'Americas', 'Oceania']\n\n\n\n\nCode\n##############################################################################\n## Defining a dictionary to store region colors\n\nregion_colors = {\n    'Africa': '#6B3A09',  # Brown\n    'Asia': '#7FA709',  # Green\n    'Americas': '#EC6C92', # Pink\n    'Oceania': '#F5DA29',  # Yellow\n    'Europe': '#85D6D5',  # Blue\n}\n\n# These colors are generated (in hex) via Nichols's (no date) \n# color palette generator for better visibility to color blind people.\n\n##############################################################################\n## Defining node colors based on regions\n\nnode_colors = []  # Creating an empty list to store node colors\n\n# Using for loop to append node colors to the list\nfor label in node_labels:\n    if label in source_region_labels:\n        node_colors.append(region_colors[label])\n    \n    elif label in source_subregion_labels:\n        # get the corresponding region\n        region = to_subregion_value.loc[label,'source_region']\n        node_colors.append(region_colors[region])\n\n    else: # if label is 'World'  \n        node_colors.append('silver') \n\n##############################################################################\n## Define link colors with transparency\nimport matplotlib.colors as c  # to create faint colors in RGBA format\n\n## Defining strings to store faint colors for links in RGBA format\nfaint_Africa = 'rgba'+str(c.to_rgba(region_colors['Africa'], 0.5)) \nfaint_Asia = 'rgba'+str(c.to_rgba(region_colors['Asia'], 0.5)) \nfaint_Americas = 'rgba'+str(c.to_rgba(region_colors['Americas'], 0.5)) \nfaint_Oceania = 'rgba'+str(c.to_rgba(region_colors['Oceania'], 0.5)) \nfaint_Europe = 'rgba'+str(c.to_rgba(region_colors['Europe'], 0.5))\n\n# 0.5: alpha=0.5, means 50% transparency of colors\n\n##############################################################################\n## Defining a dictionary to store faint link colors based on regions\nfaint_region_colors = {\n    'Africa': faint_Africa,  # faint brown\n    'Asia': faint_Asia,  # faint green\n    'Americas': faint_Americas,  # faint pink\n    'Oceania': faint_Oceania,  # faint yellow\n    'Europe': faint_Europe,  # faint blue\n}\n\n##############################################################################\n## Defining link colors based on regions\nlink_colors = []  # Creating an empty list to store link colors\n\n# Using for loop to append link colors to the list\nfor source, target in zip(sources, targets):\n    if node_labels[source] in source_region_labels:\n        link_colors.append(faint_region_colors[node_labels[source]])\n    \n    elif node_labels[target] in source_region_labels:\n        link_colors.append(faint_region_colors[node_labels[target]])\n\n##############################################################################\n# Check if the number of node colors matches the number of nodes\nprint('Number of node colors matches nodes?')\nprint(len(node_colors) == len(nodes))\n\n# Check if the number of link colors matches the number of links\nprint('Number of link colors matches links?')\nprint(len(link_colors) == len(sources) == len(targets) == len(values))\n\n\nNumber of node colors matches nodes?\nTrue\nNumber of link colors matches links?\nTrue\n\n\n\n\nCreating Sankey Diagram\n\n\nCode\n##############################################################################\nimport plotly.graph_objects as go  # to create sankey diagram\n\n## Creating a Sankey object to store sankey data via go.Sankey() function\n\nsankey_data = go.Sankey(   # defining a variable to store sankey data\n    # defining nodes\n    node = dict(\n        label = node_labels,  # labels for nodes\n        color = node_colors,  # colors for nodes\n        pad = 30,  # the horizontal distance between nodes\n        thickness = 20,  # thickness of nodes\n        line = {'color':'black','width':0.5},  # style for node outlines\n    ),\n\n    # defining links\n    link = dict(\n        source = sources,  # indices of source nodes in node_labels\n        target = targets,  # indices of target nodes in node_labels\n        value = values,  # values for links\n        color = link_colors, # colors for links\n    )\n)\n\n##############################################################################\n# Creating a Figure object to store sankey data via go.Figure() function\nfig1 = go.Figure(sankey_data)\n\n# Updating layout of the figure\nfig1.update_layout(\n    # width = 800, height = 600,\n    margin = dict(t = 60, b = 10),  # margin top & bottom\n    title_text = '''\n        Sankey diagram of average tourist visa costs from each area\n    ''',\n    title_x = 0.5, title_y = 0.95,  # location of the title\n    font = {'style':'italic'},      # font style of the figure\n) \n    #【.update_layout()】\n    # This method is used to update the layout of the figure, \n    # including the size, title, font, etc. (Plotly, 2024b).\n\n# fig1.show(config = {\"responsive\": True})      # display the sankey diagram\nfig1.show()      # display the sankey diagram\n\n    #【renderer】\n    # This parameter is used to specify the renderer used to render\n    # the figure (Plotly, 2024b), and 'notebook' refers to Jupyter notebook.\n\n    # This project is edited and exported to HTML file using\n    # Visual Studio Code with Jupyter extensions, in which case\n    # renderer='notebook' is effective for diagram display within\n    # Visual Studio Code and the exported HTML file. However,\n    # this argument seems not working for diagram display within output\n    # cells using Jupyter (but working for exported HTML file).\n\n\n\n\n                                                \n\n\nFigure 1: Sankey diagram of average tourist visa costs from each area\n\n\n\n\nAs shown above, Figure 1 illustrates the distribution of average tourist visa costs from global regions (e.g., Asia, Europe, Africa) to their corresponding subregions (e.g., Eastern Asia, Northern Europe). The width of the links from regions to subregions represents the average tourist visa cost per country (as countries of origin) in each subregion, while the widths of the links on the left-hand side (from the ‘World’ node to each region node) are the sum of their corresponding links towards the subregions. Overall, this Sankey diagram (Figure 1) shows the flow of global tourist visa costs.\n\n\n\n\n\n\nFigure 2: Sankey diagram of average tourist visa costs from each area (sorted)\n\n\n\nMoreover, Figure 2 provides the same Sankey diagram with manually sorted subregion nodes by their links’ values (average tourist visa costs), which could be of better interpretation for gaps between areas in tourist visa costs. As shown in Figure 2, subregions belonging to Asia and Africa exhibit significantly larger flows, indicating their higher overall tourist visa cost. In contrast, smaller flows can be seen in Europe, Australia and New Zealand, and Northern America, reflecting their lower average tourist visa costs. Meanwhile, within Asia, the Southern Asia area has the highest figure whereas Eastern Asia has the lowest. Likewise, Western Europe has the lowest figure among all European areas.\nIn general, Figure 1 and Figure 2 reveal potential inequality between countries in different areas regarding the ability to leave their country. This gap will be further demonstrated in the following sections on the bar chart (Figure 3 and Figure 4).",
     "crumbs": [
       "Projects",
-      "Global Visa Cost Analysis and Interactive Visualization"
+      "Global Visa Cost Geographical Analysis"
     ]
   },
   {
     "objectID": "en/projects/global-visa-cost/index.html#bar-chart",
     "href": "en/projects/global-visa-cost/index.html#bar-chart",
-    "title": "Global Visa Cost Analysis and Interactive Visualization",
+    "title": "Global Visa Cost Geographical Analysis",
     "section": "2.2 Bar Chart",
-    "text": "2.2 Bar Chart\n\nAggregating Data\n\n\nCode\nimport plotly.express as px  # to create plotly interactive graphs\n\n# Aggregating data in order to draw the bar chart\nbar_agg = df.groupby('source_subregion').agg(\n    {\n    'source_region':'first', # region of each subregion\n    'tourist_visa':'mean',   # average tourist visa cost\n    'tourist_perdailyincome':'mean', # average tourist visa cost per daily income\n    }\n).reset_index()  # resetting index to make 'source_subregion' a regular column\n\n#【.reset_index()】\n# This method is used to reset the index of the aggregated DataFrame, \n# placing all columns into a single level index (Pandas, 2024c). \n# Namely, transform the automatically generated index ('source_subregion') \n# into a regular column.\n\n\n\n\nCreating Bar Chart\n\n\nCode\n# Creating a bar chart to show average tourist visa cost in each subregion\n\nfig2 = px.bar(\n    bar_agg, x = 'tourist_visa', y = 'source_subregion',\n    labels = {  # assigning x and y labels \n        'tourist_visa':'Average tourist visa cost ($)',  \n        'source_subregion':'Subregion',\n    },\n    color = 'source_region',  # grouping bars by region in different colors\n    color_discrete_map = region_colors  # assigning colors (previously defined)\n)\n\n# Updating layout properties of the figure\nfig2.update_layout(\n    # width=800, height=480,\n    margin = dict(t = 90, b = 10),    # margin top & bottom\n    title_text='Average tourist visa costs per subregion',\n    title_x = 0.5, title_y = 0.95,    # location of the title\n    titlefont = {'style': 'italic'},  # font style of the title\n    yaxis = {'categoryorder': 'total ascending'}, # sort by values ascending\n    legend = {\n        'title':'Region',\n        'orientation': 'h',  # horizontal oriented legend\n        'xanchor': 'right',\n        'yanchor': 'bottom', \n        'x': 1, 'y': 1,\n    },\n) \n\nfig2.show(config = {\"responsive\": True}) # displaying the figure\n\n\n\n\n                                                \n\n\nFigure 3: Bar chart of average tourist visa costs from each subregion\n\n\n\n\nFigure 3 presents the same data as in Figure 1 and Figure 2, which is the average tourist visa costs from each area (only subregions in Figure 3), grouped by region in different colors, while the bar chart (Figure 3) can show the difference in value more clearly as compared to Figure 2 since the length in Figure 3 (bar chart) are more distinguishable than the width of links in Figure 1, which is also in line with Wilke’s (Wilke, 2019, Chapter 6) suggestion that bar chart could be more suitable for presenting variations in amount of value. It may be inferred from Figure 1, Figure 2 and Figure 3, that people in countries in well-developed areas (e.g., Western Europe) have to pay less to go abroad whereas those in underdeveloped countries in areas such as Southern Asia and Northern Africa should pay more to go abroad. Nevertheless, another variable ‘tourist_perdailyincome’ (see Appendix for detailed description) is introduced to calculate the underlying actual data on the level of tourist visa costs when adjusted by the average daily income in each country (Recchi et al., 2021, p. 4).\n\n\nCode\n# Creating a bar chart to show average tourist visa cost per daily income\n# in each subregion, namely, the average working days to afford a\n# tourist visa from countries in each subregion.\n\nfig3 = px.bar(\n    bar_agg, x = 'tourist_perdailyincome', y = 'source_subregion',\n    labels = dict( # assigning x and y labels\n        tourist_perdailyincome = '''\n            Average working days to afford tourist visa (day)\n        ''', \n        source_subregion = 'Subregion',\n    ),\n    color = 'source_region', # grouping by region in different colors\n    color_discrete_map = region_colors # assigning colors (previously defined)\n)\n\n# Updating layout properties of the figure\nfig3.update_layout(\n    # width=800, height=480,\n    margin = dict(t = 90, b = 10),    # margin top & bottom\n    title_text='''\n        Average working days to afford tourist visa per subregion\n    ''',\n    title_x = 0.5, title_y = 0.95,    # location of the title\n    titlefont = {'style': 'italic'},  # font style of the title\n    yaxis = {'categoryorder': 'total ascending'}, # sort by values ascending\n    legend = {\n        'title':'Region',\n        'orientation': 'h',  # horizontal oriented legend\n        'xanchor': 'right',\n        'yanchor': 'bottom', \n        'x': 1, 'y': 1,\n    },\n) \n\nfig3.show(config = {\"responsive\": True}) # displaying the figure\n\n\n\n\n                                                \n\n\nFigure 4: Average working days to afford tourist visa per subregion\n\n\n\n\nAs shown in Figure 4, there are even more significant gaps between areas regarding their income-adjusted average tourist visa costs (i.e., average working days to afford a tourist visa), revealing a paradoxical global situation – the poorer a country, the more citizens in it should pay for tourist visas to go abroad.",
+    "text": "2.2 Bar Chart\n\nAggregating Data\n\n\nCode\nimport plotly.express as px  # to create plotly interactive graphs\n\n# Aggregating data in order to draw the bar chart\nbar_agg = df.groupby('source_subregion').agg(\n    {\n    'source_region':'first', # region of each subregion\n    'tourist_visa':'mean',   # average tourist visa cost\n    'tourist_perdailyincome':'mean', # average tourist visa cost per daily income\n    }\n).reset_index()  # resetting index to make 'source_subregion' a regular column\n\n#【.reset_index()】\n# This method is used to reset the index of the aggregated DataFrame, \n# placing all columns into a single level index (Pandas, 2024c). \n# Namely, transform the automatically generated index ('source_subregion') \n# into a regular column.\n\n\n\n\nCreating Bar Chart\n\n\nCode\n# Creating a bar chart to show average tourist visa cost in each subregion\n\nfig2 = px.bar(\n    bar_agg, x = 'tourist_visa', y = 'source_subregion',\n    labels = {  # assigning x and y labels \n        'tourist_visa':'Average tourist visa cost ($)',  \n        'source_subregion':'Subregion',\n    },\n    color = 'source_region',  # grouping bars by region in different colors\n    color_discrete_map = region_colors  # assigning colors (previously defined)\n)\n\n# Updating layout properties of the figure\nfig2.update_layout(\n    # width=800, height=480,\n    margin = dict(t = 90, b = 10),    # margin top & bottom\n    title_text='Average tourist visa costs per subregion',\n    title_x = 0.5, title_y = 0.95,    # location of the title\n    titlefont = {'style': 'italic'},  # font style of the title\n    yaxis = {'categoryorder': 'total ascending'}, # sort by values ascending\n    legend = {\n        'title':'Region',\n        'orientation': 'h',  # horizontal oriented legend\n        'xanchor': 'right',\n        'yanchor': 'bottom', \n        'x': 1, 'y': 1,\n    },\n) \n\n# fig2.show(config = {\"responsive\": True}) # displaying the figure\nfig2.show() # displaying the figure\n\n\n\n\n                                                \n\n\nFigure 3: Bar chart of average tourist visa costs from each subregion\n\n\n\n\nFigure 3 presents the same data as in Figure 1 and Figure 2, which is the average tourist visa costs from each area (only subregions in Figure 3), grouped by region in different colors, while the bar chart (Figure 3) can show the difference in value more clearly as compared to Figure 2 since the length in Figure 3 (bar chart) are more distinguishable than the width of links in Figure 1, which is also in line with Wilke’s (Wilke, 2019, Chapter 6) suggestion that bar chart could be more suitable for presenting variations in amount of value. It may be inferred from Figure 1, Figure 2 and Figure 3, that people in countries in well-developed areas (e.g., Western Europe) have to pay less to go abroad whereas those in underdeveloped countries in areas such as Southern Asia and Northern Africa should pay more to go abroad. Nevertheless, another variable ‘tourist_perdailyincome’ (see Appendix for detailed description) is introduced to calculate the underlying actual data on the level of tourist visa costs when adjusted by the average daily income in each country (Recchi et al., 2021, p. 4).\n\n\nCode\n# Creating a bar chart to show average tourist visa cost per daily income\n# in each subregion, namely, the average working days to afford a\n# tourist visa from countries in each subregion.\n\nfig3 = px.bar(\n    bar_agg, x = 'tourist_perdailyincome', y = 'source_subregion',\n    labels = dict( # assigning x and y labels\n        tourist_perdailyincome = '''\n            Average working days to afford tourist visa (day)\n        ''', \n        source_subregion = 'Subregion',\n    ),\n    color = 'source_region', # grouping by region in different colors\n    color_discrete_map = region_colors # assigning colors (previously defined)\n)\n\n# Updating layout properties of the figure\nfig3.update_layout(\n    # width=800, height=480,\n    margin = dict(t = 90, b = 10),    # margin top & bottom\n    title_text='''\n        Average working days to afford tourist visa per subregion\n    ''',\n    title_x = 0.5, title_y = 0.95,    # location of the title\n    titlefont = {'style': 'italic'},  # font style of the title\n    yaxis = {'categoryorder': 'total ascending'}, # sort by values ascending\n    legend = {\n        'title':'Region',\n        'orientation': 'h',  # horizontal oriented legend\n        'xanchor': 'right',\n        'yanchor': 'bottom', \n        'x': 1, 'y': 1,\n    },\n) \n\n# fig3.show(config = {\"responsive\": True}) # displaying the figure\nfig3.show() # displaying the figure\n\n\n\n\n                                                \n\n\nFigure 4: Average working days to afford tourist visa per subregion\n\n\n\n\nAs shown in Figure 4, there are even more significant gaps between areas regarding their income-adjusted average tourist visa costs (i.e., average working days to afford a tourist visa), revealing a paradoxical global situation – the poorer a country, the more citizens in it should pay for tourist visas to go abroad.",
     "crumbs": [
       "Projects",
-      "Global Visa Cost Analysis and Interactive Visualization"
+      "Global Visa Cost Geographical Analysis"
     ]
   },
   {
     "objectID": "en/projects/global-visa-cost/index.html#choropleth",
     "href": "en/projects/global-visa-cost/index.html#choropleth",
-    "title": "Global Visa Cost Analysis and Interactive Visualization",
+    "title": "Global Visa Cost Geographical Analysis",
     "section": "2.3 Choropleth",
-    "text": "2.3 Choropleth\n\nAggregating Data\n\n\nCode\n# Aggregating data in order to draw the choropleth\nchoro_agg = (\n    df.groupby('source')\n    .agg({\n        'source_iso3': 'first',\n        'tourist_visa': 'mean',\n    })\n    .sort_values('tourist_visa', ascending=False)\n    .reset_index()\n)\n\n#【.sort_values()】\n# This method is used to sort the aggregated DataFrame by 'tourist_visa' \n# column, in descending order (ascending=False) (Pandas, 2024d).\n\n#【.reset_index()】\n# resetting index to make 'source_iso3' a regular column\n\n\n\n\nCreating Choropleth\n\n\nCode\n# Creating a choropleth map to show average tourist visa cost in each country\nfig4 = px.choropleth(\n    choro_agg, \n    locations = 'source_iso3', # region identifiers for locations\n    locationmode = 'ISO-3', # country codes\n    color = 'tourist_visa', # map color by tourist visa costs\n    hover_name = 'source', # hover: region name\n    hover_data = 'tourist_visa', # hover: data\n    color_continuous_scale = 'aggrnyl', # color scale for the choropleth\n)\n\n# Updating layout properties of the figure\nfig4.update_layout(\n    # width = 800, height = 500,\n    title = 'Choropleth map of average tourist visa costs',\n    margin = dict(t = 50, b = 0),\n    title_x = 0.5, title_y = 0.95,  # location of the title\n    title_font = {'style':'italic'},  # font style of the title\n    coloraxis = dict(\n        colorbar = dict(  # specify colorbar properties\n            orientation = 'h',  # orientation of the colorbar: horizontal\n            title = 'Average tourist visa cost ($)', # title of the colorbar\n            xanchor = 'right', x = 1,\n            yanchor = 'top', y = 1,\n            len = 0.8, thickness = 16,  # length and thickness of the colorbar\n        ),\n    ),\n)\n\nfig4.show(config = {\"responsive\": True}) # displaying the figure\n\n\n\n\n                                                \n\n\nFigure 5: Choropleth map of average tourist visa costs\n\n\n\n\nFurthermore, we may gain insights by moving from the sub-region level to the country level. Figure 5 provides information about the distribution of average tourist visa costs in specific countries around the world, which varies with the continuous color indicator. According to Wilke (2019, p. 173), as for choropleth, it is typically accepted that dark-colored background areas in the maps behave better in visibility than light-colored background areas for webpages. Figure 5 thus employs a color map with dark-colored background areas, where the color gradually fades with the value increasing (Plotly, 2024).",
+    "text": "2.3 Choropleth\n\nAggregating Data\n\n\nCode\n# Aggregating data in order to draw the choropleth\nchoro_agg = (\n    df.groupby('source')\n    .agg({\n        'source_iso3': 'first',\n        'tourist_visa': 'mean',\n    })\n    .sort_values('tourist_visa', ascending=False)\n    .reset_index()\n)\n\n#【.sort_values()】\n# This method is used to sort the aggregated DataFrame by 'tourist_visa' \n# column, in descending order (ascending=False) (Pandas, 2024d).\n\n#【.reset_index()】\n# resetting index to make 'source_iso3' a regular column\n\n\n\n\nCreating Choropleth\n\n\nCode\n# Creating a choropleth map to show average tourist visa cost in each country\nfig4 = px.choropleth(\n    choro_agg, \n    locations = 'source_iso3', # region identifiers for locations\n    locationmode = 'ISO-3', # country codes\n    color = 'tourist_visa', # map color by tourist visa costs\n    hover_name = 'source', # hover: region name\n    hover_data = 'tourist_visa', # hover: data\n    color_continuous_scale = 'aggrnyl', # color scale for the choropleth\n)\n\n# Updating layout properties of the figure\nfig4.update_layout(\n    # width = 800, height = 500,\n    title = 'Choropleth map of average tourist visa costs',\n    margin = dict(t = 50, b = 0),\n    title_x = 0.5, title_y = 0.95,  # location of the title\n    title_font = {'style':'italic'},  # font style of the title\n    coloraxis = dict(\n        colorbar = dict(  # specify colorbar properties\n            orientation = 'h',  # orientation of the colorbar: horizontal\n            title = 'Average tourist visa cost ($)', # title of the colorbar\n            xanchor = 'right', x = 1,\n            yanchor = 'top', y = 1,\n            len = 0.8, thickness = 16,  # length and thickness of the colorbar\n        ),\n    ),\n)\n\n# fig4.show(config = {\"responsive\": True}) # displaying the figure\nfig4.show() # displaying the figure\n\n\n\n\n                                                \n\n\nFigure 5: Choropleth map of average tourist visa costs\n\n\n\n\nFurthermore, we may gain insights by moving from the sub-region level to the country level. Figure 5 provides information about the distribution of average tourist visa costs in specific countries around the world, which varies with the continuous color indicator. According to Wilke (2019, p. 173), as for choropleth, it is typically accepted that dark-colored background areas in the maps behave better in visibility than light-colored background areas for webpages. Figure 5 thus employs a color map with dark-colored background areas, where the color gradually fades with the value increasing (Plotly, 2024).",
     "crumbs": [
       "Projects",
-      "Global Visa Cost Analysis and Interactive Visualization"
+      "Global Visa Cost Geographical Analysis"
     ]
   },
   {
     "objectID": "en/projects/global-visa-cost/index.html#global-visa-cost-dataset",
     "href": "en/projects/global-visa-cost/index.html#global-visa-cost-dataset",
-    "title": "Global Visa Cost Analysis and Interactive Visualization",
+    "title": "Global Visa Cost Geographical Analysis",
     "section": "Global Visa Cost Dataset",
     "text": "Global Visa Cost Dataset\nThe Global Visa Cost Dataset, created by researchers from the European University Institute’s Migration Policy Centre, provides comprehensive data on visa costs for seven categories between country pairs in 2019. The dataset was developed through manual data collection primarily from official government websites and consulates.\nVisa costs are coded in the following categories: tourist, student, business, work, family reunification, transit, and other motives, recorded in US dollars.\nFor countries where information was not available in English, French, Spanish, Arabic, Italian or Russian, a translation website was used to obtain the necessary information from the primary language of the country.\nSeveral countries, including Palestine and the Syrian Arab Republic, are not coded due to a lack of information about travel access to their territory. Some countries needed a second round of visa cost checks due to difficulties in finding the information about their visa policy and visa requirements. In the case of many country pairs, there is visa policy information but there is no indication of the actual visa costs. For instance, Nauru in Oceania required a particularly engaging search to retrieve an official document on Immigration Regulations of January 2014, where the actual visa categories and costs are mentioned. This information is not indicated in any other official online source. For country pairs where information is not available in the dataset, missing values are introduced.",
     "crumbs": [
       "Projects",
-      "Global Visa Cost Analysis and Interactive Visualization"
+      "Global Visa Cost Geographical Analysis"
     ]
   },
   {
     "objectID": "en/projects/global-visa-cost/index.html#variable-description",
     "href": "en/projects/global-visa-cost/index.html#variable-description",
-    "title": "Global Visa Cost Analysis and Interactive Visualization",
+    "title": "Global Visa Cost Geographical Analysis",
     "section": "Variable Description",
     "text": "Variable Description\n\nVariables: Countries and Regions\nThese variables represent the countries and regions of origin and destination, where ‘region’ refers to the continent a country is located in, and ‘subregion’ refers to sub-regions within continents.\n\nsource: Country of origin\ntarget: Country of destination\nsource_iso3: ISO3 code of country of origin\ntarget_iso3: ISO3 code of country of destination\n\n\nsource_region: World region country of origin is located in\ntarget_region: World region country of destination is located in\nsource_subregion: World sub-region country of destination is located in\ntarget_subregion: World sub-region country of destination is located in\n\nNote: Regions and sub-regions are based on the UN M.49 GeoScheme.\n\n\nVariables: Visa Costs to the Target Countries\nThese variables are visa costs to the target countries from the source countries based on the official visa policies and visa requirements of the target countries in 2019, measured in US dollars.\n\ntourist_visa: Tourist visa costs (in USD)\nstudent_visa: Student visa costs (in USD)\nbusiness_visa: Business visa costs (in USD)\nwork_visa: Work visa costs (in USD)\nfamily_reunification_visa: Family reunification visa costs (in USD)\ntransit_visa: Transit visa costs (in USD)\nother_motives_visa: Other motives visa costs (in USD)\n\n\n\nVariables: Average Working Days to Pay Visa Costs\nThese variables estimates how many days people in the source countries have to work on average to be able to afford a visa to the target countries, measured in days.\n\ntourist_perdailyincome: Tourist visa costs (in average daily incomes)\nstudent_perdailyincome: Student visa costs (in average daily incomes)\nbusiness_perdailyincome: Business visa costs (in average daily incomes)\nwork_perdailyincome: Work visa costs (in average daily incomes)\nfamily_perdailyincome: Family reunification costs (in average daily incomes)\ntransit_perdailyincome: Transit visa costs (in average daily incomes)\nother_perdailyincome: Other motives visa costs (in average daily incomes)\n\nNote: The authors used the GNI per capita as an approximation of the mean income of the average person in a country to calculate what the real costs of visas may be like. Information about GNI per capita are from World Bank (2019), which is available at: https://data.worldbank.org/indicator/NY.GNP.PCAP.CD .\n\n\nVariable: Updates Compared to the Previous Version\nThis variable indicates updates to the previous version of the dataset.\n\nupdated: 1 if value was added/altered in the November 2020 update of the dataset from version 1.0 to version 1.1\n\nNote: Updates in version 1.1 compared to version 1.0 include corrections, additional data for numerous countries, and a new variable ‘updated’ to track changes. This project only used the updated version (version 1.1) of the dataset.",
     "crumbs": [
       "Projects",
-      "Global Visa Cost Analysis and Interactive Visualization"
+      "Global Visa Cost Geographical Analysis"
     ]
   },
   {
@@ -3033,7 +3079,7 @@
     "href": "en/tutorials/sankey-and-network/index.html",
     "title": "Sankey Diagrams and Network Graphs",
     "section": "",
-    "text": "7 min read · 1291 EN words · 15 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
+    "text": "7 min read · 1286 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -3141,7 +3187,7 @@
     "href": "en/tutorials/data-processing/index.html",
     "title": "Data Processing",
     "section": "",
-    "text": "8 min read · 1549 EN words · 15 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2",
+    "text": "8 min read · 1544 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -3237,7 +3283,7 @@
     "href": "en/tutorials/multivariate-plots/index.html",
     "title": "Multivariate Plots",
     "section": "",
-    "text": "20 min read · 3812 EN words · 15 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "20 min read · 3807 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "Projects",
       "Tutorials",

@@ -208,10 +208,6 @@ window.Quarto = {
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../en/hobbies/index.html"> 
-<span class="menu-text">Hobbies</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
@@ -335,13 +331,13 @@ Pinn Xu
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDRURBJTJDJUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJFJTJDJUU1JTlDJUIwJUU1JTlCJUJFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2JTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1733979600000" data-listing-file-modified-sort="1781062295653" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1824">
+<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDRURBJTJDJUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJFJTJDJUU1JTlDJUIwJUU1JTlCJUJFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2JTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1733979600000" data-listing-file-modified-sort="1781895364053" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1841">
 <a href="../zh/projects/global-visa-cost/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img loading='lazy' src="../src/img/proj/visa/fig2-sankey-sorted.png" alt="各地区平均旅游签证费用桑基图（已排序）" style="height: 200px;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-全球签证费用分析与交互式可视化
+全球签证费用地区分析
 </h5>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -512,6 +508,50 @@ Pinn Xu
 
         sidebarSearchWrapper.replaceChildren(btn);
     });
+</script>
+<script>
+    (() => {
+        const BREAKPOINT = 768;
+        let sidebar, titleBlock, mainEl, quartoContent;
+        let rafId = null;
+
+        const init = () => {
+            sidebar      = document.getElementById('quarto-margin-sidebar');
+            titleBlock   = document.getElementById('title-block-header');
+            mainEl       = document.querySelector('#quarto-content > main.content');
+            quartoContent = document.getElementById('quarto-content');
+        };
+
+        const relocate = () => {
+            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
+
+            if (window.innerWidth <= BREAKPOINT) {
+                // Place sidebar after the title block, inside main
+                if (sidebar.parentNode !== mainEl) {
+                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                }
+            } else {
+                // Restore sidebar as first child of #quarto-content (before main)
+                if (sidebar.parentNode !== quartoContent) {
+                    quartoContent.insertBefore(sidebar, mainEl);
+                }
+            }
+        };
+
+        const onResize = () => {
+            if (rafId !== null) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = null;
+                relocate();
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            relocate();
+        });
+        window.addEventListener('resize', onResize);
+    })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
