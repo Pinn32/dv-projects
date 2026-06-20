@@ -135,7 +135,7 @@ Win10 系统文件夹（Shell Folders，如 `桌面`、`文档`、`图片`）被
 
 
 
-找到[一篇文章](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)，介绍了 Windows 系统图标的存储位置。
+找到[一篇文章](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?){target="_blank"}，介绍了 Windows 系统图标的存储位置。
 
 ![文章: Win图标存储位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png){#fig-win-icon-loc style="width:35rem;"}
 
@@ -280,7 +280,7 @@ LocalizedResourceName=保存的游戏
 
 编程零基础的我，手滑下载成了 Visual Studio **Code**。正是这一误打误撞，让我首次接触到 IDE。后来课上老师发现我用 VSCode 而非 Jupyter 写作业，追问缘由，我便掏出了这篇文章 <i class="bi bi-emoji-wink" style="color:var(--pf-primary)"></i>。
 
-![VSCode 和 Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png){#fig-vscode-and-visual-studio style="width:20rem;"}
+![VSCode 和 Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png){#fig-vscode-and-visual-studio style="width:15rem;"}
 
 按 ChatGPT 指示，在 Visual Studio 中新建解决方案，加载 `C:\Windows\System32\shell32.dll` 查看资源目录。
 
@@ -335,7 +335,7 @@ LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21779
 IconResource=%SystemRoot%\system32\imageres.dll,-113
 ```
 
-> 注：`联系人` 和 `3D对象` 的显示名称资源并来自其他 DLL 文件。
+> 注：`联系人` 和 `3D对象` 的显示名称资源并来自其他 DLL 文件 (见 [脚注](#脚注))。
 
 | 文件夹 | 显示名称资源编号^[除特殊标记外，其余名称资源均来自: `@%SystemRoot%\system32\shell32.dll,<编号>`] | 图标资源编号^[图标资源均来自 `%SystemRoot%\system32\imageres.dll,<编号>`] |
 | :----: | :------: | :------: |
@@ -354,3 +354,4 @@ IconResource=%SystemRoot%\system32\imageres.dll,-113
 
 : 系统文件夹对应资源编号表 {#tbl-shellfolder-resource tbl-colwidths=[25,40,35]}
 
+[>> 查看更多 desktop.ini 原始内容](https://superuser.com/a/1172777){target="_blank"}
