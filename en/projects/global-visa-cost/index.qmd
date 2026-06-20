@@ -1,5 +1,5 @@
 ---
-title: 'Global Visa Cost Analysis and Interactive Visualization'
+title: 'Global Visa Cost Geographical Analysis'
 author: 'Pinn Xu'
 date: '2024-12-12'
 categories: [Python, EDA, Sankey Diagram, Choropleth Map, Visualization]
@@ -335,7 +335,8 @@ fig1.update_layout(
     # This method is used to update the layout of the figure, 
     # including the size, title, font, etc. (Plotly, 2024b).
 
-fig1.show(config = {"responsive": True})      # display the sankey diagram
+# fig1.show(config = {"responsive": True})      # display the sankey diagram
+fig1.show()      # display the sankey diagram
 
     #【renderer】
     # This parameter is used to specify the renderer used to render
@@ -414,7 +415,8 @@ fig2.update_layout(
     },
 ) 
 
-fig2.show(config = {"responsive": True}) # displaying the figure
+# fig2.show(config = {"responsive": True}) # displaying the figure
+fig2.show() # displaying the figure
 ```
 
 @fig-bar-visa-cost presents the same data as in @fig-sankey and @fig-sankey-sorted, which is the average tourist visa costs from each area (only subregions in @fig-bar-visa-cost), grouped by region in different colors, while the bar chart (@fig-bar-visa-cost) can show the difference in value more clearly as compared to @fig-sankey-sorted since the length in @fig-bar-visa-cost (bar chart) are more distinguishable than the width of links in @fig-sankey, which is also in line with Wilke’s [@wilke2019, chap. 6] suggestion that bar chart could be more suitable for presenting variations in amount of value. It may be inferred from @fig-sankey, @fig-sankey-sorted and @fig-bar-visa-cost, that people in countries in well-developed areas (e.g., Western Europe) have to pay less to go abroad whereas those in underdeveloped countries in areas such as Southern Asia and Northern Africa should pay more to go abroad. Nevertheless, another variable ‘tourist_perdailyincome’ (see [Appendix](#appendix) for detailed description) is introduced to calculate the underlying *actual* data on the level of tourist visa costs when adjusted by the average daily income in each country [@recchi2021, p. 4].
@@ -457,7 +459,8 @@ fig3.update_layout(
     },
 ) 
 
-fig3.show(config = {"responsive": True}) # displaying the figure
+# fig3.show(config = {"responsive": True}) # displaying the figure
+fig3.show() # displaying the figure
 ```
 
 As shown in @fig-bar-daily-income, there are even more significant gaps between areas regarding their income-adjusted average tourist visa costs (i.e., average working days to afford a tourist visa), revealing a paradoxical global situation – the poorer a country, the more citizens in it should pay for tourist visas to go abroad.
@@ -520,7 +523,8 @@ fig4.update_layout(
     ),
 )
 
-fig4.show(config = {"responsive": True}) # displaying the figure
+# fig4.show(config = {"responsive": True}) # displaying the figure
+fig4.show() # displaying the figure
 ```
 
 Furthermore, we may gain insights by moving from the sub-region level to the country level. @fig-choropleth provides information about the distribution of average tourist visa costs in specific countries around the world, which varies with the continuous color indicator. According to @wilke2019 [p. 173], as for choropleth, it is typically accepted that dark-colored background areas in the maps behave better in visibility than light-colored background areas for webpages. @fig-choropleth thus employs a color map with dark-colored background areas, where the color gradually fades with the value increasing [@plotlyColorscales].

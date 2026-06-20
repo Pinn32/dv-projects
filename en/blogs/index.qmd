@@ -1,6 +1,6 @@
 ---
 title: 'Blogs'
-subtitle: 'Thoughts, Notes, and Solutions'
+subtitle: 'Thoughts, Exploration, and Knowhow Notes'
 sidebar: false
 toc: false
 back-to-top-navigation: false

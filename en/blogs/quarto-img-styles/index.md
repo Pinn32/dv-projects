@@ -3,7 +3,7 @@ title: 'Quarto Image Centering Styles'
 author: 'Pinn Xu'
 date: 2026-06-15
 description: 'Exploring image centering styles in a Quarto Website and fixing hover preview issues.'
-categories: [Quarto, CSS, Computer Tips, Solutions]
+categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]
 image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png"
 ---
 

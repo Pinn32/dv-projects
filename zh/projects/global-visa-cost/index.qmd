@@ -1,5 +1,5 @@
 ---
-title: '全球签证费用分析与交互式可视化'
+title: '全球签证费用地区分析'
 author: 'Pinn Xu'
 date: '2024-12-12'
 categories: [Python, EDA, 桑基图, 地图可视化, 可视化]
@@ -325,7 +325,8 @@ fig1.update_layout(
     # 该方法用于更新图形布局，
     # 包括尺寸、标题、字体等（Plotly, 2024b）。
 
-fig1.show(config = {"responsive": True})      # 显示桑基图
+# fig1.show(config = {"responsive": True})      # 显示桑基图
+fig1.show()      # 显示桑基图
 
     #【renderer】
     # 该参数用于指定渲染图形时使用的渲染器（Plotly, 2024b），
@@ -401,7 +402,8 @@ fig2.update_layout(
     },
 )
 
-fig2.show(config = {"responsive": True}) # 显示图形
+# fig2.show(config = {"responsive": True}) # 显示图形
+fig2.show() # 显示图形
 ```
 
 @fig-bar-visa-cost 与 @fig-sankey 和 @fig-sankey-sorted 呈现了相同的数据，即各地区（在 @fig-bar-visa-cost 中仅显示子地区）按大洲分色的平均旅游签证费用。相比于桑基图，条形图能更清晰地展示数值差异，因为条形长度比链接宽度更易于区分，这也与 Wilke [@wilke2019, chap. 6] 的建议一致——条形图更适合呈现数值量的变化。由 @fig-sankey、@fig-sankey-sorted 和 @fig-bar-visa-cost 可以推断：来自欧洲等发达地区的公民出境所需支付的签证费用较少，而来自南亚、北非等欠发达地区的公民则需支付更高的签证费用。然而，为了反映签证费用的真实负担，另一变量 'tourist_perdailyincome'（详见[附录](#appendix)）被引入，以各国平均日收入为基准衡量签证的实际可负担性 [@recchi2021, p. 4]。
@@ -443,7 +445,8 @@ fig3.update_layout(
     },
 )
 
-fig3.show(config = {"responsive": True}) # 显示图形
+# fig3.show(config = {"responsive": True}) # 显示图形
+fig3.show() # 显示图形
 ```
 
 如 @fig-bar-daily-income 所示，以日收入为基准的平均旅游签证费用（即负担旅游签证所需的平均工作天数）在各地区之间的差距更为悬殊，揭示了一个全球性的悖论：越贫穷的国家，其公民出境所需支付的签证费用反而越高。
@@ -506,7 +509,8 @@ fig4.update_layout(
     ),
 )
 
-fig4.show(config = {"responsive": True}) # 显示图形
+# fig4.show(config = {"responsive": True}) # 显示图形
+fig4.show() # 显示图形
 ```
 
 进一步地，将分析粒度从子地区细化到国家层面可以获得更多洞见。@fig-choropleth 通过连续色标直观呈现了全球各国平均旅游签证费用的分布情况。根据 @wilke2019 [p. 173] 的观点，在等值线地图中，深色背景区域通常比浅色背景区域在网页上具有更好的可视性，因此 @fig-choropleth 采用了深色背景的配色方案，颜色随数值增大而逐渐变浅 [@plotlyColorscales]。

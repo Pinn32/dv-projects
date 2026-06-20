@@ -1,9 +1,9 @@
 ---
-title: 'Spotify Most Streamed Songs — Music Feature and Audience Trend Analysis'
+title: 'Spotify Most Streamed Songs'
 author: 'Pinn Xu'
 date: '2026-02-25'
 categories: [R, EDA, Music, Visualization, Sampling]
-description: 'Exploratory analysis of the most-streamed tracks on Spotify in 2023, uncovering trends in music popularity.'
+description: 'Exploratory analysis of the most-streamed tracks on Spotify in 2023, uncovering trends in music feature and popularity.'
 image: ../../../src/img/proj/songs/cover.png
 
 order: 5
