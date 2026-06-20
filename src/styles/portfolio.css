@@ -815,6 +815,31 @@ code:not(.sourceCode) {
 .featured-card:nth-child(4) { animation-delay: 0.26s; }
 
 
+
+
+/* sort-ui / filter-ui ==================================================== */
+
+/* listing filter search bar */
+.input-group-sm > .form-control:hover {
+    border: 1px solid var(--pf-primary);
+}
+.input-group-sm > .form-control:focus {
+    border: 1px solid var(--pf-primary);
+    /* box-shadow: none; */
+}
+
+/* listing sort selection */
+.input-group-sm > .form-select:hover {
+    background-color: var(--pf-primary-light);
+}
+.input-group-sm > .form-select:focus {
+    box-shadow: none;
+}
+
+
+/* ======================================================================== */
+/* ======================================================================== */
+/* ======================================================================== */
 /* 14. Responsive ========================================================= */
 
 @media screen and (max-width: 768px) {
