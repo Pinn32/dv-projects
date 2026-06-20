@@ -1,6 +1,6 @@
 ---
 title: 'Blogs'
-subtitle: 'Thoughts, Exploration, and Knowhow Notes'
+subtitle: 'Thoughts, exploration, and knowhow notes.'
 sidebar: false
 toc: false
 back-to-top-navigation: false
