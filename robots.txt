@@ -1,1 +1,1 @@
-Sitemap: https://Pinn32.github.io/dv-projects/sitemap.xml
+Sitemap: https://pinn32.github.io/dv-projects/sitemap.xml

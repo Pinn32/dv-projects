@@ -453,7 +453,7 @@ window.Quarto = {
             <path d="M12 6v6l4 2"></path>
         </svg>
      8 min read</span><span> · </span><span>1456 EN words</span><span> · </span><span>0 中文字</span></div>
-<div id="2c8d8dae" class="cell" data-execution_count="1">
+<div id="fe7a089e" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Environment &amp; Versions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -465,7 +465,7 @@ window.Quarto = {
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>This project uses a data set consisting of tweets about the Catalan referendum in Spain on Twitter, with attributes including basic information and emotional word counts of each tweet detected by different lexicons <span class="citation" data-cites="jimenezZafra2021">(<a href="#ref-jimenezZafra2021" role="doc-biblioref"><span class="nocase">Jiménez-Zafra et al.</span>, 2021</a>)</span> (see <a href="#appendix-attributes">Appendix I</a> for further description of attributes). A bar plot addresses performance differences between lexicons in detecting sentiment among tweets. In addition, the distribution of the author’s popularity among all tweets is illustrated by a histogram, distinguished by sentiments.</p>
-<div id="c6132c80" class="cell" data-execution_count="2">
+<div id="8f295fe0" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
@@ -638,7 +638,7 @@ window.Quarto = {
 </section>
 <section id="data-processing" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Data Processing</h1>
-<div id="36772e4f" class="cell" data-execution_count="3">
+<div id="307059c0" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Drop missing values (see Appendix II)</span></span>
@@ -661,7 +661,7 @@ window.Quarto = {
 </div>
 <section id="setting-count-attributes" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="setting-count-attributes"><span class="header-section-number">2.1</span> Setting Count Attributes</h2>
-<div id="038b137f" class="cell" data-execution_count="4">
+<div id="8f65c0f0" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect attribute datatypes</span></span>
@@ -707,7 +707,7 @@ Figure&nbsp;1: Datatypes and Attributes
 </figcaption>
 </figure>
 </div>
-<div id="ba5719cb" class="cell" data-results="hold" data-execution_count="5">
+<div id="4b641661" class="cell" data-results="hold" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Check dtypes of 3 object-type count attributes</span></span>
@@ -746,7 +746,7 @@ True True True</code></pre>
 </section>
 <section id="setting-boolean-attributes" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="setting-boolean-attributes"><span class="header-section-number">2.2</span> Setting Boolean Attributes</h2>
-<div id="5fec527c" class="cell" data-results="hold" data-execution_count="6">
+<div id="243423a5" class="cell" data-results="hold" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm bool columns only contain 'True'/'False' strings</span></span>
@@ -768,7 +768,7 @@ True True True</code></pre>
 <h1 data-number="3"><span class="header-section-number">3</span> Data Visualisation</h1>
 <section id="sentiment-distribution" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sentiment-distribution"><span class="header-section-number">3.1</span> Sentiment Distribution</h2>
-<div id="63753556" class="cell" data-execution_count="7">
+<div id="e1dfe2a2" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Melt sentiment word count columns to long format for visualisation</span></span>
@@ -1371,6 +1371,38 @@ Figure&nbsp;7: First Attempt
         window.addEventListener('resize', onResize);
     })();
 </script>
+<script id="strip-index-html">
+    // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
+    // Quarto always links listing cards (and other internal links) to the real output
+    // file, e.g. `.../ai-discourse/index.html`. Both the preview server and GitHub Pages
+    // also serve the directory URL, so we drop the `index.html` for cleaner addresses.
+    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
+    // avoids changing hrefs the user might hover mid-load.
+    (() => {
+        document.querySelectorAll('a[href]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
+            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
+
+            try {
+                const url = new URL(href, window.location.href);
+                // Only touch same-origin links.
+                if (url.origin !== window.location.origin) return;
+                if (!/\/index\.html$/.test(url.pathname)) return;
+
+                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
+                // Write a root-absolute path. This is safe even under the GitHub Pages
+                // `/dv-projects/` base, since `url.pathname` already includes that prefix
+                // (the original relative href was resolved against the current page).
+                link.setAttribute('href', url.pathname + url.search + url.hash);
+            } catch {
+                // Malformed href — leave it untouched.
+            }
+        });
+    })();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1495,7 +1527,7 @@ Figure&nbsp;7: First Attempt
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Pinn32\.github\.io\/dv-projects\/");
+        var filterRegex = new RegExp("https:\/\/pinn32\.github\.io\/dv-projects");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
