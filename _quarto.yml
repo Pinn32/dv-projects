@@ -2,6 +2,7 @@ project:
   type: website
 
 website:
+  site-url: https://pinn32.github.io/dv-projects
   title: "Pinn (Aiqi) Xu"
   #title-separator: " | "
   description: "A collection of projects by Pinn (Aiqi) Xu, showcasing work in data science, machine learning, and software development."
@@ -122,7 +123,8 @@ format:
       - ./src/scripts/fix-navbar-active.html
       - ./src/scripts/fix-sidebar-search.html
       - ./src/scripts/responsive-tag-bar.html
-    
+      - ./src/scripts/strip-index-html.html
+
     toc: true
     # toc-expand: true
     # toc-depth: 3

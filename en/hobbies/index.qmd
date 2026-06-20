@@ -3,6 +3,9 @@ title: 'Hobbies'
 subtitle: 'Subtitle Placeholder'
 sidebar: false
 toc: false
+
+draft: true
+draft-mode: unlinked
 ---
 
 # Placeholder: H1

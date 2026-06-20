@@ -3,6 +3,9 @@ title: '爱好'
 subtitle: '副标题'
 sidebar: false
 toc: false
+
+draft: true
+draft-mode: unlinked
 ---
 
 # 标题1
