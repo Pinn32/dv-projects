@@ -1,6 +1,10 @@
 project:
   type: website
 
+  preview: 
+    host: 0.0.0.0
+    port: 4200
+
 website:
   site-url: https://pinn32.github.io/dv-projects
   title: "Pinn (Aiqi) Xu"
