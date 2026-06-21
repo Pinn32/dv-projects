@@ -226,9 +226,10 @@ body:not(.quarto-sidebar-visible) .quarto-title-block {
 }
 
 
-/* title-block ============================================================= */
+/* title-block-header (title + subtitle===================================== */
 #title-block-header {
-    padding-top: 0;
+    padding: 0;
+    margin: 0 0 2rem;
 }
 
 
@@ -263,9 +264,9 @@ body:not(.quarto-sidebar-visible) .quarto-title p.subtitle {
     font-size: 0.95rem;
     color: var(--pf-text-secondary);
     font-weight: 400;
-    margin-bottom: 0;
     letter-spacing: 0.01em;
     opacity: 0.85;
+    margin: 1rem 0 0;
 }
 /* add a "# " comment prefix to the subtitle */
 body:not(.quarto-sidebar-visible) .quarto-title p.subtitle::before {
@@ -274,13 +275,22 @@ body:not(.quarto-sidebar-visible) .quarto-title p.subtitle::before {
     font-weight: 600;
 }
 
+
+/* subtitle-lead of homepage ============================================== */
+
+/* #quarto-content div.quarto-title-block + p,  */
+p.subtitle.lead {
+    margin: 1rem 0;
+}
+
+/* ======================================================================== */
+
 /* intro paragraph below the title block */
-#quarto-content .quarto-title-block + p,
-.quarto-title-block ~ p:first-of-type {
+header.quarto-title-block ~ p:first-of-type {
     font-size: 1.05rem;
     color: var(--pf-text-secondary);
     line-height: 1.7;
-    margin-top: 1.75rem;
+    margin-top: 0;
 }
 
 /* "Featured Projects" heading */
@@ -701,6 +711,13 @@ hr {
     left: -50%;
 }
 
+/* The lang dropdown lives inside #quarto-header (.fixed-top, z-index:1030), so
+   it can't escape that stacking context. In mobile the open sidebar (a sibling
+   of the header) sits at z-index:1055 and would paint over it — fixed by lifting
+   #quarto-header above the sidebar in the mobile media query at the bottom of
+   this file. Bumping z-index on the menu/items here has no effect. */
+
+
 
 
 /* ─── Fix Search Button Color ───────────────────────────────────────── */
@@ -818,6 +835,12 @@ code:not(.sourceCode) {
 
 
 /* sort-ui / filter-ui ==================================================== */
+/* listing-actions-group */
+/* fix gap between two listing-action bars in mobile view */
+.listing-actions-group {
+    gap: 1rem;
+}
+
 
 /* listing filter search bar */
 .input-group-sm > .form-control:hover {
@@ -859,12 +882,43 @@ code:not(.sourceCode) {
         padding: 1.1rem 1.2rem 1.1rem 1.4rem;
     }
     .grid { gap: 0.75rem; }
+    /* title-block-header (title + subtitle================================ */
+    #title-block-header {
+        margin: 0 0 1rem;
+    }
 }
 
 @media screen and (max-width: 480px) {
     h1 { font-size: 1.6rem; }
     h2 { font-size: 1.35rem; }
     h3 { font-size: 1.25rem; }
+}
+
+/* When the viewport is narrower than the sidebar, cap the sidebar width to
+   the screen width and let its content wrap instead of overflowing. */
+@media screen and (max-width: 991.98px) {
+    #quarto-sidebar {
+        max-width: 100vw !important;
+    }
+    #quarto-sidebar .sidebar-item-text,
+    #quarto-sidebar .sidebar-section-item,
+    #quarto-sidebar .sidebar-link {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    nav.quarto-secondary-nav button.btn.quarto-search-button {
+        display: none;
+    }
+
+    /* The open sidebar sits at z-index:1055 and is a sibling of #quarto-header
+       (.fixed-top, z-index:1030), so it paints over the navbar's language
+       dropdown. The dropdown can't escape the header's stacking context, so we
+       lift the header itself above the sidebar. */
+    #quarto-header.fixed-top {
+        z-index: 1056;
+    }
 }
 
 /* ── Reduced-motion: respect user preference ─────────────────────── */

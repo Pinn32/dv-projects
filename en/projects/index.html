@@ -300,7 +300,7 @@ window.Quarto = {
 <div class="g-col-1" data-index="0" data-categories="UiUyQ0FJJTJDTkxQJTJDVGV4dCUyMEFuYWx5c2lzJTJDU2VudGltZW50JTIwQW5hbHlzaXMlMkNUb3BpYyUyME1vZGVsaW5nJTJDU29jaWFsJTIwTWVkaWE=" data-listing-date-sort="1777608000000" data-listing-file-modified-sort="1781062175051" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="52" data-listing-word-count-sort="10330">
 <a href="../../en/projects/ai-discourse/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="ai-discourse/index_files/figure-html/fig-lexicon-coverage-1.png" style="height: 200px;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img loading='lazy' src="ai-discourse/index_files/figure-html/fig-lexicon-coverage-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Evolution of Online AI Discourse
@@ -337,7 +337,7 @@ May 1, 2026
 <a href="../../en/projects/student-media-usage/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="../../src/img/proj/stu-media/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+<img loading="lazy" src="../../src/img/proj/stu-media/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -371,7 +371,7 @@ Feb 23, 2026
 <a href="../../en/projects/catalan-referendum/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="../../src/img/proj/catalan/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+<img loading="lazy" src="../../src/img/proj/catalan/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -402,7 +402,7 @@ Nov 1, 2024
 <div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDRURBJTJDU2Fua2V5JTIwRGlhZ3JhbSUyQ0Nob3JvcGxldGglMjBNYXAlMkNWaXN1YWxpemF0aW9u" data-listing-date-sort="1733979600000" data-listing-file-modified-sort="1781895111684" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4327">
 <a href="../../en/projects/global-visa-cost/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="../../src/img/proj/visa/fig2-sankey-sorted.png" alt="Sankey diagram of average tourist visa costs from each area (sorted)" style="height: 200px;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img loading='lazy' src="../../src/img/proj/visa/fig2-sankey-sorted.png" alt="Sankey diagram of average tourist visa costs from each area (sorted)" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Global Visa Cost Geographical Analysis
@@ -435,7 +435,7 @@ Dec 12, 2024
 <a href="../../en/projects/most-streamed-songs/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="../../src/img/proj/songs/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+<img loading="lazy" src="../../src/img/proj/songs/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -617,30 +617,94 @@ Feb 25, 2026
 <script>
     (() => {
         const BREAKPOINT = 768;
+
+        const LABELS = {
+            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
+            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
+        };
+
         let sidebar, titleBlock, mainEl, quartoContent;
+        let categoryList, toggleBtn;
+        let expanded = false;
         let rafId = null;
 
         const init = () => {
-            sidebar      = document.getElementById('quarto-margin-sidebar');
-            titleBlock   = document.getElementById('title-block-header');
-            mainEl       = document.querySelector('#quarto-content > main.content');
+            sidebar       = document.getElementById('quarto-margin-sidebar');
+            titleBlock    = document.getElementById('title-block-header');
+            mainEl        = document.querySelector('#quarto-content > main.content');
             quartoContent = document.getElementById('quarto-content');
+            categoryList  = document.querySelector('.quarto-listing-category');
+        };
+
+        const lang = () => {
+            const docLang = (document.documentElement.lang || '').toLowerCase();
+            if (docLang.startsWith('zh')) return 'zh';
+            if (docLang.startsWith('en')) return 'en';
+            return location.pathname.includes('/zh/') ? 'zh' : 'en';
+        };
+
+        const ensureToggle = () => {
+            if (toggleBtn || !categoryList) return;
+            toggleBtn = document.createElement('button');
+            toggleBtn.type = 'button';
+            toggleBtn.className = 'category-show-more';
+            toggleBtn.hidden = true;
+            toggleBtn.addEventListener('click', () => {
+                expanded = !expanded;
+                syncCategories();
+            });
+            categoryList.appendChild(toggleBtn);
+        };
+
+        const syncCategories = () => {
+            if (!categoryList) return;
+            ensureToggle();
+
+            const pills = Array.from(categoryList.querySelectorAll('.category'));
+            // Always start from a fully-visible state so measurement is accurate.
+            pills.forEach((p) => p.classList.remove('is-hidden'));
+
+            // Desktop: show everything, no toggle.
+            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
+                toggleBtn.hidden = true;
+                return;
+            }
+
+            // Find pills that wrapped past the first row.
+            const firstRowTop = pills[0].offsetTop;
+            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
+
+            if (overflow.length === 0) {
+                toggleBtn.hidden = true;
+                return;
+            }
+
+            const L = LABELS[lang()];
+            toggleBtn.hidden = false;
+            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
+            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
         };
 
         const relocate = () => {
             if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
 
             if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar after the title block, inside main
-                if (sidebar.parentNode !== mainEl) {
-                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                // Place sidebar right after the title block, inside main.
+                if (titleBlock.parentNode === mainEl) {
+                    if (sidebar.previousElementSibling !== titleBlock) {
+                        titleBlock.after(sidebar);
+                    }
+                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
+                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
                 }
             } else {
-                // Restore sidebar as first child of #quarto-content (before main)
+                // Restore sidebar as first child of #quarto-content (before main).
                 if (sidebar.parentNode !== quartoContent) {
                     quartoContent.insertBefore(sidebar, mainEl);
                 }
             }
+
+            syncCategories();
         };
 
         const onResize = () => {
@@ -1158,7 +1222,7 @@ Feb 25, 2026
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, author, date]</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "200px"</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "12rem"</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: "order asc"</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: true</span></span>

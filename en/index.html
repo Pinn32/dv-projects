@@ -265,7 +265,9 @@ window.Quarto = {
 
 <!-- Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, storytelling, and code.  -->
 <p>This site collects my data projects: exploratory analyses, NLP experiments, and interactive visualizations built with <strong>R</strong> and <strong>Python</strong>, published with <a href="https://quarto.org/">Quarto</a>.</p>
+<div style="line-height:3;">
 <p><a href="projects/" class="btn btn-primary" style="margin-right:12px">Browse all projects →</a> <a href="tutorials/" class="btn btn-outline-primary">Data Viz Tutorials</a></p>
+</div>
 <section id="featured-projects" class="level2">
 <h2 class="anchored" data-anchor-id="featured-projects">Featured Projects</h2>
 <div id="listing-projects" class="quarto-listing quarto-listing-container-grid">
@@ -273,7 +275,7 @@ window.Quarto = {
 <div class="g-col-1" data-index="0" data-categories="UiUyQ0FJJTJDTkxQJTJDVGV4dCUyMEFuYWx5c2lzJTJDU2VudGltZW50JTIwQW5hbHlzaXMlMkNUb3BpYyUyME1vZGVsaW5nJTJDU29jaWFsJTIwTWVkaWE=" data-listing-date-sort="1777608000000" data-listing-file-modified-sort="1781062175051" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="52" data-listing-word-count-sort="10330">
 <a href="../en/projects/ai-discourse/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="projects/ai-discourse/index_files/figure-html/fig-lexicon-coverage-1.png" style="height: 200px;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img loading='lazy' src="projects/ai-discourse/index_files/figure-html/fig-lexicon-coverage-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Evolution of Online AI Discourse
@@ -293,7 +295,7 @@ May 1, 2026
 <a href="../en/projects/student-media-usage/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="../src/img/proj/stu-media/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+<img loading="lazy" src="../src/img/proj/stu-media/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -314,7 +316,7 @@ Feb 23, 2026
 <a href="../en/projects/catalan-referendum/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="../src/img/proj/catalan/cover.png" class="thumbnail-image card-img" style="height: 200px;">
+<img loading="lazy" src="../src/img/proj/catalan/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -334,7 +336,7 @@ Nov 1, 2024
 <div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDRURBJTJDU2Fua2V5JTIwRGlhZ3JhbSUyQ0Nob3JvcGxldGglMjBNYXAlMkNWaXN1YWxpemF0aW9u" data-listing-date-sort="1733979600000" data-listing-file-modified-sort="1781895111684" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4327">
 <a href="../en/projects/global-visa-cost/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="../src/img/proj/visa/fig2-sankey-sorted.png" alt="Sankey diagram of average tourist visa costs from each area (sorted)" style="height: 200px;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img loading='lazy' src="../src/img/proj/visa/fig2-sankey-sorted.png" alt="Sankey diagram of average tourist visa costs from each area (sorted)" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Global Visa Cost Geographical Analysis
@@ -542,30 +544,94 @@ Analysis of social media habits and addiction patterns among students.\
 <script>
     (() => {
         const BREAKPOINT = 768;
+
+        const LABELS = {
+            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
+            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
+        };
+
         let sidebar, titleBlock, mainEl, quartoContent;
+        let categoryList, toggleBtn;
+        let expanded = false;
         let rafId = null;
 
         const init = () => {
-            sidebar      = document.getElementById('quarto-margin-sidebar');
-            titleBlock   = document.getElementById('title-block-header');
-            mainEl       = document.querySelector('#quarto-content > main.content');
+            sidebar       = document.getElementById('quarto-margin-sidebar');
+            titleBlock    = document.getElementById('title-block-header');
+            mainEl        = document.querySelector('#quarto-content > main.content');
             quartoContent = document.getElementById('quarto-content');
+            categoryList  = document.querySelector('.quarto-listing-category');
+        };
+
+        const lang = () => {
+            const docLang = (document.documentElement.lang || '').toLowerCase();
+            if (docLang.startsWith('zh')) return 'zh';
+            if (docLang.startsWith('en')) return 'en';
+            return location.pathname.includes('/zh/') ? 'zh' : 'en';
+        };
+
+        const ensureToggle = () => {
+            if (toggleBtn || !categoryList) return;
+            toggleBtn = document.createElement('button');
+            toggleBtn.type = 'button';
+            toggleBtn.className = 'category-show-more';
+            toggleBtn.hidden = true;
+            toggleBtn.addEventListener('click', () => {
+                expanded = !expanded;
+                syncCategories();
+            });
+            categoryList.appendChild(toggleBtn);
+        };
+
+        const syncCategories = () => {
+            if (!categoryList) return;
+            ensureToggle();
+
+            const pills = Array.from(categoryList.querySelectorAll('.category'));
+            // Always start from a fully-visible state so measurement is accurate.
+            pills.forEach((p) => p.classList.remove('is-hidden'));
+
+            // Desktop: show everything, no toggle.
+            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
+                toggleBtn.hidden = true;
+                return;
+            }
+
+            // Find pills that wrapped past the first row.
+            const firstRowTop = pills[0].offsetTop;
+            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
+
+            if (overflow.length === 0) {
+                toggleBtn.hidden = true;
+                return;
+            }
+
+            const L = LABELS[lang()];
+            toggleBtn.hidden = false;
+            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
+            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
         };
 
         const relocate = () => {
             if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
 
             if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar after the title block, inside main
-                if (sidebar.parentNode !== mainEl) {
-                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                // Place sidebar right after the title block, inside main.
+                if (titleBlock.parentNode === mainEl) {
+                    if (sidebar.previousElementSibling !== titleBlock) {
+                        titleBlock.after(sidebar);
+                    }
+                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
+                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
                 }
             } else {
-                // Restore sidebar as first child of #quarto-content (before main)
+                // Restore sidebar as first child of #quarto-content (before main).
                 if (sidebar.parentNode !== quartoContent) {
                     quartoContent.insertBefore(sidebar, mainEl);
                 }
             }
+
+            syncCategories();
         };
 
         const onResize = () => {
@@ -1080,7 +1146,7 @@ Analysis of social media habits and addiction patterns among students.\
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    sort: 'order asc'</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">    max-items: 4</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">    fields: [image, title, author, date]</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">    image-height: '200px'</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">    image-height: '12rem'</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">    image-align: left</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
@@ -1088,54 +1154,56 @@ Analysis of social media habits and addiction patterns among students.\
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>This site collects my data projects: exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with <span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org/)</span>.</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Browse all projects →</span><span class="co">](projects/)</span>{.btn .btn-primary style="margin-right:12px"}</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Data Viz Tutorials</span><span class="co">](tutorials/)</span>{.btn .btn-outline-primary}</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Featured Projects {#featured-projects}</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>:::{style="line-height:3;"}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Browse all projects →</span><span class="co">](projects/)</span>{.btn .btn-primary style="margin-right:12px"}</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Data Viz Tutorials</span><span class="co">](tutorials/)</span>{.btn .btn-outline-primary}</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>::: {#projects}</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Featured Projects {#featured-projects}</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>::: {#projects}</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">::::::: grid</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.g-col-12 .g-col-md-6 .featured-card}</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">![Catalan Referendum Sentiment Analysis](../src/img/proj/catalan/cover.png)</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">[**Twitter Sentiment Analysis of Catalan Referendum**](projects/catalan-referendum/){.stretched-link}\</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">Sentiment mining on tweets surrounding the 2017 Catalan independence referendum.\</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">`Python` `NLP` `Social Media`</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.g-col-12 .g-col-md-6 .featured-card}</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">[**Global Visa Cost Analysis**](projects/global-visa-cost/){.stretched-link}\</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">A comparative study of visa costs across countries, exploring affordability and geographic patterns.\</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">`Python` `EDA` `Visualization`</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.g-col-12 .g-col-md-6 .featured-card}</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">[**Most Streamed Songs on Spotify 2023**](projects/most-streamed-songs/){.stretched-link}\</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">Exploratory analysis of the most-streamed tracks on Spotify, uncovering trends in music popularity.\</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co">`R` `EDA` `Visualization`</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.g-col-12 .g-col-md-6 .featured-card}</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co">[**Student Social Media Usage &amp; Addiction**](projects/student-media-usage/){.stretched-link}\</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">Analysis of social media habits and addiction patterns among students.\</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">`R` `EDA` `Social Media`</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">::::::: </span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co">--&gt;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">::::::: grid</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.g-col-12 .g-col-md-6 .featured-card}</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">![Catalan Referendum Sentiment Analysis](../src/img/proj/catalan/cover.png)</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">[**Twitter Sentiment Analysis of Catalan Referendum**](projects/catalan-referendum/){.stretched-link}\</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">Sentiment mining on tweets surrounding the 2017 Catalan independence referendum.\</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">`Python` `NLP` `Social Media`</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.g-col-12 .g-col-md-6 .featured-card}</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">[**Global Visa Cost Analysis**](projects/global-visa-cost/){.stretched-link}\</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co">A comparative study of visa costs across countries, exploring affordability and geographic patterns.\</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co">`Python` `EDA` `Visualization`</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.g-col-12 .g-col-md-6 .featured-card}</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co">[**Most Streamed Songs on Spotify 2023**](projects/most-streamed-songs/){.stretched-link}\</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co">Exploratory analysis of the most-streamed tracks on Spotify, uncovering trends in music popularity.\</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co">`R` `EDA` `Visualization`</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.g-col-12 .g-col-md-6 .featured-card}</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">[**Student Social Media Usage &amp; Addiction**](projects/student-media-usage/){.stretched-link}\</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">Analysis of social media habits and addiction patterns among students.\</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="co">`R` `EDA` `Social Media`</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co">::::::: </span></span>
 <span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="co">--&gt;</span></span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">About this site →</span><span class="co">](about/)</span>{.btn .btn-outline-primary}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">About this site →</span><span class="co">](about/)</span>{.btn .btn-outline-primary}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

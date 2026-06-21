@@ -138,7 +138,14 @@ nav .quarto-page-breadcrumbs .breadcrumb-item::before {
 
     /* 修复 991.98px 下时页面正文顶部的 margin */
     #quarto-content > * {
-        margin-top: 0.5rem;
+        margin-top: 1rem;
+    }
+    nav#quarto-sidebar {
+        margin-top: 0;
+    }
+
+    #quarto-content .subtitle {
+        padding-top: 0;
     }
 }
 

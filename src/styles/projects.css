@@ -48,6 +48,7 @@
     opacity: 0;
     transition: opacity 0.22s ease;
 }
+
 /* corner glow on hover */
 .quarto-grid-item.card::after {
     content: '';
@@ -237,4 +238,38 @@
         gap: 0.3rem;
         margin-bottom: 0.5rem;
     }
+}
+
+/* ── Collapsible category row: show first row + "show more" toggle ──── */
+/* JS (responsive-tag-bar.html) hides overflow pills past the first row at
+   ≤768 px and reveals them via the toggle below.                          */
+@media (max-width: 768px) {
+    /* overflow category pills hidden while collapsed */
+    .quarto-listing-category .category.is-hidden {
+        display: none !important;
+    }
+
+    /* "show more categories" toggle, styled as a distinct (dashed) pill */
+    .quarto-listing-category .category-show-more {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.1rem 0.5rem;
+        border: 1.5px dashed var(--pf-primary);
+        border-radius: 8px;
+        background: transparent;
+        color: var(--pf-primary);
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    .quarto-listing-category .category-show-more:hover {
+        background: var(--pf-primary-light);
+        color: var(--pf-primary-hover);
+    }
+}
+
+/* keep the toggle out of the way on wider screens / when not needed */
+.quarto-listing-category .category-show-more[hidden] {
+    display: none !important;
 }

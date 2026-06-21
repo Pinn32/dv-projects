@@ -432,7 +432,7 @@ window.Quarto = {
             <path d="M12 6v6l4 2"></path>
         </svg>
      20 min read</span><span> · </span><span>3807 EN words</span><span> · </span><span>0 中文字</span></div>
-<div id="11ad9488" class="cell" data-execution_count="1">
+<div id="e5603d9b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Environment and Versions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -446,13 +446,13 @@ window.Quarto = {
 <p><strong>“Tidy/flat” tabular data:</strong> Each row is one <strong>observation</strong> (also called instance or record), and each column is one <strong>variable</strong> (also called attribute, feature, or parameter).</p>
 <p>Typically, <strong>multivariate</strong> refers to data with more than two variables — a multivariate plot generally uses three or more columns from the original DataFrame.</p>
 <p>When creating a bar chart, in addition to the x and y variables, you can also set the <code>hue</code> parameter to include a third variable. For example, <a href="#fig-bar-variables" class="quarto-xref">Figure&nbsp;1</a> includes three variables: <code>'island'</code>, <code>'body_mass_g'</code>, and <code>'sex'</code>.</p>
-<div id="8d9aad0b" class="cell" data-execution_count="2">
+<div id="62bfc7f1" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import libraries</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="e9fda8e2" class="cell" data-execution_count="3">
+<div id="64107560" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load example dataset from Seaborn</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -605,7 +605,7 @@ Figure&nbsp;6: Improved version: consistent axis ranges (Wilke, 2019, p.&nbsp;25
 <div id="fig-pointplot-category-amount" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pointplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/fig-pointplot-category-amount-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Point plot: penguin species vs.&nbsp;bill length (black lines are error bars)"><img src="index_files/figure-html/fig-pointplot-category-amount-output-1.png" width="585" height="429" class="figure-img"></a>
+<a href="index_files/figure-html/fig-pointplot-category-amount-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Point plot: penguin species vs.&nbsp;bill length (black lines are error bars)"><img src="index_files/figure-html/fig-pointplot-category-amount-output-1.png" width="585" height="430" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pointplot-category-amount-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: Point plot: penguin species vs.&nbsp;bill length (black lines are error bars)
@@ -2044,30 +2044,94 @@ Figure&nbsp;41: Pair plot: histogram form
 <script>
     (() => {
         const BREAKPOINT = 768;
+
+        const LABELS = {
+            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
+            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
+        };
+
         let sidebar, titleBlock, mainEl, quartoContent;
+        let categoryList, toggleBtn;
+        let expanded = false;
         let rafId = null;
 
         const init = () => {
-            sidebar      = document.getElementById('quarto-margin-sidebar');
-            titleBlock   = document.getElementById('title-block-header');
-            mainEl       = document.querySelector('#quarto-content > main.content');
+            sidebar       = document.getElementById('quarto-margin-sidebar');
+            titleBlock    = document.getElementById('title-block-header');
+            mainEl        = document.querySelector('#quarto-content > main.content');
             quartoContent = document.getElementById('quarto-content');
+            categoryList  = document.querySelector('.quarto-listing-category');
+        };
+
+        const lang = () => {
+            const docLang = (document.documentElement.lang || '').toLowerCase();
+            if (docLang.startsWith('zh')) return 'zh';
+            if (docLang.startsWith('en')) return 'en';
+            return location.pathname.includes('/zh/') ? 'zh' : 'en';
+        };
+
+        const ensureToggle = () => {
+            if (toggleBtn || !categoryList) return;
+            toggleBtn = document.createElement('button');
+            toggleBtn.type = 'button';
+            toggleBtn.className = 'category-show-more';
+            toggleBtn.hidden = true;
+            toggleBtn.addEventListener('click', () => {
+                expanded = !expanded;
+                syncCategories();
+            });
+            categoryList.appendChild(toggleBtn);
+        };
+
+        const syncCategories = () => {
+            if (!categoryList) return;
+            ensureToggle();
+
+            const pills = Array.from(categoryList.querySelectorAll('.category'));
+            // Always start from a fully-visible state so measurement is accurate.
+            pills.forEach((p) => p.classList.remove('is-hidden'));
+
+            // Desktop: show everything, no toggle.
+            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
+                toggleBtn.hidden = true;
+                return;
+            }
+
+            // Find pills that wrapped past the first row.
+            const firstRowTop = pills[0].offsetTop;
+            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
+
+            if (overflow.length === 0) {
+                toggleBtn.hidden = true;
+                return;
+            }
+
+            const L = LABELS[lang()];
+            toggleBtn.hidden = false;
+            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
+            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
         };
 
         const relocate = () => {
             if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
 
             if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar after the title block, inside main
-                if (sidebar.parentNode !== mainEl) {
-                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                // Place sidebar right after the title block, inside main.
+                if (titleBlock.parentNode === mainEl) {
+                    if (sidebar.previousElementSibling !== titleBlock) {
+                        titleBlock.after(sidebar);
+                    }
+                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
+                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
                 }
             } else {
-                // Restore sidebar as first child of #quarto-content (before main)
+                // Restore sidebar as first child of #quarto-content (before main).
                 if (sidebar.parentNode !== quartoContent) {
                     quartoContent.insertBefore(sidebar, mainEl);
                 }
             }
+
+            syncCategories();
         };
 
         const onResize = () => {

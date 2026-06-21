@@ -301,7 +301,7 @@ window.Quarto = {
 <a href="../../en/blogs/quarto-img-styles/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png" class="thumbnail-image card-img" style="height: 200px;">
+<img loading="lazy" src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png" class="thumbnail-image card-img" style="height: 12rem;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -335,7 +335,7 @@ Jun 15, 2026
 <a href="../../en/blogs/recover-shellfolder/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png" class="thumbnail-image card-img" style="height: 200px;">
+<img loading="lazy" src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png" class="thumbnail-image card-img" style="height: 12rem;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -517,30 +517,94 @@ Apr 22, 2024
 <script>
     (() => {
         const BREAKPOINT = 768;
+
+        const LABELS = {
+            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
+            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
+        };
+
         let sidebar, titleBlock, mainEl, quartoContent;
+        let categoryList, toggleBtn;
+        let expanded = false;
         let rafId = null;
 
         const init = () => {
-            sidebar      = document.getElementById('quarto-margin-sidebar');
-            titleBlock   = document.getElementById('title-block-header');
-            mainEl       = document.querySelector('#quarto-content > main.content');
+            sidebar       = document.getElementById('quarto-margin-sidebar');
+            titleBlock    = document.getElementById('title-block-header');
+            mainEl        = document.querySelector('#quarto-content > main.content');
             quartoContent = document.getElementById('quarto-content');
+            categoryList  = document.querySelector('.quarto-listing-category');
+        };
+
+        const lang = () => {
+            const docLang = (document.documentElement.lang || '').toLowerCase();
+            if (docLang.startsWith('zh')) return 'zh';
+            if (docLang.startsWith('en')) return 'en';
+            return location.pathname.includes('/zh/') ? 'zh' : 'en';
+        };
+
+        const ensureToggle = () => {
+            if (toggleBtn || !categoryList) return;
+            toggleBtn = document.createElement('button');
+            toggleBtn.type = 'button';
+            toggleBtn.className = 'category-show-more';
+            toggleBtn.hidden = true;
+            toggleBtn.addEventListener('click', () => {
+                expanded = !expanded;
+                syncCategories();
+            });
+            categoryList.appendChild(toggleBtn);
+        };
+
+        const syncCategories = () => {
+            if (!categoryList) return;
+            ensureToggle();
+
+            const pills = Array.from(categoryList.querySelectorAll('.category'));
+            // Always start from a fully-visible state so measurement is accurate.
+            pills.forEach((p) => p.classList.remove('is-hidden'));
+
+            // Desktop: show everything, no toggle.
+            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
+                toggleBtn.hidden = true;
+                return;
+            }
+
+            // Find pills that wrapped past the first row.
+            const firstRowTop = pills[0].offsetTop;
+            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
+
+            if (overflow.length === 0) {
+                toggleBtn.hidden = true;
+                return;
+            }
+
+            const L = LABELS[lang()];
+            toggleBtn.hidden = false;
+            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
+            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
         };
 
         const relocate = () => {
             if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
 
             if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar after the title block, inside main
-                if (sidebar.parentNode !== mainEl) {
-                    titleBlock.insertAdjacentElement('afterend', sidebar);
+                // Place sidebar right after the title block, inside main.
+                if (titleBlock.parentNode === mainEl) {
+                    if (sidebar.previousElementSibling !== titleBlock) {
+                        titleBlock.after(sidebar);
+                    }
+                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
+                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
                 }
             } else {
-                // Restore sidebar as first child of #quarto-content (before main)
+                // Restore sidebar as first child of #quarto-content (before main).
                 if (sidebar.parentNode !== quartoContent) {
                     quartoContent.insertBefore(sidebar, mainEl);
                 }
             }
+
+            syncCategories();
         };
 
         const onResize = () => {
@@ -1056,7 +1120,7 @@ Apr 22, 2024
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">    categories: true</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">    fields: [image, title, categories, author, date]</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">    grid-columns: 2</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">    image-height: "200px"</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">    image-height: "12rem"</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">    image-align: left</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">    image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Blog.png'</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">    sort: </span></span>
