@@ -16,7 +16,7 @@ listing:
   categories: true
   fields: [image, title, description, author, date]
   grid-columns: 2
-  image-height: "200px"
+  image-height: "12rem"
   image-align: left
   sort: "order asc"
   sort-ui: [title, date]

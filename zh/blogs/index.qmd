@@ -13,7 +13,7 @@ listing:
     categories: true
     fields: [image, title, categories, author, date]
     grid-columns: 2
-    image-height: "200px"
+    image-height: "12rem"
     image-align: left
     # image-placeholder: 'https://placeholderimage.io/api/800/600/people/679977/333333/85d2d1/FFFFFF/png'  # img-plchd: many people
     image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Blog.png'

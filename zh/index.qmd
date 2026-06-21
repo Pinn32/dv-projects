@@ -11,7 +11,7 @@ listing:
     sort: 'order asc'
     max-items: 4
     fields: [image, title, author, date]
-    image-height: '200px'
+    image-height: '12rem'
     image-align: left
 ---
 
@@ -19,8 +19,13 @@ listing:
 
 本站收录了我的数据项目：探索性分析、NLP 实验，以及用 **R** 和 **Python** 构建的交互式可视化，通过 [Quarto](https://quarto.org/) 发布。
 
-[浏览所有项目 →](projects/){.btn .btn-primary style="margin-right:12px"}
+:::{style="line-height:3;"}
+[浏览所有项目 →](projects/){.btn .btn-primary style="margin-right:12px;"}
 [数据可视化教程](tutorials/){.btn .btn-outline-primary}
+:::
+
+<!-- [浏览所有项目 →](projects/){.btn .btn-primary}
+[数据可视化教程](tutorials/){.btn .btn-outline-primary} -->
 
 ## 精选项目 {#featured-projects}
 

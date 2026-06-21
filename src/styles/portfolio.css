@@ -226,9 +226,10 @@ body:not(.quarto-sidebar-visible) .quarto-title-block {
 }
 
 
-/* title-block ============================================================= */
+/* title-block-header (title + subtitle===================================== */
 #title-block-header {
-    padding-top: 0;
+    padding: 0;
+    margin: 0 0 2rem;
 }
 
 
@@ -263,9 +264,9 @@ body:not(.quarto-sidebar-visible) .quarto-title p.subtitle {
     font-size: 0.95rem;
     color: var(--pf-text-secondary);
     font-weight: 400;
-    margin-bottom: 0;
     letter-spacing: 0.01em;
     opacity: 0.85;
+    margin: 1rem 0 0;
 }
 /* add a "# " comment prefix to the subtitle */
 body:not(.quarto-sidebar-visible) .quarto-title p.subtitle::before {
@@ -274,13 +275,22 @@ body:not(.quarto-sidebar-visible) .quarto-title p.subtitle::before {
     font-weight: 600;
 }
 
+
+/* subtitle-lead of homepage ============================================== */
+
+/* #quarto-content div.quarto-title-block + p,  */
+p.subtitle.lead {
+    margin: 1rem 0;
+}
+
+/* ======================================================================== */
+
 /* intro paragraph below the title block */
-#quarto-content .quarto-title-block + p,
-.quarto-title-block ~ p:first-of-type {
+header.quarto-title-block ~ p:first-of-type {
     font-size: 1.05rem;
     color: var(--pf-text-secondary);
     line-height: 1.7;
-    margin-top: 1.75rem;
+    margin-top: 0;
 }
 
 /* "Featured Projects" heading */
@@ -818,6 +828,12 @@ code:not(.sourceCode) {
 
 
 /* sort-ui / filter-ui ==================================================== */
+/* listing-actions-group */
+/* fix gap between two listing-action bars in mobile view */
+.listing-actions-group {
+    gap: 1rem;
+}
+
 
 /* listing filter search bar */
 .input-group-sm > .form-control:hover {
@@ -859,6 +875,10 @@ code:not(.sourceCode) {
         padding: 1.1rem 1.2rem 1.1rem 1.4rem;
     }
     .grid { gap: 0.75rem; }
+    /* title-block-header (title + subtitle================================ */
+    #title-block-header {
+        margin: 0 0 1rem;
+    }
 }
 
 @media screen and (max-width: 480px) {

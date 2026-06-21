@@ -12,7 +12,7 @@ listing:
     sort: 'order asc'
     max-items: 4
     fields: [image, title, author, date]
-    image-height: '200px'
+    image-height: '12rem'
     image-align: left
 ---
 
@@ -20,8 +20,10 @@ listing:
 
 This site collects my data projects: exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with [Quarto](https://quarto.org/).
 
+:::{style="line-height:3;"}
 [Browse all projects →](projects/){.btn .btn-primary style="margin-right:12px"}
 [Data Viz Tutorials](tutorials/){.btn .btn-outline-primary}
+:::
 
 ## Featured Projects {#featured-projects}
 
