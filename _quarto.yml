@@ -126,7 +126,7 @@ format:
       - ./src/scripts/fix-sidebar-toggle.html
       - ./src/scripts/fix-navbar-active.html
       - ./src/scripts/fix-sidebar-search.html
-      - ./src/scripts/responsive-tag-bar.html
+      # - ./src/scripts/responsive-tag-bar.html
       - ./src/scripts/strip-index-html.html
 
     toc: true

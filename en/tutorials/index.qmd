@@ -1,7 +1,6 @@
 ---
 title: 'Tutorials'
 subtitle: 'Data analysis and visualization tutorials and tips.'
-# css: '../../src/styles/projects.css'
 include-after-body: '../../src/scripts/responsive-tag-bar.html'
 toc: false
 sidebar: false
@@ -14,11 +13,16 @@ listing:
   contents: "*/index.*md"
   type: grid
   categories: true
+  max-description-length: 100
   fields: [image, title, description, author, date]
   grid-columns: 2
   image-height: "12rem"
   image-align: left
-  sort: "order asc"
+  image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Tutorial.png'
+  sort: 
+    - "order asc"
+    - "date desc"
+    - "title asc"
   sort-ui: [title, date]
   filter-ui: true
   page-size: 20
