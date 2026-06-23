@@ -25,6 +25,6 @@ listing:
     - "title asc"
   sort-ui: [title, date]
   filter-ui: true
-  page-size: 20
+  page-size: 6
   # image-placeholder: 'https://placeholderimage.io/api/800/600/people/679977/333333/85d2d1/FFFFFF/png'  # img-plchd: many people
 ---

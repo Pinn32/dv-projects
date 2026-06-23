@@ -25,5 +25,5 @@ listing:
     - "title asc"
   sort-ui: [title, date]
   filter-ui: true
-  page-size: 20
+  page-size: 6
 ---

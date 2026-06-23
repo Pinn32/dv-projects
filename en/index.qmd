@@ -4,9 +4,11 @@ subtitle: "Data Analysis & Visualization Portfolio"
 # subtitle: "Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, storytelling, and code. "
 sidebar: false
 toc: false
+
 listing:
     id: projects
     contents: 'projects/*/index.*md'
+    categories: false
     type: grid
     grid-columns: 2
     sort: 'order asc'

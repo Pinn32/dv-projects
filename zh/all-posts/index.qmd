@@ -9,6 +9,9 @@ number-sections: false
 back-to-top-navigation: false
 reading-meta-enabled: false
 
+draft: true
+draft-mode: visible
+
 listing:
   id: all-listing
   contents:
