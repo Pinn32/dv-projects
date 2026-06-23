@@ -1,0 +1,66 @@
+<script>
+    (() => {
+        const LISTING_ID = 'listing-all-listing';
+
+        const LABELS = {
+            en: { all: 'All', project: 'Projects', tutorial: 'Tutorials', blog: 'Blogs' },
+            zh: { all: '全部', project: '项目', tutorial: '教程', blog: '博文' },
+        };
+
+        const lang = () => {
+            const l = (document.documentElement.lang || '').toLowerCase();
+            if (l.startsWith('zh')) return 'zh';
+            return location.pathname.includes('/zh/') ? 'zh' : 'en';
+        };
+
+        const filterByType = (type) => {
+            const list = window['quarto-listings']?.[LISTING_ID];
+            if (!list) return;
+            if (type === 'all') {
+                list.filter(); // reset — Quarto's own pattern (quarto-listing.js:237)
+            } else {
+                list.filter((item) => {
+                    const el = item.elm;
+                    if (!el) return false;
+                    const typeEl = el.querySelector('.post-type');
+                    return typeEl && typeEl.textContent.trim() === type;
+                });
+            }
+        };
+
+        const inject = () => {
+            const titleBlock = document.getElementById('title-block-header');
+            const mainEl = document.querySelector('#quarto-content > main.content');
+            if (!mainEl) return;
+
+            const L = LABELS[lang()];
+            const bar = document.createElement('div');
+            bar.id = 'post-type-filter';
+            bar.setAttribute('role', 'group');
+            bar.setAttribute('aria-label', 'Filter by type');
+
+            for (const type of ['all', 'project', 'tutorial', 'blog']) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'type-btn' + (type === 'all' ? ' active' : '');
+                btn.dataset.type = type;
+                btn.textContent = L[type];
+                btn.addEventListener('click', () => {
+                    bar.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterByType(type);
+                });
+                bar.appendChild(btn);
+            }
+
+            // Mirror responsive-tag-bar.html: insert right after title block
+            if (titleBlock && titleBlock.parentNode === mainEl) {
+                titleBlock.after(bar);
+            } else {
+                mainEl.insertBefore(bar, mainEl.firstElementChild);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', inject);
+    })();
+</script>

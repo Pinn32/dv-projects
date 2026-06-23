@@ -273,3 +273,45 @@
 .quarto-listing-category .category-show-more[hidden] {
     display: none !important;
 }
+
+
+/* ── Post-type filter bar (all-posts page) ────────────────────────── */
+
+/* Hide the "post-type: project" cell that Quarto renders for the custom field */
+#listing-all-listing .card-other-values {
+    display: none !important;
+}
+
+/* Button bar — mirrors .quarto-listing-category layout */
+#post-type-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Individual type buttons — mirrors .quarto-listing-category .category */
+#post-type-filter .type-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1rem 0.5rem;
+    border: 1.5px solid var(--pf-primary);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--pf-primary);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+}
+#post-type-filter .type-btn:hover {
+    background: var(--pf-primary-light);
+    color: var(--pf-primary-hover);
+}
+#post-type-filter .type-btn.active {
+    background: var(--pf-primary);
+    color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(13,148,136,0.18);
+}

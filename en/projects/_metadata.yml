@@ -5,3 +5,4 @@ sidebar: true
 reading-meta-enabled: true
 number-sections: true
 back-to-top-navigation: true
+post-type: project

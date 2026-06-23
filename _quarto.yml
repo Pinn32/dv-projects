@@ -8,7 +8,7 @@ project:
 website:
   site-url: https://pinn32.github.io/dv-projects
   title: "Pinn (Aiqi) Xu"
-  #title-separator: " | "
+  # title-separator: " | "
   description: "A collection of projects by Pinn (Aiqi) Xu, showcasing work in data science, machine learning, and software development."
   favicon: src/img/favicon/spark.ico
 
