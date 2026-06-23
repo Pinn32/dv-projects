@@ -29,12 +29,14 @@ website:
         href: en/projects/index.qmd
       - text: Tutorials
         href: en/tutorials/index.qmd
-      # - text: Hobbies
-      #   href: en/hobbies/index.qmd
+      - text: Tools
+        href: en/tools/index.qmd
       - text: Blogs
         href: en/blogs/index.qmd
-      - text: All Posts
-        href: en/all-posts/index.qmd
+      # - text: Hobbies
+      #   href: en/hobbies/index.qmd
+      # - text: All Posts
+      #   href: en/all-posts/index.qmd
       # - text: About
       #   href: about/index.qmd
     
@@ -130,6 +132,7 @@ format:
       - ./src/scripts/fix-sidebar-search.html
       # - ./src/scripts/responsive-tag-bar.html
       - ./src/scripts/strip-index-html.html
+      - ./src/scripts/tag-redirect.html
 
     toc: true
     # toc-expand: true

@@ -1,0 +1,30 @@
+---
+title: '工具'
+subtitle: '自制工具与网页应用合集'
+include-after-body: '../../src/scripts/responsive-tag-bar.html'
+toc: false
+sidebar: false
+number-sections: false
+back-to-top-navigation: false
+reading-meta-enabled: false
+
+listing:
+  id: tools-listing
+  contents: "*/index.*md"
+  type: grid
+  categories: true
+  max-description-length: 100
+  fields: [image, title, categories, author, date]
+  grid-columns: 2
+  image-height: "12rem"
+  image-align: left
+  # image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Blog.png'
+  sort: 
+    - "order asc"
+    - "date desc"
+    - "title asc"
+  sort-ui: [author, title, date]
+  filter-ui: true
+  page-size: 6
+  # image-placeholder: 'https://placeholderimage.io/api/800/600/people/679977/333333/85d2d1/FFFFFF/png'  # img-plchd: many people
+---
