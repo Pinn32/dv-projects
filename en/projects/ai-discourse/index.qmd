@@ -3,7 +3,8 @@ title: 'Evolution of Online AI Discourse'
 description: 'A Longitudinal Analysis of Public Sentiment and Thematic Trends in AI-Related Tweets'
 author: 'Pinn Xu'
 date: '2026-05-01'
-categories: [R, AI, NLP, Text Analysis, Sentiment Analysis, Topic Modeling, Social Media]
+# categories: [R, AI, NLP, Text Analysis, Sentiment Analysis, Topic Modeling, Social Media]
+categories: [R, AI, NLP, Text Analysis, Social Media]
 bibliography: references.bib
 csl: ../../../src/apa.csl
 number-sections: true

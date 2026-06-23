@@ -3,7 +3,8 @@ title: "Recovering Misplaced Windows Shell Folders"
 author: 'Pinn Xu'
 date: 2024-04-22
 description: "Recovering Windows shell folders such as Documents, Videos, and Pictures after they were accidentally moved to the root of a drive."
-categories: [Windows, desktop.ini, Shell Folders, Computer Tips, Knowhow]
+# categories: [Windows, desktop.ini, Shell Folders, Computer Tips, Knowhow]
+categories: [Windows, Shell Folders, Knowhow]
 image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png"
 # toc-expand: true
 # toc-expand-level: 2

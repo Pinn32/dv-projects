@@ -2,7 +2,8 @@
 title: 'Multivariate Plots'
 author: 'Pinn Xu'
 date: '2024-10-27'
-categories: ["Python", "Visualization", "Multivariate", "FacetGrid", "Heatmap", "Joint Plot", "Pair Plot"]
+# categories: ["Python", "Visualization", "Multivariate", "FacetGrid", "Heatmap", "Joint Plot", "Pair Plot"]
+categories: ["Python", "FacetGrid", "Heatmap"]
 description: 'Use Seaborn to create multivariate visualizations: scatter plots, line pots, heatmaps, joint plots, facet grids, etc.'
 code-fold: false
 number-sections: true

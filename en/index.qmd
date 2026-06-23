@@ -13,17 +13,21 @@ listing:
     grid-columns: 2
     sort: 'order asc'
     max-items: 4
-    fields: [image, title, author, date]
+    fields: [image, title, categories, author, date]
     image-height: '12rem'
     image-align: left
 ---
 
 <!-- Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, storytelling, and code.  -->
 
-This site collects my data projects: exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with [Quarto](https://quarto.org/).
+<!-- This site collects my data projects: exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with [Quarto](https://quarto.org/). -->
+
+This site collects my data analysis projects, web tools, and blogs. Data projects are built with **R** and **Python**, published with [Quarto](https://quarto.org/){target="_blank"}. Web tools are developed with React, Next.js, and TypeScript.
+
+<!-- : exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with [Quarto](https://quarto.org/). -->
 
 :::{style="line-height:3;"}
-[Browse all projects →](projects/){.btn .btn-primary style="margin-right:12px"}
+[Browse All Projects →](projects/){.btn .btn-primary style="margin-right:12px"}
 [Data Viz Tutorials](tutorials/){.btn .btn-outline-primary}
 :::
 

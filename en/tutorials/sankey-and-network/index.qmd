@@ -2,7 +2,8 @@
 title: 'Sankey Diagrams and Network Graphs'
 author: 'Pinn Xu'
 date: '2024-12-05'
-categories: ["Python", "Visualization", "Sankey Diagram", "Network Diagram", "Plotly"]
+# categories: ["Python", "Visualization", "Sankey Diagram", "Network Diagram", "Plotly"]
+categories: ["Python", "Plotly", "Sankey Diagram", "Network Diagram"]
 description: "Use Plotly, Pyvis & NetworkX to create sankey & network diagrams."
 order: 4
 ---

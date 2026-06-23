@@ -17,7 +17,7 @@ listing:
 
 <!-- 你好，我是 **Pinn** —— 热衷于数据分析、数据叙事与编程的数据爱好者。 -->
 
-本站收录了我的数据项目：探索性分析、NLP 实验，以及用 **R** 和 **Python** 构建的交互式可视化，通过 [Quarto](https://quarto.org/) 发布。
+本站收录了我的数据分析项目、网页工具与博客。数据项目使用 **R** 和 **Python** 构建，通过 [Quarto](https://quarto.org/){target="_blank"} 发布；网页工具则基于 React、Next.js 与 TypeScript 开发。
 
 :::{style="line-height:3;"}
 [浏览所有项目 →](projects/){.btn .btn-primary style="margin-right:12px;"}

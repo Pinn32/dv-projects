@@ -14,7 +14,7 @@ listing:
   type: grid
   categories: true
   max-description-length: 100
-  fields: [image, title, description, author, date]
+  fields: [image, title, categories, description, author, date]
   grid-columns: 2
   image-height: "12rem"
   image-align: left

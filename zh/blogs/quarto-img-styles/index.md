@@ -3,7 +3,8 @@ title: 'Quarto 图片居中样式'
 author: 'Pinn Xu'
 date: 2026-06-15
 description: 'Quarto Website 图片居中样式探索与悬浮预览异常解决。'
-categories: [Quarto, CSS, 电脑技巧, 解决方案]
+# categories: [Quarto, CSS, 电脑技巧, 解决方案]
+categories: [Quarto, CSS, Web Dev, 教程]
 image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png"
 ---
 

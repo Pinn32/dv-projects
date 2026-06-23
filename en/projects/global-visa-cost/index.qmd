@@ -2,7 +2,8 @@
 title: 'Global Visa Cost Geographical Analysis'
 author: 'Pinn Xu'
 date: '2024-12-12'
-categories: [Python, EDA, Sankey Diagram, Choropleth Map, Visualization]
+# categories: [Python, EDA, Sankey Diagram, Choropleth Map, Visualization]
+categories: [Python, Sankey Diagram, Choropleth Map]
 description: 'A comparative study of visa costs across countries, exploring affordability and geographic patterns.'
 bibliography: references.bib
 csl: ../../../src/apa.csl

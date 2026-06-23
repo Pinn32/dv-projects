@@ -2,7 +2,7 @@
 title: 'Data Processing'
 author: 'Pinn Xu'
 date: '2024-10-10'
-categories: ["Python", "Data Processing", "Pandas", "DataFrame"]
+categories: ["Python", "Pandas", "DataFrame"]
 description: 'Data processing/cleaning workflows in Pandas: missing values, duplicates, reshaping, joins, aggregations, pivoting, etc.'
 code-fold: false
 
