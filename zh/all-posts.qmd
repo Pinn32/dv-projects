@@ -1,0 +1,34 @@
+---
+title: "所有文章"
+include-after-body:
+  # - '../src/scripts/responsive-tag-bar.html'
+  - '../src/scripts/post-type-filter.html'
+toc: false
+sidebar: false
+number-sections: false
+back-to-top-navigation: false
+reading-meta-enabled: false
+
+listing:
+  id: all-listing
+  contents:
+    - projects/*/index.*md
+    - tutorials/*/index.*md
+    - blogs/*/index.*md
+  type: grid
+  # categories: true
+  max-description-length: 100
+  fields: [image, title, categories, description, author, date, post-type]
+  grid-columns: 2
+  image-height: "12rem"
+  image-align: left
+  # image-placeholder: ""
+  sort: 
+    - "order asc"
+    - "date desc"
+    - "title asc"
+  sort-ui: [title, date]
+  filter-ui: true
+  page-size: 6
+# feed: true
+---
