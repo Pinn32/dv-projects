@@ -99,10 +99,12 @@
             });
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            init();
-            relocate();
-        });
+        // Run synchronously — script is include-after-body so the DOM is already
+        // parsed. This fires before the first paint, preventing the flash where
+        // the sidebar briefly appears in its default (right-side) position.
+        init();
+        relocate();
+
         window.addEventListener('resize', onResize);
     })();
 </script>
