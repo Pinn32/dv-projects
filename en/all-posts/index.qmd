@@ -1,8 +1,8 @@
 ---
 title: "All Posts"
 include-after-body:
-  # - '../src/scripts/responsive-tag-bar.html'
-  - '../src/scripts/post-type-filter.html'
+  # - '../../src/scripts/responsive-tag-bar.html'
+  - '../../src/scripts/post-type-filter.html'
 toc: false
 sidebar: false
 number-sections: false
@@ -12,9 +12,9 @@ reading-meta-enabled: false
 listing:
   id: all-listing
   contents:
-    - projects/*/index.*md
-    - tutorials/*/index.*md
-    - blogs/*/index.*md
+    - ../projects/*/index.*md
+    - ../tutorials/*/index.*md
+    - ../blogs/*/index.*md
   type: grid
   # categories: true
   max-description-length: 100

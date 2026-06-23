@@ -17,14 +17,36 @@ website:
     left: "© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved." 
   
   repo-url: https://github.com/Pinn32/dv-projects
-  repo-actions: [source, issue]
+  repo-actions: [edit, source, issue]
   repo-link-target: _blank
 
   #############################################################################
   navbar:
-    tools: 
+    left:
+      # - href: index.qmd
+      #   text: Home
+      - text: Projects
+        href: en/projects/index.qmd
+      - text: Tutorials
+        href: en/tutorials/index.qmd
+      # - text: Hobbies
+      #   href: en/hobbies/index.qmd
+      - text: Blogs
+        href: en/blogs/index.qmd
+      - text: All Posts
+        href: en/all-posts/index.qmd
+      # - text: About
+      #   href: about/index.qmd
+    
+    # right: 
+    #   - text: EN
+    #     href: index.qmd
+    #   - text: 中文
+    #     href: index.zh.qmd
 
-    ###### Language Switch / Translation ######
+    ###### NavBar Tools #################################################
+    tools: 
+      ###### Language Switch / Translation ######
       - icon: translate
         menu: 
           - text: English
@@ -38,7 +60,6 @@ website:
             # href: "#"
             # class: lang-switch
 
-
       - icon: github
         href: https://github.com/Pinn32/dv-projects
         # menu:
@@ -46,31 +67,12 @@ website:
         #     href: https://github.com/Pinn32/dv-projects
         #   - text: Report a Bug
         #     href: https://github.com/Pinn32/dv-projects/issues
+
       - icon: linkedin
         href: https://www.linkedin.com/in/aiqi-xu-71943b378/
 
       # - icon: https://cdn.brandfetch.io/idriarYq6Q/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1686028240869
       #   href: https://twitter.com/<insert_twitter_id_here>
-
-    left:
-      # - href: index.qmd
-      #   text: Home
-      - text: Projects
-        href: en/projects/index.qmd
-      - text: Tutorials
-        href: en/tutorials/index.qmd
-      # - text: Hobbies
-      #   href: en/hobbies/index.qmd
-      - text: Blogs
-        href: en/blogs/index.qmd
-      # - text: About
-      #   href: about/index.qmd
-    
-    # right: 
-    #   - text: EN
-    #     href: index.qmd
-    #   - text: 中文
-    #     href: index.zh.qmd
 
 
   #############################################################################
