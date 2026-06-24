@@ -166,6 +166,7 @@ pre.text.cell-code code {
 mark {
     background-color: #d4f1e4;
     color: inherit;
+    -webkit-text-fill-color: initial;
     padding: 0.05em 0.2em;
     border-radius: 3px;
 }

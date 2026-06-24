@@ -148,6 +148,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./en/tools/index.html"> 
+<span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
@@ -242,19 +246,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     };
 
     const NAV_TRANSLATIONS = {
-        en: { 
-            Projects: 'Projects', 
-            Tutorials: 'Tutorials', 
-            Hobbies: 'Hobbies', 
+        en: {
+            Projects: 'Projects',
+            Tutorials: 'Tutorials',
+            Tools: 'Tools',
             Blogs: 'Blogs',
-            About: 'About' 
+            Hobbies: 'Hobbies',
+            'All Posts': 'All Posts',
+            About: 'About'
         },
-        zh: { 
-            Projects: '项目',    
-            Tutorials: '教程',       
-            Hobbies: '爱好',    
+        zh: {
+            Projects: '项目',
+            Tutorials: '教程',
+            Tools: '工具',
             Blogs: '博客',
-            About: '关于' 
+            Hobbies: '爱好',
+            'All Posts': '所有文章',
+            About: '关于'
         },
     };
 
@@ -358,114 +366,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
-<script>
-    (() => {
-        const BREAKPOINT = 768;
-
-        const LABELS = {
-            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
-            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
-        };
-
-        let sidebar, titleBlock, mainEl, quartoContent;
-        let categoryList, toggleBtn;
-        let expanded = false;
-        let rafId = null;
-
-        const init = () => {
-            sidebar       = document.getElementById('quarto-margin-sidebar');
-            titleBlock    = document.getElementById('title-block-header');
-            mainEl        = document.querySelector('#quarto-content > main.content');
-            quartoContent = document.getElementById('quarto-content');
-            categoryList  = document.querySelector('.quarto-listing-category');
-        };
-
-        const lang = () => {
-            const docLang = (document.documentElement.lang || '').toLowerCase();
-            if (docLang.startsWith('zh')) return 'zh';
-            if (docLang.startsWith('en')) return 'en';
-            return location.pathname.includes('/zh/') ? 'zh' : 'en';
-        };
-
-        const ensureToggle = () => {
-            if (toggleBtn || !categoryList) return;
-            toggleBtn = document.createElement('button');
-            toggleBtn.type = 'button';
-            toggleBtn.className = 'category-show-more';
-            toggleBtn.hidden = true;
-            toggleBtn.addEventListener('click', () => {
-                expanded = !expanded;
-                syncCategories();
-            });
-            categoryList.appendChild(toggleBtn);
-        };
-
-        const syncCategories = () => {
-            if (!categoryList) return;
-            ensureToggle();
-
-            const pills = Array.from(categoryList.querySelectorAll('.category'));
-            // Always start from a fully-visible state so measurement is accurate.
-            pills.forEach((p) => p.classList.remove('is-hidden'));
-
-            // Desktop: show everything, no toggle.
-            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            // Find pills that wrapped past the first row.
-            const firstRowTop = pills[0].offsetTop;
-            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
-
-            if (overflow.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            const L = LABELS[lang()];
-            toggleBtn.hidden = false;
-            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
-            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
-        };
-
-        const relocate = () => {
-            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
-
-            if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar right after the title block, inside main.
-                if (titleBlock.parentNode === mainEl) {
-                    if (sidebar.previousElementSibling !== titleBlock) {
-                        titleBlock.after(sidebar);
-                    }
-                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
-                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
-                }
-            } else {
-                // Restore sidebar as first child of #quarto-content (before main).
-                if (sidebar.parentNode !== quartoContent) {
-                    quartoContent.insertBefore(sidebar, mainEl);
-                }
-            }
-
-            syncCategories();
-        };
-
-        const onResize = () => {
-            if (rafId !== null) return;
-            rafId = requestAnimationFrame(() => {
-                rafId = null;
-                relocate();
-            });
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            init();
-            relocate();
-        });
-        window.addEventListener('resize', onResize);
-    })();
-</script>
 <script id="strip-index-html">
     // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
     // Quarto always links listing cards (and other internal links) to the real output
@@ -497,6 +397,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             }
         });
     })();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 每种内容类型对应的 listing 页面（可按需增减）
+  const SECTION_MAP = {
+    projects:  "projects",
+    tutorials: "tutorials",
+    blogs:     "blogs",
+    tools:     "tools",
+  };
+
+  function getTarget() {
+    const path = window.location.pathname;
+
+    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+    const langMatch = path.match(/^\/(en|zh)\//);
+    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+
+    // 提取当前所在 section
+    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+    const section = sectionMatch ? sectionMatch[1] : null;
+
+    if (!section) return null; // 不在任何已知 section 下，不重写
+
+    return langPrefix + SECTION_MAP[section] + "/";
+  }
+
+  function rewriteTagLinks() {
+    const target = getTarget();
+    if (!target) return;
+
+    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+      const category = link.href.split("#category=")[1];
+      if (category) {
+        link.href = target + "#category=" + category;
+      }
+    });
+  }
+
+  rewriteTagLinks();
+  new MutationObserver(rewriteTagLinks)
+    .observe(document.body, { childList: true, subtree: true });
+});
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -969,7 +913,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

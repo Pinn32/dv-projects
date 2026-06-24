@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
 
     const options = {
-      valueNames: ['listing-image','listing-title','listing-description','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      valueNames: ['listing-image','listing-title','listing-categories','listing-description','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
@@ -208,6 +208,10 @@ window.Quarto = {
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../en/tools/index.html"> 
+<span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
@@ -240,7 +244,7 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="QmFyJTIwUGxvdA==">Bar Plot <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Qm94JTIwUGxvdA==">Box Plot <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q1NTJTIwQ29sb3I=">CSS Color <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMFByb2Nlc3Npbmc=">Data Processing <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YUZyYW1l">DataFrame <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnV0aW9u">Distribution <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZHBseXI=">dplyr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RmFjZXRHcmlk">FacetGrid <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SGVhdG1hcA==">Heatmap <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SGlzdG9ncmFt">Histogram <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Sm9pbnQlMjBQbG90">Joint Plot <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWF0cGxvdGxpYg==">Matplotlib <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TXVsdGl2YXJpYXRl">Multivariate <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TmV0d29yayUyMERpYWdyYW0=">Network Diagram <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGFpciUyMFBsb3Q=">Pair Plot <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGFuZGFz">Pandas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGxvdGx5">Plotly <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UG9pbnQlMjBQbG90">Point Plot <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UmVnZXg=">Regex <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2Fua2V5JTIwRGlhZ3JhbQ==">Sankey Diagram <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2VhYm9ybg==">Seaborn <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U25pcHBldHM=">Snippets <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c3RyaW5ncg==">stringr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGV4dCUyMEFuYWx5c2lz">Text Analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VmlzdWFsaXphdGlvbg==">Visualization <span class="quarto-category-count">(4)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Q1NTJTIwQ29sb3I=">CSS Color <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YUZyYW1l">DataFrame <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnV0aW9u">Distribution <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RmFjZXRHcmlk">FacetGrid <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SGVhdG1hcA==">Heatmap <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TmV0d29yayUyMERpYWdyYW0=">Network Diagram <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGFuZGFz">Pandas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGxvdGx5">Plotly <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2Fua2V5JTIwRGlhZ3JhbQ==">Sankey Diagram <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2VhYm9ybg==">Seaborn <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U25pcHBldHM=">Snippets <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGlkeVI=">TidyR <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -294,7 +298,7 @@ window.Quarto = {
     </div>
 </div>
 <div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="UHl0aG9uJTJDRGF0YSUyMFByb2Nlc3NpbmclMkNQYW5kYXMlMkNEYXRhRnJhbWU=" data-listing-date-sort="1728532800000" data-listing-file-modified-sort="1781065619800" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1471">
+<div class="g-col-1" data-index="0" data-categories="UHl0aG9uJTJDUGFuZGFzJTJDRGF0YUZyYW1l" data-listing-date-sort="1728532800000" data-listing-file-modified-sort="1782245991127" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1471">
 <a href="../../en/tutorials/data-processing/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img loading='lazy' src="data-processing/index_files/figure-html/cell-14-output-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
@@ -302,8 +306,17 @@ window.Quarto = {
 <h5 class="no-anchor card-title listing-title">
 Data Processing
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGFuZGFz'); return false;">Pandas</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YUZyYW1l'); return false;">DataFrame</div>
+
+</div>
 <div class="card-text listing-description delink">
-<p>Data processing/cleaning workflows in Pandas: missing values, duplicates, reshaping, joins, aggregations, pivoting, etc.</p>
+<p>Data processing/cleaning workflows in Pandas: missing values, duplicates, reshaping, joins…</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -316,7 +329,7 @@ Oct 10, 2024
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQ01hdHBsb3RsaWIlMkNWaXN1YWxpemF0aW9uJTJDRGlzdHJpYnV0aW9uJTJDSGlzdG9ncmFtJTJDQmFyJTIwUGxvdCUyQ1BvaW50JTIwUGxvdCUyQ0JveCUyMFBsb3Q=" data-listing-date-sort="1727755200000" data-listing-file-modified-sort="1781065274594" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2683">
+<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQ0Rpc3RyaWJ1dGlvbg==" data-listing-date-sort="1727755200000" data-listing-file-modified-sort="1782246241167" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2683">
 <a href="../../en/tutorials/amounts-and-distribution/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img loading='lazy' src="amounts-and-distribution/index_files/figure-html/cell-13-output-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
@@ -324,8 +337,17 @@ Oct 10, 2024
 <h5 class="no-anchor card-title listing-title">
 Amounts and Distribution
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2VhYm9ybg=='); return false;">Seaborn</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RGlzdHJpYnV0aW9u'); return false;">Distribution</div>
+
+</div>
 <div class="card-text listing-description delink">
-<p>Use Seaborn to create visualizations for amounts &amp; distributions: barplots, point plots, histograms, box plots, etc.</p>
+<p>Use Seaborn to create visualizations for amounts &amp; distributions: barplots, point plots…</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -338,7 +360,7 @@ Oct 1, 2024
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDVmlzdWFsaXphdGlvbiUyQ011bHRpdmFyaWF0ZSUyQ0ZhY2V0R3JpZCUyQ0hlYXRtYXAlMkNKb2ludCUyMFBsb3QlMkNQYWlyJTIwUGxvdA==" data-listing-date-sort="1730001600000" data-listing-file-modified-sort="1781067418069" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4267">
+<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDRmFjZXRHcmlkJTJDSGVhdG1hcA==" data-listing-date-sort="1730001600000" data-listing-file-modified-sort="1782245979242" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4267">
 <a href="../../en/tutorials/multivariate-plots/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -348,8 +370,17 @@ Oct 1, 2024
 <h5 class="no-anchor card-title listing-title">
 Multivariate Plots
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RmFjZXRHcmlk'); return false;">FacetGrid</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SGVhdG1hcA=='); return false;">Heatmap</div>
+
+</div>
 <div class="card-text listing-description delink">
-<p>Use Seaborn to create multivariate visualizations: scatter plots, line pots, heatmaps, joint plots, facet grids, etc.</p>
+<p>Use Seaborn to create multivariate visualizations: scatter plots, line pots, heatmaps, joint…</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -362,7 +393,7 @@ Oct 27, 2024
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDVmlzdWFsaXphdGlvbiUyQ1NhbmtleSUyMERpYWdyYW0lMkNOZXR3b3JrJTIwRGlhZ3JhbSUyQ1Bsb3RseQ==" data-listing-date-sort="1733374800000" data-listing-file-modified-sort="1781065590165" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2557">
+<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDUGxvdGx5JTJDU2Fua2V5JTIwRGlhZ3JhbSUyQ05ldHdvcmslMjBEaWFncmFt" data-listing-date-sort="1733374800000" data-listing-file-modified-sort="1782245772110" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2557">
 <a href="../../en/tutorials/sankey-and-network/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img loading='lazy' src="../../src/img/ttl/sankey/fig2-electricity-usage.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
@@ -370,6 +401,17 @@ Oct 27, 2024
 <h5 class="no-anchor card-title listing-title">
 Sankey Diagrams and Network Graphs
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGxvdGx5'); return false;">Plotly</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2Fua2V5JTIwRGlhZ3JhbQ=='); return false;">Sankey Diagram</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TmV0d29yayUyMERpYWdyYW0='); return false;">Network Diagram</div>
+
+</div>
 <div class="card-text listing-description delink">
 <p>Use Plotly, Pyvis &amp; NetworkX to create sankey &amp; network diagrams.</p>
 </div>
@@ -384,7 +426,7 @@ Dec 5, 2024
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="4" data-categories="UiUyQ2RwbHlyJTJDc3RyaW5nciUyQ1JlZ2V4JTJDQ1NTJTIwQ29sb3IlMkNUZXh0JTIwQW5hbHlzaXMlMkNWaXN1YWxpemF0aW9uJTJDU25pcHBldHM=" data-listing-date-sort="1774584000000" data-listing-file-modified-sort="1781065713732" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2588">
+<div class="g-col-1" data-index="4" data-categories="UiUyQ1RpZHlSJTJDQ1NTJTIwQ29sb3IlMkNTbmlwcGV0cw==" data-listing-date-sort="1774584000000" data-listing-file-modified-sort="1782246026643" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2588">
 <a href="../../en/tutorials/r-tips/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img loading='lazy' src="../../src/img/ttl/r-tips/rstudio-snippet-1.png" alt="Edit code snippets" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
@@ -392,8 +434,19 @@ Dec 5, 2024
 <h5 class="no-anchor card-title listing-title">
 R Tips
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('VGlkeVI='); return false;">TidyR</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q1NTJTIwQ29sb3I='); return false;">CSS Color</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U25pcHBldHM='); return false;">Snippets</div>
+
+</div>
 <div class="card-text listing-description delink">
-<p>Common R tips &amp; code snippets: dplyr data manipulation, stringr text operations, CSS color names, code cheatsheets, etc.</p>
+<p>Common R tips &amp; code snippets: dplyr data manipulation, stringr text operations, CSS color names…</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -439,19 +492,23 @@ Mar 27, 2026
     };
 
     const NAV_TRANSLATIONS = {
-        en: { 
-            Projects: 'Projects', 
-            Tutorials: 'Tutorials', 
-            Hobbies: 'Hobbies', 
+        en: {
+            Projects: 'Projects',
+            Tutorials: 'Tutorials',
+            Tools: 'Tools',
             Blogs: 'Blogs',
-            About: 'About' 
+            Hobbies: 'Hobbies',
+            'All Posts': 'All Posts',
+            About: 'About'
         },
-        zh: { 
-            Projects: '项目',    
-            Tutorials: '教程',       
-            Hobbies: '爱好',    
+        zh: {
+            Projects: '项目',
+            Tutorials: '教程',
+            Tools: '工具',
             Blogs: '博客',
-            About: '关于' 
+            Hobbies: '爱好',
+            'All Posts': '所有文章',
+            About: '关于'
         },
     };
 
@@ -555,6 +612,82 @@ Mar 27, 2026
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
+<script id="strip-index-html">
+    // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
+    // Quarto always links listing cards (and other internal links) to the real output
+    // file, e.g. `.../ai-discourse/index.html`. Both the preview server and GitHub Pages
+    // also serve the directory URL, so we drop the `index.html` for cleaner addresses.
+    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
+    // avoids changing hrefs the user might hover mid-load.
+    (() => {
+        document.querySelectorAll('a[href]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
+            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
+
+            try {
+                const url = new URL(href, window.location.href);
+                // Only touch same-origin links.
+                if (url.origin !== window.location.origin) return;
+                if (!/\/index\.html$/.test(url.pathname)) return;
+
+                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
+                // Write a root-absolute path. This is safe even under the GitHub Pages
+                // `/dv-projects/` base, since `url.pathname` already includes that prefix
+                // (the original relative href was resolved against the current page).
+                link.setAttribute('href', url.pathname + url.search + url.hash);
+            } catch {
+                // Malformed href — leave it untouched.
+            }
+        });
+    })();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 每种内容类型对应的 listing 页面（可按需增减）
+  const SECTION_MAP = {
+    projects:  "projects",
+    tutorials: "tutorials",
+    blogs:     "blogs",
+    tools:     "tools",
+  };
+
+  function getTarget() {
+    const path = window.location.pathname;
+
+    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+    const langMatch = path.match(/^\/(en|zh)\//);
+    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+
+    // 提取当前所在 section
+    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+    const section = sectionMatch ? sectionMatch[1] : null;
+
+    if (!section) return null; // 不在任何已知 section 下，不重写
+
+    return langPrefix + SECTION_MAP[section] + "/";
+  }
+
+  function rewriteTagLinks() {
+    const target = getTarget();
+    if (!target) return;
+
+    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+      const category = link.href.split("#category=")[1];
+      if (category) {
+        link.href = target + "#category=" + category;
+      }
+    });
+  }
+
+  rewriteTagLinks();
+  new MutationObserver(rewriteTagLinks)
+    .observe(document.body, { childList: true, subtree: true });
+});
+</script>
 <script>
     (() => {
         const BREAKPOINT = 768;
@@ -656,43 +789,13 @@ Mar 27, 2026
             });
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            init();
-            relocate();
-        });
+        // Run synchronously — script is include-after-body so the DOM is already
+        // parsed. This fires before the first paint, preventing the flash where
+        // the sidebar briefly appears in its default (right-side) position.
+        init();
+        relocate();
+
         window.addEventListener('resize', onResize);
-    })();
-</script>
-<script id="strip-index-html">
-    // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
-    // Quarto always links listing cards (and other internal links) to the real output
-    // file, e.g. `.../ai-discourse/index.html`. Both the preview server and GitHub Pages
-    // also serve the directory URL, so we drop the `index.html` for cleaner addresses.
-    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
-    // avoids changing hrefs the user might hover mid-load.
-    (() => {
-        document.querySelectorAll('a[href]').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
-
-            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
-            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
-
-            try {
-                const url = new URL(href, window.location.href);
-                // Only touch same-origin links.
-                if (url.origin !== window.location.origin) return;
-                if (!/\/index\.html$/.test(url.pathname)) return;
-
-                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
-                // Write a root-absolute path. This is safe even under the GitHub Pages
-                // `/dv-projects/` base, since `url.pathname` already includes that prefix
-                // (the original relative href was resolved against the current page).
-                link.setAttribute('href', url.pathname + url.search + url.hash);
-            } catch {
-                // Malformed href — leave it untouched.
-            }
-        });
     })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1149,28 +1252,32 @@ Mar 27, 2026
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> 'Tutorials'</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> 'Data analysis and visualization tutorials and tips.'</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># css: '../../src/styles/projects.css'</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">include-after-body:</span><span class="co"> '../../src/scripts/responsive-tag-bar.html'</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> false</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">back-to-top-navigation:</span><span class="co"> false</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">reading-meta-enabled:</span><span class="co"> false</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  id: tutorials-listing</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.*md"</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, description, author, date]</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">include-after-body:</span><span class="co"> '../../src/scripts/responsive-tag-bar.html'</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> false</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">back-to-top-navigation:</span><span class="co"> false</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">reading-meta-enabled:</span><span class="co"> false</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  id: tutorials-listing</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.*md"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  max-description-length: 100</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, description, author, date]</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "12rem"</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: "order asc"</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: [title, date]</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 20</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Tutorial.png'</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: </span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">    - "order asc"</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">    - "date desc"</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">    - "title asc"</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: [title, date]</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 6</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
@@ -1180,7 +1287,7 @@ Mar 27, 2026
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/tutorials/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/en/tutorials/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/tutorials/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

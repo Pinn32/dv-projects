@@ -185,6 +185,10 @@ window.Quarto = {
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../../en/tools/index.html"> 
+<span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../../en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
@@ -341,6 +345,23 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../zh/tools/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Web工具</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">短链接生成器</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../zh/about/index.html" class="sidebar-item-text sidebar-link">
@@ -376,7 +397,7 @@ window.Quarto = {
   <li><a href="#双变量图" id="toc-双变量图" class="nav-link" data-scroll-target="#双变量图"><span class="header-section-number">7</span> 双变量图</a></li>
   <li><a href="#配对图" id="toc-配对图" class="nav-link" data-scroll-target="#配对图"><span class="header-section-number">8</span> 配对图</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/multivariate-plots/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/tutorials/multivariate-plots/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/multivariate-plots/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -428,8 +449,8 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     21 min read</span><span> · </span><span>682 EN words</span><span> · </span><span>5102 中文字</span></div>
-<div id="be2ba4d9" class="cell" data-execution_count="1">
+     21 min read</span><span> · </span><span>688 EN words</span><span> · </span><span>5110 中文字</span></div>
+<div id="f1b267c6" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>环境与版本</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -443,13 +464,13 @@ window.Quarto = {
 <p><strong>“tidy/flat” 的表格数据:</strong> 每行为一个 <strong>observation</strong> (或 instance、record) ，每列为一个 <strong>variable</strong> (变量，也称 attribute、feature、parameter) 。</p>
 <p>通常，<strong>multivariate</strong> (多变量) 用于描述变量超过两个的数据，即，multivariate plot 通常使用了原 DataFrame 中三个或三个以上的列作为数据。</p>
 <p>绘制柱状图时，除了 x、y 两个变量之外，还可以设置 <code>hue</code> 参数，从而绘制包含三个变量的柱状图。比如 <a href="#fig-bar-variables" class="quarto-xref">图&nbsp;1</a> 中包含了 <code>'island'</code>、<code>'body_mass_g'</code>、<code>'sex'</code> 三个变量。</p>
-<div id="ec008ce4" class="cell" data-execution_count="2">
+<div id="183366f7" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入库</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="f92c9d62" class="cell" data-execution_count="3">
+<div id="44dc4360" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 Seaborn 加载示例数据集</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1915,19 +1936,23 @@ window.Quarto = {
     };
 
     const NAV_TRANSLATIONS = {
-        en: { 
-            Projects: 'Projects', 
-            Tutorials: 'Tutorials', 
-            Hobbies: 'Hobbies', 
+        en: {
+            Projects: 'Projects',
+            Tutorials: 'Tutorials',
+            Tools: 'Tools',
             Blogs: 'Blogs',
-            About: 'About' 
+            Hobbies: 'Hobbies',
+            'All Posts': 'All Posts',
+            About: 'About'
         },
-        zh: { 
-            Projects: '项目',    
-            Tutorials: '教程',       
-            Hobbies: '爱好',    
+        zh: {
+            Projects: '项目',
+            Tutorials: '教程',
+            Tools: '工具',
             Blogs: '博客',
-            About: '关于' 
+            Hobbies: '爱好',
+            'All Posts': '所有文章',
+            About: '关于'
         },
     };
 
@@ -2031,114 +2056,6 @@ window.Quarto = {
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
-<script>
-    (() => {
-        const BREAKPOINT = 768;
-
-        const LABELS = {
-            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
-            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
-        };
-
-        let sidebar, titleBlock, mainEl, quartoContent;
-        let categoryList, toggleBtn;
-        let expanded = false;
-        let rafId = null;
-
-        const init = () => {
-            sidebar       = document.getElementById('quarto-margin-sidebar');
-            titleBlock    = document.getElementById('title-block-header');
-            mainEl        = document.querySelector('#quarto-content > main.content');
-            quartoContent = document.getElementById('quarto-content');
-            categoryList  = document.querySelector('.quarto-listing-category');
-        };
-
-        const lang = () => {
-            const docLang = (document.documentElement.lang || '').toLowerCase();
-            if (docLang.startsWith('zh')) return 'zh';
-            if (docLang.startsWith('en')) return 'en';
-            return location.pathname.includes('/zh/') ? 'zh' : 'en';
-        };
-
-        const ensureToggle = () => {
-            if (toggleBtn || !categoryList) return;
-            toggleBtn = document.createElement('button');
-            toggleBtn.type = 'button';
-            toggleBtn.className = 'category-show-more';
-            toggleBtn.hidden = true;
-            toggleBtn.addEventListener('click', () => {
-                expanded = !expanded;
-                syncCategories();
-            });
-            categoryList.appendChild(toggleBtn);
-        };
-
-        const syncCategories = () => {
-            if (!categoryList) return;
-            ensureToggle();
-
-            const pills = Array.from(categoryList.querySelectorAll('.category'));
-            // Always start from a fully-visible state so measurement is accurate.
-            pills.forEach((p) => p.classList.remove('is-hidden'));
-
-            // Desktop: show everything, no toggle.
-            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            // Find pills that wrapped past the first row.
-            const firstRowTop = pills[0].offsetTop;
-            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
-
-            if (overflow.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            const L = LABELS[lang()];
-            toggleBtn.hidden = false;
-            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
-            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
-        };
-
-        const relocate = () => {
-            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
-
-            if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar right after the title block, inside main.
-                if (titleBlock.parentNode === mainEl) {
-                    if (sidebar.previousElementSibling !== titleBlock) {
-                        titleBlock.after(sidebar);
-                    }
-                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
-                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
-                }
-            } else {
-                // Restore sidebar as first child of #quarto-content (before main).
-                if (sidebar.parentNode !== quartoContent) {
-                    quartoContent.insertBefore(sidebar, mainEl);
-                }
-            }
-
-            syncCategories();
-        };
-
-        const onResize = () => {
-            if (rafId !== null) return;
-            rafId = requestAnimationFrame(() => {
-                rafId = null;
-                relocate();
-            });
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            init();
-            relocate();
-        });
-        window.addEventListener('resize', onResize);
-    })();
-</script>
 <script id="strip-index-html">
     // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
     // Quarto always links listing cards (and other internal links) to the real output
@@ -2170,6 +2087,50 @@ window.Quarto = {
             }
         });
     })();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 每种内容类型对应的 listing 页面（可按需增减）
+  const SECTION_MAP = {
+    projects:  "projects",
+    tutorials: "tutorials",
+    blogs:     "blogs",
+    tools:     "tools",
+  };
+
+  function getTarget() {
+    const path = window.location.pathname;
+
+    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+    const langMatch = path.match(/^\/(en|zh)\//);
+    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+
+    // 提取当前所在 section
+    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+    const section = sectionMatch ? sectionMatch[1] : null;
+
+    if (!section) return null; // 不在任何已知 section 下，不重写
+
+    return langPrefix + SECTION_MAP[section] + "/";
+  }
+
+  function rewriteTagLinks() {
+    const target = getTarget();
+    if (!target) return;
+
+    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+      const category = link.href.split("#category=")[1];
+      if (category) {
+        link.href = target + "#category=" + category;
+      }
+    });
+  }
+
+  rewriteTagLinks();
+  new MutationObserver(rewriteTagLinks)
+    .observe(document.body, { childList: true, subtree: true });
+});
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -3301,7 +3262,7 @@ window.Quarto = {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/multivariate-plots/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/tutorials/multivariate-plots/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/multivariate-plots/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

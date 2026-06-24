@@ -153,6 +153,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../../en/tools/index.html"> 
+<span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../../en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
@@ -309,6 +313,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../zh/tools/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Web工具</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">短链接生成器</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../zh/about/index.html" class="sidebar-item-text sidebar-link">
@@ -343,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#附录系统文件夹对应资源" id="toc-附录系统文件夹对应资源" class="nav-link" data-scroll-target="#附录系统文件夹对应资源">附录：系统文件夹对应资源</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -353,10 +374,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-block"><div><h1 class="title">误移系统文件夹恢复</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
   <div class="quarto-categories">
     <div class="quarto-category">Windows</div>
-    <div class="quarto-category">desktop.ini</div>
-    <div class="quarto-category">Powershell</div>
-    <div class="quarto-category">电脑技巧</div>
-    <div class="quarto-category">解决方案</div>
+    <div class="quarto-category">Shell文件夹</div>
+    <div class="quarto-category">教程</div>
   </div>
   </div>
 
@@ -395,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     8 min read</span><span> · </span><span>200 EN words</span><span> · </span><span>2087 中文字</span></div>
+     9 min read</span><span> · </span><span>206 EN words</span><span> · </span><span>2092 中文字</span></div>
 <style>
 figcaption {
    text-align: center;
@@ -1110,19 +1129,23 @@ figcaption {
     };
 
     const NAV_TRANSLATIONS = {
-        en: { 
-            Projects: 'Projects', 
-            Tutorials: 'Tutorials', 
-            Hobbies: 'Hobbies', 
+        en: {
+            Projects: 'Projects',
+            Tutorials: 'Tutorials',
+            Tools: 'Tools',
             Blogs: 'Blogs',
-            About: 'About' 
+            Hobbies: 'Hobbies',
+            'All Posts': 'All Posts',
+            About: 'About'
         },
-        zh: { 
-            Projects: '项目',    
-            Tutorials: '教程',       
-            Hobbies: '爱好',    
+        zh: {
+            Projects: '项目',
+            Tutorials: '教程',
+            Tools: '工具',
             Blogs: '博客',
-            About: '关于' 
+            Hobbies: '爱好',
+            'All Posts': '所有文章',
+            About: '关于'
         },
     };
 
@@ -1226,114 +1249,6 @@ figcaption {
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
-<script>
-    (() => {
-        const BREAKPOINT = 768;
-
-        const LABELS = {
-            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
-            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
-        };
-
-        let sidebar, titleBlock, mainEl, quartoContent;
-        let categoryList, toggleBtn;
-        let expanded = false;
-        let rafId = null;
-
-        const init = () => {
-            sidebar       = document.getElementById('quarto-margin-sidebar');
-            titleBlock    = document.getElementById('title-block-header');
-            mainEl        = document.querySelector('#quarto-content > main.content');
-            quartoContent = document.getElementById('quarto-content');
-            categoryList  = document.querySelector('.quarto-listing-category');
-        };
-
-        const lang = () => {
-            const docLang = (document.documentElement.lang || '').toLowerCase();
-            if (docLang.startsWith('zh')) return 'zh';
-            if (docLang.startsWith('en')) return 'en';
-            return location.pathname.includes('/zh/') ? 'zh' : 'en';
-        };
-
-        const ensureToggle = () => {
-            if (toggleBtn || !categoryList) return;
-            toggleBtn = document.createElement('button');
-            toggleBtn.type = 'button';
-            toggleBtn.className = 'category-show-more';
-            toggleBtn.hidden = true;
-            toggleBtn.addEventListener('click', () => {
-                expanded = !expanded;
-                syncCategories();
-            });
-            categoryList.appendChild(toggleBtn);
-        };
-
-        const syncCategories = () => {
-            if (!categoryList) return;
-            ensureToggle();
-
-            const pills = Array.from(categoryList.querySelectorAll('.category'));
-            // Always start from a fully-visible state so measurement is accurate.
-            pills.forEach((p) => p.classList.remove('is-hidden'));
-
-            // Desktop: show everything, no toggle.
-            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            // Find pills that wrapped past the first row.
-            const firstRowTop = pills[0].offsetTop;
-            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
-
-            if (overflow.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            const L = LABELS[lang()];
-            toggleBtn.hidden = false;
-            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
-            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
-        };
-
-        const relocate = () => {
-            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
-
-            if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar right after the title block, inside main.
-                if (titleBlock.parentNode === mainEl) {
-                    if (sidebar.previousElementSibling !== titleBlock) {
-                        titleBlock.after(sidebar);
-                    }
-                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
-                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
-                }
-            } else {
-                // Restore sidebar as first child of #quarto-content (before main).
-                if (sidebar.parentNode !== quartoContent) {
-                    quartoContent.insertBefore(sidebar, mainEl);
-                }
-            }
-
-            syncCategories();
-        };
-
-        const onResize = () => {
-            if (rafId !== null) return;
-            rafId = requestAnimationFrame(() => {
-                rafId = null;
-                relocate();
-            });
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            init();
-            relocate();
-        });
-        window.addEventListener('resize', onResize);
-    })();
-</script>
 <script id="strip-index-html">
     // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
     // Quarto always links listing cards (and other internal links) to the real output
@@ -1365,6 +1280,50 @@ figcaption {
             }
         });
     })();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 每种内容类型对应的 listing 页面（可按需增减）
+  const SECTION_MAP = {
+    projects:  "projects",
+    tutorials: "tutorials",
+    blogs:     "blogs",
+    tools:     "tools",
+  };
+
+  function getTarget() {
+    const path = window.location.pathname;
+
+    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+    const langMatch = path.match(/^\/(en|zh)\//);
+    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+
+    // 提取当前所在 section
+    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+    const section = sectionMatch ? sectionMatch[1] : null;
+
+    if (!section) return null; // 不在任何已知 section 下，不重写
+
+    return langPrefix + SECTION_MAP[section] + "/";
+  }
+
+  function rewriteTagLinks() {
+    const target = getTarget();
+    if (!target) return;
+
+    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+      const category = link.href.split("#category=")[1];
+      if (category) {
+        link.href = target + "#category=" + category;
+      }
+    });
+  }
+
+  rewriteTagLinks();
+  new MutationObserver(rewriteTagLinks)
+    .observe(document.body, { childList: true, subtree: true });
+});
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1822,358 +1781,359 @@ figcaption {
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2024-04-22</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "恢复意外移到磁盘根目录的 Windows 系统文件夹, 如 `文档`, `视频`, `图片`等。"</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Windows, desktop.ini, Powershell, 电脑技巧, 解决方案]</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png"</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="an">toc-expand:</span><span class="co"> true</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="an">toc-expand-level:</span><span class="co"> 2</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="an">number-depth:</span><span class="co"> 2</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>figcaption {</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>   <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">center</span><span class="op">;</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># categories: [Windows, desktop.ini, Powershell, 电脑技巧, 解决方案]</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Windows, Shell文件夹, 教程]</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="an">toc-expand:</span><span class="co"> true</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="an">toc-expand-level:</span><span class="co"> 2</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="an">number-depth:</span><span class="co"> 2</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>figcaption {</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>   <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu"># 前言</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>这是我在 Notion 写下的第一篇较长的问题解决记录，也是我养成"记录解决过程"这一习惯的起点，既为分享，也留作日后自查。</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>写完之后，我用 Notion 记录的频率明显提高。此外，深究这个问题让我第一次接触到 VSCode，从此初识 IDE，也由此燃起了对编程的兴趣。</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">总结</span><span class="co">](#总结)</span> 部分里提炼了核心结论与最简解决方案；正文中则详细记录了问题的发现与探索过程。</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu"># 前言</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>这是我在 Notion 写下的第一篇较长的问题解决记录，也是我养成"记录解决过程"这一习惯的起点，既为分享，也留作日后自查。</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>写完之后，我用 Notion 记录的频率明显提高。此外，深究这个问题让我第一次接触到 VSCode，从此初识 IDE，也由此燃起了对编程的兴趣。</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">总结</span><span class="co">](#总结)</span> 部分里提炼了核心结论与最简解决方案；正文中则详细记录了问题的发现与探索过程。</span>
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="fu"># 总结 {#总结}</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## 问题</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>Win10 系统文件夹（Shell Folders，如 <span class="in">`桌面`</span>、<span class="in">`文档`</span>、<span class="in">`图片`</span>）被意外移动至磁盘根目录（如 <span class="in">`D:\`</span>、<span class="in">`E:\`</span>），如何恢复？</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## 解决方法</span></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**新建目标文件夹**（如 <span class="in">`E:\Users\UserName\Videos\`</span>）</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**修改注册表**</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>按 <span class="in">`Win + R`</span> 输入 <span class="in">`regedit`</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>导航至 <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>找到数据值为磁盘根目录（如 <span class="in">`E:\`</span>）的条目</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>将其改为新建文件夹的路径（如 <span class="in">`E:\Users\UserName\Videos\`</span>）</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>保存后重启电脑</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**显示系统隐藏文件**</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>打开目标文件夹</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>进入 <span class="in">`文件 &gt; 选项 &gt; 查看`</span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>勾选 <span class="in">`⏺ 显示隐藏的文件、文件夹或驱动器`</span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>取消勾选 <span class="in">`◻ 隐藏受保护的操作系统文件`</span></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**修改 `desktop.ini`**</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>用记事本打开 <span class="in">`desktop.ini`</span></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>填写 <span class="in">`IconResource`</span> 和 <span class="in">`LocalizedResourceName`</span> 项，编号可在 @tbl-shellfolder-resource 查询</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>显示名称若不想引用资源索引，也可直接填写中文显示名 <span class="in">`LocalizedResourceName=&lt;中文显示名&gt;`</span>，再按 <span class="co">[</span><span class="ot">方法1</span><span class="co">](#方法1)</span> 修改编码方式并保存</span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>   <span class="in">```ini</span></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="in">   [.ShellClassInfo]</span></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="in">   LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;显示名称资源编号&gt;</span></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="in">   IconResource=%SystemRoot%\system32\imageres.dll,&lt;图标资源编号&gt;</span></span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="in">   &lt;其他项...&gt;</span></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>   <span class="at">&gt; 注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。</span></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu"># 总结 {#总结}</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## 问题</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>Win10 系统文件夹（Shell Folders，如 <span class="in">`桌面`</span>、<span class="in">`文档`</span>、<span class="in">`图片`</span>）被意外移动至磁盘根目录（如 <span class="in">`D:\`</span>、<span class="in">`E:\`</span>），如何恢复？</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## 解决方法</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**新建目标文件夹**（如 <span class="in">`E:\Users\UserName\Videos\`</span>）</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**修改注册表**</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>按 <span class="in">`Win + R`</span> 输入 <span class="in">`regedit`</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>导航至 <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>找到数据值为磁盘根目录（如 <span class="in">`E:\`</span>）的条目</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>将其改为新建文件夹的路径（如 <span class="in">`E:\Users\UserName\Videos\`</span>）</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>保存后重启电脑</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**显示系统隐藏文件**</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>打开目标文件夹</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>进入 <span class="in">`文件 &gt; 选项 &gt; 查看`</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>勾选 <span class="in">`⏺ 显示隐藏的文件、文件夹或驱动器`</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>取消勾选 <span class="in">`◻ 隐藏受保护的操作系统文件`</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**修改 `desktop.ini`**</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>用记事本打开 <span class="in">`desktop.ini`</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>填写 <span class="in">`IconResource`</span> 和 <span class="in">`LocalizedResourceName`</span> 项，编号可在 @tbl-shellfolder-resource 查询</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>显示名称若不想引用资源索引，也可直接填写中文显示名 <span class="in">`LocalizedResourceName=&lt;中文显示名&gt;`</span>，再按 <span class="co">[</span><span class="ot">方法1</span><span class="co">](#方法1)</span> 修改编码方式并保存</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>   <span class="in">```ini</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="in">   [.ShellClassInfo]</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="in">   LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;显示名称资源编号&gt;</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="in">   IconResource=%SystemRoot%\system32\imageres.dll,&lt;图标资源编号&gt;</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="in">   &lt;其他项...&gt;</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>   <span class="at">&gt; 注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。</span></span>
 <span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="fu"># 问题: 误移系统文件夹</span></span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>某天整理 C 盘，发现 <span class="in">`C:\Users\&lt;用户名&gt;`</span> 下还有一批系统文件夹未迁移至 E 盘，便打算一并处理。</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="al">![系统文件夹](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig1.png)</span>{#fig-sysfolders style="width:8rem;"}</span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="fu"># 问题: 误移系统文件夹</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>某天整理 C 盘，发现 <span class="in">`C:\Users\&lt;用户名&gt;`</span> 下还有一批系统文件夹未迁移至 E 盘，便打算一并处理。</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="al">![系统文件夹](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig1.png)</span>{#fig-sysfolders style="width:8rem;"}</span>
 <span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>我打开 <span class="in">`保存的游戏`</span> 的 <span class="in">`属性 &gt; 位置`</span>，把路径 <span class="in">`C:\Users\Lenovo\Saved Games`</span> 直接改成 <span class="in">`E:\`</span>，再点击 <span class="in">`移动`</span>。</span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="al">![更改文件夹位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig2.png)</span>{#fig-relocate-folder style="width:24rem;"}</span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>我打开 <span class="in">`保存的游戏`</span> 的 <span class="in">`属性 &gt; 位置`</span>，把路径 <span class="in">`C:\Users\Lenovo\Saved Games`</span> 直接改成 <span class="in">`E:\`</span>，再点击 <span class="in">`移动`</span>。</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="al">![更改文件夹位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig2.png)</span>{#fig-relocate-folder style="width:24rem;"}</span>
 <span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>结果 <span class="in">`保存的游戏`</span> 就此消失——我这才意识到，自己把 E 盘根目录本身设成了目标路径。我开始搜索解决方案，但结果与预期不符。</span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="al">![搜寻解决办法](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig3.png)</span>{#fig-search-sol style="width:35rem;"}</span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>结果 <span class="in">`保存的游戏`</span> 就此消失——我这才意识到，自己把 E 盘根目录本身设成了目标路径。我开始搜索解决方案，但结果与预期不符。</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="al">![搜寻解决办法](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig3.png)</span>{#fig-search-sol style="width:35rem;"}</span>
 <span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>于是我改用其他系统文件夹作为关键词：<span class="in">`视频`</span>（名字太常见，结果嘈杂）、<span class="in">`3D 对象`</span>（名字独特，但知名度低）、<span class="in">`桌面`</span>（情况特殊，方案未必通用）等。</span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="al">![搜寻类似系统文件夹](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig4.png)</span>{#fig-search-other-sysfolders style="width:35rem;"} </span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>于是我改用其他系统文件夹作为关键词：<span class="in">`视频`</span>（名字太常见，结果嘈杂）、<span class="in">`3D 对象`</span>（名字独特，但知名度低）、<span class="in">`桌面`</span>（情况特殊，方案未必通用）等。</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="al">![搜寻类似系统文件夹](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig4.png)</span>{#fig-search-other-sysfolders style="width:35rem;"} </span>
 <span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>几经尝试，最终锁定了解决方案：修改注册表。</span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a><span class="al">![解决办法: 修改注册表](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig5.png)</span>{#fig-sol-modify-reg style="width:35rem;"}</span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>几经尝试，最终锁定了解决方案：修改注册表。</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="al">![解决办法: 修改注册表](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig5.png)</span>{#fig-sol-modify-reg style="width:35rem;"}</span>
 <span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="fu"># 解决: 修改注册表</span></span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>按照以下步骤执行：</span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**在 E 盘新建目标文件夹 `E:\Saved Games`，用于存放 `保存的游戏`。**</span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**按 `Win + R` 打开运行窗口，输入 `regedit` 打开注册表编辑器。**</span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="al">![打开注册表](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig6.png)</span>{#fig-open-reg style="width:25rem;"}</span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="fu"># 解决: 修改注册表</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>按照以下步骤执行：</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**在 E 盘新建目标文件夹 `E:\Saved Games`，用于存放 `保存的游戏`。**</span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**按 `Win + R` 打开运行窗口，输入 `regedit` 打开注册表编辑器。**</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a><span class="al">![打开注册表](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig6.png)</span>{#fig-open-reg style="width:25rem;"}</span>
 <span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**定位并修改路径**  </span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>   导航至以下路径：  </span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>   <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span>  </span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>   （注意：是 **User Shell Folders**，不是 Shell Folders）  </span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>   找到数据值为 <span class="in">`E:\`</span> 的条目，将其改为 <span class="in">`E:\Saved Games`</span>。  </span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>   （务必先建好文件夹，再改注册表）</span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a><span class="al">![修改注册表](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png)</span>{#fig-modify-reg style="width:40rem;"}</span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**定位并修改路径**  </span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>   导航至以下路径：  </span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>   <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span>  </span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>   （注意：是 **User Shell Folders**，不是 Shell Folders）  </span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>   找到数据值为 <span class="in">`E:\`</span> 的条目，将其改为 <span class="in">`E:\Saved Games`</span>。  </span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>   （务必先建好文件夹，再改注册表）</span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="al">![修改注册表](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png)</span>{#fig-modify-reg style="width:40rem;"}</span>
 <span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**重启电脑，验证结果**  </span>
-<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a>   重启后按 <span class="in">`Win + R`</span> 输入 <span class="in">`shell:SavedGames`</span>，若能跳转到 <span class="in">`E:\Saved Games`</span>，则恢复成功。</span>
-<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="al">![验证注册表修改成功](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png)</span>{#fig-test-reg style="width:25rem;"}</span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a><span class="al">![成功跳转 Saved Games](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png)</span>{#fig-jump-saved-games style="width:35rem;"}</span>
-<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**重启电脑，验证结果**  </span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a>   重启后按 <span class="in">`Win + R`</span> 输入 <span class="in">`shell:SavedGames`</span>，若能跳转到 <span class="in">`E:\Saved Games`</span>，则恢复成功。</span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="al">![验证注册表修改成功](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png)</span>{#fig-test-reg style="width:25rem;"}</span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a><span class="al">![成功跳转 Saved Games](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png)</span>{#fig-jump-saved-games style="width:35rem;"}</span>
 <span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>**此时功能已恢复，但文件夹仍是默认图标，中文名称 `保存的游戏` 也未显示（见 @fig-sysfolders）。以下步骤用于恢复其外观。**</span>
-<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>**此时功能已恢复，但文件夹仍是默认图标，中文名称 `保存的游戏` 也未显示（见 @fig-sysfolders）。以下步骤用于恢复其外观。**</span>
 <span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a><span class="fu">## 恢复图标</span></span>
-<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>我首先尝试手动更改文件夹图标。</span>
-<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a><span class="al">![直接搜索图标](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig13.png)</span>{#fig-search-fodler-icon style="width:40rem;"}</span>
-<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## 恢复图标</span></span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>我首先尝试手动更改文件夹图标。</span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a><span class="al">![直接搜索图标](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig13.png)</span>{#fig-search-fodler-icon style="width:40rem;"}</span>
 <span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>找到<span class="co">[</span><span class="ot">一篇文章</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span>{target="_blank"}，介绍了 Windows 系统图标的存储位置。</span>
-<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a><span class="al">![文章: Win图标存储位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png)</span>{#fig-win-icon-loc style="width:35rem;"}</span>
-<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>找到<span class="co">[</span><span class="ot">一篇文章</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span>{target="_blank"}，介绍了 Windows 系统图标的存储位置。</span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a><span class="al">![文章: Win图标存储位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png)</span>{#fig-win-icon-loc style="width:35rem;"}</span>
 <span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>通过 <span class="in">`属性 &gt; 自定义 &gt; 更改图标`</span> 发现，当前图标来自 <span class="in">`SHELL32.dll`</span>，但其中并没有 <span class="in">`保存的游戏`</span> 对应的图标，由此推断，系统还有其他存放图标的 DLL 文件。</span>
-<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a>:::{#fig-current-icon-loc layout-ncol=2}</span>
-<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a><span class="al">![属性 &gt; 自定义 &gt; 更改图标](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-1.png)</span>{width="85%"}  </span>
-<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a><span class="al">![当前图标位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png)</span>{width="85%"}</span>
-<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>当前图标文件 - SHELL32.dll</span>
-<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>通过 <span class="in">`属性 &gt; 自定义 &gt; 更改图标`</span> 发现，当前图标来自 <span class="in">`SHELL32.dll`</span>，但其中并没有 <span class="in">`保存的游戏`</span> 对应的图标，由此推断，系统还有其他存放图标的 DLL 文件。</span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>:::{#fig-current-icon-loc layout-ncol=2}</span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a><span class="al">![属性 &gt; 自定义 &gt; 更改图标](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-1.png)</span>{width="85%"}  </span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a><span class="al">![当前图标位置](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png)</span>{width="85%"}</span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>当前图标文件 - SHELL32.dll</span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>参照<span class="co">[</span><span class="ot">文章</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span>列出的多个 DLL 逐一排查后，最终在 <span class="in">`imageres.dll`</span> 中找到了 <span class="in">`保存的游戏`</span> 的图标，以及 <span class="in">`桌面`</span>、<span class="in">`视频`</span> 等图标。</span>
-<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a><span class="al">![其他包含图标的系统文件](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png)</span>{#fig-icon-dll style="width:20rem;"}</span>
-<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a><span class="al">![找到图标 - imageres.dll](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png)</span>{#fig-imageres style="width:25rem;"}</span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>参照<span class="co">[</span><span class="ot">文章</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span>列出的多个 DLL 逐一排查后，最终在 <span class="in">`imageres.dll`</span> 中找到了 <span class="in">`保存的游戏`</span> 的图标，以及 <span class="in">`桌面`</span>、<span class="in">`视频`</span> 等图标。</span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="al">![其他包含图标的系统文件](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png)</span>{#fig-icon-dll style="width:20rem;"}</span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="al">![找到图标 - imageres.dll](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png)</span>{#fig-imageres style="width:25rem;"}</span>
 <span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a>将图标指向正确的资源后，图标恢复正常。但文件夹的显示名称仍未还原为 <span class="in">`保存的游戏`</span>。</span>
-<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a><span class="al">![成功恢复图标](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png)</span>{#fig-icon-recovered style="width:10rem;"}</span>
-<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a>将图标指向正确的资源后，图标恢复正常。但文件夹的显示名称仍未还原为 <span class="in">`保存的游戏`</span>。</span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="al">![成功恢复图标](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png)</span>{#fig-icon-recovered style="width:10rem;"}</span>
 <span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## 恢复文件名</span></span>
-<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>搜索"如何让文件名与显示名不同"，找到了如下方案：</span>
-<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>:::{#fig-search-results layout-nrow=2}</span>
-<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索结果](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-1.png)</span>{width="60%"}</span>
-<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索结果: 具体内容](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-2.png)</span>{width="60%"}</span>
-<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>搜索结果 - 让文件名和显示名不一样</span>
-<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a><span class="fu">## 恢复文件名</span></span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a>搜索"如何让文件名与显示名不同"，找到了如下方案：</span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a>:::{#fig-search-results layout-nrow=2}</span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索结果](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-1.png)</span>{width="60%"}</span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索结果: 具体内容](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig19-2.png)</span>{width="60%"}</span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a>搜索结果 - 让文件名和显示名不一样</span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>**操作步骤：**</span>
-<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**勾选"显示隐藏的项目"**，点击 **选项**。</span>
-<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**点击"查看"** 标签页。</span>
-<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**取消勾选"隐藏受保护的操作系统文件"**，点击 **是**。</span>
-<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="al">![显示隐藏的项目](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig20.png)</span>{#fig-show-hidden style="width:45rem;"}</span>
-<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a>**操作步骤：**</span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**勾选"显示隐藏的项目"**，点击 **选项**。</span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**点击"查看"** 标签页。</span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**取消勾选"隐藏受保护的操作系统文件"**，点击 **是**。</span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a><span class="al">![显示隐藏的项目](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig20.png)</span>{#fig-show-hidden style="width:45rem;"}</span>
 <span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a><span class="al">![取消隐藏受保护的操作系统文件](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig21.png)</span>{#fig-show-hidden-sysfiles style="width:25rem;"}</span>
-<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a><span class="al">![确定显示](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig22.png)</span>{#fig-confirm style="width:35rem;"}</span>
-<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="al">![取消隐藏受保护的操作系统文件](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig21.png)</span>{#fig-show-hidden-sysfiles style="width:25rem;"}</span>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="al">![确定显示](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig22.png)</span>{#fig-confirm style="width:35rem;"}</span>
 <span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>此时 <span class="in">`Saved Games`</span> 文件夹内出现 <span class="in">`desktop.ini`</span> 文件。</span>
-<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a><span class="al">![desktop.ini 文件](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png)</span>{#fig-desktop-ini style="width:35rem;"}</span>
-<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>此时 <span class="in">`Saved Games`</span> 文件夹内出现 <span class="in">`desktop.ini`</span> 文件。</span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a><span class="al">![desktop.ini 文件](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png)</span>{#fig-desktop-ini style="width:35rem;"}</span>
 <span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a>用记事本打开，可见其中 <span class="in">`IconResource`</span> 条目已指向 <span class="in">`imageres.dll`</span>，正是上一步恢复的图标。</span>
-<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a><span class="al">![desktop.ini 文件具体内容](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig24.png)</span>{#fig-desktop-ini-content style="width:22rem;"}</span>
-<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a>用记事本打开，可见其中 <span class="in">`IconResource`</span> 条目已指向 <span class="in">`imageres.dll`</span>，正是上一步恢复的图标。</span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a><span class="al">![desktop.ini 文件具体内容](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig24.png)</span>{#fig-desktop-ini-content style="width:22rem;"}</span>
 <span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a>按照教程，在 <span class="in">`desktop.ini`</span> 文件中新增如下内容（@fig-modify-display-name）：</span>
-<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
-<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=保存的游戏</span></span>
-<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a>但保存后文件名出现乱码（@fig-display-name-encode-error）：英文能正常显示，中文却变成乱码，说明文件编码格式不对。</span>
-<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a><span class="al">![修改文件显示名](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png)</span>{#fig-modify-display-name style="width:22rem;"}</span>
-<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a><span class="al">![显示名变成乱码](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png)</span>{#fig-display-name-encode-error style="width:10rem;"}</span>
-<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a>按照教程，在 <span class="in">`desktop.ini`</span> 文件中新增如下内容（@fig-modify-display-name）：</span>
+<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=保存的游戏</span></span>
+<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a>但保存后文件名出现乱码（@fig-display-name-encode-error）：英文能正常显示，中文却变成乱码，说明文件编码格式不对。</span>
+<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a><span class="al">![修改文件显示名](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png)</span>{#fig-modify-display-name style="width:22rem;"}</span>
+<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a><span class="al">![显示名变成乱码](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png)</span>{#fig-display-name-encode-error style="width:10rem;"}</span>
 <span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a><span class="fu">### 方法1：修改编码方式^[2026年06月16日 新增内容] {#方法1}</span></span>
-<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a>记事本右下角显示当前编码为 <span class="in">`UTF-8`</span>，而经查证，<span class="in">`desktop.ini`</span> 的编码应为 <span class="in">`UTF-16 LE`</span>。</span>
-<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a><span class="al">![记事本默认编码](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png)</span>{#fig-default-encoding style="width:25rem;"}</span>
-<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a>为避免中文乱码，在填好中文名称后，点击 <span class="in">`文件 &gt; 另存为`</span>。</span>
-<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a><span class="al">![另存为](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134348580.png)</span>{#fig-save-as style="width:30rem;"}</span>
-<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a>将 <span class="in">`保存类型`</span> 设为 <span class="in">`所有文件(*.*)`</span>，<span class="in">`编码`</span> 设为 <span class="in">`UTF-16 LE`</span>，保存并替换原文件。</span>
-<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a><span class="al">![修改编码](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134443109.png)</span>{#fig-modify-encoding style="width:35rem;"}</span>
-<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>稍等片刻，文件名称即恢复。</span>
-<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a><span class="al">![`保存的游戏` 复活](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png)</span>{#fig-rebirth-0 style="width:12rem;"}</span>
-<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a><span class="fu">### 方法1：修改编码方式^[2026年06月16日 新增内容] {#方法1}</span></span>
+<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a>记事本右下角显示当前编码为 <span class="in">`UTF-8`</span>，而经查证，<span class="in">`desktop.ini`</span> 的编码应为 <span class="in">`UTF-16 LE`</span>。</span>
+<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a><span class="al">![记事本默认编码](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png)</span>{#fig-default-encoding style="width:25rem;"}</span>
+<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a>为避免中文乱码，在填好中文名称后，点击 <span class="in">`文件 &gt; 另存为`</span>。</span>
+<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a><span class="al">![另存为](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134348580.png)</span>{#fig-save-as style="width:30rem;"}</span>
+<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>将 <span class="in">`保存类型`</span> 设为 <span class="in">`所有文件(*.*)`</span>，<span class="in">`编码`</span> 设为 <span class="in">`UTF-16 LE`</span>，保存并替换原文件。</span>
+<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a><span class="al">![修改编码](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617134443109.png)</span>{#fig-modify-encoding style="width:35rem;"}</span>
+<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>稍等片刻，文件名称即恢复。</span>
+<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a><span class="al">![`保存的游戏` 复活](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png)</span>{#fig-rebirth-0 style="width:12rem;"}</span>
 <span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a><span class="fu">### 方法2：填写资源索引</span></span>
-<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>除了修改编码，还可以引用资源索引。</span>
-<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>查看未受影响的 <span class="in">`视频`</span> 文件夹的 <span class="in">`desktop.ini`</span>，发现其显示名称并非直接写入中文字符串，而是引用 <span class="in">`shell32.dll`</span> 中的资源索引（格式为 <span class="in">`@%SystemRoot%\system32\shell32.dll,-XXXXX`</span>）。</span>
-<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a><span class="al">!["视频"显示名信息来源](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png)</span>{#fig-name-info-source style="width:22rem;"}</span>
-<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a><span class="fu">### 方法2：填写资源索引</span></span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>除了修改编码，还可以引用资源索引。</span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>查看未受影响的 <span class="in">`视频`</span> 文件夹的 <span class="in">`desktop.ini`</span>，发现其显示名称并非直接写入中文字符串，而是引用 <span class="in">`shell32.dll`</span> 中的资源索引（格式为 <span class="in">`@%SystemRoot%\system32\shell32.dll,-XXXXX`</span>）。</span>
+<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a><span class="al">!["视频"显示名信息来源](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png)</span>{#fig-name-info-source style="width:22rem;"}</span>
 <span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a>于是我着手搜索 <span class="in">`shell32.dll`</span> 中的名称资源编号。</span>
-<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索 `shell.32` 名称资源](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig28.png)</span>{#fig-search-name-resource style="width:25rem;"}</span>
-<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a>于是我着手搜索 <span class="in">`shell32.dll`</span> 中的名称资源编号。</span>
+<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索 `shell.32` 名称资源](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig28.png)</span>{#fig-search-name-resource style="width:25rem;"}</span>
 <span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a>但搜索结果只涉及图标资源，没有名称编号。</span>
-<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索结果: 对图标资源的讨论](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig29.png)</span>{#fig-search-result-icon-resource style="width:35rem;"}</span>
-<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a>但搜索结果只涉及图标资源，没有名称编号。</span>
+<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a><span class="al">![搜索结果: 对图标资源的讨论](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig29.png)</span>{#fig-search-result-icon-resource style="width:35rem;"}</span>
 <span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a>转而向 AI 求助：</span>
-<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a><span class="al">![求助AI](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212707012.png)</span>{#fig-ask-ai style="width:35rem;"}</span>
-<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a>但 ChatGPT 给出的编号是虚构的。</span>
-<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a><span class="al">![虚构答案](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212844148.png)</span>{#fig-fake-answer style="width:35rem;"}</span>
-<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 注：-21810 对应的是"链接"，并非"保存的游戏"。</span></span>
-<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a>我又追问如何查看 <span class="in">`shell32.dll`</span> 的内容，ChatGPT 推荐使用 Visual Studio。</span>
-<span id="cb6-278"><a href="#cb6-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-279"><a href="#cb6-279" aria-hidden="true" tabindex="-1"></a><span class="al">![询问如何查看 `shell32.dll` 内容](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615213053253.png)</span>{#fig-ask-visual-studio style="width:35rem;"}</span>
-<span id="cb6-280"><a href="#cb6-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-281"><a href="#cb6-281" aria-hidden="true" tabindex="-1"></a>编程零基础的我，手滑下载成了 Visual Studio **Code**。正是这一误打误撞，让我首次接触到 IDE。后来课上老师发现我用 VSCode 而非 Jupyter 写作业，追问缘由，我便掏出了这篇文章 <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-wink"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>。</span>
-<span id="cb6-282"><a href="#cb6-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-283"><a href="#cb6-283" aria-hidden="true" tabindex="-1"></a><span class="al">![VSCode 和 Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png)</span>{#fig-vscode-and-visual-studio style="width:15rem;"}</span>
-<span id="cb6-284"><a href="#cb6-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-285"><a href="#cb6-285" aria-hidden="true" tabindex="-1"></a>按 ChatGPT 指示，在 Visual Studio 中新建解决方案，加载 <span class="in">`C:\Windows\System32\shell32.dll`</span> 查看资源目录。</span>
-<span id="cb6-286"><a href="#cb6-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-287"><a href="#cb6-287" aria-hidden="true" tabindex="-1"></a><span class="al">![AI 指示](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215723081.png)</span>{#fig-ai-suggest style="width:40rem;"}</span>
-<span id="cb6-288"><a href="#cb6-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-289"><a href="#cb6-289" aria-hidden="true" tabindex="-1"></a><span class="al">![Visual Studio 界面](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png)</span>{#fig-vs-interface style="width:45rem;"}</span>
-<span id="cb6-290"><a href="#cb6-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a>转而向 AI 求助：</span>
+<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a><span class="al">![求助AI](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212707012.png)</span>{#fig-ask-ai style="width:35rem;"}</span>
+<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a>但 ChatGPT 给出的编号是虚构的。</span>
+<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a><span class="al">![虚构答案](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615212844148.png)</span>{#fig-fake-answer style="width:35rem;"}</span>
+<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 注：-21810 对应的是"链接"，并非"保存的游戏"。</span></span>
+<span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-278"><a href="#cb6-278" aria-hidden="true" tabindex="-1"></a>我又追问如何查看 <span class="in">`shell32.dll`</span> 的内容，ChatGPT 推荐使用 Visual Studio。</span>
+<span id="cb6-279"><a href="#cb6-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-280"><a href="#cb6-280" aria-hidden="true" tabindex="-1"></a><span class="al">![询问如何查看 `shell32.dll` 内容](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615213053253.png)</span>{#fig-ask-visual-studio style="width:35rem;"}</span>
+<span id="cb6-281"><a href="#cb6-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-282"><a href="#cb6-282" aria-hidden="true" tabindex="-1"></a>编程零基础的我，手滑下载成了 Visual Studio **Code**。正是这一误打误撞，让我首次接触到 IDE。后来课上老师发现我用 VSCode 而非 Jupyter 写作业，追问缘由，我便掏出了这篇文章 <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-wink"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>。</span>
+<span id="cb6-283"><a href="#cb6-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-284"><a href="#cb6-284" aria-hidden="true" tabindex="-1"></a><span class="al">![VSCode 和 Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png)</span>{#fig-vscode-and-visual-studio style="width:15rem;"}</span>
+<span id="cb6-285"><a href="#cb6-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-286"><a href="#cb6-286" aria-hidden="true" tabindex="-1"></a>按 ChatGPT 指示，在 Visual Studio 中新建解决方案，加载 <span class="in">`C:\Windows\System32\shell32.dll`</span> 查看资源目录。</span>
+<span id="cb6-287"><a href="#cb6-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-288"><a href="#cb6-288" aria-hidden="true" tabindex="-1"></a><span class="al">![AI 指示](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215723081.png)</span>{#fig-ai-suggest style="width:40rem;"}</span>
+<span id="cb6-289"><a href="#cb6-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-290"><a href="#cb6-290" aria-hidden="true" tabindex="-1"></a><span class="al">![Visual Studio 界面](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png)</span>{#fig-vs-interface style="width:45rem;"}</span>
 <span id="cb6-291"><a href="#cb6-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-292"><a href="#cb6-292" aria-hidden="true" tabindex="-1"></a>然而 Visual Studio 只能显示资源目录结构，无法直接确认条目编号；加之 <span class="in">`shell32.dll`</span> 内容庞大，逐条查找并不现实。</span>
-<span id="cb6-293"><a href="#cb6-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-294"><a href="#cb6-294" aria-hidden="true" tabindex="-1"></a>最后我只好直接对照另一台未修改过的电脑上的 <span class="in">`desktop.ini`</span>。正确编号原来是 <span class="in">`-21814`</span>，与之前试过的 <span class="in">`-21810`</span> 仅差 4，再多试几次或许就碰对了。</span>
-<span id="cb6-295"><a href="#cb6-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-296"><a href="#cb6-296" aria-hidden="true" tabindex="-1"></a>在 <span class="in">`保存的游戏`</span> 文件夹的 <span class="in">`desktop.ini`</span> 文件中新增如下内容：</span>
-<span id="cb6-297"><a href="#cb6-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-298"><a href="#cb6-298" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
-<span id="cb6-299"><a href="#cb6-299" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21814</span></span>
-<span id="cb6-300"><a href="#cb6-300" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-301"><a href="#cb6-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-302"><a href="#cb6-302" aria-hidden="true" tabindex="-1"></a><span class="al">![对照别人电脑更改后](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png)</span>{#fig-after-change style="width:25rem;"}</span>
-<span id="cb6-303"><a href="#cb6-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-304"><a href="#cb6-304" aria-hidden="true" tabindex="-1"></a>除 <span class="in">`保存的游戏`</span> 外，其他系统文件夹的显示名称资源编号可在 @tbl-shellfolder-resource 中查询。</span>
-<span id="cb6-305"><a href="#cb6-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-292"><a href="#cb6-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-293"><a href="#cb6-293" aria-hidden="true" tabindex="-1"></a>然而 Visual Studio 只能显示资源目录结构，无法直接确认条目编号；加之 <span class="in">`shell32.dll`</span> 内容庞大，逐条查找并不现实。</span>
+<span id="cb6-294"><a href="#cb6-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-295"><a href="#cb6-295" aria-hidden="true" tabindex="-1"></a>最后我只好直接对照另一台未修改过的电脑上的 <span class="in">`desktop.ini`</span>。正确编号原来是 <span class="in">`-21814`</span>，与之前试过的 <span class="in">`-21810`</span> 仅差 4，再多试几次或许就碰对了。</span>
+<span id="cb6-296"><a href="#cb6-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-297"><a href="#cb6-297" aria-hidden="true" tabindex="-1"></a>在 <span class="in">`保存的游戏`</span> 文件夹的 <span class="in">`desktop.ini`</span> 文件中新增如下内容：</span>
+<span id="cb6-298"><a href="#cb6-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-299"><a href="#cb6-299" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb6-300"><a href="#cb6-300" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21814</span></span>
+<span id="cb6-301"><a href="#cb6-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-302"><a href="#cb6-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-303"><a href="#cb6-303" aria-hidden="true" tabindex="-1"></a><span class="al">![对照别人电脑更改后](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615220143319.png)</span>{#fig-after-change style="width:25rem;"}</span>
+<span id="cb6-304"><a href="#cb6-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-305"><a href="#cb6-305" aria-hidden="true" tabindex="-1"></a>除 <span class="in">`保存的游戏`</span> 外，其他系统文件夹的显示名称资源编号可在 @tbl-shellfolder-resource 中查询。</span>
 <span id="cb6-306"><a href="#cb6-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-307"><a href="#cb6-307" aria-hidden="true" tabindex="-1"></a>**"保存的游戏" —— 堂堂复活！**</span>
-<span id="cb6-308"><a href="#cb6-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-309"><a href="#cb6-309" aria-hidden="true" tabindex="-1"></a><span class="al">![`保存的游戏` 复活](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png)</span>{#fig-rebirth style="width:12rem;"}</span>
-<span id="cb6-310"><a href="#cb6-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-307"><a href="#cb6-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-308"><a href="#cb6-308" aria-hidden="true" tabindex="-1"></a>**"保存的游戏" —— 堂堂复活！**</span>
+<span id="cb6-309"><a href="#cb6-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-310"><a href="#cb6-310" aria-hidden="true" tabindex="-1"></a><span class="al">![`保存的游戏` 复活](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615235720052.png)</span>{#fig-rebirth style="width:12rem;"}</span>
 <span id="cb6-311"><a href="#cb6-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-312"><a href="#cb6-312" aria-hidden="true" tabindex="-1"></a>至此，图标与显示名称均已恢复默认。</span>
-<span id="cb6-313"><a href="#cb6-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-314"><a href="#cb6-314" aria-hidden="true" tabindex="-1"></a><span class="al">![默认图标恢复](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png)</span>{#fig-default-icon style="width:25rem;"}</span>
-<span id="cb6-315"><a href="#cb6-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-316"><a href="#cb6-316" aria-hidden="true" tabindex="-1"></a>**教训：迁移系统文件夹时，只修改路径中的盘符，不要将根目录直接设为目标路径。**</span>
-<span id="cb6-317"><a href="#cb6-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-318"><a href="#cb6-318" aria-hidden="true" tabindex="-1"></a><span class="al">![移动系统文件：只修改盘符](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png)</span>{#fig-move-system-folder style="width:25rem;"}</span>
-<span id="cb6-319"><a href="#cb6-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-312"><a href="#cb6-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-313"><a href="#cb6-313" aria-hidden="true" tabindex="-1"></a>至此，图标与显示名称均已恢复默认。</span>
+<span id="cb6-314"><a href="#cb6-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-315"><a href="#cb6-315" aria-hidden="true" tabindex="-1"></a><span class="al">![默认图标恢复](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000059488.png)</span>{#fig-default-icon style="width:25rem;"}</span>
+<span id="cb6-316"><a href="#cb6-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-317"><a href="#cb6-317" aria-hidden="true" tabindex="-1"></a>**教训：迁移系统文件夹时，只修改路径中的盘符，不要将根目录直接设为目标路径。**</span>
+<span id="cb6-318"><a href="#cb6-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-319"><a href="#cb6-319" aria-hidden="true" tabindex="-1"></a><span class="al">![移动系统文件：只修改盘符](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260616000208909.png)</span>{#fig-move-system-folder style="width:25rem;"}</span>
 <span id="cb6-320"><a href="#cb6-320" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-321"><a href="#cb6-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-322"><a href="#cb6-322" aria-hidden="true" tabindex="-1"></a><span class="fu"># 附录：系统文件夹对应资源 {.unnumbered}</span></span>
-<span id="cb6-323"><a href="#cb6-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-324"><a href="#cb6-324" aria-hidden="true" tabindex="-1"></a>将下表 (@tbl-shellfolder-resource) 中的名称资源编号和图片资源编号填入以下代码中：</span>
-<span id="cb6-325"><a href="#cb6-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-326"><a href="#cb6-326" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
-<span id="cb6-327"><a href="#cb6-327" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;显示名称资源编号&gt;</span></span>
-<span id="cb6-328"><a href="#cb6-328" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,&lt;图标资源编号&gt;</span></span>
-<span id="cb6-329"><a href="#cb6-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-330"><a href="#cb6-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-331"><a href="#cb6-331" aria-hidden="true" tabindex="-1"></a>以 <span class="in">`图片`</span> 文件夹为例：</span>
-<span id="cb6-332"><a href="#cb6-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-333"><a href="#cb6-333" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
-<span id="cb6-334"><a href="#cb6-334" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21779</span></span>
-<span id="cb6-335"><a href="#cb6-335" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,-113</span></span>
-<span id="cb6-336"><a href="#cb6-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-337"><a href="#cb6-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-338"><a href="#cb6-338" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 注：</span><span class="in">`联系人`</span><span class="at"> 和 </span><span class="in">`3D对象`</span><span class="at"> 的显示名称资源并来自其他 DLL 文件 (见 </span><span class="co">[</span><span class="ot">脚注</span><span class="co">](#脚注)</span><span class="at">)。</span></span>
-<span id="cb6-339"><a href="#cb6-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-340"><a href="#cb6-340" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文件夹 <span class="pp">|</span> 显示名称资源编号^<span class="co">[</span><span class="ot">除特殊标记外，其余名称资源均来自: `@%SystemRoot%\system32\shell32.dll,&lt;编号&gt;`</span><span class="co">]</span> <span class="pp">|</span> 图标资源编号^<span class="co">[</span><span class="ot">图标资源均来自 `%SystemRoot%\system32\imageres.dll,&lt;编号&gt;`</span><span class="co">]</span> <span class="pp">|</span></span>
-<span id="cb6-341"><a href="#cb6-341" aria-hidden="true" tabindex="-1"></a><span class="pp">| :----:</span> <span class="pp">| :------:</span> <span class="pp">| :------:</span> <span class="pp">|</span></span>
-<span id="cb6-342"><a href="#cb6-342" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 桌面 <span class="pp">|</span> -21769 <span class="pp">|</span> -183 <span class="pp">|</span></span>
-<span id="cb6-343"><a href="#cb6-343" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文档 <span class="pp">|</span> -21770 <span class="pp">|</span> -112 <span class="pp">|</span></span>
-<span id="cb6-344"><a href="#cb6-344" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 图片 <span class="pp">|</span> -21779 <span class="pp">|</span> -113 <span class="pp">|</span></span>
-<span id="cb6-345"><a href="#cb6-345" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 音乐 <span class="pp">|</span> -21790 <span class="pp">|</span> -108 <span class="pp">|</span></span>
-<span id="cb6-346"><a href="#cb6-346" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 视频 <span class="pp">|</span> -21791 <span class="pp">|</span> -189 <span class="pp">|</span></span>
-<span id="cb6-347"><a href="#cb6-347" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 下载 <span class="pp">|</span> -21798 <span class="pp">|</span> -184 <span class="pp">|</span></span>
-<span id="cb6-348"><a href="#cb6-348" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 搜索 <span class="pp">|</span> -9031 <span class="pp">|</span> -18 <span class="pp">|</span></span>
-<span id="cb6-349"><a href="#cb6-349" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 链接 <span class="pp">|</span> -21810 <span class="pp">|</span> -185 <span class="pp">|</span></span>
-<span id="cb6-350"><a href="#cb6-350" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 收藏夹 <span class="pp">|</span> -21796 <span class="pp">|</span> -115 <span class="pp">|</span></span>
-<span id="cb6-351"><a href="#cb6-351" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 保存的游戏 <span class="pp">|</span> -21814 <span class="pp">|</span> -177 <span class="pp">|</span></span>
-<span id="cb6-352"><a href="#cb6-352" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 联系人 <span class="pp">|</span> wab32res.dll,-10100^<span class="co">[</span><span class="ot">`联系人` 的名称资源来自: `@%CommonProgramFiles%\system\wab32res.dll,-10100`</span><span class="co">]</span> <span class="pp">|</span> -181 <span class="pp">|</span></span>
-<span id="cb6-353"><a href="#cb6-353" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3D对象 <span class="pp">|</span> windows.storage.dll,-21825^<span class="co">[</span><span class="ot">`3D对象` 的名称资源来自: `@%SystemRoot%\system32\windows.storage.dll,-21825`</span><span class="co">]</span> <span class="pp">|</span> -198 <span class="pp">|</span></span>
-<span id="cb6-354"><a href="#cb6-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-355"><a href="#cb6-355" aria-hidden="true" tabindex="-1"></a>: 系统文件夹对应资源编号表 {#tbl-shellfolder-resource tbl-colwidths=<span class="co">[</span><span class="ot">25,40,35</span><span class="co">]</span>}</span>
-<span id="cb6-356"><a href="#cb6-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-357"><a href="#cb6-357" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; 查看更多 desktop.ini 原始内容</span><span class="co">](https://superuser.com/a/1172777)</span>{target="_blank"}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb6-322"><a href="#cb6-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-323"><a href="#cb6-323" aria-hidden="true" tabindex="-1"></a><span class="fu"># 附录：系统文件夹对应资源 {.unnumbered}</span></span>
+<span id="cb6-324"><a href="#cb6-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-325"><a href="#cb6-325" aria-hidden="true" tabindex="-1"></a>将下表 (@tbl-shellfolder-resource) 中的名称资源编号和图片资源编号填入以下代码中：</span>
+<span id="cb6-326"><a href="#cb6-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-327"><a href="#cb6-327" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb6-328"><a href="#cb6-328" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;显示名称资源编号&gt;</span></span>
+<span id="cb6-329"><a href="#cb6-329" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,&lt;图标资源编号&gt;</span></span>
+<span id="cb6-330"><a href="#cb6-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-331"><a href="#cb6-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-332"><a href="#cb6-332" aria-hidden="true" tabindex="-1"></a>以 <span class="in">`图片`</span> 文件夹为例：</span>
+<span id="cb6-333"><a href="#cb6-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-334"><a href="#cb6-334" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb6-335"><a href="#cb6-335" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21779</span></span>
+<span id="cb6-336"><a href="#cb6-336" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,-113</span></span>
+<span id="cb6-337"><a href="#cb6-337" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-338"><a href="#cb6-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-339"><a href="#cb6-339" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 注：</span><span class="in">`联系人`</span><span class="at"> 和 </span><span class="in">`3D对象`</span><span class="at"> 的显示名称资源并来自其他 DLL 文件 (见 </span><span class="co">[</span><span class="ot">脚注</span><span class="co">](#脚注)</span><span class="at">)。</span></span>
+<span id="cb6-340"><a href="#cb6-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-341"><a href="#cb6-341" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文件夹 <span class="pp">|</span> 显示名称资源编号^<span class="co">[</span><span class="ot">除特殊标记外，其余名称资源均来自: `@%SystemRoot%\system32\shell32.dll,&lt;编号&gt;`</span><span class="co">]</span> <span class="pp">|</span> 图标资源编号^<span class="co">[</span><span class="ot">图标资源均来自 `%SystemRoot%\system32\imageres.dll,&lt;编号&gt;`</span><span class="co">]</span> <span class="pp">|</span></span>
+<span id="cb6-342"><a href="#cb6-342" aria-hidden="true" tabindex="-1"></a><span class="pp">| :----:</span> <span class="pp">| :------:</span> <span class="pp">| :------:</span> <span class="pp">|</span></span>
+<span id="cb6-343"><a href="#cb6-343" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 桌面 <span class="pp">|</span> -21769 <span class="pp">|</span> -183 <span class="pp">|</span></span>
+<span id="cb6-344"><a href="#cb6-344" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文档 <span class="pp">|</span> -21770 <span class="pp">|</span> -112 <span class="pp">|</span></span>
+<span id="cb6-345"><a href="#cb6-345" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 图片 <span class="pp">|</span> -21779 <span class="pp">|</span> -113 <span class="pp">|</span></span>
+<span id="cb6-346"><a href="#cb6-346" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 音乐 <span class="pp">|</span> -21790 <span class="pp">|</span> -108 <span class="pp">|</span></span>
+<span id="cb6-347"><a href="#cb6-347" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 视频 <span class="pp">|</span> -21791 <span class="pp">|</span> -189 <span class="pp">|</span></span>
+<span id="cb6-348"><a href="#cb6-348" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 下载 <span class="pp">|</span> -21798 <span class="pp">|</span> -184 <span class="pp">|</span></span>
+<span id="cb6-349"><a href="#cb6-349" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 搜索 <span class="pp">|</span> -9031 <span class="pp">|</span> -18 <span class="pp">|</span></span>
+<span id="cb6-350"><a href="#cb6-350" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 链接 <span class="pp">|</span> -21810 <span class="pp">|</span> -185 <span class="pp">|</span></span>
+<span id="cb6-351"><a href="#cb6-351" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 收藏夹 <span class="pp">|</span> -21796 <span class="pp">|</span> -115 <span class="pp">|</span></span>
+<span id="cb6-352"><a href="#cb6-352" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 保存的游戏 <span class="pp">|</span> -21814 <span class="pp">|</span> -177 <span class="pp">|</span></span>
+<span id="cb6-353"><a href="#cb6-353" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 联系人 <span class="pp">|</span> wab32res.dll,-10100^<span class="co">[</span><span class="ot">`联系人` 的名称资源来自: `@%CommonProgramFiles%\system\wab32res.dll,-10100`</span><span class="co">]</span> <span class="pp">|</span> -181 <span class="pp">|</span></span>
+<span id="cb6-354"><a href="#cb6-354" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3D对象 <span class="pp">|</span> windows.storage.dll,-21825^<span class="co">[</span><span class="ot">`3D对象` 的名称资源来自: `@%SystemRoot%\system32\windows.storage.dll,-21825`</span><span class="co">]</span> <span class="pp">|</span> -198 <span class="pp">|</span></span>
+<span id="cb6-355"><a href="#cb6-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-356"><a href="#cb6-356" aria-hidden="true" tabindex="-1"></a>: 系统文件夹对应资源编号表 {#tbl-shellfolder-resource tbl-colwidths=<span class="co">[</span><span class="ot">25,40,35</span><span class="co">]</span>}</span>
+<span id="cb6-357"><a href="#cb6-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-358"><a href="#cb6-358" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; 查看更多 desktop.ini 原始内容</span><span class="co">](https://superuser.com/a/1172777)</span>{target="_blank"}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
@@ -2183,7 +2143,7 @@ figcaption {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/blogs/recover-shellfolder/index.md" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

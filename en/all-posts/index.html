@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.36">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>数据可视化教程 – Pinn (Aiqi) Xu</title>
+<title>All Posts – Pinn (Aiqi) Xu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -99,36 +99,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "没有结果",
-    "search-matching-documents-text": "匹配的文档",
-    "search-copy-link-title": "复制搜索链接",
-    "search-hide-matches-text": "隐藏其它匹配结果",
-    "search-more-match-text": "更多匹配结果",
-    "search-more-matches-text": "更多匹配结果",
-    "search-clear-button-title": "清除",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "取消",
-    "search-submit-button-title": "提交",
-    "search-label": "搜索"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-tutorials-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-all-listing .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-image','listing-title','listing-description','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
+      valueNames: ['listing-image','listing-title','listing-categories','listing-description','listing-author','listing-date','listing-post-type',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      page: 6,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-tutorials-listing'] = new List('listing-tutorials-listing', options);
+    window['quarto-listings']['listing-all-listing'] = new List('listing-all-listing', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -142,6 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   })
   </script>
 <style>html{ scroll-behavior: smooth; }</style>
+<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -178,10 +180,10 @@ window.Quarto = {
 <link rel="stylesheet" href="../../src/styles/projects.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -193,8 +195,8 @@ window.Quarto = {
     <span class="navbar-title">Pinn (Aiqi) Xu</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="搜索"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -243,15 +245,13 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">分类</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">全部 <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Q1NTJUU5JUEyJTlDJUU4JTg5JUIy">CSS颜色 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YUZyYW1l">DataFrame <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZHBseXI=">dplyr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGFuZGFz">Pandas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGxvdGx5">Plotly <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2VhYm9ybg==">Seaborn <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c3RyaW5ncg==">stringr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU0JUJCJUEzJUU3JUEwJTgxJUU3JTg5JTg3JUU2JUFFJUI1">代码片段 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">可视化 <span class="quarto-category-count">(3)</span></div><div class="category" data-category="JUU1JUE0JTlBJUU1JThGJTk4JUU5JTg3JThG">多变量 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JTg4JTg2JUU1JUI4JTgz">数据分布 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">数据可视化 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JUE0JTg0JUU3JTkwJTg2">数据处理 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkw">文本分析 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJF">桑基图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JUFEJUEzJUU1JTg4JTk5JUU4JUExJUE4JUU4JUJFJUJFJUU1JUJDJThG">正则表达式 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTgzJUFEJUU1JTlCJUJF">热图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTlCJUI0JUU2JTk2JUI5JUU1JTlCJUJF">直方图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JUJEJTkxJUU3JUJCJTlDJUU1JTlCJUJF">网络图 <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">数据可视化教程</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
-<p class="subtitle lead">数据分析、可视化教程与技巧。</p>
+<div class="quarto-title-block"><div><h1 class="title">All Posts</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -274,144 +274,573 @@ window.Quarto = {
 <!-- -->
 
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-tutorials-listing">
+<div class="quarto-listing quarto-listing-container-grid" id="listing-all-listing">
 <div class="listing-actions-group">
    <div class="input-group input-group-sm quarto-listing-sort">
     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-    <select id="listing-tutorials-listing-sort" class="form-select" aria-label="排序方式" onchange="window['quarto-listings']['listing-tutorials-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-      <option value="" disabled="" selected="" hidden="">排序方式</option>
-      <option value="index" data-direction="asc">默认</option>
+    <select id="listing-all-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-all-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+      <option value="" disabled="" selected="" hidden="">Order By</option>
+      <option value="index" data-direction="asc">Default</option>
       <option value="listing-title" data-direction="asc">
-        标题
+        Title
       </option>
       <option value="listing-date-sort" data-direction="asc">
-        日期 - 日期升序
+        Date - Oldest
       </option>
       <option value="listing-date-sort" data-direction="desc">
-        日期 - 日期降序
+        Date - Newest
       </option>
     </select>
   </div>
     <div class="input-group input-group-sm quarto-listing-filter">
       <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="筛选">
+      <input type="text" class="search form-control" placeholder="Filter">
     </div>
 </div>
 <div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="UHl0aG9uJTJDJUU2JTk1JUIwJUU2JThEJUFFJUU1JUE0JTg0JUU3JTkwJTg2JTJDUGFuZGFzJTJDRGF0YUZyYW1l" data-listing-date-sort="1728532800000" data-listing-file-modified-sort="1781159046966" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="708">
-<a href="../../zh/tutorials/data-processing/index.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="0" data-categories="UiUyQ0FJJTJDTkxQJTJDVGV4dCUyMEFuYWx5c2lzJTJDU29jaWFsJTIwTWVkaWE=" data-listing-date-sort="1777608000000" data-listing-file-modified-sort="1782245438320" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="52" data-listing-word-count-sort="10330">
+<a href="../../en/projects/ai-discourse/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="data-processing/index_files/figure-html/cell-14-output-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img loading='lazy' src="../projects/ai-discourse/index_files/figure-html/fig-lexicon-coverage-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-数据清理
+Evolution of Online AI Discourse
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('QUk='); return false;">AI</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TkxQ'); return false;">NLP</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('VGV4dCUyMEFuYWx5c2lz'); return false;">Text Analysis</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U29jaWFsJTIwTWVkaWE='); return false;">Social Media</div>
+
+</div>
 <div class="card-text listing-description delink">
-<p>Pandas 数据处理与清洗流程：缺失值、重复值、数据重塑、表连接、分组聚合、透视表等。</p>
+<p>A Longitudinal Analysis of Public Sentiment and Thematic Trends in AI-Related Tweets</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Pinn Xu
 </div>
 <div class="listing-date">
-2024年10月10日
+May 1, 2026
 </div>
 </div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+project
+</td>
+</tr>
+
+</tbody></table>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNiU5NSVCMCVFNiU4RCVBRSVFNSU4OCU4NiVFNSVCOCU4MyUyQyVFNyU5QiVCNCVFNiU5NiVCOSVFNSU5QiVCRQ==" data-listing-date-sort="1727755200000" data-listing-file-modified-sort="1781159043003" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1335">
-<a href="../../zh/tutorials/amounts-and-distribution/index.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDUGFuZGFzJTJDRGF0YUZyYW1l" data-listing-date-sort="1728532800000" data-listing-file-modified-sort="1782245991127" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1471">
+<a href="../../en/tutorials/data-processing/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="amounts-and-distribution/index_files/figure-html/cell-13-output-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img loading='lazy' src="../tutorials/data-processing/index_files/figure-html/cell-14-output-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-数量与分布可视化
+Data Processing
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGFuZGFz'); return false;">Pandas</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RGF0YUZyYW1l'); return false;">DataFrame</div>
+
+</div>
 <div class="card-text listing-description delink">
-<p>使用 Seaborn 绘制数量与分布可视化图表：柱状图、点线图、直方图、箱线图等。</p>
+<p>Data processing/cleaning workflows in Pandas: missing values, duplicates, reshaping, joins…</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Pinn Xu
 </div>
 <div class="listing-date">
-2024年10月1日
+Oct 10, 2024
 </div>
 </div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+tutorial
+</td>
+</tr>
+
+</tbody></table>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNSVBNCU5QSVFNSU4RiU5OCVFOSU4NyU4RiUyQyVFNyU4MyVBRCVFNSU5QiVCRQ==" data-listing-date-sort="1730001600000" data-listing-file-modified-sort="1781159048676" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1523">
-<a href="../../zh/tutorials/multivariate-plots/index.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="2" data-categories="UiUyQ1NvY2lhbCUyME1lZGlhJTJDTWVudGFsJTIwSGVhbHRo" data-listing-date-sort="1771822800000" data-listing-file-modified-sort="1782246131341" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="58" data-listing-word-count-sort="11472">
+<a href="../../en/projects/student-media-usage/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../src/img/proj/stu-media/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Student Social Media Usage and Well-being Analysis
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U29jaWFsJTIwTWVkaWE='); return false;">Social Media</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWVudGFsJTIwSGVhbHRo'); return false;">Mental Health</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Analysis of social media habits and addiction patterns among students, with behavioral and…</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+Feb 23, 2026
+</div>
+</div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+project
+</td>
+</tr>
+
+</tbody></table>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQ0Rpc3RyaWJ1dGlvbg==" data-listing-date-sort="1727755200000" data-listing-file-modified-sort="1782246241167" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2683">
+<a href="../../en/tutorials/amounts-and-distribution/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="../tutorials/amounts-and-distribution/index_files/figure-html/cell-13-output-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Amounts and Distribution
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2VhYm9ybg=='); return false;">Seaborn</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RGlzdHJpYnV0aW9u'); return false;">Distribution</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Use Seaborn to create visualizations for amounts &amp; distributions: barplots, point plots…</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+Oct 1, 2024
+</div>
+</div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+tutorial
+</td>
+</tr>
+
+</tbody></table>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="4" data-categories="UHl0aG9uJTJDTkxQJTJDU29jaWFsJTIwTWVkaWE=" data-listing-date-sort="1730433600000" data-listing-file-modified-sort="1782246116925" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1842">
+<a href="../../en/projects/catalan-referendum/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../src/img/proj/catalan/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Twitter Sentiment Analysis of Catalan Referendum
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TkxQ'); return false;">NLP</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U29jaWFsJTIwTWVkaWE='); return false;">Social Media</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Sentiment mining on tweets surrounding the 2017 Catalan independence referendum using NLP…</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+Nov 1, 2024
+</div>
+</div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+project
+</td>
+</tr>
+
+</tbody></table>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="5" data-categories="UHl0aG9uJTJDRmFjZXRHcmlkJTJDSGVhdG1hcA==" data-listing-date-sort="1730001600000" data-listing-file-modified-sort="1782245979242" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4267">
+<a href="../../en/tutorials/multivariate-plots/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
 <img loading="lazy" src="../../src/img/ttl/multi/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-多变量图表
+Multivariate Plots
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('RmFjZXRHcmlk'); return false;">FacetGrid</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SGVhdG1hcA=='); return false;">Heatmap</div>
+
+</div>
 <div class="card-text listing-description delink">
-<p>使用 Seaborn 绘制多变量可视化图表：散点图、折线图、热力图、双变量图、分面网格图等。</p>
+<p>Use Seaborn to create multivariate visualizations: scatter plots, line pots, heatmaps, joint…</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Pinn Xu
 </div>
 <div class="listing-date">
-2024年10月27日
+Oct 27, 2024
 </div>
 </div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+tutorial
+</td>
+</tr>
+
+</tbody></table>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDUGxvdGx5JTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2JTJDJUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJFJTJDJUU3JUJEJTkxJUU3JUJCJTlDJUU1JTlCJUJF" data-listing-date-sort="1733374800000" data-listing-file-modified-sort="1781159050376" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1470">
-<a href="../../zh/tutorials/sankey-and-network/index.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="6" data-categories="UHl0aG9uJTJDU2Fua2V5JTIwRGlhZ3JhbSUyQ0Nob3JvcGxldGglMjBNYXA=" data-listing-date-sort="1733979600000" data-listing-file-modified-sort="1782246114279" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4327">
+<a href="../../en/projects/global-visa-cost/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="../../src/img/ttl/sankey/fig1-worker-month-expense.gif" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img loading='lazy' data-src="../../src/img/proj/visa/fig2-sankey-sorted.png" alt="Sankey diagram of average tourist visa costs from each area (sorted)" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-桑基图与网络图
+Global Visa Cost Geographical Analysis
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2Fua2V5JTIwRGlhZ3JhbQ=='); return false;">Sankey Diagram</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q2hvcm9wbGV0aCUyME1hcA=='); return false;">Choropleth Map</div>
+
+</div>
 <div class="card-text listing-description delink">
-<p>使用 Plotly、Pyvis 与 NetworkX 绘制桑基图与网络图。</p>
+<p>A comparative study of visa costs across countries, exploring affordability and geographic…</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Pinn Xu
 </div>
 <div class="listing-date">
-2024年12月5日
+Dec 12, 2024
 </div>
 </div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+project
+</td>
+</tr>
+
+</tbody></table>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="4" data-categories="UiUyQ2RwbHlyJTJDc3RyaW5nciUyQyVFNiVBRCVBMyVFNSU4OCU5OSVFOCVBMSVBOCVFOCVCRSVCRSVFNSVCQyU4RiUyQ0NTUyVFOSVBMiU5QyVFOCU4OSVCMiUyQyVFNiU5NiU4NyVFNiU5QyVBQyVFNSU4OCU4NiVFNiU5RSU5MCUyQyVFNiU5NSVCMCVFNiU4RCVBRSVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNCVCQiVBMyVFNyVBMCU4MSVFNyU4OSU4NyVFNiVBRSVCNQ==" data-listing-date-sort="1774584000000" data-listing-file-modified-sort="1781159045125" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2008">
-<a href="../../zh/tutorials/r-tips/index.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="7" data-categories="UHl0aG9uJTJDUGxvdGx5JTJDU2Fua2V5JTIwRGlhZ3JhbSUyQ05ldHdvcmslMjBEaWFncmFt" data-listing-date-sort="1733374800000" data-listing-file-modified-sort="1782245772110" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2557">
+<a href="../../en/tutorials/sankey-and-network/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="../../src/img/ttl/r-tips/rstudio-snippet-1.png" alt="编辑代码片段" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img loading='lazy' data-src="../../src/img/ttl/sankey/fig2-electricity-usage.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-R 语言技巧
+Sankey Diagrams and Network Graphs
 </h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UGxvdGx5'); return false;">Plotly</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2Fua2V5JTIwRGlhZ3JhbQ=='); return false;">Sankey Diagram</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TmV0d29yayUyMERpYWdyYW0='); return false;">Network Diagram</div>
+
+</div>
 <div class="card-text listing-description delink">
-<p>常用 R 技巧与代码片段：dplyr 数据处理、stringr 文本操作、CSS 颜色名称、代码速查表等。</p>
+<p>Use Plotly, Pyvis &amp; NetworkX to create sankey &amp; network diagrams.</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Pinn Xu
 </div>
 <div class="listing-date">
-2026年3月27日
+Dec 5, 2024
 </div>
 </div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+tutorial
+</td>
+</tr>
+
+</tbody></table>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="8" data-categories="UiUyQ1RpZHlSJTJDQ1NTJTIwQ29sb3IlMkNTbmlwcGV0cw==" data-listing-date-sort="1774584000000" data-listing-file-modified-sort="1782246026643" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2588">
+<a href="../../en/tutorials/r-tips/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' data-src="../../src/img/ttl/r-tips/rstudio-snippet-1.png" alt="Edit code snippets" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+R Tips
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('VGlkeVI='); return false;">TidyR</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q1NTJTIwQ29sb3I='); return false;">CSS Color</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U25pcHBldHM='); return false;">Snippets</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Common R tips &amp; code snippets: dplyr data manipulation, stringr text operations, CSS color names…</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+Mar 27, 2026
+</div>
+</div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+tutorial
+</td>
+</tr>
+
+</tbody></table>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="9" data-categories="UiUyQ011c2ljJTJDU3RhdGlzdGljcw==" data-listing-date-sort="1771995600000" data-listing-file-modified-sort="1782246115910" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2491">
+<a href="../../en/projects/most-streamed-songs/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" data-src="../../src/img/proj/songs/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Spotify Most Streamed Songs
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TXVzaWM='); return false;">Music</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U3RhdGlzdGljcw=='); return false;">Statistics</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Exploratory analysis of the most-streamed tracks on Spotify in 2023, uncovering trends in music…</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+Feb 25, 2026
+</div>
+</div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+project
+</td>
+</tr>
+
+</tbody></table>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="10" data-categories="UXVhcnRvJTJDQ1NTJTJDV2ViJTIwRGV2JTJDS25vd2hvdw==" data-listing-date-sort="1781496000000" data-listing-file-modified-sort="1782246523389" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="496">
+<a href="../../en/blogs/quarto-img-styles/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" data-src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png" class="thumbnail-image card-img" style="height: 12rem;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Quarto Image Centering Styles
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('UXVhcnRv'); return false;">Quarto</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q1NT'); return false;">CSS</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('V2ViJTIwRGV2'); return false;">Web Dev</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('S25vd2hvdw=='); return false;">Knowhow</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Exploring image centering styles in a Quarto Website and fixing hover preview issues.</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+Jun 15, 2026
+</div>
+</div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+blog
+</td>
+</tr>
+
+</tbody></table>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="11" data-categories="V2luZG93cyUyQ1NoZWxsJTIwRm9sZGVycyUyQ0tub3dob3c=" data-listing-date-sort="1713758400000" data-listing-file-modified-sort="1782246548938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1632">
+<a href="../../en/blogs/recover-shellfolder/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" data-src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615210515071.png" class="thumbnail-image card-img" style="height: 12rem;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Recovering Misplaced Windows Shell Folders
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('V2luZG93cw=='); return false;">Windows</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2hlbGwlMjBGb2xkZXJz'); return false;">Shell Folders</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('S25vd2hvdw=='); return false;">Knowhow</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Recovering Windows shell folders such as Documents, Videos, and Pictures after they were…</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Pinn Xu
+</div>
+<div class="listing-date">
+Apr 22, 2024
+</div>
+</div>
+<table class="card-other-values">
+
+<tbody><tr>
+<td>
+post-type
+</td>
+<td class="post-type">
+blog
+</td>
+</tr>
+
+</tbody></table>
 </div>
 </div></a>
 </div>
 </div>
-<div class="listing-no-matching d-none">无匹配项</div>
+<div class="listing-no-matching d-none">No matching items</div>
+<nav id="all-listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
 </div></main> <!-- /main -->
 <script id="fix-code-fold">
     const bindToggle = (id, open) => {
@@ -641,112 +1070,68 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script>
     (() => {
-        const BREAKPOINT = 768;
+        const LISTING_ID = 'listing-all-listing';
 
         const LABELS = {
-            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
-            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
-        };
-
-        let sidebar, titleBlock, mainEl, quartoContent;
-        let categoryList, toggleBtn;
-        let expanded = false;
-        let rafId = null;
-
-        const init = () => {
-            sidebar       = document.getElementById('quarto-margin-sidebar');
-            titleBlock    = document.getElementById('title-block-header');
-            mainEl        = document.querySelector('#quarto-content > main.content');
-            quartoContent = document.getElementById('quarto-content');
-            categoryList  = document.querySelector('.quarto-listing-category');
+            en: { all: 'All', project: 'Projects', tutorial: 'Tutorials', blog: 'Blogs' },
+            zh: { all: '全部', project: '项目', tutorial: '教程', blog: '博客' },
         };
 
         const lang = () => {
-            const docLang = (document.documentElement.lang || '').toLowerCase();
-            if (docLang.startsWith('zh')) return 'zh';
-            if (docLang.startsWith('en')) return 'en';
+            const l = (document.documentElement.lang || '').toLowerCase();
+            if (l.startsWith('zh')) return 'zh';
             return location.pathname.includes('/zh/') ? 'zh' : 'en';
         };
 
-        const ensureToggle = () => {
-            if (toggleBtn || !categoryList) return;
-            toggleBtn = document.createElement('button');
-            toggleBtn.type = 'button';
-            toggleBtn.className = 'category-show-more';
-            toggleBtn.hidden = true;
-            toggleBtn.addEventListener('click', () => {
-                expanded = !expanded;
-                syncCategories();
-            });
-            categoryList.appendChild(toggleBtn);
+        const filterByType = (type) => {
+            const list = window['quarto-listings']?.[LISTING_ID];
+            if (!list) return;
+            if (type === 'all') {
+                list.filter(); // reset — Quarto's own pattern (quarto-listing.js:237)
+            } else {
+                list.filter((item) => {
+                    const el = item.elm;
+                    if (!el) return false;
+                    const typeEl = el.querySelector('.post-type');
+                    return typeEl && typeEl.textContent.trim() === type;
+                });
+            }
         };
 
-        const syncCategories = () => {
-            if (!categoryList) return;
-            ensureToggle();
-
-            const pills = Array.from(categoryList.querySelectorAll('.category'));
-            // Always start from a fully-visible state so measurement is accurate.
-            pills.forEach((p) => p.classList.remove('is-hidden'));
-
-            // Desktop: show everything, no toggle.
-            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            // Find pills that wrapped past the first row.
-            const firstRowTop = pills[0].offsetTop;
-            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
-
-            if (overflow.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
+        const inject = () => {
+            const titleBlock = document.getElementById('title-block-header');
+            const mainEl = document.querySelector('#quarto-content > main.content');
+            if (!mainEl) return;
 
             const L = LABELS[lang()];
-            toggleBtn.hidden = false;
-            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
-            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
-        };
+            const bar = document.createElement('div');
+            bar.id = 'post-type-filter';
+            bar.setAttribute('role', 'group');
+            bar.setAttribute('aria-label', 'Filter by type');
 
-        const relocate = () => {
-            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
-
-            if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar right after the title block, inside main.
-                if (titleBlock.parentNode === mainEl) {
-                    if (sidebar.previousElementSibling !== titleBlock) {
-                        titleBlock.after(sidebar);
-                    }
-                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
-                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
-                }
-            } else {
-                // Restore sidebar as first child of #quarto-content (before main).
-                if (sidebar.parentNode !== quartoContent) {
-                    quartoContent.insertBefore(sidebar, mainEl);
-                }
+            for (const type of ['all', 'project', 'tutorial', 'blog']) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'type-btn' + (type === 'all' ? ' active' : '');
+                btn.dataset.type = type;
+                btn.textContent = L[type];
+                btn.addEventListener('click', () => {
+                    bar.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filterByType(type);
+                });
+                bar.appendChild(btn);
             }
 
-            syncCategories();
+            // Mirror responsive-tag-bar.html: insert right after title block
+            if (titleBlock && titleBlock.parentNode === mainEl) {
+                titleBlock.after(bar);
+            } else {
+                mainEl.insertBefore(bar, mainEl.firstElementChild);
+            }
         };
 
-        const onResize = () => {
-            if (rafId !== null) return;
-            rafId = requestAnimationFrame(() => {
-                rafId = null;
-                relocate();
-            });
-        };
-
-        // Run synchronously — script is include-after-body so the DOM is already
-        // parsed. This fires before the first paint, preventing the flash where
-        // the sidebar briefly appears in its default (right-side) position.
-        init();
-        relocate();
-
-        window.addEventListener('resize', onResize);
+        document.addEventListener('DOMContentLoaded', inject);
     })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -774,12 +1159,12 @@ document.addEventListener("DOMContentLoaded", function () {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "已复制");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "已复制");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -1199,36 +1584,44 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> '数据可视化教程'</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> '数据分析、可视化教程与技巧。'</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">include-after-body:</span><span class="co"> '../../src/scripts/responsive-tag-bar.html'</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> false</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">back-to-top-navigation:</span><span class="co"> false</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">reading-meta-enabled:</span><span class="co"> false</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  id: tutorials-listing</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.*md"</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  max-description-length: 100</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, description, author, date]</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "12rem"</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Tutorial.png'</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: </span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">    - "order asc"</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">    - "date desc"</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">    - "title asc"</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: [title, date]</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 6</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "All Posts"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">include-after-body:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  # - '../../src/scripts/responsive-tag-bar.html'</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  - '../../src/scripts/post-type-filter.html'</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> false</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">back-to-top-navigation:</span><span class="co"> false</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="an">reading-meta-enabled:</span><span class="co"> false</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="an">draft:</span><span class="co"> true</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="an">draft-mode:</span><span class="co"> visible</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  id: all-listing</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  contents:</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">    - ../projects/*/index.*md</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">    - ../tutorials/*/index.*md</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">    - ../blogs/*/index.*md</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  # categories: true</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  max-description-length: 100</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, description, author, date, post-type]</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "12rem"</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">  # image-placeholder: ""</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: </span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">    - "order asc"</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">    - "date desc"</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">    - "title asc"</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: [title, date]</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 6</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># feed: true</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
@@ -1238,7 +1631,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/tutorials/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/en/all-posts/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/all-posts/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

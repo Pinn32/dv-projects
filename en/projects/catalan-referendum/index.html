@@ -206,6 +206,10 @@ window.Quarto = {
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../../en/tools/index.html"> 
+<span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../../en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
@@ -362,6 +366,23 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/tools/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tools</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">URL Shortener</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/about/index.html" class="sidebar-item-text sidebar-link">
@@ -401,7 +422,7 @@ window.Quarto = {
   <li><a href="#appendix-data-types" id="toc-appendix-data-types" class="nav-link" data-scroll-target="#appendix-data-types">Appendix II: Validating Values Before Modifying Data Types</a></li>
   <li><a href="#appendix-legend" id="toc-appendix-legend" class="nav-link" data-scroll-target="#appendix-legend">Appendix III: Modifying Seaborn Histogram Legend</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/en/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -413,7 +434,6 @@ window.Quarto = {
     <div class="quarto-category">Python</div>
     <div class="quarto-category">NLP</div>
     <div class="quarto-category">Social Media</div>
-    <div class="quarto-category">Visualization</div>
   </div>
   </div>
 
@@ -452,8 +472,8 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     8 min read</span><span> · </span><span>1456 EN words</span><span> · </span><span>0 中文字</span></div>
-<div id="772d7fd8" class="cell" data-execution_count="1">
+     8 min read</span><span> · </span><span>1464 EN words</span><span> · </span><span>0 中文字</span></div>
+<div id="12e7a07a" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Environment &amp; Versions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -465,7 +485,7 @@ window.Quarto = {
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>This project uses a data set consisting of tweets about the Catalan referendum in Spain on Twitter, with attributes including basic information and emotional word counts of each tweet detected by different lexicons <span class="citation" data-cites="jimenezZafra2021">(<a href="#ref-jimenezZafra2021" role="doc-biblioref"><span class="nocase">Jiménez-Zafra et al.</span>, 2021</a>)</span> (see <a href="#appendix-attributes">Appendix I</a> for further description of attributes). A bar plot addresses performance differences between lexicons in detecting sentiment among tweets. In addition, the distribution of the author’s popularity among all tweets is illustrated by a histogram, distinguished by sentiments.</p>
-<div id="b0f4fea7" class="cell" data-execution_count="2">
+<div id="5e5fb063" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
@@ -638,7 +658,7 @@ window.Quarto = {
 </section>
 <section id="data-processing" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Data Processing</h1>
-<div id="6e1e6bf8" class="cell" data-execution_count="3">
+<div id="432d7f2b" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Drop missing values (see Appendix II)</span></span>
@@ -661,7 +681,7 @@ window.Quarto = {
 </div>
 <section id="setting-count-attributes" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="setting-count-attributes"><span class="header-section-number">2.1</span> Setting Count Attributes</h2>
-<div id="128e4200" class="cell" data-execution_count="4">
+<div id="74696121" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect attribute datatypes</span></span>
@@ -707,7 +727,7 @@ Figure&nbsp;1: Datatypes and Attributes
 </figcaption>
 </figure>
 </div>
-<div id="22a3bc7b" class="cell" data-results="hold" data-execution_count="5">
+<div id="de0e008c" class="cell" data-results="hold" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Check dtypes of 3 object-type count attributes</span></span>
@@ -746,7 +766,7 @@ True True True</code></pre>
 </section>
 <section id="setting-boolean-attributes" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="setting-boolean-attributes"><span class="header-section-number">2.2</span> Setting Boolean Attributes</h2>
-<div id="3e44a301" class="cell" data-results="hold" data-execution_count="6">
+<div id="86106d57" class="cell" data-results="hold" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm bool columns only contain 'True'/'False' strings</span></span>
@@ -768,7 +788,7 @@ True True True</code></pre>
 <h1 data-number="3"><span class="header-section-number">3</span> Data Visualisation</h1>
 <section id="sentiment-distribution" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="sentiment-distribution"><span class="header-section-number">3.1</span> Sentiment Distribution</h2>
-<div id="818cac20" class="cell" data-execution_count="7">
+<div id="aa21a532" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Melt sentiment word count columns to long format for visualisation</span></span>
@@ -1211,19 +1231,23 @@ Figure&nbsp;7: First Attempt
     };
 
     const NAV_TRANSLATIONS = {
-        en: { 
-            Projects: 'Projects', 
-            Tutorials: 'Tutorials', 
-            Hobbies: 'Hobbies', 
+        en: {
+            Projects: 'Projects',
+            Tutorials: 'Tutorials',
+            Tools: 'Tools',
             Blogs: 'Blogs',
-            About: 'About' 
+            Hobbies: 'Hobbies',
+            'All Posts': 'All Posts',
+            About: 'About'
         },
-        zh: { 
-            Projects: '项目',    
-            Tutorials: '教程',       
-            Hobbies: '爱好',    
+        zh: {
+            Projects: '项目',
+            Tutorials: '教程',
+            Tools: '工具',
             Blogs: '博客',
-            About: '关于' 
+            Hobbies: '爱好',
+            'All Posts': '所有文章',
+            About: '关于'
         },
     };
 
@@ -1327,114 +1351,6 @@ Figure&nbsp;7: First Attempt
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
-<script>
-    (() => {
-        const BREAKPOINT = 768;
-
-        const LABELS = {
-            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
-            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
-        };
-
-        let sidebar, titleBlock, mainEl, quartoContent;
-        let categoryList, toggleBtn;
-        let expanded = false;
-        let rafId = null;
-
-        const init = () => {
-            sidebar       = document.getElementById('quarto-margin-sidebar');
-            titleBlock    = document.getElementById('title-block-header');
-            mainEl        = document.querySelector('#quarto-content > main.content');
-            quartoContent = document.getElementById('quarto-content');
-            categoryList  = document.querySelector('.quarto-listing-category');
-        };
-
-        const lang = () => {
-            const docLang = (document.documentElement.lang || '').toLowerCase();
-            if (docLang.startsWith('zh')) return 'zh';
-            if (docLang.startsWith('en')) return 'en';
-            return location.pathname.includes('/zh/') ? 'zh' : 'en';
-        };
-
-        const ensureToggle = () => {
-            if (toggleBtn || !categoryList) return;
-            toggleBtn = document.createElement('button');
-            toggleBtn.type = 'button';
-            toggleBtn.className = 'category-show-more';
-            toggleBtn.hidden = true;
-            toggleBtn.addEventListener('click', () => {
-                expanded = !expanded;
-                syncCategories();
-            });
-            categoryList.appendChild(toggleBtn);
-        };
-
-        const syncCategories = () => {
-            if (!categoryList) return;
-            ensureToggle();
-
-            const pills = Array.from(categoryList.querySelectorAll('.category'));
-            // Always start from a fully-visible state so measurement is accurate.
-            pills.forEach((p) => p.classList.remove('is-hidden'));
-
-            // Desktop: show everything, no toggle.
-            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            // Find pills that wrapped past the first row.
-            const firstRowTop = pills[0].offsetTop;
-            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
-
-            if (overflow.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            const L = LABELS[lang()];
-            toggleBtn.hidden = false;
-            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
-            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
-        };
-
-        const relocate = () => {
-            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
-
-            if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar right after the title block, inside main.
-                if (titleBlock.parentNode === mainEl) {
-                    if (sidebar.previousElementSibling !== titleBlock) {
-                        titleBlock.after(sidebar);
-                    }
-                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
-                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
-                }
-            } else {
-                // Restore sidebar as first child of #quarto-content (before main).
-                if (sidebar.parentNode !== quartoContent) {
-                    quartoContent.insertBefore(sidebar, mainEl);
-                }
-            }
-
-            syncCategories();
-        };
-
-        const onResize = () => {
-            if (rafId !== null) return;
-            rafId = requestAnimationFrame(() => {
-                rafId = null;
-                relocate();
-            });
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            init();
-            relocate();
-        });
-        window.addEventListener('resize', onResize);
-    })();
-</script>
 <script id="strip-index-html">
     // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
     // Quarto always links listing cards (and other internal links) to the real output
@@ -1466,6 +1382,50 @@ Figure&nbsp;7: First Attempt
             }
         });
     })();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 每种内容类型对应的 listing 页面（可按需增减）
+  const SECTION_MAP = {
+    projects:  "projects",
+    tutorials: "tutorials",
+    blogs:     "blogs",
+    tools:     "tools",
+  };
+
+  function getTarget() {
+    const path = window.location.pathname;
+
+    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+    const langMatch = path.match(/^\/(en|zh)\//);
+    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+
+    // 提取当前所在 section
+    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+    const section = sectionMatch ? sectionMatch[1] : null;
+
+    if (!section) return null; // 不在任何已知 section 下，不重写
+
+    return langPrefix + SECTION_MAP[section] + "/";
+  }
+
+  function rewriteTagLinks() {
+    const target = getTarget();
+    if (!target) return;
+
+    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+      const category = link.href.split("#category=")[1];
+      if (category) {
+        link.href = target + "#category=" + category;
+      }
+    });
+  }
+
+  rewriteTagLinks();
+  new MutationObserver(rewriteTagLinks)
+    .observe(document.body, { childList: true, subtree: true });
+});
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1922,326 +1882,327 @@ Figure&nbsp;7: First Attempt
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> 'Twitter Sentiment Analysis of Catalan Referendum'</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> '2024-11-01'</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Python, NLP, Social Media, Visualization]</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> 'Sentiment mining on tweets surrounding the 2017 Catalan independence referendum using NLP techniques.'</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references.bib</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="an">csl:</span><span class="co"> ../../../src/apa.csl</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> ../../../src/img/proj/catalan/cover.png</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="an">order:</span><span class="co"> 3</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># code-tools: true</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># jupyter: dv-env  # use jupyter to render</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># format: html     # use knitr to render</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># df-print: kable  # df-print: only works with Rmd &amp; knitr renderer</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># aliases: [ "catalan-referendum" ]</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: 'Environment &amp; Versions'</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>pandas<span class="op">==</span><span class="fl">2.2.2</span></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>matplotlib<span class="op">==</span><span class="fl">3.9</span>.x</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>seaborn<span class="op">==</span><span class="fl">0.13.2</span></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>This project uses a data set consisting of tweets about the Catalan referendum in Spain on Twitter, with attributes including basic information and emotional word counts of each tweet detected by different lexicons <span class="co">[</span><span class="ot">@jimenezZafra2021</span><span class="co">]</span> (see <span class="co">[</span><span class="ot">Appendix I</span><span class="co">](#appendix-attributes)</span> for further description of attributes). A bar plot addresses performance differences between lexicons in detecting sentiment among tweets. In addition, the distribution of the author’s popularity among all tweets is illustrated by a histogram, distinguished by sentiments.</span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd   <span class="co"># data manipulation</span></span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt   <span class="co"># plotting</span></span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns   <span class="co"># plotting</span></span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Load CSV</span></span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(</span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">'../../../src/data/Catalan_Referendum_Twitter_corpus.csv'</span>,</span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    encoding <span class="op">=</span> <span class="st">'latin'</span>,  <span class="co"># non-utf-8 encoding</span></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>    delimiter <span class="op">=</span> <span class="st">';'</span>,</span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview data</span></span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>df.head()</span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data Processing</span></span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="co">## Drop missing values (see Appendix II)</span></span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna()</span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a><span class="co">## Sample 1000 rows and reset index</span></span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sample(<span class="dv">1000</span>, random_state <span class="op">=</span> <span class="dv">32</span>).reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a><span class="co">## Rename columns for readability</span></span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) unify favorite/favourites spelling</span></span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) clarify statuses_count_user</span></span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(</span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>    columns <span class="op">=</span> {</span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>        <span class="st">'favorite_count'</span>:<span class="st">'like_count'</span>,</span>
-<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>        <span class="st">'favourites_count_user'</span>:<span class="st">'likes_count_user'</span>,</span>
-<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>        <span class="st">'statuses_count_user'</span>:<span class="st">'tweets_count_user'</span>,</span>
-<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## Setting Count Attributes</span></span>
-<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect attribute datatypes</span></span>
-<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>df.info()</span>
-<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a><span class="al">![Datatypes and Attributes](../../../src/img/proj/catalan/fig1-datatypes-attributes.png)</span>{#fig-datatypes-attributes fig-alt="Datatypes and Attributes"}</span>
-<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: 'hold'</span></span>
-<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a><span class="co">## Check dtypes of 3 object-type count attributes</span></span>
-<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">'retweet_count'</span>, <span class="st">'num_urls'</span>, <span class="st">'positive_words_mlSenticon'</span>]].dtypes)</span>
-<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">""</span>)</span>
-<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a><span class="co">## Confirm all values are numeric strings (safe to cast with .astype())</span></span>
-<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'retweet_count'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">all</span>(),</span>
-<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'num_urls'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">all</span>(),</span>
-<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'positive_words_mlSenticon'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">all</span>()</span>
-<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a><span class="co">## Cast all count attributes to int</span></span>
-<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a><span class="co"># object -&gt; int</span></span>
-<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a>df[[</span>
-<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a>    <span class="st">'retweet_count'</span>, <span class="st">'num_urls'</span>, <span class="st">'positive_words_mlSenticon'</span>,</span>
-<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a>]] <span class="op">=</span> df[[</span>
-<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a>    <span class="st">'retweet_count'</span>, <span class="st">'num_urls'</span>, <span class="st">'positive_words_mlSenticon'</span>,</span>
-<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>]].astype(<span class="bu">int</span>)</span>
-<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a><span class="co"># float -&gt; int</span></span>
-<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a>float_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">'float'</span>).columns  <span class="co"># all float columns</span></span>
-<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a>df[float_cols] <span class="op">=</span> df[float_cols].astype(<span class="bu">int</span>)</span>
-<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## Setting Boolean Attributes</span></span>
-<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: 'hold'</span></span>
-<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm bool columns only contain 'True'/'False' strings</span></span>
-<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'is_quote_status'</span>].unique())</span>
-<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'verified_user'</span>].unique())</span>
-<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a><span class="co"># Cast string bool columns to bool</span></span>
-<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'is_quote_status'</span>]<span class="op">=</span>df[<span class="st">'is_quote_status'</span>].<span class="bu">map</span>({<span class="st">'True'</span>:<span class="va">True</span>, <span class="st">'False'</span>:<span class="va">False</span>})</span>
-<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'verified_user'</span>]<span class="op">=</span>df[<span class="st">'verified_user'</span>].<span class="bu">map</span>({<span class="st">'True'</span>:<span class="va">True</span>, <span class="st">'False'</span>:<span class="va">False</span>})</span>
-<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data Visualisation</span></span>
-<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sentiment Distribution</span></span>
-<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a><span class="co">## Melt sentiment word count columns to long format for visualisation</span></span>
-<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a><span class="co"># value_vars: all sentiment count columns (positive/negative for each lexicon)</span></span>
-<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a><span class="co"># var_name: stores original column name (encodes sentiment and source)</span></span>
-<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a><span class="co"># value_name: stores the corresponding count</span></span>
-<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a>df_melted <span class="op">=</span> df.melt(</span>
-<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a>    value_vars <span class="op">=</span> [</span>
-<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a>        <span class="st">'positive_words_iSOL'</span>,<span class="st">'negative_words_iSOL'</span>,</span>
-<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a>        <span class="st">'positive_words_NRC'</span>,<span class="st">'negative_words_NRC'</span>,</span>
-<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a>        <span class="st">'positive_words_mlSenticon'</span>,<span class="st">'negative_words_mlSenticon'</span>,</span>
-<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a>    var_name <span class="op">=</span> <span class="st">'sentiment_and_source'</span>,</span>
-<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a>    value_name <span class="op">=</span> <span class="st">'count'</span>,</span>
-<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a>df_melted.head()  <span class="co"># initial melt result, before further processing</span></span>
-<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-sentiment-bar</span></span>
-<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 'Online Sentiment towards the Catalan Referendum'</span></span>
-<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a><span class="co">## Add sentiment column (positive/negative)</span></span>
-<span id="cb13-162"><a href="#cb13-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-163"><a href="#cb13-163" aria-hidden="true" tabindex="-1"></a><span class="co"># each returns a boolean Series checking </span></span>
-<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a><span class="co"># if sentiment_and_source contains the keyword</span></span>
-<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a>is_positive <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'positive'</span>)</span>
-<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a>is_negative <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'negative'</span>)</span>
-<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a><span class="co"># assign 'positive'/'negative' to the new sentiment column by index</span></span>
-<span id="cb13-169"><a href="#cb13-169" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_positive].index,<span class="st">'sentiment'</span>] <span class="op">=</span> <span class="st">'positive'</span></span>
-<span id="cb13-170"><a href="#cb13-170" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_negative].index,<span class="st">'sentiment'</span>] <span class="op">=</span> <span class="st">'negative'</span></span>
-<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a><span class="co">## Add source column (lexicon name)</span></span>
-<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a>is_iSOL <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'iSOL'</span>)</span>
-<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a>is_NRC <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'NRC'</span>)</span>
-<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a>is_mlSenticon <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'mlSenticon'</span>)</span>
-<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_iSOL].index,<span class="st">'source'</span>] <span class="op">=</span> <span class="st">'iSOL'</span></span>
-<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_NRC].index,<span class="st">'source'</span>] <span class="op">=</span> <span class="st">'NRC'</span></span>
-<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_mlSenticon].index,<span class="st">'source'</span>] <span class="op">=</span> <span class="st">'mlSenticon'</span></span>
-<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-180"><a href="#cb13-180" aria-hidden="true" tabindex="-1"></a><span class="co">## Drop the now-redundant sentiment_and_source column</span></span>
-<span id="cb13-181"><a href="#cb13-181" aria-hidden="true" tabindex="-1"></a>df_melted <span class="op">=</span> df_melted.drop(columns <span class="op">=</span> <span class="st">'sentiment_and_source'</span>)</span>
-<span id="cb13-182"><a href="#cb13-182" aria-hidden="true" tabindex="-1"></a>df_melted.head()  <span class="co"># sentiment and source are now separate columns</span></span>
-<span id="cb13-183"><a href="#cb13-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a><span class="co">##############################################################################</span></span>
-<span id="cb13-185"><a href="#cb13-185" aria-hidden="true" tabindex="-1"></a><span class="co">## Set seaborn theme and plot bar chart</span></span>
-<span id="cb13-186"><a href="#cb13-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a>sns.set_theme(font <span class="op">=</span> <span class="st">'Arial'</span>, font_scale <span class="op">=</span> <span class="fl">1.2</span>, style <span class="op">=</span> <span class="st">'whitegrid'</span>)</span>
-<span id="cb13-188"><a href="#cb13-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-189"><a href="#cb13-189" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
-<span id="cb13-190"><a href="#cb13-190" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> df_melted, x <span class="op">=</span> <span class="st">'source'</span>, y <span class="op">=</span> <span class="st">'count'</span>, hue <span class="op">=</span> <span class="st">'sentiment'</span>, </span>
-<span id="cb13-191"><a href="#cb13-191" aria-hidden="true" tabindex="-1"></a>    <span class="co"># palette: salmon (warm) for positive, royalblue (cool) for negative</span></span>
-<span id="cb13-192"><a href="#cb13-192" aria-hidden="true" tabindex="-1"></a>    palette <span class="op">=</span> [<span class="st">'salmon'</span>, <span class="st">'royalblue'</span>], errorbar <span class="op">=</span> <span class="va">None</span>,</span>
-<span id="cb13-193"><a href="#cb13-193" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-194"><a href="#cb13-194" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Online Sentiment towards the Catalan Referendum'</span>)</span>
-<span id="cb13-195"><a href="#cb13-195" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="fl">0.7</span>)  <span class="co"># set y-axis range</span></span>
-<span id="cb13-196"><a href="#cb13-196" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Emotion Analysis Lexicon'</span>)</span>
-<span id="cb13-197"><a href="#cb13-197" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Average Emotional Word Count'</span>)</span>
-<span id="cb13-198"><a href="#cb13-198" aria-hidden="true" tabindex="-1"></a>plt.legend(title <span class="op">=</span> <span class="st">'Sentiment'</span>)</span>
-<span id="cb13-199"><a href="#cb13-199" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb13-200"><a href="#cb13-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-201"><a href="#cb13-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-202"><a href="#cb13-202" aria-hidden="true" tabindex="-1"></a>@fig-sentiment-bar presents the average counts of emotional words detected from the selected tweets about the Catalan referendum, divided by three emotion analysis lexicons: iSOL, NRC, and mlSenticon. Positive and negative sentiments are distinguished by different colours, where a warm red colour ‘salmon’ is assigned to positive ones and a cool blue colour ‘royalblue’ to negative ones, which are two predefined colours in Matplotlib <span class="co">[</span><span class="ot">@matplotlibColors</span><span class="co">]</span>. They are moderate in saturation and intensity, avoiding eye strain of audiences <span class="co">[</span><span class="ot">@wilke2019, chap. 19.1</span><span class="co">]</span>. Additionally, the colour assignment is intuitive because their temperature tendency typically corresponds to their allocated sentiments <span class="co">[</span><span class="ot">@hanada2018</span><span class="co">]</span>, enhancing the ‘data-ink ratio’ of this plot <span class="co">[</span><span class="ot">@wilke2019, chap. 23</span><span class="co">]</span>.</span>
-<span id="cb13-203"><a href="#cb13-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-204"><a href="#cb13-204" aria-hidden="true" tabindex="-1"></a>Overall, the number of negative words consistently exceeds that of positive ones, reflecting the relatively negative online public attitude towards the Catalan referendum.</span>
-<span id="cb13-205"><a href="#cb13-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-206"><a href="#cb13-206" aria-hidden="true" tabindex="-1"></a>Regarding the performance of each lexicon, NRC possibly has the most balanced performance in determining the emotional tendency of discourse reflected by the bar chart. Conversely, mlSenticon is likely less effective in this work, inferred from its lowest figure for both sentiments.</span>
-<span id="cb13-207"><a href="#cb13-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-208"><a href="#cb13-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## Popularity Distribution</span></span>
-<span id="cb13-209"><a href="#cb13-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-210"><a href="#cb13-210" aria-hidden="true" tabindex="-1"></a>The formula below is introduced to calculate the *popularity* <span class="co">[</span><span class="ot">@riquelme2016, pp. 6, 11</span><span class="co">]</span> of tweet authors:</span>
-<span id="cb13-211"><a href="#cb13-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-212"><a href="#cb13-212" aria-hidden="true" tabindex="-1"></a>$$Popularity(i) = 1 - e^{-λ·Fi} $$</span>
-<span id="cb13-213"><a href="#cb13-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-214"><a href="#cb13-214" aria-hidden="true" tabindex="-1"></a>*Popularity* indicates how popular a user could be, where *e* is the base of the natural logarithm, λ is a constant. The introduction of *popularity* aims to create an attribute storing ratio data reasonably distributed in histograms, since the original ratio attributes (e.g. follower count) seem too scattered to view.</span>
-<span id="cb13-215"><a href="#cb13-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-218"><a href="#cb13-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-219"><a href="#cb13-219" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-popularity-hist</span></span>
-<span id="cb13-220"><a href="#cb13-220" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 'Author Popularity Distribution Histogram'</span></span>
-<span id="cb13-221"><a href="#cb13-221" aria-hidden="true" tabindex="-1"></a><span class="co">## Define popularity calculation function</span></span>
-<span id="cb13-222"><a href="#cb13-222" aria-hidden="true" tabindex="-1"></a><span class="co"># F1: author follower count; e ≈ 2.718, λ = 0.001</span></span>
-<span id="cb13-223"><a href="#cb13-223" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_popularity(F1):</span>
-<span id="cb13-224"><a href="#cb13-224" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="fl">2.718</span> <span class="op">**</span> (<span class="op">-</span><span class="fl">0.001</span><span class="op">*</span>F1)</span>
-<span id="cb13-225"><a href="#cb13-225" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
-<span id="cb13-226"><a href="#cb13-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-227"><a href="#cb13-227" aria-hidden="true" tabindex="-1"></a><span class="co">## Add popularity column</span></span>
-<span id="cb13-228"><a href="#cb13-228" aria-hidden="true" tabindex="-1"></a><span class="co"># apply calc_popularity row-wise to followers_count_user</span></span>
-<span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'popularity'</span>] <span class="op">=</span> df[<span class="st">'followers_count_user'</span>].<span class="bu">apply</span>(calc_popularity)</span>
-<span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a><span class="co">## Define overall_sentiment function (based on iSOL lexicon)</span></span>
-<span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> determ_sentiment(row):</span>
-<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row[<span class="st">'positive_words_iSOL'</span>] <span class="op">&gt;</span> row[<span class="st">'negative_words_iSOL'</span>]:</span>
-<span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'positive'</span></span>
-<span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> row[<span class="st">'positive_words_iSOL'</span>] <span class="op">&lt;</span> row[<span class="st">'negative_words_iSOL'</span>]:</span>
-<span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'negative'</span></span>
-<span id="cb13-237"><a href="#cb13-237" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb13-238"><a href="#cb13-238" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'neutral'</span></span>
-<span id="cb13-239"><a href="#cb13-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-240"><a href="#cb13-240" aria-hidden="true" tabindex="-1"></a><span class="co">## Add overall_sentiment column</span></span>
-<span id="cb13-241"><a href="#cb13-241" aria-hidden="true" tabindex="-1"></a><span class="co"># axis=1: apply function row-wise</span></span>
-<span id="cb13-242"><a href="#cb13-242" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'overall_sentiment'</span>] <span class="op">=</span> df.<span class="bu">apply</span>(determ_sentiment, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb13-243"><a href="#cb13-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-244"><a href="#cb13-244" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot author popularity distribution histogram</span></span>
-<span id="cb13-245"><a href="#cb13-245" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(</span>
-<span id="cb13-246"><a href="#cb13-246" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> df, x <span class="op">=</span> <span class="st">'popularity'</span>,</span>
-<span id="cb13-247"><a href="#cb13-247" aria-hidden="true" tabindex="-1"></a>    hue <span class="op">=</span> <span class="st">'overall_sentiment'</span>,</span>
-<span id="cb13-248"><a href="#cb13-248" aria-hidden="true" tabindex="-1"></a>    hue_order <span class="op">=</span> [<span class="st">'neutral'</span>, <span class="st">'positive'</span>, <span class="st">'negative'</span>],</span>
-<span id="cb13-249"><a href="#cb13-249" aria-hidden="true" tabindex="-1"></a>    <span class="co"># palette: colors map intuitively to sentiment</span></span>
-<span id="cb13-250"><a href="#cb13-250" aria-hidden="true" tabindex="-1"></a>    palette <span class="op">=</span> [<span class="st">'lightgray'</span>, <span class="st">'salmon'</span>, <span class="st">'royalblue'</span>],</span>
-<span id="cb13-251"><a href="#cb13-251" aria-hidden="true" tabindex="-1"></a>    multiple <span class="op">=</span> <span class="st">'stack'</span>,  <span class="co"># stack groups</span></span>
-<span id="cb13-252"><a href="#cb13-252" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> <span class="fl">0.9</span>  <span class="co"># transparency</span></span>
-<span id="cb13-253"><a href="#cb13-253" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-254"><a href="#cb13-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-255"><a href="#cb13-255" aria-hidden="true" tabindex="-1"></a><span class="co"># update legend title (see Appendix III)</span></span>
-<span id="cb13-256"><a href="#cb13-256" aria-hidden="true" tabindex="-1"></a>ax.get_legend().set_title(<span class="st">'Overall Sentiment'</span>)</span>
-<span id="cb13-257"><a href="#cb13-257" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Author Popularity Distribution Histogram'</span>)</span>
-<span id="cb13-258"><a href="#cb13-258" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Author Popularity'</span>)</span>
-<span id="cb13-259"><a href="#cb13-259" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Tweet Count'</span>)</span>
-<span id="cb13-260"><a href="#cb13-260" aria-hidden="true" tabindex="-1"></a>plt.ylim((<span class="dv">0</span>, <span class="dv">300</span>))  <span class="co"># set y-axis range</span></span>
-<span id="cb13-261"><a href="#cb13-261" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb13-262"><a href="#cb13-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-263"><a href="#cb13-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-264"><a href="#cb13-264" aria-hidden="true" tabindex="-1"></a>@fig-popularity-hist shows the distribution of author *popularity* among tweets, grouped by sentiments. Overall, most participants are at the lowest levels of *popularity*, and the number of tweets gradually decreases with the author *popularity* increasing, until the figure for *popularity* reaches its highest levels. Moreover, the majority of tweets are neutral, while negative contributions are more prevalent than positive ones.</span>
-<span id="cb13-265"><a href="#cb13-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-266"><a href="#cb13-266" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reflection</span></span>
-<span id="cb13-267"><a href="#cb13-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-268"><a href="#cb13-268" aria-hidden="true" tabindex="-1"></a>These two plots only analyse a limited number of attributes in the dataset, where there is room for improvement. Other attributes could have also been employed in visualisation since their data types have been processed. For instance, basic information attributes such as retweet count and like count can be used to estimate the engagement of each tweet, with a histogram as visualisation.</span>
-<span id="cb13-269"><a href="#cb13-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-270"><a href="#cb13-270" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conclusion</span></span>
-<span id="cb13-271"><a href="#cb13-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-272"><a href="#cb13-272" aria-hidden="true" tabindex="-1"></a>This project analyses the overall online attitude towards the Catalan referendum and compares three lexicons' performance by a bar plot, where the public attitude tends to be negative, and the NRC lexicon seems the most balanced. Additionally, users with lower *popularity* contributed the most presented by a histogram showing the distribution of user *popularity* divided by the attitude orientation of each tweet.</span>
-<span id="cb13-273"><a href="#cb13-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-274"><a href="#cb13-274" aria-hidden="true" tabindex="-1"></a><span class="fu"># References {.unnumbered}</span></span>
-<span id="cb13-275"><a href="#cb13-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-276"><a href="#cb13-276" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
-<span id="cb13-277"><a href="#cb13-277" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb13-278"><a href="#cb13-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-279"><a href="#cb13-279" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix I: Attributes Description {#appendix-attributes .unnumbered}</span></span>
-<span id="cb13-280"><a href="#cb13-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-281"><a href="#cb13-281" aria-hidden="true" tabindex="-1"></a>Below is the overall instruction of <span class="co">[</span><span class="ot">the original dataset</span><span class="co">](https://zenodo.org/records/4750661)</span> and description of each attribute offered by the dataset provider.</span>
-<span id="cb13-282"><a href="#cb13-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-283"><a href="#cb13-283" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; This corpus consists of 46,962 tweets related to the Catalan referendum, a very controversial topic in Spain due to it was an independence referendum called by the Catalan regional government and suspended by the Constitutional Court of Spain after a request from the Spanish government. All the tweets were downloaded on October 1, 2017 with the hashtags #CatalanReferendum or #ReferendumCatalan. Later, we collected features of these tweets on October 31, 2017 in order to analyze their virality. Each item in this collection is made up of the features we used from each tweet to perform the virality analysis.</span></span>
-<span id="cb13-284"><a href="#cb13-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-285"><a href="#cb13-285" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tweet Metadata Attributes {.unnumbered}</span></span>
-<span id="cb13-286"><a href="#cb13-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-287"><a href="#cb13-287" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attribute <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb13-288"><a href="#cb13-288" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------------------------|---------------------------------------|</span></span>
-<span id="cb13-289"><a href="#cb13-289" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`lang`</span> <span class="pp">|</span> Tweet language <span class="pp">|</span></span>
-<span id="cb13-290"><a href="#cb13-290" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`retweet_count`</span> <span class="pp">|</span> Total number of retweets recorded for a given tweet. <span class="pp">|</span></span>
-<span id="cb13-291"><a href="#cb13-291" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`favourite_count`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>(renamed as <span class="in">`like_count`</span>) <span class="pp">|</span> Total number of favourites recorded for a given tweet. <span class="pp">|</span></span>
-<span id="cb13-292"><a href="#cb13-292" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`is_quote_status`</span> <span class="pp">|</span> Whether a tweet includes a quote of another tweet. <span class="pp">|</span></span>
-<span id="cb13-293"><a href="#cb13-293" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`num_hashtags`</span> <span class="pp">|</span> Total number of hashtags in the tweet. <span class="pp">|</span></span>
-<span id="cb13-294"><a href="#cb13-294" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`num_urls`</span> <span class="pp">|</span> Total number of URLs in the tweet. <span class="pp">|</span></span>
-<span id="cb13-295"><a href="#cb13-295" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`num_mentions`</span> <span class="pp">|</span> Total number of users mentioned in the tweet. <span class="pp">|</span></span>
-<span id="cb13-296"><a href="#cb13-296" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`interval_time`</span> <span class="pp">|</span> Interval of the day on which the tweet was published (morning 06:00–12:00, afternoon 12:00–18:00, evening 18:00–00:00, or night 00:00–06:00). <span class="pp">|</span></span>
-<span id="cb13-297"><a href="#cb13-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-298"><a href="#cb13-298" aria-hidden="true" tabindex="-1"></a><span class="fu">## Emotional Word Count Attributes {.unnumbered}</span></span>
-<span id="cb13-299"><a href="#cb13-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-300"><a href="#cb13-300" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attribute <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb13-301"><a href="#cb13-301" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------------------------|---------------------------------------|</span></span>
-<span id="cb13-302"><a href="#cb13-302" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`positive_words_iSOL`</span> <span class="pp">|</span> Total number of positive words found in the tweet using iSOL lexicon. <span class="pp">|</span></span>
-<span id="cb13-303"><a href="#cb13-303" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`negative_words_iSOL`</span> <span class="pp">|</span> Total number of negative words found in the tweet using iSOL lexicon. <span class="pp">|</span></span>
-<span id="cb13-304"><a href="#cb13-304" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`positive_words_NRC`</span> <span class="pp">|</span> Total number of positive words found in the tweet using NRC lexicon. <span class="pp">|</span></span>
-<span id="cb13-305"><a href="#cb13-305" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`negative_words_NRC`</span> <span class="pp">|</span> Total number of negative words found in the tweet using NRC lexicon. <span class="pp">|</span></span>
-<span id="cb13-306"><a href="#cb13-306" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`positive_words_mlSenticon`</span> <span class="pp">|</span> Total number of positive words found in the tweet using ML-SentiCon lexicon. <span class="pp">|</span></span>
-<span id="cb13-307"><a href="#cb13-307" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`negative_words_mlSenticon`</span> <span class="pp">|</span> Total number of negative words found in the tweet using ML-SentiCon lexicon. <span class="pp">|</span></span>
-<span id="cb13-308"><a href="#cb13-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-309"><a href="#cb13-309" aria-hidden="true" tabindex="-1"></a><span class="fu">## Author Metadata Attributes {.unnumbered}</span></span>
-<span id="cb13-310"><a href="#cb13-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-311"><a href="#cb13-311" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attribute <span class="pp">|</span> Description <span class="pp">|</span></span>
-<span id="cb13-312"><a href="#cb13-312" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------------------------|---------------------------------------|</span></span>
-<span id="cb13-313"><a href="#cb13-313" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`verified_user`</span> <span class="pp">|</span> Whether the tweet is from a verified user. <span class="pp">|</span></span>
-<span id="cb13-314"><a href="#cb13-314" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`followers_count_user`</span> <span class="pp">|</span> Total number of users who follow the author of a tweet. <span class="pp">|</span></span>
-<span id="cb13-315"><a href="#cb13-315" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`friends_count_user`</span> <span class="pp">|</span> Total number of friends that the author is following. <span class="pp">|</span></span>
-<span id="cb13-316"><a href="#cb13-316" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`listed_count_user`</span> <span class="pp">|</span> Total number of lists that include the author of a tweet. <span class="pp">|</span></span>
-<span id="cb13-317"><a href="#cb13-317" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`favourites_count_user`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>(renamed as <span class="in">`likes_count_user`</span>) <span class="pp">|</span> Total number of favourited tweets by a user. <span class="pp">|</span></span>
-<span id="cb13-318"><a href="#cb13-318" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`statuses_count_user`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>(renamed as <span class="in">`tweets_count_user`</span>) <span class="pp">|</span> Total number of tweets made by the author since the creation of the account. <span class="pp">|</span></span>
-<span id="cb13-319"><a href="#cb13-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-320"><a href="#cb13-320" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix II: Validating Values Before Modifying Data Types {#appendix-data-types .unnumbered}</span></span>
-<span id="cb13-321"><a href="#cb13-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-322"><a href="#cb13-322" aria-hidden="true" tabindex="-1"></a>In the beginning, only missing data of certain subsets were dropped via <span class="in">`.dropna()`</span> method (@fig-drop-na).</span>
-<span id="cb13-323"><a href="#cb13-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-324"><a href="#cb13-324" aria-hidden="true" tabindex="-1"></a><span class="al">![Dropping NAs from certain columns only](../../../src/img/proj/catalan/fig4-drop-na-from-col.png)</span>{#fig-drop-na fig-alt="Dropping NAs from certain columns only"}</span>
-<span id="cb13-325"><a href="#cb13-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-326"><a href="#cb13-326" aria-hidden="true" tabindex="-1"></a>However, errors occurred subsequently when modifying data types via <span class="in">`.astype()`</span> method (@fig-astype-error).</span>
-<span id="cb13-327"><a href="#cb13-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-328"><a href="#cb13-328" aria-hidden="true" tabindex="-1"></a><span class="al">![Error when using `.astype(int)`](../../../src/img/proj/catalan/fig5-error-astype-int.png)</span>{#fig-astype-error fig-alt="Error when using .astype(int)"}</span>
-<span id="cb13-329"><a href="#cb13-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-330"><a href="#cb13-330" aria-hidden="true" tabindex="-1"></a>It was because the strings in those attributes were not all numerical, in which case the strings cannot be directly changed into integers via <span class="in">`.astype(int)`</span> (@fig-non-num-str).</span>
-<span id="cb13-331"><a href="#cb13-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-332"><a href="#cb13-332" aria-hidden="true" tabindex="-1"></a><span class="al">![Check non-numerical strings](../../../src/img/proj/catalan/fig6-check-non-num-str.png)</span>{#fig-non-num-str fig-alt="Check non-numerical strings"}</span>
-<span id="cb13-333"><a href="#cb13-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-334"><a href="#cb13-334" aria-hidden="true" tabindex="-1"></a>Therefore, it is necessary to check if all strings are numerical before applying methods to change the data type. Moreover, it was found that if all missing values were dropped initially via simply <span class="in">`.dropna()`</span> (no keyword arguments), the probability of not returning errors would significantly increase.</span>
-<span id="cb13-335"><a href="#cb13-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-336"><a href="#cb13-336" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix III: Modifying Seaborn Histogram Legend {#appendix-legend .unnumbered}</span></span>
-<span id="cb13-337"><a href="#cb13-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-338"><a href="#cb13-338" aria-hidden="true" tabindex="-1"></a>@fig-popularity-hist (histogram of author *popularity*) was plotted via the seaborn function <span class="in">`.histplot()`</span>, grouped in colours by defining the <span class="in">`hue`</span> parameter (@fig-first-attempt). By this means, the legend was automatically generated, with the column label ‘overall_sentiment’ as the title. However, it does not make much sense as a title. The <span class="in">`plt.legend()`</span> was thus employed aiming at changing the legend title and maintaining all other information. Nevertheless, it did not work perfectly with the legend as shown below. It is supposed that the error might be because there were conflicts between the legend automatically generated by Seaborn and the manually added legend via <span class="in">`plt.legend()`</span> function.</span>
-<span id="cb13-339"><a href="#cb13-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-340"><a href="#cb13-340" aria-hidden="true" tabindex="-1"></a><span class="al">![First Attempt](../../../src/img/proj/catalan/fig7-first-attempt.png)</span>{#fig-first-attempt fig-alt="First Attempt"}</span>
-<span id="cb13-341"><a href="#cb13-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-342"><a href="#cb13-342" aria-hidden="true" tabindex="-1"></a>Therefore, the <span class="in">`plt.legend()`</span> argument was changed into the <span class="in">`ax.get_legend().set_title()`</span> argument, which detected the generated legend in this plot, and then set a new title to it.</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># categories: [Python, NLP, Social Media, Visualization]</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Python, NLP, Social Media]</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> 'Sentiment mining on tweets surrounding the 2017 Catalan independence referendum using NLP techniques.'</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references.bib</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="an">csl:</span><span class="co"> ../../../src/apa.csl</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> ../../../src/img/proj/catalan/cover.png</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="an">order:</span><span class="co"> 3</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># code-tools: true</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># jupyter: dv-env  # use jupyter to render</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># format: html     # use knitr to render</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># df-print: kable  # df-print: only works with Rmd &amp; knitr renderer</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># aliases: [ "catalan-referendum" ]</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: 'Environment &amp; Versions'</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>pandas<span class="op">==</span><span class="fl">2.2.2</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>matplotlib<span class="op">==</span><span class="fl">3.9</span>.x</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>seaborn<span class="op">==</span><span class="fl">0.13.2</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>This project uses a data set consisting of tweets about the Catalan referendum in Spain on Twitter, with attributes including basic information and emotional word counts of each tweet detected by different lexicons <span class="co">[</span><span class="ot">@jimenezZafra2021</span><span class="co">]</span> (see <span class="co">[</span><span class="ot">Appendix I</span><span class="co">](#appendix-attributes)</span> for further description of attributes). A bar plot addresses performance differences between lexicons in detecting sentiment among tweets. In addition, the distribution of the author’s popularity among all tweets is illustrated by a histogram, distinguished by sentiments.</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd   <span class="co"># data manipulation</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt   <span class="co"># plotting</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns   <span class="co"># plotting</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Load CSV</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">'../../../src/data/Catalan_Referendum_Twitter_corpus.csv'</span>,</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>    encoding <span class="op">=</span> <span class="st">'latin'</span>,  <span class="co"># non-utf-8 encoding</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>    delimiter <span class="op">=</span> <span class="st">';'</span>,</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview data</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>df.head()</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data Processing</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="co">## Drop missing values (see Appendix II)</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna()</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a><span class="co">## Sample 1000 rows and reset index</span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sample(<span class="dv">1000</span>, random_state <span class="op">=</span> <span class="dv">32</span>).reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a><span class="co">## Rename columns for readability</span></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) unify favorite/favourites spelling</span></span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) clarify statuses_count_user</span></span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(</span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>    columns <span class="op">=</span> {</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>        <span class="st">'favorite_count'</span>:<span class="st">'like_count'</span>,</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>        <span class="st">'favourites_count_user'</span>:<span class="st">'likes_count_user'</span>,</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>        <span class="st">'statuses_count_user'</span>:<span class="st">'tweets_count_user'</span>,</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Setting Count Attributes</span></span>
+<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect attribute datatypes</span></span>
+<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>df.info()</span>
+<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a><span class="al">![Datatypes and Attributes](../../../src/img/proj/catalan/fig1-datatypes-attributes.png)</span>{#fig-datatypes-attributes fig-alt="Datatypes and Attributes"}</span>
+<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb13-92"><a href="#cb13-92" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: 'hold'</span></span>
+<span id="cb13-93"><a href="#cb13-93" aria-hidden="true" tabindex="-1"></a><span class="co">## Check dtypes of 3 object-type count attributes</span></span>
+<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">'retweet_count'</span>, <span class="st">'num_urls'</span>, <span class="st">'positive_words_mlSenticon'</span>]].dtypes)</span>
+<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">""</span>)</span>
+<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a><span class="co">## Confirm all values are numeric strings (safe to cast with .astype())</span></span>
+<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'retweet_count'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">all</span>(),</span>
+<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'num_urls'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">all</span>(),</span>
+<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'positive_words_mlSenticon'</span>].<span class="bu">str</span>.isnumeric().<span class="bu">all</span>()</span>
+<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a><span class="co">## Cast all count attributes to int</span></span>
+<span id="cb13-106"><a href="#cb13-106" aria-hidden="true" tabindex="-1"></a><span class="co"># object -&gt; int</span></span>
+<span id="cb13-107"><a href="#cb13-107" aria-hidden="true" tabindex="-1"></a>df[[</span>
+<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a>    <span class="st">'retweet_count'</span>, <span class="st">'num_urls'</span>, <span class="st">'positive_words_mlSenticon'</span>,</span>
+<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a>]] <span class="op">=</span> df[[</span>
+<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>    <span class="st">'retweet_count'</span>, <span class="st">'num_urls'</span>, <span class="st">'positive_words_mlSenticon'</span>,</span>
+<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a>]].astype(<span class="bu">int</span>)</span>
+<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a><span class="co"># float -&gt; int</span></span>
+<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a>float_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">'float'</span>).columns  <span class="co"># all float columns</span></span>
+<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a>df[float_cols] <span class="op">=</span> df[float_cols].astype(<span class="bu">int</span>)</span>
+<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a><span class="fu">## Setting Boolean Attributes</span></span>
+<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: 'hold'</span></span>
+<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm bool columns only contain 'True'/'False' strings</span></span>
+<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'is_quote_status'</span>].unique())</span>
+<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'verified_user'</span>].unique())</span>
+<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a><span class="co"># Cast string bool columns to bool</span></span>
+<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'is_quote_status'</span>]<span class="op">=</span>df[<span class="st">'is_quote_status'</span>].<span class="bu">map</span>({<span class="st">'True'</span>:<span class="va">True</span>, <span class="st">'False'</span>:<span class="va">False</span>})</span>
+<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'verified_user'</span>]<span class="op">=</span>df[<span class="st">'verified_user'</span>].<span class="bu">map</span>({<span class="st">'True'</span>:<span class="va">True</span>, <span class="st">'False'</span>:<span class="va">False</span>})</span>
+<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data Visualisation</span></span>
+<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sentiment Distribution</span></span>
+<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a><span class="co">## Melt sentiment word count columns to long format for visualisation</span></span>
+<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a><span class="co"># value_vars: all sentiment count columns (positive/negative for each lexicon)</span></span>
+<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a><span class="co"># var_name: stores original column name (encodes sentiment and source)</span></span>
+<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a><span class="co"># value_name: stores the corresponding count</span></span>
+<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a>df_melted <span class="op">=</span> df.melt(</span>
+<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a>    value_vars <span class="op">=</span> [</span>
+<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a>        <span class="st">'positive_words_iSOL'</span>,<span class="st">'negative_words_iSOL'</span>,</span>
+<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a>        <span class="st">'positive_words_NRC'</span>,<span class="st">'negative_words_NRC'</span>,</span>
+<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a>        <span class="st">'positive_words_mlSenticon'</span>,<span class="st">'negative_words_mlSenticon'</span>,</span>
+<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a>    var_name <span class="op">=</span> <span class="st">'sentiment_and_source'</span>,</span>
+<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a>    value_name <span class="op">=</span> <span class="st">'count'</span>,</span>
+<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a>df_melted.head()  <span class="co"># initial melt result, before further processing</span></span>
+<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-156"><a href="#cb13-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-sentiment-bar</span></span>
+<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 'Online Sentiment towards the Catalan Referendum'</span></span>
+<span id="cb13-162"><a href="#cb13-162" aria-hidden="true" tabindex="-1"></a><span class="co">## Add sentiment column (positive/negative)</span></span>
+<span id="cb13-163"><a href="#cb13-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a><span class="co"># each returns a boolean Series checking </span></span>
+<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a><span class="co"># if sentiment_and_source contains the keyword</span></span>
+<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a>is_positive <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'positive'</span>)</span>
+<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a>is_negative <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'negative'</span>)</span>
+<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-169"><a href="#cb13-169" aria-hidden="true" tabindex="-1"></a><span class="co"># assign 'positive'/'negative' to the new sentiment column by index</span></span>
+<span id="cb13-170"><a href="#cb13-170" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_positive].index,<span class="st">'sentiment'</span>] <span class="op">=</span> <span class="st">'positive'</span></span>
+<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_negative].index,<span class="st">'sentiment'</span>] <span class="op">=</span> <span class="st">'negative'</span></span>
+<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a><span class="co">## Add source column (lexicon name)</span></span>
+<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a>is_iSOL <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'iSOL'</span>)</span>
+<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a>is_NRC <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'NRC'</span>)</span>
+<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a>is_mlSenticon <span class="op">=</span> df_melted[<span class="st">'sentiment_and_source'</span>].<span class="bu">str</span>.contains(<span class="st">'mlSenticon'</span>)</span>
+<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_iSOL].index,<span class="st">'source'</span>] <span class="op">=</span> <span class="st">'iSOL'</span></span>
+<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_NRC].index,<span class="st">'source'</span>] <span class="op">=</span> <span class="st">'NRC'</span></span>
+<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a>df_melted.loc[df_melted[is_mlSenticon].index,<span class="st">'source'</span>] <span class="op">=</span> <span class="st">'mlSenticon'</span></span>
+<span id="cb13-180"><a href="#cb13-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-181"><a href="#cb13-181" aria-hidden="true" tabindex="-1"></a><span class="co">## Drop the now-redundant sentiment_and_source column</span></span>
+<span id="cb13-182"><a href="#cb13-182" aria-hidden="true" tabindex="-1"></a>df_melted <span class="op">=</span> df_melted.drop(columns <span class="op">=</span> <span class="st">'sentiment_and_source'</span>)</span>
+<span id="cb13-183"><a href="#cb13-183" aria-hidden="true" tabindex="-1"></a>df_melted.head()  <span class="co"># sentiment and source are now separate columns</span></span>
+<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-185"><a href="#cb13-185" aria-hidden="true" tabindex="-1"></a><span class="co">##############################################################################</span></span>
+<span id="cb13-186"><a href="#cb13-186" aria-hidden="true" tabindex="-1"></a><span class="co">## Set seaborn theme and plot bar chart</span></span>
+<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-188"><a href="#cb13-188" aria-hidden="true" tabindex="-1"></a>sns.set_theme(font <span class="op">=</span> <span class="st">'Arial'</span>, font_scale <span class="op">=</span> <span class="fl">1.2</span>, style <span class="op">=</span> <span class="st">'whitegrid'</span>)</span>
+<span id="cb13-189"><a href="#cb13-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-190"><a href="#cb13-190" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb13-191"><a href="#cb13-191" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> df_melted, x <span class="op">=</span> <span class="st">'source'</span>, y <span class="op">=</span> <span class="st">'count'</span>, hue <span class="op">=</span> <span class="st">'sentiment'</span>, </span>
+<span id="cb13-192"><a href="#cb13-192" aria-hidden="true" tabindex="-1"></a>    <span class="co"># palette: salmon (warm) for positive, royalblue (cool) for negative</span></span>
+<span id="cb13-193"><a href="#cb13-193" aria-hidden="true" tabindex="-1"></a>    palette <span class="op">=</span> [<span class="st">'salmon'</span>, <span class="st">'royalblue'</span>], errorbar <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb13-194"><a href="#cb13-194" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-195"><a href="#cb13-195" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Online Sentiment towards the Catalan Referendum'</span>)</span>
+<span id="cb13-196"><a href="#cb13-196" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="fl">0.7</span>)  <span class="co"># set y-axis range</span></span>
+<span id="cb13-197"><a href="#cb13-197" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Emotion Analysis Lexicon'</span>)</span>
+<span id="cb13-198"><a href="#cb13-198" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Average Emotional Word Count'</span>)</span>
+<span id="cb13-199"><a href="#cb13-199" aria-hidden="true" tabindex="-1"></a>plt.legend(title <span class="op">=</span> <span class="st">'Sentiment'</span>)</span>
+<span id="cb13-200"><a href="#cb13-200" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb13-201"><a href="#cb13-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-202"><a href="#cb13-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-203"><a href="#cb13-203" aria-hidden="true" tabindex="-1"></a>@fig-sentiment-bar presents the average counts of emotional words detected from the selected tweets about the Catalan referendum, divided by three emotion analysis lexicons: iSOL, NRC, and mlSenticon. Positive and negative sentiments are distinguished by different colours, where a warm red colour ‘salmon’ is assigned to positive ones and a cool blue colour ‘royalblue’ to negative ones, which are two predefined colours in Matplotlib <span class="co">[</span><span class="ot">@matplotlibColors</span><span class="co">]</span>. They are moderate in saturation and intensity, avoiding eye strain of audiences <span class="co">[</span><span class="ot">@wilke2019, chap. 19.1</span><span class="co">]</span>. Additionally, the colour assignment is intuitive because their temperature tendency typically corresponds to their allocated sentiments <span class="co">[</span><span class="ot">@hanada2018</span><span class="co">]</span>, enhancing the ‘data-ink ratio’ of this plot <span class="co">[</span><span class="ot">@wilke2019, chap. 23</span><span class="co">]</span>.</span>
+<span id="cb13-204"><a href="#cb13-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-205"><a href="#cb13-205" aria-hidden="true" tabindex="-1"></a>Overall, the number of negative words consistently exceeds that of positive ones, reflecting the relatively negative online public attitude towards the Catalan referendum.</span>
+<span id="cb13-206"><a href="#cb13-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-207"><a href="#cb13-207" aria-hidden="true" tabindex="-1"></a>Regarding the performance of each lexicon, NRC possibly has the most balanced performance in determining the emotional tendency of discourse reflected by the bar chart. Conversely, mlSenticon is likely less effective in this work, inferred from its lowest figure for both sentiments.</span>
+<span id="cb13-208"><a href="#cb13-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-209"><a href="#cb13-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## Popularity Distribution</span></span>
+<span id="cb13-210"><a href="#cb13-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-211"><a href="#cb13-211" aria-hidden="true" tabindex="-1"></a>The formula below is introduced to calculate the *popularity* <span class="co">[</span><span class="ot">@riquelme2016, pp. 6, 11</span><span class="co">]</span> of tweet authors:</span>
+<span id="cb13-212"><a href="#cb13-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-213"><a href="#cb13-213" aria-hidden="true" tabindex="-1"></a>$$Popularity(i) = 1 - e^{-λ·Fi} $$</span>
+<span id="cb13-214"><a href="#cb13-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-215"><a href="#cb13-215" aria-hidden="true" tabindex="-1"></a>*Popularity* indicates how popular a user could be, where *e* is the base of the natural logarithm, λ is a constant. The introduction of *popularity* aims to create an attribute storing ratio data reasonably distributed in histograms, since the original ratio attributes (e.g. follower count) seem too scattered to view.</span>
+<span id="cb13-216"><a href="#cb13-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-219"><a href="#cb13-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb13-220"><a href="#cb13-220" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-popularity-hist</span></span>
+<span id="cb13-221"><a href="#cb13-221" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 'Author Popularity Distribution Histogram'</span></span>
+<span id="cb13-222"><a href="#cb13-222" aria-hidden="true" tabindex="-1"></a><span class="co">## Define popularity calculation function</span></span>
+<span id="cb13-223"><a href="#cb13-223" aria-hidden="true" tabindex="-1"></a><span class="co"># F1: author follower count; e ≈ 2.718, λ = 0.001</span></span>
+<span id="cb13-224"><a href="#cb13-224" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_popularity(F1):</span>
+<span id="cb13-225"><a href="#cb13-225" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="fl">2.718</span> <span class="op">**</span> (<span class="op">-</span><span class="fl">0.001</span><span class="op">*</span>F1)</span>
+<span id="cb13-226"><a href="#cb13-226" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb13-227"><a href="#cb13-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-228"><a href="#cb13-228" aria-hidden="true" tabindex="-1"></a><span class="co">## Add popularity column</span></span>
+<span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a><span class="co"># apply calc_popularity row-wise to followers_count_user</span></span>
+<span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'popularity'</span>] <span class="op">=</span> df[<span class="st">'followers_count_user'</span>].<span class="bu">apply</span>(calc_popularity)</span>
+<span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a><span class="co">## Define overall_sentiment function (based on iSOL lexicon)</span></span>
+<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> determ_sentiment(row):</span>
+<span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row[<span class="st">'positive_words_iSOL'</span>] <span class="op">&gt;</span> row[<span class="st">'negative_words_iSOL'</span>]:</span>
+<span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'positive'</span></span>
+<span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> row[<span class="st">'positive_words_iSOL'</span>] <span class="op">&lt;</span> row[<span class="st">'negative_words_iSOL'</span>]:</span>
+<span id="cb13-237"><a href="#cb13-237" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'negative'</span></span>
+<span id="cb13-238"><a href="#cb13-238" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb13-239"><a href="#cb13-239" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">'neutral'</span></span>
+<span id="cb13-240"><a href="#cb13-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-241"><a href="#cb13-241" aria-hidden="true" tabindex="-1"></a><span class="co">## Add overall_sentiment column</span></span>
+<span id="cb13-242"><a href="#cb13-242" aria-hidden="true" tabindex="-1"></a><span class="co"># axis=1: apply function row-wise</span></span>
+<span id="cb13-243"><a href="#cb13-243" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'overall_sentiment'</span>] <span class="op">=</span> df.<span class="bu">apply</span>(determ_sentiment, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb13-244"><a href="#cb13-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-245"><a href="#cb13-245" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot author popularity distribution histogram</span></span>
+<span id="cb13-246"><a href="#cb13-246" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(</span>
+<span id="cb13-247"><a href="#cb13-247" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> df, x <span class="op">=</span> <span class="st">'popularity'</span>,</span>
+<span id="cb13-248"><a href="#cb13-248" aria-hidden="true" tabindex="-1"></a>    hue <span class="op">=</span> <span class="st">'overall_sentiment'</span>,</span>
+<span id="cb13-249"><a href="#cb13-249" aria-hidden="true" tabindex="-1"></a>    hue_order <span class="op">=</span> [<span class="st">'neutral'</span>, <span class="st">'positive'</span>, <span class="st">'negative'</span>],</span>
+<span id="cb13-250"><a href="#cb13-250" aria-hidden="true" tabindex="-1"></a>    <span class="co"># palette: colors map intuitively to sentiment</span></span>
+<span id="cb13-251"><a href="#cb13-251" aria-hidden="true" tabindex="-1"></a>    palette <span class="op">=</span> [<span class="st">'lightgray'</span>, <span class="st">'salmon'</span>, <span class="st">'royalblue'</span>],</span>
+<span id="cb13-252"><a href="#cb13-252" aria-hidden="true" tabindex="-1"></a>    multiple <span class="op">=</span> <span class="st">'stack'</span>,  <span class="co"># stack groups</span></span>
+<span id="cb13-253"><a href="#cb13-253" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> <span class="fl">0.9</span>  <span class="co"># transparency</span></span>
+<span id="cb13-254"><a href="#cb13-254" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-255"><a href="#cb13-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-256"><a href="#cb13-256" aria-hidden="true" tabindex="-1"></a><span class="co"># update legend title (see Appendix III)</span></span>
+<span id="cb13-257"><a href="#cb13-257" aria-hidden="true" tabindex="-1"></a>ax.get_legend().set_title(<span class="st">'Overall Sentiment'</span>)</span>
+<span id="cb13-258"><a href="#cb13-258" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Author Popularity Distribution Histogram'</span>)</span>
+<span id="cb13-259"><a href="#cb13-259" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Author Popularity'</span>)</span>
+<span id="cb13-260"><a href="#cb13-260" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Tweet Count'</span>)</span>
+<span id="cb13-261"><a href="#cb13-261" aria-hidden="true" tabindex="-1"></a>plt.ylim((<span class="dv">0</span>, <span class="dv">300</span>))  <span class="co"># set y-axis range</span></span>
+<span id="cb13-262"><a href="#cb13-262" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb13-263"><a href="#cb13-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-264"><a href="#cb13-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-265"><a href="#cb13-265" aria-hidden="true" tabindex="-1"></a>@fig-popularity-hist shows the distribution of author *popularity* among tweets, grouped by sentiments. Overall, most participants are at the lowest levels of *popularity*, and the number of tweets gradually decreases with the author *popularity* increasing, until the figure for *popularity* reaches its highest levels. Moreover, the majority of tweets are neutral, while negative contributions are more prevalent than positive ones.</span>
+<span id="cb13-266"><a href="#cb13-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-267"><a href="#cb13-267" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reflection</span></span>
+<span id="cb13-268"><a href="#cb13-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-269"><a href="#cb13-269" aria-hidden="true" tabindex="-1"></a>These two plots only analyse a limited number of attributes in the dataset, where there is room for improvement. Other attributes could have also been employed in visualisation since their data types have been processed. For instance, basic information attributes such as retweet count and like count can be used to estimate the engagement of each tweet, with a histogram as visualisation.</span>
+<span id="cb13-270"><a href="#cb13-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-271"><a href="#cb13-271" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conclusion</span></span>
+<span id="cb13-272"><a href="#cb13-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-273"><a href="#cb13-273" aria-hidden="true" tabindex="-1"></a>This project analyses the overall online attitude towards the Catalan referendum and compares three lexicons' performance by a bar plot, where the public attitude tends to be negative, and the NRC lexicon seems the most balanced. Additionally, users with lower *popularity* contributed the most presented by a histogram showing the distribution of user *popularity* divided by the attitude orientation of each tweet.</span>
+<span id="cb13-274"><a href="#cb13-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-275"><a href="#cb13-275" aria-hidden="true" tabindex="-1"></a><span class="fu"># References {.unnumbered}</span></span>
+<span id="cb13-276"><a href="#cb13-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-277"><a href="#cb13-277" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb13-278"><a href="#cb13-278" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb13-279"><a href="#cb13-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-280"><a href="#cb13-280" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix I: Attributes Description {#appendix-attributes .unnumbered}</span></span>
+<span id="cb13-281"><a href="#cb13-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-282"><a href="#cb13-282" aria-hidden="true" tabindex="-1"></a>Below is the overall instruction of <span class="co">[</span><span class="ot">the original dataset</span><span class="co">](https://zenodo.org/records/4750661)</span> and description of each attribute offered by the dataset provider.</span>
+<span id="cb13-283"><a href="#cb13-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-284"><a href="#cb13-284" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; This corpus consists of 46,962 tweets related to the Catalan referendum, a very controversial topic in Spain due to it was an independence referendum called by the Catalan regional government and suspended by the Constitutional Court of Spain after a request from the Spanish government. All the tweets were downloaded on October 1, 2017 with the hashtags #CatalanReferendum or #ReferendumCatalan. Later, we collected features of these tweets on October 31, 2017 in order to analyze their virality. Each item in this collection is made up of the features we used from each tweet to perform the virality analysis.</span></span>
+<span id="cb13-285"><a href="#cb13-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-286"><a href="#cb13-286" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tweet Metadata Attributes {.unnumbered}</span></span>
+<span id="cb13-287"><a href="#cb13-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-288"><a href="#cb13-288" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attribute <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb13-289"><a href="#cb13-289" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------------------------|---------------------------------------|</span></span>
+<span id="cb13-290"><a href="#cb13-290" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`lang`</span> <span class="pp">|</span> Tweet language <span class="pp">|</span></span>
+<span id="cb13-291"><a href="#cb13-291" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`retweet_count`</span> <span class="pp">|</span> Total number of retweets recorded for a given tweet. <span class="pp">|</span></span>
+<span id="cb13-292"><a href="#cb13-292" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`favourite_count`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>(renamed as <span class="in">`like_count`</span>) <span class="pp">|</span> Total number of favourites recorded for a given tweet. <span class="pp">|</span></span>
+<span id="cb13-293"><a href="#cb13-293" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`is_quote_status`</span> <span class="pp">|</span> Whether a tweet includes a quote of another tweet. <span class="pp">|</span></span>
+<span id="cb13-294"><a href="#cb13-294" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`num_hashtags`</span> <span class="pp">|</span> Total number of hashtags in the tweet. <span class="pp">|</span></span>
+<span id="cb13-295"><a href="#cb13-295" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`num_urls`</span> <span class="pp">|</span> Total number of URLs in the tweet. <span class="pp">|</span></span>
+<span id="cb13-296"><a href="#cb13-296" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`num_mentions`</span> <span class="pp">|</span> Total number of users mentioned in the tweet. <span class="pp">|</span></span>
+<span id="cb13-297"><a href="#cb13-297" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`interval_time`</span> <span class="pp">|</span> Interval of the day on which the tweet was published (morning 06:00–12:00, afternoon 12:00–18:00, evening 18:00–00:00, or night 00:00–06:00). <span class="pp">|</span></span>
+<span id="cb13-298"><a href="#cb13-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-299"><a href="#cb13-299" aria-hidden="true" tabindex="-1"></a><span class="fu">## Emotional Word Count Attributes {.unnumbered}</span></span>
+<span id="cb13-300"><a href="#cb13-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-301"><a href="#cb13-301" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attribute <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb13-302"><a href="#cb13-302" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------------------------|---------------------------------------|</span></span>
+<span id="cb13-303"><a href="#cb13-303" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`positive_words_iSOL`</span> <span class="pp">|</span> Total number of positive words found in the tweet using iSOL lexicon. <span class="pp">|</span></span>
+<span id="cb13-304"><a href="#cb13-304" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`negative_words_iSOL`</span> <span class="pp">|</span> Total number of negative words found in the tweet using iSOL lexicon. <span class="pp">|</span></span>
+<span id="cb13-305"><a href="#cb13-305" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`positive_words_NRC`</span> <span class="pp">|</span> Total number of positive words found in the tweet using NRC lexicon. <span class="pp">|</span></span>
+<span id="cb13-306"><a href="#cb13-306" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`negative_words_NRC`</span> <span class="pp">|</span> Total number of negative words found in the tweet using NRC lexicon. <span class="pp">|</span></span>
+<span id="cb13-307"><a href="#cb13-307" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`positive_words_mlSenticon`</span> <span class="pp">|</span> Total number of positive words found in the tweet using ML-SentiCon lexicon. <span class="pp">|</span></span>
+<span id="cb13-308"><a href="#cb13-308" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`negative_words_mlSenticon`</span> <span class="pp">|</span> Total number of negative words found in the tweet using ML-SentiCon lexicon. <span class="pp">|</span></span>
+<span id="cb13-309"><a href="#cb13-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-310"><a href="#cb13-310" aria-hidden="true" tabindex="-1"></a><span class="fu">## Author Metadata Attributes {.unnumbered}</span></span>
+<span id="cb13-311"><a href="#cb13-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-312"><a href="#cb13-312" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Attribute <span class="pp">|</span> Description <span class="pp">|</span></span>
+<span id="cb13-313"><a href="#cb13-313" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------------------------------|---------------------------------------|</span></span>
+<span id="cb13-314"><a href="#cb13-314" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`verified_user`</span> <span class="pp">|</span> Whether the tweet is from a verified user. <span class="pp">|</span></span>
+<span id="cb13-315"><a href="#cb13-315" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`followers_count_user`</span> <span class="pp">|</span> Total number of users who follow the author of a tweet. <span class="pp">|</span></span>
+<span id="cb13-316"><a href="#cb13-316" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`friends_count_user`</span> <span class="pp">|</span> Total number of friends that the author is following. <span class="pp">|</span></span>
+<span id="cb13-317"><a href="#cb13-317" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`listed_count_user`</span> <span class="pp">|</span> Total number of lists that include the author of a tweet. <span class="pp">|</span></span>
+<span id="cb13-318"><a href="#cb13-318" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`favourites_count_user`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>(renamed as <span class="in">`likes_count_user`</span>) <span class="pp">|</span> Total number of favourited tweets by a user. <span class="pp">|</span></span>
+<span id="cb13-319"><a href="#cb13-319" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`statuses_count_user`</span><span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span>(renamed as <span class="in">`tweets_count_user`</span>) <span class="pp">|</span> Total number of tweets made by the author since the creation of the account. <span class="pp">|</span></span>
+<span id="cb13-320"><a href="#cb13-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-321"><a href="#cb13-321" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix II: Validating Values Before Modifying Data Types {#appendix-data-types .unnumbered}</span></span>
+<span id="cb13-322"><a href="#cb13-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-323"><a href="#cb13-323" aria-hidden="true" tabindex="-1"></a>In the beginning, only missing data of certain subsets were dropped via <span class="in">`.dropna()`</span> method (@fig-drop-na).</span>
+<span id="cb13-324"><a href="#cb13-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-325"><a href="#cb13-325" aria-hidden="true" tabindex="-1"></a><span class="al">![Dropping NAs from certain columns only](../../../src/img/proj/catalan/fig4-drop-na-from-col.png)</span>{#fig-drop-na fig-alt="Dropping NAs from certain columns only"}</span>
+<span id="cb13-326"><a href="#cb13-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-327"><a href="#cb13-327" aria-hidden="true" tabindex="-1"></a>However, errors occurred subsequently when modifying data types via <span class="in">`.astype()`</span> method (@fig-astype-error).</span>
+<span id="cb13-328"><a href="#cb13-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-329"><a href="#cb13-329" aria-hidden="true" tabindex="-1"></a><span class="al">![Error when using `.astype(int)`](../../../src/img/proj/catalan/fig5-error-astype-int.png)</span>{#fig-astype-error fig-alt="Error when using .astype(int)"}</span>
+<span id="cb13-330"><a href="#cb13-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-331"><a href="#cb13-331" aria-hidden="true" tabindex="-1"></a>It was because the strings in those attributes were not all numerical, in which case the strings cannot be directly changed into integers via <span class="in">`.astype(int)`</span> (@fig-non-num-str).</span>
+<span id="cb13-332"><a href="#cb13-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-333"><a href="#cb13-333" aria-hidden="true" tabindex="-1"></a><span class="al">![Check non-numerical strings](../../../src/img/proj/catalan/fig6-check-non-num-str.png)</span>{#fig-non-num-str fig-alt="Check non-numerical strings"}</span>
+<span id="cb13-334"><a href="#cb13-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-335"><a href="#cb13-335" aria-hidden="true" tabindex="-1"></a>Therefore, it is necessary to check if all strings are numerical before applying methods to change the data type. Moreover, it was found that if all missing values were dropped initially via simply <span class="in">`.dropna()`</span> (no keyword arguments), the probability of not returning errors would significantly increase.</span>
+<span id="cb13-336"><a href="#cb13-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-337"><a href="#cb13-337" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix III: Modifying Seaborn Histogram Legend {#appendix-legend .unnumbered}</span></span>
+<span id="cb13-338"><a href="#cb13-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-339"><a href="#cb13-339" aria-hidden="true" tabindex="-1"></a>@fig-popularity-hist (histogram of author *popularity*) was plotted via the seaborn function <span class="in">`.histplot()`</span>, grouped in colours by defining the <span class="in">`hue`</span> parameter (@fig-first-attempt). By this means, the legend was automatically generated, with the column label ‘overall_sentiment’ as the title. However, it does not make much sense as a title. The <span class="in">`plt.legend()`</span> was thus employed aiming at changing the legend title and maintaining all other information. Nevertheless, it did not work perfectly with the legend as shown below. It is supposed that the error might be because there were conflicts between the legend automatically generated by Seaborn and the manually added legend via <span class="in">`plt.legend()`</span> function.</span>
+<span id="cb13-340"><a href="#cb13-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-341"><a href="#cb13-341" aria-hidden="true" tabindex="-1"></a><span class="al">![First Attempt](../../../src/img/proj/catalan/fig7-first-attempt.png)</span>{#fig-first-attempt fig-alt="First Attempt"}</span>
+<span id="cb13-342"><a href="#cb13-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-343"><a href="#cb13-343" aria-hidden="true" tabindex="-1"></a>Therefore, the <span class="in">`plt.legend()`</span> argument was changed into the <span class="in">`ax.get_legend().set_title()`</span> argument, which detected the generated legend in this plot, and then set a new title to it.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
@@ -2252,7 +2213,7 @@ Figure&nbsp;7: First Attempt
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/en/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

@@ -2,51 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://pinn32.github.io/dv-projects/en/tutorials/amounts-and-distribution/index.html</loc>
-    <lastmod>2026-06-10T04:21:14.594Z</lastmod>
+    <lastmod>2026-06-23T20:24:01.167Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/en/tutorials/index.html</loc>
-    <lastmod>2026-06-20T23:44:33.218Z</lastmod>
+    <lastmod>2026-06-23T20:24:50.013Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/en/tutorials/r-tips/index.html</loc>
-    <lastmod>2026-06-10T04:28:33.732Z</lastmod>
+    <lastmod>2026-06-23T20:20:26.643Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/index.html</loc>
-    <lastmod>2026-06-20T23:38:56.223Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/about/index.html</loc>
+    <lastmod>2026-04-04T03:13:47.705Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/projects/student-media-usage/index.html</loc>
-    <lastmod>2026-06-10T04:50:11.781Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/projects/global-visa-cost/index.html</loc>
+    <lastmod>2026-06-23T20:21:54.279Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/projects/most-streamed-songs/index.html</loc>
-    <lastmod>2026-06-18T22:51:57.474Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/projects/index.html</loc>
+    <lastmod>2026-06-23T20:04:42.888Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/projects/catalan-referendum/index.html</loc>
-    <lastmod>2026-06-14T20:03:31.727Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/projects/ai-discourse/index.html</loc>
+    <lastmod>2026-06-23T20:10:38.320Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/blogs/index.html</loc>
-    <lastmod>2026-06-20T23:44:23.683Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/tools/url-shortener/index.html</loc>
+    <lastmod>2026-06-24T00:13:52.698Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/amounts-and-distribution/index.html</loc>
-    <lastmod>2026-06-11T06:24:03.003Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/blogs/recover-shellfolder/index.html</loc>
+    <lastmod>2026-06-23T20:29:08.938Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/index.html</loc>
-    <lastmod>2026-06-20T23:40:11.340Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/blogs/quarto-img-styles/index.html</loc>
+    <lastmod>2026-06-23T20:28:43.389Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/r-tips/index.html</loc>
-    <lastmod>2026-06-11T06:24:05.125Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/multivariate-plots/index.html</loc>
+    <lastmod>2026-06-11T06:24:08.676Z</lastmod>
+  </url>
+  <url>
+    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/data-processing/index.html</loc>
+    <lastmod>2026-06-11T06:24:06.966Z</lastmod>
+  </url>
+  <url>
+    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/sankey-and-network/index.html</loc>
+    <lastmod>2026-06-11T06:24:10.376Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/zh/index.html</loc>
-    <lastmod>2026-06-20T23:44:34.603Z</lastmod>
+    <lastmod>2026-06-23T20:42:57.845Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/zh/projects/student-media-usage/index.html</loc>
@@ -61,8 +69,12 @@
     <lastmod>2026-06-14T19:59:02.709Z</lastmod>
   </url>
   <url>
+    <loc>https://pinn32.github.io/dv-projects/zh/tools/index.html</loc>
+    <lastmod>2026-06-23T19:04:32.338Z</lastmod>
+  </url>
+  <url>
     <loc>https://pinn32.github.io/dv-projects/zh/blogs/index.html</loc>
-    <lastmod>2026-06-20T23:44:35.636Z</lastmod>
+    <lastmod>2026-06-23T19:04:18.989Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/index.html</loc>
@@ -70,11 +82,15 @@
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/zh/blogs/quarto-img-styles/index.html</loc>
-    <lastmod>2026-06-16T04:58:51.747Z</lastmod>
+    <lastmod>2026-06-23T20:30:00.840Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/zh/blogs/recover-shellfolder/index.html</loc>
-    <lastmod>2026-06-20T03:04:19.687Z</lastmod>
+    <lastmod>2026-06-23T20:30:37.187Z</lastmod>
+  </url>
+  <url>
+    <loc>https://pinn32.github.io/dv-projects/zh/tools/url-shortener/index.html</loc>
+    <lastmod>2026-06-24T00:12:31.551Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/zh/projects/ai-discourse/index.html</loc>
@@ -82,7 +98,7 @@
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/zh/projects/index.html</loc>
-    <lastmod>2026-06-20T23:44:36.553Z</lastmod>
+    <lastmod>2026-06-23T19:04:24.817Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/zh/projects/global-visa-cost/index.html</loc>
@@ -93,51 +109,51 @@
     <lastmod>2026-06-03T20:49:14.576Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/sankey-and-network/index.html</loc>
-    <lastmod>2026-06-11T06:24:10.376Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/r-tips/index.html</loc>
+    <lastmod>2026-06-11T06:24:05.125Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/data-processing/index.html</loc>
-    <lastmod>2026-06-11T06:24:06.966Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/index.html</loc>
+    <lastmod>2026-06-23T19:04:36.078Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/multivariate-plots/index.html</loc>
-    <lastmod>2026-06-11T06:24:08.676Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/zh/tutorials/amounts-and-distribution/index.html</loc>
+    <lastmod>2026-06-11T06:24:03.003Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/blogs/quarto-img-styles/index.html</loc>
-    <lastmod>2026-06-18T22:10:44.905Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/blogs/index.html</loc>
+    <lastmod>2026-06-23T19:03:56.354Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/blogs/recover-shellfolder/index.html</loc>
-    <lastmod>2026-06-20T03:04:53.894Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/tools/index.html</loc>
+    <lastmod>2026-06-23T23:46:14.152Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/projects/ai-discourse/index.html</loc>
-    <lastmod>2026-06-10T03:29:35.051Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/projects/catalan-referendum/index.html</loc>
+    <lastmod>2026-06-23T20:21:56.925Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/projects/index.html</loc>
-    <lastmod>2026-06-20T23:44:31.290Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/projects/most-streamed-songs/index.html</loc>
+    <lastmod>2026-06-23T20:21:55.910Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/projects/global-visa-cost/index.html</loc>
-    <lastmod>2026-06-19T18:51:51.684Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/projects/student-media-usage/index.html</loc>
+    <lastmod>2026-06-23T20:22:11.341Z</lastmod>
   </url>
   <url>
-    <loc>https://pinn32.github.io/dv-projects/en/about/index.html</loc>
-    <lastmod>2026-04-04T03:13:47.705Z</lastmod>
+    <loc>https://pinn32.github.io/dv-projects/en/index.html</loc>
+    <lastmod>2026-06-23T20:39:32.808Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/en/tutorials/sankey-and-network/index.html</loc>
-    <lastmod>2026-06-10T04:26:30.165Z</lastmod>
+    <lastmod>2026-06-23T20:16:12.110Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/en/tutorials/data-processing/index.html</loc>
-    <lastmod>2026-06-10T04:26:59.800Z</lastmod>
+    <lastmod>2026-06-23T20:19:51.127Z</lastmod>
   </url>
   <url>
     <loc>https://pinn32.github.io/dv-projects/en/tutorials/multivariate-plots/index.html</loc>
-    <lastmod>2026-06-10T04:56:58.069Z</lastmod>
+    <lastmod>2026-06-23T20:19:39.242Z</lastmod>
   </url>
 </urlset>

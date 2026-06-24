@@ -10,30 +10,30 @@
     ]
   },
   {
-    "listing": "/en/index.html",
+    "listing": "/en/all-posts/index.html",
+    "items": [
+      "/en/projects/ai-discourse/index.html",
+      "/en/tutorials/data-processing/index.html",
+      "/en/projects/student-media-usage/index.html",
+      "/en/tutorials/amounts-and-distribution/index.html",
+      "/en/projects/catalan-referendum/index.html",
+      "/en/tutorials/multivariate-plots/index.html",
+      "/en/projects/global-visa-cost/index.html",
+      "/en/tutorials/sankey-and-network/index.html",
+      "/en/tutorials/r-tips/index.html",
+      "/en/projects/most-streamed-songs/index.html",
+      "/en/blogs/quarto-img-styles/index.html",
+      "/en/blogs/recover-shellfolder/index.html"
+    ]
+  },
+  {
+    "listing": "/en/projects/index.html",
     "items": [
       "/en/projects/ai-discourse/index.html",
       "/en/projects/student-media-usage/index.html",
       "/en/projects/catalan-referendum/index.html",
       "/en/projects/global-visa-cost/index.html",
       "/en/projects/most-streamed-songs/index.html"
-    ]
-  },
-  {
-    "listing": "/en/blogs/index.html",
-    "items": [
-      "/en/blogs/quarto-img-styles/index.html",
-      "/en/blogs/recover-shellfolder/index.html"
-    ]
-  },
-  {
-    "listing": "/zh/tutorials/index.html",
-    "items": [
-      "/zh/tutorials/data-processing/index.html",
-      "/zh/tutorials/amounts-and-distribution/index.html",
-      "/zh/tutorials/multivariate-plots/index.html",
-      "/zh/tutorials/sankey-and-network/index.html",
-      "/zh/tutorials/r-tips/index.html"
     ]
   },
   {
@@ -44,6 +44,12 @@
       "/zh/projects/catalan-referendum/index.html",
       "/zh/projects/global-visa-cost/index.html",
       "/zh/projects/most-streamed-songs/index.html"
+    ]
+  },
+  {
+    "listing": "/zh/tools/index.html",
+    "items": [
+      "/zh/tools/url-shortener/index.html"
     ]
   },
   {
@@ -64,7 +70,47 @@
     ]
   },
   {
-    "listing": "/en/projects/index.html",
+    "listing": "/zh/all-posts/index.html",
+    "items": [
+      "/zh/projects/ai-discourse/index.html",
+      "/zh/tutorials/data-processing/index.html",
+      "/zh/projects/student-media-usage/index.html",
+      "/zh/tutorials/amounts-and-distribution/index.html",
+      "/zh/projects/catalan-referendum/index.html",
+      "/zh/tutorials/multivariate-plots/index.html",
+      "/zh/projects/global-visa-cost/index.html",
+      "/zh/tutorials/sankey-and-network/index.html",
+      "/zh/tutorials/r-tips/index.html",
+      "/zh/projects/most-streamed-songs/index.html",
+      "/zh/blogs/quarto-img-styles/index.html",
+      "/zh/blogs/recover-shellfolder/index.html"
+    ]
+  },
+  {
+    "listing": "/zh/tutorials/index.html",
+    "items": [
+      "/zh/tutorials/data-processing/index.html",
+      "/zh/tutorials/amounts-and-distribution/index.html",
+      "/zh/tutorials/multivariate-plots/index.html",
+      "/zh/tutorials/sankey-and-network/index.html",
+      "/zh/tutorials/r-tips/index.html"
+    ]
+  },
+  {
+    "listing": "/en/blogs/index.html",
+    "items": [
+      "/en/blogs/quarto-img-styles/index.html",
+      "/en/blogs/recover-shellfolder/index.html"
+    ]
+  },
+  {
+    "listing": "/en/tools/index.html",
+    "items": [
+      "/en/tools/url-shortener/index.html"
+    ]
+  },
+  {
+    "listing": "/en/index.html",
     "items": [
       "/en/projects/ai-discourse/index.html",
       "/en/projects/student-media-usage/index.html",

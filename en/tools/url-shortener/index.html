@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Pinn Xu">
+<meta name="dcterms.date" content="2026-04-06">
+<meta name="description" content="Compact long URLs into shareable short links with customized slugs.">
 
-<title>数据可视化教程 – Pinn (Aiqi) Xu</title>
+<title>URL Shortener – Pinn (Aiqi) Xu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -61,30 +64,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../src/img/favicon/spark.ico" rel="icon">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../src/img/favicon/spark.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5eafa2de02288ac9cc8aa0b3784aace3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -99,120 +103,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "没有结果",
-    "search-matching-documents-text": "匹配的文档",
-    "search-copy-link-title": "复制搜索链接",
-    "search-hide-matches-text": "隐藏其它匹配结果",
-    "search-more-match-text": "更多匹配结果",
-    "search-more-matches-text": "更多匹配结果",
-    "search-clear-button-title": "清除",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "取消",
-    "search-submit-button-title": "提交",
-    "search-label": "搜索"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-tutorials-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-image','listing-title','listing-description','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-tutorials-listing'] = new List('listing-tutorials-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../../src/styles/styles.css">
-<link rel="stylesheet" href="../../src/styles/portfolio.css">
-<link rel="stylesheet" href="../../src/styles/projects.css">
+<link rel="stylesheet" href="../../../src/styles/styles.css">
+<link rel="stylesheet" href="../../../src/styles/portfolio.css">
+<link rel="stylesheet" href="../../../src/styles/projects.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo light-content">
     <img src="https://raw.githubusercontent.com/Pinn32/img/main/personal-web/pinn32-portrait.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Pinn (Aiqi) Xu</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="搜索"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../en/projects/index.html"> 
+    <a class="nav-link active" href="../../../en/projects/index.html" aria-current="page"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../en/tutorials/index.html"> 
+    <a class="nav-link" href="../../../en/tutorials/index.html"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../en/tools/index.html"> 
+    <a class="nav-link" href="../../../en/tools/index.html"> 
 <span class="menu-text">Tools</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../en/blogs/index.html"> 
+    <a class="nav-link" href="../../../en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
 </ul>
@@ -222,12 +168,12 @@ window.Quarto = {
       <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-translate"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
-            <a class="dropdown-item quarto-navbar-tools-item" href="../../#">
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
             English
             </a>
           </li>
           <li>
-            <a class="dropdown-item quarto-navbar-tools-item" href="../../#">
+            <a class="dropdown-item quarto-navbar-tools-item" href="../../../#">
             中文
             </a>
           </li>
@@ -238,27 +184,208 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../en/tools/index.html">Tools</a></li><li class="breadcrumb-item"><a href="../../../en/tools/url-shortener/index.html">URL Shortener</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/projects/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projects</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/ai-discourse/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evolution of Online AI Discourse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/student-media-usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Student Social Media Usage and Well-being Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/catalan-referendum/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Twitter Sentiment Analysis of Catalan Referendum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/global-visa-cost/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Global Visa Cost Geographical Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/projects/most-streamed-songs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Spotify Most Streamed Songs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/tutorials/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/data-processing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Processing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/amounts-and-distribution/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amounts and Distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/multivariate-plots/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multivariate Plots</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/sankey-and-network/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sankey Diagrams and Network Graphs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tutorials/r-tips/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Tips</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/blogs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Blogs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/quarto-img-styles/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto Image Centering Styles</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/blogs/recover-shellfolder/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recovering Misplaced Windows Shell Folders</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../en/tools/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tools</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">URL Shortener</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/about/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">分类</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">全部 <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Q1NTJUU5JUEyJTlDJUU4JTg5JUIy">CSS颜色 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YUZyYW1l">DataFrame <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZHBseXI=">dplyr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGFuZGFz">Pandas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGxvdGx5">Plotly <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2VhYm9ybg==">Seaborn <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c3RyaW5ncg==">stringr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU0JUJCJUEzJUU3JUEwJTgxJUU3JTg5JTg3JUU2JUFFJUI1">代码片段 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">可视化 <span class="quarto-category-count">(3)</span></div><div class="category" data-category="JUU1JUE0JTlBJUU1JThGJTk4JUU5JTg3JThG">多变量 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JTg4JTg2JUU1JUI4JTgz">数据分布 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">数据可视化 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk1JUIwJUU2JThEJUFFJUU1JUE0JTg0JUU3JTkwJTg2">数据处理 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkw">文本分析 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJF">桑基图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JUFEJUEzJUU1JTg4JTk5JUU4JUExJUE4JUU4JUJFJUJFJUU1JUJDJThG">正则表达式 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTgzJUFEJUU1JTlCJUJF">热图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTlCJUI0JUU2JTk2JUI5JUU1JTlCJUJF">直方图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JUJEJTkxJUU3JUJCJTlDJUU1JTlCJUJF">网络图 <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#url-shortener" id="toc-url-shortener" class="nav-link active" data-scroll-target="#url-shortener">URL Shortener</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/en/tools/url-shortener/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/tools/url-shortener/index.md" target="_blank" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../en/tools/index.html">Tools</a></li><li class="breadcrumb-item"><a href="../../../en/tools/url-shortener/index.html">URL Shortener</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">数据可视化教程</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
-<p class="subtitle lead">数据分析、可视化教程与技巧。</p>
-</div>
+<div class="quarto-title-block"><div><h1 class="title">URL Shortener</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Web Dev</div>
+    <div class="quarto-category">Next.js</div>
+    <div class="quarto-category">MongoDB</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Compact long URLs into shareable short links with customized slugs.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Pinn Xu </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 6, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -268,151 +395,38 @@ window.Quarto = {
 </header>
 
 
-
+<div class="reading-meta"><span>        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+        </svg>
+     2 min read</span><span> · </span><span>274 EN words</span><span> · </span><span>0 中文字</span></div>
+<section id="url-shortener" class="level1">
+<h1>URL Shortener</h1>
+<p>This web tool helps you compact long URLs into shareable short links with customized slugs. It was developed by <strong>Next.js</strong>, <strong>TypeScript</strong>, and <strong>MongoDB</strong>.</p>
+<div id="fig-url-to" class="quarto-float quarto-figure quarto-figure-center anchored" width="100%" style="width:35rem;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-url-to-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><a href="https://url-to.vercel.app/" class="btn btn-outline-primary" style="" target="_blank">Click Here to Try</a></p>
+<p><a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: “URL Shortener”"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png" class="img-fluid figure-img" style="width:35rem;"></a></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-url-to-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: “URL Shortener”
+</figcaption>
+</figure>
+</div>
+<p>To use it, enter your long URL:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>https://example.com/your/very/long/url/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, choose a slug for your shortened URL:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>https://url-to.vercel.app/<span class="dt">&lt;</span><span class="kw">your-slug</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Click the compact button, and the tool will give you a shortened link that redirects to your URL.</p>
+<p><a href="https://github.com/Pinn32/mp-5" target="_blank">&gt;&gt; View source on GitHub</a></p>
 
 
 <!-- -->
 
+</section>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-tutorials-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-    <select id="listing-tutorials-listing-sort" class="form-select" aria-label="排序方式" onchange="window['quarto-listings']['listing-tutorials-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-      <option value="" disabled="" selected="" hidden="">排序方式</option>
-      <option value="index" data-direction="asc">默认</option>
-      <option value="listing-title" data-direction="asc">
-        标题
-      </option>
-      <option value="listing-date-sort" data-direction="asc">
-        日期 - 日期升序
-      </option>
-      <option value="listing-date-sort" data-direction="desc">
-        日期 - 日期降序
-      </option>
-    </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="筛选">
-    </div>
-</div>
-<div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="UHl0aG9uJTJDJUU2JTk1JUIwJUU2JThEJUFFJUU1JUE0JTg0JUU3JTkwJTg2JTJDUGFuZGFzJTJDRGF0YUZyYW1l" data-listing-date-sort="1728532800000" data-listing-file-modified-sort="1781159046966" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="708">
-<a href="../../zh/tutorials/data-processing/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="data-processing/index_files/figure-html/cell-14-output-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-数据清理
-</h5>
-<div class="card-text listing-description delink">
-<p>Pandas 数据处理与清洗流程：缺失值、重复值、数据重塑、表连接、分组聚合、透视表等。</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Pinn Xu
-</div>
-<div class="listing-date">
-2024年10月10日
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNiU5NSVCMCVFNiU4RCVBRSVFNSU4OCU4NiVFNSVCOCU4MyUyQyVFNyU5QiVCNCVFNiU5NiVCOSVFNSU5QiVCRQ==" data-listing-date-sort="1727755200000" data-listing-file-modified-sort="1781159043003" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1335">
-<a href="../../zh/tutorials/amounts-and-distribution/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="amounts-and-distribution/index_files/figure-html/cell-13-output-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-数量与分布可视化
-</h5>
-<div class="card-text listing-description delink">
-<p>使用 Seaborn 绘制数量与分布可视化图表：柱状图、点线图、直方图、箱线图等。</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Pinn Xu
-</div>
-<div class="listing-date">
-2024年10月1日
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDU2VhYm9ybiUyQyVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNSVBNCU5QSVFNSU4RiU5OCVFOSU4NyU4RiUyQyVFNyU4MyVBRCVFNSU5QiVCRQ==" data-listing-date-sort="1730001600000" data-listing-file-modified-sort="1781159048676" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1523">
-<a href="../../zh/tutorials/multivariate-plots/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../../src/img/ttl/multi/cover.png" class="thumbnail-image card-img" style="height: 12rem;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-多变量图表
-</h5>
-<div class="card-text listing-description delink">
-<p>使用 Seaborn 绘制多变量可视化图表：散点图、折线图、热力图、双变量图、分面网格图等。</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Pinn Xu
-</div>
-<div class="listing-date">
-2024年10月27日
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="UHl0aG9uJTJDUGxvdGx5JTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2JTJDJUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJFJTJDJUU3JUJEJTkxJUU3JUJCJTlDJUU1JTlCJUJF" data-listing-date-sort="1733374800000" data-listing-file-modified-sort="1781159050376" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1470">
-<a href="../../zh/tutorials/sankey-and-network/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="../../src/img/ttl/sankey/fig1-worker-month-expense.gif" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-桑基图与网络图
-</h5>
-<div class="card-text listing-description delink">
-<p>使用 Plotly、Pyvis 与 NetworkX 绘制桑基图与网络图。</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Pinn Xu
-</div>
-<div class="listing-date">
-2024年12月5日
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="UiUyQ2RwbHlyJTJDc3RyaW5nciUyQyVFNiVBRCVBMyVFNSU4OCU5OSVFOCVBMSVBOCVFOCVCRSVCRSVFNSVCQyU4RiUyQ0NTUyVFOSVBMiU5QyVFOCU4OSVCMiUyQyVFNiU5NiU4NyVFNiU5QyVBQyVFNSU4OCU4NiVFNiU5RSU5MCUyQyVFNiU5NSVCMCVFNiU4RCVBRSVFNSU4RiVBRiVFOCVBNyU4NiVFNSU4QyU5NiUyQyVFNCVCQiVBMyVFNyVBMCU4MSVFNyU4OSU4NyVFNiVBRSVCNQ==" data-listing-date-sort="1774584000000" data-listing-file-modified-sort="1781159045125" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2008">
-<a href="../../zh/tutorials/r-tips/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="../../src/img/ttl/r-tips/rstudio-snippet-1.png" alt="编辑代码片段" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-R 语言技巧
-</h5>
-<div class="card-text listing-description delink">
-<p>常用 R 技巧与代码片段：dplyr 数据处理、stringr 文本操作、CSS 颜色名称、代码速查表等。</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Pinn Xu
-</div>
-<div class="listing-date">
-2026年3月27日
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">无匹配项</div>
-</div></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="fix-code-fold">
     const bindToggle = (id, open) => {
         const btn = document.getElementById(id);
@@ -639,116 +653,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .observe(document.body, { childList: true, subtree: true });
 });
 </script>
-<script>
-    (() => {
-        const BREAKPOINT = 768;
-
-        const LABELS = {
-            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
-            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
-        };
-
-        let sidebar, titleBlock, mainEl, quartoContent;
-        let categoryList, toggleBtn;
-        let expanded = false;
-        let rafId = null;
-
-        const init = () => {
-            sidebar       = document.getElementById('quarto-margin-sidebar');
-            titleBlock    = document.getElementById('title-block-header');
-            mainEl        = document.querySelector('#quarto-content > main.content');
-            quartoContent = document.getElementById('quarto-content');
-            categoryList  = document.querySelector('.quarto-listing-category');
-        };
-
-        const lang = () => {
-            const docLang = (document.documentElement.lang || '').toLowerCase();
-            if (docLang.startsWith('zh')) return 'zh';
-            if (docLang.startsWith('en')) return 'en';
-            return location.pathname.includes('/zh/') ? 'zh' : 'en';
-        };
-
-        const ensureToggle = () => {
-            if (toggleBtn || !categoryList) return;
-            toggleBtn = document.createElement('button');
-            toggleBtn.type = 'button';
-            toggleBtn.className = 'category-show-more';
-            toggleBtn.hidden = true;
-            toggleBtn.addEventListener('click', () => {
-                expanded = !expanded;
-                syncCategories();
-            });
-            categoryList.appendChild(toggleBtn);
-        };
-
-        const syncCategories = () => {
-            if (!categoryList) return;
-            ensureToggle();
-
-            const pills = Array.from(categoryList.querySelectorAll('.category'));
-            // Always start from a fully-visible state so measurement is accurate.
-            pills.forEach((p) => p.classList.remove('is-hidden'));
-
-            // Desktop: show everything, no toggle.
-            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            // Find pills that wrapped past the first row.
-            const firstRowTop = pills[0].offsetTop;
-            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
-
-            if (overflow.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            const L = LABELS[lang()];
-            toggleBtn.hidden = false;
-            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
-            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
-        };
-
-        const relocate = () => {
-            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
-
-            if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar right after the title block, inside main.
-                if (titleBlock.parentNode === mainEl) {
-                    if (sidebar.previousElementSibling !== titleBlock) {
-                        titleBlock.after(sidebar);
-                    }
-                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
-                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
-                }
-            } else {
-                // Restore sidebar as first child of #quarto-content (before main).
-                if (sidebar.parentNode !== quartoContent) {
-                    quartoContent.insertBefore(sidebar, mainEl);
-                }
-            }
-
-            syncCategories();
-        };
-
-        const onResize = () => {
-            if (rafId !== null) return;
-            rafId = requestAnimationFrame(() => {
-                rafId = null;
-                relocate();
-            });
-        };
-
-        // Run synchronously — script is include-after-body so the DOM is already
-        // parsed. This fires before the first paint, preventing the flash where
-        // the sidebar briefly appears in its default (right-side) position.
-        init();
-        relocate();
-
-        window.addEventListener('resize', onResize);
-    })();
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -774,12 +678,12 @@ document.addEventListener("DOMContentLoaded", function () {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "已复制");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "已复制");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -1199,36 +1103,44 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> '数据可视化教程'</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> '数据分析、可视化教程与技巧。'</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">include-after-body:</span><span class="co"> '../../src/scripts/responsive-tag-bar.html'</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> false</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">back-to-top-navigation:</span><span class="co"> false</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">reading-meta-enabled:</span><span class="co"> false</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  id: tutorials-listing</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.*md"</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  max-description-length: 100</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, description, author, date]</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "12rem"</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Tutorial.png'</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: </span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">    - "order asc"</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">    - "date desc"</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">    - "title asc"</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: [title, date]</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 6</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> 'URL Shortener'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-04-06</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> 'Compact long URLs into shareable short links with customized slugs.'</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Web Dev, Next.js, MongoDB]</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># URL Shortener</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>This web tool helps you compact long URLs into shareable short links with customized slugs. It was developed by **Next.js**, **TypeScript**, and **MongoDB**.</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>:::{#fig-url-to width="100%"}</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Click Here to Try</span><span class="co">](https://url-to.vercel.app/)</span>{.btn .btn-outline-primary style="" target="_blank"}</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="al">![](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png)</span>{style="width:35rem;"}</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>"URL Shortener"</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>To use it, enter your long URL:</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//example.com/your/very/long/url/</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>Then, choose a slug for your shortened URL:</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//url-to.vercel.app/&lt;your-slug&gt;</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>Click the compact button, and the tool will give you a shortened link that redirects to your URL.</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View source on GitHub</span><span class="co">](https://github.com/Pinn32/mp-5)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
@@ -1238,15 +1150,47 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/tutorials/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tutorials/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/en/tools/url-shortener/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/tools/url-shortener/index.md" target="_blank" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
 
-<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

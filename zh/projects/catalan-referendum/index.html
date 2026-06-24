@@ -205,6 +205,10 @@ window.Quarto = {
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../../en/tools/index.html"> 
+<span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../../en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
@@ -361,6 +365,23 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../zh/tools/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Web工具</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">短链接生成器</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../zh/about/index.html" class="sidebar-item-text sidebar-link">
@@ -400,7 +421,7 @@ window.Quarto = {
   <li><a href="#appendix-data-types" id="toc-appendix-data-types" class="nav-link" data-scroll-target="#appendix-data-types">附录二：修改数据类型前的值验证</a></li>
   <li><a href="#appendix-legend" id="toc-appendix-legend" class="nav-link" data-scroll-target="#appendix-legend">附录三：修改 Seaborn 直方图图例</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -451,8 +472,8 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     8 min read</span><span> · </span><span>303 EN words</span><span> · </span><span>1937 中文字</span></div>
-<div id="649d69a1" class="cell" data-execution_count="1">
+     9 min read</span><span> · </span><span>309 EN words</span><span> · </span><span>1945 中文字</span></div>
+<div id="42f11129" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>环境与版本</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -464,7 +485,7 @@ window.Quarto = {
 <section id="简介" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 简介</h1>
 <p>本项目使用一份关于西班牙加泰罗尼亚公投的 Twitter 推文数据集，属性包括每条推文的基本信息及由不同词典检测到的情感词计数 <span class="citation" data-cites="jimenezZafra2021">(<a href="#ref-jimenezZafra2021" role="doc-biblioref"><span class="nocase">Jiménez-Zafra 等</span>, 2021</a>)</span>（属性详细说明见<a href="#appendix-attributes">附录一</a>）。本文通过条形图展示各词典在推文情感检测上的表现差异，并以直方图按情感类别呈现所有推文的作者受欢迎度分布。</p>
-<div id="02c7f10e" class="cell" data-execution_count="2">
+<div id="22073d89" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入库</span></span>
@@ -637,7 +658,7 @@ window.Quarto = {
 </section>
 <section id="数据处理" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> 数据处理</h1>
-<div id="c43298fa" class="cell" data-execution_count="3">
+<div id="cfe95826" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 删除缺失值（见附录二）</span></span>
@@ -660,7 +681,7 @@ window.Quarto = {
 </div>
 <section id="计数属性设置" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="计数属性设置"><span class="header-section-number">2.1</span> 计数属性设置</h2>
-<div id="edcd6336" class="cell" data-execution_count="4">
+<div id="5845ce40" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查属性数据类型</span></span>
@@ -706,7 +727,7 @@ memory usage: 156.4+ KB</code></pre>
 </figcaption>
 </figure>
 </div>
-<div id="8b1e1123" class="cell" data-results="hold" data-execution_count="5">
+<div id="8968f0ca" class="cell" data-results="hold" data-execution_count="5">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 检查 3 个 object 类型计数属性的数据类型</span></span>
@@ -745,7 +766,7 @@ True True True</code></pre>
 </section>
 <section id="布尔属性设置" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="布尔属性设置"><span class="header-section-number">2.2</span> 布尔属性设置</h2>
-<div id="ea5df5a9" class="cell" data-results="hold" data-execution_count="6">
+<div id="5a3a5e74" class="cell" data-results="hold" data-execution_count="6">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 确认布尔列只包含 'True'/'False' 字符串</span></span>
@@ -767,7 +788,7 @@ True True True</code></pre>
 <h1 data-number="3"><span class="header-section-number">3</span> 数据可视化</h1>
 <section id="情感分布" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="情感分布"><span class="header-section-number">3.1</span> 情感分布</h2>
-<div id="ff4d656f" class="cell" data-execution_count="7">
+<div id="50b0794c" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 将情感词计数列转换为长格式，便于可视化</span></span>
@@ -1219,19 +1240,23 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
     };
 
     const NAV_TRANSLATIONS = {
-        en: { 
-            Projects: 'Projects', 
-            Tutorials: 'Tutorials', 
-            Hobbies: 'Hobbies', 
+        en: {
+            Projects: 'Projects',
+            Tutorials: 'Tutorials',
+            Tools: 'Tools',
             Blogs: 'Blogs',
-            About: 'About' 
+            Hobbies: 'Hobbies',
+            'All Posts': 'All Posts',
+            About: 'About'
         },
-        zh: { 
-            Projects: '项目',    
-            Tutorials: '教程',       
-            Hobbies: '爱好',    
+        zh: {
+            Projects: '项目',
+            Tutorials: '教程',
+            Tools: '工具',
             Blogs: '博客',
-            About: '关于' 
+            Hobbies: '爱好',
+            'All Posts': '所有文章',
+            About: '关于'
         },
     };
 
@@ -1335,114 +1360,6 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
-<script>
-    (() => {
-        const BREAKPOINT = 768;
-
-        const LABELS = {
-            en: { more: (n) => `Show more categories (+${n})`, less: 'Show less' },
-            zh: { more: (n) => `更多分类 (+${n})`,              less: '收起' },
-        };
-
-        let sidebar, titleBlock, mainEl, quartoContent;
-        let categoryList, toggleBtn;
-        let expanded = false;
-        let rafId = null;
-
-        const init = () => {
-            sidebar       = document.getElementById('quarto-margin-sidebar');
-            titleBlock    = document.getElementById('title-block-header');
-            mainEl        = document.querySelector('#quarto-content > main.content');
-            quartoContent = document.getElementById('quarto-content');
-            categoryList  = document.querySelector('.quarto-listing-category');
-        };
-
-        const lang = () => {
-            const docLang = (document.documentElement.lang || '').toLowerCase();
-            if (docLang.startsWith('zh')) return 'zh';
-            if (docLang.startsWith('en')) return 'en';
-            return location.pathname.includes('/zh/') ? 'zh' : 'en';
-        };
-
-        const ensureToggle = () => {
-            if (toggleBtn || !categoryList) return;
-            toggleBtn = document.createElement('button');
-            toggleBtn.type = 'button';
-            toggleBtn.className = 'category-show-more';
-            toggleBtn.hidden = true;
-            toggleBtn.addEventListener('click', () => {
-                expanded = !expanded;
-                syncCategories();
-            });
-            categoryList.appendChild(toggleBtn);
-        };
-
-        const syncCategories = () => {
-            if (!categoryList) return;
-            ensureToggle();
-
-            const pills = Array.from(categoryList.querySelectorAll('.category'));
-            // Always start from a fully-visible state so measurement is accurate.
-            pills.forEach((p) => p.classList.remove('is-hidden'));
-
-            // Desktop: show everything, no toggle.
-            if (window.innerWidth > BREAKPOINT || pills.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            // Find pills that wrapped past the first row.
-            const firstRowTop = pills[0].offsetTop;
-            const overflow = pills.filter((p) => p.offsetTop > firstRowTop);
-
-            if (overflow.length === 0) {
-                toggleBtn.hidden = true;
-                return;
-            }
-
-            const L = LABELS[lang()];
-            toggleBtn.hidden = false;
-            toggleBtn.textContent = expanded ? L.less : L.more(overflow.length);
-            if (!expanded) overflow.forEach((p) => p.classList.add('is-hidden'));
-        };
-
-        const relocate = () => {
-            if (!sidebar || !titleBlock || !mainEl || !quartoContent) return;
-
-            if (window.innerWidth <= BREAKPOINT) {
-                // Place sidebar right after the title block, inside main.
-                if (titleBlock.parentNode === mainEl) {
-                    if (sidebar.previousElementSibling !== titleBlock) {
-                        titleBlock.after(sidebar);
-                    }
-                } else if (sidebar.parentNode !== mainEl || sidebar !== mainEl.firstElementChild) {
-                    mainEl.insertBefore(sidebar, mainEl.firstElementChild);
-                }
-            } else {
-                // Restore sidebar as first child of #quarto-content (before main).
-                if (sidebar.parentNode !== quartoContent) {
-                    quartoContent.insertBefore(sidebar, mainEl);
-                }
-            }
-
-            syncCategories();
-        };
-
-        const onResize = () => {
-            if (rafId !== null) return;
-            rafId = requestAnimationFrame(() => {
-                rafId = null;
-                relocate();
-            });
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            init();
-            relocate();
-        });
-        window.addEventListener('resize', onResize);
-    })();
-</script>
 <script id="strip-index-html">
     // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
     // Quarto always links listing cards (and other internal links) to the real output
@@ -1474,6 +1391,50 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
             }
         });
     })();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 每种内容类型对应的 listing 页面（可按需增减）
+  const SECTION_MAP = {
+    projects:  "projects",
+    tutorials: "tutorials",
+    blogs:     "blogs",
+    tools:     "tools",
+  };
+
+  function getTarget() {
+    const path = window.location.pathname;
+
+    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+    const langMatch = path.match(/^\/(en|zh)\//);
+    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+
+    // 提取当前所在 section
+    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+    const section = sectionMatch ? sectionMatch[1] : null;
+
+    if (!section) return null; // 不在任何已知 section 下，不重写
+
+    return langPrefix + SECTION_MAP[section] + "/";
+  }
+
+  function rewriteTagLinks() {
+    const target = getTarget();
+    if (!target) return;
+
+    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+      const category = link.href.split("#category=")[1];
+      if (category) {
+        link.href = target + "#category=" + category;
+      }
+    });
+  }
+
+  rewriteTagLinks();
+  new MutationObserver(rewriteTagLinks)
+    .observe(document.body, { childList: true, subtree: true });
+});
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2269,7 +2230,7 @@ Wilke, C. O. (2019). <em>Fundamentals of Data Visualization: <span>A</span> Prim
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/projects/catalan-referendum/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

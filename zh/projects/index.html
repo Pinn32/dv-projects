@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
 
     const options = {
-      valueNames: ['listing-image','listing-title','listing-categories','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-title','listing-categories','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
@@ -208,6 +208,10 @@ window.Quarto = {
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../en/tools/index.html"> 
+<span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../en/blogs/index.html"> 
 <span class="menu-text">Blogs</span></a>
   </li>  
@@ -285,9 +289,6 @@ window.Quarto = {
       </option>
       <option value="listing-date-sort" data-direction="desc">
         日期 - 日期降序
-      </option>
-      <option value="listing-author" data-direction="asc">
-        作者
       </option>
     </select>
   </div>
@@ -498,19 +499,23 @@ Pinn Xu
     };
 
     const NAV_TRANSLATIONS = {
-        en: { 
-            Projects: 'Projects', 
-            Tutorials: 'Tutorials', 
-            Hobbies: 'Hobbies', 
+        en: {
+            Projects: 'Projects',
+            Tutorials: 'Tutorials',
+            Tools: 'Tools',
             Blogs: 'Blogs',
-            About: 'About' 
+            Hobbies: 'Hobbies',
+            'All Posts': 'All Posts',
+            About: 'About'
         },
-        zh: { 
-            Projects: '项目',    
-            Tutorials: '教程',       
-            Hobbies: '爱好',    
+        zh: {
+            Projects: '项目',
+            Tutorials: '教程',
+            Tools: '工具',
             Blogs: '博客',
-            About: '关于' 
+            Hobbies: '爱好',
+            'All Posts': '所有文章',
+            About: '关于'
         },
     };
 
@@ -614,6 +619,82 @@ Pinn Xu
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
+<script id="strip-index-html">
+    // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
+    // Quarto always links listing cards (and other internal links) to the real output
+    // file, e.g. `.../ai-discourse/index.html`. Both the preview server and GitHub Pages
+    // also serve the directory URL, so we drop the `index.html` for cleaner addresses.
+    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
+    // avoids changing hrefs the user might hover mid-load.
+    (() => {
+        document.querySelectorAll('a[href]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
+            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
+
+            try {
+                const url = new URL(href, window.location.href);
+                // Only touch same-origin links.
+                if (url.origin !== window.location.origin) return;
+                if (!/\/index\.html$/.test(url.pathname)) return;
+
+                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
+                // Write a root-absolute path. This is safe even under the GitHub Pages
+                // `/dv-projects/` base, since `url.pathname` already includes that prefix
+                // (the original relative href was resolved against the current page).
+                link.setAttribute('href', url.pathname + url.search + url.hash);
+            } catch {
+                // Malformed href — leave it untouched.
+            }
+        });
+    })();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // 每种内容类型对应的 listing 页面（可按需增减）
+  const SECTION_MAP = {
+    projects:  "projects",
+    tutorials: "tutorials",
+    blogs:     "blogs",
+    tools:     "tools",
+  };
+
+  function getTarget() {
+    const path = window.location.pathname;
+
+    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+    const langMatch = path.match(/^\/(en|zh)\//);
+    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+
+    // 提取当前所在 section
+    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+    const section = sectionMatch ? sectionMatch[1] : null;
+
+    if (!section) return null; // 不在任何已知 section 下，不重写
+
+    return langPrefix + SECTION_MAP[section] + "/";
+  }
+
+  function rewriteTagLinks() {
+    const target = getTarget();
+    if (!target) return;
+
+    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+      const category = link.href.split("#category=")[1];
+      if (category) {
+        link.href = target + "#category=" + category;
+      }
+    });
+  }
+
+  rewriteTagLinks();
+  new MutationObserver(rewriteTagLinks)
+    .observe(document.body, { childList: true, subtree: true });
+});
+</script>
 <script>
     (() => {
         const BREAKPOINT = 768;
@@ -715,43 +796,13 @@ Pinn Xu
             });
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            init();
-            relocate();
-        });
+        // Run synchronously — script is include-after-body so the DOM is already
+        // parsed. This fires before the first paint, preventing the flash where
+        // the sidebar briefly appears in its default (right-side) position.
+        init();
+        relocate();
+
         window.addEventListener('resize', onResize);
-    })();
-</script>
-<script id="strip-index-html">
-    // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
-    // Quarto always links listing cards (and other internal links) to the real output
-    // file, e.g. `.../ai-discourse/index.html`. Both the preview server and GitHub Pages
-    // also serve the directory URL, so we drop the `index.html` for cleaner addresses.
-    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
-    // avoids changing hrefs the user might hover mid-load.
-    (() => {
-        document.querySelectorAll('a[href]').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
-
-            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
-            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
-
-            try {
-                const url = new URL(href, window.location.href);
-                // Only touch same-origin links.
-                if (url.origin !== window.location.origin) return;
-                if (!/\/index\.html$/.test(url.pathname)) return;
-
-                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
-                // Write a root-absolute path. This is safe even under the GitHub Pages
-                // `/dv-projects/` base, since `url.pathname` already includes that prefix
-                // (the original relative href was resolved against the current page).
-                link.setAttribute('href', url.pathname + url.search + url.hash);
-            } catch {
-                // Malformed href — leave it untouched.
-            }
-        });
     })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1208,10 +1259,10 @@ Pinn Xu
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> '项目'</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> '使用 R/Python 进行数据分析与可视化的项目。'</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># css: '../../src/styles/projects.css'</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">include-after-body:</span><span class="co"> '../../src/scripts/responsive-tag-bar.html'</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">include-after-body:</span><span class="co"> '../../src/scripts/responsive-tag-bar.html'</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> false</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">sidebar:</span><span class="co"> false</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">number-sections:</span><span class="co"> false</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">back-to-top-navigation:</span><span class="co"> false</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="an">reading-meta-enabled:</span><span class="co"> false</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -1220,15 +1271,20 @@ Pinn Xu
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: "*/index.*md"</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, author, date]</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "12rem"</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: "order asc"</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: true</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 20</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  max-description-length: 100</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, author, date]</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "12rem"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  image-placeholder: 'https://raw.githubusercontent.com/Pinn32/img/main/placeholders/Project.png'</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: </span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">    - "order asc"</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">    - "date desc"</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">    - "title asc"</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: [title, date]</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 6</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
@@ -1238,7 +1294,7 @@ Pinn Xu
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/projects/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/projects/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/projects/index.qmd" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
