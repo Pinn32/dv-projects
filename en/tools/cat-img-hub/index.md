@@ -3,8 +3,7 @@ title: 'Cat Image Hub'
 author: ['Pinn Xu', 'Yuchen Bao', 'Tianpeng Xu']
 date: 2026-04-19
 description: 'Browse random cat images and save your favorites after signing in.'
-# categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]
-categories: [Web Dev, Next.js, MongoDB, Google OAuth]
+categories: [Web App, Next.js, MongoDB, OAuth]
 image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000221390.png"
 order: 3
 ---
@@ -50,7 +49,7 @@ Pages are Next.js Server Components that fetch initial data and hand it to small
 | Auth | Auth.js v5 + Google OAuth |
 | Database | MongoDB 6 (raw driver) |
 | Styling | styled-components 6 |
-| External API | [The Cat API](https://thecatapi.com) |
+| External API | [The Cat API](https://thecatapi.com){target="_blank"} |
 
 ## Team
 

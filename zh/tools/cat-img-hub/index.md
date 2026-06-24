@@ -3,15 +3,14 @@ title: '猫咪图片收藏站'
 author: ['Pinn Xu', 'Yuchen Bao', 'Tianpeng Xu']
 date: 2026-04-19
 description: '浏览随机猫咪图片，登录后收藏自己喜欢的猫咪图片。'
-# categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]
-categories: [Web Dev, Next.js, MongoDB, Google OAuth]
+categories: [Web App, Next.js, MongoDB, OAuth]
 image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000221390.png"
 order: 3
 ---
 
-# 猫咪图片收藏站
+# 猫咪图片收藏站 (Cat Image Hub)
 
-猫咪图片收藏站是一款浏览随机猫咪图片的网站，用户可以登录后收藏自己喜欢的猫咪图片，基于 **Next.js**、**TypeScript** 和 **MongoDB** 构建，使用 Cat API 和 Google OAuth 认证登录。
+猫咪图片收藏站是一款随机浏览猫咪图片并收藏喜爱图片的 Web 应用。用户可以通过登录账号保存个人收藏，项目基于 **Next.js**、**TypeScript** 和 **MongoDB** 开发，并集成 Cat API 提供图片数据，使用 Google OAuth 实现用户认证。
 
 :::{style="text-align:center;"}
 [点击此处在线体验](https://cat-img-hub.vercel.app/){.btn .btn-outline-primary target="_blank"}
@@ -49,7 +48,7 @@ order: 3
 | 认证 | Auth.js v5 + Google OAuth |
 | 数据库 | MongoDB 6（原生驱动）|
 | 样式 | styled-components 6 |
-| 外部 API | [The Cat API](https://thecatapi.com) |
+| 外部 API | [The Cat API](https://thecatapi.com){target="_blank"} |
 
 ## 团队
 

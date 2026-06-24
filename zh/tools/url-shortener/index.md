@@ -3,13 +3,12 @@ title: '短链接生成器'
 author: 'Pinn Xu'
 date: 2026-04-06
 description: '快速缩短网址，支持自定义链接后缀 (slug)。'
-# categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]
-categories: [Web Dev, Next.js, MongoDB]
+categories: [Web App, Next.js, MongoDB]
 image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png"
 order: 2
 ---
 
-# 短链接生成器
+# 短链接生成器 (URL Shortener)
 
 这是一款简洁易用的短链接生成工具，支持将长网址转换为短链接，并自定义专属链接后缀。基于 **Next.js**、**TypeScript** 和 **MongoDB** 构建，帮助用户更方便地分享和管理链接。
 
