@@ -2,7 +2,7 @@
 title: 'Twitter 加泰罗尼亚公投情感分析'
 author: 'Pinn Xu'
 date: '2024-11-01'
-categories: [Python, NLP, 社交媒体, 可视化]
+categories: [Python, 社交媒体, 情感分析, 可视化]
 description: '使用 NLP 技术对 2017 年加泰罗尼亚独立公投相关推文进行情感挖掘。'
 bibliography: references.bib
 csl: ../../../src/apa.csl

@@ -3,8 +3,8 @@
         const LISTING_ID = 'listing-all-listing';
 
         const LABELS = {
-            en: { all: 'All', project: 'Projects', tutorial: 'Tutorials', blog: 'Blogs' },
-            zh: { all: '全部', project: '项目', tutorial: '教程', blog: '博客' },
+            en: { all: 'All', project: 'Projects', tutorial: 'Tutorials', blog: 'Blogs', tool: 'Tools' },
+            zh: { all: '全部', project: '项目', tutorial: '教程', blog: '博客', tool: '工具' },
         };
 
         const lang = () => {
@@ -39,7 +39,7 @@
             bar.setAttribute('role', 'group');
             bar.setAttribute('aria-label', 'Filter by type');
 
-            for (const type of ['all', 'project', 'tutorial', 'blog']) {
+            for (const type of ['all', 'project', 'tutorial', 'blog', 'tool']) {
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'type-btn' + (type === 'all' ? ' active' : '');

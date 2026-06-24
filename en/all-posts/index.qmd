@@ -18,6 +18,7 @@ listing:
     - ../projects/*/index.*md
     - ../tutorials/*/index.*md
     - ../blogs/*/index.*md
+    - ../tools/*/index.*md
   type: grid
   # categories: true
   max-description-length: 100
@@ -27,7 +28,7 @@ listing:
   image-align: left
   # image-placeholder: ""
   sort: 
-    - "order asc"
+    # - "order asc"
     - "date desc"
     - "title asc"
   sort-ui: [title, date]

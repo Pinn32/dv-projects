@@ -12,13 +12,11 @@ image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194
 
 这是一款简洁易用的短链接生成工具，支持将长网址转换为短链接，并自定义专属链接后缀。基于 **Next.js**、**TypeScript** 和 **MongoDB** 构建，帮助用户更方便地分享和管理链接。
 
-:::{#fig-url-to width="100%"}
-[点击此处在线体验](https://url-to.vercel.app/){.btn .btn-outline-primary style="" target="_blank"}
-
-![](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png){style="width:35rem;"}
-
-"URL Shortener"
+:::{style="text-align:center;"}
+[点击此处在线体验](https://url-to.vercel.app/){.btn .btn-outline-primary target="_blank"}
 :::
+
+![URL Shortener](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png){#fig-url-to style="width:35rem;"}
 
 使用方法非常简单，首先输入需要缩短的长网址：
 

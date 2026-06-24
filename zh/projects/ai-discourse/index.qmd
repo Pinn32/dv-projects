@@ -3,7 +3,7 @@ title: '网络AI话语的演变'
 description: '2017至2021年Twitter人工智能相关推文公众情感与主题趋势的纵向分析'
 author: 'Pinn Xu'
 date: '2026-05-01'
-categories: [R, AI, NLP, 文本分析, 情感分析, 主题建模, 社交媒体]
+categories: [R, AI, 文本分析, 情感分析, 主题建模, 社交媒体]
 bibliography: references.bib
 csl: ../../../src/apa.csl
 number-sections: true
