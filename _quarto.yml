@@ -91,6 +91,8 @@ website:
           contents: "en/tutorials/*/index.*md"
         - section: "Blogs"
           contents: "en/blogs/*/index.*md"
+        - section: "Tools"
+          contents: "en/tools/*/index.*md"
         - text: "About"
           href: en/about/index.qmd
     - id: zh-sidebar
@@ -105,6 +107,8 @@ website:
           contents: "zh/tutorials/*/index.*md"
         - section: "经验博客"
           contents: "zh/blogs/*/index.*md"
+        - section: "Web工具"
+          contents: "zh/tools/*/index.*md"
         - text: "关于"
           href: zh/about/index.qmd
 

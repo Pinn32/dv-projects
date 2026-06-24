@@ -1,6 +1,6 @@
 code-tools: true
 code-fold: false
-number-sections: true
+number-sections: false
 back-to-top-navigation: true
 reading-meta-enabled: true
 sidebar: true
