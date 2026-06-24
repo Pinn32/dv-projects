@@ -1,5 +1,18 @@
 /* customized css styles (for minty theme) ================================= */
 
+/* listing card date ====================================================== */
+.card-attribution.card-text-small > .listing-date {
+    flex: 0 0 auto;
+}
+.card-attribution.card-text-small > div {
+    font-size: 0.65rem;
+}
+.quarto-grid-item .card-attribution {
+    padding: 0rem;
+    margin: 0rem;
+}
+
+
 /* break line <hr> ======================================================== */
 /* line-break */
 
