@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
 
     const options = {
-      valueNames: ['listing-image','listing-title','listing-categories','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      valueNames: ['listing-image','listing-title','listing-categories','listing-description','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
@@ -244,7 +244,7 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">分类</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">全部 <span class="quarto-category-count">(5)</span></div><div class="category" data-category="QUk=">AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RURB">EDA <span class="quarto-category-count">(3)</span></div><div class="category" data-category="TkxQ">NLP <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="JUU0JUI4JUJCJUU5JUEyJTk4JUU1JUJCJUJBJUU2JUE4JUEx">主题建模 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">可视化 <span class="quarto-category-count">(4)</span></div><div class="category" data-category="JUU1JTlDJUIwJUU1JTlCJUJFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">地图可视化 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU1JUJGJTgzJUU3JTkwJTg2JUU1JTgxJUE1JUU1JUJBJUI3">心理健康 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkw">情感分析 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JThBJUJEJUU2JUEwJUI3">抽样 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkw">文本分析 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJF">桑基图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz">社交媒体 <span class="quarto-category-count">(3)</span></div><div class="category" data-category="JUU5JTlGJUIzJUU0JUI5JTkw">音乐 <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">分类</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">全部 <span class="quarto-category-count">(5)</span></div><div class="category" data-category="QUk=">AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RURB">EDA <span class="quarto-category-count">(3)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="JUU0JUI4JUJCJUU5JUEyJTk4JUU1JUJCJUJBJUU2JUE4JUEx">主题建模 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">可视化 <span class="quarto-category-count">(4)</span></div><div class="category" data-category="JUU1JTlDJUIwJUU1JTlCJUJFJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2">地图可视化 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU1JUJGJTgzJUU3JTkwJTg2JUU1JTgxJUE1JUU1JUJBJUI3">心理健康 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkw">情感分析 <span class="quarto-category-count">(2)</span></div><div class="category" data-category="JUU2JThBJUJEJUU2JUEwJUI3">抽样 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkw">文本分析 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU2JUExJTkxJUU1JTlGJUJBJUU1JTlCJUJF">桑基图 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz">社交媒体 <span class="quarto-category-count">(3)</span></div><div class="category" data-category="JUU5JTlGJUIzJUU0JUI5JTkw">音乐 <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -298,7 +298,7 @@ window.Quarto = {
     </div>
 </div>
 <div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="UiUyQ0FJJTJDTkxQJTJDJUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU0JUI4JUJCJUU5JUEyJTk4JUU1JUJCJUJBJUU2JUE4JUExJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz" data-listing-date-sort="1777608000000" data-listing-file-modified-sort="1781062233103" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="25" data-listing-word-count-sort="4978">
+<div class="g-col-1" data-index="0" data-categories="UiUyQ0FJJTJDJUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU0JUI4JUJCJUU5JUEyJTk4JUU1JUJCJUJBJUU2JUE4JUExJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz" data-listing-date-sort="1777608000000" data-listing-file-modified-sort="1782275928540" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="25" data-listing-word-count-sort="4978">
 <a href="../../zh/projects/ai-discourse/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img loading='lazy' src="ai-discourse/index_files/figure-html/fig-lexicon-coverage-1.png" style="height: 12rem;"  class="thumbnail-image card-img"/></p>
@@ -312,8 +312,6 @@ window.Quarto = {
 
 <div class="listing-category" onclick="window.quartoListingCategory('QUk='); return false;">AI</div>
 
-<div class="listing-category" onclick="window.quartoListingCategory('TkxQ'); return false;">NLP</div>
-
 <div class="listing-category" onclick="window.quartoListingCategory('JUU2JTk2JTg3JUU2JTlDJUFDJUU1JTg4JTg2JUU2JTlFJTkw'); return false;">文本分析</div>
 
 <div class="listing-category" onclick="window.quartoListingCategory('JUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkw'); return false;">情感分析</div>
@@ -322,6 +320,9 @@ window.Quarto = {
 
 <div class="listing-category" onclick="window.quartoListingCategory('JUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz'); return false;">社交媒体</div>
 
+</div>
+<div class="card-text listing-description delink">
+<p>2017至2021年Twitter人工智能相关推文公众情感与主题趋势的纵向分析</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -357,6 +358,9 @@ Pinn Xu
 <div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
 
 </div>
+<div class="card-text listing-description delink">
+<p>分析学生的社交媒体使用习惯与成瘾模式，探究行为与学业相关洞察。</p>
+</div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Pinn Xu
@@ -368,7 +372,7 @@ Pinn Xu
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDTkxQJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkzJTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1730433600000" data-listing-file-modified-sort="1781467142709" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="767">
+<div class="g-col-1" data-index="2" data-categories="UHl0aG9uJTJDJUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkzJTJDJUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkwJTJDJUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2" data-listing-date-sort="1730433600000" data-listing-file-modified-sort="1782275972767" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="767">
 <a href="../../zh/projects/catalan-referendum/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -382,12 +386,15 @@ Twitter 加泰罗尼亚公投情感分析
 
 <div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
 
-<div class="listing-category" onclick="window.quartoListingCategory('TkxQ'); return false;">NLP</div>
-
 <div class="listing-category" onclick="window.quartoListingCategory('JUU3JUE0JUJFJUU0JUJBJUE0JUU1JUFBJTkyJUU0JUJEJTkz'); return false;">社交媒体</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU2JTgzJTg1JUU2JTg0JTlGJUU1JTg4JTg2JUU2JTlFJTkw'); return false;">情感分析</div>
 
 <div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
 
+</div>
+<div class="card-text listing-description delink">
+<p>使用 NLP 技术对 2017 年加泰罗尼亚独立公投相关推文进行情感挖掘。</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -420,6 +427,9 @@ Pinn Xu
 
 <div class="listing-category" onclick="window.quartoListingCategory('JUU1JThGJUFGJUU4JUE3JTg2JUU1JThDJTk2'); return false;">可视化</div>
 
+</div>
+<div class="card-text listing-description delink">
+<p>跨国签证费用的比较研究，探索可负担性与地理分布规律。</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -454,6 +464,9 @@ Spotify 最高播放量歌曲——音乐特征与受众趋势分析
 
 <div class="listing-category" onclick="window.quartoListingCategory('JUU2JThBJUJEJUU2JUEwJUI3'); return false;">抽样</div>
 
+</div>
+<div class="card-text listing-description delink">
+<p>对 2023 年 Spotify 最高播放量歌曲进行探索性分析，揭示音乐流行趋势。</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -1272,7 +1285,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  max-description-length: 100</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, author, date]</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, description, author, date]</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "12rem"</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>

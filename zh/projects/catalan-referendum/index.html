@@ -376,6 +376,12 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../zh/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">猫咪图片收藏站</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../zh/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">短链接生成器</span></a>
   </div>
@@ -431,8 +437,8 @@ window.Quarto = {
 <div class="quarto-title-block"><div><h1 class="title">Twitter 加泰罗尼亚公投情感分析</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 代码</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">显示所有代码</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">隐藏所有代码</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">查看源代码</a></li></ul></div></div>
   <div class="quarto-categories">
     <div class="quarto-category">Python</div>
-    <div class="quarto-category">NLP</div>
     <div class="quarto-category">社交媒体</div>
+    <div class="quarto-category">情感分析</div>
     <div class="quarto-category">可视化</div>
   </div>
   </div>
@@ -472,8 +478,8 @@ window.Quarto = {
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     9 min read</span><span> · </span><span>309 EN words</span><span> · </span><span>1945 中文字</span></div>
-<div id="42f11129" class="cell" data-execution_count="1">
+     9 min read</span><span> · </span><span>309 EN words</span><span> · </span><span>1956 中文字</span></div>
+<div id="bc702bd8" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>环境与版本</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -485,7 +491,7 @@ window.Quarto = {
 <section id="简介" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 简介</h1>
 <p>本项目使用一份关于西班牙加泰罗尼亚公投的 Twitter 推文数据集，属性包括每条推文的基本信息及由不同词典检测到的情感词计数 <span class="citation" data-cites="jimenezZafra2021">(<a href="#ref-jimenezZafra2021" role="doc-biblioref"><span class="nocase">Jiménez-Zafra 等</span>, 2021</a>)</span>（属性详细说明见<a href="#appendix-attributes">附录一</a>）。本文通过条形图展示各词典在推文情感检测上的表现差异，并以直方图按情感类别呈现所有推文的作者受欢迎度分布。</p>
-<div id="22073d89" class="cell" data-execution_count="2">
+<div id="fb9d63eb" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入库</span></span>
@@ -658,7 +664,7 @@ window.Quarto = {
 </section>
 <section id="数据处理" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> 数据处理</h1>
-<div id="cfe95826" class="cell" data-execution_count="3">
+<div id="f47983e4" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 删除缺失值（见附录二）</span></span>
@@ -681,7 +687,7 @@ window.Quarto = {
 </div>
 <section id="计数属性设置" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="计数属性设置"><span class="header-section-number">2.1</span> 计数属性设置</h2>
-<div id="5845ce40" class="cell" data-execution_count="4">
+<div id="1a827c1d" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查属性数据类型</span></span>
@@ -727,7 +733,7 @@ memory usage: 156.4+ KB</code></pre>
 </figcaption>
 </figure>
 </div>
-<div id="8968f0ca" class="cell" data-results="hold" data-execution_count="5">
+<div id="63cad615" class="cell" data-results="hold" data-execution_count="5">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 检查 3 个 object 类型计数属性的数据类型</span></span>
@@ -766,7 +772,7 @@ True True True</code></pre>
 </section>
 <section id="布尔属性设置" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="布尔属性设置"><span class="header-section-number">2.2</span> 布尔属性设置</h2>
-<div id="5a3a5e74" class="cell" data-results="hold" data-execution_count="6">
+<div id="30245be9" class="cell" data-results="hold" data-execution_count="6">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 确认布尔列只包含 'True'/'False' 字符串</span></span>
@@ -788,7 +794,7 @@ True True True</code></pre>
 <h1 data-number="3"><span class="header-section-number">3</span> 数据可视化</h1>
 <section id="情感分布" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="情感分布"><span class="header-section-number">3.1</span> 情感分布</h2>
-<div id="50b0794c" class="cell" data-execution_count="7">
+<div id="ff19d091" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 将情感词计数列转换为长格式，便于可视化</span></span>
@@ -1891,7 +1897,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> 'Twitter 加泰罗尼亚公投情感分析'</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> '2024-11-01'</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Python, NLP, 社交媒体, 可视化]</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Python, 社交媒体, 情感分析, 可视化]</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> '使用 NLP 技术对 2017 年加泰罗尼亚独立公投相关推文进行情感挖掘。'</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references.bib</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="an">csl:</span><span class="co"> ../../../src/apa.csl</span></span>

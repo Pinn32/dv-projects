@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
 
     const options = {
-      valueNames: ['listing-image','listing-title','listing-categories','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      valueNames: ['listing-image','listing-title','listing-categories','listing-description','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
@@ -319,6 +319,9 @@ Quarto 图片居中样式
 <div class="listing-category" onclick="window.quartoListingCategory('JUU2JTk1JTk5JUU3JUE4JThC'); return false;">教程</div>
 
 </div>
+<div class="card-text listing-description delink">
+<p>Quarto Website 图片居中样式探索与悬浮预览异常解决。</p>
+</div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Pinn Xu
@@ -348,6 +351,9 @@ Pinn Xu
 
 <div class="listing-category" onclick="window.quartoListingCategory('JUU2JTk1JTk5JUU3JUE4JThC'); return false;">教程</div>
 
+</div>
+<div class="card-text listing-description delink">
+<p>恢复意外移到磁盘根目录的 Windows 系统文件夹, 如 <code>文档</code>, <code>视频</code>, <code>图片</code>等。</p>
 </div>
 <div class="card-attribution card-text-small justify">
 <div class="listing-author">
@@ -1166,7 +1172,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">  type: grid</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">  max-description-length: 100</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, author, date]</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">  fields: [image, title, categories, description, author, date]</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">  grid-columns: 2</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">  image-height: "12rem"</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: left</span></span>
