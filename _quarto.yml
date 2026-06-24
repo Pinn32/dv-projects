@@ -119,6 +119,9 @@ format:
     # self-contained: false
     lightbox: true
     smooth-scroll: true
+    # theme: 
+    #     light: minty
+    #     dark: darkly
     theme: minty
     from: markdown+mark
     syntax-highlighting: pygments
