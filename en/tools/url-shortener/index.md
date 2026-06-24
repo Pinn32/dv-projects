@@ -6,6 +6,7 @@ description: 'Compact long URLs into shareable short links with customized slugs
 # categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]
 categories: [Web Dev, Next.js, MongoDB]
 image: "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png"
+order: 2
 ---
 
 # URL Shortener
@@ -19,6 +20,17 @@ This web tool helps you compact long URLs into shareable short links with custom
 
 "URL Shortener"
 :::
+
+A short link is a compact version of a long web address. It saves characters when space is limited, looks cleaner when shared, and is far easier to remember and pass along.
+
+## Key Features
+
+- **Compact long URLs** — turn a sprawling web address into a short, tidy link that's easy to share in messages, slides, or print.
+- **Custom slugs** — pick your own memorable ending (e.g. `/my-portfolio`) instead of a random string of characters.
+- **Instant redirect** — visiting the short link forwards to the original URL right away, with no intermediate page.
+- **Persistent storage** — links are saved in MongoDB, so they keep working every time you share them.
+
+## How to Use
 
 To use it, enter your long URL:
 
