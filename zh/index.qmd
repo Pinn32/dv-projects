@@ -19,7 +19,7 @@ listing:
 
 本站收录了我的数据分析项目、网页工具与博客。数据项目使用 **R** 和 **Python** 构建，通过 [Quarto](https://quarto.org/){target="_blank"} 发布；网页工具则基于 React、Next.js 与 TypeScript 开发。
 
-:::{style="line-height:3;"}
+:::{style="line-height:3.6;"}
 [浏览所有项目 →](projects/){.btn .btn-primary style="margin-right:12px;"}
 [数据可视化教程](tutorials/){.btn .btn-outline-primary}
 :::

@@ -26,7 +26,7 @@ This site collects my data analysis projects, web tools, and blogs. Data project
 
 <!-- : exploratory analyses, NLP experiments, and interactive visualizations built with **R** and **Python**, published with [Quarto](https://quarto.org/). -->
 
-:::{style="line-height:3;"}
+:::{style="line-height:3.6;"}
 [Browse All Projects →](projects/){.btn .btn-primary style="margin-right:12px"}
 [Data Viz Tutorials](tutorials/){.btn .btn-outline-primary}
 :::
