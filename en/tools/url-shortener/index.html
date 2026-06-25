@@ -325,14 +325,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../en/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cat Image Hub</span></a>
+  <a href="../../../en/tools/news-hub/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">News Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">URL Shortener</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cat Image Hub</span></a>
   </div>
 </li>
       </ul>
@@ -353,7 +359,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#url-shortener" id="toc-url-shortener" class="nav-link active" data-scroll-target="#url-shortener">URL Shortener</a></li>
+  <li><a href="#url-shortener" id="toc-url-shortener" class="nav-link active" data-scroll-target="#url-shortener">URL Shortener</a>
+  <ul class="collapse">
+  <li><a href="#key-features" id="toc-key-features" class="nav-link" data-scroll-target="#key-features">Key Features</a></li>
+  <li><a href="#how-to-use" id="toc-how-to-use" class="nav-link" data-scroll-target="#how-to-use">How to Use</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/en/tools/url-shortener/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/tools/url-shortener/index.md" target="_blank" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -364,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">URL Shortener</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
   <div class="quarto-categories">
-    <div class="quarto-category">Web Dev</div>
+    <div class="quarto-category">Web App</div>
     <div class="quarto-category">Next.js</div>
     <div class="quarto-category">MongoDB</div>
   </div>
@@ -405,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     2 min read</span><span> · </span><span>279 EN words</span><span> · </span><span>0 中文字</span></div>
+     2 min read</span><span> · </span><span>389 EN words</span><span> · </span><span>0 中文字</span></div>
 <section id="url-shortener" class="level1">
 <h1>URL Shortener</h1>
 <p>This web tool helps you compact long URLs into shareable short links with customized slugs. It was developed by <strong>Next.js</strong>, <strong>TypeScript</strong>, and <strong>MongoDB</strong>.</p>
@@ -420,6 +430,18 @@ Figure&nbsp;1: “URL Shortener”
 </figcaption>
 </figure>
 </div>
+<p>A short link is a compact version of a long web address. It saves characters when space is limited, looks cleaner when shared, and is far easier to remember and pass along.</p>
+<section id="key-features" class="level2">
+<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
+<ul>
+<li><strong>Compact long URLs</strong> — turn a sprawling web address into a short, tidy link that’s easy to share in messages, slides, or print.</li>
+<li><strong>Custom slugs</strong> — pick your own memorable ending (e.g.&nbsp;<code>/my-portfolio</code>) instead of a random string of characters.</li>
+<li><strong>Instant redirect</strong> — visiting the short link forwards to the original URL right away, with no intermediate page.</li>
+<li><strong>Persistent storage</strong> — links are saved in MongoDB, so they keep working every time you share them.</li>
+</ul>
+</section>
+<section id="how-to-use" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use">How to Use</h2>
 <p>To use it, enter your long URL:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>https://example.com/your/very/long/url/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then, choose a slug for your shortened URL:</p>
@@ -430,6 +452,7 @@ Figure&nbsp;1: “URL Shortener”
 
 <!-- -->
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -1115,9 +1138,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-04-06</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> 'Compact long URLs into shareable short links with customized slugs.'</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Web Dev, Next.js, MongoDB]</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Web App, Next.js, MongoDB]</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">order:</span><span class="co"> 2</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># URL Shortener</span></span>
@@ -1132,21 +1155,32 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>"URL Shortener"</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>To use it, enter your long URL:</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>A short link is a compact version of a long web address. It saves characters when space is limited, looks cleaner when shared, and is far easier to remember and pass along.</span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//example.com/your/very/long/url/</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>Then, choose a slug for your shortened URL:</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//url-to.vercel.app/&lt;your-slug&gt;</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>Click the compact button, and the tool will give you a shortened link that redirects to your URL.</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View source on GitHub</span><span class="co">](https://github.com/Pinn32/mp-5)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Features</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Compact long URLs** — turn a sprawling web address into a short, tidy link that's easy to share in messages, slides, or print.</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Custom slugs** — pick your own memorable ending (e.g. <span class="in">`/my-portfolio`</span>) instead of a random string of characters.</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Instant redirect** — visiting the short link forwards to the original URL right away, with no intermediate page.</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Persistent storage** — links are saved in MongoDB, so they keep working every time you share them.</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to Use</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>To use it, enter your long URL:</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//example.com/your/very/long/url/</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>Then, choose a slug for your shortened URL:</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//url-to.vercel.app/&lt;your-slug&gt;</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>Click the compact button, and the tool will give you a shortened link that redirects to your URL.</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View source on GitHub</span><span class="co">](https://github.com/Pinn32/mp-5)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

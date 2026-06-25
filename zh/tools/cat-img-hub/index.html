@@ -326,14 +326,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../zh/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">猫咪图片收藏站</span></a>
+  <a href="../../../zh/tools/news-hub/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">新闻汇总收藏站</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../zh/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">短链接生成器</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">猫咪图片收藏站</span></a>
   </div>
 </li>
       </ul>
@@ -354,7 +360,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">该页面内容</h2>
    
   <ul>
-  <li><a href="#猫咪图片收藏站" id="toc-猫咪图片收藏站" class="nav-link active" data-scroll-target="#猫咪图片收藏站">猫咪图片收藏站</a></li>
+  <li><a href="#猫咪图片收藏站-cat-image-hub" id="toc-猫咪图片收藏站-cat-image-hub" class="nav-link active" data-scroll-target="#猫咪图片收藏站-cat-image-hub">猫咪图片收藏站 (Cat Image Hub)</a>
+  <ul class="collapse">
+  <li><a href="#核心功能" id="toc-核心功能" class="nav-link" data-scroll-target="#核心功能">核心功能</a></li>
+  <li><a href="#工作原理" id="toc-工作原理" class="nav-link" data-scroll-target="#工作原理">工作原理</a></li>
+  <li><a href="#技术栈" id="toc-技术栈" class="nav-link" data-scroll-target="#技术栈">技术栈</a></li>
+  <li><a href="#团队" id="toc-团队" class="nav-link" data-scroll-target="#团队">团队</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/tools/cat-img-hub/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tools/cat-img-hub/index.md" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
     </div>
@@ -365,10 +377,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">猫咪图片收藏站</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
   <div class="quarto-categories">
-    <div class="quarto-category">Web Dev</div>
+    <div class="quarto-category">Web App</div>
     <div class="quarto-category">Next.js</div>
     <div class="quarto-category">MongoDB</div>
-    <div class="quarto-category">Google OAuth</div>
+    <div class="quarto-category">OAuth</div>
   </div>
   </div>
 
@@ -409,48 +421,107 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     2 min read</span><span> · </span><span>143 EN words</span><span> · </span><span>355 中文字</span></div>
-<section id="猫咪图片收藏站" class="level1">
-<h1>猫咪图片收藏站</h1>
-<p>猫咪图片收藏站是一款浏览随机猫咪图片的网站，用户可以登录后收藏自己喜欢的猫咪图片，基于 <strong>Next.js</strong>、<strong>TypeScript</strong> 和 <strong>MongoDB</strong> 构建，使用 Cat API 和 Google OAuth 认证登录。</p>
+     4 min read</span><span> · </span><span>196 EN words</span><span> · </span><span>730 中文字</span></div>
+<section id="猫咪图片收藏站-cat-image-hub" class="level1">
+<h1>猫咪图片收藏站 (Cat Image Hub)</h1>
+<p>猫咪图片收藏站是一款随机浏览猫咪图片并收藏喜爱图片的 Web 应用。用户可以通过登录账号保存个人收藏，项目基于 <strong>Next.js</strong>、<strong>TypeScript</strong> 和 <strong>MongoDB</strong> 开发，并集成 Cat API 提供图片数据，使用 Google OAuth 实现用户认证。</p>
 <div style="text-align:center;">
 <p><a href="https://cat-img-hub.vercel.app/" class="btn btn-outline-primary" target="_blank">点击此处在线体验</a></p>
 </div>
 <div id="fig-gallery" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gallery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="图&nbsp;1: Cat Image Hub: 随机猫咪图片"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="img-fluid figure-img" style="width:40rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="图&nbsp;1: 主页: 随机猫咪图片"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="img-fluid figure-img" style="width:40rem;"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gallery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-图&nbsp;1: Cat Image Hub: 随机猫咪图片
+图&nbsp;1: 主页: 随机猫咪图片
 </figcaption>
 </figure>
 </div>
 <div id="fig-login" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-login-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235331950.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="图&nbsp;2: Cat Image Hub: 登录"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235331950.png" class="img-fluid figure-img" style="width:30rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="图&nbsp;2: 登录界面"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="img-fluid figure-img" style="width:30rem;"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-login-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-图&nbsp;2: Cat Image Hub: 登录
+图&nbsp;2: 登录界面
 </figcaption>
 </figure>
 </div>
 <div id="fig-favorites" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-favorites-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="图&nbsp;3: Cat Image Hub: 收藏"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="img-fluid figure-img" style="width:40rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="图&nbsp;3: 收藏界面"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="img-fluid figure-img" style="width:40rem;"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-favorites-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-图&nbsp;3: Cat Image Hub: 收藏
+图&nbsp;3: 收藏界面
 </figcaption>
 </figure>
 </div>
+<section id="核心功能" class="level2">
+<h2 class="anchored" data-anchor-id="核心功能">核心功能</h2>
+<ul>
+<li><strong>随机图库</strong> —— 首页以网格形式加载随机猫咪图片，并附带品种、寿命和性格信息，数据在服务端从 Cat API 获取。</li>
+<li><strong>按 ID 搜索</strong> —— 可通过 Cat API 的图片 ID 查找任意一张猫咪图片。</li>
+<li><strong>收藏功能</strong> —— 登录用户可以点赞 / 取消点赞，收藏的猫咪会保存到 MongoDB，并在专属页面中展示。</li>
+<li><strong>Google 登录</strong> —— 通过 Auth.js v5 实现一键 OAuth 登录，不存储任何密码。</li>
+</ul>
+</section>
+<section id="工作原理" class="level2">
+<h2 class="anchored" data-anchor-id="工作原理">工作原理</h2>
+<p>页面采用 Next.js 服务端组件 (Server Component) 获取初始数据，再交给小型交互式客户端组件处理，从而保持客户端 JavaScript 的轻量。</p>
+<ul>
+<li><strong>Cat API 层</strong> —— 一个轻量封装用于获取随机图片与单张图片数据，并在 API 缺少品种信息时进行补全。</li>
+<li><strong>收藏服务</strong> —— MongoDB 中的 <code>favorites</code> 集合（使用原生驱动，无 ORM）以用户的 Google 账号 ID 为键存储每只收藏的猫咪，并对添加 / 删除操作做去重处理。</li>
+<li><strong>身份认证</strong> —— Auth.js 将 Google 账号 ID 存入会话令牌 (session token)，因此每个服务端组件和 API 路由都能直接识别用户，无需额外查询数据库。</li>
+</ul>
+</section>
+<section id="技术栈" class="level2">
+<h2 class="anchored" data-anchor-id="技术栈">技术栈</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>层级</th>
+<th>技术</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>框架</td>
+<td>Next.js 16 (App Router)</td>
+</tr>
+<tr class="even">
+<td>语言</td>
+<td>TypeScript 5</td>
+</tr>
+<tr class="odd">
+<td>认证</td>
+<td>Auth.js v5 + Google OAuth</td>
+</tr>
+<tr class="even">
+<td>数据库</td>
+<td>MongoDB 6（原生驱动）</td>
+</tr>
+<tr class="odd">
+<td>样式</td>
+<td>styled-components 6</td>
+</tr>
+<tr class="even">
+<td>外部 API</td>
+<td><a href="https://thecatapi.com" target="_blank">The Cat API</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="团队" class="level2">
+<h2 class="anchored" data-anchor-id="团队">团队</h2>
+<p>由 <strong>Pinn (Aiqi) Xu</strong>（身份认证、布局、导航、样式）、<strong>Yuchen Bao</strong>（Cat API 集成、首页与搜索页、猫咪卡片）和 <strong>Tianpeng Xu</strong>（MongoDB、收藏服务与页面、共享类型）共同开发。</p>
 <p><a href="https://github.com/Pinn32/cat-img-hub" target="_blank">&gt;&gt; 查看 GitHub 源码</a></p>
 
 
 <!-- -->
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> 回到顶部</a></main> <!-- /main -->
@@ -1136,28 +1207,59 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> ['Pinn Xu', 'Yuchen Bao', 'Tianpeng Xu']</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-04-19</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> '浏览随机猫咪图片，登录后收藏自己喜欢的猫咪图片。'</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Web Dev, Next.js, MongoDB, Google OAuth]</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000221390.png"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Web App, Next.js, MongoDB, OAuth]</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000221390.png"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">order:</span><span class="co"> 3</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># 猫咪图片收藏站</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># 猫咪图片收藏站 (Cat Image Hub)</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>猫咪图片收藏站是一款浏览随机猫咪图片的网站，用户可以登录后收藏自己喜欢的猫咪图片，基于 **Next.js**、**TypeScript** 和 **MongoDB** 构建，使用 Cat API 和 Google OAuth 认证登录。</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>猫咪图片收藏站是一款随机浏览猫咪图片并收藏喜爱图片的 Web 应用。用户可以通过登录账号保存个人收藏，项目基于 **Next.js**、**TypeScript** 和 **MongoDB** 开发，并集成 Cat API 提供图片数据，使用 Google OAuth 实现用户认证。</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>:::{style="text-align:center;"}</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">点击此处在线体验</span><span class="co">](https://cat-img-hub.vercel.app/)</span>{.btn .btn-outline-primary target="_blank"}</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="al">![Cat Image Hub: 随机猫咪图片](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png)</span>{#fig-gallery style="width:40rem;"}</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="al">![主页: 随机猫咪图片](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png)</span>{#fig-gallery style="width:40rem;"}</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="al">![Cat Image Hub: 登录](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235331950.png)</span>{#fig-login style="width:30rem;"}</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="al">![登录界面](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png)</span>{#fig-login style="width:30rem;"}</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="al">![Cat Image Hub: 收藏](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png)</span>{#fig-favorites style="width:40rem;"}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="al">![收藏界面](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png)</span>{#fig-favorites style="width:40rem;"}</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; 查看 GitHub 源码</span><span class="co">](https://github.com/Pinn32/cat-img-hub)</span>{target="_blank"}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 核心功能</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**随机图库** —— 首页以网格形式加载随机猫咪图片，并附带品种、寿命和性格信息，数据在服务端从 Cat API 获取。</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**按 ID 搜索** —— 可通过 Cat API 的图片 ID 查找任意一张猫咪图片。</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**收藏功能** —— 登录用户可以点赞 / 取消点赞，收藏的猫咪会保存到 MongoDB，并在专属页面中展示。</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Google 登录** —— 通过 Auth.js v5 实现一键 OAuth 登录，不存储任何密码。</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## 工作原理</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>页面采用 Next.js 服务端组件 (Server Component) 获取初始数据，再交给小型交互式客户端组件处理，从而保持客户端 JavaScript 的轻量。</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cat API 层** —— 一个轻量封装用于获取随机图片与单张图片数据，并在 API 缺少品种信息时进行补全。</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**收藏服务** —— MongoDB 中的 <span class="in">`favorites`</span> 集合（使用原生驱动，无 ORM）以用户的 Google 账号 ID 为键存储每只收藏的猫咪，并对添加 / 删除操作做去重处理。</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**身份认证** —— Auth.js 将 Google 账号 ID 存入会话令牌 (session token)，因此每个服务端组件和 API 路由都能直接识别用户，无需额外查询数据库。</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## 技术栈</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 层级 <span class="pp">|</span> 技术 <span class="pp">|</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 框架 <span class="pp">|</span> Next.js 16 (App Router) <span class="pp">|</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 语言 <span class="pp">|</span> TypeScript 5 <span class="pp">|</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 认证 <span class="pp">|</span> Auth.js v5 + Google OAuth <span class="pp">|</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 数据库 <span class="pp">|</span> MongoDB 6（原生驱动）<span class="pp">|</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 样式 <span class="pp">|</span> styled-components 6 <span class="pp">|</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 外部 API <span class="pp">|</span> <span class="co">[</span><span class="ot">The Cat API</span><span class="co">](https://thecatapi.com)</span>{target="_blank"} <span class="pp">|</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## 团队</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>由 **Pinn (Aiqi) Xu**（身份认证、布局、导航、样式）、**Yuchen Bao**（Cat API 集成、首页与搜索页、猫咪卡片）和 **Tianpeng Xu**（MongoDB、收藏服务与页面、共享类型）共同开发。</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; 查看 GitHub 源码</span><span class="co">](https://github.com/Pinn32/cat-img-hub)</span>{target="_blank"}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

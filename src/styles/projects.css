@@ -92,7 +92,7 @@
 .quarto-grid-item .listing-title {
     font-family: 'DM Sans', system-ui, sans-serif !important;
     font-weight: 600 !important;
-    font-size: 1rem !important;
+    font-size: 1rem;
     color: var(--pf-text) !important;
     margin: 0 !important;
     line-height: 1.3;
@@ -245,6 +245,14 @@
 /* JS (responsive-tag-bar.html) hides overflow pills past the first row at
    ≤768 px and reveals them via the toggle below.                          */
 @media (max-width: 768px) {
+    .quarto-grid-item .listing-title {
+        font-size: 1.2rem;
+    }
+
+    .card-body .listing-category {
+        font-size: 0.65rem !important;
+    }
+
     /* overflow category pills hidden while collapsed */
     .quarto-listing-category .category.is-hidden {
         display: none !important;

@@ -327,14 +327,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../en/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Cat Image Hub</span></a>
+  <a href="../../../en/tools/news-hub/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">News Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">URL Shortener</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Cat Image Hub</span></a>
   </div>
 </li>
       </ul>
@@ -355,7 +361,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#cat-image-hub" id="toc-cat-image-hub" class="nav-link active" data-scroll-target="#cat-image-hub">Cat Image Hub</a></li>
+  <li><a href="#cat-image-hub" id="toc-cat-image-hub" class="nav-link active" data-scroll-target="#cat-image-hub">Cat Image Hub</a>
+  <ul class="collapse">
+  <li><a href="#key-features" id="toc-key-features" class="nav-link" data-scroll-target="#key-features">Key Features</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How It Works</a></li>
+  <li><a href="#tech-stack" id="toc-tech-stack" class="nav-link" data-scroll-target="#tech-stack">Tech Stack</a></li>
+  <li><a href="#team" id="toc-team" class="nav-link" data-scroll-target="#team">Team</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/en/tools/cat-img-hub/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/en/tools/cat-img-hub/index.md" target="_blank" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -366,10 +378,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Cat Image Hub</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
   <div class="quarto-categories">
-    <div class="quarto-category">Web Dev</div>
+    <div class="quarto-category">Web App</div>
     <div class="quarto-category">Next.js</div>
     <div class="quarto-category">MongoDB</div>
-    <div class="quarto-category">Google OAuth</div>
+    <div class="quarto-category">OAuth</div>
   </div>
   </div>
 
@@ -410,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     2 min read</span><span> · </span><span>288 EN words</span><span> · </span><span>0 中文字</span></div>
+     3 min read</span><span> · </span><span>496 EN words</span><span> · </span><span>0 中文字</span></div>
 <section id="cat-image-hub" class="level1">
 <h1>Cat Image Hub</h1>
 <p>Cat Image Hub is a web app for browsing random cat images, where signed-in users can save their favorites to a personal collection. It was built with <strong>Next.js</strong>, <strong>TypeScript</strong>, and <strong>MongoDB</strong>, drawing images from the Cat API and handling sign-in through Google OAuth.</p>
@@ -420,38 +432,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="fig-gallery" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gallery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Cat Image Hub: Gallery"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="img-fluid figure-img" style="width:40rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Home Gallery"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="img-fluid figure-img" style="width:40rem;"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gallery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Cat Image Hub: Gallery
+Figure&nbsp;1: Home Gallery
 </figcaption>
 </figure>
 </div>
 <div id="fig-login" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-login-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Cat Image Hub: Login"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="img-fluid figure-img" style="width:30rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Login"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="img-fluid figure-img" style="width:30rem;"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-login-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Cat Image Hub: Login
+Figure&nbsp;2: Login
 </figcaption>
 </figure>
 </div>
 <div id="fig-favorites" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-favorites-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Cat Image Hub: Favorites"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="img-fluid figure-img" style="width:40rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Favorites"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="img-fluid figure-img" style="width:40rem;"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-favorites-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Cat Image Hub: Favorites
+Figure&nbsp;3: Favorites
 </figcaption>
 </figure>
 </div>
+<section id="key-features" class="level2">
+<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
+<ul>
+<li><strong>Random gallery</strong> — the home page loads a grid of random cats with breed, lifespan, and temperament, fetched server-side from the Cat API.</li>
+<li><strong>Search by ID</strong> — look up any cat image by its Cat API image ID.</li>
+<li><strong>Favorites</strong> — signed-in users can like/unlike cats; their picks are saved to MongoDB and shown on a dedicated page.</li>
+<li><strong>Google sign-in</strong> — one-click OAuth login through Auth.js v5; no passwords stored.</li>
+</ul>
+</section>
+<section id="how-it-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works">How It Works</h2>
+<p>Pages are Next.js Server Components that fetch initial data and hand it to small interactive client components, keeping the client-side JavaScript light.</p>
+<ul>
+<li><strong>Cat API layer</strong> — a thin wrapper retrieves random and single-image data, backfilling breed details when the API omits them.</li>
+<li><strong>Favorites service</strong> — a <code>favorites</code> collection in MongoDB (raw driver, no ORM) stores each saved cat keyed to the user’s Google account ID, with deduplicated add/remove operations.</li>
+<li><strong>Authentication</strong> — Auth.js stores the Google account ID in the session token, so every server component and API route can identify the user without an extra database lookup.</li>
+</ul>
+</section>
+<section id="tech-stack" class="level2">
+<h2 class="anchored" data-anchor-id="tech-stack">Tech Stack</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Layer</th>
+<th>Technology</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Framework</td>
+<td>Next.js 16 (App Router)</td>
+</tr>
+<tr class="even">
+<td>Language</td>
+<td>TypeScript 5</td>
+</tr>
+<tr class="odd">
+<td>Auth</td>
+<td>Auth.js v5 + Google OAuth</td>
+</tr>
+<tr class="even">
+<td>Database</td>
+<td>MongoDB 6 (raw driver)</td>
+</tr>
+<tr class="odd">
+<td>Styling</td>
+<td>styled-components 6</td>
+</tr>
+<tr class="even">
+<td>External API</td>
+<td><a href="https://thecatapi.com" target="_blank">The Cat API</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="team" class="level2">
+<h2 class="anchored" data-anchor-id="team">Team</h2>
+<p>Built by <strong>Pinn (Aiqi) Xu</strong> (authentication, layout, navigation, styling), <strong>Yuchen Bao</strong> (Cat API integration, home and search pages, cat cards), and <strong>Tianpeng Xu</strong> (MongoDB, favorites service and page, shared types).</p>
 <p><a href="https://github.com/Pinn32/cat-img-hub" target="_blank">&gt;&gt; View source on GitHub</a></p>
 
 
 <!-- -->
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -1137,9 +1208,9 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> ['Pinn Xu', 'Yuchen Bao', 'Tianpeng Xu']</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-04-19</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> 'Browse random cat images and save your favorites after signing in.'</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Web Dev, Next.js, MongoDB, Google OAuth]</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000221390.png"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Web App, Next.js, MongoDB, OAuth]</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000221390.png"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">order:</span><span class="co"> 3</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># Cat Image Hub</span></span>
@@ -1150,16 +1221,47 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Click Here to Try</span><span class="co">](https://cat-img-hub.vercel.app/)</span>{.btn .btn-outline-primary target="_blank"}</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="al">![Cat Image Hub: Gallery](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png)</span>{#fig-gallery style="width:40rem;"}</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="al">![Home Gallery](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png)</span>{#fig-gallery style="width:40rem;"}</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="al">![Cat Image Hub: Login](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png)</span>{#fig-login style="width:30rem;"}</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="al">![Login](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png)</span>{#fig-login style="width:30rem;"}</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="al">![Cat Image Hub: Favorites](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png)</span>{#fig-favorites style="width:40rem;"}</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="al">![Favorites](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png)</span>{#fig-favorites style="width:40rem;"}</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View source on GitHub</span><span class="co">](https://github.com/Pinn32/cat-img-hub)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Features</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Random gallery** — the home page loads a grid of random cats with breed, lifespan, and temperament, fetched server-side from the Cat API.</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Search by ID** — look up any cat image by its Cat API image ID.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Favorites** — signed-in users can like/unlike cats; their picks are saved to MongoDB and shown on a dedicated page.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Google sign-in** — one-click OAuth login through Auth.js v5; no passwords stored.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## How It Works</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>Pages are Next.js Server Components that fetch initial data and hand it to small interactive client components, keeping the client-side JavaScript light.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cat API layer** — a thin wrapper retrieves random and single-image data, backfilling breed details when the API omits them.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Favorites service** — a <span class="in">`favorites`</span> collection in MongoDB (raw driver, no ORM) stores each saved cat keyed to the user's Google account ID, with deduplicated add/remove operations.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Authentication** — Auth.js stores the Google account ID in the session token, so every server component and API route can identify the user without an extra database lookup.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tech Stack</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Layer <span class="pp">|</span> Technology <span class="pp">|</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Framework <span class="pp">|</span> Next.js 16 (App Router) <span class="pp">|</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Language <span class="pp">|</span> TypeScript 5 <span class="pp">|</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Auth <span class="pp">|</span> Auth.js v5 + Google OAuth <span class="pp">|</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Database <span class="pp">|</span> MongoDB 6 (raw driver) <span class="pp">|</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Styling <span class="pp">|</span> styled-components 6 <span class="pp">|</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> External API <span class="pp">|</span> <span class="co">[</span><span class="ot">The Cat API</span><span class="co">](https://thecatapi.com)</span>{target="_blank"} <span class="pp">|</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Team</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Built by **Pinn (Aiqi) Xu** (authentication, layout, navigation, styling), **Yuchen Bao** (Cat API integration, home and search pages, cat cards), and **Tianpeng Xu** (MongoDB, favorites service and page, shared types).</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View source on GitHub</span><span class="co">](https://github.com/Pinn32/cat-img-hub)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

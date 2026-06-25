@@ -159,7 +159,7 @@ a:hover {
     font-weight: 500;
     font-size: 0.9rem;
     color: var(--pf-text-secondary) !important;
-    padding: 0.35rem 0.75rem !important;
+    padding: 0.35rem 0.75rem;
     border-radius: var(--pf-radius-sm);
     transition: color 0.15s, background 0.15s;
     position: relative;
@@ -556,6 +556,13 @@ h2#featured-projects::before,
     font-size: 0.7rem;
 }
 
+/* sidebar-section 一级菜单 */
+.sidebar-item-container .sidebar-section,
+.sidebar-menu-container .list-unstyled > .sidebar-item {
+    margin: 0.8rem 0 0.2rem;
+}
+
+/* sidebar-item 二级菜单 (子菜单) */
 .sidebar-menu-container .sidebar-section .sidebar-section-item,
 .sidebar .sidebar-section > .sidebar-item,
 .quarto-sidebar .sidebar-section-item {
@@ -564,6 +571,7 @@ h2#featured-projects::before,
     font-weight: 600;
     color: var(--pf-text-muted);
     padding: 0 1rem 0.25rem;
+    margin: 0.4rem 0 0.2rem;
 }
 
 .sidebar-item-text {
@@ -878,38 +886,18 @@ code:not(.sourceCode) {
 /* ======================================================================== */
 /* 14. Responsive ========================================================= */
 
-@media screen and (max-width: 768px) {
-    body:not(.quarto-sidebar-visible) .quarto-title-block {
-        padding: 0.5rem 0 0;
-    }
-    body:not(.quarto-sidebar-visible) .quarto-title h1.title,
-    h1 { font-size: 1.8rem; }
-    h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.35rem; }
-    .btn-primary,
-    .btn-outline-primary {
-        padding: 0.5rem 1.1rem;
-        font-size: 0.875rem;
-    }
-    .featured-card {
-        padding: 1.1rem 1.2rem 1.1rem 1.4rem;
-    }
-    .grid { gap: 0.75rem; }
-    /* title-block-header (title + subtitle================================ */
-    #title-block-header {
-        margin: 0 0 1rem;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    h1 { font-size: 1.6rem; }
-    h2 { font-size: 1.35rem; }
-    h3 { font-size: 1.25rem; }
-}
-
 /* When the viewport is narrower than the sidebar, cap the sidebar width to
    the screen width and let its content wrap instead of overflowing. */
 @media screen and (max-width: 991.98px) {
+    /* navbar =========================================================== */
+    a.nav-link {
+        font-size: 1rem !important;
+        padding: 0.5rem 1rem !important;
+    }
+    nav.quarto-secondary-nav button.btn.quarto-search-button {
+        display: none;
+    }
+
     #quarto-sidebar {
         max-width: 100vw !important;
     }
@@ -921,17 +909,67 @@ code:not(.sourceCode) {
         word-break: break-word;
     }
 
-    nav.quarto-secondary-nav button.btn.quarto-search-button {
-        display: none;
-    }
 
     /* The open sidebar sits at z-index:1055 and is a sibling of #quarto-header
-       (.fixed-top, z-index:1030), so it paints over the navbar's language
-       dropdown. The dropdown can't escape the header's stacking context, so we
-       lift the header itself above the sidebar. */
+        (.fixed-top, z-index:1030), so it paints over the navbar's language
+        dropdown. The dropdown can't escape the header's stacking context, so we
+        lift the header itself above the sidebar. */
     #quarto-header.fixed-top {
         z-index: 1056;
     }
+
+    /* sidebar ============================================================= */
+    /* sidebar 顶部空白缩短 */
+    #quarto-sidebar > div:first-child {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    /* sidebar-section 一级菜单 */
+    .sidebar-item-container .sidebar-section,
+    .sidebar-menu-container .list-unstyled > .sidebar-item {
+        margin: 1rem 0 0.5rem;
+    }
+    /* sidebar-item 二级菜单 (子菜单) */
+    .sidebar-menu-container .sidebar-section .sidebar-section-item,
+    .sidebar .sidebar-section > .sidebar-item,
+    .quarto-sidebar .sidebar-section-item {
+        margin: 0.8rem 0 0.2rem;
+    }
+}
+
+
+
+@media screen and (max-width: 768px) {
+    body:not(.quarto-sidebar-visible) .quarto-title-block {
+        padding: 0.5rem 0 0;
+    }
+    body:not(.quarto-sidebar-visible) .quarto-title h1.title,
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.35rem; }
+    .btn-primary,
+    .btn-outline-primary {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+    .featured-card {
+        padding: 1.1rem 1.2rem 1.1rem 1.4rem;
+    }
+    .grid { gap: 0.75rem; }
+    /* title-block-header (title + subtitle================================ */
+    #title-block-header {
+        margin: 0 0 1rem;
+    }
+}
+
+/* mobile view ============================================================ */
+@media screen and (max-width: 480px) {
+    :root {
+        font-size: 16px;
+    }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.35rem; }
 }
 
 /* ── Reduced-motion: respect user preference ─────────────────────── */

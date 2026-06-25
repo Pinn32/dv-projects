@@ -324,14 +324,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../zh/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">猫咪图片收藏站</span></a>
+  <a href="../../../zh/tools/news-hub/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">新闻汇总收藏站</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../zh/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">短链接生成器</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../zh/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">猫咪图片收藏站</span></a>
   </div>
 </li>
       </ul>
@@ -352,7 +358,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">该页面内容</h2>
    
   <ul>
-  <li><a href="#短链接生成器" id="toc-短链接生成器" class="nav-link active" data-scroll-target="#短链接生成器">短链接生成器</a></li>
+  <li><a href="#短链接生成器-url-shortener" id="toc-短链接生成器-url-shortener" class="nav-link active" data-scroll-target="#短链接生成器-url-shortener">短链接生成器 (URL Shortener)</a>
+  <ul class="collapse">
+  <li><a href="#功能介绍" id="toc-功能介绍" class="nav-link" data-scroll-target="#功能介绍">功能介绍</a></li>
+  <li><a href="#使用方法" id="toc-使用方法" class="nav-link" data-scroll-target="#使用方法">使用方法</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/Pinn32/dv-projects/edit/main/zh/tools/url-shortener/index.md" target="_blank" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/Pinn32/dv-projects/blob/main/zh/tools/url-shortener/index.md" target="_blank" class="toc-action"><i class="bi empty"></i>查看代码</a></li><li><a href="https://github.com/Pinn32/dv-projects/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
     </div>
@@ -363,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">短链接生成器</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
   <div class="quarto-categories">
-    <div class="quarto-category">Web Dev</div>
+    <div class="quarto-category">Web App</div>
     <div class="quarto-category">Next.js</div>
     <div class="quarto-category">MongoDB</div>
   </div>
@@ -404,9 +414,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     2 min read</span><span> · </span><span>131 EN words</span><span> · </span><span>394 中文字</span></div>
-<section id="短链接生成器" class="level1">
-<h1>短链接生成器</h1>
+     3 min read</span><span> · </span><span>135 EN words</span><span> · </span><span>576 中文字</span></div>
+<section id="短链接生成器-url-shortener" class="level1">
+<h1>短链接生成器 (URL Shortener)</h1>
 <p>这是一款简洁易用的短链接生成工具，支持将长网址转换为短链接，并自定义专属链接后缀。基于 <strong>Next.js</strong>、<strong>TypeScript</strong> 和 <strong>MongoDB</strong> 构建，帮助用户更方便地分享和管理链接。</p>
 <div style="text-align:center;">
 <p><a href="https://url-to.vercel.app/" class="btn btn-outline-primary" target="_blank">点击此处在线体验</a></p>
@@ -421,6 +431,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figcaption>
 </figure>
 </div>
+<p>短链接是将冗长网址转换成简短网址的服务。它能在字数受限时节省篇幅，让分享时的外观更美观整洁，也更容易记忆和传播。</p>
+<section id="功能介绍" class="level2">
+<h2 class="anchored" data-anchor-id="功能介绍">功能介绍</h2>
+<ul>
+<li><strong>缩短长网址</strong> —— 将冗长的网址转换为简短整洁的链接，方便在消息、幻灯片或纸质材料中分享。</li>
+<li><strong>自定义后缀 (slug)</strong> —— 自由设置易记的链接后缀（如 <code>/my-portfolio</code>），告别随机字符串。</li>
+<li><strong>即时跳转</strong> —— 访问短链接会立即跳转至原始网址，没有多余的中间页面。</li>
+<li><strong>持久化存储</strong> —— 链接保存在 MongoDB 中，每次分享都能稳定访问。</li>
+</ul>
+</section>
+<section id="使用方法" class="level2">
+<h2 class="anchored" data-anchor-id="使用方法">使用方法</h2>
 <p>使用方法非常简单，首先输入需要缩短的长网址：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>https://example.com/your/very/long/url/</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>然后为短链接设置一个自定义后缀 (slug)：</p>
@@ -431,6 +453,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <!-- -->
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> 回到顶部</a></main> <!-- /main -->
@@ -1116,12 +1139,12 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> 'Pinn Xu'</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-04-06</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> '快速缩短网址，支持自定义链接后缀 (slug)。'</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># categories: [Quarto, CSS, Web Dev, Computer Tips, Knowhow]</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Web Dev, Next.js, MongoDB]</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Web App, Next.js, MongoDB]</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">order:</span><span class="co"> 2</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># 短链接生成器</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># 短链接生成器 (URL Shortener)</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>这是一款简洁易用的短链接生成工具，支持将长网址转换为短链接，并自定义专属链接后缀。基于 **Next.js**、**TypeScript** 和 **MongoDB** 构建，帮助用户更方便地分享和管理链接。</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
@@ -1131,21 +1154,32 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="al">![URL Shortener](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png)</span>{#fig-url-to style="width:35rem;"}</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>使用方法非常简单，首先输入需要缩短的长网址：</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>短链接是将冗长网址转换成简短网址的服务。它能在字数受限时节省篇幅，让分享时的外观更美观整洁，也更容易记忆和传播。</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//example.com/your/very/long/url/</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>然后为短链接设置一个自定义后缀 (slug)：</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//url-to.vercel.app/&lt;your-slug&gt;</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>点击「Click to Compact」按钮后，系统会生成对应的短链接。访问该短链接时，将自动跳转到原始网址。</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; 查看 GitHub 源码</span><span class="co">](https://github.com/Pinn32/mp-5)</span>{target="_blank"}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## 功能介绍</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**缩短长网址** —— 将冗长的网址转换为简短整洁的链接，方便在消息、幻灯片或纸质材料中分享。</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**自定义后缀 (slug)** —— 自由设置易记的链接后缀（如 <span class="in">`/my-portfolio`</span>），告别随机字符串。</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**即时跳转** —— 访问短链接会立即跳转至原始网址，没有多余的中间页面。</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**持久化存储** —— 链接保存在 MongoDB 中，每次分享都能稳定访问。</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## 使用方法</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>使用方法非常简单，首先输入需要缩短的长网址：</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//example.com/your/very/long/url/</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>然后为短链接设置一个自定义后缀 (slug)：</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="in">```html</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>https<span class="op">:</span><span class="co">//url-to.vercel.app/&lt;your-slug&gt;</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>点击「Click to Compact」按钮后，系统会生成对应的短链接。访问该短链接时，将自动跳转到原始网址。</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; 查看 GitHub 源码</span><span class="co">](https://github.com/Pinn32/mp-5)</span>{target="_blank"}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

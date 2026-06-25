@@ -328,14 +328,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../en/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cat Image Hub</span></a>
+  <a href="../../../en/tools/news-hub/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">News Hub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../en/tools/url-shortener/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">URL Shortener</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../en/tools/cat-img-hub/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cat Image Hub</span></a>
   </div>
 </li>
       </ul>
@@ -435,8 +441,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     9 min read</span><span> · </span><span>1601 EN words</span><span> · </span><span>0 中文字</span></div>
-<div id="386ea48d" class="cell" data-execution_count="1">
+     9 min read</span><span> · </span><span>1603 EN words</span><span> · </span><span>0 中文字</span></div>
+<div id="7fc92409" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Environment and Versions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -450,21 +456,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>Note:</strong> If you are using a local environment such as Jupyter or VS Code, install Seaborn first. If you are using Google Colab, Seaborn is already available and does not need to be installed manually.</p>
 </blockquote>
-<div id="bb5635ca" class="cell" data-execution_count="2">
+<div id="54b7e9f3" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pip install seaborn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="286ff4a2" class="cell" data-execution_count="3">
+<div id="a239e998" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>matplotlib.pyplot</code> is usually abbreviated as <code>plt</code> so plotting functions can be called more conveniently. Using the full path is not recommended:</p>
-<div id="b695baa5" class="cell" data-execution_count="4">
+<div id="91d67bcb" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>matplotlib.pyplot.plot(...)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>matplotlib.pyplot.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Recommended style:</p>
-<div id="60be18d7" class="cell" data-execution_count="5">
+<div id="e50721a1" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt  <span class="co"># Import with the alias 'plt' for later use</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.plot(...)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -474,7 +480,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>plt</code>: an alias for <code>matplotlib.pyplot</code>, the main everyday interface for quickly creating and managing figures.</li>
 </ul>
 <p><strong>Reference: <a href="https://matplotlib.org/stable/api/pyplot_summary.html">matplotlib.pyplot tutorial</a></strong></p>
-<div id="7a40911e" class="cell" data-execution_count="6">
+<div id="28b61ae6" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)  <span class="co"># Load the penguins example dataset</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.info()  <span class="co"># View column names, data types, and non-null counts</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -498,7 +504,7 @@ memory usage: 18.9+ KB</code></pre>
 <p>Floating-point columns such as length and mass are continuous numerical variables. Variables with a true zero, where 0 means “none”, are ratio data, such as length and mass. Variables without a true zero are interval data, such as temperature.</p>
 <p><strong>Object Data</strong></p>
 <p>Species names and island names are nominal data. Sex is ordinal data.</p>
-<div id="42d9ae7b" class="cell" data-execution_count="7">
+<div id="b54c112f" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df.head()  <span class="co"># View the first five rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -574,7 +580,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="dd661fc0" class="cell" data-execution_count="8">
+<div id="49e52093" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.tail()  <span class="co"># View the last five rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
@@ -650,7 +656,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="49b74c1d" class="cell" data-execution_count="9">
+<div id="ce73e906" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df.sample(<span class="dv">5</span>)  <span class="co"># Randomly sample five rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
@@ -671,54 +677,54 @@ memory usage: 18.9+ KB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">220</th>
+<th data-quarto-table-cell-role="th">281</th>
 <td>Gentoo</td>
 <td>Biscoe</td>
-<td>46.1</td>
-<td>13.2</td>
-<td>211.0</td>
-<td>4500.0</td>
-<td>Female</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">172</th>
-<td>Chinstrap</td>
-<td>Dream</td>
-<td>42.4</td>
-<td>17.3</td>
-<td>181.0</td>
-<td>3600.0</td>
-<td>Female</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">239</th>
-<td>Gentoo</td>
-<td>Biscoe</td>
-<td>48.7</td>
-<td>15.1</td>
-<td>222.0</td>
-<td>5350.0</td>
+<td>46.2</td>
+<td>14.9</td>
+<td>221.0</td>
+<td>5300.0</td>
 <td>Male</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">333</th>
+<th data-quarto-table-cell-role="th">313</th>
 <td>Gentoo</td>
 <td>Biscoe</td>
-<td>51.5</td>
-<td>16.3</td>
-<td>230.0</td>
-<td>5500.0</td>
+<td>49.5</td>
+<td>16.1</td>
+<td>224.0</td>
+<td>5650.0</td>
 <td>Male</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">47</th>
+<th data-quarto-table-cell-role="th">14</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>34.6</td>
+<td>21.1</td>
+<td>198.0</td>
+<td>4400.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">99</th>
 <td>Adelie</td>
 <td>Dream</td>
-<td>37.5</td>
-<td>18.9</td>
-<td>179.0</td>
-<td>2975.0</td>
-<td>NaN</td>
+<td>43.2</td>
+<td>18.5</td>
+<td>192.0</td>
+<td>4100.0</td>
+<td>Male</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">327</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>53.4</td>
+<td>15.8</td>
+<td>219.0</td>
+<td>5500.0</td>
+<td>Male</td>
 </tr>
 </tbody>
 </table>
@@ -729,11 +735,11 @@ memory usage: 18.9+ KB</code></pre>
 <p><strong>Note: Function vs.&nbsp;Method</strong></p>
 <p><code>df.info()</code>, <code>df.head()</code>, <code>df.tail()</code>, and <code>df.sample()</code> are all <strong>methods</strong> of a DataFrame object. They must be called from a specific object and cannot be used independently.</p>
 <p><code>pd.read_csv()</code> is a predefined Pandas <strong>function</strong> and can be called directly:</p>
-<div id="4b042a7a" class="cell" data-execution_count="10">
+<div id="4b76890a" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'file_path'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>By contrast, <code>df.sample()</code> is a method that operates on the <code>df</code> object:</p>
-<div id="8786b177" class="cell" data-execution_count="11">
+<div id="5cba72c4" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df.sample(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
@@ -754,44 +760,44 @@ memory usage: 18.9+ KB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">23</th>
-<td>Adelie</td>
-<td>Biscoe</td>
-<td>38.2</td>
-<td>18.1</td>
-<td>185.0</td>
-<td>3950.0</td>
-<td>Male</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">305</th>
+<th data-quarto-table-cell-role="th">241</th>
 <td>Gentoo</td>
 <td>Biscoe</td>
-<td>50.8</td>
-<td>17.3</td>
-<td>228.0</td>
-<td>5600.0</td>
-<td>Male</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">44</th>
-<td>Adelie</td>
-<td>Dream</td>
-<td>37.0</td>
-<td>16.9</td>
-<td>185.0</td>
-<td>3000.0</td>
+<td>45.1</td>
+<td>14.5</td>
+<td>215.0</td>
+<td>5000.0</td>
 <td>Female</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">120</th>
+<th data-quarto-table-cell-role="th">90</th>
+<td>Adelie</td>
+<td>Dream</td>
+<td>35.7</td>
+<td>18.0</td>
+<td>202.0</td>
+<td>3550.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">337</th>
+<td>Gentoo</td>
+<td>Biscoe</td>
+<td>48.8</td>
+<td>16.2</td>
+<td>222.0</td>
+<td>6000.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">10</th>
 <td>Adelie</td>
 <td>Torgersen</td>
-<td>36.2</td>
-<td>17.2</td>
-<td>187.0</td>
-<td>3150.0</td>
-<td>Female</td>
+<td>37.8</td>
+<td>17.1</td>
+<td>186.0</td>
+<td>3300.0</td>
+<td>NaN</td>
 </tr>
 </tbody>
 </table>
@@ -806,7 +812,7 @@ memory usage: 18.9+ KB</code></pre>
 <h2 data-number="2.1" class="anchored" data-anchor-id="basic-bar-plots-with-seaborn"><span class="header-section-number">2.1</span> Basic Bar Plots with Seaborn</h2>
 <section id="basic-bar-plot" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="basic-bar-plot"><span class="header-section-number">2.1.1</span> Basic Bar Plot</h3>
-<div id="2bbac5cc" class="cell" data-execution_count="12">
+<div id="6c7f8049" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic bar plot: the x-axis is categorical, and the y-axis shows the mean by default.</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The black error bars show 95% confidence intervals.</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>)</span>
@@ -819,7 +825,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="d03dfa3d" class="cell" data-execution_count="13">
+<div id="daf0c4f9" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># estimator='sum': use the sum as the bar height instead of the default mean</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>, estimator<span class="op">=</span><span class="st">'sum'</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -832,13 +838,13 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 <p><strong>Reference: <a href="https://seaborn.pydata.org/generated/seaborn.barplot.html"><code>sns.barplot()</code> documentation</a></strong> (<code>estimator</code> parameter)</p>
-<div id="a8532fe4" class="cell" data-execution_count="14">
+<div id="27dc5a7a" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.__version__  <span class="co"># View the current Seaborn version. Since 0.13, the default is a single color to avoid meaningless color distinctions.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>'0.13.2'</code></pre>
 </div>
 </div>
-<div id="bd243fb3" class="cell" data-execution_count="15">
+<div id="f610c94f" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: the mean body mass for Biscoe Island is the bar height shown in the chart.</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df.loc[df[<span class="st">'island'</span>] <span class="op">==</span> <span class="st">'Biscoe'</span>, <span class="st">'body_mass_g'</span>].mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
@@ -848,7 +854,7 @@ memory usage: 18.9+ KB</code></pre>
 </section>
 <section id="count-plot" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="count-plot"><span class="header-section-number">2.1.2</span> Count Plot</h3>
-<div id="8f8f6e76" class="cell" data-execution_count="16">
+<div id="9981b51d" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count plot: automatically counts the number of observations in each category</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'species'</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -866,7 +872,7 @@ memory usage: 18.9+ KB</code></pre>
 <section id="grouping-bars-and-removing-error-bars" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="grouping-bars-and-removing-error-bars"><span class="header-section-number">2.2</span> Grouping Bars and Removing Error Bars</h2>
 <p>Use the <code>hue</code> parameter to group by category, and set <code>errorbar=None</code> to remove error bars.</p>
-<div id="6c0b7e77" class="cell" data-execution_count="17">
+<div id="c49bbdf6" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by sex with hue, and remove error bars with errorbar=None</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -883,7 +889,7 @@ memory usage: 18.9+ KB</code></pre>
 <section id="rotating-tick-labels" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="rotating-tick-labels"><span class="header-section-number">2.3</span> Rotating Tick Labels</h2>
 <p>When x-axis labels are too long, use <code>plt.xticks()</code> to rotate them:</p>
-<div id="ba61684b" class="cell" data-execution_count="18">
+<div id="2a00f11c" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Rotate labels by 45 degrees. ha='right' aligns the right edge of each label with the tick.</span></span>
@@ -899,7 +905,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 <p><strong>Reference: <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html"><code>plt.xticks()</code> documentation</a></strong> (<code>kwargs</code> section)</p>
 <p><a href="https://clauswilke.com/dataviz/visualizing-amounts.html#bar-plots">Wilke (2019, chap.&nbsp;6.1)</a> suggests that when labels are dense, a horizontal layout is easier to read than rotated labels:</p>
-<div id="15046285" class="cell" data-execution_count="19">
+<div id="68a845c5" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Swap the x and y axes: a horizontal layout is easier to read when labels are dense.</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -912,7 +918,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 <p>The same idea applies to count plots:</p>
-<div id="a3dd98f7" class="cell" data-execution_count="20">
+<div id="1260ce13" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sns.countplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'species'</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -926,13 +932,13 @@ memory usage: 18.9+ KB</code></pre>
 </section>
 <section id="setting-the-global-theme" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="setting-the-global-theme"><span class="header-section-number">2.4</span> Setting the Global Theme</h2>
-<div id="bcc79bf4" class="cell" data-execution_count="21">
+<div id="62120857" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the global plotting theme. It applies to all subsequent Seaborn charts.</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use sns.reset_orig() to restore the default theme.</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>sns.set_theme(font_scale<span class="op">=</span><span class="fl">1.2</span>, style<span class="op">=</span><span class="st">'darkgrid'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>sns.set_theme()</code> sets the global plotting theme for all later Seaborn charts. Call <code>sns.reset_orig()</code> to restore the default theme.</p>
-<div id="6a0bc82f" class="cell" data-execution_count="22">
+<div id="11ac0d0c" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a chart object named ax</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'body_mass_g'</span>, y<span class="op">=</span><span class="st">'island'</span>,</span>
@@ -964,7 +970,7 @@ memory usage: 18.9+ KB</code></pre>
 <section id="adjusting-the-legend" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="adjusting-the-legend"><span class="header-section-number">2.5</span> Adjusting the Legend</h2>
 <p>Whether you use <code>errorbar=None</code> or <code>errorbar=('ci', 0)</code>, the legend may cover the plot, so you may need to adjust its position manually with <code>sns.move_legend()</code>.</p>
-<div id="365e2c7e" class="cell" data-execution_count="23">
+<div id="66df5540" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># errorbar=None: the legend is automatically placed on the right</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
@@ -977,7 +983,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="109c8026" class="cell" data-execution_count="24">
+<div id="a49dfe0b" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># errorbar=('ci', 0): the legend is automatically moved away from the error-bar area</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, </span>
@@ -993,7 +999,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="c7e8f508" class="cell" data-execution_count="25">
+<div id="dd10354a" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1008,7 +1014,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="ceaaa182" class="cell" data-execution_count="26">
+<div id="de97e048" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>sns.move_legend(ax, loc<span class="op">=</span><span class="st">'lower right'</span>)  <span class="co"># Set loc only: move the legend to the lower right of the plot</span></span>
@@ -1021,7 +1027,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="41b3cba4" class="cell" data-execution_count="27">
+<div id="8c9ca7c5" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1052,7 +1058,7 @@ memory usage: 18.9+ KB</code></pre>
 <li><strong>Blends</strong>: <code>'blend:&lt;color1&gt;,&lt;color2&gt;'</code></li>
 <li><strong>Lists of color codes</strong>: hexadecimal codes such as <code>['#FF5733', '#33FF57']</code>, RGB tuples, or Matplotlib color names</li>
 </ol>
-<div id="a7d1334f" class="cell" data-execution_count="28">
+<div id="a66a07ef" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Default palette</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
@@ -1066,7 +1072,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="cfecebef" class="cell" data-execution_count="29">
+<div id="02f24cb5" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># palette='flare': use a predefined Seaborn palette</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>, palette<span class="op">=</span><span class="st">'flare'</span>)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
@@ -1080,7 +1086,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="54433d08" class="cell" data-execution_count="30">
+<div id="3ee64dc9" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pass a list of Matplotlib color names to palette</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">'sex'</span>, palette<span class="op">=</span>[<span class="st">'blue'</span>, <span class="st">'orange'</span>])</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Penguin'</span>, xlabel<span class="op">=</span><span class="st">'Body Mass (g)'</span>, ylabel<span class="op">=</span><span class="st">'Island'</span>)</span>
@@ -1094,7 +1100,7 @@ memory usage: 18.9+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="50b1505d" class="cell" data-execution_count="31">
+<div id="013aefb4" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pass a list of hexadecimal color codes to palette</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'body_mass_g'</span>, </span>
@@ -1122,7 +1128,7 @@ memory usage: 18.9+ KB</code></pre>
 <h2 class="unnumbered anchored" data-anchor-id="extension-counting-penguins-on-each-island">Extension: Counting Penguins on Each Island</h2>
 <p>The following two approaches are equivalent and can be used later to sort bar plots by totals.</p>
 <p><strong>Method 1: <code>df.groupby().size()</code></strong></p>
-<div id="517690e0" class="cell" data-execution_count="32">
+<div id="4c5ad7ba" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by island and count the number of rows in each group</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'island'</span>).size()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
@@ -1134,7 +1140,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p><strong>Method 2: <code>df.value_counts()</code></strong></p>
-<div id="29f01264" class="cell" data-execution_count="33">
+<div id="c983dad5" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the occurrences of each value in the island column</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>df.value_counts(<span class="st">'island'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
@@ -1153,7 +1159,7 @@ Name: count, dtype: int64</code></pre>
 <h2 data-number="3.1" class="anchored" data-anchor-id="point-plot"><span class="header-section-number">3.1</span> Point Plot</h2>
 <p>The y-axis of a bar plot must start at 0 to ensure that the visual proportions match the data proportions, following Wilke’s <a href="https://clauswilke.com/dataviz/proportional-ink.html">Principle of Proportional Ink</a> (<a href="https://clauswilke.com/dataviz/proportional-ink.html">Wilke 2019, chap.&nbsp;17</a>). Point plots do not have this restriction: the y-axis can start from the data range, and the data-ink ratio is higher because there is less visual clutter.</p>
 <p>When the x-axis is nominal data, such as island names, the points do not need to be connected with lines.</p>
-<div id="c5729f43" class="cell" data-execution_count="34">
+<div id="7be3bcc6" class="cell" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># linestyle='none': do not connect points when the x-axis is categorical.</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The vertical segments around points are error bars.</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>sns.pointplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'island'</span>, y<span class="op">=</span><span class="st">'body_mass_g'</span>, hue<span class="op">=</span><span class="st">'sex'</span>, linestyle<span class="op">=</span><span class="st">'none'</span>)</span>
@@ -1171,7 +1177,7 @@ Name: count, dtype: int64</code></pre>
 <section id="histogram" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="histogram"><span class="header-section-number">3.2</span> Histogram</h2>
 <p>The x-axis of a bar plot represents <strong>discrete categories</strong> (nominal or ordinal data). The x-axis of a histogram represents <strong>continuous numerical intervals</strong> (ratio data).</p>
-<div id="5ca10e4d" class="cell" data-execution_count="35">
+<div id="3ddacd9e" class="cell" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -1182,7 +1188,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="1890e6cd" class="cell" data-execution_count="36">
+<div id="3a9f62ee" class="cell" data-execution_count="36">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group with hue: plot penguins from each island separately and overlay the distributions</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, hue<span class="op">=</span><span class="st">'island'</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1194,7 +1200,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="8c01fefe" class="cell" data-execution_count="37">
+<div id="7d692132" class="cell" data-execution_count="37">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a consistent y-axis range to compare the plot with and without hue grouping</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
@@ -1217,7 +1223,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="7745871f" class="cell" data-execution_count="38">
+<div id="fef685f1" class="cell" data-execution_count="38">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>,</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'island'</span>,</span>
@@ -1243,7 +1249,7 @@ Name: count, dtype: int64</code></pre>
 <li><code>'percent'</code>: bin height = (count / total count) * 100, so all bin heights sum to 100.</li>
 <li><code>'density'</code>: bin height = frequency / bin width, so the total <strong>area</strong> of all bins is 1. As bin width approaches 0, this becomes a smooth density curve.</li>
 </ul>
-<div id="2d9da961" class="cell" data-execution_count="39">
+<div id="4057af5a" class="cell" data-execution_count="39">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stat='count': bar height = number of data points in each bin</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, stat<span class="op">=</span><span class="st">'count'</span>)</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1267,7 +1273,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="912fecb7" class="cell" data-execution_count="40">
+<div id="f52fa49d" class="cell" data-execution_count="40">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stat='frequency': bar height = count / bin width</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, stat<span class="op">=</span><span class="st">'frequency'</span>)</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> ax.patches:</span>
@@ -1286,7 +1292,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="884f6541" class="cell" data-execution_count="41">
+<div id="ec54f117" class="cell" data-execution_count="41">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stat='probability': bar height = count / total count, and all bar heights sum to 1</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, stat<span class="op">=</span><span class="st">'probability'</span>)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> ax.patches:</span>
@@ -1305,7 +1311,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="5f9dc01e" class="cell" data-execution_count="42">
+<div id="8bf9abb2" class="cell" data-execution_count="42">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stat='percent': bar height = (count / total count) * 100, and all bar heights sum to 100</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, stat<span class="op">=</span><span class="st">'percent'</span>)</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> ax.patches:</span>
@@ -1324,7 +1330,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="ca54b9dc" class="cell" data-execution_count="43">
+<div id="f4743346" class="cell" data-execution_count="43">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stat='density': bar height = frequency / bin width, and the total bin area is 1</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, stat<span class="op">=</span><span class="st">'density'</span>)</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> ax.patches:</span>
@@ -1351,7 +1357,7 @@ Name: count, dtype: int64</code></pre>
 <li><code>common_norm=True</code>: normalize using the <strong>entire dataset</strong>, so bin heights can be compared across groups.</li>
 <li><code>common_norm=False</code>: normalize each <strong>subgroup independently</strong>, so bin heights are only meaningful within each group.</li>
 </ul>
-<div id="23e5c03d" class="cell" data-execution_count="44">
+<div id="505363a6" class="cell" data-execution_count="44">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, hue<span class="op">=</span><span class="st">'island'</span>, </span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">'density'</span>, common_norm<span class="op">=</span><span class="va">True</span>, <span class="co"># Overall normalization: the total bin area across all groups is 1</span></span>
@@ -1365,7 +1371,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="baf4933b" class="cell" data-execution_count="45">
+<div id="29ee4b1e" class="cell" data-execution_count="45">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, hue<span class="op">=</span><span class="st">'island'</span>,</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">'density'</span>, common_norm<span class="op">=</span><span class="va">False</span>, <span class="co"># Separate normalization: each group's bin area sums to 1</span></span>
@@ -1380,7 +1386,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>When overlapping groups are difficult to read, use <code>data=df[df['column']==value]</code> to filter the data and plot each group separately:</p>
-<div id="10337b66" class="cell" data-execution_count="46">
+<div id="3e5e4d77" class="cell" data-execution_count="46">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot by island to avoid overlapping groups and inspect each island's distribution separately</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.histplot(</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df[df[<span class="st">'island'</span>] <span class="op">==</span> <span class="st">'Torgersen'</span>], </span>
@@ -1450,7 +1456,7 @@ Name: count, dtype: int64</code></pre>
 </figure>
 </div>
 <p>Box plots are useful for quickly identifying a distribution summary and outliers. Histograms are better for seeing the frequency distribution within specific intervals.</p>
-<div id="a458df46" class="cell" data-execution_count="47">
+<div id="97d0dcc7" class="cell" data-execution_count="47">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, y<span class="op">=</span><span class="st">'island'</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -1461,7 +1467,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="08749704" class="cell" data-execution_count="48">
+<div id="b81fb37b" class="cell" data-execution_count="48">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, y<span class="op">=</span><span class="st">'island'</span>, hue<span class="op">=</span><span class="st">'sex'</span>,</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    fliersize<span class="op">=</span><span class="dv">8</span>,  <span class="co"># fliersize: size of outlier points (default: 5)</span></span>
@@ -1475,7 +1481,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="414e61d8" class="cell" data-execution_count="49">
+<div id="157bff05" class="cell" data-execution_count="49">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, y<span class="op">=</span><span class="st">'island'</span>, hue<span class="op">=</span><span class="st">'sex'</span>, fliersize<span class="op">=</span><span class="dv">8</span>,</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    whis<span class="op">=</span><span class="dv">2</span>,  <span class="co"># whisker: extend to Q1/Q3 +/- 2*IQR (default: 1.5); larger values reduce outlier points</span></span>
@@ -1494,7 +1500,7 @@ Name: count, dtype: int64</code></pre>
 <section id="violin-plot" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="violin-plot"><span class="header-section-number">3.4</span> Violin Plot</h2>
 <p>A violin plot combines features of a box plot, such as medians and quantiles, with a density curve that shows the smoothed distribution. When the dataset is small, the smoothed curve may be misleading, so a histogram or box plot may be preferable.</p>
-<div id="3fa493b7" class="cell" data-execution_count="50">
+<div id="b5b3593c" class="cell" data-execution_count="50">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>sns.violinplot(data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -1505,7 +1511,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="c3244393" class="cell" data-execution_count="51">
+<div id="f3bad538" class="cell" data-execution_count="51">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># split=True: combine the two hue groups in the same category into one violin for easier distribution comparison</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>sns.violinplot(</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df, y<span class="op">=</span><span class="st">'island'</span>, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, hue<span class="op">=</span><span class="st">'sex'</span>, </span>
@@ -1582,7 +1588,7 @@ Name: count, dtype: int64</code></pre>
 </tr>
 </tbody>
 </table>
-<div id="e6f4fe42" class="cell" data-execution_count="52">
+<div id="b54d2979" class="cell" data-execution_count="52">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sns.stripplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, y<span class="op">=</span><span class="st">'island'</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -1593,7 +1599,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="a643c7e7" class="cell" data-execution_count="53">
+<div id="612792d8" class="cell" data-execution_count="53">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'flipper_length_mm'</span>, y<span class="op">=</span><span class="st">'island'</span>, hue<span class="op">=</span><span class="st">'sex'</span>)</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
