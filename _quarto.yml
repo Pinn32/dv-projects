@@ -127,8 +127,8 @@ format:
     syntax-highlighting: pygments
     css:
       - ./src/styles/styles.css
+      - ./src/styles/listing.css
       - ./src/styles/portfolio.css
-      - ./src/styles/projects.css
     
     ###### JS Scripts ######
     include-after-body:

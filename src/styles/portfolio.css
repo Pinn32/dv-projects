@@ -1,14 +1,14 @@
-/* portfolio.css — professional portfolio layer over Minty theme
-    Loads after styles.css; does not modify styles.css
-   ================================================================= */
+/* portfolio.css — professional portfolio layer over the Minty theme
+   Loads after styles.css; does not modify it.
+   ========================================================================= */
 
 
-/* 1. Google Fonts ======================================================= */
+/* 1. Google Fonts ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 
-/* 2. Design Tokens ======================================================= */
+/* 2. Design Tokens ======================================================== */
 
 :root {
 
@@ -43,47 +43,33 @@
 
     /* code aesthetic */
     --pf-mono:           SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    /* --pf-mono:           'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace; */
 
     /* gradient */
     --pf-gradient:       linear-gradient(135deg, #0d9488 0%, #06b6d4 50%, #0d9488 100%);
     --pf-gradient-text:  linear-gradient(135deg, #0f766e 0%, #0891b2 60%, #0d9488 100%);
 }
 
-
-/* ── Global selection color ─────────────────────────────────────── */
 ::selection {
     background-color: rgba(13, 148, 136, 0.18);
     color: var(--pf-text);
 }
 
-/* ── Scrollbar (Webkit) ─────────────────────────────────────────── */
-/* ::-webkit-scrollbar       { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--pf-surface); }
-::-webkit-scrollbar-thumb { background: var(--pf-primary); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--pf-primary-hover); } */
-
-/* Chrome / Edge / Safari */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
+/* Scrollbar — Chrome / Edge / Safari */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
     background: var(--pf-primary);
     border-radius: 999px;
     border: 2px solid #ffffff;
 }
-
-/* Firefox */
+/* Scrollbar — Firefox */
 * {
+    margin: 0;
+    box-sizing: border-box;
     scrollbar-width: thin;
     scrollbar-color: var(--pf-primary) transparent;
 }
+
 
 /* 3. Base Typography ===================================================== */
 
@@ -92,6 +78,16 @@ body {
     color: var(--pf-text);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    background-color: white;
+    
+    /* dot-grid texture fixed to the viewport; opacity kept very low so it
+    reads as subtle texture without masking content */    
+
+    /* background-color: #ffffff;
+    background-image: radial-gradient(circle, rgba(13, 148, 137, 0.2) 1.5px, transparent 1px);
+    background-size: 1.75rem 1.75rem;
+    background-position: 0 0, 1rem 1rem;
+    background-attachment: fixed; */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -100,9 +96,8 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.25;
     letter-spacing: -0.01em;
 }
-
-h1 { font-size: calc(1.8rem + 0.6vh); font-weight: 700; }
-h2 { font-size: calc(1.5rem + 0.6vh); font-weight: 600; }
+h1 { font-size: calc(1.8rem  + 0.6vh); font-weight: 700; }
+h2 { font-size: calc(1.5rem  + 0.6vh); font-weight: 600; }
 h3 { font-size: calc(1.35rem + 0.6vh); font-weight: 600; }
 h4 { font-size: calc(1.15rem + 0.6vh); font-weight: 600; }
 
@@ -151,7 +146,7 @@ a:hover {
     margin-right: 0.35em;
     opacity: 0.85;
 }
-.navbar-brand:hover { color: var(--pf-primary) !important; }
+.navbar-brand:hover         { color: var(--pf-primary) !important; }
 .navbar-brand:hover::before { opacity: 1; }
 
 .navbar-nav .nav-link {
@@ -178,16 +173,13 @@ a:hover {
     transition: width 0.22s ease;
 }
 .navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link.active::after {
-    width: calc(100% - 1.5rem);
-}
+.navbar-nav .nav-link.active::after { width: calc(100% - 1.5rem); }
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
     color: var(--pf-primary) !important;
     background-color: var(--pf-primary-light);
 }
 
-/* --- toggle button ----------------------------------------------------- */
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%230d9488' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
@@ -195,46 +187,29 @@ a:hover {
 
 /* 5. Home Hero =========================================================== */
 
-/* dot-grid on the page body — fixed so it tiles the whole viewport
-   without masking any content; opacity is intentionally very low     */
-body {
-    background-color: #ffffff;
-    background-image:
-        radial-gradient(circle, rgba(13,148,136,0.07) 1px, transparent 1px);
-    background-size: 22px 22px;
-    background-attachment: fixed;
-}
-
-/* keep content surfaces clearly white so dots read as subtle texture */
-#quarto-content,
-#quarto-document-content,
+/* keep content surfaces white so the body dot-grid reads as texture only */
+/* #quarto-content, */
+/* #quarto-document-content,
 main.content,
 .quarto-title-block,
 .featured-card,
 #quarto-sidebar,
 #quarto-margin-sidebar,
 .navbar,
-.nav-footer {
-    background-color: #ffffff;
-}
+.nav-footer { 
+    background-color: #ffffff; 
+} */
 
 body:not(.quarto-sidebar-visible) .quarto-title-block {
-    /* padding: 1.2rem 0 1rem; */
     padding: 1rem 0 0;
     border-bottom: none;
     position: relative;
 }
 
-
-/* title-block-header (title + subtitle===================================== */
 #title-block-header {
     padding: 0;
     margin: 0 0 2rem;
 }
-
-
-/* ========================================================================= */
-
 
 /* gradient animated title on the home page */
 body:not(.quarto-sidebar-visible) .quarto-title h1.title {
@@ -249,7 +224,6 @@ body:not(.quarto-sidebar-visible) .quarto-title h1.title {
     animation: gradient-pan 5s ease infinite;
     letter-spacing: -0.02em;
 }
-
 /* typing cursor appended to the title */
 body:not(.quarto-sidebar-visible) .quarto-title h1.title::after {
     content: '|';
@@ -268,22 +242,14 @@ body:not(.quarto-sidebar-visible) .quarto-title p.subtitle {
     opacity: 0.85;
     margin: 1rem 0 0;
 }
-/* add a "# " comment prefix to the subtitle */
+/* "# " comment prefix on the subtitle */
 body:not(.quarto-sidebar-visible) .quarto-title p.subtitle::before {
     content: '# ';
     color: var(--pf-primary-mid);
     font-weight: 600;
 }
 
-
-/* subtitle-lead of homepage ============================================== */
-
-/* #quarto-content div.quarto-title-block + p,  */
-p.subtitle.lead {
-    margin: 1rem 0;
-}
-
-/* ======================================================================== */
+p.subtitle.lead { margin: 1rem 0; }
 
 /* intro paragraph below the title block */
 header.quarto-title-block ~ p:first-of-type {
@@ -294,9 +260,7 @@ header.quarto-title-block ~ p:first-of-type {
 }
 
 /* "Featured Projects" heading */
-#featured-projects {
-    margin-top: 2.5rem;
-}
+#featured-projects { margin-top: 2.5rem; }
 #featured-projects h2,
 h2#featured-projects {
     font-size: 0.75rem;
@@ -311,9 +275,9 @@ h2#featured-projects {
     align-items: center;
     gap: 0.5rem;
 }
-/* data-chart bar accent before section headings */
-h2#featured-projects::before,
-#featured-projects h2::before {
+/* bar accent before the section heading */
+#featured-projects h2::before,
+h2#featured-projects::before {
     content: '';
     display: inline-block;
     width: 3px;
@@ -339,6 +303,7 @@ h2#featured-projects::before,
     gap: 0.5rem;
     position: relative;
     overflow: hidden;
+    animation: fade-up 0.4s ease both;
 }
 /* teal left-border accent — appears on hover */
 .featured-card::before {
@@ -407,8 +372,6 @@ h2#featured-projects::before,
     font-weight: 500;
     background: var(--pf-primary-light);
     color: var(--pf-primary-hover);
-    /* border-radius: var(--pf-radius-pill); */
-    /* padding: 0.15rem 0.6rem; */
     letter-spacing: 0.02em;
     border: 1px solid rgba(13,148,136,0.15);
     transition: background 0.15s, color 0.15s;
@@ -418,24 +381,25 @@ h2#featured-projects::before,
     color: var(--pf-primary-hover);
 }
 
-.grid {
-    gap: 1rem;
-    margin-top: 0.25rem;
-}
+.grid { gap: 1rem; margin-top: 0.25rem; }
 
 
 /* 7. CTA Buttons ========================================================= */
+
+.btn-primary,
+.btn-outline-primary {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.6rem 1.45rem;
+    border-radius: var(--pf-radius-sm);
+}
 
 .btn-primary {
     background: var(--pf-gradient) !important;
     background-size: 200% auto !important;
     border: none !important;
     color: #fff !important;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 0.9rem;
-    padding: 0.6rem 1.45rem;
-    border-radius: var(--pf-radius-sm);
     transition: background-position 0.4s ease, box-shadow 0.15s, transform 0.15s;
     box-shadow: 0 2px 8px rgba(13,148,136,0.25);
     position: relative;
@@ -453,11 +417,6 @@ h2#featured-projects::before,
     border: 1.5px solid var(--pf-primary) !important;
     color: var(--pf-primary) !important;
     background-color: transparent !important;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 0.9rem;
-    padding: 0.6rem 1.45rem;
-    border-radius: var(--pf-radius-sm);
     transition: background-color 0.18s, color 0.18s, box-shadow 0.18s, transform 0.15s;
 }
 .btn-outline-primary:hover,
@@ -469,18 +428,11 @@ h2#featured-projects::before,
 }
 
 
-/* 8. Article / Project Page Layout ======================================= */
+/* 8. Article / Project Page Layout ====================================== */
 
-.quarto-title-block {
-    /* padding-bottom: 1rem; */
-    /* margin-bottom: 1rem; */
-    border-bottom: 1px solid var(--pf-border);
-}
+.quarto-title-block { border-bottom: 1px solid var(--pf-border); }
 
-.quarto-title h1.title {
-    font-weight: 700;
-    /* margin-bottom: 0.5rem; */
-}
+.quarto-title h1.title { font-weight: 700; }
 
 /* author / date meta */
 .quarto-title-meta {
@@ -508,20 +460,14 @@ h2#featured-projects::before,
     font-weight: 500;
     background: var(--pf-primary-light);
     color: var(--pf-primary-hover) !important;
-    /* border-radius: var(--pf-radius-pill); */
     border-radius: var(--pf-radius-sm);
-    /* padding: 0.2rem 0.65rem; */
     padding: 0;
     border: 1px solid rgba(13,148,136,0.2);
     transition: background 0.15s;
     display: flex;
 }
-.quarto-title .quarto-categories .quarto-category:hover {
-    background: rgba(11, 146, 135, 0.2);
-}
-.quarto-title .quarto-categories .quarto-category a {
-    padding: 0.1rem 0.5rem;
-}
+.quarto-title .quarto-categories .quarto-category:hover { background: rgba(11, 146, 135, 0.2); }
+.quarto-title .quarto-categories .quarto-category a      { padding: 0.1rem 0.5rem; }
 
 /* article section headings — teal bar accent */
 .quarto-title-block ~ section h2,
@@ -543,9 +489,7 @@ h2#featured-projects::before,
     flex-shrink: 0;
     opacity: 0.7;
 }
-#quarto-document-content h3 {
-    margin-top: 1.5rem;
-}
+#quarto-document-content h3 { margin-top: 1.5rem; }
 
 
 /* 9. Sidebar ============================================================= */
@@ -556,13 +500,11 @@ h2#featured-projects::before,
     font-size: 0.7rem;
 }
 
-/* sidebar-section 一级菜单 */
+/* sidebar section (level 1) */
 .sidebar-item-container .sidebar-section,
-.sidebar-menu-container .list-unstyled > .sidebar-item {
-    margin: 0.8rem 0 0.2rem;
-}
+.sidebar-menu-container .list-unstyled > .sidebar-item { margin: 0.8rem 0 0.2rem; }
 
-/* sidebar-item 二级菜单 (子菜单) */
+/* sidebar item (level 2 / submenu) */
 .sidebar-menu-container .sidebar-section .sidebar-section-item,
 .sidebar .sidebar-section > .sidebar-item,
 .quarto-sidebar .sidebar-section-item {
@@ -581,23 +523,17 @@ h2#featured-projects::before,
     transition: color 0.15s;
 }
 
-/* Section header title: shrink to content width so the rest of the row
-   is genuinely empty and can toggle the section on click.
-   Leaf (child) items keep full-width so their whole row stays a nav target. */
-.sidebar-item-section > .sidebar-item-container > .sidebar-item-text {
-    width: auto;
-}
+/* Section header title shrinks to content width so the rest of the row is
+   empty and toggles the section on click; leaf items stay full-width nav targets. */
+.sidebar-item-section > .sidebar-item-container > .sidebar-item-text { width: auto; }
 
-.sidebar-item-container .sidebar-link:hover .sidebar-item-text {
-    color: var(--pf-primary);
-}
+.sidebar-item-container .sidebar-link:hover .sidebar-item-text { color: var(--pf-primary); }
 
 div.sidebar-item-container .active .sidebar-item-text,
 a.sidebar-item-text.sidebar-link.active > .menu-text {
     color: var(--pf-primary) !important;
     font-weight: 500;
 }
-
 
 /* Sidebar search trigger (replaces non-functional duplicate #quarto-search) */
 .sidebar-search-trigger {
@@ -630,7 +566,8 @@ a.sidebar-item-text.sidebar-link.active > .menu-text {
     color: var(--pf-text);
 }
 
-/* 10. About / Tables ===================================================== */
+
+/* 10. About / Tables ==================================================== */
 
 .quarto-document-content table:not(.dataframe),
 #quarto-document-content table:not(.dataframe) {
@@ -662,12 +599,10 @@ a.sidebar-item-text.sidebar-link.active > .menu-text {
     color: var(--pf-text-secondary);
 }
 .quarto-document-content table:not(.dataframe) tbody tr:hover,
-#quarto-document-content table:not(.dataframe) tbody tr:hover {
-    background-color: #f0f6f5;
-}
+#quarto-document-content table:not(.dataframe) tbody tr:hover { background-color: #f0f6f5; }
 
 
-/* 11. HR and Footer ====================================================== */
+/* 11. HR and Footer ===================================================== */
 
 hr {
     border: none;
@@ -680,7 +615,9 @@ hr {
     font-size: 0.8rem;
     color: var(--pf-text-muted);
 }
-
+.nav-footer .toc-actions ul li {
+    flex: 0 0 auto;
+}
 /* footer: subtle top gradient line */
 .nav-footer {
     border-top: 2px solid transparent;
@@ -690,17 +627,15 @@ hr {
 }
 
 
-/* 12. Code blocks — coder identity ====================================== */
+/* 12. Code blocks & nav tools — coder identity ========================== */
 
-/* ── Code Tools / Menu / Dropdown Item ────────────────────────────────── */
-
+/* Code-tools / language dropdown menu */
 .navbar .dropdown-menu.show {
     display: inline-flex;
     flex-direction: column;
     width: fit-content;
     min-width: 0;
 }
-
 .navbar .dropdown-item {
     display: block;
     width: 100%;
@@ -708,86 +643,22 @@ hr {
     text-align: center;
     padding: .4rem .6rem;
 }
+.dropdown-item:hover { background-color: #5ab5ad; }
+.navbar .dropdown-menu[data-bs-popper] { left: -50%; }
 
-/* nav (lang-switch) & code dropdown items hover */
+/* The lang dropdown lives inside #quarto-header (.fixed-top, z-index:1030) and
+   can't escape that stacking context. On mobile the open sidebar (z-index:1055,
+   a header sibling) would paint over it — fixed by lifting #quarto-header above
+   the sidebar in the mobile media query at the bottom of this file. */
 
-.dropdown-item:hover {
-    background-color: #5ab5ad;
-}
+/* search button + nav tool color */
+.navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon { fill: var(--pf-primary); }
+.navbar .quarto-navbar-tools .quarto-navigation-tool                   { color: var(--pf-primary); }
 
-.navbar .dropdown-menu[data-bs-popper] {
-    left: -50%;
-}
+/* inline code monospace */
+code:not(.sourceCode) { font-family: var(--pf-mono) !important; }
 
-/* The lang dropdown lives inside #quarto-header (.fixed-top, z-index:1030), so
-   it can't escape that stacking context. In mobile the open sidebar (a sibling
-   of the header) sits at z-index:1055 and would paint over it — fixed by lifting
-   #quarto-header above the sidebar in the mobile media query at the bottom of
-   this file. Bumping z-index on the menu/items here has no effect. */
-
-
-
-
-/* ─── Fix Search Button Color ───────────────────────────────────────── */
-.navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon {
-    fill: var(--pf-primary);
-}
-.navbar .quarto-navbar-tools .quarto-navigation-tool {
-    color: var(--pf-primary);
-}
-
-
-/* make inline code monospace with the JetBrains Mono font */
-code:not(.sourceCode) {
-    font-family: var(--pf-mono) !important;
-}
-
-/* source code: subtle terminal gutter */
-.sourceCode.cell-code {
-    position: relative;
-}
-
-/* ── Copy button — override Quarto/Minty hardcoded colors ─────────── */
-
-/* Button shell */
-/* .code-copy-button {
-    border-radius: var(--pf-radius-sm) !important;
-    padding: 2px 5px !important;
-    margin-top: 5px !important;
-    margin-right: 5px !important;
-    background-color: rgba(255,255,255,0.82) !important;
-    border: 1px solid var(--pf-border) !important;
-    transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s !important;
-}
-.code-copy-button:hover {
-    background-color: var(--pf-primary-light) !important;
-    border-color: rgba(13,148,136,0.35) !important;
-    box-shadow: 0 0 0 2px rgba(13,148,136,0.12) !important;
-} */
-
-/* Resting icon — muted gray */
-/* .code-copy-button > .bi::before {
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'><path d='M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z'/><path d='M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z'/></svg>") !important;
-} */
-/* Scaffold hover — teal */
-/* .code-copy-outer-scaffold:hover > .code-copy-button > .bi::before {
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%230d9488' viewBox='0 0 16 16'><path d='M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z'/><path d='M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z'/></svg>") !important;
-} */
-/* Button hover — darker teal */
-/* .code-copy-outer-scaffold:hover > .code-copy-button:hover > .bi::before {
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%230f766e' viewBox='0 0 16 16'><path d='M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z'/><path d='M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z'/></svg>") !important;
-} */
-
-/* Checked (copied) states */
-/* .code-copy-button-checked > .bi::before {
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'><path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/></svg>") !important;
-}
-.code-copy-outer-scaffold:hover > .code-copy-button-checked > .bi::before {
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%230d9488' viewBox='0 0 16 16'><path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/></svg>") !important;
-}
-.code-copy-outer-scaffold:hover > .code-copy-button-checked:hover > .bi::before {
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%230f766e' viewBox='0 0 16 16'><path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/></svg>") !important;
-} */
+.sourceCode.cell-code { position: relative; }
 
 /* TOC nav links */
 #TOC .nav-link {
@@ -796,111 +667,66 @@ code:not(.sourceCode) {
     transition: color 0.15s, padding-left 0.15s;
 }
 #TOC .nav-link:hover,
-#TOC .nav-link.active {
-    color: var(--pf-primary);
-    /* padding-left: 0.2rem; */
-}
+#TOC .nav-link.active { color: var(--pf-primary); }
 #TOC .nav-link.active {
     font-weight: 500;
     border-left: 2px solid var(--pf-primary);
-    /* padding-left: 0.4rem; */
 }
 
 
-
-/* 13. Keyframe Animations ================================================ */
+/* 13. Keyframe Animations =============================================== */
 
 @keyframes gradient-pan {
     0%   { background-position: 0%   50%; }
     50%  { background-position: 100% 50%; }
     100% { background-position: 0%   50%; }
 }
-
 @keyframes blink-cursor {
     0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
+    50%      { opacity: 0; }
 }
-
-/* fade-up entrance for cards */
 @keyframes fade-up {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-.featured-card {
-    animation: fade-up 0.4s ease both;
-}
-/* stagger the cards */
-.g-col-12:nth-child(1) .featured-card,
-.featured-card:nth-child(1) { animation-delay: 0.05s; }
-.g-col-12:nth-child(2) .featured-card,
-.featured-card:nth-child(2) { animation-delay: 0.12s; }
-.g-col-12:nth-child(3) .featured-card,
-.featured-card:nth-child(3) { animation-delay: 0.19s; }
-.g-col-12:nth-child(4) .featured-card,
-.featured-card:nth-child(4) { animation-delay: 0.26s; }
+
+/* stagger the featured cards */
+.g-col-12:nth-child(1) .featured-card, .featured-card:nth-child(1) { animation-delay: 0.05s; }
+.g-col-12:nth-child(2) .featured-card, .featured-card:nth-child(2) { animation-delay: 0.12s; }
+.g-col-12:nth-child(3) .featured-card, .featured-card:nth-child(3) { animation-delay: 0.19s; }
+.g-col-12:nth-child(4) .featured-card, .featured-card:nth-child(4) { animation-delay: 0.26s; }
 
 
+/* 14. Listing filter / sort controls =================================== */
 
+/* fix gap between the two action bars in mobile view */
+.listing-actions-group { gap: 1rem; }
 
-/* sort-ui / filter-ui ==================================================== */
-/* listing-actions-group */
-/* fix gap between two listing-action bars in mobile view */
-.listing-actions-group {
-    gap: 1rem;
-}
+.input-group-sm > .form-control:hover,
+.input-group-sm > .form-control:focus { border: 1px solid var(--pf-primary); }
+.input-group-sm > .form-select:hover  { background-color: var(--pf-primary-light); }
+.input-group-sm > .form-select:focus  { box-shadow: none; }
 
-
-/* listing filter search bar */
-.input-group-sm > .form-control:hover {
-    border: 1px solid var(--pf-primary);
-}
-.input-group-sm > .form-control:focus {
-    border: 1px solid var(--pf-primary);
-    /* box-shadow: none; */
-}
-
-/* listing sort selection */
-.input-group-sm > .form-select:hover {
-    background-color: var(--pf-primary-light);
-}
-.input-group-sm > .form-select:focus {
-    box-shadow: none;
-}
-
-
-/* ========================================================================= */
-/* page-link 页码 */
+/* pagination page numbers */
 .page-link.active,
-.active > .page-link {
-    background-color: var(--pf-primary);
-    border-color: var(--pf-primary);
-}
+.active > .page-link,
 .page-link:hover {
     background-color: var(--pf-primary);
     border-color: var(--pf-primary);
 }
 
 
-/* ======================================================================== */
-/* ======================================================================== */
-/* ======================================================================== */
-/* 14. Responsive ========================================================= */
+/* 15. Responsive ======================================================== */
 
-/* When the viewport is narrower than the sidebar, cap the sidebar width to
-   the screen width and let its content wrap instead of overflowing. */
 @media screen and (max-width: 991.98px) {
-    /* navbar =========================================================== */
+    /* navbar */
     a.nav-link {
         font-size: 1rem !important;
         padding: 0.5rem 1rem !important;
     }
-    nav.quarto-secondary-nav button.btn.quarto-search-button {
-        display: none;
-    }
+    nav.quarto-secondary-nav button.btn.quarto-search-button { display: none; }
 
-    #quarto-sidebar {
-        max-width: 100vw !important;
-    }
+    #quarto-sidebar { max-width: 100vw !important; }
     #quarto-sidebar .sidebar-item-text,
     #quarto-sidebar .sidebar-section-item,
     #quarto-sidebar .sidebar-link {
@@ -909,40 +735,26 @@ code:not(.sourceCode) {
         word-break: break-word;
     }
 
+    /* Lift the header above the open sidebar so the language dropdown shows
+       (see note in section 12). */
+    #quarto-header.fixed-top { z-index: 1056; }
 
-    /* The open sidebar sits at z-index:1055 and is a sibling of #quarto-header
-        (.fixed-top, z-index:1030), so it paints over the navbar's language
-        dropdown. The dropdown can't escape the header's stacking context, so we
-        lift the header itself above the sidebar. */
-    #quarto-header.fixed-top {
-        z-index: 1056;
-    }
-
-    /* sidebar ============================================================= */
-    /* sidebar 顶部空白缩短 */
+    /* sidebar top whitespace */
     #quarto-sidebar > div:first-child {
         margin: 0 !important;
         padding: 0 !important;
     }
-    /* sidebar-section 一级菜单 */
+    /* sidebar section (level 1) */
     .sidebar-item-container .sidebar-section,
-    .sidebar-menu-container .list-unstyled > .sidebar-item {
-        margin: 1rem 0 0.5rem;
-    }
-    /* sidebar-item 二级菜单 (子菜单) */
+    .sidebar-menu-container .list-unstyled > .sidebar-item { margin: 1rem 0 0.5rem; }
+    /* sidebar item (level 2 / submenu) */
     .sidebar-menu-container .sidebar-section .sidebar-section-item,
     .sidebar .sidebar-section > .sidebar-item,
-    .quarto-sidebar .sidebar-section-item {
-        margin: 0.8rem 0 0.2rem;
-    }
+    .quarto-sidebar .sidebar-section-item { margin: 0.8rem 0 0.2rem; }
 }
 
-
-
 @media screen and (max-width: 768px) {
-    body:not(.quarto-sidebar-visible) .quarto-title-block {
-        padding: 0.5rem 0 0;
-    }
+    body:not(.quarto-sidebar-visible) .quarto-title-block { padding: 0.5rem 0 0; }
     body:not(.quarto-sidebar-visible) .quarto-title h1.title,
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.5rem; }
@@ -952,33 +764,25 @@ code:not(.sourceCode) {
         padding: 0.6rem 1.2rem;
         font-size: 1rem;
     }
-    .featured-card {
-        padding: 1.1rem 1.2rem 1.1rem 1.4rem;
-    }
+    .featured-card { padding: 1.1rem 1.2rem 1.1rem 1.4rem; }
     .grid { gap: 0.75rem; }
-    /* title-block-header (title + subtitle================================ */
-    #title-block-header {
-        margin: 0 0 1rem;
-    }
+    #title-block-header { margin: 0 0 1rem; }
 }
 
-/* mobile view ============================================================ */
 @media screen and (max-width: 480px) {
-    :root {
-        font-size: 16px;
-    }
+    :root { font-size: 16px; }
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.5rem; }
     h3 { font-size: 1.35rem; }
 }
 
-/* ── Reduced-motion: respect user preference ─────────────────────── */
+/* respect reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-        animation-duration:   0.01ms !important;
+        animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration:  0.01ms !important;
+        transition-duration: 0.01ms !important;
     }
 }
