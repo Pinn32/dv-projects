@@ -8,6 +8,8 @@ categories: [R, AI, NLP, Text Analysis, Social Media]
 bibliography: references.bib
 csl: ../../../src/apa.csl
 number-sections: true
+aliases: 
+  - ../ai-tweets/
 
 order: 1
 ---

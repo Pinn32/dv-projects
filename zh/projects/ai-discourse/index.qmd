@@ -7,6 +7,8 @@ categories: [R, AI, 文本分析, 情感分析, 主题建模, 社交媒体]
 bibliography: references.bib
 csl: ../../../src/apa.csl
 number-sections: true
+aliases: 
+  - ../ai-tweets/
 
 order: 1
 ---
@@ -41,9 +43,9 @@ knitr==1.51
 
 # 引言
 
-过去几年间，人工智能（AI）的快速发展从根本上改变了技术融入日常生活的方式，重塑了各行各业、沟通方式以及公共话语的形态[@stone2022]。随着AI从一个小众技术领域演变为广受讨论的社会现象，围绕它的公众舆论在各数字平台上显著扩展。社交媒体，尤其是Twitter（现更名为X），在这一转变中发挥了核心作用，为用户、创始人个人及各类机构提供了积极讨论、评估和协商AI技术意义与影响的空间[@bruns2015]。在此背景下，Twitter数据为我们理解人们对AI的认知与观点如何随时间演变提供了宝贵视角，尤其是在技术快速进步时期。通过计算社会数据分析方法对此类话语展开研究，对社会科学领域具有重要意义，使研究者得以系统地考察技术创新如何在社会中被解读、辩论、协商与文化整合。
+过去几年间，人工智能（AI）的快速发展从根本上改变了技术融入日常生活的方式，重塑了各行各业、沟通方式以及公共话语的形态 [@stone2022]。随着AI从一个小众技术领域演变为广受讨论的社会现象，围绕它的公众舆论在各数字平台上显著扩展。社交媒体，尤其是Twitter（现更名为X），在这一转变中发挥了核心作用，为用户、创始人个人及各类机构提供了积极讨论、评估和协商AI技术意义与影响的空间 [@bruns2015]。在此背景下，Twitter数据为我们理解人们对AI的认知与观点如何随时间演变提供了宝贵视角，尤其是在技术快速进步时期。通过计算社会数据分析方法对此类话语展开研究，对社会科学领域具有重要意义，使研究者得以系统地考察技术创新如何在社会中被解读、辩论、协商与文化整合。
 
-尽管学界对AI相关传播的关注日益增多，但针对公众话语如何伴随AI工具主流化进程纵向演变的研究相对匮乏[@cave2019]。现有研究大多聚焦于通过问卷调查或短期数据集测量的公众认知或态度[@cave2019]，难以捕捉随时间推移而发生的关注焦点、话语框架和情感反应的动态变化。为弥补这一不足，本研究考察了2017至2021年间Twitter上的AI相关话语，这一时期AI工具的应用得到了显著扩展。通过分析大规模推文数据，本研究旨在识别主题结构与情感模式随时间的变化规律，以及这些变化如何反映更宏观的社会文化转变。
+尽管学界对AI相关传播的关注日益增多，但针对公众话语如何伴随AI工具主流化进程纵向演变的研究相对匮乏 [@cave2019]。现有研究大多聚焦于通过问卷调查或短期数据集测量的公众认知或态度 [@cave2019]，难以捕捉随时间推移而发生的关注焦点、话语框架和情感反应的动态变化。为弥补这一不足，本研究考察了2017至2021年间Twitter上的AI相关话语，这一时期AI工具的应用得到了显著扩展。通过分析大规模推文数据，本研究旨在识别主题结构与情感模式随时间的变化规律，以及这些变化如何反映更宏观的社会文化转变。
 
 为此，本研究围绕以下两个研究问题展开：
 
@@ -55,7 +57,7 @@ knitr==1.51
 
 ## 数据集
 
-为回答上述研究问题，本研究采用了一个经过整理与匿名处理的大规模数据集，该数据集通过Twitter API收集了2017至2021年间的AI相关推文，包含互动指标、话题标签、语言及时间特征等元数据，可支持公众话语、情感与主题演变方面的研究[@demarcelliswarin2025]。本研究的分析单元为每条推文及其关联的元数据。
+为回答上述研究问题，本研究采用了一个经过整理与匿名处理的大规模数据集，该数据集通过Twitter API收集了2017至2021年间的AI相关推文，包含互动指标、话题标签、语言及时间特征等元数据，可支持公众话语、情感与主题演变方面的研究 [@demarcelliswarin2025]。本研究的分析单元为每条推文及其关联的元数据。
 
 ```{r imports}
 library(MASS)         # glm.nb — 在加载 tidyverse 之前加载，以避免命名冲突
@@ -298,7 +300,10 @@ daily_count <- data |>
 min_date <- min(daily_count$date_utc)
 max_date <- max(daily_count$date_utc)
 # 明确包含两端端点，使坐标轴始终显示实际起止日期
-x_breaks <- sort(unique(c(min_date, seq(min_date, max_date, by = "9 months"), max_date)))
+x_breaks <- sort(unique(c(
+  min_date, 
+  seq(min_date, max_date, by = "9 months"), max_date))
+)
 
 ggplot(daily_count, aes(x = date_utc, y = n)) +
   geom_area(fill = "rosybrown", alpha = 0.7) +
@@ -410,7 +415,7 @@ data <- data |>
     text = str_remove_all(text, "https?://\\S+"), # 去除 URL
     text = str_remove_all(text, "\\d+"),          # 去除数字
     text = str_remove_all(text, "[@]\\w+"),       # 去除 @提及
-    text = str_squish(text)                        # 合并多余空白
+    text = str_squish(text)                       # 合并多余空白
   ) |>
   mutate(
     tweet_index = row_number(),           # 用于连接的顺序 ID
@@ -903,20 +908,38 @@ ggplot(coverage_df, aes(x = lexicon, y = coverage_pct, fill = lexicon)) +
 # 三种词典均评分的推文之间的相关性
 sentiment_cmp <- data |>
   select(tweet_index) |>
-  left_join(afinn_scores |> select(tweet_index, sentiment_afinn), by = "tweet_index") |>
-  left_join(bing_scores  |> select(tweet_index, sentiment_bing),  by = "tweet_index") |>
-  left_join(nrc_scores   |> select(tweet_index, sentiment_nrc),   by = "tweet_index")
+  left_join(
+    afinn_scores |> 
+    select(tweet_index, sentiment_afinn), by = "tweet_index"
+  ) |>
+  left_join(
+    bing_scores |> 
+    select(tweet_index, sentiment_bing), by = "tweet_index"
+  ) |>
+  left_join(
+    nrc_scores |> 
+    select(tweet_index, sentiment_nrc), by = "tweet_index"
+  )
 
 complete_cmp <- sentiment_cmp |>
   filter(!is.na(sentiment_afinn), !is.na(sentiment_bing), !is.na(sentiment_nrc))
 
 cat("三种词典均评分的推文数:", nrow(complete_cmp), "\n")
-cat("AFINN 与 Bing 的相关性: r =",
-    round(cor(complete_cmp$sentiment_afinn, complete_cmp$sentiment_bing), 3), "\n")
-cat("AFINN 与 NRC 的相关性:  r =",
-    round(cor(complete_cmp$sentiment_afinn, complete_cmp$sentiment_nrc), 3), "\n")
-cat("Bing  与 NRC 的相关性:  r =",
-    round(cor(complete_cmp$sentiment_bing,  complete_cmp$sentiment_nrc), 3), "\n")
+cat(
+  "AFINN 与 Bing 的相关性: r =",
+  round(cor(complete_cmp$sentiment_afinn, complete_cmp$sentiment_bing), 3), 
+  "\n"
+)
+cat(
+  "AFINN 与 NRC 的相关性:  r =",
+  round(cor(complete_cmp$sentiment_afinn, complete_cmp$sentiment_nrc), 3), 
+  "\n"
+)
+cat(
+  "Bing  与 NRC 的相关性:  r =",
+  round(cor(complete_cmp$sentiment_bing,  complete_cmp$sentiment_nrc), 3), 
+  "\n"
+)
 ```
 
 ### 情感的时间趋势
@@ -926,11 +949,17 @@ cat("Bing  与 NRC 的相关性:  r =",
 ```{r afinn-join}
 # 将 AFINN 评分附加到数据中，并传播至 meta_theta_df
 data <- data |>
-  left_join(afinn_scores |> select(tweet_index, sentiment_afinn), by = "tweet_index") |>
+  left_join(
+    afinn_scores |> 
+    select(tweet_index, sentiment_afinn), by = "tweet_index"
+  ) |>
   mutate(sentiment_norm = sentiment_afinn / nwords)
 
 meta_theta_df <- meta_theta_df |>
-  left_join(afinn_scores |> select(tweet_index, sentiment_afinn), by = "tweet_index")
+  left_join(
+    afinn_scores |> 
+    select(tweet_index, sentiment_afinn), by = "tweet_index"
+  )
 
 n_scored <- sum(!is.na(data$sentiment_afinn))
 cat("获得AFINN评分的推文数:", n_scored,
@@ -976,7 +1005,10 @@ knitr::kable(
 #|   *注.* 点和折线表示各年均值；色带代表95%置信区间。水平虚线标记零分（中性）。情感得分从2017年至2021年持续上升。
 # 折线加置信带，展示2017至2021年平均AFINN情感趋势
 ggplot(sentiment_by_year, aes(x = year, y = mean_sent)) +
-  geom_ribbon(aes(ymin = ci_low, ymax = ci_high), alpha = 0.2, fill = "steelblue") +
+  geom_ribbon(
+    aes(ymin = ci_low, ymax = ci_high), 
+    alpha = 0.2, fill = "steelblue"
+  ) +
   geom_line(color = "steelblue", linewidth = 1) +
   geom_point(color = "steelblue", size = 3) +
   geom_hline(yintercept = 0, linetype = "dotted", color = "red") +
@@ -1035,7 +1067,11 @@ topic_sent_avg <- tibble(
 # 各主题gamma加权平均AFINN情感得分的水平条形图
 ggplot(
   topic_sent_avg,
-  aes(x = reorder(topic_label, avg_sentiment), y = avg_sentiment, fill = topic_label)
+  aes(
+    x = reorder(topic_label, avg_sentiment), 
+    y = avg_sentiment, 
+    fill = topic_label
+  )
 ) +
   geom_col(alpha = 0.8) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
@@ -1064,7 +1100,10 @@ sentiment_topic_long <- meta_theta_df |>
   ) |>
   mutate(topic = factor(topic, levels = as.character(1:5)))
 
-weighted_model <- lm(sentiment_afinn ~ topic, data = sentiment_topic_long, weights = gamma)
+weighted_model <- lm(
+  sentiment_afinn ~ topic, 
+  data = sentiment_topic_long, weights = gamma
+)
 summary(weighted_model)
 ```
 
@@ -1099,17 +1138,17 @@ knitr::kable(
   tibble(
     条件           = c("无话题标签", "有话题标签", "无现金标签", "有现金标签"),
     `平均点赞数`   = c(tag_engagement_summary$likes_no_hashtag,
-                       tag_engagement_summary$likes_hashtag,
-                       tag_engagement_summary$likes_no_cashtag,
-                       tag_engagement_summary$likes_cashtag),
+                      tag_engagement_summary$likes_hashtag,
+                      tag_engagement_summary$likes_no_cashtag,
+                      tag_engagement_summary$likes_cashtag),
     `平均回复数`   = c(tag_engagement_summary$replies_no_hashtag,
-                       tag_engagement_summary$replies_hashtag,
-                       tag_engagement_summary$replies_no_cashtag,
-                       tag_engagement_summary$replies_cashtag),
+                      tag_engagement_summary$replies_hashtag,
+                      tag_engagement_summary$replies_no_cashtag,
+                      tag_engagement_summary$replies_cashtag),
     `平均转推数`   = c(tag_engagement_summary$retweets_no_hashtag,
-                       tag_engagement_summary$retweets_hashtag,
-                       tag_engagement_summary$retweets_no_cashtag,
-                       tag_engagement_summary$retweets_cashtag)
+                      tag_engagement_summary$retweets_hashtag,
+                      tag_engagement_summary$retweets_no_cashtag,
+                      tag_engagement_summary$retweets_cashtag)
   ),
   align = c('l', 'c', 'c', 'c'),
   caption = "按标签存在与否划分的平均互动指标"
@@ -1133,7 +1172,11 @@ tag_glm_retweets <- glm.nb(
   data = tag_features
 )
 
-tag_models <- list(点赞 = tag_glm_likes, 回复 = tag_glm_replies, 转推 = tag_glm_retweets)
+tag_models <- list(
+  点赞 = tag_glm_likes, 
+  回复 = tag_glm_replies, 
+  转推 = tag_glm_retweets
+)
 
 tag_coef_all <- bind_rows(lapply(names(tag_models), function(nm) {
   tidy(tag_models[[nm]], exponentiate = TRUE) |>
@@ -1165,8 +1208,12 @@ knitr::kable(
       outcome = factor(outcome, levels = c("点赞", "回复", "转推"))
     ) |>
     rename(
-      因变量 = outcome, 预测变量 = term, IRR = estimate,
-      `95%置信区间下限` = conf.low, `95%置信区间上限` = conf.high, `p值` = p.value
+      因变量 = outcome, 
+      预测变量 = term, 
+      IRR = estimate,
+      `95%置信区间下限` = conf.low, 
+      `95%置信区间上限` = conf.high, 
+      `p值` = p.value
     ),
   caption = "负二项GLM：标签特征对用户互动的预测（IRR）",
   align = c('l', 'l', 'c', 'c', 'c', 'c'),
