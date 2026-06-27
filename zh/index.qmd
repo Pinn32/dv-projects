@@ -24,9 +24,48 @@ listing:
 [数据可视化教程](tutorials/){.btn .btn-outline-primary}
 :::
 
-![](https://github-readme-activity-graph.vercel.app/graph?username=pinn32&bg_color=ffffff&color=448883&line=80cbc4&point=ffab91&area=true&hide_border=true){.light-content style="clip-path:inset(1px);"}
 
-![](https://github-readme-activity-graph.vercel.app/graph?username=Pinn32&bg_color=0f1114&color=67949e&line=80cbc4&point=ffab91&area=true&hide_border=true){.dark-content style="clip-path:inset(1px);"}
+<!-- ====================================================================== -->
+<!-- Start: GitHub Contribution Map -->
+<a href="https://github.com/Pinn32" target="_blank">
+
+<!-- Heatmap -->
+::::::{#gh-heatmap .mobile-only}
+:::{.light-content}
+![Pinn's Contribution Graph](https://brettterpstra.com/contrib/generate?username=Pinn32&months=6&theme=light&font=helvetica&width=1200&corner_radius=36&caption_year=1&caption_month=1&caption_day=0&download=0)
+:::
+
+:::{.dark-content}
+![Pinn's Contribution Graph](https://brettterpstra.com/contrib/generate?username=Pinn32&months=6&theme=dark&font=helvetica&width=1200&corner_radius=36&caption_year=1&caption_month=1&caption_day=0&download=0)
+:::
+::::::
+
+<!-- ---------------------------------------------------------------------- -->
+<!-- Line Chart -->
+::::::{#gh-line-chart .mobile-hide}
+:::{style="overflow:hidden;" .light-content}
+![](https://github-readme-activity-graph.vercel.app/graph?username=pinn32&bg_color=ffffff&color=448883&line=80cbc4&point=ffab91&area=true&hide_border=true){style="display:block;
+    clip-path: inset(1px);
+    margin: 1px 1px 1px -12px;
+    width: calc(100% + 13px);
+    max-width: none;
+"}
+:::
+
+:::{style="overflow:hidden;" .dark-content}
+![](https://github-readme-activity-graph.vercel.app/graph?username=Pinn32&bg_color=0f1114&color=67949e&line=80cbc4&point=ffab91&area=true&hide_border=true){style="display:block;
+    clip-path: inset(1px);
+    margin: 1px 1px 1px -12px;
+    width: calc(100% + 13px);
+    max-width: none;
+"}
+:::
+::::::
+
+</a>
+<!-- End: GitHub Contribution Map -->
+<!-- ====================================================================== -->
+
 
 ## 精选项目 {#featured-projects}
 

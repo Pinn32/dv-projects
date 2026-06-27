@@ -34,6 +34,7 @@ This site collects my data analysis projects, web tools, and blogs. Data project
 
 
 <!-- ====================================================================== -->
+<!-- Start: GitHub Contribution Map -->
 <a href="https://github.com/Pinn32" target="_blank">
 
 <!-- Heatmap -->
@@ -70,6 +71,7 @@ This site collects my data analysis projects, web tools, and blogs. Data project
 ::::::
 
 </a>
+<!-- End: GitHub Contribution Map -->
 <!-- ====================================================================== -->
 
 
