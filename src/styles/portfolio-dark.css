@@ -1,10 +1,8 @@
-/* portfolio.css — unified LIGHT portfolio theme over the Minty (Bootswatch) base
+/* portfolio-dark.css — unified "Edge" DARK portfolio theme over Minty
    ============================================================================
-   Self-contained. Merges the three former stylesheets:
-     • styles.css     — Minty base, code blocks, dataframes, captions, meta
-     • portfolio.css  — the light portfolio layer
-     • listing.css    — Quarto listing cards & filters
-   Dark counterpart (same section order): portfolio-dark.css
+   Self-contained. Dark counterpart to portfolio.css; same section order,
+   targeting the same Quarto / Bootstrap selectors in the dark engineering
+   aesthetic of the Portfolio Prototype.
 
    CONTENTS
      1.  Google Fonts
@@ -30,7 +28,7 @@
 
 /* 1. Google Fonts ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 
 /* 2. Design Tokens ======================================================== */
@@ -40,54 +38,66 @@
     /* root font-size (rem) */
     font-size: calc(15px + 0.2vw);
 
-    /* teal palette */
-    --pf-primary:        #0d9488;
-    --pf-primary-hover:  #0f766e;
-    --pf-primary-light:  #f0fdf9;
+    /* surfaces */
+    --pf-bg:             #08090d;
+    --pf-surface:        #0c0e14;
+    --pf-surface-2:      #0a0c11;
+    --pf-surface-hover:  #0e1118;
+    --pf-card:           #0c0e14;
+
+    /* accent ramp (teal → sky) */
+    --pf-primary:        #2dd4bf;
+    --pf-primary-hover:  #5eead4;
     --pf-primary-mid:    #5eead4;
-    --pf-accent:         #069dd4;  /* cyan accent for coder flair */
+    --pf-accent:         #38bdf8;
+    --pf-accent-text:    #7fe9d4;
+    --pf-accent-ink:     #06141a;
+    --pf-primary-light:  rgba(45, 212, 191, 0.08);
 
-    /* neutrals */
-    --pf-text:           #0f172a;
-    --pf-text-secondary: #475569;
-    --pf-text-muted:     #94a3b8;
-    --pf-surface:        #f8fafc;
-    --pf-card:           #ffffff;
-    --pf-border:         #e2e8f0;
-    --pf-border-subtle:  #f1f5f9;
+    /* text */
+    --pf-text:           #e7ecf3;
+    --pf-text-strong:    #f4f7fb;
+    --pf-text-secondary: #9aa6b4;
+    --pf-text-muted:     #7d8b9a;
+    --pf-text-faint:     #6b7a8a;
 
-    /* elevation */
-    --pf-shadow:         0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
-    --pf-shadow-hover:   0 8px 24px rgba(13,148,136,0.12), 0 2px 8px rgba(0,0,0,0.08);
-    --pf-glow:           0 0 0 3px rgba(13,148,136,0.18), 0 0 16px rgba(13,148,136,0.10);
+    /* lines */
+    --pf-border:         rgba(255, 255, 255, 0.07);
+    --pf-border-strong:  rgba(255, 255, 255, 0.12);
+    --pf-border-subtle:  rgba(255, 255, 255, 0.06);
+
+    /* elevation & glow */
+    --pf-shadow:         0 1px 4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+    --pf-shadow-hover:   0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(45, 212, 191, 0.15);
+    --pf-glow:           0 0 0 3px rgba(45, 212, 191, 0.25), 0 0 26px rgba(45, 212, 191, 0.35);
 
     /* shape */
-    --pf-radius:         10px;
-    --pf-radius-sm:      6px;
+    --pf-radius:         13px;
+    --pf-radius-sm:      7px;
     --pf-radius-pill:    999px;
 
     /* code aesthetic */
-    --pf-mono:           SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --pf-mono:           'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-    /* gradient */
-    --pf-gradient:       linear-gradient(135deg, #0d9488 0%, #06b6d4 50%, #0d9488 100%);
-    --pf-gradient-text:  linear-gradient(135deg, #0f766e 0%, #0891b2 60%, #0d9488 100%);
+    /* gradients */
+    --pf-gradient:       linear-gradient(135deg, #2dd4bf 0%, #38bdf8 50%, #2dd4bf 100%);
+    --pf-gradient-text:  linear-gradient(135deg, #5eead4 0%, #38bdf8 55%, #2dd4bf 100%);
 
-    /* code-block & dataframe surfaces (former styles.css --st-* tokens) */
-    --st-code-bg:        #f5f7f7;  /* source + output code-block surface     */
-    --st-code-border:    #a8d5ba;  /* code-block left accent                 */
+    /* code-block & dataframe surfaces (dark) */
+    --st-code-bg:        #0e1422;  /* source + output code-block surface     */
+    --st-code-border:    rgba(45, 212, 191, 0.4);  /* code-block left accent  */
     --st-code-fs:        0.8rem;   /* source + output code font size         */
-    --st-code-text:      #4a5c69;  /* output code text                       */
-    --st-df-head-bg:     #b0dbc1;  /* dataframe header background             */
-    --st-df-row:         #ffffff;  /* dataframe row background                */
-    --st-df-border:      #e0e0e0;  /* dataframe cell borders                  */
-    --st-df-hover:       #d8f3ee;  /* dataframe row hover                     */
-    --st-mark-bg:        rgba(255, 243, 161, 0.6);  /* ==highlight== marker   */
+    --st-code-text:      var(--pf-text-secondary);  /* output code text       */
+    --st-df-head-bg:     rgba(45, 212, 191, 0.12);  /* dataframe header bg     */
+    --st-df-row:         var(--pf-surface);         /* dataframe row bg        */
+    --st-df-border:      var(--pf-border);          /* dataframe cell borders  */
+    --st-df-hover:       var(--pf-surface-hover);    /* dataframe row hover     */
+    --st-mark-bg:        rgba(45, 212, 191, 0.20);  /* ==highlight== marker    */
 }
 
 ::selection {
-    background-color: rgba(13, 148, 136, 0.18);
-    color: var(--pf-text);
+    background-color: rgba(45, 212, 191, 0.25);
+    color: var(--pf-text-strong);
 }
 
 /* Scrollbar — Chrome / Edge / Safari */
@@ -96,7 +106,7 @@
 ::-webkit-scrollbar-thumb {
     background: var(--pf-primary);
     border-radius: 999px;
-    border: 2px solid #ffffff;
+    border: 2px solid var(--pf-bg);
 }
 /* Scrollbar — Firefox */
 * {
@@ -114,23 +124,29 @@ body {
     color: var(--pf-text);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    background-color: white;
+    background-color: var(--pf-bg);
 
-    /* dot-grid texture fixed to the viewport; opacity kept very low so it
-    reads as subtle texture without masking content */
+    /* drifting dot-grid texture fixed to the viewport */
+    background-image: radial-gradient(circle, rgba(120, 255, 214, 0.07) 1.2px, transparent 1.4px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
+    animation: grid-drift 14s linear infinite;
+}
 
-    /* background-color: #ffffff;
-    background-image: radial-gradient(circle, rgba(13, 148, 137, 0.2) 1.5px, transparent 1px);
-    background-size: 1.75rem 1.75rem;
-    background-position: 0 0, 1rem 1rem;
-    background-attachment: fixed; */
+/* keep Quarto content surfaces on the dark base */
+#quarto-content,
+#quarto-document-content,
+main.content,
+.quarto-title-block,
+.page-columns {
+    background-color: transparent;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
-    color: var(--pf-text);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    color: var(--pf-text-strong);
     line-height: 1.25;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
 }
 h1 { font-size: calc(1.8rem  + 0.6vh); font-weight: 700; }
 h2 { font-size: calc(1.5rem  + 0.6vh); font-weight: 600; }
@@ -154,10 +170,10 @@ a:hover {
 
 .navbar {
     border-bottom: 1px solid var(--pf-border);
-    background-color: rgba(255,255,255,0.92) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    background-color: rgba(8, 9, 13, 0.55) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -168,21 +184,22 @@ a:hover {
     font-family: var(--pf-mono);
     font-weight: 600;
     font-size: 0.95rem;
-    color: var(--pf-text) !important;
-    letter-spacing: -0.04em;
+    color: var(--pf-text-strong) !important;
+    letter-spacing: -0.01em;
     display: flex;
     align-items: center;
     gap: 0;
 }
 .navbar-title::before {
-    content: '>_';
+    content: '>_ ';
     font-family: var(--pf-mono);
     color: var(--pf-primary);
     font-weight: 400;
-    letter-spacing: -0.04em;
-    margin-right: 0.5em;
+    margin-right: 0.35em;
+    opacity: 0.9;
 }
 .navbar-brand:hover         { color: var(--pf-primary) !important; }
+.navbar-brand:hover::before { opacity: 1; }
 
 .navbar-nav .nav-link {
     font-family: 'Inter', sans-serif;
@@ -191,7 +208,7 @@ a:hover {
     color: var(--pf-text-secondary) !important;
     padding: 0.35rem 0.75rem;
     border-radius: var(--pf-radius-sm);
-    transition: color 0.15s, background 0.15s;
+    transition: color 0.18s, background 0.18s;
     position: relative;
 }
 /* animated underline indicator */
@@ -216,7 +233,7 @@ a:hover {
 }
 
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%230d9488' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%232dd4bf' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 /* Search cancel button — keep on one line */
@@ -238,6 +255,7 @@ body:not(.quarto-sidebar-visible) .quarto-title-block {
 
 /* gradient animated title on the home page */
 body:not(.quarto-sidebar-visible) .quarto-title h1.title {
+    font-family: 'Space Grotesk', sans-serif;
     font-size: calc(1.8rem + 0.6vh);
     font-weight: 700;
     margin-bottom: 0.4rem;
@@ -247,7 +265,7 @@ body:not(.quarto-sidebar-visible) .quarto-title h1.title {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: gradient-pan 5s ease infinite;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
 }
 /* typing cursor appended to the title */
 body:not(.quarto-sidebar-visible) .quarto-title h1.title::after {
@@ -264,7 +282,7 @@ body:not(.quarto-sidebar-visible) .quarto-title p.subtitle {
     color: var(--pf-text-secondary);
     font-weight: 400;
     letter-spacing: 0.01em;
-    opacity: 0.85;
+    opacity: 0.9;
     margin: 1rem 0 0;
 }
 /* "# " comment prefix on the subtitle */
@@ -288,17 +306,18 @@ header.quarto-title-block ~ p:first-of-type {
 #featured-projects { margin-top: 2.5rem; }
 #featured-projects h2,
 h2#featured-projects {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0;
+    font-family: var(--pf-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--pf-text-muted);
     margin-bottom: 1.25rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--pf-border);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.55rem;
 }
 /* bar accent before the section heading */
 #featured-projects h2::before,
@@ -306,7 +325,7 @@ h2#featured-projects::before {
     content: '';
     display: inline-block;
     width: 3px;
-    height: 0.9em;
+    height: 0.95em;
     background: var(--pf-gradient);
     border-radius: 2px;
     flex-shrink: 0;
@@ -317,9 +336,9 @@ h2#featured-projects::before {
 
 .featured-card {
     background: var(--pf-card);
-    border: 1px solid var(--pf-border);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--pf-radius);
-    padding: 1.4rem 1.5rem 1.4rem 1.75rem;
+    padding: 1.3rem 1.4rem;
     box-shadow: var(--pf-shadow);
     transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
     cursor: pointer;
@@ -328,50 +347,36 @@ h2#featured-projects::before {
     gap: 0.5rem;
     position: relative;
     overflow: hidden;
-    animation: fade-up 0.4s ease both;
+    animation: fade-up 0.45s ease both;
 }
-/* teal left-border accent — appears on hover */
-.featured-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--pf-gradient);
-    opacity: 0;
-    transition: opacity 0.22s ease;
-    border-radius: var(--pf-radius) 0 0 var(--pf-radius);
-}
-/* subtle top-right corner glow */
+/* top-right corner glow — always faintly on, intensifies on hover */
 .featured-card::after {
     content: '';
     position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, rgba(94,234,212,0.12) 0%, transparent 70%);
-    opacity: 0;
+    top: -50px;
+    right: -50px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.14) 0%, transparent 70%);
+    opacity: 0.6;
     transition: opacity 0.3s ease;
     pointer-events: none;
 }
 .featured-card:hover {
     box-shadow: var(--pf-shadow-hover);
-    transform: translateY(-3px);
-    border-color: rgba(13,148,136,0.25);
+    transform: translateY(-4px);
+    border-color: rgba(45, 212, 191, 0.4);
 }
-.featured-card:hover::before { opacity: 1; }
-.featured-card:hover::after  { opacity: 1; }
+.featured-card:hover::after { opacity: 1; }
 
 /* project title link */
 .featured-card > p:first-child a,
 .featured-card p:first-child strong a,
 .featured-card a strong {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-weight: 600;
-    font-size: 1rem;
-    color: var(--pf-text);
+    font-size: 1.05rem;
+    color: #f1f5fa;
     text-decoration: none;
     transition: color 0.15s;
 }
@@ -384,8 +389,8 @@ h2#featured-projects::before {
 
 /* description text */
 .featured-card p {
-    font-size: 0.88rem;
-    color: var(--pf-text-secondary);
+    font-size: 0.86rem;
+    color: #94a2b2;
     line-height: 1.55;
     margin: 0;
 }
@@ -393,16 +398,17 @@ h2#featured-projects::before {
 /* tech badge tags (backtick `Python`) */
 .featured-card code {
     font-family: var(--pf-mono);
-    font-size: 0.70rem;
+    font-size: 0.66rem;
     font-weight: 500;
     background: var(--pf-primary-light);
-    color: var(--pf-primary-hover);
+    color: var(--pf-accent-text);
     letter-spacing: 0.02em;
-    border: 1px solid rgba(13,148,136,0.15);
+    border: 1px solid rgba(45, 212, 191, 0.16);
+    border-radius: 5px;
     transition: background 0.15s, color 0.15s;
 }
 .featured-card code:hover {
-    background: rgba(13,148,136,0.12);
+    background: rgba(45, 212, 191, 0.16);
     color: var(--pf-primary-hover);
 }
 
@@ -415,18 +421,18 @@ h2#featured-projects::before {
 .btn-outline-primary {
     font-family: 'Inter', sans-serif;
     font-weight: 500;
-    font-size: 0.9rem;
-    padding: 0.6rem 1.45rem;
-    border-radius: var(--pf-radius-sm);
+    font-size: 0.92rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
 }
 
 .btn-primary {
     background: var(--pf-gradient) !important;
     background-size: 200% auto !important;
     border: none !important;
-    color: #fff !important;
-    transition: background-position 0.4s ease, box-shadow 0.15s, transform 0.15s;
-    box-shadow: 0 2px 8px rgba(13,148,136,0.25);
+    color: var(--pf-accent-ink) !important;
+    transition: background-position 0.4s ease, box-shadow 0.2s, transform 0.15s;
+    box-shadow: 0 4px 20px rgba(45, 212, 191, 0.28);
     position: relative;
     overflow: hidden;
 }
@@ -435,20 +441,21 @@ h2#featured-projects::before {
     background-position: right center !important;
     box-shadow: var(--pf-glow) !important;
     transform: translateY(-1px);
-    color: #fff !important;
+    color: var(--pf-accent-ink) !important;
 }
 
 .btn-outline-primary {
-    border: 1.5px solid var(--pf-primary) !important;
-    color: var(--pf-primary) !important;
+    border: 1px solid var(--pf-border-strong) !important;
+    color: #cdd6e2 !important;
     background-color: transparent !important;
-    transition: background-color 0.18s, color 0.18s, box-shadow 0.18s, transform 0.15s;
+    font-family: var(--pf-mono);
+    transition: background-color 0.18s, color 0.18s, border-color 0.18s, transform 0.15s;
 }
 .btn-outline-primary:hover,
 .btn-outline-primary:focus {
-    background-color: var(--pf-primary) !important;
-    color: #fff !important;
-    box-shadow: var(--pf-glow) !important;
+    border-color: var(--pf-primary) !important;
+    color: var(--pf-primary) !important;
+    background-color: rgba(45, 212, 191, 0.06) !important;
     transform: translateY(-1px);
 }
 
@@ -457,7 +464,11 @@ h2#featured-projects::before {
 
 .quarto-title-block { border-bottom: 1px solid var(--pf-border); }
 
-.quarto-title h1.title { font-weight: 700; }
+.quarto-title h1.title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: var(--pf-text-strong);
+}
 
 /* author / date meta */
 .quarto-title-meta {
@@ -465,6 +476,7 @@ h2#featured-projects::before {
     color: var(--pf-text-muted);
 }
 .quarto-title-meta-heading {
+    font-family: var(--pf-mono);
     font-weight: 600;
     color: var(--pf-text-secondary);
     text-transform: uppercase;
@@ -476,23 +488,23 @@ h2#featured-projects::before {
 .quarto-title .quarto-categories {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
+    gap: 0.4rem;
     margin-top: 0.75rem;
 }
 .quarto-title .quarto-categories .quarto-category {
     font-family: var(--pf-mono);
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     font-weight: 500;
     background: var(--pf-primary-light);
-    color: var(--pf-primary-hover) !important;
-    border-radius: var(--pf-radius-sm);
+    color: var(--pf-accent-text) !important;
+    border-radius: 5px;
     padding: 0;
-    border: 1px solid rgba(13,148,136,0.2);
+    border: 1px solid rgba(45, 212, 191, 0.16);
     transition: background 0.15s;
     display: flex;
 }
-.quarto-title .quarto-categories .quarto-category:hover { background: rgba(11, 146, 135, 0.2); }
-.quarto-title .quarto-categories .quarto-category a      { padding: 0.1rem 0.5rem; }
+.quarto-title .quarto-categories .quarto-category:hover { background: rgba(45, 212, 191, 0.16); }
+.quarto-title .quarto-categories .quarto-category a      { padding: 0.16rem 0.5rem; }
 
 /* article section headings — teal bar accent */
 .quarto-title-block ~ section h2,
@@ -512,7 +524,7 @@ h2#featured-projects::before {
     background: var(--pf-gradient);
     border-radius: 2px;
     flex-shrink: 0;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 #quarto-document-content h3 { margin-top: 1.5rem; }
 
@@ -535,22 +547,20 @@ nav .quarto-page-breadcrumbs .breadcrumb-item a {
     font-size: 0.8rem;
 }
 nav .breadcrumb .breadcrumb-item::before,
-nav .quarto-page-breadcrumbs .breadcrumb-item::before { color: hsl(0, 0%, 55%); }
+nav .quarto-page-breadcrumbs .breadcrumb-item::before { color: var(--pf-text-faint); }
 
 
 /* 9. Sidebar ============================================================= */
 
 #quarto-sidebar {
-    background-color: var(--pf-surface) !important;
+    background-color: var(--pf-surface-2) !important;
     border-right: 1px solid var(--pf-border) !important;
     font-size: 0.7rem;
 }
 
-/* sidebar section (level 1) */
 .sidebar-item-container .sidebar-section,
 .sidebar-menu-container .list-unstyled > .sidebar-item { margin: 0.8rem 0 0.2rem; }
 
-/* sidebar item (level 2 / submenu) */
 .sidebar-menu-container .sidebar-section .sidebar-section-item,
 .sidebar .sidebar-section > .sidebar-item,
 .quarto-sidebar .sidebar-section-item {
@@ -569,8 +579,6 @@ nav .quarto-page-breadcrumbs .breadcrumb-item::before { color: hsl(0, 0%, 55%); 
     transition: color 0.15s;
 }
 
-/* Section header title shrinks to content width so the rest of the row is
-   empty and toggles the section on click; leaf items stay full-width nav targets. */
 .sidebar-item-section > .sidebar-item-container > .sidebar-item-text { width: auto; }
 
 .sidebar-item-container .sidebar-link:hover .sidebar-item-text { color: var(--pf-primary); }
@@ -586,17 +594,17 @@ a.sidebar-item-text.sidebar-link.active > .menu-text {
     font-weight: 500;
 }
 
-/* Sidebar search trigger (replaces non-functional duplicate #quarto-search) */
+/* Sidebar search trigger */
 .sidebar-search-trigger {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     width: 100%;
     margin: 0;
-    padding: 0.35rem 0.5rem;
+    padding: 0.4rem 0.5rem;
     border: 1px solid var(--pf-border);
     border-radius: var(--pf-radius-sm);
-    background: var(--bs-body-bg, #fff);
+    background: var(--pf-surface);
     color: var(--pf-text-muted);
     font-size: 0.82rem;
     cursor: pointer;
@@ -604,11 +612,12 @@ a.sidebar-item-text.sidebar-link.active > .menu-text {
 }
 .sidebar-search-trigger span { flex: 1; text-align: left; }
 .sidebar-search-trigger kbd {
+    font-family: var(--pf-mono);
     font-size: 0.7rem;
     padding: 0.1rem 0.35rem;
     border: 1px solid var(--pf-border);
     border-radius: 3px;
-    background: var(--pf-surface);
+    background: var(--pf-surface-2);
     color: var(--pf-text-muted);
     line-height: 1.4;
 }
@@ -629,18 +638,19 @@ a.sidebar-item-text.sidebar-link.active > .menu-text {
     border-radius: var(--pf-radius);
     overflow: hidden;
     box-shadow: var(--pf-shadow);
+    border: 1px solid var(--pf-border);
 }
 .quarto-document-content table:not(.dataframe) thead tr,
 #quarto-document-content table:not(.dataframe) thead tr {
-    background: linear-gradient(90deg, #e6f9f6 0%, #f0fdf9 100%);
-    color: var(--pf-text);
+    background: linear-gradient(90deg, rgba(45, 212, 191, 0.12) 0%, rgba(56, 189, 248, 0.08) 100%);
+    color: var(--pf-text-strong);
 }
 .quarto-document-content table:not(.dataframe) th,
 #quarto-document-content table:not(.dataframe) th {
     padding: 0.65rem 0.9rem;
     font-weight: 600;
-    font-family: 'DM Sans', sans-serif;
-    border-bottom: 2px solid rgba(13,148,136,0.2);
+    font-family: 'Space Grotesk', sans-serif;
+    border-bottom: 2px solid rgba(45, 212, 191, 0.25);
     text-align: left;
 }
 .quarto-document-content table:not(.dataframe) td,
@@ -650,7 +660,7 @@ a.sidebar-item-text.sidebar-link.active > .menu-text {
     color: var(--pf-text-secondary);
 }
 .quarto-document-content table:not(.dataframe) tbody tr:hover,
-#quarto-document-content table:not(.dataframe) tbody tr:hover { background-color: #f0f6f5; }
+#quarto-document-content table:not(.dataframe) tbody tr:hover { background-color: var(--pf-surface-hover); }
 
 
 /* 11. HR & Footer ====================================================== */
@@ -663,16 +673,15 @@ hr {
 
 .quarto-other-formats,
 .nav-footer {
-    font-size: 0.8rem;
-    color: var(--pf-text-muted);
+    font-family: var(--pf-mono);
+    font-size: 0.72rem;
+    color: var(--pf-text-faint);
 }
-.nav-footer .toc-actions ul li {
-    flex: 0 0 auto;
-}
+.nav-footer .toc-actions ul li { flex: 0 0 auto; }
 /* footer: subtle top gradient line */
 .nav-footer {
     border-top: 2px solid transparent;
-    background-image: linear-gradient(white, white), var(--pf-gradient);
+    background-image: linear-gradient(var(--pf-bg), var(--pf-bg)), var(--pf-gradient);
     background-origin: border-box;
     background-clip: padding-box, border-box;
 }
@@ -686,6 +695,8 @@ hr {
     flex-direction: column;
     width: fit-content;
     min-width: 0;
+    background-color: var(--pf-surface);
+    border: 1px solid var(--pf-border);
 }
 .navbar .dropdown-item {
     display: block;
@@ -693,38 +704,33 @@ hr {
     white-space: nowrap;
     text-align: center;
     padding: .4rem .6rem;
+    color: var(--pf-text-secondary);
 }
-.dropdown-item:hover { background-color: #5ab5ad; }
+.dropdown-item:hover { background-color: rgba(45, 212, 191, 0.12); color: var(--pf-primary); }
 .navbar .dropdown-menu[data-bs-popper] { left: -50%; }
-
-/* The lang dropdown lives inside #quarto-header (.fixed-top, z-index:1030) and
-   can't escape that stacking context. On mobile the open sidebar (z-index:1055,
-   a header sibling) would paint over it — fixed by lifting #quarto-header above
-   the sidebar in the mobile media query at the bottom of this file. */
 
 /* search button + nav tool color */
 .navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon { fill: var(--pf-primary); }
 .navbar .quarto-navbar-tools .quarto-navigation-tool                   { color: var(--pf-primary); }
 
 /* inline code monospace */
-code:not(.sourceCode) { font-family: var(--pf-mono) !important; }
+code:not(.sourceCode) {
+    font-family: var(--pf-mono) !important;
+    color: var(--pf-accent-text);
+    background: var(--pf-primary-light);
+    border-radius: 4px;
+    padding: 0.05rem 0.3rem;
+}
 
 .sourceCode.cell-code { position: relative; }
 
 /* Inline + textual code */
-pre.text.cell-code code { color: var(--pf-primary-hover); }
-
-*:not(pre) > code {
-    color: #2b3c53;
-    background-color: #f6f6f6 !important;
-    white-space: break-spaces;
-    padding: .2rem .35rem !important;
-}
+pre.text.cell-code code { color: var(--pf-accent-text); }
 
 /* ==text== highlight → <mark> */
 mark {
     background-color: var(--st-mark-bg);
-    color: inherit;
+    color: var(--pf-text-strong);
     -webkit-text-fill-color: initial;
     padding: 0.05em 0.2em;
     border-radius: 3px;
@@ -787,10 +793,11 @@ div:has(> .sourceCode.code-with-copy) pre,
     font-size: 14px;
     border-collapse: collapse;
     width: 100%;
+    color: var(--pf-text-secondary);
 }
 .cell-output-display table.dataframe thead tr {
     background-color: var(--st-df-head-bg);
-    color: #2d2d2d;
+    color: var(--pf-text-strong);
 }
 .cell-output-display table.dataframe thead th {
     padding: 10px 12px;
@@ -807,7 +814,7 @@ div:has(> .sourceCode.code-with-copy) pre,
 }
 .cell-output-display table.dataframe tbody tr:hover { background-color: var(--st-df-hover); }
 .cell-output-display table.dataframe tbody th {     /* index column */
-    color: #888;
+    color: var(--pf-text-muted);
     font-weight: normal;
     border-right: 1px solid var(--st-df-border);
 }
@@ -830,7 +837,7 @@ figcaption,
 div.description { font-size: 0.85rem; color: var(--pf-text-muted); }
 
 /* Reading-time meta (src/includes/reading-meta.html) */
-.reading-meta      { font-size: 0.85rem; color: #777; margin-bottom: 1rem; }
+.reading-meta      { font-size: 0.85rem; color: var(--pf-text-faint); margin-bottom: 1rem; }
 .reading-meta span { margin-right: 0.3rem; }
 
 /* References — fix hanging-indent bibliography */
@@ -840,12 +847,12 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
 
 /* 15. Listing Cards ==================================================== */
 
-/* Card shell — mirrors .featured-card */
+/* Card shell — mirrors the dark .featured-card */
 .quarto-grid-item.card {
-    background: #ffffff;
-    border: 1px solid var(--pf-border) !important;
+    background: var(--pf-card);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: var(--pf-radius) !important;
-    padding: 1.4rem 1.5rem 1.4rem 1.75rem !important;
+    padding: 1.3rem 1.4rem !important;
     box-shadow: var(--pf-shadow) !important;
     transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
     display: flex;
@@ -854,38 +861,26 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
     position: relative;
     overflow: hidden;
     text-decoration: none;
-    animation: fade-up 0.4s ease both;
+    animation: fade-up 0.45s ease both;
 }
-/* teal left-border accent on hover */
-.quarto-grid-item.card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--pf-gradient);
-    border-radius: var(--pf-radius) 0 0 var(--pf-radius);
-    opacity: 0;
-    transition: opacity 0.22s ease;
-}
-/* corner glow on hover */
+/* top-right corner glow — always faintly on, intensifies on hover */
 .quarto-grid-item.card::after {
     content: '';
     position: absolute;
-    top: -40px; right: -40px;
-    width: 100px; height: 100px;
-    background: radial-gradient(circle, rgba(94,234,212,0.12) 0%, transparent 70%);
-    opacity: 0;
+    top: -50px; right: -50px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.14) 0%, transparent 70%);
+    opacity: 0.6;
     transition: opacity 0.3s ease;
     pointer-events: none;
 }
 .quarto-grid-item.card:hover {
     box-shadow: var(--pf-shadow-hover) !important;
-    transform: translateY(-3px);
-    border-color: rgba(13,148,136,0.25) !important;
+    transform: translateY(-4px);
+    border-color: rgba(45, 212, 191, 0.4) !important;
     text-decoration: none;
 }
-.quarto-grid-item.card:hover::before { opacity: 1; }
-.quarto-grid-item.card:hover::after  { opacity: 1; }
+.quarto-grid-item.card:hover::after { opacity: 1; }
 
 /* stagger entrance */
 .quarto-grid-item:nth-child(1) { animation-delay: 0.05s; }
@@ -903,10 +898,10 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
 
 /* Title */
 .quarto-grid-item .listing-title {
-    font-family: 'DM Sans', system-ui, sans-serif !important;
+    font-family: 'Space Grotesk', system-ui, sans-serif !important;
     font-weight: 600 !important;
-    font-size: 1rem;
-    color: var(--pf-text) !important;
+    font-size: 1.05rem;
+    color: #f1f5fa !important;
     margin: 0 !important;
     line-height: 1.3;
     transition: color 0.15s;
@@ -921,8 +916,8 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
 
 /* Description */
 .quarto-grid-item .listing-description {
-    font-size: 0.88rem;
-    color: var(--pf-text-secondary);
+    font-size: 0.86rem;
+    color: #94a2b2;
     line-height: 1.55;
     margin: 0;
 }
@@ -932,7 +927,7 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
 .card-attribution.card-text-small > div           { font-size: 0.65rem; }
 .quarto-grid-item .card-attribution               { padding: 0; margin: 0; }
 
-/* Category badges — mirror .featured-card code tags */
+/* Category badges — mirror the dark .featured-card code tags */
 .quarto-grid-item .listing-categories {
     display: flex;
     flex-wrap: wrap;
@@ -941,36 +936,47 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
     padding: 0.35rem 0 0.1rem;
 }
 .quarto-grid-item .listing-category {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+    font-family: var(--pf-mono) !important;
     font-size: 0.63rem !important;
     font-weight: 500 !important;
     background: var(--pf-primary-light) !important;
-    color: var(--pf-primary-hover) !important;
+    color: var(--pf-accent-text) !important;
     border-radius: 5px !important;
     padding: 0.02rem 0.35rem !important;
-    border: 1px solid rgba(13,148,136,0.15) !important;
+    border: 1px solid rgba(45, 212, 191, 0.16) !important;
     transition: background 0.15s, color 0.15s;
     cursor: pointer;
 }
-.quarto-grid-item .listing-category:hover { background-color: rgba(13,148,136,0.12) !important; }
+.quarto-grid-item .listing-category:hover { background-color: rgba(45, 212, 191, 0.16) !important; }
 
 
 /* 16. Listing Filter / Sort Controls =================================== */
 
-/* fix gap between the two action bars in mobile view */
 .listing-actions-group { gap: 1rem; }
 
+.input-group-sm > .form-control,
+.input-group-sm > .form-select {
+    background-color: var(--pf-surface);
+    border: 1px solid var(--pf-border);
+    color: var(--pf-text);
+}
 .input-group-sm > .form-control:hover,
 .input-group-sm > .form-control:focus { border: 1px solid var(--pf-primary); }
 .input-group-sm > .form-select:hover  { background-color: var(--pf-primary-light); }
-.input-group-sm > .form-select:focus  { box-shadow: none; }
+.input-group-sm > .form-select:focus  { box-shadow: none; border-color: var(--pf-primary); }
 
 /* pagination page numbers */
+.page-link {
+    background-color: var(--pf-surface);
+    border-color: var(--pf-border);
+    color: var(--pf-text-secondary);
+}
 .page-link.active,
 .active > .page-link,
 .page-link:hover {
     background-color: var(--pf-primary);
     border-color: var(--pf-primary);
+    color: var(--pf-accent-ink);
 }
 
 /* Filter pill buttons — shared shell for the category filter, post-type
@@ -1001,8 +1007,8 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
 .quarto-listing-category .category.active,
 #post-type-filter .type-btn.active {
     background: var(--pf-primary) !important;
-    color: #ffffff !important;
-    box-shadow: 0 0 0 3px rgba(13,148,136,0.18);
+    color: var(--pf-accent-ink) !important;
+    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.25);
 }
 
 /* Category filter overrides Quarto's vertical sidebar styling (needs !important) */
@@ -1034,7 +1040,7 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
 }
 
 .quarto-listing-category-title {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--pf-mono);
     font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -1052,7 +1058,7 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
 
 /* Listing "no results" message */
 .quarto-listing-no-matching {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--pf-mono);
     font-size: 0.9rem;
     color: var(--pf-text-muted);
     padding: 2rem 0;
@@ -1080,8 +1086,12 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
     50%      { opacity: 0; }
 }
 @keyframes fade-up {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes grid-drift {
+    from { background-position: 0 0; }
+    to   { background-position: 48px 48px; }
 }
 
 /* stagger the featured cards */
@@ -1094,7 +1104,6 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
 /* 18. Responsive ======================================================= */
 
 @media screen and (max-width: 991.98px) {
-    /* navbar */
     a.nav-link {
         font-size: 1rem !important;
         padding: 0.5rem 1rem !important;
@@ -1110,19 +1119,14 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
         word-break: break-word;
     }
 
-    /* Lift the header above the open sidebar so the language dropdown shows
-       (see note in section 12). */
     #quarto-header.fixed-top { z-index: 1056; }
 
-    /* sidebar top whitespace */
     #quarto-sidebar > div:first-child {
         margin: 0 !important;
         padding: 0 !important;
     }
-    /* sidebar section (level 1) */
     .sidebar-item-container .sidebar-section,
     .sidebar-menu-container .list-unstyled > .sidebar-item { margin: 1rem 0 0.5rem; }
-    /* sidebar item (level 2 / submenu) */
     .sidebar-menu-container .sidebar-section .sidebar-section-item,
     .sidebar .sidebar-section > .sidebar-item,
     .quarto-sidebar .sidebar-section-item { margin: 0.8rem 0 0.2rem; }
@@ -1161,7 +1165,7 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
         padding: 0.6rem 1.2rem;
         font-size: 1rem;
     }
-    .featured-card { padding: 1.1rem 1.2rem 1.1rem 1.4rem; }
+    .featured-card { padding: 1.1rem 1.2rem; }
     .grid { gap: 0.75rem; }
     #title-block-header { margin: 0 0 1rem; }
 

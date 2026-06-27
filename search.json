@@ -4,7 +4,7 @@
     "href": "en/tutorials/amounts-and-distribution/index.html",
     "title": "Amounts and Distribution",
     "section": "",
-    "text": "9 min read · 1603 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "9 min read · 1605 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -171,7 +171,7 @@
     "href": "en/tutorials/r-tips/index.html",
     "title": "R Tips",
     "section": "",
-    "text": "5 min read · 903 EN words · 0 中文字",
+    "text": "5 min read · 905 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -526,7 +526,7 @@
     "href": "en/projects/global-visa-cost/index.html",
     "title": "Global Visa Cost Geographical Analysis",
     "section": "",
-    "text": "9 min read · 1729 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
+    "text": "9 min read · 1731 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
     "crumbs": [
       "Projects",
       "Global Visa Cost Geographical Analysis"
@@ -602,7 +602,7 @@
     "href": "en/projects/ai-discourse/index.html",
     "title": "Evolution of Online AI Discourse",
     "section": "",
-    "text": "28 min read · 5524 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
+    "text": "28 min read · 5526 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
     "crumbs": [
       "Projects",
       "Evolution of Online AI Discourse"
@@ -800,7 +800,7 @@
     "href": "en/tools/url-shortener/index.html",
     "title": "URL Shortener",
     "section": "",
-    "text": "2 min read · 389 EN words · 0 中文字",
+    "text": "2 min read · 391 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Tools",
@@ -847,7 +847,7 @@
     "href": "en/blogs/recover-shellfolder/index.html",
     "title": "Recovering Misplaced Windows Shell Folders",
     "section": "",
-    "text": "9 min read · 1597 EN words · 29 中文字",
+    "text": "9 min read · 1599 EN words · 29 中文字",
     "crumbs": [
       "Projects",
       "Blogs",
@@ -871,7 +871,7 @@
     "href": "en/blogs/recover-shellfolder/index.html#the-fix",
     "title": "Recovering Misplaced Windows Shell Folders",
     "section": "2.2 The Fix",
-    "text": "2.2 The Fix\n\nCreate the target folder (e.g., E:\\Users\\UserName\\Videos\\).\nEdit the registry.\n\nPress Win + R and type regedit.\nGo to HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders.\nFind the entry whose value is the drive root (e.g., E:\\).\nChange it to the path of the folder you just created (e.g., E:\\Users\\UserName\\Videos\\).\nSave and restart the computer.\n\nShow hidden system files.\n\nOpen the target folder.\nGo to File &gt; Options &gt; View.\nCheck ⏺ Show hidden files, folders, and drives.\nUncheck ◻ Hide protected operating system files.\n\nRestore icon & display name.\n\nFind desktop.ini in the target folder, open it in Notepad.\nSet the IconResource and LocalizedResourceName entries to the right resource index (listed in Table 1).\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;NameResource index&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;IconResource index&gt;\n&lt;OtherEntries...&gt;\n\nOnce finished, remember to re-hide the system files revealed in step 3.",
+    "text": "2.2 The Fix\n\nCreate the target folder (e.g., E:\\Users\\UserName\\Videos\\).\nEdit the registry.\n\nPress Win + R and type regedit.\nGo to HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders.\nFind the entry whose value is the drive root (e.g., E:\\).\nChange it to the path of the folder you just created (e.g., E:\\Users\\UserName\\Videos\\).\nSave and restart the computer.\n\nShow hidden system files.\n\nOpen the target folder.\nGo to File &gt; Options &gt; View.\nCheck ⏺ Show hidden files, folders, and drives.\nUncheck ◻ Hide protected operating system files.\n\nRestore icon & display name.\n\nFind desktop.ini in the target folder, open it in Notepad.\nSet the IconResource and LocalizedResourceName entries to the right resource index (listed in Table 1).\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;NameResource index&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;IconResource index&gt;\n&lt;OtherEntries...&gt;\n\n\n\n\n\n\n\nNote\n\n\n\nOnce finished, remember to re-hide the system files revealed in step 3.",
     "crumbs": [
       "Projects",
       "Blogs",
@@ -919,7 +919,7 @@
     "href": "en/blogs/quarto-img-styles/index.html",
     "title": "Quarto Image Centering Styles",
     "section": "",
-    "text": "4 min read · 641 EN words · 0 中文字",
+    "text": "4 min read · 643 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Blogs",
@@ -1003,7 +1003,7 @@
     "href": "zh/tutorials/multivariate-plots/index.html",
     "title": "多变量图表",
     "section": "",
-    "text": "21 min read · 688 EN words · 5124 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "21 min read · 690 EN words · 5124 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "数据分析教程",
       "多变量图表"
@@ -1080,7 +1080,7 @@
     "href": "zh/tutorials/data-processing/index.html",
     "title": "数据清理",
     "section": "",
-    "text": "10 min read · 841 EN words · 1467 中文字\n环境与版本\npython==3.12\npandas==2.2.2",
+    "text": "10 min read · 843 EN words · 1467 中文字\n环境与版本\npython==3.12\npandas==2.2.2",
     "crumbs": [
       "数据分析教程",
       "数据清理"
@@ -1168,7 +1168,7 @@
     "href": "zh/tutorials/sankey-and-network/index.html",
     "title": "桑基图与网络图",
     "section": "",
-    "text": "8 min read · 231 EN words · 1943 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
+    "text": "8 min read · 233 EN words · 1943 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
     "crumbs": [
       "数据分析教程",
       "桑基图与网络图"
@@ -1281,7 +1281,7 @@
     "href": "zh/projects/student-media-usage/index.html",
     "title": "学生社交媒体使用与幸福感分析",
     "section": "",
-    "text": "18 min read · 338 EN words · 4699 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "18 min read · 340 EN words · 4699 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "可视化项目",
       "学生社交媒体使用与幸福感分析"
@@ -1512,7 +1512,7 @@
     "href": "zh/projects/most-streamed-songs/index.html",
     "title": "Spotify 最高播放量歌曲——音乐特征与受众趋势分析",
     "section": "",
-    "text": "9 min read · 225 EN words · 2226 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "9 min read · 227 EN words · 2226 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "可视化项目",
       "Spotify 最高播放量歌曲——音乐特征与受众趋势分析"
@@ -1633,7 +1633,7 @@
     "href": "zh/projects/catalan-referendum/index.html",
     "title": "Twitter 加泰罗尼亚公投情感分析",
     "section": "",
-    "text": "9 min read · 309 EN words · 1963 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "9 min read · 311 EN words · 1963 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "可视化项目",
       "Twitter 加泰罗尼亚公投情感分析"
@@ -1721,7 +1721,7 @@
     "href": "zh/tools/cat-img-hub/index.html",
     "title": "猫咪图片收藏站",
     "section": "",
-    "text": "4 min read · 196 EN words · 730 中文字",
+    "text": "4 min read · 198 EN words · 730 中文字",
     "crumbs": [
       "Web工具",
       "猫咪图片收藏站"
@@ -1776,7 +1776,7 @@
     "href": "zh/tools/news-hub/index.html",
     "title": "新闻汇总收藏站",
     "section": "",
-    "text": "3 min read · 181 EN words · 597 中文字",
+    "text": "3 min read · 183 EN words · 597 中文字",
     "crumbs": [
       "Web工具",
       "新闻汇总收藏站"
@@ -1837,7 +1837,7 @@
     "href": "zh/blogs/quarto-img-styles/index.html",
     "title": "Quarto 图片居中样式",
     "section": "",
-    "text": "4 min read · 152 EN words · 944 中文字",
+    "text": "4 min read · 154 EN words · 944 中文字",
     "crumbs": [
       "经验博客",
       "Quarto 图片居中样式"
@@ -1914,7 +1914,7 @@
     "href": "zh/blogs/recover-shellfolder/index.html",
     "title": "误移系统文件夹恢复",
     "section": "",
-    "text": "9 min read · 206 EN words · 2106 中文字",
+    "text": "9 min read · 208 EN words · 2106 中文字",
     "crumbs": [
       "经验博客",
       "误移系统文件夹恢复"
@@ -1990,7 +1990,7 @@
     "href": "zh/tools/url-shortener/index.html",
     "title": "短链接生成器",
     "section": "",
-    "text": "3 min read · 135 EN words · 576 中文字",
+    "text": "3 min read · 137 EN words · 576 中文字",
     "crumbs": [
       "Web工具",
       "短链接生成器"
@@ -2023,7 +2023,7 @@
     "href": "zh/projects/ai-discourse/index.html",
     "title": "网络AI话语的演变",
     "section": "",
-    "text": "34 min read · 982 EN words · 8576 中文字\n环境与版本\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
+    "text": "34 min read · 984 EN words · 8576 中文字\n环境与版本\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
     "crumbs": [
       "可视化项目",
       "网络AI话语的演变"
@@ -2231,7 +2231,7 @@
     "href": "zh/projects/global-visa-cost/index.html",
     "title": "全球签证费用地区分析",
     "section": "",
-    "text": "10 min read · 231 EN words · 2493 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
+    "text": "10 min read · 233 EN words · 2493 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
     "crumbs": [
       "可视化项目",
       "全球签证费用地区分析"
@@ -2347,7 +2347,7 @@
     "href": "zh/tutorials/r-tips/index.html",
     "title": "R 语言技巧",
     "section": "",
-    "text": "6 min read · 333 EN words · 1250 中文字",
+    "text": "6 min read · 335 EN words · 1250 中文字",
     "crumbs": [
       "数据分析教程",
       "R 语言技巧"
@@ -2632,7 +2632,7 @@
     "href": "zh/tutorials/amounts-and-distribution/index.html",
     "title": "数量与分布可视化",
     "section": "",
-    "text": "10 min read · 408 EN words · 2173 中文字\n环境和版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "10 min read · 410 EN words · 2173 中文字\n环境和版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "数据分析教程",
       "数量与分布可视化"
@@ -2786,7 +2786,7 @@
     "href": "en/tools/news-hub/index.html",
     "title": "News Hub",
     "section": "",
-    "text": "3 min read · 408 EN words · 0 中文字",
+    "text": "3 min read · 410 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Tools",
@@ -2834,7 +2834,7 @@
     "href": "en/tools/cat-img-hub/index.html",
     "title": "Cat Image Hub",
     "section": "",
-    "text": "3 min read · 496 EN words · 0 中文字",
+    "text": "3 min read · 498 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Tools",
@@ -2894,7 +2894,7 @@
     "href": "en/projects/catalan-referendum/index.html",
     "title": "Twitter Sentiment Analysis of Catalan Referendum",
     "section": "",
-    "text": "8 min read · 1469 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "8 min read · 1471 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "Projects",
       "Twitter Sentiment Analysis of Catalan Referendum"
@@ -2982,7 +2982,7 @@
     "href": "en/projects/most-streamed-songs/index.html",
     "title": "Spotify Most Streamed Songs",
     "section": "",
-    "text": "8 min read · 1546 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "8 min read · 1548 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "Projects",
       "Spotify Most Streamed Songs"
@@ -3103,7 +3103,7 @@
     "href": "en/projects/student-media-usage/index.html",
     "title": "Student Social Media Usage and Well-being Analysis",
     "section": "",
-    "text": "16 min read · 3186 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "16 min read · 3188 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "Projects",
       "Student Social Media Usage and Well-being Analysis"
@@ -3348,7 +3348,7 @@
     "href": "en/tutorials/sankey-and-network/index.html",
     "title": "Sankey Diagrams and Network Graphs",
     "section": "",
-    "text": "7 min read · 1299 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
+    "text": "7 min read · 1301 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -3456,7 +3456,7 @@
     "href": "en/tutorials/data-processing/index.html",
     "title": "Data Processing",
     "section": "",
-    "text": "8 min read · 1556 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2",
+    "text": "8 min read · 1558 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -3552,7 +3552,7 @@
     "href": "en/tutorials/multivariate-plots/index.html",
     "title": "Multivariate Plots",
     "section": "",
-    "text": "20 min read · 3818 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "20 min read · 3820 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "Projects",
       "Tutorials",
