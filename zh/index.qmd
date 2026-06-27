@@ -3,6 +3,8 @@ title: "Pinn (Aiqi) Xu"
 subtitle: "数据科学与可视化作品集"
 sidebar: false
 toc: false
+lightbox: false
+
 listing:
     id: projects-listing
     contents: 'projects/*/index.*md'
