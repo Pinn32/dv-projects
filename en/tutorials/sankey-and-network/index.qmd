@@ -65,12 +65,12 @@ Common Python terminology relationships are shown in @tbl-terminology:
 
 | Concept | Related Concept | Example |
 |:------:|:---------:|:------|
-| Function | Parameter | `pd.read_csv(encoding='utf-8')` |
+| Function | Parameter | <code>pd.read_csv(<wbr>encoding='utf-8')</code> |
 | Object | Method | `df.sample(size=10)` |
 | Class | Property | `go.Sankey(node=..., link=...)` |
 | Object | Attribute | `df.columns` |
 
-: Python terminology relationships (note: `pd`, `go` are library interfaces; `df` is a concrete object) {#tbl-terminology}
+: Python terminology relationships (note: `pd`, `go` are library interfaces; `df` is a concrete object) {#tbl-terminology tbl-colwidths=[15,20,65]}
 
 
 
@@ -388,7 +388,7 @@ Both Sankey diagrams and network graphs visualize relational data, but with diff
 | Key Characteristics | Hierarchical, flow conservation | Connection strength and relational distance |
 | Application Examples | Energy distribution, cost allocation | Social networks, computer networks |
 
-: Comparison of Sankey Diagrams and Network Graphs {#tbl-sankey-network}
+: Comparison of Sankey Diagrams and Network Graphs {#tbl-sankey-network tbl-colwidths=[20, 35, 45]}
 
 ## Drawing Network Graphs
 

@@ -52,14 +52,14 @@ Win10 系统文件夹（Shell Folders，如 `桌面`、`文档`、`图片`）被
    - 填写 `IconResource` 和 `LocalizedResourceName` 项，编号可在 @tbl-shellfolder-resource 查询
    - 显示名称若不想引用资源索引，也可直接填写中文显示名 `LocalizedResourceName=<中文显示名>`，再按 [方法1](#方法1) 修改编码方式并保存
 
-   ```ini
-   [.ShellClassInfo]
-   LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,<显示名称资源编号>
-   IconResource=%SystemRoot%\system32\imageres.dll,<图标资源编号>
-   <其他项...>
-   ```
+```ini
+[.ShellClassInfo]
+LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,<显示名称资源编号>
+IconResource=%SystemRoot%\system32\imageres.dll,<图标资源编号>
+<其他项...>
+```
 
-   > 注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。
+> 注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。
 
 
 # 问题: 误移系统文件夹
@@ -350,8 +350,8 @@ IconResource=%SystemRoot%\system32\imageres.dll,-113
 | 链接 | -21810 | -185 |
 | 收藏夹 | -21796 | -115 |
 | 保存的游戏 | -21814 | -177 |
-| 联系人 | wab32res.dll,-10100^[`联系人` 的名称资源来自: `@%CommonProgramFiles%\system\wab32res.dll,-10100`] | -181 |
-| 3D对象 | windows.storage.dll,-21825^[`3D对象` 的名称资源来自: `@%SystemRoot%\system32\windows.storage.dll,-21825`] | -198 |
+| 联系人 | wab32res.dll, -10100^[`联系人` 的名称资源来自: `@%CommonProgramFiles%\system\wab32res.dll,-10100`] | -181 |
+| 3D对象 | windows.<wbr>storage.dll, -21825^[`3D对象` 的名称资源来自: `@%SystemRoot%\system32\windows.storage.dll,-21825`] | -198 |
 
 : 系统文件夹对应资源编号表 {#tbl-shellfolder-resource tbl-colwidths=[25,40,35]}
 

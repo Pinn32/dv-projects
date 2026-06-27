@@ -233,6 +233,7 @@ a {
     color: var(--pf-primary);
     text-decoration-color: transparent;
     transition: color 0.15s, text-decoration-color 0.15s;
+    overflow-wrap: break-word;
 
     &:hover {
         color: var(--pf-primary-hover);
@@ -848,8 +849,9 @@ pre.text.cell-code code { color: var(--pf-primary-hover); }
 *:not(pre) > code {
     color: rgb(189, 211, 221);
     background-color: var(--pf-primary-light) !important;
-    white-space: break-spaces;
     padding: .2rem .35rem !important;
+    white-space: break-spaces !important;
+    overflow-wrap: break-word;
 }
 
 /* ==text== highlight → <mark> */

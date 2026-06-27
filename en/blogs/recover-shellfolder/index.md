@@ -51,16 +51,14 @@ A Windows 10 shell folder (e.g., `Desktop`, `Documents`, `Pictures` ) was accide
    - Find `desktop.ini` in the target folder, open it in Notepad.
    - Set the `IconResource` and `LocalizedResourceName` entries to the right resource index (listed in @tbl-shellfolder-resource).
 
-   ```ini
-   [.ShellClassInfo]
-   LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,<NameResource index>
-   IconResource=%SystemRoot%\system32\imageres.dll,<IconResource index>
-   <OtherEntries...>
-   ```
+```ini
+[.ShellClassInfo]
+LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,<NameResource index>
+IconResource=%SystemRoot%\system32\imageres.dll,<IconResource index>
+<OtherEntries...>
+```
 
-:::{.callout-note}
-Once finished, remember to re-hide the system files revealed in step 3.
-:::
+> Once finished, remember to re-hide the system files revealed in step 3.
 
 
 # The Problem: Moving a Shell Folder by Mistake
@@ -312,9 +310,9 @@ IconResource=%SystemRoot%\system32\imageres.dll,-113
 | 链接 (Links) | -21810 | -185 |
 | 收藏夹 (Favorites) | -21796 | -115 |
 | 保存的游戏 (Saved Games) | -21814 | -177 |
-| 联系人 (Contacts) | wab32res.dll,-10100^[The *Contacts* name resource comes from `@%CommonProgramFiles%\system\wab32res.dll,-10100`.] | -181 |
-| 3D对象 (3D Objects) | windows.storage.dll,-21825^[The *3D Objects* name resource comes from `@%SystemRoot%\system32\windows.storage.dll,-21825`.] | -198 |
+| 联系人 (Contacts) | wab32res.dll, -10100^[The *Contacts* name resource comes from `@%CommonProgramFiles%\system\wab32res.dll,-10100`.] | -181 |
+| 3D对象 (3D Objects) | windows.<wbr>storage.dll, -21825^[The *3D Objects* name resource comes from `@%SystemRoot%\system32\windows.storage.dll,-21825`.] | -198 |
 
-: Resource indices for shell folders {#tbl-shellfolder-resource tbl-colwidths=[35,35,30]}
+: Resource Indices for Shell Folders {#tbl-shellfolder-resource tbl-colwidths=[35,35,30]}
 
 [>> View More Original desktop.ini Contents](https://superuser.com/a/1172777){target="_blank"}

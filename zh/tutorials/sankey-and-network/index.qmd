@@ -70,7 +70,7 @@ Python 中常用术语的对应关系见 @tbl-terminology：
 
 | 概念 | 关联概念 | 示例 |
 |:------:|:---------:|:------|
-| 函数 (function) | 参数 (parameter) | `pd.read_csv(encoding='utf-8')` |
+| 函数 (function) | 参数 (parameter) | <code>pd.read_csv(<wbr>encoding='utf-8')</code> |
 | 对象 (object) | 方法 (method) | `df.sample(size=10)` |
 | 类 (class) | 属性 (property) | `go.Sankey(node=..., link=...)` |
 | 对象 (object) | 属性 (attribute) | `df.columns` |

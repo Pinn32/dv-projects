@@ -599,7 +599,7 @@ These variables estimates how many days people in the source countries have to w
 > **transit_perdailyincome:** Transit visa costs (in average daily incomes)\
 > **other_perdailyincome:** Other motives visa costs (in average daily incomes)
 
-*Note: The authors used the GNI per capita as an approximation of the mean income of the average person in a country to calculate what the real costs of visas may be like. Information about GNI per capita are from World Bank (2019), which is available at: https://data.worldbank.org/indicator/NY.GNP.PCAP.CD .*
+*Note: The authors used the GNI per capita as an approximation of the mean income of the average person in a country to calculate what the real costs of visas may be like. Information about GNI per capita are from World Bank (2019), which is available at: [https://data.worldbank.org/indicator/NY.GNP.PCAP.CD](https://data.worldbank.org/indicator/NY.GNP.PCAP.CD) .*
 
 ### Variable: Updates Compared to the Previous Version {.unnumbered}
 

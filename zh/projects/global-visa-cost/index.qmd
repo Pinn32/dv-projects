@@ -584,7 +584,7 @@ fig4.show() # 显示图形
 > **transit_perdailyincome：** 过境签证费用（以平均日收入为单位）\
 > **other_perdailyincome：** 其他目的签证费用（以平均日收入为单位）
 
-*注：作者使用人均国民总收入（GNI per capita）作为各国居民平均收入的近似值，以计算签证的实际成本水平。人均 GNI 数据来自世界银行（2019），可在以下链接获取：https://data.worldbank.org/indicator/NY.GNP.PCAP.CD 。*
+*注：作者使用人均国民总收入（GNI per capita）作为各国居民平均收入的近似值，以计算签证的实际成本水平。人均 GNI 数据来自世界银行（2019），可在以下链接获取：[https://data.worldbank.org/indicator/NY.GNP.PCAP.CD](https://data.worldbank.org/indicator/NY.GNP.PCAP.CD) 。*
 
 ### 变量：与前一版本相比的更新情况 {.unnumbered}
 
