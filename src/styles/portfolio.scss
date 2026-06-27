@@ -1301,11 +1301,25 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
     }
 }
 
+
+/* Mobile Only & Mobile Hide */
+.mobile-only {
+    display: none;
+}
+
 @media screen and (max-width: 480px) {
     :root { font-size: 16px; }
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.5rem; }
     h3 { font-size: 1.35rem; }
+
+    /* Mobile Only & Mobile Hide */
+    .mobile-only {
+        display: block;
+    }
+    .mobile-hide {
+        display: none;
+    }
 }
 
 /* respect reduced-motion preference */

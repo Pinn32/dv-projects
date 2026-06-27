@@ -4,6 +4,7 @@ subtitle: "Data Analysis & Visualization Portfolio"
 # subtitle: "Hi, I'm **Pinn** — a data enthusiast working at the intersection of analysis, storytelling, and code. "
 sidebar: false
 toc: false
+lightbox: false
 
 listing:
     id: projects
@@ -30,6 +31,47 @@ This site collects my data analysis projects, web tools, and blogs. Data project
 [Browse All Projects →](projects/){.btn .btn-primary style="margin-right:12px"}
 [Data Viz Tutorials](tutorials/){.btn .btn-outline-primary}
 :::
+
+
+<!-- ====================================================================== -->
+<a href="https://github.com/Pinn32" target="_blank">
+
+<!-- Heatmap -->
+::::::{#gh-heatmap .mobile-only}
+:::{.light-content}
+![Pinn's Contribution Graph](https://brettterpstra.com/contrib/generate?username=Pinn32&months=6&theme=light&font=helvetica&width=1200&corner_radius=36&caption_year=1&caption_month=1&caption_day=0&download=0)
+:::
+
+:::{.dark-content}
+![Pinn's Contribution Graph](https://brettterpstra.com/contrib/generate?username=Pinn32&months=6&theme=dark&font=helvetica&width=1200&corner_radius=36&caption_year=1&caption_month=1&caption_day=0&download=0)
+:::
+::::::
+
+<!-- ---------------------------------------------------------------------- -->
+<!-- Line Chart -->
+::::::{#gh-line-chart .mobile-hide}
+:::{style="overflow:hidden;" .light-content}
+![](https://github-readme-activity-graph.vercel.app/graph?username=pinn32&bg_color=ffffff&color=448883&line=80cbc4&point=ffab91&area=true&hide_border=true){style="display:block;
+    clip-path: inset(1px);
+    margin: 1px 1px 1px -12px;
+    width: calc(100% + 13px);
+    max-width: none;
+"}
+:::
+
+:::{style="overflow:hidden;" .dark-content}
+![](https://github-readme-activity-graph.vercel.app/graph?username=Pinn32&bg_color=0f1114&color=67949e&line=80cbc4&point=ffab91&area=true&hide_border=true){style="display:block;
+    clip-path: inset(1px);
+    margin: 1px 1px 1px -12px;
+    width: calc(100% + 13px);
+    max-width: none;
+"}
+:::
+::::::
+
+</a>
+<!-- ====================================================================== -->
+
 
 ## Featured Projects {#featured-projects}
 
