@@ -103,7 +103,7 @@ div.csl-indent {
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../../site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-ffb6fabdb535df6b7dea84b3dc8c791a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-aea5b92e9509614e45c16b56b9031128.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../../../site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
@@ -646,7 +646,7 @@ window.Quarto = {
             <path d="M12 6v6l4 2"></path>
         </svg>
      9 min read</span><span> · </span><span>311 EN words</span><span> · </span><span>1963 中文字</span></div>
-<div id="72d931b1" class="cell" data-execution_count="1">
+<div id="cb9de463" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>环境与版本</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python<span class="op">==</span><span class="fl">3.12</span></span>
@@ -658,7 +658,7 @@ window.Quarto = {
 <section id="简介" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 简介</h1>
 <p>本项目使用一份关于西班牙加泰罗尼亚公投的 Twitter 推文数据集，属性包括每条推文的基本信息及由不同词典检测到的情感词计数 <span class="citation" data-cites="jimenezZafra2021">(<a href="#ref-jimenezZafra2021" role="doc-biblioref"><span class="nocase">Jiménez-Zafra 等</span>, 2021</a>)</span>（属性详细说明见<a href="#appendix-attributes">附录一</a>）。本文通过条形图展示各词典在推文情感检测上的表现差异，并以直方图按情感类别呈现所有推文的作者受欢迎度分布。</p>
-<div id="ed96f3ed" class="cell" data-execution_count="2">
+<div id="a9b629d9" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入库</span></span>
@@ -831,7 +831,7 @@ window.Quarto = {
 </section>
 <section id="数据处理" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> 数据处理</h1>
-<div id="a7c565f1" class="cell" data-execution_count="3">
+<div id="1e57a262" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 删除缺失值（见附录二）</span></span>
@@ -854,7 +854,7 @@ window.Quarto = {
 </div>
 <section id="计数属性设置" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="计数属性设置"><span class="header-section-number">2.1</span> 计数属性设置</h2>
-<div id="488e8e08" class="cell" data-execution_count="4">
+<div id="aa551a51" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查属性数据类型</span></span>
@@ -900,7 +900,7 @@ memory usage: 156.4+ KB</code></pre>
 </figcaption>
 </figure>
 </div>
-<div id="5cb5bd80" class="cell" data-results="hold" data-execution_count="5">
+<div id="f6874d9b" class="cell" data-results="hold" data-execution_count="5">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 检查 3 个 object 类型计数属性的数据类型</span></span>
@@ -939,7 +939,7 @@ True True True</code></pre>
 </section>
 <section id="布尔属性设置" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="布尔属性设置"><span class="header-section-number">2.2</span> 布尔属性设置</h2>
-<div id="852a349e" class="cell" data-results="hold" data-execution_count="6">
+<div id="22b5f13f" class="cell" data-results="hold" data-execution_count="6">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 确认布尔列只包含 'True'/'False' 字符串</span></span>
@@ -961,7 +961,7 @@ True True True</code></pre>
 <h1 data-number="3"><span class="header-section-number">3</span> 数据可视化</h1>
 <section id="情感分布" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="情感分布"><span class="header-section-number">3.1</span> 情感分布</h2>
-<div id="182151c0" class="cell" data-execution_count="7">
+<div id="6f840149" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>代码</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 将情感词计数列转换为长格式，便于可视化</span></span>
