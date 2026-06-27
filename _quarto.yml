@@ -7,7 +7,7 @@ project:
 
 website:
   site-url: https://pinn32.github.io/dv-projects
-  title: "Pinn (Aiqi) Xu"
+  title: "pinn.xu"
   # title-separator: " | "
   description: "A collection of projects by Pinn (Aiqi) Xu, showcasing work in data science, machine learning, and software development."
   favicon: src/img/favicon/spark.ico
@@ -119,16 +119,17 @@ format:
     # self-contained: false
     lightbox: true
     smooth-scroll: true
-    # theme: 
-    #     light: minty
-    #     dark: darkly
-    theme: minty
-    from: markdown+mark
-    syntax-highlighting: pygments
-    css:
-      - ./src/styles/styles.css
-      - ./src/styles/listing.css
-      - ./src/styles/portfolio.css
+    # syntax-highlighting: pygments
+    syntax-highlighting: 
+      light: pygments
+      dark: atom-one
+    # theme:
+    #   light: minty
+    #   dark: darkly
+    theme:
+      light: [minty, ./src/styles/portfolio.scss]
+      dark:  [minty, ./src/styles/portfolio-dark.scss]
+    # from: markdown+mark
     
     ###### JS Scripts ######
     include-after-body:

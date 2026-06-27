@@ -32,9 +32,8 @@ en/                       # English content
 zh/                       # Chinese content (same structure as en/)
 src/
   styles/
-    styles.css            # general elements
-    portfolio.css         # root variables & portfolio styles
-    projects.css          # project/tutorial landing pages
+    portfolio.scss         # self-contained LIGHT theme (tokens, layout, code, listings)
+    portfolio-dark.scss    # self-contained DARK theme (same section order as portfolio.css)
   scripts/
     fix-code-fold.html    # JS post-processing
     lang-switch.html      # language switcher logic
