@@ -771,6 +771,9 @@ a.sidebar-item-text.sidebar-link.active > .menu-text {
 /* Qaurto Callouts */
 .callout.callout-style-default {
     border-left-width: 3.5px;
+    border-top-color: rgba(255, 255, 255, 0.1);
+    border-right-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 .callout.callout-style-default .callout-body {
     padding: 0 0.7rem;

@@ -58,7 +58,9 @@ A Windows 10 shell folder (e.g., `Desktop`, `Documents`, `Pictures` ) was accide
    <OtherEntries...>
    ```
 
-   > Once finished, remember to re-hide the system files revealed in step 3.
+:::{.callout-note}
+Once finished, remember to re-hide the system files revealed in step 3.
+:::
 
 
 # The Problem: Moving a Shell Folder by Mistake
