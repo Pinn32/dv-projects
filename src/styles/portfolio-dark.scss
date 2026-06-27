@@ -318,6 +318,11 @@ a {
 /* Search cancel button — keep on one line */
 button.aa-DetachedCancelButton { flex: 0 0 auto; white-space: nowrap; }
 
+/* Search background overlay */
+.aa-DetachedOverlay {
+    background-color: #000000b3;
+}
+
 
 /* 4. Home Hero =========================================================== */
 
@@ -1271,6 +1276,11 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
     /* Lift the header above the open sidebar so the language dropdown shows
        (see note in section 11). */
     #quarto-header.fixed-top { z-index: 1056; }
+
+    /* sidebar overlay background */
+    #quarto-sidebar-glass.show {
+        background-color: #000000b3;
+    }
 
     /* sidebar top whitespace */
     #quarto-sidebar > div:first-child {
