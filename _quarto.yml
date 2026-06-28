@@ -14,7 +14,8 @@ website:
 
   back-to-top-navigation: true
   page-footer: 
-    left: "© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved." 
+    left: | 
+      © Copyright <span id="copyright-year"></span>, Pinn (Aiqi) Xu. All rights reserved.
   
   repo-url: https://github.com/Pinn32/dv-projects
   repo-actions: [edit, source, issue]
@@ -129,14 +130,8 @@ format:
     
     ###### JS Scripts ######
     include-after-body:
-      - ./src/scripts/fix-code-fold.html
+      - ./src/scripts/site-fixes.html        # combined global fixes & tweaks
       - ./src/scripts/lang-switch.html
-      - ./src/scripts/fix-sidebar-toggle.html
-      - ./src/scripts/fix-navbar-active.html
-      - ./src/scripts/fix-sidebar-search.html
-      # - ./src/scripts/responsive-tag-bar.html
-      - ./src/scripts/strip-index-html.html
-      - ./src/scripts/tag-redirect.html
 
     toc: true
     # toc-expand: true

@@ -1,8 +1,6 @@
 ---
 title: "All Posts"
-include-after-body:
-  # - '../../src/scripts/responsive-tag-bar.html'
-  - '../../src/scripts/post-type-filter.html'
+include-after-body: '../../src/scripts/post-type-filter.html'
 toc: false
 sidebar: false
 number-sections: false
