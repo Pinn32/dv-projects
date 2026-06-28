@@ -16,7 +16,9 @@ order: 2
 [点击此处在线体验](https://url-to.vercel.app/){.btn .btn-outline-primary target="_blank"}
 :::
 
-![URL Shortener](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png){#fig-url-to style="width:35rem;"}
+:::{.macbook-frame style="width:35rem;"}
+![URL Shortener](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png)
+:::
 
 短链接是将冗长网址转换成简短网址的服务。它能在字数受限时节省篇幅，让分享时的外观更美观整洁，也更容易记忆和传播。
 

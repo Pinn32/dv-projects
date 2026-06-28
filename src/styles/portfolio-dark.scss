@@ -1255,6 +1255,64 @@ div#refs.hanging-indent .csl-entry { margin-bottom: 0.5rem; }
 .g-col-12:nth-child(4) .featured-card, .featured-card:nth-child(4) { animation-delay: 0.26s; }
 
 
+/* macOS window frame (wrap an image: ::: {.macbook-frame} … :::) ======== */
+.macbook-frame {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    margin: 1.75rem auto;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #2f3a3e70;                       /* title-bar surface */
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55),
+                0 3px 8px rgba(0, 0, 0, 0.35);
+}
+/* traffic-light buttons rendered as one dot + two box-shadow copies */
+.macbook-frame::before {
+    content: "";
+    position: absolute;
+    margin: 8px 0 0 12px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff5f57;                       /* red */
+    box-shadow: 16px 0 0 #febc2e,             /* yellow */
+                32px 0 0 #28c840;             /* green */
+    z-index: 2;
+}
+/* drop Quarto's paragraph/figure wrapper spacing so the image fills the frame */
+.macbook-frame :is(p, figure, div.quarto-figure) { margin: 0; }
+.macbook-frame figcaption { display: none; }
+.macbook-frame img {
+    display: block;
+    width: 100%;
+    margin: 24px 0 0;                          /* clear the title bar */
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 0;
+}
+
+/* Image Frame (img frame) ================================================ */
+.img-frame {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    margin: 1.75rem auto;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 82, 98, 0.12);
+    box-shadow: var(--pf-shadow);
+}
+/* drop Quarto's paragraph/figure wrapper spacing so the image fills the frame */
+.img-frame :is(p, figure, div.quarto-figure) { margin: 0; }
+.img-frame figcaption { display: none; }
+.img-frame img {
+    display: block;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+}
+
 /* 17. Responsive ======================================================= */
 
 @media screen and (max-width: 991.98px) {

@@ -80,13 +80,17 @@ format:
 
 这种方式简洁直观，无需额外编写 `style="width:15%"` 等行内样式，显示效果也较为理想。
 
-![通过 width 百分比控制图片效果预览](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/1.png){#fig-width-pct-preview style="width:35rem;"}
+:::{.macbook-frame style="width:35rem;"}
+![通过 width 百分比控制图片效果预览](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/1.png){#fig-width-pct-preview}
+:::
 
 ## 问题1：引用悬浮预览异常
 
 在正文中使用交叉引用（如 `@fig-title`）后，我发现图片悬浮预览会继承 `width` 百分比设置，导致预览显示异常。
 
-![问题1 - 悬浮预览异常](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615184737385.png){#fig-hover-error style="width:30rem;"}
+:::{.macbook-frame style="width:30rem;"}
+![问题1 - 悬浮预览异常](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615184737385.png){#fig-hover-error}
+:::
 
 为了解决这个问题，我尝试改用 `rem` 作为图片宽度单位，以兼顾页面缩放和悬浮预览。
 
@@ -108,16 +112,22 @@ format:
 
 新的问题随之出现：图片不再居中，即使设置 `{fig-align="center"}` 也无效。
 
-![问题2：图片不再居中显示](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190316080.png){#fig-center-error style="width:35rem;"}
+:::{.macbook-frame style="width:35rem;"}
+![问题2：图片不再居中显示](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190316080.png){#fig-center-error}
+:::
 
 
 使用浏览器 `DevTools` 排查后发现，设置 `style="width:7rem"` 时，`Quarto` 会同步将父容器宽度限制为 `7rem`。
 
-![父容器宽度限制](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190502775.png){#fig-parent-width-limit style="width:35rem;"}
+:::{.macbook-frame style="width:35rem;"}
+![父容器宽度限制](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190502775.png){#fig-parent-width-limit}
+:::
 
 移除父容器宽度限制后，图片即可重新居中。
 
-![去除父容器宽度限制后：恢复居中](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png){#fig-remove-parent-width-limit style="width:35rem;"}
+:::{.macbook-frame style="width:35rem;"}
+![去除父容器宽度限制后：恢复居中](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png){#fig-remove-parent-width-limit}
+:::
 
 期间我还尝试过多种方案，例如：
 
@@ -160,9 +170,13 @@ format:
 
 成功实现图片居中的同时，引用悬浮预览正常：
 
-![实现居中](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190729348.png){#fig-center-success style="width:30rem;"}
+:::{.macbook-frame style="width:30rem;"}
+![实现居中](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190729348.png){#fig-center-success}
+:::
 
-![实现悬浮正常](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190756159.png){#fig-hover-success style="width:18rem;"}
+:::{.img-frame style="width:18rem;"}
+![实现悬浮正常](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190756159.png){#fig-hover-success}
+:::
 
 # 图片和标题同时居中
 
@@ -200,7 +214,9 @@ format:
 
 相比之下，方法1语法最简洁，代码高亮效果也最好；方法2和方法3不仅结构更复杂，还增加了额外的容器层级。
 
-![语法高亮](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190824762.png){#fig-syntax-highlight style="width:35rem;"}
+:::{.macbook-frame style="width:35rem;"}
+![语法高亮](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190824762.png){#fig-syntax-highlight}
+:::
 
 如果希望当前页面所有图片标题均居中，则可直接添加 Internal CSS：
 

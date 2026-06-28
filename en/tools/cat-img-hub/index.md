@@ -16,13 +16,17 @@ Cat Image Hub is a web app for browsing random cat images, where signed-in users
 [Click Here to Try](https://cat-img-hub.vercel.app/){.btn .btn-outline-primary target="_blank"}
 :::
 
-![Home Gallery](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png){#fig-gallery style="width:40rem;"}
+::: {.macbook-frame style="width:40rem;"}
+![Home Gallery](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png){#fig-gallery}
+:::
 
+::: {.macbook-frame style="width:30rem;"}
+![Login](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png){#fig-login}
+:::
 
-![Login](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png){#fig-login style="width:30rem;"}
-
-
-![Favorites](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png){#fig-favorites style="width:40rem;"}
+::: {.macbook-frame style="width:40rem;"}
+![Favorites](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png){#fig-favorites}
+:::
 
 
 ## Key Features

@@ -16,12 +16,17 @@ order: 3
 [点击此处在线体验](https://cat-img-hub.vercel.app/){.btn .btn-outline-primary target="_blank"}
 :::
 
-![主页: 随机猫咪图片](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png){#fig-gallery style="width:40rem;"}
+:::{.macbook-frame style="width:40rem;"}
+![主页: 随机猫咪图片](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png){#fig-gallery}
+:::
 
+:::{.macbook-frame style="width:30rem;"}
+![登录界面](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png){#fig-login}
+:::
 
-![登录界面](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png){#fig-login style="width:30rem;"}
-
-![收藏界面](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png){#fig-favorites style="width:40rem;"}
+:::{.macbook-frame style="width:40rem;"}
+![收藏界面](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png){#fig-favorites}
+:::
 
 
 ## 核心功能

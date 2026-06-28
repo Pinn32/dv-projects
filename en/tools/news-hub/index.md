@@ -17,7 +17,9 @@ NewsHub is a full-stack news aggregation web application that allows users to br
 [Click Here to Try](https://news-hub-demo.vercel.app/){.btn .btn-outline-primary target="_blank"}
 :::
 
-![Home Page](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624185727241.png){style="width:40rem;"}
+::: {.macbook-frame style="width:40rem;"}
+![Home Page](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624185727241.png){fig-alt="News Hub home page"}
+:::
 
 
 

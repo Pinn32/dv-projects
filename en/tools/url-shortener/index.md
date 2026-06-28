@@ -12,12 +12,12 @@ order: 2
 
 This web tool helps you compact long URLs into shareable short links with customized slugs. It was developed by **Next.js**, **TypeScript**, and **MongoDB**.
 
-:::{#fig-url-to width="100%"}
-[Click Here to Try](https://url-to.vercel.app/){.btn .btn-outline-primary style="" target="_blank"}
+:::{style="text-align:center;"}
+[Click Here to Try](https://url-to.vercel.app/){.btn .btn-outline-primary target="_blank"}
+:::
 
-![](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png){style="width:35rem;"}
-
-"URL Shortener"
+:::{.macbook-frame style="width:35rem;"}
+![URL Shortener](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623194155759.png)
 :::
 
 A short link is a compact version of a long web address. It saves characters when space is limited, looks cleaner when shared, and is far easier to remember and pass along.
