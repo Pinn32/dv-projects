@@ -80,9 +80,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="/dv-projects/site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="/dv-projects/site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="/dv-projects/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/dv-projects/site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="/dv-projects/site_libs/bootstrap/bootstrap-dark-aea5b92e9509614e45c16b56b9031128.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="/dv-projects/site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="/dv-projects/site_libs/bootstrap/bootstrap-f8a221566d19e13d0ba65bd27385a262.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="/dv-projects/site_libs/bootstrap/bootstrap-dark-b3a97f6714638bbb2da87c4dacea6ac4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="/dv-projects/site_libs/bootstrap/bootstrap-f8a221566d19e13d0ba65bd27385a262.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -111,6 +111,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- 
+    Global Redirect
+    Redirect requests to /dv-projects/* to the root domain.
+-->
+
+<script id="script-redirect-root">
+    (() => {
+        // Only act on the GitHub Pages project deployment. Local preview
+        // (localhost) and the root deployment have no `/dv-projects` prefix.
+        if (window.location.hostname !== 'pinn32.github.io') return;
+
+        const PREFIX = '/dv-projects';
+        const path = window.location.pathname;
+
+        // Match the prefix only as a whole leading path segment.
+        if (path === PREFIX || path.indexOf(PREFIX + '/') === 0) {
+            const rest = path.slice(PREFIX.length) || '/';
+            // replace() so the prefixed URL never enters session history.
+            window.location.replace(rest + window.location.search + window.location.hash);
+        }
+    })();
+</script>
 
 
 </head>
@@ -258,7 +280,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     };
     const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
@@ -271,6 +294,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
     };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
       toggleColorMode(true);
@@ -408,22 +439,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
-<script id="fix-code-fold">
-    const bindToggle = (id, open) => {
-        const btn = document.getElementById(id);
-        if (!btn) return;
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            document.querySelectorAll('details.code-fold').forEach(el => {
-                open ? el.setAttribute('open', '') : el.removeAttribute('open');
-            });
-        });
-    };
+<!--
+    Global Site Fixes — injected at end of <body> on every page via _quarto.yml.
+    Each concern lives in its own <script> block so its execution timing is
+    preserved (inline IIFE = before paint; DOMContentLoaded = after parse).
 
-    bindToggle('quarto-show-all-code', true);
-    bindToggle('quarto-hide-all-code', false);
+    Table of contents
+    ─────────────────
+    1. script-strip-index-html   Strip internal links' .../index.html suffixes
+    2. script-fix-navbar-active  Fix navbar active state when a global sidebar is present
+    3. script-nav-lang-switch    Switch navbar header language
+    3. script-fix-code-fold      Wire the "show all / hide all code" buttons
+    4. script-fix-sidebar-toggle Make sidebar section row's empty area toggle collapse
+    5. script-fix-sidebar-search Replace the dead sidebar search box with a working button
+    6. script-fix-tag-redirect   Redirect post-page tag links to their listing page
+    7. script-copyright-year     Update the copyright year in the footer
+
+    Page-specific scripts (responsive-tag-bar, post-type-filter)
+    live in their own files and are included separately.
+-->
+
+
+<!-- ====================================================================== -->
+<script id="script-strip-index-html">
+    // Strip internal links' .../index.html suffixes
+
+    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
+    // avoids changing hrefs the user might hover mid-load.
+    (() => {
+        document.querySelectorAll('a[href]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
+            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
+
+            try {
+                const url = new URL(href, window.location.href);
+                // Only touch same-origin links.
+                if (url.origin !== window.location.origin) return;
+                if (!/\/index\.html$/.test(url.pathname)) return;
+
+                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
+                // Write a root-absolute path. This is safe even under the GitHub Pages
+                // `/dv-projects/` base, since `url.pathname` already includes that prefix
+                // (the original relative href was resolved against the current page).
+                link.setAttribute('href', url.pathname + url.search + url.hash);
+            } catch {
+                // Malformed href — leave it untouched.
+            }
+        });
+    })();
 </script>
-<script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-navbar-active">
+    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
+
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // script-nav-lang-switch to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
+            }
+
+            const isActive = pageSection !== null && pageSection === linkSection;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    })();
+</script>
+
+
+<!-- ====================================================================== -->
+<script id="script-nav-lang-switch">
+    // Switch navbar header language
+
     const switchLanguage = targetLang => {
         const path = window.location.pathname;
         // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
@@ -494,7 +602,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         });
     });
 </script>
-<script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-code-fold">
+    // Wire the "show all / hide all code" buttons to every code-fold <details>.
+    
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
+            });
+        });
+    };
+
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
+</script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-sidebar-toggle">
+    // Let sidebar section title empty area be clickable to toggle collapse/expand
+    
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.sidebar-item-section > .sidebar-item-container').forEach(row => {
             row.style.cursor = 'pointer';
@@ -509,41 +642,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         });
     });
 </script>
-<script id="fix-navbar-active">
-    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
-    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
-    // so the navbar DOM is already parsed — executing before paint prevents the flash.
-    // Compares path sections (/en|zh/section/...) so it works without waiting for
-    // lang-switch.html to rewrite hrefs on zh pages.
-    (() => {
-        const path = window.location.pathname.replace(/\/index\.html$/, '/');
-        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
-        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
 
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
 
-            let linkSection = null;
-            try {
-                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
-                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
-                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
-            } catch {
-                // href is malformed — skip this link
-            }
+<!-- ====================================================================== -->
+<script id="script-fix-sidebar-search">
+    // Add-on sidebar search bar
 
-            const isActive = pageSection !== null && pageSection === linkSection;
-            link.classList.toggle('active', isActive);
-            if (isActive) link.setAttribute('aria-current', 'page');
-            else link.removeAttribute('aria-current');
-        });
-    })();
-</script>
-<script>
     // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
     // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
     // that opens the real search overlay via window.quartoOpenSearch().
+
     document.addEventListener('DOMContentLoaded', () => {
         const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
         if (!sidebarSearchWrapper) return;
@@ -558,81 +666,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
-<script id="strip-index-html">
-    // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
-    // Quarto always links listing cards (and other internal links) to the real output
-    // file, e.g. `.../ai-discourse/index.html`. Both the preview server and GitHub Pages
-    // also serve the directory URL, so we drop the `index.html` for cleaner addresses.
-    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
-    // avoids changing hrefs the user might hover mid-load.
-    (() => {
-        document.querySelectorAll('a[href]').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
 
-            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
-            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
 
-            try {
-                const url = new URL(href, window.location.href);
-                // Only touch same-origin links.
-                if (url.origin !== window.location.origin) return;
-                if (!/\/index\.html$/.test(url.pathname)) return;
+<!-- ====================================================================== -->
+<script id="script-fix-tag-redirect">
+    // Redirect post-page tag to corresponding listing page
 
-                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
-                // Write a root-absolute path. This is safe even under the GitHub Pages
-                // `/dv-projects/` base, since `url.pathname` already includes that prefix
-                // (the original relative href was resolved against the current page).
-                link.setAttribute('href', url.pathname + url.search + url.hash);
-            } catch {
-                // Malformed href — leave it untouched.
-            }
-        });
-    })();
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-  // 每种内容类型对应的 listing 页面（可按需增减）
-  const SECTION_MAP = {
-    projects:  "projects",
-    tutorials: "tutorials",
-    blogs:     "blogs",
-    tools:     "tools",
-  };
+        // 每种内容类型对应的 listing 页面（可按需增减）
+        const SECTION_MAP = {
+            projects:  "projects",
+            tutorials: "tutorials",
+            blogs:     "blogs",
+            tools:     "tools",
+        };
 
-  function getTarget() {
-    const path = window.location.pathname;
+        function getTarget() {
+            const path = window.location.pathname;
 
-    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
-    const langMatch = path.match(/^\/(en|zh)\//);
-    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+            // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+            const langMatch = path.match(/^\/(en|zh)\//);
+            const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
 
-    // 提取当前所在 section
-    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
-    const section = sectionMatch ? sectionMatch[1] : null;
+            // 提取当前所在 section
+            const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+            const section = sectionMatch ? sectionMatch[1] : null;
 
-    if (!section) return null; // 不在任何已知 section 下，不重写
+            if (!section) return null; // 不在任何已知 section 下，不重写
 
-    return langPrefix + SECTION_MAP[section] + "/";
-  }
+            return langPrefix + SECTION_MAP[section] + "/";
+        }
 
-  function rewriteTagLinks() {
-    const target = getTarget();
-    if (!target) return;
+        function rewriteTagLinks() {
+            const target = getTarget();
+            if (!target) return;
 
-    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
-      const category = link.href.split("#category=")[1];
-      if (category) {
-        link.href = target + "#category=" + category;
-      }
+            document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+                const category = link.href.split("#category=")[1];
+                if (category) {
+                    link.href = target + "#category=" + category;
+                }
+            });
+        }
+
+        rewriteTagLinks();
+        new MutationObserver(rewriteTagLinks)
+            .observe(document.body, { childList: true, subtree: true });
     });
-  }
+</script>
 
-  rewriteTagLinks();
-  new MutationObserver(rewriteTagLinks)
-    .observe(document.body, { childList: true, subtree: true });
-});
+
+<!-- ====================================================================== -->
+<script id="script-copyright-year">
+    // Update the copyright year in the footer
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const el = document.getElementById("copyright-year");
+        if (el) el.textContent = new Date().getFullYear();
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1152,7 +1244,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved.</p>
+<p>© Copyright <span id="copyright-year"></span>, Pinn (Aiqi) Xu. All rights reserved.</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

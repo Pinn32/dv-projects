@@ -83,9 +83,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-aea5b92e9509614e45c16b56b9031128.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-f8a221566d19e13d0ba65bd27385a262.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-b3a97f6714638bbb2da87c4dacea6ac4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-f8a221566d19e13d0ba65bd27385a262.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -117,6 +117,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- 
+    Global Redirect
+    Redirect requests to /dv-projects/* to the root domain.
+-->
+
+<script id="script-redirect-root">
+    (() => {
+        // Only act on the GitHub Pages project deployment. Local preview
+        // (localhost) and the root deployment have no `/dv-projects` prefix.
+        if (window.location.hostname !== 'pinn32.github.io') return;
+
+        const PREFIX = '/dv-projects';
+        const path = window.location.pathname;
+
+        // Match the prefix only as a whole leading path segment.
+        if (path === PREFIX || path.indexOf(PREFIX + '/') === 0) {
+            const rest = path.slice(PREFIX.length) || '/';
+            // replace() so the prefixed URL never enters session history.
+            window.location.replace(rest + window.location.search + window.location.hash);
+        }
+    })();
+</script>
 
 
 </head>
@@ -264,7 +286,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     };
     const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
@@ -277,6 +300,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
     };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
       toggleColorMode(true);
@@ -588,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     9 min read</span><span> · </span><span>1599 EN words</span><span> · </span><span>29 中文字</span></div>
+     9 min read</span><span> · </span><span>1598 EN words</span><span> · </span><span>29 中文字</span></div>
 <style>
 figcaption {
    text-align: center;
@@ -629,25 +660,20 @@ figcaption {
 <ul>
 <li>Find <code>desktop.ini</code> in the target folder, open it in Notepad.</li>
 <li>Set the <code>IconResource</code> and <code>LocalizedResourceName</code> entries to the right resource index (listed in <a href="#tbl-shellfolder-resource" class="quarto-xref">Table&nbsp;1</a>).</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[.ShellClassInfo]</span></span>
+</ul></li>
+</ol>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>desktop.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="desktop.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[.ShellClassInfo]</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">IconResource</span><span class="ot">=</span><span class="st">%SystemRoot%\system32\imageres.dll,&lt;IconResource index&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;OtherEntries...&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;OtherEntries...&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
 <p>Once finished, remember to re-hide the system files revealed in step 3.</p>
-</div>
-</div>
+</blockquote>
 </section>
 </section>
 <section id="the-problem-moving-a-shell-folder-by-mistake" class="level1" data-number="3">
@@ -1075,15 +1101,20 @@ Figure&nbsp;32: Moving a Shell Folder: Change Only the Drive Letter
 <p>If your Windows display language gives the folder a localized name (see <a href="#localized-name">Restoring a Localized Display Name</a>), also set the <strong>name</strong> resource index. It points to a localized string in <code>shell32.dll</code>, so the same number resolves to whatever your system language is:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For example, for the <em>Pictures</em> folder:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,-21779</span></span>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Pictures\desktop.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="Pictures\desktop.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">LocalizedResourceName</span><span class="ot">=</span><span class="st">@%SystemRoot%\system32\shell32.dll,-21779</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">IconResource</span><span class="ot">=</span><span class="st">%SystemRoot%\system32\imageres.dll,-113</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <blockquote class="blockquote">
 <p>Note: the display-name resources for <em>Contacts</em> and <em>3D Objects</em> come from other DLL files, not <code>shell32.dll</code> (see <a href="#footnotes">Footnotes</a>).</p>
 </blockquote>
 <div id="tbl-shellfolder-resource" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[35,35,30]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-shellfolder-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Resource indices for shell folders
+Table&nbsp;1: Resource Indices for Shell Folders
 </figcaption>
 <div aria-describedby="tbl-shellfolder-resource-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1152,12 +1183,12 @@ Table&nbsp;1: Resource indices for shell folders
 </tr>
 <tr class="odd">
 <td style="text-align: center;">联系人 (Contacts)</td>
-<td style="text-align: center;">wab32res.dll,-10100<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></td>
+<td style="text-align: center;">wab32res.dll, -10100<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></td>
 <td style="text-align: center;">-181</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">3D对象 (3D Objects)</td>
-<td style="text-align: center;">windows.storage.dll,-21825<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></td>
+<td style="text-align: center;">windows.<wbr>storage.dll, -21825<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></td>
 <td style="text-align: center;">-198</td>
 </tr>
 </tbody>
@@ -1183,22 +1214,99 @@ Table&nbsp;1: Resource indices for shell folders
 <li id="fn5"><p>The <em>3D Objects</em> name resource comes from <code>@%SystemRoot%\system32\windows.storage.dll,-21825</code>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
-<script id="fix-code-fold">
-    const bindToggle = (id, open) => {
-        const btn = document.getElementById(id);
-        if (!btn) return;
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            document.querySelectorAll('details.code-fold').forEach(el => {
-                open ? el.setAttribute('open', '') : el.removeAttribute('open');
-            });
-        });
-    };
+<!--
+    Global Site Fixes — injected at end of <body> on every page via _quarto.yml.
+    Each concern lives in its own <script> block so its execution timing is
+    preserved (inline IIFE = before paint; DOMContentLoaded = after parse).
 
-    bindToggle('quarto-show-all-code', true);
-    bindToggle('quarto-hide-all-code', false);
+    Table of contents
+    ─────────────────
+    1. script-strip-index-html   Strip internal links' .../index.html suffixes
+    2. script-fix-navbar-active  Fix navbar active state when a global sidebar is present
+    3. script-nav-lang-switch    Switch navbar header language
+    3. script-fix-code-fold      Wire the "show all / hide all code" buttons
+    4. script-fix-sidebar-toggle Make sidebar section row's empty area toggle collapse
+    5. script-fix-sidebar-search Replace the dead sidebar search box with a working button
+    6. script-fix-tag-redirect   Redirect post-page tag links to their listing page
+    7. script-copyright-year     Update the copyright year in the footer
+
+    Page-specific scripts (responsive-tag-bar, post-type-filter)
+    live in their own files and are included separately.
+-->
+
+
+<!-- ====================================================================== -->
+<script id="script-strip-index-html">
+    // Strip internal links' .../index.html suffixes
+
+    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
+    // avoids changing hrefs the user might hover mid-load.
+    (() => {
+        document.querySelectorAll('a[href]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
+            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
+
+            try {
+                const url = new URL(href, window.location.href);
+                // Only touch same-origin links.
+                if (url.origin !== window.location.origin) return;
+                if (!/\/index\.html$/.test(url.pathname)) return;
+
+                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
+                // Write a root-absolute path. This is safe even under the GitHub Pages
+                // `/dv-projects/` base, since `url.pathname` already includes that prefix
+                // (the original relative href was resolved against the current page).
+                link.setAttribute('href', url.pathname + url.search + url.hash);
+            } catch {
+                // Malformed href — leave it untouched.
+            }
+        });
+    })();
 </script>
-<script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-navbar-active">
+    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
+
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // script-nav-lang-switch to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
+            }
+
+            const isActive = pageSection !== null && pageSection === linkSection;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    })();
+</script>
+
+
+<!-- ====================================================================== -->
+<script id="script-nav-lang-switch">
+    // Switch navbar header language
+
     const switchLanguage = targetLang => {
         const path = window.location.pathname;
         // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
@@ -1269,7 +1377,32 @@ Table&nbsp;1: Resource indices for shell folders
         });
     });
 </script>
-<script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-code-fold">
+    // Wire the "show all / hide all code" buttons to every code-fold <details>.
+    
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
+            });
+        });
+    };
+
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
+</script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-sidebar-toggle">
+    // Let sidebar section title empty area be clickable to toggle collapse/expand
+    
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.sidebar-item-section > .sidebar-item-container').forEach(row => {
             row.style.cursor = 'pointer';
@@ -1284,41 +1417,16 @@ Table&nbsp;1: Resource indices for shell folders
         });
     });
 </script>
-<script id="fix-navbar-active">
-    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
-    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
-    // so the navbar DOM is already parsed — executing before paint prevents the flash.
-    // Compares path sections (/en|zh/section/...) so it works without waiting for
-    // lang-switch.html to rewrite hrefs on zh pages.
-    (() => {
-        const path = window.location.pathname.replace(/\/index\.html$/, '/');
-        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
-        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
 
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
 
-            let linkSection = null;
-            try {
-                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
-                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
-                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
-            } catch {
-                // href is malformed — skip this link
-            }
+<!-- ====================================================================== -->
+<script id="script-fix-sidebar-search">
+    // Add-on sidebar search bar
 
-            const isActive = pageSection !== null && pageSection === linkSection;
-            link.classList.toggle('active', isActive);
-            if (isActive) link.setAttribute('aria-current', 'page');
-            else link.removeAttribute('aria-current');
-        });
-    })();
-</script>
-<script>
     // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
     // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
     // that opens the real search overlay via window.quartoOpenSearch().
+
     document.addEventListener('DOMContentLoaded', () => {
         const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
         if (!sidebarSearchWrapper) return;
@@ -1333,81 +1441,65 @@ Table&nbsp;1: Resource indices for shell folders
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
-<script id="strip-index-html">
-    // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
-    // Quarto always links listing cards (and other internal links) to the real output
-    // file, e.g. `.../ai-discourse/index.html`. Both the preview server and GitHub Pages
-    // also serve the directory URL, so we drop the `index.html` for cleaner addresses.
-    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
-    // avoids changing hrefs the user might hover mid-load.
-    (() => {
-        document.querySelectorAll('a[href]').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
 
-            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
-            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
 
-            try {
-                const url = new URL(href, window.location.href);
-                // Only touch same-origin links.
-                if (url.origin !== window.location.origin) return;
-                if (!/\/index\.html$/.test(url.pathname)) return;
+<!-- ====================================================================== -->
+<script id="script-fix-tag-redirect">
+    // Redirect post-page tag to corresponding listing page
 
-                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
-                // Write a root-absolute path. This is safe even under the GitHub Pages
-                // `/dv-projects/` base, since `url.pathname` already includes that prefix
-                // (the original relative href was resolved against the current page).
-                link.setAttribute('href', url.pathname + url.search + url.hash);
-            } catch {
-                // Malformed href — leave it untouched.
-            }
-        });
-    })();
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-  // 每种内容类型对应的 listing 页面（可按需增减）
-  const SECTION_MAP = {
-    projects:  "projects",
-    tutorials: "tutorials",
-    blogs:     "blogs",
-    tools:     "tools",
-  };
+        // 每种内容类型对应的 listing 页面（可按需增减）
+        const SECTION_MAP = {
+            projects:  "projects",
+            tutorials: "tutorials",
+            blogs:     "blogs",
+            tools:     "tools",
+        };
 
-  function getTarget() {
-    const path = window.location.pathname;
+        function getTarget() {
+            const path = window.location.pathname;
 
-    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
-    const langMatch = path.match(/^\/(en|zh)\//);
-    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+            // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+            const langMatch = path.match(/^\/(en|zh)\//);
+            const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
 
-    // 提取当前所在 section
-    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
-    const section = sectionMatch ? sectionMatch[1] : null;
+            // 提取当前所在 section
+            const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+            const section = sectionMatch ? sectionMatch[1] : null;
 
-    if (!section) return null; // 不在任何已知 section 下，不重写
+            if (!section) return null; // 不在任何已知 section 下，不重写
 
-    return langPrefix + SECTION_MAP[section] + "/";
-  }
+            return langPrefix + SECTION_MAP[section] + "/";
+        }
 
-  function rewriteTagLinks() {
-    const target = getTarget();
-    if (!target) return;
+        function rewriteTagLinks() {
+            const target = getTarget();
+            if (!target) return;
 
-    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
-      const category = link.href.split("#category=")[1];
-      if (category) {
-        link.href = target + "#category=" + category;
-      }
+            document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+                const category = link.href.split("#category=")[1];
+                if (category) {
+                    link.href = target + "#category=" + category;
+                }
+            });
+        }
+
+        rewriteTagLinks();
+        new MutationObserver(rewriteTagLinks)
+            .observe(document.body, { childList: true, subtree: true });
     });
-  }
+</script>
 
-  rewriteTagLinks();
-  new MutationObserver(rewriteTagLinks)
-    .observe(document.body, { childList: true, subtree: true });
-});
+
+<!-- ====================================================================== -->
+<script id="script-copyright-year">
+    // Update the copyright year in the footer
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const el = document.getElementById("copyright-year");
+        if (el) el.textContent = new Date().getFullYear();
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1926,279 +2018,277 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Find <span class="in">`desktop.ini`</span> in the target folder, open it in Notepad.</span>
 <span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Set the <span class="in">`IconResource`</span> and <span class="in">`LocalizedResourceName`</span> entries to the right resource index (listed in @tbl-shellfolder-resource).</span>
 <span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>   <span class="in">```ini</span></span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="in">   [.ShellClassInfo]</span></span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="in">   LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="in">   IconResource=%SystemRoot%\system32\imageres.dll,&lt;IconResource index&gt;</span></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="in">   &lt;OtherEntries...&gt;</span></span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="in">   ```</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{.ini filename="desktop.ini"}</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="in">[.ShellClassInfo]</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,&lt;IconResource index&gt;</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;OtherEntries...&gt;</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>Once finished, remember to re-hide the system files revealed in step 3.</span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Once finished, remember to re-hide the system files revealed in step 3.</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="fu"># The Problem: Moving a Shell Folder by Mistake</span></span>
 <span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="fu"># The Problem: Moving a Shell Folder by Mistake</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>While cleaning up my C drive one day, I noticed that a batch of shell folders under <span class="in">`C:\Users\&lt;username&gt;`</span> had not yet been moved to the E drive, so I decided to relocate them all at once.</span>
 <span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>While cleaning up my C drive one day, I noticed that a batch of shell folders under <span class="in">`C:\Users\&lt;username&gt;`</span> had not yet been moved to the E drive, so I decided to relocate them all at once.</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="al">![System Folders](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618163644834.png)</span>{#fig-sysfolders style="width:12rem;"}</span>
 <span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="al">![System Folders](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618163644834.png)</span>{#fig-sysfolders style="width:12rem;"}</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>Taking the *Saved Games* file as an example, I opened its <span class="in">`Properties`</span> , and clicked <span class="in">`Location`</span> tab. Then I changed its path from <span class="in">`C:\Users\Lenovo\Saved Games`</span> to <span class="in">`E:\`</span>, and clicked <span class="in">`Move`</span>.</span>
 <span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>Taking the *Saved Games* file as an example, I opened its <span class="in">`Properties`</span> , and clicked <span class="in">`Location`</span> tab. Then I changed its path from <span class="in">`C:\Users\Lenovo\Saved Games`</span> to <span class="in">`E:\`</span>, and clicked <span class="in">`Move`</span>.</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="al">![Changing the Folder Location](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618164612644.png)</span>{#fig-relocate-folder style="width:24rem;"}</span>
 <span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="al">![Changing the Folder Location](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618164612644.png)</span>{#fig-relocate-folder style="width:24rem;"}</span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>However, the Saved Games folder suddenly vanished. At that point I realized I had set the root of the E drive itself as the destination. I thus began searching for a fix, but the results were not what I expected — people are talking about games rather than Windows shell folders.</span>
 <span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>However, the Saved Games folder suddenly vanished. At that point I realized I had set the root of the E drive itself as the destination. I thus began searching for a fix, but the results were not what I expected — people are talking about games rather than Windows shell folders.</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>I then tried other shell folders as search terms: *Videos* (too common a word, yielding noisy results), *3D Objects* (a distinctive name, but obscure), *Desktop* (a special case whose fixes might not generalize), etc.</span>
 <span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>I then tried other shell folders as search terms: *Videos* (too common a word, yielding noisy results), *3D Objects* (a distinctive name, but obscure), *Desktop* (a special case whose fixes might not generalize), etc.</span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>After a few attempts, I settled on a solution: editing the registry.</span>
 <span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>After a few attempts, I settled on a solution: editing the registry.</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="al">![The Fix: Editing the Registry](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619150258176.png)</span>{#fig-sol-modify-reg style="width:35rem;"}</span>
 <span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="al">![The Fix: Editing the Registry](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619150258176.png)</span>{#fig-sol-modify-reg style="width:35rem;"}</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="fu"># The Fix: Editing the Registry</span></span>
 <span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="fu"># The Fix: Editing the Registry</span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>The steps are as follows:</span>
 <span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>The steps are as follows:</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Create the target folder `E:\Saved Games\` to hold the Saved Games folder where you want to move.**</span>
 <span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Create the target folder `E:\Saved Games\` to hold the Saved Games folder where you want to move.**</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Press `Win + R` to open the Run dialog, type `regedit`, and open the Registry Editor.**</span>
 <span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Press `Win + R` to open the Run dialog, type `regedit`, and open the Registry Editor.**</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="al">![Opening the Registry Editor](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618165301964.png)</span>{#fig-open-reg style="width:25rem;"}</span>
 <span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="al">![Opening the Registry Editor](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618165301964.png)</span>{#fig-open-reg style="width:25rem;"}</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Locate and change the path.**  </span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>   Go to:  </span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>   <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span></span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>   Find the entry whose value is <span class="in">`E:\`</span> and change it to <span class="in">`E:\Saved Games`</span>.  </span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>   (Be sure to create the folder before editing the registry.)</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Locate and change the path.**  </span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>   Go to:  </span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>   <span class="in">`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders`</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>   Find the entry whose value is <span class="in">`E:\`</span> and change it to <span class="in">`E:\Saved Games`</span>.  </span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>   (Be sure to create the folder before editing the registry.)</span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="al">![Editing the Registry](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png)</span>{#fig-modify-reg style="width:40rem;"}</span>
 <span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="al">![Editing the Registry](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig7.png)</span>{#fig-modify-reg style="width:40rem;"}</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Restart and verify.**  </span>
-<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>   After restarting your computer, press <span class="in">`Win + R`</span> and type <span class="in">`shell:SavedGames`</span>. If it opens <span class="in">`E:\Saved Games`</span>, the recovery succeeded.</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Restart and verify.**  </span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>   After restarting your computer, press <span class="in">`Win + R`</span> and type <span class="in">`shell:SavedGames`</span>. If it opens <span class="in">`E:\Saved Games`</span>, the recovery succeeded.</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="al">![Verifying the Registry Change](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png)</span>{#fig-test-reg style="width:25rem;"}</span>
 <span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="al">![Verifying the Registry Change](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig11.png)</span>{#fig-test-reg style="width:25rem;"}</span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="al">![Jumping to Saved Games](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png)</span>{#fig-jump-saved-games style="width:35rem;"}</span>
 <span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="al">![Jumping to Saved Games](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig12.png)</span>{#fig-jump-saved-games style="width:35rem;"}</span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>**At this point the folder works again, but it still shows the default folder icon.**</span>
 <span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>**At this point the folder works again, but it still shows the default folder icon.**</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## Restoring the Icon</span></span>
 <span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Restoring the Icon</span></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">An article</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span>{target="_blank"} was found explaining where Windows stores its system icons.</span>
 <span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">An article</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span>{target="_blank"} was found explaining where Windows stores its system icons.</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="al">![Article: Where Windows Stores Icons](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png)</span>{#fig-win-icon-loc style="width:35rem;"}</span>
 <span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="al">![Article: Where Windows Stores Icons](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig14.png)</span>{#fig-win-icon-loc style="width:35rem;"}</span>
-<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>Through <span class="in">`Properties &gt; Customize &gt; Change Icon`</span>, I found that the current icon source was <span class="in">`SHELL32.dll`</span> . However, the *Saved Games* icon was not included there, suggesting that shell folder icons are stored across multiple DLL files.</span>
 <span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>Through <span class="in">`Properties &gt; Customize &gt; Change Icon`</span>, I found that the current icon source was <span class="in">`SHELL32.dll`</span> . However, the *Saved Games* icon was not included there, suggesting that shell folder icons are stored across multiple DLL files.</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>:::{#fig-current-icon-loc layout-ncol=2}</span>
 <span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>:::{#fig-current-icon-loc layout-ncol=2}</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a><span class="al">![Properties &gt; Customize &gt; Change Icon](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618175423568.png)</span>{width="90%"}  </span>
 <span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="al">![Properties &gt; Customize &gt; Change Icon](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618175423568.png)</span>{width="90%"}  </span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="al">![Current Icon Location](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png)</span>{width="90%"}</span>
 <span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a><span class="al">![Current Icon Location](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig15-2.png)</span>{width="90%"}</span>
-<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a>Current icon file: SHELL32.dll</span>
-<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>Current icon file: SHELL32.dll</span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>I went through the DLL files listed in <span class="co">[</span><span class="ot">the article</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span> and eventually found the *Saved Games* icon in `imageres.dll`, along with the icons for *Desktop*, *Videos*, and others.</span>
 <span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>I went through the DLL files listed in <span class="co">[</span><span class="ot">the article</span><span class="co">](https://www.digitalcitizen.life/where-find-most-windows-10s-native-icons/#How%20Are%20Windows%20Icons%20stored?)</span> and eventually found the *Saved Games* icon in `imageres.dll`, along with the icons for *Desktop*, *Videos*, and others.</span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a><span class="al">![Other System Files Containing Icons](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png)</span>{#fig-icon-dll style="width:20rem;"}</span>
 <span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a><span class="al">![Other System Files Containing Icons](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig-icon-dll.png)</span>{#fig-icon-dll style="width:20rem;"}</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a><span class="al">![Icon found in imageres.dll](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png)</span>{#fig-imageres style="width:25rem;"}</span>
 <span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a><span class="al">![Icon found in imageres.dll](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig17.png)</span>{#fig-imageres style="width:25rem;"}</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>Once the icon was linked to the correct resource, it's icon was restored. </span>
 <span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>Once the icon was linked to the correct resource, it's icon was restored. </span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a><span class="al">![Icon Restored](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png)</span>{#fig-icon-recovered style="width:10rem;"}</span>
 <span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a><span class="al">![Icon Restored](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig18.png)</span>{#fig-icon-recovered style="width:10rem;"}</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>On an English-language system, this completes the recovery. On other systems, the folder's localized display name may still need to be restored. For example, on Simplified Chinese systems, the folder should display <span class="in">`保存的游戏`</span> while keeping the actual folder name <span class="in">`Saved Games`</span>.</span>
 <span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>On an English-language system, this completes the recovery. On other systems, the folder's localized display name may still need to be restored. For example, on Simplified Chinese systems, the folder should display <span class="in">`保存的游戏`</span> while keeping the actual folder name <span class="in">`Saved Games`</span>.</span>
-<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Restoring a Localized Display Name {#localized-name}</span></span>
 <span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a><span class="fu">## Restoring a Localized Display Name {#localized-name}</span></span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>Searching for how to make a folder's display name differ from its actual folder name, I found the following solution:</span>
 <span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>Searching for how to make a folder's display name differ from its actual folder name, I found the following solution:</span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a><span class="al">![Search Results](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619151015705.png)</span>{#fig-search-results style="width:30rem;"}</span>
 <span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a><span class="al">![Search Results](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619151015705.png)</span>{#fig-search-results style="width:30rem;"}</span>
-<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a>**Steps:**</span>
 <span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>**Steps:**</span>
-<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open the target folder in **File Explorer**.</span>
-<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Click the **View** tab on the toolbar of the File Explorer window.</span>
-<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Check the **Hidden items** box, then click **Options**.</span>
-<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Click the **View** tab.</span>
-<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Uncheck "Hide protected operating system files"**, then click **Yes** and **OK** to confirm change.</span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open the target folder in **File Explorer**.</span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Click the **View** tab on the toolbar of the File Explorer window.</span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Check the **Hidden items** box, then click **Options**.</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Click the **View** tab.</span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Uncheck "Hide protected operating system files"**, then click **Yes** and **OK** to confirm change.</span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a><span class="al">![Show Hidden Items](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618160908267.png)</span>{#fig-show-hidden style="width:45rem;"}</span>
 <span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a><span class="al">![Show Hidden Items](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618160908267.png)</span>{#fig-show-hidden style="width:45rem;"}</span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a><span class="al">![Unhide Protected Operating System Files](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618161338780.png)</span>{#fig-show-hidden-sysfiles style="width:25rem;"}</span>
 <span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a><span class="al">![Unhide Protected Operating System Files](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618161338780.png)</span>{#fig-show-hidden-sysfiles style="width:25rem;"}</span>
-<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a>A <span class="in">`desktop.ini`</span> file now appears inside the <span class="in">`Saved Games`</span> folder.</span>
 <span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a>A <span class="in">`desktop.ini`</span> file now appears inside the <span class="in">`Saved Games`</span> folder.</span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a><span class="al">![The desktop.ini File](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png)</span>{#fig-desktop-ini style="width:35rem;"}</span>
 <span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a><span class="al">![The desktop.ini File](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig23.png)</span>{#fig-desktop-ini style="width:35rem;"}</span>
-<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a>**Step 6: Open it in Notepad.**  </span>
-<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a>We can see the <span class="in">`IconResource`</span> entry is pointing to <span class="in">`imageres.dll`</span>, which is the icon we restored previously.</span>
+<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>**Step 6: Open it in Notepad.**  </span>
+<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a>We can see the <span class="in">`IconResource`</span> entry is pointing to <span class="in">`imageres.dll`</span>, which is the icon we restored previously.</span>
+<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a><span class="al">![Content of desktop.ini](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618162811351.png)</span>{#fig-desktop-ini-content style="width:22rem;"}</span>
 <span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a><span class="al">![Content of desktop.ini](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618162811351.png)</span>{#fig-desktop-ini-content style="width:22rem;"}</span>
-<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a>Following the guide, I added the following line to <span class="in">`desktop.ini`</span> (@fig-modify-display-name):</span>
 <span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a>Following the guide, I added the following line to <span class="in">`desktop.ini`</span> (@fig-modify-display-name):</span>
-<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
-<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=保存的游戏</span></span>
-<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=保存的游戏</span></span>
+<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a><span class="al">![Editing the Display Name](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png)</span>{#fig-modify-display-name style="width:22rem;"}</span>
 <span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a><span class="al">![Editing the Display Name](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig25.png)</span>{#fig-modify-display-name style="width:22rem;"}</span>
+<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a>After saving, however, the name appeared as garbled text (@fig-display-name-encode-error). English displayed correctly while the Chinese characters turned into mojibake, indicating that the file encoding was wrong.</span>
 <span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a>After saving, however, the name appeared as garbled text (@fig-display-name-encode-error). English displayed correctly while the Chinese characters turned into mojibake, indicating that the file encoding was wrong.</span>
+<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a><span class="al">![Display Name Turned into Mojibake](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png)</span>{#fig-display-name-encode-error style="width:10rem;"}</span>
 <span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a><span class="al">![Display Name Turned into Mojibake](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig26.png)</span>{#fig-display-name-encode-error style="width:10rem;"}</span>
-<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a><span class="fu">### Method 1: Change the File Encoding^[Added June 16, 2026] {#method-1}</span></span>
 <span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### Method 1: Change the File Encoding^[Added June 16, 2026] {#method-1}</span></span>
+<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a>The bottom-right corner of Notepad showed the current encoding as <span class="in">`UTF-8`</span>, but <span class="in">`desktop.ini`</span> should be saved as <span class="in">`UTF-16 LE`</span>.</span>
 <span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a>The bottom-right corner of Notepad showed the current encoding as <span class="in">`UTF-8`</span>, but <span class="in">`desktop.ini`</span> should be saved as <span class="in">`UTF-16 LE`</span>.</span>
+<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a><span class="al">![Notepad's Default Encoding Method](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png)</span>{#fig-default-encoding style="width:25rem;"}</span>
 <span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a><span class="al">![Notepad's Default Encoding Method](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260617121023832.png)</span>{#fig-default-encoding style="width:25rem;"}</span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a>To avoid garbling the Chinese name, enter it and then click <span class="in">`File &gt; Save As`</span>.</span>
 <span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a>To avoid garbling the Chinese name, enter it and then click <span class="in">`File &gt; Save As`</span>.</span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a><span class="al">![Save As](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194335092.png)</span>{#fig-save-as style="width:30rem;"}</span>
 <span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a><span class="al">![Save As](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194335092.png)</span>{#fig-save-as style="width:30rem;"}</span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a>Set <span class="in">`Save as type`</span> to <span class="in">`All Files (*.*)`</span> and <span class="in">`Encoding`</span> to <span class="in">`UTF-16 LE`</span>, then save and overwrite the original file.</span>
 <span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a>Set <span class="in">`Save as type`</span> to <span class="in">`All Files (*.*)`</span> and <span class="in">`Encoding`</span> to <span class="in">`UTF-16 LE`</span>, then save and overwrite the original file.</span>
+<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a><span class="al">![Changing the Encoding Method](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194954213.png)</span>{#fig-modify-encoding style="width:35rem;"}</span>
 <span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a><span class="al">![Changing the Encoding Method](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618194954213.png)</span>{#fig-modify-encoding style="width:35rem;"}</span>
-<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a>A moment later, the display name was restored.</span>
 <span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a>A moment later, the display name was restored.</span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a><span class="al">![Saved Games Restored](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618195203026.png)</span>{#fig-rebirth-0 style="width:12rem;"}</span>
 <span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a><span class="al">![Saved Games Restored](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260618195203026.png)</span>{#fig-rebirth-0 style="width:12rem;"}</span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a><span class="fu">### Method 2: Reference a Resource Index</span></span>
 <span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a><span class="fu">### Method 2: Reference a Resource Index</span></span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a>Instead of changing the encoding, you can also reference a resource index. The index points to a localized string inside <span class="in">`shell32.dll`</span> file, which resolves to the display name according to your Windows display language.</span>
 <span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a>Instead of changing the encoding, you can also reference a resource index. The index points to a localized string inside <span class="in">`shell32.dll`</span> file, which resolves to the display name according to your Windows display language.</span>
+<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a>For example, @fig-name-info-source shows the <span class="in">`LocalizedResourceName`</span> entry in the original <span class="in">`desktop.ini`</span> file of the *Videos* folder is pointing to the resource in <span class="in">`shell32.dll`</span> with the index <span class="in">`-21791`</span>.</span>
 <span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a>For example, @fig-name-info-source shows the <span class="in">`LocalizedResourceName`</span> entry in the original <span class="in">`desktop.ini`</span> file of the *Videos* folder is pointing to the resource in <span class="in">`shell32.dll`</span> with the index <span class="in">`-21791`</span>.</span>
+<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a><span class="al">![Where the Videos Display Name Comes From](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png)</span>{#fig-name-info-source style="width:22rem;"}</span>
 <span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a><span class="al">![Where the Videos Display Name Comes From](https://raw.githubusercontent.com/Pinn32/img/refs/heads/main/blogs/fix-misplaced-sysfolders/fig27.png)</span>{#fig-name-info-source style="width:22rem;"}</span>
-<span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a>I thus started to looking for name resource indices inside <span class="in">`shell32.dll`</span> , but the results covered mainly icon resources instead of name resources.</span>
 <span id="cb7-228"><a href="#cb7-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-229"><a href="#cb7-229" aria-hidden="true" tabindex="-1"></a>I thus started to looking for name resource indices inside <span class="in">`shell32.dll`</span> , but the results covered mainly icon resources instead of name resources.</span>
+<span id="cb7-229"><a href="#cb7-229" aria-hidden="true" tabindex="-1"></a>Then, I turned to AI for help, but ChatGPT gave me fabricated answers <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-frown"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>.</span>
 <span id="cb7-230"><a href="#cb7-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a>Then, I turned to AI for help, but ChatGPT gave me fabricated answers <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-frown"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>.</span>
+<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a>When I asked how to inspect the contents of <span class="in">`shell32.dll`</span>, ChatGPT recommended **Visual Studio**.</span>
 <span id="cb7-232"><a href="#cb7-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a>When I asked how to inspect the contents of <span class="in">`shell32.dll`</span>, ChatGPT recommended **Visual Studio**.</span>
+<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a><span class="al">![Asking How to Inspect shell32.dll](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619001643834.png)</span>{#fig-ask-visual-studio style="width:35rem;"}</span>
 <span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a><span class="al">![Asking How to Inspect shell32.dll](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619001643834.png)</span>{#fig-ask-visual-studio style="width:35rem;"}</span>
+<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a>With no programming background, I mistakenly downloaded Visual Studio **Code** instead. It became my first encounter with an IDE. Later, when my professor noticed I was doing assignments in VSCode rather than Jupyter and asked why, I just pulled up this article <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-wink"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>.</span>
 <span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a>With no programming background, I mistakenly downloaded Visual Studio **Code** instead. It became my first encounter with an IDE. Later, when my professor noticed I was doing assignments in VSCode rather than Jupyter and asked why, I just pulled up this article <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-wink"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>.</span>
+<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a><span class="al">![VSCode and Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png)</span>{#fig-vscode-and-visual-studio style="width:15rem;"}</span>
 <span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a><span class="al">![VSCode and Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215305385.png)</span>{#fig-vscode-and-visual-studio style="width:15rem;"}</span>
+<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a>Following ChatGPT's instructions, I created a new solution in Visual Studio and loaded <span class="in">`C:\Windows\System32\shell32.dll`</span> to view its resource directory.</span>
 <span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a>Following ChatGPT's instructions, I created a new solution in Visual Studio and loaded <span class="in">`C:\Windows\System32\shell32.dll`</span> to view its resource directory.</span>
+<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a><span class="al">![AI's Instructions](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619221622134.png)</span>{#fig-ai-suggest style="width:40rem;"}</span>
 <span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a><span class="al">![AI's Instructions](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619221622134.png)</span>{#fig-ai-suggest style="width:40rem;"}</span>
-<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a><span class="al">![Interface of Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png)</span>{#fig-vs-interface style="width:45rem;"}</span>
 <span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a><span class="al">![Interface of Visual Studio](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615215843231.png)</span>{#fig-vs-interface style="width:45rem;"}</span>
-<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a>Visual Studio showed only the structure of the resource directory, not the actual entry indices. Since <span class="in">`shell32.dll`</span> is very large, checking every entry by hand was not realistic.</span>
 <span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a>Visual Studio showed only the structure of the resource directory, not the actual entry indices. Since <span class="in">`shell32.dll`</span> is very large, checking every entry by hand was not realistic.</span>
+<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a>In the end, I compared the <span class="in">`desktop.ini`</span> file with one from another computer that hadn't be modified. The correct resource index turned out to be <span class="in">`-21814`</span> — just four numbers away from the <span class="in">`-21810`</span> I had tried earlier. I might have found it with a few more guesses <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-grin"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>.</span>
 <span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a>In the end, I compared the <span class="in">`desktop.ini`</span> file with one from another computer that hadn't be modified. The correct resource index turned out to be <span class="in">`-21814`</span> — just four numbers away from the <span class="in">`-21810`</span> I had tried earlier. I might have found it with a few more guesses <span class="dt">&lt;</span><span class="kw">i</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bi bi-emoji-grin"</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color:var(--pf-primary)"</span><span class="dt">&gt;&lt;/</span><span class="kw">i</span><span class="dt">&gt;</span>.</span>
+<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a>I added the following line to the <span class="in">`desktop.ini`</span> in the *Saved Games* folder:</span>
 <span id="cb7-252"><a href="#cb7-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a>I added the following line to the <span class="in">`desktop.ini`</span> in the *Saved Games* folder:</span>
-<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
-<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21814</span></span>
-<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21814</span></span>
+<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a><span class="al">![After the Change](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619222135645.png)</span>{#fig-after-change style="width:25rem;"}</span>
 <span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a><span class="al">![After the Change](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619222135645.png)</span>{#fig-after-change style="width:25rem;"}</span>
+<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; More resource indices of display names and icons for common shell folders are listed in @tbl-shellfolder-resource.</span></span>
 <span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; More resource indices of display names and icons for common shell folders are listed in @tbl-shellfolder-resource.</span></span>
+<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a>**Saved Games shell folder is finally fully restored!**</span>
 <span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a>**Saved Games shell folder is finally fully restored!**</span>
+<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a><span class="al">![Saved Games Restored](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224046895.png)</span>{#fig-rebirth style="width:12rem;"}</span>
 <span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a><span class="al">![Saved Games Restored](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224046895.png)</span>{#fig-rebirth style="width:12rem;"}</span>
-<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a>So far, both the icon and the display name were restored to their defaults.</span>
 <span id="cb7-267"><a href="#cb7-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a>So far, both the icon and the display name were restored to their defaults.</span>
+<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a><span class="al">![Default Icon Restored](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224305642.png)</span>{#fig-default-icon style="width:25rem;"}</span>
 <span id="cb7-269"><a href="#cb7-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a><span class="al">![Default Icon Restored](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224305642.png)</span>{#fig-default-icon style="width:25rem;"}</span>
+<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-272"><a href="#cb7-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-272"><a href="#cb7-272" aria-hidden="true" tabindex="-1"></a>**Lesson Learned: When moving a shell folder, change only the drive letter in the path. Do not set the bare root directory as the destination.**</span>
 <span id="cb7-273"><a href="#cb7-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a>**Lesson Learned: When moving a shell folder, change only the drive letter in the path. Do not set the bare root directory as the destination.**</span>
+<span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a><span class="al">![Moving a Shell Folder: Change Only the Drive Letter](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224636448.png)</span>{#fig-move-system-folder style="width:25rem;"}</span>
 <span id="cb7-275"><a href="#cb7-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-276"><a href="#cb7-276" aria-hidden="true" tabindex="-1"></a><span class="al">![Moving a Shell Folder: Change Only the Drive Letter](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260619224636448.png)</span>{#fig-move-system-folder style="width:25rem;"}</span>
+<span id="cb7-276"><a href="#cb7-276" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-277"><a href="#cb7-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-278"><a href="#cb7-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-278"><a href="#cb7-278" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix: Resource Indices for Shell Folders {.unnumbered}</span></span>
 <span id="cb7-279"><a href="#cb7-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix: Resource Indices for Shell Folders {.unnumbered}</span></span>
+<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a>Use the **icon** resource index to restore a folder's icon (needed on every system):</span>
 <span id="cb7-281"><a href="#cb7-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-282"><a href="#cb7-282" aria-hidden="true" tabindex="-1"></a>Use the **icon** resource index to restore a folder's icon (needed on every system):</span>
-<span id="cb7-283"><a href="#cb7-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-284"><a href="#cb7-284" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
-<span id="cb7-285"><a href="#cb7-285" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,&lt;IconResource index&gt;</span></span>
-<span id="cb7-286"><a href="#cb7-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-282"><a href="#cb7-282" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb7-283"><a href="#cb7-283" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,&lt;IconResource index&gt;</span></span>
+<span id="cb7-284"><a href="#cb7-284" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-285"><a href="#cb7-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-286"><a href="#cb7-286" aria-hidden="true" tabindex="-1"></a>If your Windows display language gives the folder a localized name (see <span class="co">[</span><span class="ot">Restoring a Localized Display Name</span><span class="co">](#localized-name)</span>), also set the **name** resource index. It points to a localized string in <span class="in">`shell32.dll`</span>, so the same number resolves to whatever your system language is:</span>
 <span id="cb7-287"><a href="#cb7-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a>If your Windows display language gives the folder a localized name (see <span class="co">[</span><span class="ot">Restoring a Localized Display Name</span><span class="co">](#localized-name)</span>), also set the **name** resource index. It points to a localized string in <span class="in">`shell32.dll`</span>, so the same number resolves to whatever your system language is:</span>
-<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
-<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span>
-<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
+<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,&lt;NameResource index&gt;</span></span>
+<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a>For example, for the *Pictures* folder:</span>
 <span id="cb7-293"><a href="#cb7-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a>For example, for the *Pictures* folder:</span>
-<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a><span class="in">```ini</span></span>
-<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21779</span></span>
-<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,-113</span></span>
-<span id="cb7-299"><a href="#cb7-299" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a><span class="in">```{.ini filename="Pictures\desktop.ini"}</span></span>
+<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a><span class="in">LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21779</span></span>
+<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a><span class="in">IconResource=%SystemRoot%\system32\imageres.dll,-113</span></span>
+<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-299"><a href="#cb7-299" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Note: the display-name resources for *Contacts* and *3D Objects* come from other DLL files, not </span><span class="in">`shell32.dll`</span><span class="at"> (see </span><span class="co">[</span><span class="ot">Footnotes</span><span class="co">](#footnotes)</span><span class="at">).</span></span>
 <span id="cb7-300"><a href="#cb7-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-301"><a href="#cb7-301" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Note: the display-name resources for *Contacts* and *3D Objects* come from other DLL files, not </span><span class="in">`shell32.dll`</span><span class="at"> (see </span><span class="co">[</span><span class="ot">Footnotes</span><span class="co">](#footnotes)</span><span class="at">).</span></span>
-<span id="cb7-302"><a href="#cb7-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-303"><a href="#cb7-303" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Folder <span class="pp">|</span> Name Resource Indices^<span class="co">[</span><span class="ot">Unless marked otherwise, name resources come from `@%SystemRoot%\system32\shell32.dll,&lt;index&gt;`.</span><span class="co">]</span> <span class="pp">|</span> Icon Resource Indices^<span class="co">[</span><span class="ot">Icon resources come from `%SystemRoot%\system32\imageres.dll,&lt;index&gt;`.</span><span class="co">]</span> <span class="pp">|</span></span>
-<span id="cb7-304"><a href="#cb7-304" aria-hidden="true" tabindex="-1"></a><span class="pp">| :----:</span> <span class="pp">| :------:</span> <span class="pp">| :------:</span> <span class="pp">|</span></span>
-<span id="cb7-305"><a href="#cb7-305" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 桌面 (Desktop) <span class="pp">|</span> -21769 <span class="pp">|</span> -183 <span class="pp">|</span></span>
-<span id="cb7-306"><a href="#cb7-306" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文档 (Documents) <span class="pp">|</span> -21770 <span class="pp">|</span> -112 <span class="pp">|</span></span>
-<span id="cb7-307"><a href="#cb7-307" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 图片 (Pictures) <span class="pp">|</span> -21779 <span class="pp">|</span> -113 <span class="pp">|</span></span>
-<span id="cb7-308"><a href="#cb7-308" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 音乐 (Music) <span class="pp">|</span> -21790 <span class="pp">|</span> -108 <span class="pp">|</span></span>
-<span id="cb7-309"><a href="#cb7-309" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 视频 (Videos) <span class="pp">|</span> -21791 <span class="pp">|</span> -189 <span class="pp">|</span></span>
-<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 下载 (Downloads) <span class="pp">|</span> -21798 <span class="pp">|</span> -184 <span class="pp">|</span></span>
-<span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 搜索 (Searches) <span class="pp">|</span> -9031 <span class="pp">|</span> -18 <span class="pp">|</span></span>
-<span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 链接 (Links) <span class="pp">|</span> -21810 <span class="pp">|</span> -185 <span class="pp">|</span></span>
-<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 收藏夹 (Favorites) <span class="pp">|</span> -21796 <span class="pp">|</span> -115 <span class="pp">|</span></span>
-<span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 保存的游戏 (Saved Games) <span class="pp">|</span> -21814 <span class="pp">|</span> -177 <span class="pp">|</span></span>
-<span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 联系人 (Contacts) <span class="pp">|</span> wab32res.dll,-10100^<span class="co">[</span><span class="ot">The *Contacts* name resource comes from `@%CommonProgramFiles%\system\wab32res.dll,-10100`.</span><span class="co">]</span> <span class="pp">|</span> -181 <span class="pp">|</span></span>
-<span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3D对象 (3D Objects) <span class="pp">|</span> windows.storage.dll,-21825^<span class="co">[</span><span class="ot">The *3D Objects* name resource comes from `@%SystemRoot%\system32\windows.storage.dll,-21825`.</span><span class="co">]</span> <span class="pp">|</span> -198 <span class="pp">|</span></span>
+<span id="cb7-301"><a href="#cb7-301" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Folder <span class="pp">|</span> Name Resource Indices^<span class="co">[</span><span class="ot">Unless marked otherwise, name resources come from `@%SystemRoot%\system32\shell32.dll,&lt;index&gt;`.</span><span class="co">]</span> <span class="pp">|</span> Icon Resource Indices^<span class="co">[</span><span class="ot">Icon resources come from `%SystemRoot%\system32\imageres.dll,&lt;index&gt;`.</span><span class="co">]</span> <span class="pp">|</span></span>
+<span id="cb7-302"><a href="#cb7-302" aria-hidden="true" tabindex="-1"></a><span class="pp">| :----:</span> <span class="pp">| :------:</span> <span class="pp">| :------:</span> <span class="pp">|</span></span>
+<span id="cb7-303"><a href="#cb7-303" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 桌面 (Desktop) <span class="pp">|</span> -21769 <span class="pp">|</span> -183 <span class="pp">|</span></span>
+<span id="cb7-304"><a href="#cb7-304" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文档 (Documents) <span class="pp">|</span> -21770 <span class="pp">|</span> -112 <span class="pp">|</span></span>
+<span id="cb7-305"><a href="#cb7-305" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 图片 (Pictures) <span class="pp">|</span> -21779 <span class="pp">|</span> -113 <span class="pp">|</span></span>
+<span id="cb7-306"><a href="#cb7-306" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 音乐 (Music) <span class="pp">|</span> -21790 <span class="pp">|</span> -108 <span class="pp">|</span></span>
+<span id="cb7-307"><a href="#cb7-307" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 视频 (Videos) <span class="pp">|</span> -21791 <span class="pp">|</span> -189 <span class="pp">|</span></span>
+<span id="cb7-308"><a href="#cb7-308" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 下载 (Downloads) <span class="pp">|</span> -21798 <span class="pp">|</span> -184 <span class="pp">|</span></span>
+<span id="cb7-309"><a href="#cb7-309" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 搜索 (Searches) <span class="pp">|</span> -9031 <span class="pp">|</span> -18 <span class="pp">|</span></span>
+<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 链接 (Links) <span class="pp">|</span> -21810 <span class="pp">|</span> -185 <span class="pp">|</span></span>
+<span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 收藏夹 (Favorites) <span class="pp">|</span> -21796 <span class="pp">|</span> -115 <span class="pp">|</span></span>
+<span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 保存的游戏 (Saved Games) <span class="pp">|</span> -21814 <span class="pp">|</span> -177 <span class="pp">|</span></span>
+<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 联系人 (Contacts) <span class="pp">|</span> wab32res.dll, -10100^<span class="co">[</span><span class="ot">The *Contacts* name resource comes from `@%CommonProgramFiles%\system\wab32res.dll,-10100`.</span><span class="co">]</span> <span class="pp">|</span> -181 <span class="pp">|</span></span>
+<span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3D对象 (3D Objects) <span class="pp">|</span> windows.<span class="dt">&lt;</span><span class="kw">wbr</span><span class="dt">&gt;</span>storage.dll, -21825^<span class="co">[</span><span class="ot">The *3D Objects* name resource comes from `@%SystemRoot%\system32\windows.storage.dll,-21825`.</span><span class="co">]</span> <span class="pp">|</span> -198 <span class="pp">|</span></span>
+<span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a>: Resource Indices for Shell Folders {#tbl-shellfolder-resource tbl-colwidths=<span class="co">[</span><span class="ot">35,35,30</span><span class="co">]</span>}</span>
 <span id="cb7-317"><a href="#cb7-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-318"><a href="#cb7-318" aria-hidden="true" tabindex="-1"></a>: Resource indices for shell folders {#tbl-shellfolder-resource tbl-colwidths=<span class="co">[</span><span class="ot">35,35,30</span><span class="co">]</span>}</span>
-<span id="cb7-319"><a href="#cb7-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-320"><a href="#cb7-320" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View More Original desktop.ini Contents</span><span class="co">](https://superuser.com/a/1172777)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb7-318"><a href="#cb7-318" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View More Original desktop.ini Contents</span><span class="co">](https://superuser.com/a/1172777)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved.</p>
+<p>© Copyright <span id="copyright-year"></span>, Pinn (Aiqi) Xu. All rights reserved.</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

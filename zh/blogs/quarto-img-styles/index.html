@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-aea5b92e9509614e45c16b56b9031128.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-f8a221566d19e13d0ba65bd27385a262.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-b3a97f6714638bbb2da87c4dacea6ac4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-f8a221566d19e13d0ba65bd27385a262.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -116,6 +116,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- 
+    Global Redirect
+    Redirect requests to /dv-projects/* to the root domain.
+-->
+
+<script id="script-redirect-root">
+    (() => {
+        // Only act on the GitHub Pages project deployment. Local preview
+        // (localhost) and the root deployment have no `/dv-projects` prefix.
+        if (window.location.hostname !== 'pinn32.github.io') return;
+
+        const PREFIX = '/dv-projects';
+        const path = window.location.pathname;
+
+        // Match the prefix only as a whole leading path segment.
+        if (path === PREFIX || path.indexOf(PREFIX + '/') === 0) {
+            const rest = path.slice(PREFIX.length) || '/';
+            // replace() so the prefixed URL never enters session history.
+            window.location.replace(rest + window.location.search + window.location.hash);
+        }
+    })();
+</script>
 
 
 </head>
@@ -263,7 +285,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     };
     const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
@@ -276,6 +299,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
     };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
       toggleColorMode(true);
@@ -584,7 +615,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     4 min read</span><span> · </span><span>154 EN words</span><span> · </span><span>944 中文字</span></div>
+     4 min read</span><span> · </span><span>153 EN words</span><span> · </span><span>944 中文字</span></div>
 <style>
     figcaption {
         text-align: center;
@@ -638,29 +669,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>在 Quarto Website 撰写过程中，最初，我通过 Quarto 内置的 width 属性控制图片大小：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title width="15%"}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>这种方式简洁直观，无需额外编写 <code>style="width:15%"</code> 等行内样式，显示效果也较为理想。</p>
-<div id="fig-width-pct-preview" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<div class="macbook-frame" style="width:35rem;">
+<div id="fig-width-pct-preview" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-width-pct-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="图&nbsp;1: 通过 width 百分比控制图片效果预览"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/1.png" class="img-fluid figure-img" style="width:35rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="图&nbsp;1: 通过 width 百分比控制图片效果预览"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/1.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-width-pct-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;1: 通过 width 百分比控制图片效果预览
 </figcaption>
 </figure>
 </div>
+</div>
 </section>
 <section id="问题1引用悬浮预览异常" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="问题1引用悬浮预览异常"><span class="header-section-number">2.2</span> 问题1：引用悬浮预览异常</h2>
 <p>在正文中使用交叉引用（如 <code>@fig-title</code>）后，我发现图片悬浮预览会继承 <code>width</code> 百分比设置，导致预览显示异常。</p>
-<div id="fig-hover-error" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
+<div class="macbook-frame" style="width:30rem;">
+<div id="fig-hover-error" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hover-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615184737385.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="图&nbsp;2: 问题1 - 悬浮预览异常"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615184737385.png" class="img-fluid figure-img" style="width:30rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615184737385.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="图&nbsp;2: 问题1 - 悬浮预览异常"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615184737385.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hover-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;2: 问题1 - 悬浮预览异常
 </figcaption>
 </figure>
+</div>
 </div>
 <p>为了解决这个问题，我尝试改用 <code>rem</code> 作为图片宽度单位，以兼顾页面缩放和悬浮预览。</p>
 <p>首先尝试：</p>
@@ -672,37 +707,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="问题2图片无法居中" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="问题2图片无法居中"><span class="header-section-number">2.3</span> 问题2：图片无法居中</h2>
 <p>新的问题随之出现：图片不再居中，即使设置 <code>{fig-align="center"}</code> 也无效。</p>
-<div id="fig-center-error" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<div class="macbook-frame" style="width:35rem;">
+<div id="fig-center-error" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-center-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190316080.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="图&nbsp;3: 问题2：图片不再居中显示"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190316080.png" class="img-fluid figure-img" style="width:35rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190316080.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="图&nbsp;3: 问题2：图片不再居中显示"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190316080.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-center-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;3: 问题2：图片不再居中显示
 </figcaption>
 </figure>
 </div>
+</div>
 <p>使用浏览器 <code>DevTools</code> 排查后发现，设置 <code>style="width:7rem"</code> 时，<code>Quarto</code> 会同步将父容器宽度限制为 <code>7rem</code>。</p>
-<div id="fig-parent-width-limit" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<div class="macbook-frame" style="width:35rem;">
+<div id="fig-parent-width-limit" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-parent-width-limit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190502775.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="图&nbsp;4: 父容器宽度限制"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190502775.png" class="img-fluid figure-img" style="width:35rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190502775.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="图&nbsp;4: 父容器宽度限制"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190502775.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parent-width-limit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;4: 父容器宽度限制
 </figcaption>
 </figure>
 </div>
+</div>
 <p>移除父容器宽度限制后，图片即可重新居中。</p>
-<div id="fig-remove-parent-width-limit" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<div class="macbook-frame" style="width:35rem;">
+<div id="fig-remove-parent-width-limit" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-remove-parent-width-limit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="图&nbsp;5: 去除父容器宽度限制后：恢复居中"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png" class="img-fluid figure-img" style="width:35rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="图&nbsp;5: 去除父容器宽度限制后：恢复居中"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-remove-parent-width-limit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;5: 去除父容器宽度限制后：恢复居中
 </figcaption>
 </figure>
+</div>
 </div>
 <p>期间我还尝试过多种方案，例如：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 尝试1</span></span>
@@ -731,25 +772,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>再配合图片设置：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title style="width:7rem;"}</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>成功实现图片居中的同时，引用悬浮预览正常：</p>
-<div id="fig-center-success" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
+<div class="macbook-frame" style="width:30rem;">
+<div id="fig-center-success" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-center-success-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190729348.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="图&nbsp;6: 实现居中"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190729348.png" class="img-fluid figure-img" style="width:30rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190729348.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="图&nbsp;6: 实现居中"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190729348.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-center-success-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;6: 实现居中
 </figcaption>
 </figure>
 </div>
-<div id="fig-hover-success" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:18rem;">
+</div>
+<div class="img-frame" style="width:18rem;">
+<div id="fig-hover-success" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hover-success-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190756159.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="图&nbsp;7: 实现悬浮正常"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190756159.png" class="img-fluid figure-img" style="width:18rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190756159.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="图&nbsp;7: 实现悬浮正常"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190756159.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hover-success-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;7: 实现悬浮正常
 </figcaption>
 </figure>
+</div>
 </div>
 </section>
 </section>
@@ -777,15 +822,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>图片标题</span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
 <p>相比之下，方法1语法最简洁，代码高亮效果也最好；方法2和方法3不仅结构更复杂，还增加了额外的容器层级。</p>
-<div id="fig-syntax-highlight" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:35rem;">
+<div class="macbook-frame" style="width:35rem;">
+<div id="fig-syntax-highlight" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-syntax-highlight-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190824762.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="图&nbsp;8: 语法高亮"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190824762.png" class="img-fluid figure-img" style="width:35rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190824762.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="图&nbsp;8: 语法高亮"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190824762.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-syntax-highlight-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 图&nbsp;8: 语法高亮
 </figcaption>
 </figure>
+</div>
 </div>
 <p>如果希望当前页面所有图片标题均居中，则可直接添加 Internal CSS：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
@@ -802,22 +849,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> 回到顶部</a></main> <!-- /main -->
-<script id="fix-code-fold">
-    const bindToggle = (id, open) => {
-        const btn = document.getElementById(id);
-        if (!btn) return;
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            document.querySelectorAll('details.code-fold').forEach(el => {
-                open ? el.setAttribute('open', '') : el.removeAttribute('open');
-            });
-        });
-    };
+<!--
+    Global Site Fixes — injected at end of <body> on every page via _quarto.yml.
+    Each concern lives in its own <script> block so its execution timing is
+    preserved (inline IIFE = before paint; DOMContentLoaded = after parse).
 
-    bindToggle('quarto-show-all-code', true);
-    bindToggle('quarto-hide-all-code', false);
+    Table of contents
+    ─────────────────
+    1. script-strip-index-html   Strip internal links' .../index.html suffixes
+    2. script-fix-navbar-active  Fix navbar active state when a global sidebar is present
+    3. script-nav-lang-switch    Switch navbar header language
+    3. script-fix-code-fold      Wire the "show all / hide all code" buttons
+    4. script-fix-sidebar-toggle Make sidebar section row's empty area toggle collapse
+    5. script-fix-sidebar-search Replace the dead sidebar search box with a working button
+    6. script-fix-tag-redirect   Redirect post-page tag links to their listing page
+    7. script-copyright-year     Update the copyright year in the footer
+
+    Page-specific scripts (responsive-tag-bar, post-type-filter)
+    live in their own files and are included separately.
+-->
+
+
+<!-- ====================================================================== -->
+<script id="script-strip-index-html">
+    // Strip internal links' .../index.html suffixes
+
+    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
+    // avoids changing hrefs the user might hover mid-load.
+    (() => {
+        document.querySelectorAll('a[href]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
+            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
+
+            try {
+                const url = new URL(href, window.location.href);
+                // Only touch same-origin links.
+                if (url.origin !== window.location.origin) return;
+                if (!/\/index\.html$/.test(url.pathname)) return;
+
+                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
+                // Write a root-absolute path. This is safe even under the GitHub Pages
+                // `/dv-projects/` base, since `url.pathname` already includes that prefix
+                // (the original relative href was resolved against the current page).
+                link.setAttribute('href', url.pathname + url.search + url.hash);
+            } catch {
+                // Malformed href — leave it untouched.
+            }
+        });
+    })();
 </script>
-<script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-navbar-active">
+    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
+
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // script-nav-lang-switch to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
+            }
+
+            const isActive = pageSection !== null && pageSection === linkSection;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    })();
+</script>
+
+
+<!-- ====================================================================== -->
+<script id="script-nav-lang-switch">
+    // Switch navbar header language
+
     const switchLanguage = targetLang => {
         const path = window.location.pathname;
         // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
@@ -888,7 +1012,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         });
     });
 </script>
-<script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-code-fold">
+    // Wire the "show all / hide all code" buttons to every code-fold <details>.
+    
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
+            });
+        });
+    };
+
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
+</script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-sidebar-toggle">
+    // Let sidebar section title empty area be clickable to toggle collapse/expand
+    
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.sidebar-item-section > .sidebar-item-container').forEach(row => {
             row.style.cursor = 'pointer';
@@ -903,41 +1052,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         });
     });
 </script>
-<script id="fix-navbar-active">
-    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
-    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
-    // so the navbar DOM is already parsed — executing before paint prevents the flash.
-    // Compares path sections (/en|zh/section/...) so it works without waiting for
-    // lang-switch.html to rewrite hrefs on zh pages.
-    (() => {
-        const path = window.location.pathname.replace(/\/index\.html$/, '/');
-        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
-        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
 
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
 
-            let linkSection = null;
-            try {
-                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
-                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
-                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
-            } catch {
-                // href is malformed — skip this link
-            }
+<!-- ====================================================================== -->
+<script id="script-fix-sidebar-search">
+    // Add-on sidebar search bar
 
-            const isActive = pageSection !== null && pageSection === linkSection;
-            link.classList.toggle('active', isActive);
-            if (isActive) link.setAttribute('aria-current', 'page');
-            else link.removeAttribute('aria-current');
-        });
-    })();
-</script>
-<script>
     // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
     // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
     // that opens the real search overlay via window.quartoOpenSearch().
+
     document.addEventListener('DOMContentLoaded', () => {
         const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
         if (!sidebarSearchWrapper) return;
@@ -952,81 +1076,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
-<script id="strip-index-html">
-    // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
-    // Quarto always links listing cards (and other internal links) to the real output
-    // file, e.g. `.../ai-discourse/index.html`. Both the preview server and GitHub Pages
-    // also serve the directory URL, so we drop the `index.html` for cleaner addresses.
-    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
-    // avoids changing hrefs the user might hover mid-load.
-    (() => {
-        document.querySelectorAll('a[href]').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
 
-            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
-            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
 
-            try {
-                const url = new URL(href, window.location.href);
-                // Only touch same-origin links.
-                if (url.origin !== window.location.origin) return;
-                if (!/\/index\.html$/.test(url.pathname)) return;
+<!-- ====================================================================== -->
+<script id="script-fix-tag-redirect">
+    // Redirect post-page tag to corresponding listing page
 
-                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
-                // Write a root-absolute path. This is safe even under the GitHub Pages
-                // `/dv-projects/` base, since `url.pathname` already includes that prefix
-                // (the original relative href was resolved against the current page).
-                link.setAttribute('href', url.pathname + url.search + url.hash);
-            } catch {
-                // Malformed href — leave it untouched.
-            }
-        });
-    })();
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-  // 每种内容类型对应的 listing 页面（可按需增减）
-  const SECTION_MAP = {
-    projects:  "projects",
-    tutorials: "tutorials",
-    blogs:     "blogs",
-    tools:     "tools",
-  };
+        // 每种内容类型对应的 listing 页面（可按需增减）
+        const SECTION_MAP = {
+            projects:  "projects",
+            tutorials: "tutorials",
+            blogs:     "blogs",
+            tools:     "tools",
+        };
 
-  function getTarget() {
-    const path = window.location.pathname;
+        function getTarget() {
+            const path = window.location.pathname;
 
-    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
-    const langMatch = path.match(/^\/(en|zh)\//);
-    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+            // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+            const langMatch = path.match(/^\/(en|zh)\//);
+            const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
 
-    // 提取当前所在 section
-    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
-    const section = sectionMatch ? sectionMatch[1] : null;
+            // 提取当前所在 section
+            const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+            const section = sectionMatch ? sectionMatch[1] : null;
 
-    if (!section) return null; // 不在任何已知 section 下，不重写
+            if (!section) return null; // 不在任何已知 section 下，不重写
 
-    return langPrefix + SECTION_MAP[section] + "/";
-  }
+            return langPrefix + SECTION_MAP[section] + "/";
+        }
 
-  function rewriteTagLinks() {
-    const target = getTarget();
-    if (!target) return;
+        function rewriteTagLinks() {
+            const target = getTarget();
+            if (!target) return;
 
-    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
-      const category = link.href.split("#category=")[1];
-      if (category) {
-        link.href = target + "#category=" + category;
-      }
+            document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+                const category = link.href.split("#category=")[1];
+                if (category) {
+                    link.href = target + "#category=" + category;
+                }
+            });
+        }
+
+        rewriteTagLinks();
+        new MutationObserver(rewriteTagLinks)
+            .observe(document.body, { childList: true, subtree: true });
     });
-  }
+</script>
 
-  rewriteTagLinks();
-  new MutationObserver(rewriteTagLinks)
-    .observe(document.body, { childList: true, subtree: true });
-});
+
+<!-- ====================================================================== -->
+<script id="script-copyright-year">
+    // Update the copyright year in the footer
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const el = document.getElementById("copyright-year");
+        if (el) el.textContent = new Date().getFullYear();
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1574,149 +1682,165 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>这种方式简洁直观，无需额外编写 <span class="in">`style="width:15%"`</span> 等行内样式，显示效果也较为理想。</span>
 <span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a><span class="al">![通过 width 百分比控制图片效果预览](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/1.png)</span>{#fig-width-pct-preview style="width:35rem;"}</span>
-<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## 问题1：引用悬浮预览异常</span></span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>:::{.macbook-frame style="width:35rem;"}</span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a><span class="al">![通过 width 百分比控制图片效果预览](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/1.png)</span>{#fig-width-pct-preview}</span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a>在正文中使用交叉引用（如 <span class="in">`@fig-title`</span>）后，我发现图片悬浮预览会继承 <span class="in">`width`</span> 百分比设置，导致预览显示异常。</span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## 问题1：引用悬浮预览异常</span></span>
 <span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a><span class="al">![问题1 - 悬浮预览异常](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615184737385.png)</span>{#fig-hover-error style="width:30rem;"}</span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>在正文中使用交叉引用（如 <span class="in">`@fig-title`</span>）后，我发现图片悬浮预览会继承 <span class="in">`width`</span> 百分比设置，导致预览显示异常。</span>
 <span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a>为了解决这个问题，我尝试改用 <span class="in">`rem`</span> 作为图片宽度单位，以兼顾页面缩放和悬浮预览。</span>
-<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a>首先尝试：</span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a>:::{.macbook-frame style="width:30rem;"}</span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a><span class="al">![问题1 - 悬浮预览异常](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615184737385.png)</span>{#fig-hover-error}</span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
-<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title width="7rem"}</span>
-<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a>为了解决这个问题，我尝试改用 <span class="in">`rem`</span> 作为图片宽度单位，以兼顾页面缩放和悬浮预览。</span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a>首先尝试：</span>
 <span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a>但并未生效，因为 Quarto 的 width 属性不支持 rem 单位（支持 px、百分比等）。</span>
-<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a>随后改为：</span>
+<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title width="7rem"}</span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
-<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title style="width:7rem;"}</span>
-<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a>但并未生效，因为 Quarto 的 width 属性不支持 rem 单位（支持 px、百分比等）。</span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a>随后改为：</span>
 <span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## 问题2：图片无法居中</span></span>
-<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a>新的问题随之出现：图片不再居中，即使设置 <span class="in">`{fig-align="center"}`</span> 也无效。</span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title style="width:7rem;"}</span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a><span class="al">![问题2：图片不再居中显示](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190316080.png)</span>{#fig-center-error style="width:35rem;"}</span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## 问题2：图片无法居中</span></span>
 <span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a>使用浏览器 <span class="in">`DevTools`</span> 排查后发现，设置 <span class="in">`style="width:7rem"`</span> 时，<span class="in">`Quarto`</span> 会同步将父容器宽度限制为 <span class="in">`7rem`</span>。</span>
-<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a><span class="al">![父容器宽度限制](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190502775.png)</span>{#fig-parent-width-limit style="width:35rem;"}</span>
-<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a>移除父容器宽度限制后，图片即可重新居中。</span>
+<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a>新的问题随之出现：图片不再居中，即使设置 <span class="in">`{fig-align="center"}`</span> 也无效。</span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a>:::{.macbook-frame style="width:35rem;"}</span>
+<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a><span class="al">![问题2：图片不再居中显示](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190316080.png)</span>{#fig-center-error}</span>
+<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a><span class="al">![去除父容器宽度限制后：恢复居中](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png)</span>{#fig-remove-parent-width-limit style="width:35rem;"}</span>
+<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a>使用浏览器 <span class="in">`DevTools`</span> 排查后发现，设置 <span class="in">`style="width:7rem"`</span> 时，<span class="in">`Quarto`</span> 会同步将父容器宽度限制为 <span class="in">`7rem`</span>。</span>
 <span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>期间我还尝试过多种方案，例如：</span>
-<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
-<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a><span class="fu"># 尝试1</span></span>
-<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a>:::{#fig-title width="100%"}</span>
-<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a><span class="al">![](图片URL)</span>{style="width:7rem;"}</span>
-<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a>图片标题</span>
-<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a><span class="fu"># 尝试2</span></span>
-<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a>:::{#fig-title style="width:100% !important;"}</span>
-<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{style="width:7rem;"}</span>
-<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a><span class="fu"># 尝试3</span></span>
-<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a>:::{#fig-title style="text-align:center; width:100% !important;"}</span>
-<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a><span class="al">![](图片URL)</span>{style="width:7rem;"}</span>
-<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a>图片标题</span>
-<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a><span class="fu"># ...</span></span>
-<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a>但都未达到理想效果。</span>
-<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a>最终，我决定直接修改 css 样式，在 <span class="in">`style.css`</span> 里添加了针对父容器的设置：</span>
-<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a><span class="in">```css</span></span>
-<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="op">.</span><span class="fu">quarto</span><span class="op">-</span><span class="dt">float</span><span class="op">.</span><span class="fu">quarto</span><span class="op">-</span>figure<span class="op">.</span><span class="fu">quarto</span><span class="op">-</span>figure<span class="op">-</span>center<span class="op">.</span><span class="fu">anchored</span> <span class="op">{</span></span>
-<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a>    width<span class="op">:</span> <span class="dv">100</span><span class="op">%</span> <span class="op">!</span>important<span class="op">;</span></span>
-<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>:::{.macbook-frame style="width:35rem;"}</span>
+<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a><span class="al">![父容器宽度限制](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190502775.png)</span>{#fig-parent-width-limit}</span>
+<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a>移除父容器宽度限制后，图片即可重新居中。</span>
+<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a>:::{.macbook-frame style="width:35rem;"}</span>
+<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a><span class="al">![去除父容器宽度限制后：恢复居中](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190606193.png)</span>{#fig-remove-parent-width-limit}</span>
+<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a>期间我还尝试过多种方案，例如：</span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a><span class="fu"># 尝试1</span></span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>:::{#fig-title width="100%"}</span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a><span class="al">![](图片URL)</span>{style="width:7rem;"}</span>
+<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a>图片标题</span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a><span class="fu"># 尝试2</span></span>
+<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a>:::{#fig-title style="width:100% !important;"}</span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{style="width:7rem;"}</span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="fu"># 尝试3</span></span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a>:::{#fig-title style="text-align:center; width:100% !important;"}</span>
+<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a><span class="al">![](图片URL)</span>{style="width:7rem;"}</span>
+<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a>图片标题</span>
+<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="fu"># ...</span></span>
 <span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a>再配合图片设置：</span>
+<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a>但都未达到理想效果。</span>
 <span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
-<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title style="width:7rem;"}</span>
-<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a>成功实现图片居中的同时，引用悬浮预览正常：</span>
-<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a><span class="al">![实现居中](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190729348.png)</span>{#fig-center-success style="width:30rem;"}</span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a>最终，我决定直接修改 css 样式，在 <span class="in">`style.css`</span> 里添加了针对父容器的设置：</span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a><span class="in">```css</span></span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a><span class="op">.</span><span class="fu">quarto</span><span class="op">-</span><span class="dt">float</span><span class="op">.</span><span class="fu">quarto</span><span class="op">-</span>figure<span class="op">.</span><span class="fu">quarto</span><span class="op">-</span>figure<span class="op">-</span>center<span class="op">.</span><span class="fu">anchored</span> <span class="op">{</span></span>
+<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a>    width<span class="op">:</span> <span class="dv">100</span><span class="op">%</span> <span class="op">!</span>important<span class="op">;</span></span>
+<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a><span class="al">![实现悬浮正常](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190756159.png)</span>{#fig-hover-success style="width:18rem;"}</span>
+<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a>再配合图片设置：</span>
 <span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a><span class="fu"># 图片和标题同时居中</span></span>
-<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a>解决图片居中后，图片标题仍然默认左对齐。</span>
+<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title style="width:7rem;"}</span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a>虽然 Quarto 提供了 <span class="in">`fig-cap-location`</span> 属性，可将标题放置在 <span class="in">`top`</span> 、 <span class="in">`bottom`</span> 或 <span class="in">`margin`</span> ，但无法控制标题对齐方式。</span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a>成功实现图片居中的同时，引用悬浮预览正常：</span>
 <span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a>经过测试，最简单的方案是在图片样式中直接设置：</span>
-<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
-<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a><span class="fu"># 方法1</span></span>
-<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title style="text-align:center; width:7rem;"}</span>
-<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a>:::{.macbook-frame style="width:30rem;"}</span>
+<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a><span class="al">![实现居中](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190729348.png)</span>{#fig-center-success}</span>
+<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a>:::{.img-frame style="width:18rem;"}</span>
+<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="al">![实现悬浮正常](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190756159.png)</span>{#fig-hover-success}</span>
+<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a>该方案无需额外容器，也无需拆分标题。</span>
+<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a><span class="fu"># 图片和标题同时居中</span></span>
 <span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a>其他可行方案如下：</span>
+<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a>解决图片居中后，图片标题仍然默认左对齐。</span>
 <span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
-<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a><span class="fu"># 方法2</span></span>
-<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a>:::{#fig-title fig-cap="此处写标题"}</span>
-<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a><span class="al">![此处为空](图片URL)</span>{style="text-align:center; width:7rem;"}</span>
-<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a>虽然 Quarto 提供了 <span class="in">`fig-cap-location`</span> 属性，可将标题放置在 <span class="in">`top`</span> 、 <span class="in">`bottom`</span> 或 <span class="in">`margin`</span> ，但无法控制标题对齐方式。</span>
+<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a>经过测试，最简单的方案是在图片样式中直接设置：</span>
+<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a><span class="fu"># 方法1</span></span>
 <span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a><span class="fu"># 方法3</span></span>
-<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a>:::{#fig-title}</span>
-<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a><span class="al">![此处为空](图片URL)</span>{style="text-align:center; width:7rem;"}</span>
-<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a>&lt;注意此处必须空一行&gt;</span>
-<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>图片标题</span>
-<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a>相比之下，方法1语法最简洁，代码高亮效果也最好；方法2和方法3不仅结构更复杂，还增加了额外的容器层级。</span>
-<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a><span class="al">![语法高亮](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190824762.png)</span>{#fig-syntax-highlight style="width:35rem;"}</span>
-<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a>如果希望当前页面所有图片标题均居中，则可直接添加 Internal CSS：</span>
-<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
-<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
-<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a>    figcaption {</span>
-<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a>        <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">center</span><span class="op">;</span></span>
-<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](图片URL)</span>{#fig-title style="text-align:center; width:7rem;"}</span>
+<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a>该方案无需额外容器，也无需拆分标题。</span>
+<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>其他可行方案如下：</span>
+<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a><span class="fu"># 方法2</span></span>
+<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a>:::{#fig-title fig-cap="此处写标题"}</span>
+<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a><span class="al">![此处为空](图片URL)</span>{style="text-align:center; width:7rem;"}</span>
+<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a><span class="fu"># 方法3</span></span>
+<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a>:::{#fig-title}</span>
+<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a><span class="al">![此处为空](图片URL)</span>{style="text-align:center; width:7rem;"}</span>
+<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a>&lt;注意此处必须空一行&gt;</span>
+<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a>图片标题</span>
+<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a>对应图片写法保持不变：</span>
+<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a>相比之下，方法1语法最简洁，代码高亮效果也最好；方法2和方法3不仅结构更复杂，还增加了额外的容器层级。</span>
 <span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
-<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](&lt;图片URL&gt;)</span>{#fig-title style="width:7rem;"}</span>
-<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a>:::{.macbook-frame style="width:35rem;"}</span>
+<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a><span class="al">![语法高亮](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260615190824762.png)</span>{#fig-syntax-highlight}</span>
+<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a>如果希望当前页面所有图片标题均居中，则可直接添加 Internal CSS：</span>
+<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a>    figcaption {</span>
+<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a>        <span class="kw">text-align</span><span class="ch">:</span> <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a>对应图片写法保持不变：</span>
+<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a><span class="al">![图片标题](&lt;图片URL&gt;)</span>{#fig-title style="width:7rem;"}</span>
+<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved.</p>
+<p>© Copyright <span id="copyright-year"></span>, Pinn (Aiqi) Xu. All rights reserved.</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

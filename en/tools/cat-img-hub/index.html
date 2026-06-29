@@ -85,9 +85,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-176b38be48070efe3d434d0a95bef3fe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-aea5b92e9509614e45c16b56b9031128.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-cc6cc5e7d891defee4c274192beb5e7f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-f8a221566d19e13d0ba65bd27385a262.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-b3a97f6714638bbb2da87c4dacea6ac4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-f8a221566d19e13d0ba65bd27385a262.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -119,6 +119,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- 
+    Global Redirect
+    Redirect requests to /dv-projects/* to the root domain.
+-->
+
+<script id="script-redirect-root">
+    (() => {
+        // Only act on the GitHub Pages project deployment. Local preview
+        // (localhost) and the root deployment have no `/dv-projects` prefix.
+        if (window.location.hostname !== 'pinn32.github.io') return;
+
+        const PREFIX = '/dv-projects';
+        const path = window.location.pathname;
+
+        // Match the prefix only as a whole leading path segment.
+        if (path === PREFIX || path.indexOf(PREFIX + '/') === 0) {
+            const rest = path.slice(PREFIX.length) || '/';
+            // replace() so the prefixed URL never enters session history.
+            window.location.replace(rest + window.location.search + window.location.hash);
+        }
+    })();
+</script>
 
 
 </head>
@@ -266,7 +288,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     };
     const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
@@ -279,6 +302,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
       window.dispatchEvent(new Event('resize'));
     };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
       toggleColorMode(true);
@@ -583,42 +614,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M12 6v6l4 2"></path>
         </svg>
-     3 min read</span><span> · </span><span>498 EN words</span><span> · </span><span>0 中文字</span></div>
+     3 min read</span><span> · </span><span>497 EN words</span><span> · </span><span>0 中文字</span></div>
 <section id="cat-image-hub" class="level1">
 <h1>Cat Image Hub</h1>
 <p>Cat Image Hub is a web app for browsing random cat images, where signed-in users can save their favorites to a personal collection. It was built with <strong>Next.js</strong>, <strong>TypeScript</strong>, and <strong>MongoDB</strong>, drawing images from the Cat API and handling sign-in through Google OAuth.</p>
 <div style="text-align:center;">
 <p><a href="https://cat-img-hub.vercel.app/" class="btn btn-outline-primary" target="_blank">Click Here to Try</a></p>
 </div>
-<div id="fig-gallery" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
+<div class="macbook-frame" style="width:40rem;">
+<div id="fig-gallery" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gallery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Home Gallery"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="img-fluid figure-img" style="width:40rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Home Gallery"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gallery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Home Gallery
 </figcaption>
 </figure>
 </div>
-<div id="fig-login" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:30rem;">
+</div>
+<div class="macbook-frame" style="width:30rem;">
+<div id="fig-login" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-login-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Login"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="img-fluid figure-img" style="width:30rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Login"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-login-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Login
 </figcaption>
 </figure>
 </div>
-<div id="fig-favorites" class="quarto-float quarto-figure quarto-figure-center anchored" style="width:40rem;">
+</div>
+<div class="macbook-frame" style="width:40rem;">
+<div id="fig-favorites" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-favorites-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Favorites"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="img-fluid figure-img" style="width:40rem;"></a>
+<a href="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Favorites"><img src="https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-favorites-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Favorites
 </figcaption>
 </figure>
+</div>
 </div>
 <section id="key-features" class="level2">
 <h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
@@ -687,22 +724,99 @@ Figure&nbsp;3: Favorites
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
-<script id="fix-code-fold">
-    const bindToggle = (id, open) => {
-        const btn = document.getElementById(id);
-        if (!btn) return;
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            document.querySelectorAll('details.code-fold').forEach(el => {
-                open ? el.setAttribute('open', '') : el.removeAttribute('open');
-            });
-        });
-    };
+<!--
+    Global Site Fixes — injected at end of <body> on every page via _quarto.yml.
+    Each concern lives in its own <script> block so its execution timing is
+    preserved (inline IIFE = before paint; DOMContentLoaded = after parse).
 
-    bindToggle('quarto-show-all-code', true);
-    bindToggle('quarto-hide-all-code', false);
+    Table of contents
+    ─────────────────
+    1. script-strip-index-html   Strip internal links' .../index.html suffixes
+    2. script-fix-navbar-active  Fix navbar active state when a global sidebar is present
+    3. script-nav-lang-switch    Switch navbar header language
+    3. script-fix-code-fold      Wire the "show all / hide all code" buttons
+    4. script-fix-sidebar-toggle Make sidebar section row's empty area toggle collapse
+    5. script-fix-sidebar-search Replace the dead sidebar search box with a working button
+    6. script-fix-tag-redirect   Redirect post-page tag links to their listing page
+    7. script-copyright-year     Update the copyright year in the footer
+
+    Page-specific scripts (responsive-tag-bar, post-type-filter)
+    live in their own files and are included separately.
+-->
+
+
+<!-- ====================================================================== -->
+<script id="script-strip-index-html">
+    // Strip internal links' .../index.html suffixes
+
+    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
+    // avoids changing hrefs the user might hover mid-load.
+    (() => {
+        document.querySelectorAll('a[href]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
+            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
+
+            try {
+                const url = new URL(href, window.location.href);
+                // Only touch same-origin links.
+                if (url.origin !== window.location.origin) return;
+                if (!/\/index\.html$/.test(url.pathname)) return;
+
+                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
+                // Write a root-absolute path. This is safe even under the GitHub Pages
+                // `/dv-projects/` base, since `url.pathname` already includes that prefix
+                // (the original relative href was resolved against the current page).
+                link.setAttribute('href', url.pathname + url.search + url.hash);
+            } catch {
+                // Malformed href — leave it untouched.
+            }
+        });
+    })();
 </script>
-<script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-navbar-active">
+    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
+
+    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
+    // so the navbar DOM is already parsed — executing before paint prevents the flash.
+    // Compares path sections (/en|zh/section/...) so it works without waiting for
+    // script-nav-lang-switch to rewrite hrefs on zh pages.
+    (() => {
+        const path = window.location.pathname.replace(/\/index\.html$/, '/');
+        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
+        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            let linkSection = null;
+            try {
+                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
+                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
+                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
+            } catch {
+                // href is malformed — skip this link
+            }
+
+            const isActive = pageSection !== null && pageSection === linkSection;
+            link.classList.toggle('active', isActive);
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    })();
+</script>
+
+
+<!-- ====================================================================== -->
+<script id="script-nav-lang-switch">
+    // Switch navbar header language
+
     const switchLanguage = targetLang => {
         const path = window.location.pathname;
         // Capture base (e.g. '' locally, '/dv-projects' on GitHub Pages)
@@ -773,7 +887,32 @@ Figure&nbsp;3: Favorites
         });
     });
 </script>
-<script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-code-fold">
+    // Wire the "show all / hide all code" buttons to every code-fold <details>.
+    
+    const bindToggle = (id, open) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelectorAll('details.code-fold').forEach(el => {
+                open ? el.setAttribute('open', '') : el.removeAttribute('open');
+            });
+        });
+    };
+
+    bindToggle('quarto-show-all-code', true);
+    bindToggle('quarto-hide-all-code', false);
+</script>
+
+
+<!-- ====================================================================== -->
+<script id="script-fix-sidebar-toggle">
+    // Let sidebar section title empty area be clickable to toggle collapse/expand
+    
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.sidebar-item-section > .sidebar-item-container').forEach(row => {
             row.style.cursor = 'pointer';
@@ -788,41 +927,16 @@ Figure&nbsp;3: Favorites
         });
     });
 </script>
-<script id="fix-navbar-active">
-    // Fix Quarto's incorrect navbar active state when a global sidebar is present.
-    // Runs inline (no DOMContentLoaded) because the script is injected at end of <body>
-    // so the navbar DOM is already parsed — executing before paint prevents the flash.
-    // Compares path sections (/en|zh/section/...) so it works without waiting for
-    // lang-switch.html to rewrite hrefs on zh pages.
-    (() => {
-        const path = window.location.pathname.replace(/\/index\.html$/, '/');
-        const pageSectionMatch = path.match(/\/(?:en|zh)\/([^/]+)/);
-        const pageSection = pageSectionMatch ? pageSectionMatch[1] : null;
 
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
 
-            let linkSection = null;
-            try {
-                const linkPath = new URL(href, window.location.href).pathname.replace(/\/index\.html$/, '/');
-                const linkSectionMatch = linkPath.match(/\/(?:en|zh)\/([^/]+)/);
-                linkSection = linkSectionMatch ? linkSectionMatch[1] : null;
-            } catch {
-                // href is malformed — skip this link
-            }
+<!-- ====================================================================== -->
+<script id="script-fix-sidebar-search">
+    // Add-on sidebar search bar
 
-            const isActive = pageSection !== null && pageSection === linkSection;
-            link.classList.toggle('active', isActive);
-            if (isActive) link.setAttribute('aria-current', 'page');
-            else link.removeAttribute('aria-current');
-        });
-    })();
-</script>
-<script>
     // Quarto autocomplete attaches to the FIRST #quarto-search (navbar, via getElementById).
     // The sidebar's duplicate #quarto-search is never initialized. Replace it with a button
     // that opens the real search overlay via window.quartoOpenSearch().
+
     document.addEventListener('DOMContentLoaded', () => {
         const sidebarSearchWrapper = document.querySelector('#quarto-sidebar .sidebar-search');
         if (!sidebarSearchWrapper) return;
@@ -837,81 +951,65 @@ Figure&nbsp;3: Favorites
         sidebarSearchWrapper.replaceChildren(btn);
     });
 </script>
-<script id="strip-index-html">
-    // Rewrite internal links ending in `/index.html` to the clean directory form `/`.
-    // Quarto always links listing cards (and other internal links) to the real output
-    // file, e.g. `.../ai-discourse/index.html`. Both the preview server and GitHub Pages
-    // also serve the directory URL, so we drop the `index.html` for cleaner addresses.
-    // Runs inline at end of <body>: links are already parsed, and rewriting before paint
-    // avoids changing hrefs the user might hover mid-load.
-    (() => {
-        document.querySelectorAll('a[href]').forEach(link => {
-            const href = link.getAttribute('href');
-            if (!href) return;
 
-            // Skip anchors, mailto/tel, protocol-relative, and absolute external URLs.
-            if (/^(#|mailto:|tel:|\/\/)/.test(href)) return;
 
-            try {
-                const url = new URL(href, window.location.href);
-                // Only touch same-origin links.
-                if (url.origin !== window.location.origin) return;
-                if (!/\/index\.html$/.test(url.pathname)) return;
+<!-- ====================================================================== -->
+<script id="script-fix-tag-redirect">
+    // Redirect post-page tag to corresponding listing page
 
-                url.pathname = url.pathname.replace(/\/index\.html$/, '/');
-                // Write a root-absolute path. This is safe even under the GitHub Pages
-                // `/dv-projects/` base, since `url.pathname` already includes that prefix
-                // (the original relative href was resolved against the current page).
-                link.setAttribute('href', url.pathname + url.search + url.hash);
-            } catch {
-                // Malformed href — leave it untouched.
-            }
-        });
-    })();
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-  // 每种内容类型对应的 listing 页面（可按需增减）
-  const SECTION_MAP = {
-    projects:  "projects",
-    tutorials: "tutorials",
-    blogs:     "blogs",
-    tools:     "tools",
-  };
+        // 每种内容类型对应的 listing 页面（可按需增减）
+        const SECTION_MAP = {
+            projects:  "projects",
+            tutorials: "tutorials",
+            blogs:     "blogs",
+            tools:     "tools",
+        };
 
-  function getTarget() {
-    const path = window.location.pathname;
+        function getTarget() {
+            const path = window.location.pathname;
 
-    // 提取语言前缀 /en/ 或 /zh/，没有则为 /
-    const langMatch = path.match(/^\/(en|zh)\//);
-    const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
+            // 提取语言前缀 /en/ 或 /zh/，没有则为 /
+            const langMatch = path.match(/^\/(en|zh)\//);
+            const langPrefix = langMatch ? "/" + langMatch[1] + "/" : "/";
 
-    // 提取当前所在 section
-    const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
-    const section = sectionMatch ? sectionMatch[1] : null;
+            // 提取当前所在 section
+            const sectionMatch = path.match(/\/(projects|tutorials|blogs|tools)\//);
+            const section = sectionMatch ? sectionMatch[1] : null;
 
-    if (!section) return null; // 不在任何已知 section 下，不重写
+            if (!section) return null; // 不在任何已知 section 下，不重写
 
-    return langPrefix + SECTION_MAP[section] + "/";
-  }
+            return langPrefix + SECTION_MAP[section] + "/";
+        }
 
-  function rewriteTagLinks() {
-    const target = getTarget();
-    if (!target) return;
+        function rewriteTagLinks() {
+            const target = getTarget();
+            if (!target) return;
 
-    document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
-      const category = link.href.split("#category=")[1];
-      if (category) {
-        link.href = target + "#category=" + category;
-      }
+            document.querySelectorAll("a[href*='#category=']").forEach(function (link) {
+                const category = link.href.split("#category=")[1];
+                if (category) {
+                    link.href = target + "#category=" + category;
+                }
+            });
+        }
+
+        rewriteTagLinks();
+        new MutationObserver(rewriteTagLinks)
+            .observe(document.body, { childList: true, subtree: true });
     });
-  }
+</script>
 
-  rewriteTagLinks();
-  new MutationObserver(rewriteTagLinks)
-    .observe(document.body, { childList: true, subtree: true });
-});
+
+<!-- ====================================================================== -->
+<script id="script-copyright-year">
+    // Update the copyright year in the footer
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const el = document.getElementById("copyright-year");
+        if (el) el.textContent = new Date().getFullYear();
+    });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1395,53 +1493,57 @@ document.addEventListener("DOMContentLoaded", function () {
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Click Here to Try</span><span class="co">](https://cat-img-hub.vercel.app/)</span>{.btn .btn-outline-primary target="_blank"}</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="al">![Home Gallery](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png)</span>{#fig-gallery style="width:40rem;"}</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="al">![Login](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png)</span>{#fig-login style="width:30rem;"}</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="al">![Favorites](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png)</span>{#fig-favorites style="width:40rem;"}</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>::: {.macbook-frame style="width:40rem;"}</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="al">![Home Gallery](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623235024432.png)</span>{#fig-gallery}</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>::: {.macbook-frame style="width:30rem;"}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="al">![Login](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260624000817849.png)</span>{#fig-login}</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Features</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Random gallery** — the home page loads a grid of random cats with breed, lifespan, and temperament, fetched server-side from the Cat API.</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Search by ID** — look up any cat image by its Cat API image ID.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Favorites** — signed-in users can like/unlike cats; their picks are saved to MongoDB and shown on a dedicated page.</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Google sign-in** — one-click OAuth login through Auth.js v5; no passwords stored.</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## How It Works</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>Pages are Next.js Server Components that fetch initial data and hand it to small interactive client components, keeping the client-side JavaScript light.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>::: {.macbook-frame style="width:40rem;"}</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="al">![Favorites](https://raw.githubusercontent.com/Pinn32/img/main/img/pic-go/20260623234247520.png)</span>{#fig-favorites}</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Features</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Random gallery** — the home page loads a grid of random cats with breed, lifespan, and temperament, fetched server-side from the Cat API.</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Search by ID** — look up any cat image by its Cat API image ID.</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Favorites** — signed-in users can like/unlike cats; their picks are saved to MongoDB and shown on a dedicated page.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Google sign-in** — one-click OAuth login through Auth.js v5; no passwords stored.</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cat API layer** — a thin wrapper retrieves random and single-image data, backfilling breed details when the API omits them.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Favorites service** — a <span class="in">`favorites`</span> collection in MongoDB (raw driver, no ORM) stores each saved cat keyed to the user's Google account ID, with deduplicated add/remove operations.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Authentication** — Auth.js stores the Google account ID in the session token, so every server component and API route can identify the user without an extra database lookup.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## How It Works</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>Pages are Next.js Server Components that fetch initial data and hand it to small interactive client components, keeping the client-side JavaScript light.</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tech Stack</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Layer <span class="pp">|</span> Technology <span class="pp">|</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Framework <span class="pp">|</span> Next.js 16 (App Router) <span class="pp">|</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Language <span class="pp">|</span> TypeScript 5 <span class="pp">|</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Auth <span class="pp">|</span> Auth.js v5 + Google OAuth <span class="pp">|</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Database <span class="pp">|</span> MongoDB 6 (raw driver) <span class="pp">|</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Styling <span class="pp">|</span> styled-components 6 <span class="pp">|</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> External API <span class="pp">|</span> <span class="co">[</span><span class="ot">The Cat API</span><span class="co">](https://thecatapi.com)</span>{target="_blank"} <span class="pp">|</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Team</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>Built by **Pinn (Aiqi) Xu** (authentication, layout, navigation, styling), **Yuchen Bao** (Cat API integration, home and search pages, cat cards), and **Tianpeng Xu** (MongoDB, favorites service and page, shared types).</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cat API layer** — a thin wrapper retrieves random and single-image data, backfilling breed details when the API omits them.</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Favorites service** — a <span class="in">`favorites`</span> collection in MongoDB (raw driver, no ORM) stores each saved cat keyed to the user's Google account ID, with deduplicated add/remove operations.</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Authentication** — Auth.js stores the Google account ID in the session token, so every server component and API route can identify the user without an extra database lookup.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tech Stack</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Layer <span class="pp">|</span> Technology <span class="pp">|</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Framework <span class="pp">|</span> Next.js 16 (App Router) <span class="pp">|</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Language <span class="pp">|</span> TypeScript 5 <span class="pp">|</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Auth <span class="pp">|</span> Auth.js v5 + Google OAuth <span class="pp">|</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Database <span class="pp">|</span> MongoDB 6 (raw driver) <span class="pp">|</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Styling <span class="pp">|</span> styled-components 6 <span class="pp">|</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> External API <span class="pp">|</span> <span class="co">[</span><span class="ot">The Cat API</span><span class="co">](https://thecatapi.com)</span>{target="_blank"} <span class="pp">|</span></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View source on GitHub</span><span class="co">](https://github.com/Pinn32/cat-img-hub)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Team</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>Built by **Pinn (Aiqi) Xu** (authentication, layout, navigation, styling), **Yuchen Bao** (Cat API integration, home and search pages, cat cards), and **Tianpeng Xu** (MongoDB, favorites service and page, shared types).</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">&gt;&gt; View source on GitHub</span><span class="co">](https://github.com/Pinn32/cat-img-hub)</span>{target="_blank"}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© Copyright 2026, Pinn (Aiqi) Xu. All rights reserved.</p>
+<p>© Copyright <span id="copyright-year"></span>, Pinn (Aiqi) Xu. All rights reserved.</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

@@ -4,7 +4,7 @@
     "href": "en/tutorials/amounts-and-distribution/index.html",
     "title": "Amounts and Distribution",
     "section": "",
-    "text": "9 min read · 1605 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "9 min read · 1604 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -171,7 +171,7 @@
     "href": "en/tutorials/r-tips/index.html",
     "title": "R Tips",
     "section": "",
-    "text": "5 min read · 905 EN words · 0 中文字",
+    "text": "5 min read · 904 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -526,7 +526,7 @@
     "href": "en/projects/global-visa-cost/index.html",
     "title": "Global Visa Cost Geographical Analysis",
     "section": "",
-    "text": "9 min read · 1731 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
+    "text": "9 min read · 1730 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
     "crumbs": [
       "Projects",
       "Global Visa Cost Geographical Analysis"
@@ -602,7 +602,7 @@
     "href": "en/projects/ai-discourse/index.html",
     "title": "Evolution of Online AI Discourse",
     "section": "",
-    "text": "28 min read · 5526 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
+    "text": "28 min read · 5525 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
     "crumbs": [
       "Projects",
       "Evolution of Online AI Discourse"
@@ -800,7 +800,7 @@
     "href": "en/tools/url-shortener/index.html",
     "title": "URL Shortener",
     "section": "",
-    "text": "2 min read · 391 EN words · 0 中文字",
+    "text": "2 min read · 389 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Tools",
@@ -847,7 +847,7 @@
     "href": "en/blogs/recover-shellfolder/index.html",
     "title": "Recovering Misplaced Windows Shell Folders",
     "section": "",
-    "text": "9 min read · 1599 EN words · 29 中文字",
+    "text": "9 min read · 1598 EN words · 29 中文字",
     "crumbs": [
       "Projects",
       "Blogs",
@@ -871,7 +871,7 @@
     "href": "en/blogs/recover-shellfolder/index.html#the-fix",
     "title": "Recovering Misplaced Windows Shell Folders",
     "section": "2.2 The Fix",
-    "text": "2.2 The Fix\n\nCreate the target folder (e.g., E:\\Users\\UserName\\Videos\\).\nEdit the registry.\n\nPress Win + R and type regedit.\nGo to HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders.\nFind the entry whose value is the drive root (e.g., E:\\).\nChange it to the path of the folder you just created (e.g., E:\\Users\\UserName\\Videos\\).\nSave and restart the computer.\n\nShow hidden system files.\n\nOpen the target folder.\nGo to File &gt; Options &gt; View.\nCheck ⏺ Show hidden files, folders, and drives.\nUncheck ◻ Hide protected operating system files.\n\nRestore icon & display name.\n\nFind desktop.ini in the target folder, open it in Notepad.\nSet the IconResource and LocalizedResourceName entries to the right resource index (listed in Table 1).\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;NameResource index&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;IconResource index&gt;\n&lt;OtherEntries...&gt;\n\n\n\n\n\n\n\nNote\n\n\n\nOnce finished, remember to re-hide the system files revealed in step 3.",
+    "text": "2.2 The Fix\n\nCreate the target folder (e.g., E:\\Users\\UserName\\Videos\\).\nEdit the registry.\n\nPress Win + R and type regedit.\nGo to HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders.\nFind the entry whose value is the drive root (e.g., E:\\).\nChange it to the path of the folder you just created (e.g., E:\\Users\\UserName\\Videos\\).\nSave and restart the computer.\n\nShow hidden system files.\n\nOpen the target folder.\nGo to File &gt; Options &gt; View.\nCheck ⏺ Show hidden files, folders, and drives.\nUncheck ◻ Hide protected operating system files.\n\nRestore icon & display name.\n\nFind desktop.ini in the target folder, open it in Notepad.\nSet the IconResource and LocalizedResourceName entries to the right resource index (listed in Table 1).\n\n\n\n\ndesktop.ini\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;NameResource index&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;IconResource index&gt;\n&lt;OtherEntries...&gt;\n\n\nOnce finished, remember to re-hide the system files revealed in step 3.",
     "crumbs": [
       "Projects",
       "Blogs",
@@ -919,7 +919,7 @@
     "href": "en/blogs/quarto-img-styles/index.html",
     "title": "Quarto Image Centering Styles",
     "section": "",
-    "text": "4 min read · 643 EN words · 0 中文字",
+    "text": "4 min read · 642 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Blogs",
@@ -967,7 +967,7 @@
     "href": "en/blogs/quarto-img-styles/index.html#the-traditional-approach",
     "title": "Quarto Image Centering Styles",
     "section": "2.1 The Traditional Approach",
-    "text": "2.1 The Traditional Approach\nWhen writing my Quarto Website, I initially controlled image size using Quarto’s built-in width attribute:\n![Caption](image URL){#fig-title width=\"15%\"}\nThis approach is clean and intuitive — no need to write inline styles like style=\"width:15%\" — and the results looked good.\n\n\n\n\n\n\nFigure 1: Preview of image width controlled by percentage",
+    "text": "2.1 The Traditional Approach\nWhen writing my Quarto Website, I initially controlled image size using Quarto’s built-in width attribute:\n![Caption](image URL){#fig-title width=\"15%\"}\nThis approach is clean and intuitive — no need to write inline styles like style=\"width:15%\" — and the results looked good.\n\n\n\n\n\n\n\nFigure 1: Preview of image width controlled by percentage",
     "crumbs": [
       "Projects",
       "Blogs",
@@ -979,7 +979,7 @@
     "href": "en/blogs/quarto-img-styles/index.html#issue-1-hover-preview-breaks",
     "title": "Quarto Image Centering Styles",
     "section": "2.2 Issue 1: Hover Preview Breaks",
-    "text": "2.2 Issue 1: Hover Preview Breaks\nAfter using cross-references (e.g. @fig-title) in the body text, I noticed the hover preview inherited the width percentage, causing it to display incorrectly.\n\n\n\n\n\n\nFigure 2: Issue 1 — Hover preview broken\n\n\n\nTo fix this, I tried switching to rem as the width unit, which behaves consistently regardless of page scaling and hover context.\nI first tried:\n![Caption](image URL){#fig-title width=\"7rem\"}\nThis had no effect — Quarto’s width attribute does not support rem (it accepts px, percentages, etc.).\nI then switched to:\n![Caption](image URL){#fig-title style=\"width:7rem;\"}",
+    "text": "2.2 Issue 1: Hover Preview Breaks\nAfter using cross-references (e.g. @fig-title) in the body text, I noticed the hover preview inherited the width percentage, causing it to display incorrectly.\n\n\n\n\n\n\n\nFigure 2: Issue 1 — Hover preview broken\n\n\n\n\nTo fix this, I tried switching to rem as the width unit, which behaves consistently regardless of page scaling and hover context.\nI first tried:\n![Caption](image URL){#fig-title width=\"7rem\"}\nThis had no effect — Quarto’s width attribute does not support rem (it accepts px, percentages, etc.).\nI then switched to:\n![Caption](image URL){#fig-title style=\"width:7rem;\"}",
     "crumbs": [
       "Projects",
       "Blogs",
@@ -991,7 +991,7 @@
     "href": "en/blogs/quarto-img-styles/index.html#issue-2-image-no-longer-centers",
     "title": "Quarto Image Centering Styles",
     "section": "2.3 Issue 2: Image No Longer Centers",
-    "text": "2.3 Issue 2: Image No Longer Centers\nA new problem appeared: the image was no longer centered, and setting {fig-align=\"center\"} had no effect.\n\n\n\n\n\n\nFigure 3: Issue 2: Image no longer centered\n\n\n\nInspecting with browser DevTools revealed that when style=\"width:7rem\" is set, Quarto also constrains the parent container’s width to 7rem.\n\n\n\n\n\n\nFigure 4: Parent container width constraint\n\n\n\nRemoving the parent container’s width constraint restored image centering.\n\n\n\n\n\n\nFigure 5: After removing the parent container width constraint: centering restored\n\n\n\nI also tried several other approaches, such as:\n# Attempt 1\n:::{#fig-title width=\"100%\"}\n![](image URL){style=\"width:7rem;\"}\nCaption\n:::\n\n# Attempt 2\n:::{#fig-title style=\"width:100% !important;\"}\n![Caption](image URL){style=\"width:7rem;\"}\n:::\n\n# Attempt 3\n:::{#fig-title style=\"text-align:center; width:100% !important;\"}\n![](image URL){style=\"width:7rem;\"}\nCaption\n:::\n\n# ...\nNone of them achieved the desired result.\nIn the end, I decided to target the parent container directly via CSS, adding this rule to style.css:\n.quarto-float.quarto-figure.quarto-figure-center.anchored {\n    width: 100% !important;\n}\nCombined with the image syntax:\n![Caption](image URL){#fig-title style=\"width:7rem;\"}\nThis successfully centered the image while keeping the hover preview intact:\n\n\n\n\n\n\nFigure 6: Centering achieved\n\n\n\n\n\n\n\n\n\nFigure 7: Hover preview working",
+    "text": "2.3 Issue 2: Image No Longer Centers\nA new problem appeared: the image was no longer centered, and setting {fig-align=\"center\"} had no effect.\n\n\n\n\n\n\n\nFigure 3: Issue 2: Image no longer centered\n\n\n\n\nInspecting with browser DevTools revealed that when style=\"width:7rem\" is set, Quarto also constrains the parent container’s width to 7rem.\n\n\n\n\n\n\n\nFigure 4: Parent container width constraint\n\n\n\n\nRemoving the parent container’s width constraint restored image centering.\n\n\n\n\n\n\n\nFigure 5: After removing the parent container width constraint: centering restored\n\n\n\n\nI also tried several other approaches, such as:\n# Attempt 1\n:::{#fig-title width=\"100%\"}\n![](image URL){style=\"width:7rem;\"}\nCaption\n:::\n\n# Attempt 2\n:::{#fig-title style=\"width:100% !important;\"}\n![Caption](image URL){style=\"width:7rem;\"}\n:::\n\n# Attempt 3\n:::{#fig-title style=\"text-align:center; width:100% !important;\"}\n![](image URL){style=\"width:7rem;\"}\nCaption\n:::\n\n# ...\nNone of them achieved the desired result.\nIn the end, I decided to target the parent container directly via CSS, adding this rule to style.css:\n.quarto-float.quarto-figure.quarto-figure-center.anchored {\n    width: 100% !important;\n}\nCombined with the image syntax:\n![Caption](image URL){#fig-title style=\"width:7rem;\"}\nThis successfully centered the image while keeping the hover preview intact:\n\n\n\n\n\n\n\nFigure 6: Centering achieved\n\n\n\n\n\n\n\n\n\n\n\nFigure 7: Hover preview working",
     "crumbs": [
       "Projects",
       "Blogs",
@@ -1003,7 +1003,7 @@
     "href": "zh/tutorials/multivariate-plots/index.html",
     "title": "多变量图表",
     "section": "",
-    "text": "21 min read · 690 EN words · 5124 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "21 min read · 689 EN words · 5124 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "数据分析教程",
       "多变量图表"
@@ -1080,7 +1080,7 @@
     "href": "zh/tutorials/data-processing/index.html",
     "title": "数据清理",
     "section": "",
-    "text": "10 min read · 843 EN words · 1467 中文字\n环境与版本\npython==3.12\npandas==2.2.2",
+    "text": "10 min read · 842 EN words · 1467 中文字\n环境与版本\npython==3.12\npandas==2.2.2",
     "crumbs": [
       "数据分析教程",
       "数据清理"
@@ -1168,7 +1168,7 @@
     "href": "zh/tutorials/sankey-and-network/index.html",
     "title": "桑基图与网络图",
     "section": "",
-    "text": "8 min read · 233 EN words · 1943 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
+    "text": "8 min read · 237 EN words · 1943 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
     "crumbs": [
       "数据分析教程",
       "桑基图与网络图"
@@ -1201,7 +1201,7 @@
     "href": "zh/tutorials/sankey-and-network/index.html#函数和类",
     "title": "桑基图与网络图",
     "section": "1.3 函数和类",
-    "text": "1.3 函数和类\n我们将使用 go.Sankey() 储存桑基图信息，再用 go.Figure() 将其绘制出来。严格来说，go.Sankey() 是一个类（class） 的 构造函数 (constructor)，调用它会创建一个储存桑基图数据的对象；go.Figure() 同理。\nPython 中常用术语的对应关系见 表 1：\n\n\n\n表 1: Python 术语对应关系（注：pd、go 是库接口，df 是具体对象）\n\n\n\n\n\n概念\n关联概念\n示例\n\n\n\n\n函数 (function)\n参数 (parameter)\npd.read_csv(encoding='utf-8')\n\n\n对象 (object)\n方法 (method)\ndf.sample(size=10)\n\n\n类 (class)\n属性 (property)\ngo.Sankey(node=..., link=...)\n\n\n对象 (object)\n属性 (attribute)\ndf.columns",
+    "text": "1.3 函数和类\n我们将使用 go.Sankey() 储存桑基图信息，再用 go.Figure() 将其绘制出来。严格来说，go.Sankey() 是一个类（class） 的 构造函数 (constructor)，调用它会创建一个储存桑基图数据的对象；go.Figure() 同理。\nPython 中常用术语的对应关系见 表 1：\n\n\n\n表 1: Python 术语对应关系（注：pd、go 是库接口，df 是具体对象）\n\n\n\n\n\n\n\n\n\n\n概念\n关联概念\n示例\n\n\n\n\n函数 (function)\n参数 (parameter)\npd.read_csv(encoding=‘utf-8’)\n\n\n对象 (object)\n方法 (method)\ndf.sample(size=10)\n\n\n类 (class)\n属性 (property)\ngo.Sankey(node=..., link=...)\n\n\n对象 (object)\n属性 (attribute)\ndf.columns",
     "crumbs": [
       "数据分析教程",
       "桑基图与网络图"
@@ -1281,7 +1281,7 @@
     "href": "zh/projects/student-media-usage/index.html",
     "title": "学生社交媒体使用与幸福感分析",
     "section": "",
-    "text": "18 min read · 340 EN words · 4699 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "18 min read · 339 EN words · 4699 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "可视化项目",
       "学生社交媒体使用与幸福感分析"
@@ -1512,7 +1512,7 @@
     "href": "zh/projects/most-streamed-songs/index.html",
     "title": "Spotify 最高播放量歌曲——音乐特征与受众趋势分析",
     "section": "",
-    "text": "9 min read · 227 EN words · 2226 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "9 min read · 226 EN words · 2226 中文字\n环境与版本\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "可视化项目",
       "Spotify 最高播放量歌曲——音乐特征与受众趋势分析"
@@ -1633,7 +1633,7 @@
     "href": "zh/projects/catalan-referendum/index.html",
     "title": "Twitter 加泰罗尼亚公投情感分析",
     "section": "",
-    "text": "9 min read · 311 EN words · 1963 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "9 min read · 310 EN words · 1963 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "可视化项目",
       "Twitter 加泰罗尼亚公投情感分析"
@@ -1721,7 +1721,7 @@
     "href": "zh/tools/cat-img-hub/index.html",
     "title": "猫咪图片收藏站",
     "section": "",
-    "text": "4 min read · 198 EN words · 730 中文字",
+    "text": "4 min read · 197 EN words · 730 中文字",
     "crumbs": [
       "Web工具",
       "猫咪图片收藏站"
@@ -1776,7 +1776,7 @@
     "href": "zh/tools/news-hub/index.html",
     "title": "新闻汇总收藏站",
     "section": "",
-    "text": "3 min read · 183 EN words · 597 中文字",
+    "text": "3 min read · 182 EN words · 597 中文字",
     "crumbs": [
       "Web工具",
       "新闻汇总收藏站"
@@ -1837,7 +1837,7 @@
     "href": "zh/blogs/quarto-img-styles/index.html",
     "title": "Quarto 图片居中样式",
     "section": "",
-    "text": "4 min read · 154 EN words · 944 中文字",
+    "text": "4 min read · 153 EN words · 944 中文字",
     "crumbs": [
       "经验博客",
       "Quarto 图片居中样式"
@@ -1881,7 +1881,7 @@
     "href": "zh/blogs/quarto-img-styles/index.html#传统方法",
     "title": "Quarto 图片居中样式",
     "section": "2.1 传统方法",
-    "text": "2.1 传统方法\n在 Quarto Website 撰写过程中，最初，我通过 Quarto 内置的 width 属性控制图片大小：\n![图片标题](图片URL){#fig-title width=\"15%\"}\n这种方式简洁直观，无需额外编写 style=\"width:15%\" 等行内样式，显示效果也较为理想。\n\n\n\n\n\n\n图 1: 通过 width 百分比控制图片效果预览",
+    "text": "2.1 传统方法\n在 Quarto Website 撰写过程中，最初，我通过 Quarto 内置的 width 属性控制图片大小：\n![图片标题](图片URL){#fig-title width=\"15%\"}\n这种方式简洁直观，无需额外编写 style=\"width:15%\" 等行内样式，显示效果也较为理想。\n\n\n\n\n\n\n\n图 1: 通过 width 百分比控制图片效果预览",
     "crumbs": [
       "经验博客",
       "Quarto 图片居中样式"
@@ -1892,7 +1892,7 @@
     "href": "zh/blogs/quarto-img-styles/index.html#问题1引用悬浮预览异常",
     "title": "Quarto 图片居中样式",
     "section": "2.2 问题1：引用悬浮预览异常",
-    "text": "2.2 问题1：引用悬浮预览异常\n在正文中使用交叉引用（如 @fig-title）后，我发现图片悬浮预览会继承 width 百分比设置，导致预览显示异常。\n\n\n\n\n\n\n图 2: 问题1 - 悬浮预览异常\n\n\n\n为了解决这个问题，我尝试改用 rem 作为图片宽度单位，以兼顾页面缩放和悬浮预览。\n首先尝试：\n![图片标题](图片URL){#fig-title width=\"7rem\"}\n但并未生效，因为 Quarto 的 width 属性不支持 rem 单位（支持 px、百分比等）。\n随后改为：\n![图片标题](图片URL){#fig-title style=\"width:7rem;\"}",
+    "text": "2.2 问题1：引用悬浮预览异常\n在正文中使用交叉引用（如 @fig-title）后，我发现图片悬浮预览会继承 width 百分比设置，导致预览显示异常。\n\n\n\n\n\n\n\n图 2: 问题1 - 悬浮预览异常\n\n\n\n\n为了解决这个问题，我尝试改用 rem 作为图片宽度单位，以兼顾页面缩放和悬浮预览。\n首先尝试：\n![图片标题](图片URL){#fig-title width=\"7rem\"}\n但并未生效，因为 Quarto 的 width 属性不支持 rem 单位（支持 px、百分比等）。\n随后改为：\n![图片标题](图片URL){#fig-title style=\"width:7rem;\"}",
     "crumbs": [
       "经验博客",
       "Quarto 图片居中样式"
@@ -1903,7 +1903,7 @@
     "href": "zh/blogs/quarto-img-styles/index.html#问题2图片无法居中",
     "title": "Quarto 图片居中样式",
     "section": "2.3 问题2：图片无法居中",
-    "text": "2.3 问题2：图片无法居中\n新的问题随之出现：图片不再居中，即使设置 {fig-align=\"center\"} 也无效。\n\n\n\n\n\n\n图 3: 问题2：图片不再居中显示\n\n\n\n使用浏览器 DevTools 排查后发现，设置 style=\"width:7rem\" 时，Quarto 会同步将父容器宽度限制为 7rem。\n\n\n\n\n\n\n图 4: 父容器宽度限制\n\n\n\n移除父容器宽度限制后，图片即可重新居中。\n\n\n\n\n\n\n图 5: 去除父容器宽度限制后：恢复居中\n\n\n\n期间我还尝试过多种方案，例如：\n# 尝试1\n:::{#fig-title width=\"100%\"}\n![](图片URL){style=\"width:7rem;\"}\n图片标题\n:::\n\n# 尝试2\n:::{#fig-title style=\"width:100% !important;\"}\n![图片标题](图片URL){style=\"width:7rem;\"}\n:::\n\n# 尝试3\n:::{#fig-title style=\"text-align:center; width:100% !important;\"}\n![](图片URL){style=\"width:7rem;\"}\n图片标题\n:::\n\n# ...\n但都未达到理想效果。\n最终，我决定直接修改 css 样式，在 style.css 里添加了针对父容器的设置：\n.quarto-float.quarto-figure.quarto-figure-center.anchored {\n    width: 100% !important;\n}\n再配合图片设置：\n![图片标题](图片URL){#fig-title style=\"width:7rem;\"}\n成功实现图片居中的同时，引用悬浮预览正常：\n\n\n\n\n\n\n图 6: 实现居中\n\n\n\n\n\n\n\n\n\n图 7: 实现悬浮正常",
+    "text": "2.3 问题2：图片无法居中\n新的问题随之出现：图片不再居中，即使设置 {fig-align=\"center\"} 也无效。\n\n\n\n\n\n\n\n图 3: 问题2：图片不再居中显示\n\n\n\n\n使用浏览器 DevTools 排查后发现，设置 style=\"width:7rem\" 时，Quarto 会同步将父容器宽度限制为 7rem。\n\n\n\n\n\n\n\n图 4: 父容器宽度限制\n\n\n\n\n移除父容器宽度限制后，图片即可重新居中。\n\n\n\n\n\n\n\n图 5: 去除父容器宽度限制后：恢复居中\n\n\n\n\n期间我还尝试过多种方案，例如：\n# 尝试1\n:::{#fig-title width=\"100%\"}\n![](图片URL){style=\"width:7rem;\"}\n图片标题\n:::\n\n# 尝试2\n:::{#fig-title style=\"width:100% !important;\"}\n![图片标题](图片URL){style=\"width:7rem;\"}\n:::\n\n# 尝试3\n:::{#fig-title style=\"text-align:center; width:100% !important;\"}\n![](图片URL){style=\"width:7rem;\"}\n图片标题\n:::\n\n# ...\n但都未达到理想效果。\n最终，我决定直接修改 css 样式，在 style.css 里添加了针对父容器的设置：\n.quarto-float.quarto-figure.quarto-figure-center.anchored {\n    width: 100% !important;\n}\n再配合图片设置：\n![图片标题](图片URL){#fig-title style=\"width:7rem;\"}\n成功实现图片居中的同时，引用悬浮预览正常：\n\n\n\n\n\n\n\n图 6: 实现居中\n\n\n\n\n\n\n\n\n\n\n\n图 7: 实现悬浮正常",
     "crumbs": [
       "经验博客",
       "Quarto 图片居中样式"
@@ -1914,7 +1914,7 @@
     "href": "zh/blogs/recover-shellfolder/index.html",
     "title": "误移系统文件夹恢复",
     "section": "",
-    "text": "9 min read · 208 EN words · 2106 中文字",
+    "text": "9 min read · 207 EN words · 2106 中文字",
     "crumbs": [
       "经验博客",
       "误移系统文件夹恢复"
@@ -1936,7 +1936,7 @@
     "href": "zh/blogs/recover-shellfolder/index.html#解决方法",
     "title": "误移系统文件夹恢复",
     "section": "2.2 解决方法",
-    "text": "2.2 解决方法\n\n新建目标文件夹（如 E:\\Users\\UserName\\Videos\\）\n修改注册表\n\n按 Win + R 输入 regedit\n导航至 HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\n找到数据值为磁盘根目录（如 E:\\）的条目\n将其改为新建文件夹的路径（如 E:\\Users\\UserName\\Videos\\）\n保存后重启电脑\n\n显示系统隐藏文件\n\n打开目标文件夹\n进入 文件 &gt; 选项 &gt; 查看\n勾选 ⏺ 显示隐藏的文件、文件夹或驱动器\n取消勾选 ◻ 隐藏受保护的操作系统文件\n\n修改 desktop.ini\n\n用记事本打开 desktop.ini\n填写 IconResource 和 LocalizedResourceName 项，编号可在 表 1 查询\n显示名称若不想引用资源索引，也可直接填写中文显示名 LocalizedResourceName=&lt;中文显示名&gt;，再按 方法1 修改编码方式并保存\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;显示名称资源编号&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;图标资源编号&gt;\n&lt;其他项...&gt;\n\n注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。",
+    "text": "2.2 解决方法\n\n新建目标文件夹（如 E:\\Users\\UserName\\Videos\\）\n修改注册表\n\n按 Win + R 输入 regedit\n导航至 HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders\n找到数据值为磁盘根目录（如 E:\\）的条目\n将其改为新建文件夹的路径（如 E:\\Users\\UserName\\Videos\\）\n保存后重启电脑\n\n显示系统隐藏文件\n\n打开目标文件夹\n进入 文件 &gt; 选项 &gt; 查看\n勾选 ⏺ 显示隐藏的文件、文件夹或驱动器\n取消勾选 ◻ 隐藏受保护的操作系统文件\n\n修改 desktop.ini\n\n用记事本打开 desktop.ini\n填写 IconResource 和 LocalizedResourceName 项，编号可在 表 1 查询\n显示名称若不想引用资源索引，也可直接填写中文显示名 LocalizedResourceName=&lt;中文显示名&gt;，再按 方法1 修改编码方式并保存\n\n\n\n\ndesktop.ini\n\n[.ShellClassInfo]\nLocalizedResourceName=@%SystemRoot%\\system32\\shell32.dll,&lt;显示名称资源编号&gt;\nIconResource=%SystemRoot%\\system32\\imageres.dll,&lt;图标资源编号&gt;\n&lt;其他项...&gt;\n\n\n注：修改完成后，记得重新隐藏步骤 3 中显示的系统文件。",
     "crumbs": [
       "经验博客",
       "误移系统文件夹恢复"
@@ -2023,7 +2023,7 @@
     "href": "zh/projects/ai-discourse/index.html",
     "title": "网络AI话语的演变",
     "section": "",
-    "text": "34 min read · 984 EN words · 8576 中文字\n环境与版本\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
+    "text": "34 min read · 983 EN words · 8576 中文字\n环境与版本\nR==4.5.2\nMASS==7.3.65\ntidyverse==2.0.0\ntidytext==0.4.3\ntextdata==0.4.5\ntopicmodels==0.2.17\nscales==1.4.0\nbroom==1.0.12\ntextutils==0.4.3\nknitr==1.51",
     "crumbs": [
       "可视化项目",
       "网络AI话语的演变"
@@ -2231,7 +2231,7 @@
     "href": "zh/projects/global-visa-cost/index.html",
     "title": "全球签证费用地区分析",
     "section": "",
-    "text": "10 min read · 233 EN words · 2493 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
+    "text": "10 min read · 232 EN words · 2493 中文字\n环境与版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nplotly==5.24.1",
     "crumbs": [
       "可视化项目",
       "全球签证费用地区分析"
@@ -2347,7 +2347,7 @@
     "href": "zh/tutorials/r-tips/index.html",
     "title": "R 语言技巧",
     "section": "",
-    "text": "6 min read · 335 EN words · 1250 中文字",
+    "text": "6 min read · 334 EN words · 1250 中文字",
     "crumbs": [
       "数据分析教程",
       "R 语言技巧"
@@ -2632,7 +2632,7 @@
     "href": "zh/tutorials/amounts-and-distribution/index.html",
     "title": "数量与分布可视化",
     "section": "",
-    "text": "10 min read · 410 EN words · 2173 中文字\n环境和版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "10 min read · 409 EN words · 2173 中文字\n环境和版本\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "数据分析教程",
       "数量与分布可视化"
@@ -2786,7 +2786,7 @@
     "href": "en/tools/news-hub/index.html",
     "title": "News Hub",
     "section": "",
-    "text": "3 min read · 410 EN words · 0 中文字",
+    "text": "3 min read · 409 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Tools",
@@ -2834,7 +2834,7 @@
     "href": "en/tools/cat-img-hub/index.html",
     "title": "Cat Image Hub",
     "section": "",
-    "text": "3 min read · 498 EN words · 0 中文字",
+    "text": "3 min read · 497 EN words · 0 中文字",
     "crumbs": [
       "Projects",
       "Tools",
@@ -2894,7 +2894,7 @@
     "href": "en/projects/catalan-referendum/index.html",
     "title": "Twitter Sentiment Analysis of Catalan Referendum",
     "section": "",
-    "text": "8 min read · 1471 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "8 min read · 1470 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "Projects",
       "Twitter Sentiment Analysis of Catalan Referendum"
@@ -2982,7 +2982,7 @@
     "href": "en/projects/most-streamed-songs/index.html",
     "title": "Spotify Most Streamed Songs",
     "section": "",
-    "text": "8 min read · 1548 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "8 min read · 1547 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "Projects",
       "Spotify Most Streamed Songs"
@@ -3103,7 +3103,7 @@
     "href": "en/projects/student-media-usage/index.html",
     "title": "Student Social Media Usage and Well-being Analysis",
     "section": "",
-    "text": "16 min read · 3188 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
+    "text": "16 min read · 3187 EN words · 0 中文字\nEnvironment & Versions\nR==4.5.2\nplotly==4.12.0\nsampling==2.11\ntidyverse==2.0.0",
     "crumbs": [
       "Projects",
       "Student Social Media Usage and Well-being Analysis"
@@ -3348,7 +3348,7 @@
     "href": "en/tutorials/sankey-and-network/index.html",
     "title": "Sankey Diagrams and Network Graphs",
     "section": "",
-    "text": "7 min read · 1301 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
+    "text": "7 min read · 1305 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nplotly==5.24.1\nmatplotlib==3.9.x\npyvis==0.3.2\nnetworkx==3.3",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -3384,7 +3384,7 @@
     "href": "en/tutorials/sankey-and-network/index.html#functions-and-classes",
     "title": "Sankey Diagrams and Network Graphs",
     "section": "1.3 Functions and Classes",
-    "text": "1.3 Functions and Classes\nWe will use go.Sankey() to store Sankey diagram data, then use go.Figure() to render it. Strictly speaking, go.Sankey() is a constructor of a class, and calling it creates an object that stores the Sankey diagram data; the same applies to go.Figure().\nCommon Python terminology relationships are shown in Table 1:\n\n\n\nTable 1: Python terminology relationships (note: pd, go are library interfaces; df is a concrete object)\n\n\n\n\n\nConcept\nRelated Concept\nExample\n\n\n\n\nFunction\nParameter\npd.read_csv(encoding='utf-8')\n\n\nObject\nMethod\ndf.sample(size=10)\n\n\nClass\nProperty\ngo.Sankey(node=..., link=...)\n\n\nObject\nAttribute\ndf.columns",
+    "text": "1.3 Functions and Classes\nWe will use go.Sankey() to store Sankey diagram data, then use go.Figure() to render it. Strictly speaking, go.Sankey() is a constructor of a class, and calling it creates an object that stores the Sankey diagram data; the same applies to go.Figure().\nCommon Python terminology relationships are shown in Table 1:\n\n\n\nTable 1: Python terminology relationships (note: pd, go are library interfaces; df is a concrete object)\n\n\n\n\n\n\n\n\n\n\nConcept\nRelated Concept\nExample\n\n\n\n\nFunction\nParameter\npd.read_csv(encoding=‘utf-8’)\n\n\nObject\nMethod\ndf.sample(size=10)\n\n\nClass\nProperty\ngo.Sankey(node=..., link=...)\n\n\nObject\nAttribute\ndf.columns",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -3420,7 +3420,7 @@
     "href": "en/tutorials/sankey-and-network/index.html#comparing-sankey-diagrams-and-network-graphs",
     "title": "Sankey Diagrams and Network Graphs",
     "section": "2.1 Comparing Sankey Diagrams and Network Graphs",
-    "text": "2.1 Comparing Sankey Diagrams and Network Graphs\nBoth Sankey diagrams and network graphs visualize relational data, but with different emphases, as shown in Table 2:\n\n\n\nTable 2: Comparison of Sankey Diagrams and Network Graphs\n\n\n\n\n\n\n\n\n\n\nFeature\nSankey Diagram\nNetwork Graph\n\n\n\n\nPrimary Use\nVisualize resource flow quantities\nVisualize connections between nodes\n\n\nNode Meaning\nProcess stage or entity\nIndividual (e.g., a user)\n\n\nConnection Name\nLink\nEdge\n\n\nConnection Direction\nDirected (source → target)\nCan be directed or undirected\n\n\nConnection Width\nRepresents flow quantity\nNo width distinction\n\n\nKey Characteristics\nHierarchical, flow conservation\nConnection strength and relational distance\n\n\nApplication Examples\nEnergy distribution, cost allocation\nSocial networks, computer networks",
+    "text": "2.1 Comparing Sankey Diagrams and Network Graphs\nBoth Sankey diagrams and network graphs visualize relational data, but with different emphases, as shown in ?@tbl-sankey-network:\n\n\n\nTable 2: Comparison of Sankey Diagrams and Network Graphs\n\n\n\n\n\n\n\n\n\n\nFeature\nSankey Diagram\nNetwork Graph\n\n\n\n\nPrimary Use\nVisualize resource flow quantities\nVisualize connections between nodes\n\n\nNode Meaning\nProcess stage or entity\nIndividual (e.g., a user)\n\n\nConnection Name\nLink\nEdge\n\n\nConnection Direction\nDirected (source → target)\nCan be directed or undirected\n\n\nConnection Width\nRepresents flow quantity\nNo width distinction\n\n\nKey Characteristics\nHierarchical, flow conservation\nConnection strength and relational distance\n\n\nApplication Examples\nEnergy distribution, cost allocation\nSocial networks, computer networks",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -3456,7 +3456,7 @@
     "href": "en/tutorials/data-processing/index.html",
     "title": "Data Processing",
     "section": "",
-    "text": "8 min read · 1558 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2",
+    "text": "8 min read · 1557 EN words · 0 中文字\nEnvironment & Versions\npython==3.12\npandas==2.2.2",
     "crumbs": [
       "Projects",
       "Tutorials",
@@ -3552,7 +3552,7 @@
     "href": "en/tutorials/multivariate-plots/index.html",
     "title": "Multivariate Plots",
     "section": "",
-    "text": "20 min read · 3820 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
+    "text": "20 min read · 3819 EN words · 0 中文字\nEnvironment and Versions\npython==3.12\npandas==2.2.2\nmatplotlib==3.9.x\nseaborn==0.13.2",
     "crumbs": [
       "Projects",
       "Tutorials",
