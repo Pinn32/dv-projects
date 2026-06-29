@@ -51,7 +51,7 @@ A Windows 10 shell folder (e.g., `Desktop`, `Documents`, `Pictures` ) was accide
    - Find `desktop.ini` in the target folder, open it in Notepad.
    - Set the `IconResource` and `LocalizedResourceName` entries to the right resource index (listed in @tbl-shellfolder-resource).
 
-```ini
+```{.ini filename="desktop.ini"}
 [.ShellClassInfo]
 LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,<NameResource index>
 IconResource=%SystemRoot%\system32\imageres.dll,<IconResource index>

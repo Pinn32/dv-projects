@@ -2,7 +2,7 @@ project:
   type: website
 
   preview: 
-    host: 0.0.0.0
+    # host: 0.0.0.0
     port: 4200
 
 website:
@@ -123,15 +123,15 @@ format:
     syntax-highlighting: 
       light: pygments
       dark: atom-one
+    respect-user-color-scheme: true
     theme:
       light: [minty, ./src/styles/portfolio.scss]
       dark:  [minty, ./src/styles/portfolio-dark.scss]
-    # from: markdown+mark
+    from: markdown+mark
     
     ###### JS Scripts ######
     include-after-body:
       - ./src/scripts/site-fixes.html        # combined global fixes & tweaks
-      - ./src/scripts/lang-switch.html
 
     toc: true
     # toc-expand: true

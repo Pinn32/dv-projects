@@ -872,6 +872,34 @@ div:has(> .sourceCode.code-with-copy) pre,
     box-sizing: border-box;
 }
 
+/* Code block with a filename header — reuse the in-text code shell, rendering
+   the filename as a small label bar fused to the top of the code body. */
+.code-with-filename .code-with-filename-file {
+    margin-bottom: 0;
+    padding: 0.15rem 0.8rem;
+    background-color: rgb(235, 238, 239);
+    border: none;
+    border-left: 3px solid var(--st-code-border);
+    border-bottom: 1px solid var(--pf-border);
+    border-radius: 6px 6px 0 0;
+}
+.code-with-filename .code-with-filename-file pre {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+}
+.code-with-filename .code-with-filename-file strong {
+    font-weight: 600;
+    font-size: var(--st-code-fs);
+    color: var(--pf-text-secondary);
+}
+/* fuse the body to the header by dropping the body's top rounding */
+.code-with-filename div:has(> .sourceCode.code-with-copy) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
 /* TOC nav links */
 #TOC .nav-link {
     font-size: 0.83rem;
