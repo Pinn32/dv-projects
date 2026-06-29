@@ -1,0 +1,22 @@
+<!-- 
+    Global Redirect
+    Redirect requests to /dv-projects/* to the root domain.
+-->
+
+<script id="script-redirect-root">
+    (() => {
+        // Only act on the GitHub Pages project deployment. Local preview
+        // (localhost) and the root deployment have no `/dv-projects` prefix.
+        if (window.location.hostname !== 'pinn32.github.io') return;
+
+        const PREFIX = '/dv-projects';
+        const path = window.location.pathname;
+
+        // Match the prefix only as a whole leading path segment.
+        if (path === PREFIX || path.indexOf(PREFIX + '/') === 0) {
+            const rest = path.slice(PREFIX.length) || '/';
+            // replace() so the prefixed URL never enters session history.
+            window.location.replace(rest + window.location.search + window.location.hash);
+        }
+    })();
+</script>
