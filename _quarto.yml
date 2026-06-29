@@ -8,7 +8,6 @@ project:
 website:
   site-url: https://pinn32.github.io/dv-projects
   title: "pinn.xu"
-  # title-separator: " | "
   description: "A collection of projects by Pinn (Aiqi) Xu, showcasing work in data science, machine learning, and software development."
   favicon: src/img/favicon/spark.ico
 
@@ -24,8 +23,8 @@ website:
   #############################################################################
   navbar:
     left:
-      # - href: index.qmd
-      #   text: Home
+      # - text: Home
+      #   href: index.qmd
       - text: Projects
         href: en/projects/index.qmd
       - text: Tutorials
@@ -40,12 +39,6 @@ website:
       #   href: en/all-posts/index.qmd
       # - text: About
       #   href: about/index.qmd
-    
-    # right: 
-    #   - text: EN
-    #     href: index.qmd
-    #   - text: 中文
-    #     href: index.zh.qmd
 
     ###### NavBar Tools #################################################
     tools: 
@@ -54,22 +47,11 @@ website:
         menu: 
           - text: English
             href: "#"
-            # id: switch-en # 没有 id 属性
-            # href: "#"
-            # class: lang-switch
           - text: 中文
             href: "#"
-            # id: switch-zh # 没有 id 属性
-            # href: "#"
-            # class: lang-switch
 
       - icon: github
         href: https://github.com/Pinn32/dv-projects
-        # menu:
-        #   - text: Source Code
-        #     href: https://github.com/Pinn32/dv-projects
-        #   - text: Report a Bug
-        #     href: https://github.com/Pinn32/dv-projects/issues
 
       - icon: linkedin
         href: https://www.linkedin.com/in/aiqi-xu-71943b378/
@@ -151,4 +133,9 @@ brand: _brand.yml
 editor: source
 filters: 
   - src/filters/reading-stats.lua  # for reading time
-
+# comments:
+#   utterances:
+#     repo: Pinn32/dv-projects
+# comments:
+#   hypothesis: 
+#     theme: clean

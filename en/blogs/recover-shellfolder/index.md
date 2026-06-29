@@ -291,7 +291,7 @@ LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,<NameResource index>
 
 For example, for the *Pictures* folder:
 
-```ini
+```{.ini filename="Pictures\desktop.ini"}
 LocalizedResourceName=@%SystemRoot%\system32\shell32.dll,-21779
 IconResource=%SystemRoot%\system32\imageres.dll,-113
 ```
